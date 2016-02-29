@@ -41,7 +41,6 @@ public class Tool {
 				String line = "";
 				while ((line = dis.readLine()) != null) {
 					buffer.append(line.trim());
-					break;
 				}
 			} catch (Exception e) {
 				logService.log(e.getMessage());
