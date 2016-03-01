@@ -78,7 +78,7 @@ public class BaikeExtractor extends Extractor {
              for(String sent:SentencesUtil.toSentenceList(element.text()))
              {
             	 sent=sent.trim();
-            	 if(sent.length()==0||)
+            	 //if(sent.length()==0||)
             	 Map<String,String> subMaoTextUrls=Tool.WordsInSent(MaoTextUrlMap, sent);
             	 Sentence sentence = new Sentence();
             	 sentence.setSent(sent);
