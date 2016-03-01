@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.SentencesUtil;
 import com.emotibot.util.Tool;
 
@@ -59,6 +60,7 @@ public class BaikeExtractor extends Extractor {
 		for(Element element:para)
 		{
 			element.select("sup").remove();
+			element.select("span").remove();
 			MaoTextUrlMap.clear();
 			MaoTexts=element.select("a");
             if(MaoTexts!=null)
@@ -78,6 +80,7 @@ public class BaikeExtractor extends Extractor {
              for(String sent:SentencesUtil.toSentenceList(element.text()))
              {
             	 sent=sent.trim();
+            	 if(sent==null||sent.length()==0||CharUtil.countChineseCharNum(sent)<2) continue;
             	 //if(sent.length()==0||)
             	 Map<String,String> subMaoTextUrls=Tool.WordsInSent(MaoTextUrlMap, sent);
             	 Sentence sentence = new Sentence();
@@ -90,10 +93,10 @@ public class BaikeExtractor extends Extractor {
         return pageInfo;
 
 	}
-	
+	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/yaomin";
+		String path="/Users/Elaine/Documents/workspace/html/yaoxinlei";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		System.err.println(ex.ProcessPage().toString());
