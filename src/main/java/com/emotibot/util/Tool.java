@@ -33,8 +33,7 @@ public class Tool {
 			try {
 				BytesEncodingDetect s = new BytesEncodingDetect();
 				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
-				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
-					fileCode = "GB2312";
+				if (fileCode.startsWith("GB") && fileCode.contains("2312")) fileCode = "GB2312";
 				FileInputStream fis = new FileInputStream(fileName);
 				InputStreamReader read = new InputStreamReader(fis, fileCode);
 				BufferedReader dis = new BufferedReader(read);
