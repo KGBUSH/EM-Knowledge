@@ -1,5 +1,5 @@
 package com.emotibot.extractor;
 
-public class Extractor {
-
+public abstract class Extractor {
+    public abstract PageExtractInfo ProcessPage();
 }

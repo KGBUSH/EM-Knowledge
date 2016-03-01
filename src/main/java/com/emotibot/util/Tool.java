@@ -1,21 +1,24 @@
-package com.emotibot.util;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.InputStreamReader;
-
-import com.emotibot.common.BytesEncodingDetect;
-import com.emotibot.common.Common;
-import com.emotibot.log.CommonLogService;
-import com.emotibot.log.CommonLogServiceImpl;
-
 /*
  * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
  * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
  *
  * Primary Owner: taoliu@emotibot.com.cn
  */
+package com.emotibot.util;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.emotibot.common.BytesEncodingDetect;
+import com.emotibot.common.Common;
+import com.emotibot.log.CommonLogService;
+import com.emotibot.log.CommonLogServiceImpl;
+
+
 public class Tool {
 	public static CommonLogService logService = CommonLogServiceImpl.getInstance("Tool");
 
@@ -47,6 +50,18 @@ public class Tool {
 			}
 			return buffer.toString();
 		}
+	}
+	
+	public static Map<String,String> WordsInSent(final Map<String,String> MaoUrl,final String sent)
+	{
+		HashMap<String,String> result = new HashMap<>();
+		if(MaoUrl==null||MaoUrl.size()==0) return result;
+		if(Tool.isStrEmptyOrNull(sent)) return result;
+        for(String key:MaoUrl.keySet())
+        {
+        	if(sent.contains(key)) result.put(key, MaoUrl.get(key));
+        }
+		return result;
 	}
 
 }
