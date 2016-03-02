@@ -104,7 +104,6 @@ public class BaikeExtractor extends Extractor {
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		System.err.println(ex.ProcessPage().toString());
-		
 	}
 
 }
