@@ -55,7 +55,7 @@ public class PageExtractInfo {
 		buffer.append("Basic_Info:").append("\r\n");
 		for(String key:attr.keySet())
 		{
-			buffer.append("attr="+key).append("  value="+attr.get(key)).append("\r\n");
+			buffer.append("attr="+key).append("\tvalue="+attr.get(key)).append("\r\n");
 		}
 		buffer.append("Sentence_Info:").append("\r\n");
 		for(Sentence sent:sentList)

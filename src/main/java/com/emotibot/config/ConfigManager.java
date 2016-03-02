@@ -25,11 +25,6 @@ public class ConfigManager implements ConfigInterface{
             String str = sw.toString();
             System.out.println(str);
         }
-    	//public String getNeo4jServerIp();
-    	//public int getNeo4jServerPort();
-    	//public String getNeo4jUserName();
-    	//public String getNeo4jPasswd();
-    	//public String getNeo4jDriverName();
         System.out.println("getNeo4jServerIp="+getNeo4jServerIp());
         System.out.println("getNeo4jServerPort="+getNeo4jServerPort());
         System.out.println("getNeo4jUserName="+getNeo4jUserName());
