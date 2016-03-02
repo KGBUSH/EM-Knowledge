@@ -1,0 +1,5 @@
+db.neo4j.server.ip = 912.168.1.81
+db.neo4j.server.port = 7474
+db.neo4j.user = neo4j
+db.neo4j.password = 123456
+db.neo4j.drivername = org.neo4j.jdbc.Driver
