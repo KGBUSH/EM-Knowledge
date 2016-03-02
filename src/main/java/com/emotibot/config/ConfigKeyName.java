@@ -23,25 +23,9 @@ public class ConfigKeyName {
 	
 	//===========System.getProperty("user.dir") + "/"+"config/"+
 	public static String ConfigFileName=System.getProperty("user.dir") + "/"+"config/"+"KG.property";
-	
-public void g()
-{
-    Properties properties = new Properties();
-	System.out.println(ConfigFileName);
-    try {
-        properties.load(new FileInputStream(ConfigFileName));
-    } catch (Exception e) {
-        StringWriter sw = new StringWriter();
-        e.printStackTrace(new PrintWriter(sw, true));
-        String str = sw.toString();
-        System.out.println(str);
-    }
-    System.out.println(DB_NEO4J_DRIVERNAME_NAME+"="+properties.getProperty(DB_NEO4J_DRIVERNAME_NAME));
 
-}
 	public static void main(String args[])
 	{
-      new ConfigKeyName().g();
 	}
 	
 }
