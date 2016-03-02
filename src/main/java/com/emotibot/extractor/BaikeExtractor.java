@@ -77,6 +77,10 @@ public class BaikeExtractor extends Extractor {
             }
             //element
             if(element!=null&&element.text()!=null){
+    			if(pageInfo.getFirstPara()==null||pageInfo.getFirstPara().trim().length()==0)
+    			{
+    				pageInfo.setFirstPara(element.text());
+    			}
              for(String sent:SentencesUtil.toSentenceList(element.text()))
              {
             	 sent=sent.trim();
@@ -96,7 +100,7 @@ public class BaikeExtractor extends Extractor {
 	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/yaoxinlei";
+		String path="/Users/Elaine/Documents/workspace/html/caiyilin";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		System.err.println(ex.ProcessPage().toString());
