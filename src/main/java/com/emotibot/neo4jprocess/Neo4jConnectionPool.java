@@ -93,8 +93,6 @@ public class Neo4jConnectionPool {
 	 */
 	public synchronized EmotibotNeo4jConnection getConnection() {
 		EmotibotNeo4jConnection con = null;
-		  System.out.println("this.freeConnections.size()="+this.freeConnections.size()); 
-
 		if (this.freeConnections.size() > 0) {
 			con = (EmotibotNeo4jConnection) this.freeConnections.get(0);
 			this.freeConnections.remove(0);// 如果连接分配出去了，就从空闲连接里删除
@@ -122,14 +120,14 @@ public class Neo4jConnectionPool {
 		while (allConns.hasNext()) {
 			EmotibotNeo4jConnection con = (EmotibotNeo4jConnection) allConns.next();
 			try {
-				con.close();
+				if(!con.close()) con.close();
+				con=null;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 		}
 		this.freeConnections.clear();
-
 	}
 
 	/**
@@ -139,20 +137,13 @@ public class Neo4jConnectionPool {
 	 */
 	private EmotibotNeo4jConnection newConnection() {
 		try {
-			System.out.println("AA");
 			Class.forName(driver);
-			// con = DriverManager.getConnection(url, user, password);
-			// EmotibotNeo4jConnection(String driver, String ip, int port,
-			// String usr, String pwd)
-			System.out.println("AA1");
-
 			con = new EmotibotNeo4jConnection(this.driver, this.ip, this.port, this.user, this.password);
-			System.out.println("AA2");
-
+		    //if(con==null) newConnection();
+			if(con==null) {System.out.println("Create EmotibotNeo4jConnection failed!");}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("sorry can't create Connection!");
 		}
 		return con;
 	}
@@ -210,5 +201,12 @@ public class Neo4jConnectionPool {
 
 	public int getmaxConn() {
 		return this.maxConn;
+	}
+	public String Info()
+	{
+		StringBuffer buffer= new StringBuffer();
+		buffer.append("Neo4jConnectionPool Info:").append("\r\n");
+		buffer.append("inUsed="+inUsed).append("\t").append("maxConn="+maxConn).append("\r\n");
+		return buffer.toString();
 	}
 }

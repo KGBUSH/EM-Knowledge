@@ -16,7 +16,7 @@ import java.util.Vector;
 public class Neo4jDBManager { 
 static private Neo4jDBManager instance;//唯一数据库连接池管理实例类 
 static private int clients;                 //客户连接数 
-private Neo4jConnectionPool pool=new Neo4jConnectionPool();//连接池 
+static Neo4jConnectionPool pool;//连接池 
 
 /** 
   * 实例化管理类 
@@ -108,6 +108,10 @@ private void init(Neo4jConfigBean neo4jConfigBean)
     System.out.println("创建连接池完毕。。。"); 
 } 
  
+public String Info()
+{
+	return pool.Info();
+}
 /** 
   * @param args 
   */ 
