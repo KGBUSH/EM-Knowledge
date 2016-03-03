@@ -8,5 +8,8 @@ package com.emotibot.common;
 public class Common {
 	
 	public final static String EMPTY="";
+	
+	//KnowledgeGraph Node First Param Info :Attribute Name
+	public final static String KG_NODE_FIRST_PARAM_ATTRIBUTENAME="firstParamInfo";
 
 }

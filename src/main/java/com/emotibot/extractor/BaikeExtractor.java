@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.emotibot.common.Common;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.SentencesUtil;
 import com.emotibot.util.Tool;
@@ -79,7 +80,9 @@ public class BaikeExtractor extends Extractor {
             if(element!=null&&element.text()!=null){
     			if(pageInfo.getFirstPara()==null||pageInfo.getFirstPara().trim().length()==0)
     			{
-    				pageInfo.setFirstPara(element.text());
+    			   String firstParam=element.text();
+    			   pageInfo.setFirstPara(firstParam);
+ 	               pageInfo.addAttr(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME, firstParam);
     			}
              for(String sent:SentencesUtil.toSentenceList(element.text()))
              {
@@ -100,7 +103,7 @@ public class BaikeExtractor extends Extractor {
 	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/caiyilin";
+		String path="/Users/Elaine/Documents/workspace/html/linxinru";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		System.err.println(ex.ProcessPage().toString());
