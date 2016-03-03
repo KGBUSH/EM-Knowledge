@@ -1,5 +1,10 @@
 package com.emotibot.util;
-
+/*
+ * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
+ * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
+ *
+ * Primary Owner: quanzu@emotibot.com.cn
+ */
 public class Neo4jResultBean {
 	private boolean status;
 	private String rs;

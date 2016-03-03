@@ -14,7 +14,12 @@ import com.emotibot.extractor.Extractor;
 import com.emotibot.extractor.PageExtractInfo;
 import com.emotibot.util.Neo4jResultBean;
 import com.emotibot.util.Tool;
-
+/*
+ * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
+ * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
+ *
+ * Primary Owner: taoliu@emotibot.com.cn
+ */
 public class Neo4jDBManagerTest {
 
 	public static void BuildKG()

@@ -1,5 +1,10 @@
 package com.emotibot.neo4jprocess;
-
+/*
+ * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
+ * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
+ *
+ * Primary Owner: taoliu@emotibot.com.cn
+ */
 public class Neo4jConfigBean {
 	private String ip="";
 	private int port=0;

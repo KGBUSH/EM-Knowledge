@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
+ * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
+ *
+ * Primary Owner: quanzu@emotibot.com.cn
+ */
 package com.emotibot.util;
 
 import java.util.Hashtable;
