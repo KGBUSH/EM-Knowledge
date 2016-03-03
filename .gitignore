@@ -1,1 +1,9 @@
+#for mave
 /target/
+#for eclipse
+/bin/
+/.settings
+/.classpath
+/.project
+/target/
+
