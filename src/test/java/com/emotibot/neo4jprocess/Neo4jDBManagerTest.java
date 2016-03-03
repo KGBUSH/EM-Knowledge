@@ -30,19 +30,20 @@ public class Neo4jDBManagerTest {
 		System.out.println(neo4jDBManager.Info());
 		neo4jDBManager.freeConnection(conn2);
 		System.out.println(neo4jDBManager.Info());
-
-		/*
-		 * Statement stmt = conn.getNeo4jConnnection().createStatement();
-		 * ResultSet rs = stmt.executeQuery(
-		 * "MATCH (ee:Person{born:1964}) RETURN ee;");
-		 * 
-		 * Map<String, String> map = new HashMap<String, String>(); while
-		 * (rs.next()) { System.out.println("test");
-		 * 
-		 * Map<String, Object> e = (Map<String, Object>) rs.getObject("ee"); for
-		 * (String key : e.keySet()) { System.out.println(key + "=" +
-		 * e.get(key)); } }
-		 */
+		
+		
+		 Statement stmt = conn.getNeo4jConnnection().createStatement();
+		 ResultSet rs = stmt.executeQuery(
+		 "MATCH (ee:Person) RETURN id(ee) as id ,ee;");
+	
+		 Map<String, String> map = new HashMap<String, String>(); 
+		 while(rs.next()) 
+		 { 
+	     System.out.println("test");
+		 Map<String, Object> e = (Map<String, Object>) rs.getObject("ee"); 
+	     System.out.println(rs.getObject("id"));
+		 for(String key : e.keySet()) { System.out.println(key + "=" +e.get(key)); }
+		 }
 
 	}
 
