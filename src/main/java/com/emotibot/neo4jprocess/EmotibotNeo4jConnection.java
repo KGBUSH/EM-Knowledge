@@ -7,11 +7,11 @@ import java.util.Properties;
 import org.neo4j.jdbc.Driver;
 import org.neo4j.jdbc.Neo4jConnection;
 
+import com.emotibot.common.Common;
 import com.emotibot.util.Entity;
 import com.emotibot.util.Neo4jResultBean;
 
 public class EmotibotNeo4jConnection {
-	private boolean isBusy;
 	private Neo4jConnection conn;
 
 	// build connection
@@ -46,7 +46,7 @@ public class EmotibotNeo4jConnection {
 			ResultSet rs = stmt.executeQuery(query);
 
 			while (rs.next()) {
-				bean.setResult(rs.getObject("property").toString());
+				bean.setResult(rs.getObject(Common.ResultObj).toString());
 //				System.out.println((String) rs.getObject("property"));
 			}
 			
@@ -54,6 +54,7 @@ public class EmotibotNeo4jConnection {
 		} catch (Exception e) {
 			e.printStackTrace();
 			bean.setStatus(false);
+			bean.setException(e.getMessage());
 			return bean;
 		}
 		return bean;
@@ -99,15 +100,6 @@ public class EmotibotNeo4jConnection {
 		}
 		return true;
 	}
-
-	public boolean isBusy() {
-		return isBusy;
-	}
-
-	public void setBusy(boolean isBusy) {
-		this.isBusy = isBusy;
-	}
-
 	public Neo4jConnection getNeo4jConnnection() {
 		return conn;
 	}

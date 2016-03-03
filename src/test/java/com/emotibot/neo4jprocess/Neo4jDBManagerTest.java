@@ -5,12 +5,63 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
+import com.emotibot.common.Common;
 import com.emotibot.config.ConfigManager;
+import com.emotibot.extractor.BaikeExtractor;
+import com.emotibot.extractor.Extractor;
+import com.emotibot.extractor.PageExtractInfo;
+import com.emotibot.util.Neo4jResultBean;
+import com.emotibot.util.Tool;
 
 public class Neo4jDBManagerTest {
 
-	public static void main(String args[]) throws SQLException {
+	public static void BuildKG()
+	{
+		Vector<String> files = new Vector<String>();
+		files.add("/Users/Elaine/Documents/workspace/html/yaomin");
+		files.add("/Users/Elaine/Documents/workspace/html/yaoxinlei");
+		files.add("/Users/Elaine/Documents/workspace/html/caiyilin");
+		files.add("/Users/Elaine/Documents/workspace/html/linxinru");
+		EmotibotNeo4jConnection conn = getEmotibotNeo4jConnection();
+		BuildCypherSQL BuildCypherSQLObj = new BuildCypherSQL();
+ 		for(String f : files)
+		{
+			String html=Tool.getFileContent(f);
+			Extractor ex = new BaikeExtractor(html);
+			PageExtractInfo pageInfo=ex.ProcessPage();
+			//System.err.println(ex.ProcessPage().toString());
+			String query=BuildCypherSQLObj.InsertEntityNodeByPageExtractInfo(pageInfo);
+			System.err.println(query);
+			Neo4jResultBean bean=conn.executeCypherSQL(query);
+			System.err.println(bean.toString());
+
+
+		}
+ 		conn.close();
+ 		conn=null;
+	}
+	public static void SQLExample()
+	{
+		EmotibotNeo4jConnection conn = getEmotibotNeo4jConnection();
+		BuildCypherSQL BuildCypherSQLObj = new BuildCypherSQL();
+        //实体基本信息
+		String query=BuildCypherSQLObj.FindEntityInfo(Common.PERSONLABEL, "林心如");
+		Neo4jResultBean bean=conn.executeCypherSQL(query);
+		System.err.println(bean.toString());
+		System.err.println();
+		//实体的某个属性
+		query=BuildCypherSQLObj.FindEntityAttr(Common.PERSONLABEL, "姚明","运动项目");
+		bean=conn.executeCypherSQL(query);
+		System.err.println(bean.toString());
+		System.err.println();
+ 		conn.close();
+ 		conn=null;
+
+	}
+	public static EmotibotNeo4jConnection getEmotibotNeo4jConnection()
+	{
 		ConfigManager cfg = new ConfigManager();
 		Neo4jConfigBean neo4jConfigBean = new Neo4jConfigBean();
 		neo4jConfigBean.setDriverName(cfg.getNeo4jDriverName());
@@ -19,32 +70,11 @@ public class Neo4jDBManagerTest {
 		neo4jConfigBean.setPort(cfg.getNeo4jServerPort());
 		neo4jConfigBean.setUser(cfg.getNeo4jUserName());
 		Neo4jDBManager neo4jDBManager = new Neo4jDBManager(neo4jConfigBean);
-		// neo4jDBManager.g
-		System.out.println("Step1");
-		System.out.println(neo4jDBManager.Info());
-
-		EmotibotNeo4jConnection conn = neo4jDBManager.getConnection();
-		System.out.println("Step2");
-		System.out.println(neo4jDBManager.Info());
-		EmotibotNeo4jConnection conn2 = neo4jDBManager.getConnection();
-		System.out.println(neo4jDBManager.Info());
-		neo4jDBManager.freeConnection(conn2);
-		System.out.println(neo4jDBManager.Info());
-		
-		
-		 Statement stmt = conn.getNeo4jConnnection().createStatement();
-		 ResultSet rs = stmt.executeQuery(
-		 "MATCH (ee:Person) RETURN id(ee) as id ,ee;");
-	
-		 Map<String, String> map = new HashMap<String, String>(); 
-		 while(rs.next()) 
-		 { 
-	     System.out.println("test");
-		 Map<String, Object> e = (Map<String, Object>) rs.getObject("ee"); 
-	     System.out.println(rs.getObject("id"));
-		 for(String key : e.keySet()) { System.out.println(key + "=" +e.get(key)); }
-		 }
-
+        return neo4jDBManager.getConnection();
+	}
+	public static void main(String args[]) throws SQLException {
+		//BuildKG();
+		SQLExample();
 	}
 
 }

@@ -31,6 +31,7 @@ public class BaikeExtractor extends Extractor {
 		String name = doc.select("dd.lemmaWgt-lemmaTitle-title").select("h1").text();
 		//System.out.println("title="+title+"  name="+name);
 		pageInfo.setName(name);
+		pageInfo.addAttr(Common.KGNODE_NAMEATRR, name);
 /////////////////////////Basic_info
 		Elements basicInfo = doc.select("dl.basicInfo-block");
         //System.err.println("attributes="+kv.size());
