@@ -11,5 +11,7 @@ public class Common {
 	
 	//KnowledgeGraph Node First Param Info :Attribute Name
 	public final static String KG_NODE_FIRST_PARAM_ATTRIBUTENAME="firstParamInfo";
+	
+	public final static String PERSONLABEL="person";
 
 }
