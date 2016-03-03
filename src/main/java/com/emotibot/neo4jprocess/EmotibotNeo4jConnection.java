@@ -20,7 +20,7 @@ public class EmotibotNeo4jConnection {
 			properties.put("user", usr);
 			properties.put("password", pwd);
 
-			setNeo4jConnnection(new Driver().connect("jdbc:neo4j://" + ip + ":" + port + "/", properties));
+			// setNeo4jConnnection(new Driver().connect("jdbc:neo4j://" + ip + ":" + port + "/", properties));
 			// Neo4jConnection.getConnection("jdbc:neo4j://192.168.1.81:7474/");
 			conn = new Driver().connect("jdbc:neo4j://192.168.1.81:7474/", properties);
 			
