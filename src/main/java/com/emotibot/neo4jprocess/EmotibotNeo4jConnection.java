@@ -22,11 +22,12 @@ public class EmotibotNeo4jConnection {
 
 			setNeo4jConnnection(new Driver().connect("jdbc:neo4j://" + ip + ":" + port + "/", properties));
 			// Neo4jConnection.getConnection("jdbc:neo4j://192.168.1.81:7474/");
-			conn = new Driver().connect("jdbc:neo4j://192.168.1.81:7474/", properties);// Neo4jConnection.getConnection("jdbc:neo4j://192.168.1.81:7474/");
-
+			conn = new Driver().connect("jdbc:neo4j://192.168.1.81:7474/", properties);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			conn = null;
 		}
 
 	}
