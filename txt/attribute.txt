@@ -1,0 +1,77 @@
+attr=所属运动队	value=已退役
+attr=鞋码	value=18码
+attr=运动项目 value=篮球
+attr=别名	value=明王、移动长城、小巨人、大姚
+attr=重要事件	value=专题影片《姚明年》发行 2011年正式宣布退役
+attr=位置	value=中锋
+attr=体重	value=140.6kg
+attr=民族	value=汉族
+attr=主要奖项	value=世界最具影响力100人之一
+attr=生肖	value=猴
+attr=生涯最高分	value=41分
+attr=血型	value=B型
+attr=身高	value=226cm
+attr=中文名	value=姚明
+attr=语言	value=普通话、英语、吴语
+attr=星座	value=处女座
+attr=自传	value=《我的世界我的梦》
+attr=外文名	value=Yao Ming
+attr=女儿	value=姚沁蕾
+attr=出生地	value=上海市徐汇区
+attr=老婆	value=叶莉
+attr=研究生	value=香港大学
+attr=专业特点	value=20英尺外精确跳投
+attr=出生日期	value=1980年9月12日
+attr=祖籍	value=苏州吴江
+attr=初中	value=上海市第二中学
+attr=国籍	value=中国
+attr=小学	value=上海市高安路第一小学
+attr=中文名	value=蔡依林
+attr=职业	value=歌手、服装设计师等
+attr=称呼	value=百变天后、小阿姨、公主
+attr=星座	value=处女座
+attr=外文名	value=Jolin Tsai、채의림（韩）、ツァイ・イーリン（日）、โจลิน ไซ（泰）
+attr=主要成就	value=两届台湾金曲奖最佳国语专辑 新加坡金曲奖七座奖项 新加坡金曲奖（截至2014年） 获得新加坡
+attr=别名	value=蔡宜凌（本名）
+attr=出生地	value=台湾省新北市新庄区
+attr=代表作品	value=说爱你、看我72变、爱情36计、舞娘、特务J、日不落、花蝴蝶、美人计、大艺术家、Play 我呸！
+attr=经纪公司	value=凌时差工作室
+attr=体重	value=41kg
+attr=唱片公司	value=华纳唱片
+attr=民族	value=汉族（1/4巴布拉族）
+attr=出生日期	value=1980年9月15日（农历八月初七）
+attr=毕业院校	value=台湾辅仁大学2003届英文系
+attr=生肖	value=猴
+attr=国籍	value=中国
+attr=血型	value=O型
+attr=身高	value=156cm[38] 
+attr=唱片销量	value=500万（台湾）2300万（亚洲）
+attr=家庭成员	value=蔡柱陈、黄春美
+attr=中文名	value=林心如
+attr=职业	value=演员、歌手、制片人
+attr=语言	value=国语、台语、英语、粤语
+attr=三围	value=32/22/34
+attr=星座	value=水瓶座
+attr=外文名	value=Ruby Lin
+attr=主要成就	value=2011度最佳制作人奖 2011华鼎电影最佳女配角 国剧盛典港台地区最受欢迎女演员 2012国剧:
+attr=出生地	value=台湾台北市
+attr=宗教	value=佛教
+attr=代表作品	value=《还珠格格》《情深深雨蒙蒙》《半生缘》《男才女貌》《美人心计》
+attr=经纪公司	value=林心如工作室
+attr=体重	value=46kg
+attr=民族	value=汉族
+attr=出生日期	value=1976年1月27日（腊月廿七）
+attr=毕业院校	value=中兴高中
+attr=国籍	value=中国
+attr=血型	value=B型
+attr=身高	value=167cm
+attr=中文名	value=姚沁蕾
+attr=父亲	value=姚明
+attr=民族	value=汉族
+attr=外文名	value=Amy
+attr=出生日期	value=2010年5月22日
+attr=母亲	value=叶莉
+attr=出生地	value=美国休斯敦
+attr=国籍	value=美国
+attr=身高	value=110cm（成长中）
+attr=性别	value=女
