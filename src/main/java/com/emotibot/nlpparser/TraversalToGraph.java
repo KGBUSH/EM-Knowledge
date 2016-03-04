@@ -1,5 +1,10 @@
 package com.emotibot.nlpparser;
-
+/*
+ * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
+ * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
+ *
+ * Primary Owner: yunzhou@emotibot.com.cn
+ */
 import java.util.List;
 
 import org.neo4j.cypher.internal.compiler.v2_2.perty.recipe.PrintableDocRecipe.evalUsingStrategy;
