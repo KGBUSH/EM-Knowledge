@@ -14,6 +14,7 @@ import com.emotibot.util.Tool;
 
 public class PageExtractInfo {
 	private String name="";
+	private String firstPara="";
 	private HashMap<String,String> attr = new HashMap<>();
 	private List<Sentence> sentList = new ArrayList<>();
 	public HashMap<String,String> getAttr() {
@@ -55,14 +56,21 @@ public class PageExtractInfo {
 		buffer.append("Basic_Info:").append("\r\n");
 		for(String key:attr.keySet())
 		{
-			buffer.append("attr="+key).append("  value="+attr.get(key)).append("\r\n");
+			buffer.append("attr="+key).append("\tvalue="+attr.get(key)).append("\r\n");
 		}
 		buffer.append("Sentence_Info:").append("\r\n");
 		for(Sentence sent:sentList)
 		{
 			buffer.append(sent.toString()).append("======\r\n");
 		}
+		buffer.append("firstPara="+firstPara).append("======\r\n");
 		return buffer.toString();
+	}
+	public String getFirstPara() {
+		return firstPara;
+	}
+	public void setFirstPara(String firstPara) {
+		this.firstPara = firstPara;
 	}
 	
 	

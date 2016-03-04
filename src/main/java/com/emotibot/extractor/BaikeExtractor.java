@@ -8,6 +8,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.emotibot.common.Common;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.SentencesUtil;
 import com.emotibot.util.Tool;
@@ -30,6 +31,7 @@ public class BaikeExtractor extends Extractor {
 		String name = doc.select("dd.lemmaWgt-lemmaTitle-title").select("h1").text();
 		//System.out.println("title="+title+"  name="+name);
 		pageInfo.setName(name);
+		pageInfo.addAttr(Common.KGNODE_NAMEATRR, name);
 /////////////////////////Basic_info
 		Elements basicInfo = doc.select("dl.basicInfo-block");
         //System.err.println("attributes="+kv.size());
@@ -77,6 +79,12 @@ public class BaikeExtractor extends Extractor {
             }
             //element
             if(element!=null&&element.text()!=null){
+    			if(pageInfo.getFirstPara()==null||pageInfo.getFirstPara().trim().length()==0)
+    			{
+    			   String firstParam=element.text();
+    			   pageInfo.setFirstPara(firstParam);
+ 	               pageInfo.addAttr(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME, firstParam);
+    			}
              for(String sent:SentencesUtil.toSentenceList(element.text()))
              {
             	 sent=sent.trim();
@@ -96,11 +104,10 @@ public class BaikeExtractor extends Extractor {
 	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/yaoxinlei";
+		String path="/Users/Elaine/Documents/workspace/html/yaomin";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		System.err.println(ex.ProcessPage().toString());
-		
 	}
 
 }
