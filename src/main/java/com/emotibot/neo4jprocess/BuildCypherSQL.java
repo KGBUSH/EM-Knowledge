@@ -1,6 +1,13 @@
 package com.emotibot.neo4jprocess;
 
-public class BuildCypherSQL {
+import java.util.Map;
+
+import com.emotibot.common.Common;
+import com.emotibot.config.ConfigManager;
+
+public class BuildCypherSQL implements CypherSQLParser {
+
+	EmotibotNeo4jConnection conn;
 
 	// private final EmotibotNeo4jConnection conn = connect();
 
@@ -12,6 +19,32 @@ public class BuildCypherSQL {
 	// get Entity Query
 	public String getEntity(String label, String name, String value) {
 		String query = "match (e:" + label + ") where " + name + "=" + value + " return id(ee) as id, e as entity";
+		return query;
+	}
+
+	@Override
+	public String InsertEntityNode(String Label, String name, Map<String, String> attr) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String InsertEntityEdge(String LabelA, String nameA, String relation, String LabelB, String nameB) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String FindEntityInfo(String label, String name) {
+		String query = "match (e:" + label + "{name:\"" + name + "\"}) return e." + Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME + " as property";
+		System.out.println("query in FindEnitity is: "+query);
+		return query;
+	}
+
+	@Override
+	public String FindEntityAttr(String label, String name, String attr) {
+		String query = "match (e:" + label + "{name:\"" + name + "\"}) return e." + attr + " as property";
+		System.out.println("query in FindEnitityAttr is: "+query);
 		return query;
 	}
 

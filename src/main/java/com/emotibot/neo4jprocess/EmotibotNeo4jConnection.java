@@ -8,6 +8,7 @@ import org.neo4j.jdbc.Driver;
 import org.neo4j.jdbc.Neo4jConnection;
 
 import com.emotibot.util.Entity;
+import com.emotibot.util.Neo4jResultBean;
 
 public class EmotibotNeo4jConnection {
 	private boolean isBusy;
@@ -25,18 +26,39 @@ public class EmotibotNeo4jConnection {
 			properties.put("user", usr);
 			properties.put("password", pwd);
 
-			// setNeo4jConnnection(new Driver().connect("jdbc:neo4j://" + ip + ":" + port + "/", properties));
+			// setNeo4jConnnection(new Driver().connect("jdbc:neo4j://" + ip +
+			// ":" + port + "/", properties));
 			// Neo4jConnection.getConnection("jdbc:neo4j://192.168.1.81:7474/");
 			conn = new Driver().connect("jdbc:neo4j://" + ip + ":" + port + "/", properties);
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			conn = null;
 		}
-
 	}
-	
+
+	public Neo4jResultBean executeCypherSQL(String query) {
+		Neo4jResultBean bean = new Neo4jResultBean();
+
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+
+			while (rs.next()) {
+				bean.setResult(rs.getObject("property").toString());
+//				System.out.println((String) rs.getObject("property"));
+			}
+			
+			bean.setStatus(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+			bean.setStatus(false);
+			return bean;
+		}
+		return bean;
+	}
+
 	// get Entity only
 	public Entity getEntity(String query) {
 		try {
@@ -55,11 +77,16 @@ public class EmotibotNeo4jConnection {
 			return null;
 		}
 	}
-	
+
+	// execute update queries
 	public boolean updateQuery(String query) {
-		// TBD
-		
-		return true;
+		try {
+			conn.createStatement().executeQuery(query);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public boolean close() {
