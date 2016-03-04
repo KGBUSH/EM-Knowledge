@@ -10,6 +10,7 @@ import com.emotibot.neo4jprocess.BuildCypherSQL;
 import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
 import com.emotibot.neo4jprocess.Neo4jDBManager;
+import com.emotibot.util.Neo4jResultBean;
 
 public class TraversalToGraph {
 	public static EmotibotNeo4jConnection conn = getEmotibotNeo4jConnection();
@@ -26,15 +27,24 @@ public class TraversalToGraph {
 		Neo4jDBManager neo4jDBManager = new Neo4jDBManager(neo4jConfigBean);
         return neo4jDBManager.getConnection();
 	}
+	public static String getBeanAnswer(Neo4jResultBean bean){
+		if(!bean.isStatus()){
+			return null;
+		}
+		else return bean.getResult();
+	}
 	public static String traversal(List<Name_Type> entity,List<Name_Type> attribute){
-		
+		Neo4jResultBean bean = null;
 		String answer= "";
 		if(entity.size()==1&&attribute.size() ==0){
-			answer=BuildCypherSQLObj.FindEntityInfo(Common.PERSONLABEL, entity.get(0).value.word);
+		String query=BuildCypherSQLObj.FindEntityInfo(Common.PERSONLABEL, entity.get(0).value.word);
+		   bean=conn.executeCypherSQL(query);
 		}
 	    else if(entity.size() ==1 && attribute.size() ==1){
 			//单个实体单个属性
-	    	answer = BuildCypherSQLObj.FindEntityAttr(Common.PERSONLABEL, entity.get(0).value.word,attribute.get(0).value.word);
+	    	String query = BuildCypherSQLObj.FindEntityAttr(Common.PERSONLABEL, entity.get(0).value.word,attribute.get(0).value.word);
+	    	 bean=conn.executeCypherSQL(query);
+	    	
 		}else if(entity.size() ==2 && attribute.size() ==1){
 			//多个实体单个属性
 		}
@@ -43,6 +53,9 @@ public class TraversalToGraph {
 		}
 		else if(entity.size() ==2 && attribute.size() ==2){
 			//多个实体多个属性
+		}
+		if(getBeanAnswer(bean)!=null){
+			answer =getBeanAnswer(bean);
 		}
 		return answer;
 	}
