@@ -16,6 +16,7 @@ public class Common {
 	public final static String KGNODE_NAMEATRR="姓名";
     //sql返回变量的变量名
 	public static String ResultObj="result";
-
+   
+	
 
 }
