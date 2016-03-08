@@ -59,22 +59,6 @@ public class SolrUtil {
 	   }
 	   return true;
    }
-	public void buildIndex() throws SolrServerException, IOException {
-	}
-
-	public String getSegStr(String str) {
-		if (Tool.isStrEmptyOrNull(str))
-			return Common.EMPTY;
-		List<Term> termList = HanLP.segment(str);
-		System.out.println(termList);
-		StringBuffer buffer = new StringBuffer();
-		for (Term t : termList) {
-			buffer.append(t.word).append(" ");
-		}
-		return buffer.toString();
-
-	}
-
 	public static void main(String args[]) throws SolrServerException, IOException {
 		SolrUtil solr = new SolrUtil();
 		Vector<String> files = new Vector<String>();
