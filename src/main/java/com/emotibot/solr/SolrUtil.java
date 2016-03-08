@@ -1,11 +1,21 @@
+/*
+ * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
+ * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
+ *
+ * Primary Owner: taoliu@emotibot.com.cn
+ */
 package com.emotibot.solr;
 
 import java.io.IOException;
 import java.util.List;
 import java.util.Vector;
 
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 
 import com.emotibot.common.Common;
@@ -80,11 +90,37 @@ public class SolrUtil {
 		}
 		return true;
 	}
-    
+    public String Search(String word)
+    {
+    	try{
+        SolrQuery solrQuery = new SolrQuery();
+        solrQuery.set("rows", 10);
+        solrQuery.set("fl", "*,score");
+        solrQuery.set("q", word);
+        solrQuery.set("df", "KG_Name");
+        QueryResponse response=server.query(solrQuery);
+        SolrDocumentList docList = response.getResults();
+        for (SolrDocument doc : docList) {
+            String info = (String)doc.getFieldValue(Info);
+            System.err.println("info="+info);
+            String attr = (String)doc.getFieldValue(Attr);
+            System.err.println("attr="+attr);
+            String value = (String)doc.getFieldValue(Value);
+            System.err.println("value="+value);
+            String name = (String)doc.getFieldValue(Name);
+            System.err.println("Name="+name);
+            return name;
+        }
+    	}catch(Exception e)
+    	{
+    		e.printStackTrace();
+    	}
+    	return Common.EMPTY;
+    }
 	public static void main(String args[]) throws SolrServerException, IOException {
 		SolrUtil solr = new SolrUtil();
 		
-		 Vector<String> files = new Vector<String>();
+		/* Vector<String> files = new Vector<String>();
 		 files.add("/Users/Elaine/Documents/workspace/html/yaomin");
 		 files.add("/Users/Elaine/Documents/workspace/html/yaoxinlei");
 		 files.add("/Users/Elaine/Documents/workspace/html/caiyilin");
@@ -97,9 +133,9 @@ public class SolrUtil {
 		 solr.addDoc(pageInfo);
 		 }
 		 solr.Commit(); 
-		 System.err.println("OK");
+		 System.err.println("OK");*/
 		 
-		//solr.deleteAllIndex();
+		solr.Search("林心如");
 		System.err.println("OK");
 		return;
 	}
