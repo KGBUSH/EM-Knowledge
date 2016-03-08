@@ -26,42 +26,61 @@ public class SolrUtil {
 
 	// new HttpSolrServer("http://192.168.1.81:8080/solr/kgtest");
 	public SolrUtil() {
-		if (server == null)
+		if (server == null) {
 			server = new HttpSolrServer("http://192.168.1.81:8080/solr/kgtest");
+			server.setConnectionTimeout(10 * 1000);
+			server.setFollowRedirects(false);
+			server.setAllowCompression(true);
+			server.setMaxRetries(10);
+		}
 	}
 
 	public boolean Commit() {
 		try {
-			if (server != null) server.commit();
+			if (server != null)
+				server.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
 		return true;
 	}
-   public boolean addDoc(PageExtractInfo pageInfo)
-   {
-	   if(pageInfo==null) return true;
-	   try
-	   {
-		SolrInputDocument doc = new SolrInputDocument();
-		doc.addField("id", pageInfo.getName());
-		doc.addField(Name, pageInfo.getName());
-		doc.addField(Attr, pageInfo.getAttrStr());
-		doc.addField(Value, pageInfo.getValueStr());
-		doc.addField(AttrValue, pageInfo.getAttrValueStr());
-		doc.addField(Info, pageInfo.toSolrString());
-        server.add(doc);
-	   }catch(Exception e)
-	   {
-		   e.printStackTrace();
-		   return false;
-	   }
-	   return true;
-   }
+
+	public boolean deleteAllIndex() {
+		try {
+			if (server != null){
+				server.deleteByQuery("*:*");
+				server.commit();			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+
+	}
+
+	public boolean addDoc(PageExtractInfo pageInfo) {
+		if (pageInfo == null)
+			return true;
+		try {
+			SolrInputDocument doc = new SolrInputDocument();
+			doc.addField("id", pageInfo.getName());
+			doc.addField(Name, pageInfo.getName());
+			doc.addField(Attr, pageInfo.getAttrStr());
+			doc.addField(Value, pageInfo.getValueStr());
+			doc.addField(AttrValue, pageInfo.getAttrValueStr());
+			doc.addField(Info, pageInfo.toSolrString());
+			server.add(doc);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
 	public static void main(String args[]) throws SolrServerException, IOException {
 		SolrUtil solr = new SolrUtil();
-		Vector<String> files = new Vector<String>();
+		/*Vector<String> files = new Vector<String>();
 		files.add("/Users/Elaine/Documents/workspace/html/yaomin");
 		files.add("/Users/Elaine/Documents/workspace/html/yaoxinlei");
 		files.add("/Users/Elaine/Documents/workspace/html/caiyilin");
@@ -74,6 +93,9 @@ public class SolrUtil {
 			solr.addDoc(pageInfo);
 		}
 		solr.Commit();
+		System.err.println("OK");
+		*/
+		solr.deleteAllIndex();
 		System.err.println("OK");
 		return;
 	}
