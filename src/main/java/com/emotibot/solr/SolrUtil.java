@@ -37,8 +37,10 @@ public class SolrUtil {
 
 	public boolean Commit() {
 		try {
-			if (server != null)
+			if (server != null){
+			    server.optimize();
 				server.commit();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
@@ -78,21 +80,26 @@ public class SolrUtil {
 		}
 		return true;
 	}
-
+    
 	public static void main(String args[]) throws SolrServerException, IOException {
 		SolrUtil solr = new SolrUtil();
-		/*
-		 * Vector<String> files = new Vector<String>();
-		 * files.add("/Users/Elaine/Documents/workspace/html/yaomin");
-		 * files.add("/Users/Elaine/Documents/workspace/html/yaoxinlei");
-		 * files.add("/Users/Elaine/Documents/workspace/html/caiyilin");
-		 * files.add("/Users/Elaine/Documents/workspace/html/linxinru"); int
-		 * index = 0; for (int i = 0; i < files.size(); i++) { String html =
-		 * Tool.getFileContent(files.get(i)); Extractor ex = new
-		 * BaikeExtractor(html); PageExtractInfo pageInfo = ex.ProcessPage();
-		 * solr.addDoc(pageInfo); } solr.Commit(); System.err.println("OK");
-		 */
-		solr.deleteAllIndex();
+		
+		 Vector<String> files = new Vector<String>();
+		 files.add("/Users/Elaine/Documents/workspace/html/yaomin");
+		 files.add("/Users/Elaine/Documents/workspace/html/yaoxinlei");
+		 files.add("/Users/Elaine/Documents/workspace/html/caiyilin");
+		 files.add("/Users/Elaine/Documents/workspace/html/linxinru"); int
+		 index = 0; 
+		 for (int i = 0; i < files.size(); i++) { 
+		 String html =Tool.getFileContent(files.get(i)); 
+		 Extractor ex = new BaikeExtractor(html); 
+		 PageExtractInfo pageInfo = ex.ProcessPage();
+		 solr.addDoc(pageInfo);
+		 }
+		 solr.Commit(); 
+		 System.err.println("OK");
+		 
+		//solr.deleteAllIndex();
 		System.err.println("OK");
 		return;
 	}
