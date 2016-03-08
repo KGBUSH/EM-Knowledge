@@ -2,6 +2,7 @@ package com.emotibot.neo4jprocess;
 
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import org.neo4j.jdbc.Driver;
@@ -35,6 +36,21 @@ public class EmotibotNeo4jConnection {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			conn = null;
+		}
+	}
+	
+	public List<String> getArrayList(String query) {
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			List<String> ls = null;
+			while (rs.next()) {
+				ls = (List<String>) rs.getObject(Common.ResultObj);
+			}
+			return ls;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 
