@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.emotibot.nlp.NLPFlag;
@@ -41,26 +42,59 @@ public class PatternMatchingProcess {
 		// get the last one for 3/15, may improve latter
 		Set<String> candidateSet = this.getPartsWithoutEntity(question, ent);
 
+		// 3. compute the score and get the candidate
+		Map<String, String> propMap = this.getPropertyNameSet(ent);
+		List<PatternMatchingResultBean> rsBean = new ArrayList();
+		String propName = "";
+
 		for (String s : candidateSet) {
-			s = auxilaryProcess(s);
-			System.out.println("aux process is " + s);
+			System.out.println("Candidate is " + s);
+			List<String> questionList = auxilaryProcess(s);
 
-			/*
-			 * 3. compute the score and get the candidate
-			 */
-			List<String> listProp = DBProcess.getPropertyNameSet(ent);
-			String propName = this.getCandidatePropName(s, listProp);
-			System.out.println("propName is " + propName);
+			for (String q : questionList) {
+				PatternMatchingResultBean pmRB = this.getCandidatePropName(q, propMap);
+				rsBean.add(pmRB);
+				System.out.println(
+						"string " + q + " has the answer of " + pmRB.getAnswer() + " with score " + pmRB.getScore());
+			}
 
-			/*
-			 * 4. Build the Cypher SQL and get the answer
-			 */
-			rs = DBProcess.getPropertyValue(ent, propName);
-			System.out.println("rs is " + rs);
-
+			// propName = this.getCandidatePropName(s, listProp);
 		}
 
+		/*
+		 * 4. Build the Cypher SQL and get the answer
+		 */
+		int finalScore = Integer.MIN_VALUE;
+		for (PatternMatchingResultBean b : rsBean) {
+			if (!b.isEmpty()) {
+				System.out.println("candidate " + b.getAnswer() + " has score:" + b.getScore());
+				if (b.getScore() > finalScore) {
+					propName = b.getAnswer();
+					finalScore = b.getScore();
+				}
+			}
+		}
+
+		System.out.println("propName is " + propName);
+		System.out.println("rs is " + rs);
+		rs = DBProcess.getPropertyValue(ent, propMap.get(propName));
+
 		return rs;
+	}
+
+	// get the property set with synonym process
+	private Map<String, String> getPropertyNameSet(String ent) {
+		Map<String, String> rsMap = new HashMap<>();
+		List<String> propList = DBProcess.getPropertyNameSet(ent);
+		for (String iProp : propList) {
+			rsMap.put(iProp, iProp);
+			Set<String> setSyn = NLPProcess.getSynonymWord(iProp);
+			for (String iSyn : setSyn) {
+				rsMap.put(iSyn, iProp);
+			}
+		}
+		System.out.println("all the prop is: " + rsMap);
+		return rsMap;
 	}
 
 	/*
@@ -80,12 +114,19 @@ public class PatternMatchingProcess {
 		Set<String> listPart = new HashSet<>();
 		while (str.lastIndexOf(ent) != -1) {
 			String s = str.substring(str.lastIndexOf(ent) + ent.length());
-			if (!s.isEmpty())
+			if (!s.isEmpty()){
+				System.out.println("in GetParts, str:" + str + " is added into list");
 				listPart.add(s); // add the last part
+			}
+				
 			// remove the last part
 			str = str.substring(0, str.lastIndexOf(ent));
-			if (str.lastIndexOf(ent) == -1)
+			System.out.println("in GetParts, str is " + str);
+			if (!str.isEmpty() && str.lastIndexOf(ent) == -1) {
 				listPart.add(str);
+				System.out.println("in GetParts, str:" + str + " is added into list");
+			}
+
 		}
 		return listPart;
 	}
@@ -96,13 +137,15 @@ public class PatternMatchingProcess {
 	private String removeStopWord(String str) {
 		String rs = "";
 		NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
-		System.out.println("string is " + str);
+		System.out.println("original string is " + str);
 		List<Term> segPos = tnNode.getWordPos();
 		for (int i = 0; i < segPos.size(); i++) {
 			String s = segPos.get(i).word;
-			if (NLPProcess.isStopWord(s))
+			System.out.print(s+", ");
+			if (!NLPProcess.isStopWord(s))
 				rs += s;
 		}
+		System.out.println("");
 
 		return rs;
 	}
@@ -110,7 +153,7 @@ public class PatternMatchingProcess {
 	/*
 	 * replace the synonym in a string.
 	 */
-	private List<String> replaceSynonym(String str) {
+	private List<String> replaceSynonymProcess(String str) {
 		List<String> rsSet = new ArrayList<>();
 		NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
 		System.out.println("string is " + str);
@@ -133,7 +176,8 @@ public class PatternMatchingProcess {
 						tmpRS.set(j, tmpRS.get(j) + iSyn);
 					}
 					newRS.addAll(tmpRS);
-//					System.out.println("tempRS is: " + tmpRS + "; newRS is " + newRS);
+					// System.out.println("tempRS is: " + tmpRS + "; newRS is "
+					// + newRS);
 				}
 				rsSet = newRS;
 				System.out.println("after syn is: " + newRS);
@@ -161,7 +205,7 @@ public class PatternMatchingProcess {
 	/*
 	 * address the auxiliary words in a string
 	 */
-	private String auxilaryProcess(String str) {
+	private List<String> auxilaryProcess(String str) {
 		/*
 		 * 1. remove the auxiliary words like "多少" in a sentence
 		 */
@@ -171,23 +215,23 @@ public class PatternMatchingProcess {
 		/*
 		 * 2. replace the synonyms
 		 */
-		str = NLPProcess.synonymProcess(str);
-		System.out.println("after synonym process: " + str);
+		List<String> rsSet = this.replaceSynonymProcess(str);
+		System.out.println("after synonym process: " + rsSet);
 
-		return str;
+		return rsSet;
 	}
 
 	/*
 	 * return the property with the highest score; return null if the threshold
 	 * is hold the version without segPos
 	 */
-	private String getCandidatePropName(String str, List<String> prop) {
+	private PatternMatchingResultBean getCandidatePropName(String str, Map<String, String> prop) {
 		// threshold to pass: if str contain a property, pass
 		boolean isPass = false;
 		HashMap<String, Integer> score = new HashMap<String, Integer>();
 		System.out.println("query string is: " + str);
 
-		for (String s : prop) {
+		for (String s : prop.keySet()) {
 			System.out.println("current prop is: " + s);
 
 			if (!isPass && str.lastIndexOf(s) != -1) {
@@ -210,6 +254,7 @@ public class PatternMatchingProcess {
 			tempS = s;
 			int right2left = 0;
 			for (int i = str.length() - 1; i >= 0; i--) {
+				System.out.println(tempS+" "+str.charAt(i));
 				if (tempS.lastIndexOf(str.charAt(i)) == tempS.length() - 1) {
 					right2left++;
 					tempS = tempS.substring(0, tempS.length() - 1);
@@ -228,11 +273,12 @@ public class PatternMatchingProcess {
 		}
 
 		int finalScore = Integer.MIN_VALUE;
-		String rs = "";
-		for (String s : prop) {
+		PatternMatchingResultBean rs = new PatternMatchingResultBean();
+		for (String s : prop.keySet()) {
 			if (score.get(s) > finalScore) {
 				finalScore = score.get(s);
-				rs = s;
+				rs.setAnswer(s);
+				rs.setScore(finalScore);
 			}
 		}
 		System.out.println("finalScore is " + finalScore + ". rs is " + rs);
@@ -247,10 +293,12 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明的伯";
+		String str = "姚明打的位置是什么？";
 		String ent = "姚明";
 
-		mp.replaceSynonym(str);
+		mp.getAnswer(str);
+		// mp.getPropertyNameSet(ent);
+		// mp.replaceSynonymProcess(str);
 
 		// System.out.println("test aux:"+mp.getAnswer("姚明的妻子是谁？"));
 
