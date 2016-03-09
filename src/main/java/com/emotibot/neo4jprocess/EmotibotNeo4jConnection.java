@@ -1,5 +1,11 @@
 package com.emotibot.neo4jprocess;
 
+/*
+ * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
+ * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
+ *
+ * Primary Owner: quanzu@emotibot.com.cn
+ */
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.List;
