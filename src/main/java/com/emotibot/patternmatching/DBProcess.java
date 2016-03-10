@@ -35,7 +35,7 @@ public class DBProcess {
 	public static List<String> getPropertyNameSet(String entity) {
 		String query = buildCypherSQLObj.getPropNamebyEntityName(Common.PERSONLABEL, entity);
 		List<String> ls = conn.getArrayList(query);
-		System.out.println("in PatternMatching, prop name is " + ls);
+		System.out.println("in DBProcess, prop name is " + ls);
 		return ls;
 	}
 	
@@ -43,7 +43,7 @@ public class DBProcess {
 		Neo4jResultBean bean = null;
 		String query = buildCypherSQLObj.FindEntityAttr(Common.PERSONLABEL, ent, prop);
 		bean = conn.executeCypherSQL(query);
-		System.out.println("in pattern Matching, it return " + bean.getResult());
+		System.out.println("in DBProcess, it return " + bean.getResult());
 		return bean.getResult();
 	}
 

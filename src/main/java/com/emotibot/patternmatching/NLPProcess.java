@@ -29,6 +29,7 @@ public class NLPProcess {
 	private static HashMap<String, List<String>> synonymTableRef = createSynonymTableRef();
 	private static Set<String> stopWordTable = createStopWordTable();
 
+	// create stopword table Set
 	private static Set<String> createStopWordTable() {
 		Set<String> stopWordSet = new HashSet<>();
 		String fileName = "txt/stopwords.txt";
@@ -64,6 +65,7 @@ public class NLPProcess {
 		return isSW;
 	}
 
+	// create synonym reference hash map table: Map<id, List of Synonym>
 	private static HashMap<String, List<String>> createSynonymTableRef() {
 		HashMap<String, List<String>> syn = new HashMap<>();
 		String fileName = "txt/SynonymNoun.txt";
@@ -99,6 +101,7 @@ public class NLPProcess {
 		return syn;
 	}
 
+	// create synonym hash map table Map<words, id>
 	private static HashMap<String, Set<String>> createSynonymTable() {
 		HashMap<String, Set<String>> syn = new HashMap<>();
 		String fileName = "txt/SynonymNoun.txt";
@@ -139,8 +142,11 @@ public class NLPProcess {
 		return syn;
 	}
 
-	// return all the first words of synonym
-	public static Set<String> getSynonymWord(String str) {
+	/*
+	 * Get the set of the first word in the line which contains
+	 * input word in synonym dictionary
+	 */
+	public static Set<String> getSynonymWordSet(String str) {
 		Set<String> synSet = new HashSet<>();
 		Set<String> synWord = new HashSet<>();
 
@@ -157,65 +163,49 @@ public class NLPProcess {
 		return synWord;
 	}
 
-	public static void fun() {
-		System.out.println("in fun");
-	}
-
-	/*
-	 * replace the synonym in a sentence or a word
-	 */
-	public static String stopWordList(String sentence) {
-		NLPResult tnNode = NLPSevice.ProcessSentence(sentence, NLPFlag.SegPosNoStopWords.getValue());
-		List<Term> segPos = tnNode.getWordPos();
-		System.out.println("test=" + segPos);
-		String rs = "";
-		for (int i = 0; i < segPos.size(); i++) {
-			String word = segPos.get(i).word;
-			System.out.println("index " + i + " is " + word + " " + segPos.get(i).nature.toString());
-		}
-		return rs;
-	}
-
-	/*
-	 * replace the synonym in a sentence or a word
-	 */
-	public static String synonymProcess(String sentence) {
-		NLPResult tnNode = NLPSevice.ProcessSentence(sentence, NLPFlag.SegPos.getValue());
-		List<Term> segPos = tnNode.getWordPos();
-		String rs = "";
-		for (int i = 0; i < segPos.size(); i++) {
-			String word = segPos.get(i).word;
-			System.out.println("index " + i + " is " + word + " " + segPos.get(i).nature.toString());
-			String syn = getSynonym(word);
-			if (syn.isEmpty()) {
-				rs += word;
-				System.out.println("orginal is " + word + "; syn is " + syn);
-			} else {
-				rs += syn;
-				System.out.println("orginal is " + word + "; syn is " + syn);
+	// get the property set in DB with synonym process
+	// return Map<synProp, prop>
+	private static Map<String, String> getPropertyNameSet(String ent) {
+		Map<String, String> rsMap = new HashMap<>();
+		List<String> propList = DBProcess.getPropertyNameSet(ent);
+		for (String iProp : propList) {
+			rsMap.put(iProp, iProp);
+			Set<String> setSyn = NLPProcess.getSynonymWordSet(iProp);
+			for (String iSyn : setSyn) {
+				rsMap.put(iSyn, iProp);
 			}
 		}
-		return rs;
+		System.out.println("all the prop is: " + rsMap);
+		return rsMap;
 	}
 
-	/*
-	 * get the synonym of the word from the syn table
-	 */
-	private static String getSynonym(String str) {
-		NLPResult tnNodeSy = NLPSevice.ProcessSentence(str, NLPFlag.Synonyms.getValue());
-		List<List<String>> sy = tnNodeSy.getSynonyms();
-		System.out.println("size of synonym is " + sy.size());
-		String rs = "";
-		if (sy.size() > 0 && sy.get(0).size() > 0) {
-			rs = sy.get(0).get(0);
+	// Get the matched property in DB
+	// return "" if the input prop and its synonyms do not match any existing
+	// property in DB
+	public static List<String> matchSynonymPropertyInDB(String entity, String prop) {
+		System.out.println("input is entity:" + entity + " prop:" + prop);
+		List<String> rsList = new ArrayList<>();
+		Map<String, String> propMap = getPropertyNameSet(entity);
+		Set<String> synSet = getSynonymWordSet(prop);
+		System.out.println("get synonym set of input prop: " + synSet + " size is " + synSet.size());
+		System.out.println("get prop set in DB: " + propMap);
+
+		for (String q : synSet) {
+			if (propMap.containsKey(q) && !rsList.contains(propMap.get(q))) {
+				rsList.add(propMap.get(q));
+			}
 		}
-		return rs;
+		System.out.println("getSynonymProperty in NLPProcess: rs is " + rsList);
+
+		return rsList;
 	}
 
 	public static void main(String[] args) {
 		NLPProcess sp = new NLPProcess();
 		// sp.synonymProcess("");
-		System.out.println("syn is "+sp.getSynonymWord("伯"));
+		System.out.println("syn is " + matchSynonymPropertyInDB("姚明", "老家"));
+		
+//		System.out.println("syn is " + sp.getSynonymWord("伯"));
 
 	}
 }
