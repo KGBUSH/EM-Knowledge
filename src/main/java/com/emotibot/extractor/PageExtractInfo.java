@@ -48,7 +48,54 @@ public class PageExtractInfo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	//KG_Name
+	//KG_Attr
+	//KG_Value
+	//KG_Attr_Value
+	//KG_Info
+	public String getAttrStr()
+	{
+		StringBuffer buffer = new StringBuffer();
+		for(String key:attr.keySet())
+		{
+			buffer.append(key).append("\t");
+		}
+        return buffer.toString().trim();
+	}
+	public String getValueStr()
+	{
+		StringBuffer buffer = new StringBuffer();
+		for(String key:attr.keySet())
+		{
+			buffer.append(attr.get(key)).append("\t");
+		}
+        return buffer.toString().trim();
+	}
+	public String getAttrValueStr()
+	{
+		StringBuffer buffer = new StringBuffer();
+		for(String key:attr.keySet())
+		{
+			buffer.append(key).append("\t").append(attr.get(key)).append("\t");
+		}
+        return buffer.toString().trim();
+	}
+	public String toSolrString()
+	{
+		StringBuffer buffer = new StringBuffer();
+		buffer.append(name).append("\t");
+		for(String key:attr.keySet())
+		{
+			buffer.append(key).append("\t"+attr.get(key)).append("\t");
+		}
+		for(Sentence sent:sentList)
+		{
+			buffer.append(sent.toString()).append("\t");
+		}
+		buffer.append(firstPara).append("\t");
+		return buffer.toString().trim();
+	}
+
 	public String toString()
 	{
 		StringBuffer buffer = new StringBuffer();

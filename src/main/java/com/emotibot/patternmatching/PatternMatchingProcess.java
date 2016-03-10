@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import com.emotibot.nlp.NLPFlag;
+import com.emotibot.nlp.NLPResult;
+import com.emotibot.nlp.NLPSevice;
+import com.hankcs.hanlp.seg.common.Term;
+
 public class PatternMatchingProcess {
 
 	private final String[] auxList = { "多少", "吗", "是", "有", "的" };
@@ -23,9 +28,11 @@ public class PatternMatchingProcess {
 		 * previous and the latter one 2.1 remove the auxiliary words like "多少"
 		 */
 		// get the last one for 3/15, may improve latter
-		String postStr = this.getPartsWithoutEntity(question, ent).get(0);
-		postStr = auxilaryProcess(postStr);
+		String postStr = this.getPartsWithoutEntity(question, ent).get(0);		
 		System.out.println("postStr is " + postStr);
+		
+		postStr = auxilaryProcess(postStr);
+		System.out.println("aux process is " + postStr);
 
 		/*
 		 * 3. compute the score and get the candidate
@@ -73,14 +80,28 @@ public class PatternMatchingProcess {
 	 * get the synonym of the word from the syn table
 	 */
 	private String synonymProcess(String str) {
-
-		// TBD
-
-		// List<Sentence> sentList = new ArrayList<>();
-		// List<Term> segpos = Pre_ProcessSentence.getSegPos(str);
-		// System.out.println(segpos);
-
-		return "";
+		NLPResult tnNodeSy = NLPSevice.ProcessSentence(str, NLPFlag.Synonyms.getValue());
+		List<List<String>> sy = tnNodeSy.getSynonyms();
+		System.out.println("size of synonym is " + sy.size());
+		String rs = "";
+		if (sy.size() > 0) {
+			System.out.println("size of synonym is " + sy.size());
+			rs = sy.get(0).get(0);
+		}
+		return rs;
+	}
+	
+	/*
+	 * replace the synonym in a sentence or a word
+	 */
+	private String removeStopWord(String sentence) {
+		NLPResult tnNode = NLPSevice.ProcessSentence(sentence, NLPFlag.SegPosNoStopWords.getValue());
+		List<Term> segPos = tnNode.getWordPos();
+		String rs = "";
+		for (int i = 0; i < segPos.size(); i++) {
+			rs += segPos.get(i).word;
+		}
+		return rs;
 	}
 
 	/*
@@ -91,18 +112,20 @@ public class PatternMatchingProcess {
 		/*
 		 * 1. remove the auxiliary words like "多少" in a sentence
 		 */
-		for (String s : auxList) {
+		/*for (String s : auxList) {
 			while (str.lastIndexOf(s) != -1) {
 				str = str.substring(0, str.lastIndexOf(s)) + str.substring(str.lastIndexOf(s) + s.length());
 			}
-		}
-		System.out.println("after removing aux words: " + str);
+		}*/
+		str = this.removeStopWord(str);
+		System.out.println("after removing Stop Words: " + str);
 
 		/*
 		 * 2. replace the synonyms
 		 */
-		// str = synonymProcess(str);
-		
+		str = SynonymProcess.synonymProcess(str);
+		System.out.println("after synonym process: " + str);
+
 		return str;
 	}
 
@@ -178,7 +201,12 @@ public class PatternMatchingProcess {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
 		String question = "你知道姚明单场最高多少分吗";
 		String ent = "姚明";
-
+		
+		
+		System.out.println("test aux:"+mp.getAnswer("姚明的妻子是谁？"));
+		
+		
+/*
 		System.out.println(mp.getAnswer(question));
 
 		System.out.println(ent.charAt(0) + "  " + ent.charAt(ent.length() - 1) + " index of " + ent.lastIndexOf("明")
@@ -207,7 +235,7 @@ public class PatternMatchingProcess {
 		List<String> listProp = DBProcess.getPropertyNameSet(ent);
 		System.out.println("prop name is " + listProp);
 		String propName = mp.getCandidatePropName(question, listProp);
-
+*/
 	}
 
 }

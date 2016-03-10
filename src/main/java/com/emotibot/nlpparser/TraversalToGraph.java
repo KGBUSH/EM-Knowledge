@@ -41,13 +41,14 @@ public class TraversalToGraph {
 	public static String traversal(List<Name_Type> entity,List<Name_Type> attribute){
 		Neo4jResultBean bean = null;
 		String answer= "";
+		if(entity.size()> 0 ||attribute.size()>0){
 		if(entity.size()==1&&attribute.size() ==0){
-		String query=BuildCypherSQLObj.FindEntityInfo(Common.PERSONLABEL, entity.get(0).value.word);
+		String query=BuildCypherSQLObj.FindEntityInfo(Common.PERSONLABEL, entity.get(0).value);
 		   bean=conn.executeCypherSQL(query);
 		}
 	    else if(entity.size() ==1 && attribute.size() ==1){
 			//单个实体单个属性
-	    	String query = BuildCypherSQLObj.FindEntityAttr(Common.PERSONLABEL, entity.get(0).value.word,attribute.get(0).value.word);
+	    	String query = BuildCypherSQLObj.FindEntityAttr(Common.PERSONLABEL, entity.get(0).value,attribute.get(0).value);
 	    	 bean=conn.executeCypherSQL(query);
 	    	
 		}else if(entity.size() ==2 && attribute.size() ==1){
@@ -58,6 +59,7 @@ public class TraversalToGraph {
 		}
 		else if(entity.size() ==2 && attribute.size() ==2){
 			//多个实体多个属性
+		}
 		}
 		if(getBeanAnswer(bean)!=null){
 			answer =getBeanAnswer(bean);

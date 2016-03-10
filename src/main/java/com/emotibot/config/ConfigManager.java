@@ -13,6 +13,8 @@ import java.util.Properties;
 
 public class ConfigManager implements ConfigInterface{
 	final Properties properties;
+	
+	
     public ConfigManager()
     {
         properties = new Properties();
