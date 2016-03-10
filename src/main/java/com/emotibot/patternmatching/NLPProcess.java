@@ -182,7 +182,7 @@ public class NLPProcess {
 	// Get the matched property in DB
 	// return "" if the input prop and its synonyms do not match any existing
 	// property in DB
-	public static List<String> matchSynonymPropertyInDB(String entity, String prop) {
+	public static String matchSynonymPropertyInDB(String entity, String prop) {
 		System.out.println("input is entity:" + entity + " prop:" + prop);
 		List<String> rsList = new ArrayList<>();
 		Map<String, String> propMap = getPropertyNameSet(entity);
@@ -196,14 +196,17 @@ public class NLPProcess {
 			}
 		}
 		System.out.println("getSynonymProperty in NLPProcess: rs is " + rsList);
-
-		return rsList;
+		
+		if(rsList.isEmpty())
+			return "";
+		else
+			return rsList.get(0);
 	}
 
 	public static void main(String[] args) {
 		NLPProcess sp = new NLPProcess();
 		// sp.synonymProcess("");
-		System.out.println("syn is " + matchSynonymPropertyInDB("姚明", "老家"));
+		System.out.println("syn is " + matchSynonymPropertyInDB("姚明", "女人"));
 		
 //		System.out.println("syn is " + sp.getSynonymWord("伯"));
 
