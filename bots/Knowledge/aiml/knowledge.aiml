@@ -1,0 +1,14 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ## * <type>entity</type> 属 什 么 ^ </pattern>
+        <template>
+        <star index="1"/>的生肖是什么
+        </template>
+    </category>
+    <category>
+        <pattern>  ## ^ <type>entity</type> 多 重 ^ </pattern>
+        <template>
+        <star index="1"/>的体重是多少
+        </template>
+    </category>
+</aiml>
