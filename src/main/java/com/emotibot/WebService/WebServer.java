@@ -154,7 +154,7 @@ public class WebServer {
 			String text = request.getParameter("t");
 			if (text != null) {
 				text = text.trim();
-				if (!text.isEmpty()) {
+				/*if (!text.isEmpty()) {
 					try {
 						flag = Integer.parseInt(request.getParameter("f"));
 					} catch (NumberFormatException e) {
@@ -171,7 +171,18 @@ public class WebServer {
 					   result_obj.put("emotion", "");
 					   result_obj.put("answer", answer);
 					   out.println(result_obj);
-				}
+				}*/
+				AnswerBean bean = new AnalysisSent().AnalysisSentence(text);
+				JSONObject result_obj = new JSONObject();
+				   result_obj.put("ver", "");
+				   
+				   result_obj.put("score", bean.getScore());
+				   result_obj.put("topic", "");
+				   result_obj.put("emotion", "");
+				   result_obj.put("answer", bean.getAnswer());
+				   out.println(result_obj);
+				
+				
 			}
 		}
 	}

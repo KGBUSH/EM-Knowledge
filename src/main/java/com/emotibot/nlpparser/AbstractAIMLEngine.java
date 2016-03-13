@@ -7,6 +7,7 @@ import java.util.Properties;
 import org.alicebot.ab.Bot;
 import org.alicebot.ab.Chat;
 
+import com.emotibot.common.Common;
 import com.emotibot.config.ConfigManager;
 
 
@@ -31,7 +32,7 @@ public abstract class AbstractAIMLEngine {
 //        } catch (final IOException e) {
 //            this.aiml_path = SentenceTypeClassifier.class.getResource("").getPath();
 //        }
-        this.aiml_path = "/Users/cloudy/workspace/knowlegegraph";//properties.getProperty("aiml_path", SentenceTypeClassifier.class.getResource("").getPath());        
+        this.aiml_path = Common.UserDir;//properties.getProperty("aiml_path", SentenceTypeClassifier.class.getResource("").getPath());        
     }
     
     protected boolean isChinese(char c) {
