@@ -22,7 +22,7 @@ public class AnalysisSent {
 	   public AnswerBean AnalysisSentence(String str)
 	   {
 		   AnswerBean bean = new AnswerBean();
-		   if(Tool.isStrEmptyOrNull(str)) return bean;
+		   if(Tool.isStrEmptyOrNull(str)||!str.contains("姚明")) return bean;
 		   else
 		   {
 			   String ans1=simpleKnowledgeGetAnwer.getAnswer(str).trim();
