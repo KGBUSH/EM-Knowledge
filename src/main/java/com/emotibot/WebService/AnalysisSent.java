@@ -22,6 +22,7 @@ public class AnalysisSent {
 	   public AnswerBean AnalysisSentence(String str)
 	   {
 		   AnswerBean bean = new AnswerBean();
+		   try{
 		   if(Tool.isStrEmptyOrNull(str)||!str.contains("姚明")) return bean;
 		   else
 		   {
@@ -36,9 +37,13 @@ public class AnalysisSent {
 				   bean.setAnswer(ans1+";"+ans2);
 				   bean.setScore(50*Math.min(1,Math.min(ans1.length(), ans2.length())));
 			   }
-			   return bean;
-			   
+			   return bean;  
 		   }
+		   }catch(Exception e)
+		   {
+			   e.printStackTrace();
+		   }
+		   return bean;
 	   }
 	   
 
