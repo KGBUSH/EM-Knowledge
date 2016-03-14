@@ -21,24 +21,27 @@ import com.hankcs.hanlp.seg.common.Term;
 
 public class PatternMatchingProcess {
 
+	final SentenceTypeClassifier sentenceClassifier = new SentenceTypeClassifier();
+
 	/*
 	 * Get the answer by the match score method input: the question sentence
 	 * from users output: the answer without answer rewriting
 	 */
-	public String getAnswer(String question) {
+	public String getAnswer(String sentence) {
 
 		String rs = "";
 		/*
-		 * 1. get the entity by Solr
+		 * 1. get the entity by Solr and Revise by template
 		 */
-		String ent = getEntityBySolr(question);
+		String entity = getEntityBySolr(sentence);
+		sentence = templateProcess(entity, sentence);
 
 		/*
 		 * 2. split the sentence by the entities to get candidates
 		 */
-		Set<String> candidateSet = this.getCandidateSet(question, ent);
+		Set<String> candidateSet = this.getCandidateSet(sentence, entity);
 		System.out.println("all candidates are " + candidateSet);
-		Map<String, String> propMap = this.getPropertyNameSet(ent);
+		Map<String, String> propMap = this.getPropertyNameSet(entity);
 
 		// 3. compute the score for each candidate
 		List<PatternMatchingResultBean> rsBean = new ArrayList();
@@ -77,7 +80,7 @@ public class PatternMatchingProcess {
 			propName = "firstParamInfo";
 		}
 		System.out.println("propName is " + propName);
-		rs = DBProcess.getPropertyValue(ent, propMap.get(propName));
+		rs = DBProcess.getPropertyValue(entity, propMap.get(propName));
 		System.out.println("rs is " + rs);
 
 		return rs;
@@ -159,11 +162,11 @@ public class PatternMatchingProcess {
 	private List<String> replaceSynonymProcess(String str) {
 		System.out.println("input of replaceSynonymProcess is " + str);
 		List<String> rsSet = new ArrayList<>();
-		if(str.isEmpty()){			
+		if (str.isEmpty()) {
 			System.out.println("output of replaceSynonymProcess is " + rsSet);
 			return rsSet;
 		}
-		
+
 		NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
 		List<Term> segPos = tnNode.getWordPos();
 		rsSet.add("");
@@ -298,10 +301,74 @@ public class PatternMatchingProcess {
 		return rs;
 	}
 
+	private boolean isChinese(char c) {
+		Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+		if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+				|| ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+				|| ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+				|| ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
+				|| ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
+				|| ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
+				|| ub == Character.UnicodeBlock.GENERAL_PUNCTUATION) {
+			return true;
+		}
+		return false;
+	}
+
+	private String insertSpace2Chinese(String s) {
+		int tail = 0;
+		char[] temp = new char[s.length() * 2];
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if (isChinese(c)) {
+				temp[tail] = c;
+				temp[tail + 1] = ' ';
+				tail += 2;
+			} else {
+				temp[tail] = c;
+				tail++;
+			}
+		}
+		return new String(temp);
+	}
+
+	// tempalte process, match and change the exception case to normal case
+	private String templateProcess(String entity, String sentence) {
+		if (sentence.lastIndexOf(entity) == -1) {
+			return sentence;
+		}
+
+		String[] strArr = sentence.split(entity);
+		String rs = strArr[0];
+		for (int i = 1; i < strArr.length; i++) {
+			rs += "## " + entity + "<type>entity</type> ";
+			rs += strArr[i];
+		}
+
+		// if entity appear in the last
+		if (sentence.lastIndexOf(entity) == sentence.length() - entity.length()) {
+			rs += "## " + entity + "<type>entity</type> ";
+		}
+
+		// System.out.println("rs=" + rs);
+		rs = sentenceClassifier.getSentenceType(rs);
+		if (rs.isEmpty()) {
+			rs = sentence;
+		}
+
+		System.out.println("input=" + sentence + ", output=" + rs);
+		return rs;
+	}
+
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = " 姚明打哪个位置";
+		String str = "姚明属什么";
+
 		mp.getAnswer(str);
+
+		// System.out.println("senType="+mp.templateProcess("姚明", str));
+		// System.out.println("senType="+mp.sentenceClassifier.getSentenceType(mp.templateProcess("姚明",
+		// str)));
 
 		// String ent = "姚明";
 		// Map<String, String> mapP = new HashMap<>();
