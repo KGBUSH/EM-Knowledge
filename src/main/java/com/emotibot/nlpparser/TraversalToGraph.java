@@ -61,7 +61,7 @@ public class TraversalToGraph {
 			//多个实体多个属性
 		}
 		}
-		if(getBeanAnswer(bean)!=null){
+		if(bean!=null&&getBeanAnswer(bean)!=null){
 			answer =getBeanAnswer(bean);
 		}
 		return answer;
