@@ -19,7 +19,7 @@ import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
 public class SimpleKnowledgeGetAnwertest {
    public static	 SimpleKnowledgeGetAnwer simpleKnowledgeGetAnwer = new SimpleKnowledgeGetAnwer();
 	public static void testFetchAnswer() throws Exception {
-		String testFile = "txt/pmquestion.txt";
+		String testFile = "txt/test";
 
 		final BufferedReader reader2 = new BufferedReader(new InputStreamReader(new FileInputStream(testFile)));
 		String line2 = null;
@@ -35,14 +35,14 @@ public class SimpleKnowledgeGetAnwertest {
 		reader2.close();
 	}
 	 public static void main(String[] args){
-		/* try {
+		 try {
 			SimpleKnowledgeGetAnwertest.testFetchAnswer();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
-		   String sentence = "姚明有多高";
+		}
+		   /*String sentence = "姚明的妻子是什么？";
 		   SimpleKnowledgeGetAnwer simpleKnowledgeGetAnwer = new SimpleKnowledgeGetAnwer();
-		   System.out.println(simpleKnowledgeGetAnwer.getAnswer(sentence));
+		   System.out.println("answer: "+simpleKnowledgeGetAnwer.getAnswer(sentence));*/
 	   }
 }

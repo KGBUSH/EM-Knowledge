@@ -117,7 +117,7 @@ Well, hello!
 <category>
     <pattern> ^ 怎 ^ 么 ^ ^ 亲 ^ 切 ^ 称 ^ 呼 ^ ## _ <pos>nr</pos> ^ </pattern>
      <template>
-     <star index="8"/>/nr##别名/edu2
+     <star index="9"/>/nr##别名/edu2
      </template>
 </category>
 
@@ -209,6 +209,66 @@ Well, hello!
     <pattern> ^ ## _ <pos>nr</pos> ^ 什 ^ 么 ^ 时 ^ 候 ^ ^ 生 ^ 日</pattern>
      <template>
      <star index="2"/>/nr##出生日期/edu2
+     </template>
+</category>
+<category>
+    <pattern> ^ ## _ <pos>nr</pos> ^ 几 ^ 岁 ^</pattern>
+     <template>
+     <star index="2"/>/nr##出生日期/edu2
+     </template>
+</category>
+<category>
+    <pattern> ^ ## _ <pos>nr</pos> ^ 哪 ^ 个 ^ 队 ^</pattern>
+     <template>
+     <star index="2"/>/nr##所属运动队/edu2
+     </template>
+</category>
+<category>
+    <pattern> ^ ## _ <pos>nr</pos> ^ 哪 ^ 个 ^ ^ 队 ^</pattern>
+     <template>
+     <star index="2"/>/nr##所属运动队/edu2
+     </template>
+</category>
+<category>
+    <pattern> ^ ## _ <pos>nr</pos> ^ 老 ^ 家 ^ ^ 哪 ^</pattern>
+     <template>
+     <star index="2"/>/nr##祖籍/edu2
+     </template>
+</category>
+<category>
+    <pattern> ^ ## _ <pos>nr</pos> ^ 获 ^ 得 ^ ^ 奖 ^ 项 ^</pattern>
+     <template>
+     <star index="2"/>/nr##主要奖项/edu2
+     </template>
+</category>
+<category>
+    <pattern> ^ ## _ <pos>nr</pos> ^ 获 ^ 得 ^ ^ 荣 ^ 誉 ^</pattern>
+     <template>
+     <star index="2"/>/nr##主要奖项/edu2
+     </template>
+</category>
+<category>
+    <pattern> ^ ## _ <pos>nr</pos> ^ 英 ^ 文 ^ 名 ^ ^</pattern>
+     <template>
+     <star index="2"/>/nr##外文名/edu2
+     </template>
+</category>
+<category>
+    <pattern> ^ ## _ <pos>nr</pos> ^ 妻 ^ 子 ^ ^</pattern>
+     <template>
+     <star index="2"/>/nr##老婆/edu2
+     </template>
+</category>
+<category>
+    <pattern> ^ ## _ <pos>nr</pos> ^ 爱 ^ 人 ^ ^</pattern>
+     <template>
+     <star index="2"/>/nr##老婆/edu2
+     </template>
+</category>
+<category>
+    <pattern> ^ ## _ <pos>nr</pos> ^ 昵 ^ 称 ^ ^</pattern>
+     <template>
+     <star index="2"/>/nr##别名/edu2
      </template>
 </category>
 </aiml>
