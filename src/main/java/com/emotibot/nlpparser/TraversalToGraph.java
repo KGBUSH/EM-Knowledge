@@ -34,7 +34,7 @@ public class TraversalToGraph {
 	}
 	public static String getBeanAnswer(Neo4jResultBean bean){
 		if(!bean.isStatus()){
-			return null;
+			return "";
 		}
 		else return bean.getResult();
 	}
