@@ -33,7 +33,7 @@ public class TraversalToGraph {
         return neo4jDBManager.getConnection();
 	}
 	public static String getBeanAnswer(Neo4jResultBean bean){
-		if(!bean.isStatus()){
+		if(bean==null||!bean.isStatus()){
 			return "";
 		}
 		else return bean.getResult();
