@@ -18,6 +18,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.emotibot.common.BytesEncodingDetect;
+import com.emotibot.common.Common;
 import com.emotibot.nlp.NLPFlag;
 import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
@@ -32,7 +33,8 @@ public class NLPProcess {
 	// create stopword table Set
 	private static Set<String> createStopWordTable() {
 		Set<String> stopWordSet = new HashSet<>();
-		String fileName = "txt/stopwords.txt";
+		String fileName = Common.UserDir + "/knowledgedata/stopwords.txt";
+//				"txt/stopwords.txt";
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
 				BytesEncodingDetect s = new BytesEncodingDetect();
@@ -68,7 +70,7 @@ public class NLPProcess {
 	// create synonym reference hash map table: Map<id, List of Synonym>
 	private static HashMap<String, List<String>> createSynonymTableRef() {
 		HashMap<String, List<String>> syn = new HashMap<>();
-		String fileName = "txt/SynonymNoun.txt";
+		String fileName = Common.UserDir + "/knowledgedata/SynonymNoun.txt";
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
 				BytesEncodingDetect s = new BytesEncodingDetect();
