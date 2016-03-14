@@ -49,7 +49,7 @@ public class NLPProcess {
 					stopWordSet.add(word.trim());
 				}
 				// System.out.println("list is " + stopWordSet);
-
+				dis.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
@@ -81,7 +81,6 @@ public class NLPProcess {
 				InputStreamReader read = new InputStreamReader(fis, fileCode);
 				BufferedReader dis = new BufferedReader(read);
 				String line = "";
-				// int i = 0;
 
 				while ((line = dis.readLine()) != null) {
 					if (line.lastIndexOf("=") != -1) {
@@ -95,6 +94,7 @@ public class NLPProcess {
 						syn.put(id, setElementSyn);
 					}
 				}
+				dis.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;

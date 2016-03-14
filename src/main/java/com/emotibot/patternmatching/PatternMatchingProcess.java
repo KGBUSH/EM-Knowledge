@@ -34,6 +34,10 @@ public class PatternMatchingProcess {
 		 * 1. get the entity by Solr and Revise by template
 		 */
 		String entity = getEntityBySolr(sentence);
+		if (entity.isEmpty()) {
+			System.out.println("the sentence does not contain entity name and so return empty");
+			return rs;
+		}
 		sentence = templateProcess(entity, sentence);
 
 		/*
@@ -105,10 +109,13 @@ public class PatternMatchingProcess {
 	/*
 	 * get the target entity by Solr
 	 */
-	private String getEntityBySolr(String question) {
+	private String getEntityBySolr(String sentence) {
 		// TBD: hard code for 3/15
 		String ent = "姚明";
-		return ent;
+		if (!sentence.contains(ent))
+			return "";
+		else
+			return ent;
 	}
 
 	/*
@@ -365,9 +372,9 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明的属相是什么";
+		String str = "属相是什么";
 
-//		mp.templateProcess("姚明", str);
+		// mp.templateProcess("姚明", str);
 		mp.getAnswer(str);
 
 		// System.out.println("senType="+mp.templateProcess("姚明", str));
