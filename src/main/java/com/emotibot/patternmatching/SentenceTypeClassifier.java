@@ -63,18 +63,22 @@ public class SentenceTypeClassifier extends AbstractAIMLEngine {
 		
 		processedQ = insertSpace2Chinese(sentence);
 		String type = chatSession.multisentenceRespond(processedQ);
-//		System.out.println("Sentence = "+sentence+"\n ProcessQ = "+processedQ+"\n type 1 = "+type);
+		System.out.println("Sentence = "+sentence+"\n ProcessQ = "+processedQ+"\n type 1 = "+type);
 		
 		type = removeSpace(type);
-//		System.out.println("type 2 = "+type);
+		System.out.println("type 2 = "+type);
 		return type;
 	}
 
 	public static void main(String[] args) {
 		SentenceTypeClassifier sentenceTypeClassifier = new SentenceTypeClassifier();
-		String str1 = "## 姚 明 <pos>nr</pos> 属 什 么";
-		String str2 = "## 姚 明 <type>entity</type> 属 什 么";
-		System.out.println("@@@@==="+sentenceTypeClassifier.chatSession.multisentenceRespond(str2));
+		String str = "姚明多重";
+		System.out.println("===="+sentenceTypeClassifier.getSentenceType(str));
+		
+		
+//		String str1 = "## 姚 明 <pos>nr</pos> 属 什 么";
+//		String str2 = "## 姚 明 <type>entity</type> 属 什 么";
+//		System.out.println("@@@@==="+sentenceTypeClassifier.chatSession.multisentenceRespond(str2));
 		
 //		System.out.println("1=" + sentenceTypeClassifier.getSentenceType("姚明有多重"));
 //		System.out.println("1=" + sentenceTypeClassifier.getSentenceType("## 姚 明 <pos>n</pos> 属 什 么"));

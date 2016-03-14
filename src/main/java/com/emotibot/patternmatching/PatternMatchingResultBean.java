@@ -10,10 +10,14 @@ package com.emotibot.patternmatching;
 public class PatternMatchingResultBean {
 	private String answer;
 	private int score;
-	private boolean empty = true;
+	private boolean valid = false;
 
-	public boolean isEmpty() {
-		return empty;
+	public boolean isValid() {
+		return valid;
+	}
+	
+	public void set2NotValid(){
+		valid = false;
 	}
 
 	public String getAnswer() {
@@ -21,7 +25,7 @@ public class PatternMatchingResultBean {
 	}
 
 	public void setAnswer(String answer) {
-		empty = false;
+		valid = true;
 		this.answer = answer;
 	}
 
@@ -34,7 +38,7 @@ public class PatternMatchingResultBean {
 	}
 
 	public String toString() {
-		return "answer:" + answer + ", score:" + score + ", empty is " + empty;
+		return "answer:" + answer + ", score:" + score + ", valid is " + valid;
 	}
 
 }

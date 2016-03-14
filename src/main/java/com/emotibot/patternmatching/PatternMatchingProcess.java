@@ -53,7 +53,7 @@ public class PatternMatchingProcess {
 
 			for (String q : synList) {
 				PatternMatchingResultBean pmRB = this.getCandidatePropName(q, propMap);
-				if (!pmRB.isEmpty()) {
+				if (pmRB.isValid()) {
 					rsBean.add(pmRB);
 					System.out.println("string " + q + " has the answer of " + pmRB.getAnswer() + " with score "
 							+ pmRB.getScore());
@@ -67,7 +67,7 @@ public class PatternMatchingProcess {
 		int finalScore = Integer.MIN_VALUE;
 		String propName = "";
 		for (PatternMatchingResultBean b : rsBean) {
-			if (!b.isEmpty()) {
+			if (b.isValid()) {
 				System.out.println("candidate " + b.getAnswer() + " has score:" + b.getScore());
 				if (b.getScore() > finalScore) {
 					propName = b.getAnswer();
@@ -297,7 +297,10 @@ public class PatternMatchingProcess {
 				rs.setScore(finalScore);
 			}
 		}
-		System.out.println("finalScore is " + finalScore + ". rs is " + rs.toString());
+		if (isPass == false && rs.getScore() < 0) {
+			rs.set2NotValid();
+		}
+		System.out.println("in GetPropName---finalScore is " + finalScore + ". rs is " + rs.toString());
 		return rs;
 	}
 
@@ -362,8 +365,9 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明属什么";
+		String str = "姚明的属相是什么";
 
+//		mp.templateProcess("姚明", str);
 		mp.getAnswer(str);
 
 		// System.out.println("senType="+mp.templateProcess("姚明", str));
