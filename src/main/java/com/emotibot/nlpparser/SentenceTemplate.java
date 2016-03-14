@@ -38,6 +38,6 @@ public class SentenceTemplate extends AbstractAIMLEngine {
     }
     public static void main(String[] args){
     	SentenceTemplate sentenceTypeClassifier = new SentenceTemplate();
-    	System.out.println(sentenceTypeClassifier.getSentenceType("姚明的昵称"));
+    	System.out.println(sentenceTypeClassifier.getSentenceType("姚明的英文名是什么"));
     }
 }
