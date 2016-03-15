@@ -34,7 +34,7 @@ public class NLPProcess {
 	private static Set<String> createStopWordTable() {
 		Set<String> stopWordSet = new HashSet<>();
 		String fileName = Common.UserDir + "/knowledgedata/stopwords.txt";
-//				"txt/stopwords.txt";
+		// "txt/stopwords.txt";
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
 				BytesEncodingDetect s = new BytesEncodingDetect();
@@ -106,7 +106,7 @@ public class NLPProcess {
 	// create synonym hash map table Map<words, id>
 	private static HashMap<String, Set<String>> createSynonymTable() {
 		HashMap<String, Set<String>> syn = new HashMap<>();
-		String fileName = "txt/SynonymNoun.txt";
+		String fileName = Common.UserDir + "/knowledgedata/SynonymNoun.txt";
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
 				BytesEncodingDetect s = new BytesEncodingDetect();
@@ -145,8 +145,8 @@ public class NLPProcess {
 	}
 
 	/*
-	 * Get the set of the first word in the line which contains
-	 * input word in synonym dictionary
+	 * Get the set of the first word in the line which contains input word in
+	 * synonym dictionary
 	 */
 	public static Set<String> getSynonymWordSet(String str) {
 		Set<String> synSet = new HashSet<>();
@@ -161,6 +161,9 @@ public class NLPProcess {
 				synWord.add(synonymTableRef.get(s).get(0));
 			}
 		}
+
+		// System.out.println("pattern matching: NLPProcess.getSynnoymWordSet
+		// input = "+str+", output="+synWord);
 
 		return synWord;
 	}
@@ -198,8 +201,8 @@ public class NLPProcess {
 			}
 		}
 		System.out.println("getSynonymProperty in NLPProcess: rs is " + rsList);
-		
-		if(rsList.isEmpty())
+
+		if (rsList.isEmpty())
 			return "";
 		else
 			return rsList.get(0);
@@ -209,8 +212,8 @@ public class NLPProcess {
 		NLPProcess sp = new NLPProcess();
 		// sp.synonymProcess("");
 		System.out.println("syn is " + matchSynonymPropertyInDB("姚明", "女人"));
-		
-//		System.out.println("syn is " + sp.getSynonymWord("伯"));
+
+		// System.out.println("syn is " + sp.getSynonymWord("伯"));
 
 	}
 }

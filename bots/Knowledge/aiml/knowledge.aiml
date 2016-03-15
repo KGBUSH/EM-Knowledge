@@ -65,4 +65,10 @@
         <star index="2"/>的所属运动队是什么
         </template>
     </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 被 哪 个 队 签 约 ^ </pattern>
+        <template>
+        <star index="2"/>的所属运动队是什么
+        </template>
+    </category>
 </aiml>

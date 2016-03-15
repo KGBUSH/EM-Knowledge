@@ -52,8 +52,9 @@ public class PatternMatchingProcess {
 		 * 2. split the sentence by the entities to get candidates
 		 */
 		Set<String> candidateSet = this.getCandidateSet(sentence, entity);
-		System.out.println("all candidates are " + candidateSet);
+		System.out.println("Pattern Matching### candidate set is " + candidateSet);
 		Map<String, String> propMap = this.getPropertyNameSet(entity);
+		System.out.println("Pattern Matching### property name set is " + propMap);
 
 		// 3. compute the score for each candidate
 		List<PatternMatchingResultBean> rsBean = new ArrayList();
@@ -195,6 +196,7 @@ public class PatternMatchingProcess {
 			System.out.println("current word is " + iWord);
 
 			Set<String> iSynSet = NLPProcess.getSynonymWordSet(iWord);
+//			System.out.println("NLPProcess.replaceSP iSynSet=" + iSynSet);
 			if (iSynSet.size() > 0) {
 				flag = true;
 				System.out.println("\t has syn: " + iSynSet);
@@ -358,7 +360,7 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = " 姚明的血型是什么";
+		String str = "姚明的荣誉是";
 
 		// mp.templateProcess("姚明", str);
 		mp.getAnswer(str);
