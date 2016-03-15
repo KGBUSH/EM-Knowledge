@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.nlp.NLPFlag;
 import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
@@ -85,6 +86,10 @@ public class PatternMatchingProcess {
 		}
 		System.out.println("propName is " + propName);
 		rs = DBProcess.getPropertyValue(entity, propMap.get(propName));
+		
+		AnswerRewrite answerRewite = new AnswerRewrite();
+		rs = answerRewite.rewriteAnswer(rs);
+		
 		System.out.println("rs is " + rs);
 
 		return rs;
@@ -311,37 +316,6 @@ public class PatternMatchingProcess {
 		return rs;
 	}
 
-	private boolean isChinese(char c) {
-		Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
-		if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
-				|| ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
-				|| ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
-				|| ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
-				|| ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
-				|| ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
-				|| ub == Character.UnicodeBlock.GENERAL_PUNCTUATION) {
-			return true;
-		}
-		return false;
-	}
-
-	private String insertSpace2Chinese(String s) {
-		int tail = 0;
-		char[] temp = new char[s.length() * 2];
-		for (int i = 0; i < s.length(); i++) {
-			char c = s.charAt(i);
-			if (isChinese(c)) {
-				temp[tail] = c;
-				temp[tail + 1] = ' ';
-				tail += 2;
-			} else {
-				temp[tail] = c;
-				tail++;
-			}
-		}
-		return new String(temp);
-	}
-
 	// tempalte process, match and change the exception case to normal case
 	private String templateProcess(String entity, String sentence) {
 		if (sentence.lastIndexOf(entity) == -1) {
@@ -372,7 +346,7 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "属相是什么";
+		String str = " 姚明的血型是什么";
 
 		// mp.templateProcess("姚明", str);
 		mp.getAnswer(str);

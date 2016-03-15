@@ -55,6 +55,12 @@ public class AnswerRewrite {
 	}
 
 	public String rewriteAnswer(String answer){
+		// if answer is null or answer is introduction, then skip rewrite
+		// the process logic for introduction may be improved later
+		if(Tool.isStrEmptyOrNull(answer) || answer.length()>20){
+			return answer;
+		}
+		
 		String rewrite = "";
 		int id = (int) Math.round(Math.random()*(answerRewriteTable.length-1));
 		System.out.println("id="+id);
@@ -70,9 +76,11 @@ public class AnswerRewrite {
 	
 	public static void main(String [] args){
 		AnswerRewrite answerRewite = new AnswerRewrite();
-		for(int i=0;i<10;i++){
-			System.out.println("answer is "+answerRewite.rewriteAnswer("yaoming"));
-		}
+		String ans = "姚明，1980年生于上海市徐汇区，祖籍吴江震泽，前中国职业篮球运动员，司职中锋，中职联公司董事长兼经理";
+		System.out.println("answer is "+answerRewite.rewriteAnswer(ans));
+//		for(int i=0;i<200;i++){
+//			System.out.println("answer is "+answerRewite.rewriteAnswer("姚明"));
+//		}
 	}
 
 }
