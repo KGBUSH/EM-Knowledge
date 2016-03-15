@@ -25,8 +25,8 @@ public class PatternMatchingProcess {
 	final SentenceTypeClassifier sentenceClassifier = new SentenceTypeClassifier();
 
 	// Get the answer by the pattern matching method
-	// input: the question sentence from users
-	// output: the answer without answer rewriting
+	// input: the question sentence from users,"姚明身高是多少"
+	// output: the answer without answer rewriting, “226cm”
 	public String getAnswer(String sentence) {
 		System.out.println("PMP.getAnswer: sentence = " + sentence);
 		String rs = "";
@@ -72,9 +72,7 @@ public class PatternMatchingProcess {
 			}
 		}
 
-		/*
-		 * 4. Build the Cypher SQL and get the answer
-		 */
+		// 4. Build the Cypher SQL and get the answer
 		int finalScore = Integer.MIN_VALUE;
 		String propName = "";
 		for (PatternMatchingResultBean b : rsBean) {
@@ -105,11 +103,11 @@ public class PatternMatchingProcess {
 	// return Map<synProp, prop>
 	private Map<String, String> getPropertyNameSet(String ent) {
 		Map<String, String> rsMap = new HashMap<>();
-		if(Tool.isStrEmptyOrNull(ent)){
+		if (Tool.isStrEmptyOrNull(ent)) {
 			System.err.println("PMP.getPropertyNameSet: input is empty");
 			return rsMap;
 		}
-		
+
 		List<String> propList = DBProcess.getPropertyNameSet(ent);
 		for (String iProp : propList) {
 			rsMap.put(iProp, iProp);
@@ -122,11 +120,11 @@ public class PatternMatchingProcess {
 		return rsMap;
 	}
 
-	/*
-	 * get the target entity by Solr
-	 */
+	// return the entity by Solr method
+	// input: the sentence from user, "姚明身高多少"
+	// output: the entity identified by Solr, "姚明"
 	private String getEntityBySolr(String sentence) {
-		if(Tool.isStrEmptyOrNull(sentence)){
+		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getEntityBySolr: input is empty");
 			return "";
 		}
@@ -144,10 +142,10 @@ public class PatternMatchingProcess {
 	 */
 	private Set<String> getCandidateSet(String str, String ent) {
 		Set<String> listPart = new HashSet<>();
-		if(Tool.isStrEmptyOrNull(str) || Tool.isStrEmptyOrNull(ent)){
+		if (Tool.isStrEmptyOrNull(str) || Tool.isStrEmptyOrNull(ent)) {
 			System.err.println("PMP.getCandidateSet: input is empty");
 		}
-		
+
 		while (str.lastIndexOf(ent) != -1) {
 			String s = str.substring(str.lastIndexOf(ent) + ent.length()).trim();
 			if (!s.isEmpty()) {
@@ -185,9 +183,7 @@ public class PatternMatchingProcess {
 		return rs;
 	}
 
-	/*
-	 * generate all the possibility candidates according to synonyms
-	 */
+	// generate all the possibility candidates according to synonyms
 	private List<String> replaceSynonymProcess(String str) {
 		System.out.println("input of replaceSynonymProcess is " + str);
 		List<String> rsSet = new ArrayList<>();
@@ -239,25 +235,19 @@ public class PatternMatchingProcess {
 		return rsSet;
 	}
 
-	/*
-	 * remove stopWord and get all possibilities of the candidate with respect
-	 * to different synonyms
-	 */
+	// remove stopword and generate candidates by synonym
 	private List<String> auxilaryProcess(String str) {
 		List<String> rsSet = new ArrayList<>();
-		if(Tool.isStrEmptyOrNull(str)){
+		if (Tool.isStrEmptyOrNull(str)) {
 			System.err.println("PMP.auxilaryProcess: input is empty");
 			return rsSet;
 		}
-		/*
-		 * 1. remove the stop words like "多少" in a sentence
-		 */
+
+		// 1. remove the stop words like "多少" in a sentence
 		str = this.removeStopWord(str);
 		System.out.println("after removing Stop Words: " + str);
 
-		/*
-		 * 2. generate candidates according to the synonyms
-		 */
+		// 2. generate candidates according to the synonyms
 		rsSet = this.replaceSynonymProcess(str);
 		System.out.println("after synonym process: " + rsSet + " size is " + rsSet.size());
 
@@ -273,11 +263,11 @@ public class PatternMatchingProcess {
 		boolean isPass = false;
 		HashMap<String, Integer> score = new HashMap<String, Integer>();
 		PatternMatchingResultBean rs = new PatternMatchingResultBean();
-		if(Tool.isStrEmptyOrNull(str) || prop == null){
+		if (Tool.isStrEmptyOrNull(str) || prop == null) {
 			System.err.println("PMP.getCandidatePropName: input is empty");
 			return rs;
 		}
-		
+
 		System.out.println("query string is: " + str);
 
 		for (String s : prop.keySet()) {
@@ -329,7 +319,7 @@ public class PatternMatchingProcess {
 
 		}
 
-		int finalScore = Integer.MIN_VALUE;		
+		int finalScore = Integer.MIN_VALUE;
 		for (String s : prop.keySet()) {
 			if (score.get(s) > finalScore) {
 				finalScore = score.get(s);
@@ -344,7 +334,9 @@ public class PatternMatchingProcess {
 		return rs;
 	}
 
-	// template process, match and change the exception case to normal case
+	// template process, change the exception cases
+	// input: entity and sentence, "姚明", "姚明多高"
+	// output: the sentence changed by template, "姚明身高多少"
 	private String templateProcess(String entity, String sentence) {
 		if (sentence.lastIndexOf(entity) == -1 || sentence.equals(entity)) {
 			return sentence;
