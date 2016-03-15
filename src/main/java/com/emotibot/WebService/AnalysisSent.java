@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
 import com.emotibot.patternmatching.PatternMatchingProcess;
 import com.emotibot.util.Tool;
@@ -26,15 +27,17 @@ public class AnalysisSent {
 		   if(Tool.isStrEmptyOrNull(str)||!str.contains("姚明")) return bean;
 		   else
 		   {
+			   AnswerRewrite answerRewite = new AnswerRewrite();
 			   String ans1=simpleKnowledgeGetAnwer.getAnswer(str).trim();
 			   String ans2=patternMatchingProcess.getAnswer(str).trim();
+			   
 			   if(ans1.equals(ans2)){
-				   bean.setAnswer(ans1);
+				   bean.setAnswer(answerRewite.rewriteAnswer(ans1));
 				   bean.setScore(100.0*(ans1.length()>=1?1:ans1.length()));
 			   }
 			   else
 			   {
-				   bean.setAnswer(ans1+";"+ans2);
+				   bean.setAnswer(answerRewite.rewriteAnswer(ans1+";"+ans2));
 				   bean.setScore(50*Math.min(1,Math.min(ans1.length(), ans2.length())));
 			   }
 			   return bean;  

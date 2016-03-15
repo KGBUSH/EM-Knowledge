@@ -76,7 +76,7 @@ public class AnswerRewrite {
 	
 	public static void main(String [] args){
 		AnswerRewrite answerRewite = new AnswerRewrite();
-		String ans = "姚明，1980年生于上海市徐汇区，祖籍吴江震泽，前中国职业篮球运动员，司职中锋，中职联公司董事长兼经理";
+		String ans = "中锋";
 		System.out.println("answer is "+answerRewite.rewriteAnswer(ans));
 //		for(int i=0;i<200;i++){
 //			System.out.println("answer is "+answerRewite.rewriteAnswer("姚明"));
