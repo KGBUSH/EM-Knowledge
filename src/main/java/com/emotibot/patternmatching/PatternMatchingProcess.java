@@ -138,7 +138,7 @@ public class PatternMatchingProcess {
 	private Set<String> getCandidateSet(String str, String ent) {
 		Set<String> listPart = new HashSet<>();
 		while (str.lastIndexOf(ent) != -1) {
-			String s = str.substring(str.lastIndexOf(ent) + ent.length());
+			String s = str.substring(str.lastIndexOf(ent) + ent.length()).trim();
 			if (!s.isEmpty()) {
 				System.out.println("in GetParts, str:" + str + " is added into list");
 				listPart.add(s); // add the last part
@@ -360,10 +360,10 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明是什么时候出生的";
+		String str = " 姚明的生日是什么时候?";
+		mp.getAnswer(str);
 
 		// mp.templateProcess("姚明", str);
-		mp.getAnswer(str);
 
 		// System.out.println("senType="+mp.templateProcess("姚明", str));
 		// System.out.println("senType="+mp.sentenceClassifier.getSentenceType(mp.templateProcess("姚明",
