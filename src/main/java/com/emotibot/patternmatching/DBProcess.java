@@ -1,5 +1,6 @@
 package com.emotibot.patternmatching;
 
+import java.util.ArrayList;
 /*
  * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
  * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
@@ -15,6 +16,7 @@ import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
 import com.emotibot.neo4jprocess.Neo4jDBManager;
 import com.emotibot.util.Neo4jResultBean;
+import com.emotibot.util.Tool;
 
 public class DBProcess {
 	public static EmotibotNeo4jConnection conn = getDBConnection();
@@ -33,13 +35,22 @@ public class DBProcess {
 	}
 
 	public static List<String> getPropertyNameSet(String entity) {
+		List<String> propSet = new ArrayList<>();
+		if(Tool.isStrEmptyOrNull(entity)){
+			System.err.println("DBProcess.getPropertyNameSet: input is empty");
+			return propSet;
+		}
 		String query = buildCypherSQLObj.getPropNamebyEntityName(Common.PERSONLABEL, entity);
-		List<String> ls = conn.getArrayList(query);
-		System.out.println("in DBProcess, prop name is " + ls);
-		return ls;
+		propSet = conn.getArrayList(query);
+		System.out.println("in DBProcess, prop name is " + propSet);
+		return propSet;
 	}
 	
 	public static String getPropertyValue(String ent, String prop) {
+		if(Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(prop)){
+			System.err.println("DBProcess.getPropertyValue: input is empty");
+			return "";
+		}
 		Neo4jResultBean bean = null;
 		String query = buildCypherSQLObj.FindEntityAttr(Common.PERSONLABEL, ent, prop);
 		bean = conn.executeCypherSQL(query);

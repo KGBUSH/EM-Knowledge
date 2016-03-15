@@ -151,6 +151,10 @@ public class NLPProcess {
 	public static Set<String> getSynonymWordSet(String str) {
 		Set<String> synSet = new HashSet<>();
 		Set<String> synWord = new HashSet<>();
+		if(Tool.isStrEmptyOrNull(str)){
+			System.err.println("NLPProcess.getSynonymWordSet: input is empty");
+			return synWord;
+		}
 
 		if (!str.isEmpty() && synonymTable.containsKey(str)) {
 			synSet = synonymTable.get(str);
