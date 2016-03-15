@@ -360,7 +360,7 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明的荣誉是";
+		String str = "姚明是什么时候出生的";
 
 		// mp.templateProcess("姚明", str);
 		mp.getAnswer(str);

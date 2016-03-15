@@ -71,4 +71,10 @@
         <star index="2"/>的所属运动队是什么
         </template>
     </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 什 么 时 候 出 生 ^ </pattern>
+        <template>
+        <star index="2"/>的出生日期是什么
+        </template>
+    </category>
 </aiml>
