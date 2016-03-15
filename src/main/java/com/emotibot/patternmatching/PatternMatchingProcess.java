@@ -87,8 +87,8 @@ public class PatternMatchingProcess {
 		System.out.println("propName is " + propName);
 		rs = DBProcess.getPropertyValue(entity, propMap.get(propName));
 		
-		AnswerRewrite answerRewite = new AnswerRewrite();
-		rs = answerRewite.rewriteAnswer(rs);
+//		AnswerRewrite answerRewite = new AnswerRewrite();
+//		rs = answerRewite.rewriteAnswer(rs);
 		
 		System.out.println("rs is " + rs);
 
