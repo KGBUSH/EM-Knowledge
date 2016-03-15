@@ -15,13 +15,13 @@ import com.emotibot.nlp.NLPSevice;
 import com.hankcs.hanlp.seg.common.Term;
 
 public class Pre_ProcessSentence {
-	public static NLPSevice nlps = new NLPSevice();
+	public static NLPSevice nlps = new NLPSevice(); //seg and pos entity Recognition
 
 	/**
-	 * 分词
+	 * seg and pos 
 	 * 
 	 * @param sentence
-	 * @return
+	 * @return word/pos
 	 */
 	public static List<Term> getSegPos(String sentence) {
 		List<Term> segPos = nlps.ProcessSentence(sentence, NLPFlag.SegPos.getValue()).getWordPos();

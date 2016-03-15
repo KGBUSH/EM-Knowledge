@@ -11,9 +11,13 @@ import com.hankcs.hanlp.seg.common.Term;
 public class SentenceTemplate extends AbstractAIMLEngine {
     
     public SentenceTemplate() {
-        super("SentenceBot");
+        super("SentenceBot"); //template database
     }
-    
+    /**
+     * get sentence attribute type    
+     * @param sentence
+     * @return entity##attribute
+     */
     public String getSentenceType(String sentence)
     { 
         String processedQ;

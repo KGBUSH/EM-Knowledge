@@ -18,8 +18,12 @@ import com.emotibot.neo4jprocess.Neo4jDBManager;
 import com.emotibot.util.Neo4jResultBean;
 
 public class TraversalToGraph {
-	public static EmotibotNeo4jConnection conn = getEmotibotNeo4jConnection();
-	public static BuildCypherSQL BuildCypherSQLObj = new BuildCypherSQL();
+	public static EmotibotNeo4jConnection conn = getEmotibotNeo4jConnection(); //connection 
+	public static BuildCypherSQL BuildCypherSQLObj = new BuildCypherSQL(); //sql query
+	/**
+	 * 实例化连接
+	 * @return
+	 */
 	public static EmotibotNeo4jConnection getEmotibotNeo4jConnection()
 	{
 		ConfigManager cfg = new ConfigManager();
@@ -33,16 +37,22 @@ public class TraversalToGraph {
         return neo4jDBManager.getConnection();
 	}
 	public static String getBeanAnswer(Neo4jResultBean bean){
-		if(bean==null||!bean.isStatus()){
+		if(!bean.isStatus()){
 			return "";
 		}
 		else return bean.getResult();
 	}
+	/**
+	 * entity and attribute  traversal knowledgeGraph  to get answer
+	 * @param entity
+	 * @param attribute
+	 * @return
+	 */
 	public static String traversal(List<Name_Type> entity,List<Name_Type> attribute){
 		Neo4jResultBean bean = null;
 		String answer= "";
 		if(entity.size()> 0 ||attribute.size()>0){
-		if(entity.size()==1&&attribute.size() ==0){
+		if(entity.size()==1&&attribute.size() ==0){//单个实体 没有属性
 			if(entity.get(0).value.equals("姚明")){
 		   String query=BuildCypherSQLObj.FindEntityInfo(Common.PERSONLABEL, entity.get(0).value);
 		   bean=conn.executeCypherSQL(query);
@@ -64,7 +74,7 @@ public class TraversalToGraph {
 			//多个实体多个属性
 		}
 		}
-		if(getBeanAnswer(bean)!=null&&!getBeanAnswer(bean).equals("")){
+		if(bean != null&&getBeanAnswer(bean)!=null){
 			answer =getBeanAnswer(bean);
 		}
 		return answer;

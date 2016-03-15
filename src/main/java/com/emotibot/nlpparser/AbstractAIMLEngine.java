@@ -22,7 +22,9 @@ public abstract class AbstractAIMLEngine {
         this.templateBot = new Bot(botname, aiml_path);
         this.chatSession = new Chat(templateBot);
     }
-    
+    /**
+     * 配置模版路径
+     */
     private final void configAIML() {
 //        final Properties properties = new Properties();
 //        final String configFileName = "aiml.property";
@@ -34,7 +36,11 @@ public abstract class AbstractAIMLEngine {
 //        }
         this.aiml_path = Common.UserDir;//properties.getProperty("aiml_path", SentenceTypeClassifier.class.getResource("").getPath());        
     }
-    
+    /**
+     * 过滤掉非中文字符
+     * @param c
+     * @return
+     */
     protected boolean isChinese(char c) {
         Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
         if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
@@ -48,7 +54,11 @@ public abstract class AbstractAIMLEngine {
         }
         return false;
     }
-  
+  /**
+   * 
+   * @param s
+   * @return
+   */
     protected String insertSpace2Chinese(String s) {
         int tail = 0;
         char[] temp = new char[s.length() * 2];
@@ -65,7 +75,11 @@ public abstract class AbstractAIMLEngine {
         }
         return new String(temp);
     }
-    
+    /**
+     * 删除加入的特定字符（＃＃）前的字
+     * @param s
+     * @return
+     */
     protected String removeSpaceFromChinese(String s) {
         Boolean bCn = false;
         int tail = 0;
