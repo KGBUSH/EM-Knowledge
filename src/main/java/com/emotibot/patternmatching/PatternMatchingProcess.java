@@ -18,6 +18,7 @@ import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.nlp.NLPFlag;
 import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
+import com.emotibot.util.Tool;
 import com.hankcs.hanlp.seg.common.Term;
 
 public class PatternMatchingProcess {
@@ -31,15 +32,21 @@ public class PatternMatchingProcess {
 	public String getAnswer(String sentence) {
 
 		String rs = "";
+		if (Tool.isStrEmptyOrNull(sentence)) {
+			return rs;
+		}
 		/*
 		 * 1. get the entity by Solr and Revise by template
 		 */
 		String entity = getEntityBySolr(sentence);
-		if (entity.isEmpty()) {
+		if (Tool.isStrEmptyOrNull(entity)) {
 			System.out.println("the sentence does not contain entity name and so return empty");
 			return rs;
 		}
 		sentence = templateProcess(entity, sentence);
+		if (Tool.isStrEmptyOrNull(sentence)) {
+			return rs;
+		}
 
 		/*
 		 * 2. split the sentence by the entities to get candidates
@@ -86,10 +93,10 @@ public class PatternMatchingProcess {
 		}
 		System.out.println("propName is " + propName);
 		rs = DBProcess.getPropertyValue(entity, propMap.get(propName));
-		
-//		AnswerRewrite answerRewite = new AnswerRewrite();
-//		rs = answerRewite.rewriteAnswer(rs);
-		
+
+		// AnswerRewrite answerRewite = new AnswerRewrite();
+		// rs = answerRewite.rewriteAnswer(rs);
+
 		System.out.println("rs is " + rs);
 
 		return rs;
@@ -318,11 +325,16 @@ public class PatternMatchingProcess {
 
 	// tempalte process, match and change the exception case to normal case
 	private String templateProcess(String entity, String sentence) {
-		if (sentence.lastIndexOf(entity) == -1) {
+//		System.out.println("pattern matching: in templateprocess, entity="+entity+" sentence = " + sentence );
+		if (Tool.isStrEmptyOrNull(sentence) || sentence.lastIndexOf(entity) == -1 || sentence.equals(entity)) {
 			return sentence;
 		}
 
 		String[] strArr = sentence.split(entity);
+		if (strArr.length == 0) {
+			return "";
+		}
+
 		String rs = strArr[0];
 		for (int i = 1; i < strArr.length; i++) {
 			rs += "## " + entity + "<type>entity</type> ";
