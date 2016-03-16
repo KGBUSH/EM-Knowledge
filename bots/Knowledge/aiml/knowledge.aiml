@@ -60,6 +60,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type> ^ 穿 多 大 码 的 鞋 ^ </pattern>
+        <template>
+        <star index="2"/>的鞋码是多少
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type> ^ 属 于 哪 个 队 ^ </pattern>
         <template>
         <star index="2"/>的所属运动队是什么
@@ -75,6 +81,24 @@
         <pattern> ^ ## * <type>entity</type> ^ 什 么 时 候 出 生 ^ </pattern>
         <template>
         <star index="2"/>的出生日期是什么
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 在 哪 出 生 ^ </pattern>
+        <template>
+        <star index="2"/>的出生地是什么
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 出 生 在 哪 ^ </pattern>
+        <template>
+        <star index="2"/>的出生地是什么
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 最 多 拿 过 多 少 分 ^ </pattern>
+        <template>
+        <star index="2"/>的生涯最高分是多少
         </template>
     </category>
 </aiml>
