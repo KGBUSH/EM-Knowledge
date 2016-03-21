@@ -55,27 +55,19 @@ public class ExtractorJob {
 		      conf.set("destTable", destTableName);
 		      conf.set("type", type);
 		      conf.set("label", Common.PERSONLABEL);
-
 				if(type.contains("Neo4j"))
 				{
 					ConfigManager cfg = new ConfigManager();
-					//Neo4jConfigBean neo4jConfigBean = new Neo4jConfigBean();
-					//neo4jConfigBean.setDriverName(cfg.getNeo4jDriverName());
-					//neo4jConfigBean.setIp(cfg.getNeo4jServerIp());
-					//neo4jConfigBean.setPassword(cfg.getNeo4jPasswd());
-					//neo4jConfigBean.setPort(cfg.getNeo4jServerPort());
-					//neo4jConfigBean.setUser(cfg.getNeo4jUserName());
-				      conf.set("DriverName", cfg.getNeo4jDriverName());
-				      conf.set("Ip", cfg.getNeo4jServerIp());
-				      conf.set("Password", cfg.getNeo4jPasswd());
-				      conf.setInt("Port", cfg.getNeo4jServerPort());
-				      conf.set("User", cfg.getNeo4jUserName());
+				    conf.set("DriverName", cfg.getNeo4jDriverName());
+				    conf.set("Ip", cfg.getNeo4jServerIp());
+				    conf.set("Password", cfg.getNeo4jPasswd());
+				    conf.setInt("Port", cfg.getNeo4jServerPort());
+				    conf.set("User", cfg.getNeo4jUserName());
 				}
 				if(type.contains("Solr"))
 				{
 					
 				}
-		      
 		      Job job = new Job(conf);
 		      job.setInputFormatClass(TableInputFormat.class);
 		      job.setOutputFormatClass(TableOutputFormat.class);
