@@ -26,16 +26,38 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
 
+import com.emotibot.config.ConfigManager;
+import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
+import com.emotibot.neo4jprocess.Neo4jConfigBean;
+import com.emotibot.neo4jprocess.Neo4jDBManager;
+import com.emotibot.util.Neo4jResultBean;
+
 public  class ExtractorReduce extends
     Reducer<ImmutableBytesWritable, Text, Writable, Put> {
     public static ImmutableBytesWritable puttable = new ImmutableBytesWritable();
     public static String outputTableName = "";
-
+    public static String type="";
+    public static EmotibotNeo4jConnection conn=null;
   @Override
   public void setup(Context context) 
   {
+	  type=context.getConfiguration().get("type");
 	  outputTableName=context.getConfiguration().get("destTable");
       puttable = new ImmutableBytesWritable(Bytes.toBytes(outputTableName));  
+      ///////
+	     String DriverName= context.getConfiguration().get("DriverName");
+	     String Ip= context.getConfiguration().get("Ip");
+	     String Password= context.getConfiguration().get("Password");
+	     int Port= context.getConfiguration().getInt("Port", 0);
+	     String User= context.getConfiguration().get("User");	     
+		Neo4jConfigBean neo4jConfigBean = new Neo4jConfigBean();
+		neo4jConfigBean.setDriverName(DriverName);
+		neo4jConfigBean.setIp(Ip);
+		neo4jConfigBean.setPassword(Password);
+		neo4jConfigBean.setPort(Port);
+		neo4jConfigBean.setUser(User);
+		Neo4jDBManager neo4jDBManager = new Neo4jDBManager(neo4jConfigBean);
+        conn=neo4jDBManager.getConnection();
   }
 
 
@@ -45,15 +67,20 @@ public  class ExtractorReduce extends
       InterruptedException {
     String pageinfo = "";
     for (Text value : values) {
-      pageinfo = value.toString();
-     // int index = getASCIISum(value.toString(), puttablelist.size());
-		System.err.println("outputTableName="+outputTableName);
-		System.err.println("pageinfo="+pageinfo.length());
-
-      Put put = new Put(DigestUtils.md5Hex(pageinfo).getBytes());
-      //put.add("url".getBytes(), "url".getBytes(), value.toString().getBytes());
-      put.add("url".getBytes(), "url".getBytes(), pageinfo.toString().getBytes());
-      context.write(puttable, put);
+		if(type.contains("Neo4j"))
+		{
+			String query=value.toString();
+			System.err.println("query="+query);
+			if(conn!=null) 
+			{
+				Neo4jResultBean bean=conn.executeCypherSQL(query);
+				System.err.println(bean.toString());
+			}
+		}
+		if(type.contains("Solr"))
+		{
+			
+		}
     }
   }
 }
