@@ -48,7 +48,14 @@ public class BaikeExtractor extends Extractor {
 	        for(int index=0;index<values.size();index++){
 	               attr=attributes.get(index).html().replaceAll("&nbsp;", "");
 	               value=values.get(index).text();
-	               //System.out.println(attr+"=="+value);
+	               ///////////////////////////////////////////////
+	            Elements hrefs = values.get(index).select("a");
+            	for(Element href : hrefs){
+            		String link = href.attr("href");
+            		String word = href.text().trim();
+            		System.out.println(link+" ==> "+word);
+            	}
+	               /////////////////////////////////////////////
 	               pageInfo.addAttr(attr, value);
 	        }		
 	    }
@@ -104,7 +111,7 @@ public class BaikeExtractor extends Extractor {
 	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/yaomin";
+		String path="/Users/Elaine/Documents/workspace/html/honghaoshizitou";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		System.err.println(ex.ProcessPage().toString());
