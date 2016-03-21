@@ -37,7 +37,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 	public static String HTMLBODY = "html";
     public static String type="";
 	public static  String label="";
-
+    public static String Seperator="ACBDGFX";
 	@Override
 	public void setup(Context context) {
 		type=context.getConfiguration().get("type");
@@ -81,7 +81,22 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 				}
 				if(type.contains("Solr"))
 				{
-					
+					BaikeExtractor baikeExtractor = new BaikeExtractor(html);
+					PageExtractInfo pageInfo = baikeExtractor.ProcessPage();
+					//doc.addField("id", pageInfo.getName());
+					//doc.addField(Name, pageInfo.getName());
+					//doc.addField(Attr, pageInfo.getAttrStr());
+					//doc.addField(Value, pageInfo.getValueStr());
+					//doc.addField(AttrValue, pageInfo.getAttrValueStr());
+					//doc.addField(Info, pageInfo.toSolrString());
+					StringBuffer buffer = new StringBuffer();
+					buffer.append(pageInfo.getName()).append(Seperator);
+					buffer.append(pageInfo.getName()).append(Seperator);
+					buffer.append(pageInfo.getAttrStr()).append(Seperator);
+					buffer.append(pageInfo.getValueStr()).append(Seperator);
+					buffer.append(pageInfo.getAttrValueStr()).append(Seperator);
+					buffer.append(pageInfo.toSolrString());
+					context.write(key, new Text(buffer.toString()));
 				}
 			}
 		} catch (Exception e) {

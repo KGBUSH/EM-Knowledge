@@ -26,11 +26,14 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
+import org.apache.solr.common.SolrInputDocument;
 
 import com.emotibot.config.ConfigManager;
+import com.emotibot.extractor.PageExtractInfo;
 import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
 import com.emotibot.neo4jprocess.Neo4jDBManager;
+import com.emotibot.solr.SolrUtil;
 import com.emotibot.util.Neo4jResultBean;
 
 public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writable, Put> {
@@ -38,13 +41,20 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 	public static String outputTableName = "";
 	public static String type = "";
 	public static EmotibotNeo4jConnection conn = null;
-
+    public static String Seperator="ACBDGFX";
+	public static final String Name = "KG_Name";
+	public static final String Attr = "KG_Attr";
+	public static final String Value = "KG_Value";
+	public static final String AttrValue = "KG_Attr_Value";
+	public static final String Info = "KG_Info";
+    public static SolrUtil solr = null;
 	@Override
 	public void setup(Context context) {
 		type = context.getConfiguration().get("type");
 		outputTableName = context.getConfiguration().get("destTable");
 		puttable = new ImmutableBytesWritable(Bytes.toBytes(outputTableName));
 		///////
+		if (type.contains("Neo4j")) {
 		String DriverName = context.getConfiguration().get("DriverName");
 		String Ip = context.getConfiguration().get("Ip");
 		String Password = context.getConfiguration().get("Password");
@@ -58,13 +68,18 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 		neo4jConfigBean.setUser(User);
 		Neo4jDBManager neo4jDBManager = new Neo4jDBManager(neo4jConfigBean);
 		conn = neo4jDBManager.getConnection();
+		}
+		else
+		{
+		solr = new SolrUtil();
+		}
 	}
 
 	@Override
 	protected void reduce(ImmutableBytesWritable key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
 		try {
-			//String pageinfo = "";
+			long solrDocnum=0;
 			for (Text value : values) {
 				if (type.contains("Neo4j")) {
 					String query = value.toString();
@@ -75,9 +90,28 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 					}
 				}
 				if (type.contains("Solr")) {
+                  String line=value.toString();
+                  String[] arr = line.split(Seperator);
+                   if(arr!=null&&arr.length==6)
+                   {
+           			SolrInputDocument doc = new SolrInputDocument();
+        			doc.addField("id", arr[0].trim());
+        			doc.addField(Name, arr[1].trim());
+        			doc.addField(Attr, arr[2].trim());
+        			doc.addField(Value, arr[3].trim());
+        			doc.addField(AttrValue, arr[4].trim());
+        			doc.addField(Info, arr[5].trim());
+                    solr.addDoc(doc);
+                    solrDocnum++;
+                    if(solrDocnum%100==0) {
+                    	solrDocnum=solrDocnum%100;
+                    	solr.Commit();
+                    }
+                   }
 
 				}
 			}
+			if(solrDocnum>0) solr.Commit();
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 

@@ -73,8 +73,7 @@ public class SolrUtil {
 	}
 
 	public boolean addDoc(PageExtractInfo pageInfo) {
-		if (pageInfo == null)
-			return true;
+		if (pageInfo == null) return false;
 		try {
 			SolrInputDocument doc = new SolrInputDocument();
 			doc.addField("id", pageInfo.getName());
@@ -90,6 +89,17 @@ public class SolrUtil {
 		}
 		return true;
 	}
+	public boolean addDoc(SolrInputDocument doc) {
+		if (doc == null)  return false;
+		try {
+			server.add(doc);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+
     public String Search(String word)
     {
     	try{
