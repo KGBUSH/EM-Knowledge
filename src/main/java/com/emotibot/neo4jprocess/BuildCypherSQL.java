@@ -19,11 +19,11 @@ import com.emotibot.util.Tool;
 public class BuildCypherSQL implements CypherSQLParser {
 
 	/*
-	 * // get Entity Query 
+	 * // get Entity Query
 	 * 
-	 * public String getEntity(String label, String name,
-	 * String value) { String query = "match (e:" + label + ") where " + name +
-	 * "=" + value + " return id(ee) as id, e as entity"; return query; }
+	 * public String getEntity(String label, String name, String value) { String
+	 * query = "match (e:" + label + ") where " + name + "=" + value +
+	 * " return id(ee) as id, e as entity"; return query; }
 	 */
 
 	public String InsertEntityNodeByPageExtractInfo(PageExtractInfo pageInfo) {
@@ -70,11 +70,15 @@ public class BuildCypherSQL implements CypherSQLParser {
 				query += " {" + key + ":\"" + entityB.getProperties().get(key) + "\"} ";
 			}
 
-			query += ") merge (p)-[r:" + relationLabel + "]->(q) set ";
-			for (String key : attr.keySet()) {
-				query += "r." + key + "=\"" + attr.get(key) + "\",";
+			query += ") merge (p)-[r:" + relationLabel + "]->(q) ";
+			if (attr != null && attr.size() > 0) {
+				query += " set ";
+				for (String key : attr.keySet()) {
+					query += "r." + key + "=\"" + attr.get(key) + "\",";
+				}
+				query = query.substring(0, query.length() - 1);
 			}
-			query = query.substring(0, query.length() - 1);
+
 			query += "  return p, r, q";
 
 		}
@@ -131,7 +135,7 @@ public class BuildCypherSQL implements CypherSQLParser {
 		entityB.setLabel(Common.PERSONLABEL);
 		buildCypherSQL.InsertEntityNode("Person", "叶莉", entityB.getProperties());
 		Map<String, String> relation = new HashMap<>();
-		relation.put("时间", "2003");
+		 relation.put("时间", "2003");
 
 		buildCypherSQL.InsertRelation(entityA, entityB, "夫妻", relation);
 
