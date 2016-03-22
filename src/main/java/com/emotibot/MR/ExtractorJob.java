@@ -20,6 +20,7 @@ import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
 import org.apache.hadoop.mapreduce.Job;
+import org.apache.hadoop.mapreduce.JobPriority;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
@@ -50,7 +51,6 @@ public class ExtractorJob {
 		      Scan scan = new Scan();
 		      scan.setCaching(100);
 		      scan.setCacheBlocks(false);
-		     // conf.set(TableInputFormat.SCAN, convertScanToString(scan));
 		      conf.set(TableInputFormat.INPUT_TABLE, inputTableName);
 		      conf.set("destTable", destTableName);
 		      conf.set("type", type);
@@ -69,6 +69,7 @@ public class ExtractorJob {
 					
 				}
 		      Job job = new Job(conf);
+		      job.setPriority(JobPriority.HIGH);
 		      job.setInputFormatClass(TableInputFormat.class);
 		      job.setOutputFormatClass(TableOutputFormat.class);
 		      job.setMapOutputValueClass(Text.class);
@@ -85,6 +86,9 @@ public class ExtractorJob {
 		    	e.printStackTrace();
 		        System.out.println(e.toString());
 		    }
+		
+		//new ExtractorMap().getFileLine("/domain/TV_series.txt");
+
 	}
 
 }

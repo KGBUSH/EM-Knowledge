@@ -48,6 +48,12 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 	public static final String AttrValue = "KG_Attr_Value";
 	public static final String Info = "KG_Info";
     public static SolrUtil solr = null;
+    public static  String DriverName = "";
+    public static  String Ip = "";
+    public static String Password = "";
+    public static int Port = 0;
+    public static String User = "";
+
 	@Override
 	public void setup(Context context) {
 		type = context.getConfiguration().get("type");
@@ -55,19 +61,14 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 		puttable = new ImmutableBytesWritable(Bytes.toBytes(outputTableName));
 		///////
 		if (type.contains("Neo4j")) {
-		String DriverName = context.getConfiguration().get("DriverName");
-		String Ip = context.getConfiguration().get("Ip");
-		String Password = context.getConfiguration().get("Password");
-		int Port = context.getConfiguration().getInt("Port", 0);
-		String User = context.getConfiguration().get("User");
-		Neo4jConfigBean neo4jConfigBean = new Neo4jConfigBean();
-		neo4jConfigBean.setDriverName(DriverName);
-		neo4jConfigBean.setIp(Ip);
-		neo4jConfigBean.setPassword(Password);
-		neo4jConfigBean.setPort(Port);
-		neo4jConfigBean.setUser(User);
-		Neo4jDBManager neo4jDBManager = new Neo4jDBManager(neo4jConfigBean);
-		conn = neo4jDBManager.getConnection();
+		 DriverName = context.getConfiguration().get("DriverName");
+		 Ip = context.getConfiguration().get("Ip");
+		 Password = context.getConfiguration().get("Password");
+		 Port = context.getConfiguration().getInt("Port", 0);
+		 User = context.getConfiguration().get("User");
+
+		conn = new EmotibotNeo4jConnection(DriverName, Ip, Port, User, Password) ;
+
 		}
 		else
 		{
@@ -81,13 +82,18 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 		try {
 			long solrDocnum=0;
 			for (Text value : values) {
+				System.err.println("typeReduce=" + type);
 				if (type.contains("Neo4j")) {
 					String query = value.toString();
-					System.err.println("query=" + query);
+					System.err.println("queryReduce=" + query);
 					if (conn != null) {
-						Neo4jResultBean bean = conn.executeCypherSQL(query);
-						System.err.println(bean.toString());
 					}
+					else
+					{
+						conn = new EmotibotNeo4jConnection(DriverName, Ip, Port, User, Password) ;
+					}
+					Neo4jResultBean bean = conn.executeCypherSQL(query);
+					System.err.println("bean="+bean.toString());
 				}
 				if (type.contains("Solr")) {
                   String line=value.toString();
@@ -113,7 +119,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 			}
 			if(solrDocnum>0) solr.Commit();
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			System.err.println("ReduceException="+e.getMessage());
 
 		}
 	}
