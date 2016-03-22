@@ -1,5 +1,6 @@
 package com.emotibot.neo4jprocess;
 
+import java.util.HashMap;
 /*
  * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
  * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
@@ -12,31 +13,23 @@ import java.util.Map;
 import com.emotibot.common.Common;
 import com.emotibot.config.ConfigManager;
 import com.emotibot.extractor.PageExtractInfo;
+import com.emotibot.util.Entity;
 import com.emotibot.util.Tool;
 
 public class BuildCypherSQL implements CypherSQLParser {
-	// get Entity Query
-	public String getEntity(String label, String name, String value) {
-		String query = "match (e:" + label + ") where " + name + "=" + value + " return id(ee) as id, e as entity";
-		return query;
-	}
+
+	/*
+	 * // get Entity Query 
+	 * 
+	 * public String getEntity(String label, String name,
+	 * String value) { String query = "match (e:" + label + ") where " + name +
+	 * "=" + value + " return id(ee) as id, e as entity"; return query; }
+	 */
 
 	public String InsertEntityNodeByPageExtractInfo(PageExtractInfo pageInfo) {
 		if (pageInfo == null)
 			return Common.EMPTY;
 		return InsertEntityNode(Common.PERSONLABEL, pageInfo.getName(), pageInfo.getAttr());
-	}
-
-	public String getPropNamebyEntityName(String label, String ent) {
-		String query = "";
-		if (Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(label)) {
-			// TBD
-		} else {
-			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) return keys(e) as "
-					+ Common.ResultObj;
-		}
-		System.out.println("query in getPropNamebyEntityName is: " + query);
-		return query;
 	}
 
 	@Override
@@ -45,9 +38,10 @@ public class BuildCypherSQL implements CypherSQLParser {
 		// merge (n:Person{id:11}) set n.名字="姚明",n.position="C" return n
 		String query = "";
 		if (Tool.isStrEmptyOrNull(Label) || Tool.isStrEmptyOrNull(name) || (attr == null || attr.size() == 0)) {
-		}
-		{
-			query = "merge (" + Common.ResultObj + ":Person{" + Common.KGNODE_NAMEATRR + ":\"" + name + "\"}) set ";
+			System.err.println("InsertEntityNode has invalid input");
+		} else {
+			query = "merge (" + Common.ResultObj + ":" + Label + "{" + Common.KGNODE_NAMEATRR + ":\"" + name
+					+ "\"}) set ";
 			for (String key : attr.keySet()) {
 				query += Common.ResultObj + "." + key + "=\"" + attr.get(key) + "\",";
 			}
@@ -60,9 +54,32 @@ public class BuildCypherSQL implements CypherSQLParser {
 	}
 
 	@Override
-	public String InsertEntityEdge(String LabelA, String nameA, String relation, String LabelB, String nameB) {
-		// TODO Auto-generated method stub
-		return null;
+	public String InsertRelation(Entity entityA, Entity entityB, String relationLabel, Map<String, String> attr) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(relationLabel) || entityA == null || entityB == null
+				|| Tool.isStrEmptyOrNull(entityA.getLabel()) || Tool.isStrEmptyOrNull(entityB.getLabel())) {
+			System.err.println("InsertRelation has invalid input");
+		} else {
+			query = "match (p:" + entityA.getLabel();
+			for (String key : entityA.getProperties().keySet()) {
+				query += " {" + key + ":\"" + entityA.getProperties().get(key) + "\"} ";
+			}
+
+			query += ") match (q:" + entityB.getLabel();
+			for (String key : entityB.getProperties().keySet()) {
+				query += " {" + key + ":\"" + entityB.getProperties().get(key) + "\"} ";
+			}
+
+			query += ") merge (p)-[r:" + relationLabel + "]->(q) set ";
+			for (String key : attr.keySet()) {
+				query += "r." + key + "=\"" + attr.get(key) + "\",";
+			}
+			query = query.substring(0, query.length() - 1);
+			query += "  return p, r, q";
+
+		}
+		System.out.println("query in InsertRelation is: " + query);
+		return query;
 	}
 
 	@Override
@@ -88,6 +105,36 @@ public class BuildCypherSQL implements CypherSQLParser {
 		}
 		System.out.println("query in FindEnitityAttr is: " + query);
 		return query;
+	}
+
+	@Override
+	public String getPropNamebyEntityName(String label, String ent) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(label)) {
+			// TBD
+		} else {
+			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) return keys(e) as "
+					+ Common.ResultObj;
+		}
+		System.out.println("query in getPropNamebyEntityName is: " + query);
+		return query;
+	}
+
+	public static void main(String[] args) {
+		BuildCypherSQL buildCypherSQL = new BuildCypherSQL();
+		Entity entityA = new Entity();
+		entityA.setLabel(Common.PERSONLABEL);
+		entityA.addProperty("身高", "226cm");
+		buildCypherSQL.InsertEntityNode("Person", "姚明", entityA.getProperties());
+		Entity entityB = new Entity();
+		entityB.addProperty("身高", "190cm");
+		entityB.setLabel(Common.PERSONLABEL);
+		buildCypherSQL.InsertEntityNode("Person", "叶莉", entityB.getProperties());
+		Map<String, String> relation = new HashMap<>();
+		relation.put("时间", "2003");
+
+		buildCypherSQL.InsertRelation(entityA, entityB, "夫妻", relation);
+
 	}
 
 }

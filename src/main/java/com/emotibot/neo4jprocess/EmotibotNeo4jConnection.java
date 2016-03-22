@@ -88,11 +88,11 @@ public class EmotibotNeo4jConnection {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			Entity ent = new Entity((int) rs.getObject("id"));
+			Entity ent = new Entity();
 			Map<String, Object> m = (Map<String, Object>) rs.getObject("entity");
 			for (String key : m.keySet()) {
 				System.out.println(key + "  " + m.get(key));
-				ent.addProperty(key, m.get(key));
+				ent.addProperty(key, m.get(key).toString());
 			}
 			return ent;
 		} catch (Exception e) {

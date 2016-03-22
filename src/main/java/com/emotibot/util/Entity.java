@@ -6,7 +6,8 @@
  */
 package com.emotibot.util;
 
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 /*
  * 
@@ -15,35 +16,42 @@ import java.util.Hashtable;
  * */
 
 public class Entity {
+	private static int count = 0;
 	private int id;
-	private Hashtable<String, Object> ht;
+	private String label;
+	private Map<String, String> ht;
 
-	public Entity(int id) {
-		this.setID(id);
+	public Entity() {
+		this.setID(count++);
+		this.ht = new HashMap<>();
 	}
 	
-	public Object getProperty(String name){
-		return ht.get(name);
-	}
-	
-	public void addProperty(String name, Object value){
-		ht.put(name, value);
+	public String getProperty(String key){
+		return ht.get(key);
 	}
 
-	public Hashtable<String, Object> getProperties() {
+	public Map<String, String> getProperties() {
 		return ht;
 	}
 
-	public void setProperties(Hashtable<String, Object> ht) {
-		this.ht = ht;
+	public void addProperty(String key, String value) {
+		ht.put(key, value);
 	}
 
 	public int getID() {
 		return id;
 	}
 
-	private void setID(int id) {
-		this.id = id;
+	private void setID(int i) {
+		this.id = i;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 }
