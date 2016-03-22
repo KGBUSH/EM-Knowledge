@@ -9,6 +9,7 @@ package com.emotibot.MR;
 import java.io.IOException;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
 import org.apache.hadoop.hbase.KeyValue;
@@ -86,6 +87,9 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 				if (type.contains("Neo4j")) {
 					String query = value.toString();
 					System.err.println("queryReduce=" + query);
+					query = StringEscapeUtils.escapeSql(query);
+					System.err.println("queryReduce2=" + query);
+
 					if (conn != null) {
 					}
 					else
