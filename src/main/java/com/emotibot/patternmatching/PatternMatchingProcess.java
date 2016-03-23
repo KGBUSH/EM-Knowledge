@@ -49,18 +49,23 @@ public class PatternMatchingProcess {
 		}
 
 		// 2. split the sentence by the entities to get candidates
+
+		// get candidates by splitting the sentence by entities.
 		Set<String> candidateSet = this.getCandidateSet(sentence, entity);
 		System.out.println("PMP.getAnswer: candidateSet = " + candidateSet);
+
+		// get all the property of the entity
 		Map<String, String> propMap = this.getPropertyNameSet(entity);
 		System.out.println("PMP.getAnswer: propMap = " + propMap);
 
 		// 3. compute the score for each candidate
 		List<PatternMatchingResultBean> rsBean = new ArrayList();
+		System.out.println("---------------Begin of Pattern Matching Candidate Process--------------------");
 		for (String s : candidateSet) {
-			System.out.println("Candidate is " + s);
+			System.out.println("### Candidate is " + s);
 			// remove stopWord and get all possible candidates w.r.t. synonyms
 			List<String> synList = auxilaryProcess(s);
-			System.out.println("all syn questions are " + synList);
+			System.out.println("all syn candidates are " + synList);
 
 			for (String q : synList) {
 				PatternMatchingResultBean pmRB = this.getCandidatePropName(q, propMap);
@@ -71,6 +76,7 @@ public class PatternMatchingProcess {
 				}
 			}
 		}
+		System.out.println("---------------End of Pattern Matching Candidate Process--------------------");
 
 		// 4. Build the Cypher SQL and get the answer
 		int finalScore = Integer.MIN_VALUE;
@@ -101,6 +107,7 @@ public class PatternMatchingProcess {
 
 	// get the property set in DB with synonym process
 	// return Map<synProp, prop>
+	// output: [<老婆,老婆>, <妻,老婆>, ...]
 	private Map<String, String> getPropertyNameSet(String ent) {
 		Map<String, String> rsMap = new HashMap<>();
 		if (Tool.isStrEmptyOrNull(ent)) {
@@ -116,7 +123,7 @@ public class PatternMatchingProcess {
 				rsMap.put(iSyn, iProp);
 			}
 		}
-		System.out.println("all the prop is: " + rsMap);
+//		System.out.println("all the prop is: " + rsMap);
 		return rsMap;
 	}
 
@@ -136,10 +143,10 @@ public class PatternMatchingProcess {
 			return ent;
 	}
 
-	/*
-	 * split the sentence by the entities to get candidates. if question does
-	 * not contain ent, return null.
-	 */
+	// get the candidiates by spliting the sentence accroding to the entity
+	// input: “你知道姚明的身高吗？”
+	// output: [“你知道”，“的身高吗”]
+	// if question does not contain ent, return null.
 	private Set<String> getCandidateSet(String str, String ent) {
 		Set<String> listPart = new HashSet<>();
 		if (Tool.isStrEmptyOrNull(str) || Tool.isStrEmptyOrNull(ent)) {
@@ -163,9 +170,9 @@ public class PatternMatchingProcess {
 		return listPart;
 	}
 
-	/*
-	 * remove the stopword in a string.
-	 */
+	// remove the stopword in a string.
+	// input: "身高是多少"
+	// output: "身高"
 	private String removeStopWord(String str) {
 		String rs = "";
 		// Segmentation Process
@@ -174,18 +181,20 @@ public class PatternMatchingProcess {
 		List<Term> segPos = tnNode.getWordPos();
 		for (int i = 0; i < segPos.size(); i++) {
 			String s = segPos.get(i).word;
-			System.out.print(s + ", ");
+			// System.out.print(s + ", ");
 			if (!NLPProcess.isStopWord(s))
 				rs += s;
 		}
-		System.out.println("");
+		// System.out.println("");
 
 		return rs;
 	}
 
 	// generate all the possibility candidates according to synonyms
+	// input: 这个标志多少
+	// output: [这个记号数量, 这个标志数量, 这个记号多少, 这个标志多少]
 	private List<String> replaceSynonymProcess(String str) {
-		System.out.println("input of replaceSynonymProcess is " + str);
+		// System.out.println("input of replaceSynonymProcess is " + str);
 		List<String> rsSet = new ArrayList<>();
 		if (str.isEmpty()) {
 			System.out.println("output of replaceSynonymProcess is " + rsSet);
@@ -195,43 +204,40 @@ public class PatternMatchingProcess {
 		NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
 		List<Term> segPos = tnNode.getWordPos();
 		rsSet.add("");
-		boolean flag = false;
 		for (int i = 0; i < segPos.size(); i++) {
 			String iWord = segPos.get(i).word;
-			System.out.println("current word is " + iWord);
+			// System.out.println("current word is " + iWord);
 
 			Set<String> iSynSet = NLPProcess.getSynonymWordSet(iWord);
-			// System.out.println("NLPProcess.replaceSP iSynSet=" + iSynSet);
+			if (!iSynSet.contains(iWord)) {
+				iSynSet.add(iWord);
+			}
 			if (iSynSet.size() > 0) {
-				flag = true;
-				System.out.println("\t has syn: " + iSynSet);
-				// if there are synonyms, combine each of them
+				// System.out.println(iWord + " has syn: " + iSynSet);
+				// combine each of the synonyms to generate mutliple candidates
 				List<String> newRS = new ArrayList<>();
 				for (String iSyn : iSynSet) {
-					System.out.println("iSyn is " + iSyn);
+					// System.out.println("\t iSyn is " + iSyn);
 					List<String> tmpRS = new ArrayList<>();
 					tmpRS.addAll(rsSet);
 					for (int j = 0; j < tmpRS.size(); j++) {
 						tmpRS.set(j, tmpRS.get(j) + iSyn);
 					}
 					newRS.addAll(tmpRS);
-					System.out.println("tempRS is: " + tmpRS + "; newRS is " + newRS);
+					// System.out.println("\t tempRS is: " + tmpRS + "; newRS is
+					// " + newRS);
 				}
 				rsSet = newRS;
 				// System.out.println("after syn is: " + newRS);
 			} else {
-				// System.out.println("\t No syn: " + iWord);
+				System.err.println("PMP.replaceSynonym: No syn: " + iWord);
 				for (int j = 0; j < rsSet.size(); j++) {
 					rsSet.set(j, rsSet.get(j) + iWord);
 				}
 			}
 		}
 
-		// add the original string
-		if (flag) {
-			rsSet.add(str);
-		}
-
+		// System.out.println("output of replaceSynonym: " + rsSet.toString());
 		return rsSet;
 	}
 
@@ -245,19 +251,19 @@ public class PatternMatchingProcess {
 
 		// 1. remove the stop words like "多少" in a sentence
 		str = this.removeStopWord(str);
-		System.out.println("after removing Stop Words: " + str);
+		System.out.println("PMP.auxilaryProcess: after removing Stop Words: " + str);
 
 		// 2. generate candidates according to the synonyms
 		rsSet = this.replaceSynonymProcess(str);
-		System.out.println("after synonym process: " + rsSet + " size is " + rsSet.size());
+		System.out.println("PMP.auxilaryProcess: after synonym process: " + rsSet + " & size is " + rsSet.size());
 
 		return rsSet;
 	}
 
-	/*
-	 * return the property with the highest score; return null if the threshold
-	 * is hold the version without segPos
-	 */
+	// return the property with the highest score; return null if the threshold
+	// is hold the version without segPos
+	// input: （姚明）妻
+	// output: 叶莉
 	private PatternMatchingResultBean getCandidatePropName(String str, Map<String, String> prop) {
 		// threshold to pass: if str contain a property in DB, pass
 		boolean isPass = false;
@@ -278,7 +284,8 @@ public class PatternMatchingProcess {
 			}
 
 			// pattern matching algorithm suggested by Phantom
-			// compute the score by scanning from left to right
+			// compute the score by scanning the sentence from left to right
+			// compare each char, if match, socre++, else score--
 			String tmpProp = s;
 			int left2right = 0;
 			for (int i = 0; i < str.length(); i++) {
@@ -295,6 +302,7 @@ public class PatternMatchingProcess {
 			}
 			// System.out.println("left is " + left2right);
 
+			// case: "sentence is 所属运动队, prop is 运动项目; left=-1, right=-5"
 			// extend the algorithm by adding the process from right to left
 			// compute the score by scanning from right to left
 			tmpProp = s;
@@ -310,6 +318,10 @@ public class PatternMatchingProcess {
 			}
 			// System.out.println("right is " + right2left + " isPass is " +
 			// isPass);
+
+			// if (left2right != right2left)
+			// System.err.println(
+			// "sentence is " + str + ", prop is " + s + "; left=" + left2right + ", right=" + right2left);
 
 			if (left2right > right2left) {
 				score.put(s, left2right);
@@ -370,7 +382,7 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = " 姚明的生日是什么时候?";
+		String str = "姚明老婆";
 		mp.getAnswer(str);
 
 		// mp.templateProcess("姚明", str);
