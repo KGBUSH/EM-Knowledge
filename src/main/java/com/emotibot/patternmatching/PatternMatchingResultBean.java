@@ -9,7 +9,7 @@ package com.emotibot.patternmatching;
 
 public class PatternMatchingResultBean {
 	private String answer;
-	private int score;
+	private double score;
 	private boolean valid = false;
 
 	public boolean isValid() {
@@ -29,11 +29,11 @@ public class PatternMatchingResultBean {
 		this.answer = answer;
 	}
 
-	public int getScore() {
+	public double getScore() {
 		return score;
 	}
 
-	public void setScore(int score) {
+	public void setScore(double score) {
 		this.score = score;
 	}
 

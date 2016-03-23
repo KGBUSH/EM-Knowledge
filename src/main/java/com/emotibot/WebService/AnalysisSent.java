@@ -1,7 +1,9 @@
 package com.emotibot.WebService;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -29,7 +31,7 @@ public class AnalysisSent {
 		   {
 			   AnswerRewrite answerRewite = new AnswerRewrite();
 			   String ans1=simpleKnowledgeGetAnwer.getAnswer(str).trim();
-			   String ans2=patternMatchingProcess.getAnswer(str).trim();
+			   String ans2=patternMatchingProcess.getAnswer(str).getAnswer().trim();
 			   
 			   if(ans1.equals(ans2)){
 				   bean.setAnswer(answerRewite.rewriteAnswer(ans1));
@@ -57,15 +59,17 @@ public class AnalysisSent {
 
 		final BufferedReader reader2 = new BufferedReader(new InputStreamReader(new FileInputStream(testFile)));
 		String line2 = null;
+		int i = 1;
+		FileWriter f = new FileWriter("a");
 		while ((line2 = reader2.readLine()) != null) {
 			if (!line2.isEmpty()) {
-			   System.out.println(line2);
-			  
-				System.err.println(new AnalysisSent().AnalysisSentence(line2));
+			  f.write("Line"+i+": "+line2+"\r\n");
+			  f.write("Line"+i+": "+new AnalysisSent().AnalysisSentence(line2)+"\r\n");
+			  i++;
 			}
 
 		}
-
+       f.close();
 		reader2.close();
 
 		//String s="";

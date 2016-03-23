@@ -19,7 +19,7 @@ public class AnswerBean {
 	public String toString()
 	{
 		StringBuffer buffer = new StringBuffer();
-		buffer.append(answer).append("\r\n");
+		buffer.append(answer).append("; ");
 		buffer.append(score).append("\r\n");
 		return buffer.toString();
 	}
