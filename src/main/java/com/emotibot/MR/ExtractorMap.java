@@ -125,7 +125,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					PageExtractInfo pageExtractInfo = baikeExtractor.ProcessPage();
 					String name = pageExtractInfo.getName();
 					if (name != null && !WordLabelMap.containsKey(name)) {
-						System.err.println("name is not contain in WordLabelMap " + name);
+						System.err.println("name is not contain in WordLabelMap " + name+" "+url);
 						return;
 					}
 					label = WordLabelMap.get(name);

@@ -17,6 +17,8 @@ public class PageExtractInfo {
 	private String firstPara="";
 	private HashMap<String,String> attr = new HashMap<>();
 	private List<Sentence> sentList = new ArrayList<>();
+	private HashMap<String,List<String>> attr_Values = new HashMap<>();
+
 	public HashMap<String,String> getAttr() {
 		return attr;
 	}
@@ -111,6 +113,12 @@ public class PageExtractInfo {
 			buffer.append(sent.toString()).append("======\r\n");
 		}
 		buffer.append("firstPara="+firstPara).append("======\r\n");
+		buffer.append("attr_Values=").append("======\r\n");
+		for(String attr:attr_Values.keySet())
+		{
+			buffer.append("attr="+attr).append(" ").append(attr_Values.get(attr).toString()).append("\r\n");
+		}
+
 		return buffer.toString();
 	}
 	public String getFirstPara() {
@@ -118,6 +126,27 @@ public class PageExtractInfo {
 	}
 	public void setFirstPara(String firstPara) {
 		this.firstPara = firstPara;
+	}
+	public HashMap<String,List<String>> getAttr_Values() {
+		return attr_Values;
+	}
+	public void setAttr_Values(HashMap<String,List<String>> attr_Values) {
+		this.attr_Values = attr_Values;
+	}
+	
+	public void addAttr_Values(String attr,String value)
+	{
+		if(Tool.isStrEmptyOrNull(attr)) return ;
+		if(Tool.isStrEmptyOrNull(value)) return ;
+		if(attr_Values.containsKey(attr))
+		{
+			attr_Values.get(attr).add(value);
+		}
+		else
+		{
+			attr_Values.put(attr, new ArrayList<String>());
+			attr_Values.get(attr).add(value);
+		}
 	}
 	
 	
