@@ -83,7 +83,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 		try {
 			long solrDocnum=0;
 			for (Text value : values) {
-				System.err.println("typeReduce=" + type);
+				System.err.println("typeReduce=" + type+"  ");
 				if (type.contains("Neo4j")) {
 					String query = value.toString();
 					System.err.println("queryReduce=" + query);
@@ -100,8 +100,11 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 					System.err.println("bean="+bean.toString());
 				}
 				if (type.contains("Solr")) {
+                	long t11 = System.currentTimeMillis();
                   String line=value.toString();
                   String[] arr = line.split(Seperator);
+				  System.err.println("arr.length="+arr.length);
+
                    if(arr!=null&&arr.length==6)
                    {
            			SolrInputDocument doc = new SolrInputDocument();
@@ -113,11 +116,18 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
         			doc.addField(Info, arr[5].trim());
                     solr.addDoc(doc);
                     solrDocnum++;
-                    if(solrDocnum%100==0) {
-                    	solrDocnum=solrDocnum%100;
+					System.err.println("solrDocnum="+solrDocnum);
+                    if(solrDocnum%1000==0) {
+                    	solrDocnum=solrDocnum%1000;
+                    	long t1 = System.currentTimeMillis();
                     	solr.Commit();
+                    	long t2=System.currentTimeMillis();
+    					System.err.println("time="+(t2-t1));
+
                     }
                    }
+               	long t22 = System.currentTimeMillis();
+				System.err.println("time2="+(t22-t11));
 
 				}
 			}

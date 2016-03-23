@@ -48,7 +48,7 @@ public class SolrUtil {
 	public boolean Commit() {
 		try {
 			if (server != null){
-			    server.optimize();
+			   // server.optimize();
 				server.commit();
 			}
 		} catch (Exception e) {
@@ -127,7 +127,7 @@ public class SolrUtil {
     	}
     	return Common.EMPTY;
     }
-	public static void main(String args[]) throws SolrServerException, IOException {
+	public static void main(String args[]) throws SolrServerException, IOException, InterruptedException {
 		SolrUtil solr = new SolrUtil();
 		
 		/* Vector<String> files = new Vector<String>();
@@ -144,9 +144,33 @@ public class SolrUtil {
 		 }
 		 solr.Commit(); 
 		 System.err.println("OK");*/
-		 
-		solr.Search("林心如");
-		System.err.println("OK");
+    	Vector<String> files = new Vector<String>();
+		 files.add("/Users/Elaine/Documents/workspace/html/yaomin");
+		 files.add("/Users/Elaine/Documents/workspace/html/yaoxinlei");
+		 files.add("/Users/Elaine/Documents/workspace/html/caiyilin");
+		 files.add("/Users/Elaine/Documents/workspace/html/linxinru"); int
+		 index = 0; 
+		 for (int i = 0; i < files.size(); i++) { 
+		 String html =Tool.getFileContent(files.get(i)); 
+		 Extractor ex = new BaikeExtractor(html); 
+		 PageExtractInfo pageInfo = ex.ProcessPage();
+		 solr.addDoc(pageInfo);
+		 String name = pageInfo.getName();
+		 for(int j=0;j<10000;j++)
+		 {
+			 pageInfo.setName(name+j);
+			 solr.addDoc(pageInfo);
+				System.err.println("i,j="+i+"  "+j);
+
+		 }
+		    long t1=System.currentTimeMillis();
+			 solr.Commit(); 
+			 System.err.println("OK");
+	    	long t2=System.currentTimeMillis();
+			System.err.println("time="+(t2-t1));
+           Thread.sleep(10*1000);
+		 }
+
 		return;
 	}
 

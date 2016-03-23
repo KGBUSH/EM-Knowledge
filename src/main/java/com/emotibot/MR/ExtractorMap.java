@@ -114,6 +114,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 			}
 			System.err.println("url.size=" + url.length() + " html.size=" + html.length());
 			if ((url != null && url.trim().length() > 0) && (html != null && html.trim().length() > 0)) {
+				if(url.indexOf("baike.baidu.com")==-1) return;
 				if (type.contains("Neo4j")) {
 					BaikeExtractor baikeExtractor = new BaikeExtractor(html);
 					PageExtractInfo pageExtractInfo = baikeExtractor.ProcessPage();
@@ -142,13 +143,12 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 								for(String val:list)
 								{
 									//name ,  attr    value
-									Entity a = new Entity();
-									Entity b = new Entity();
+									Entity a = new Entity(label, name);
+									Entity b = new Entity("other",val);
 									String query=bcy.InsertRelation(a, b, attr, null);
 									System.err.println(NodeOrRelation+" queryMap=" + query);
 									if (query == null || query.trim().length() == 0) return;
 									context.write(key, new Text(query));
-
 								}
 							}
 						}
@@ -164,7 +164,9 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					buffer.append(pageInfo.getValueStr()).append(Seperator);
 					buffer.append(pageInfo.getAttrValueStr()).append(Seperator);
 					buffer.append(pageInfo.toSolrString());
-					context.write(key, new Text(buffer.toString()));
+					ImmutableBytesWritable outputKey = new ImmutableBytesWritable();
+					outputKey.set(Bytes.toBytes(getASCIISum(url, 3)));
+					context.write(outputKey, new Text(buffer.toString()));
 				}
 			}
 		} catch (Exception e) {
@@ -173,7 +175,14 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 		}
 		return;
 	}
-
+	public String getASCIISum(String url, int n) {
+		long sum = 0;
+		url = url.toLowerCase();
+		for (int index = 0; index < url.length(); index++) {
+			sum = sum + Math.abs(url.charAt(index) - 'a');
+		}
+		return String.valueOf(sum % n);
+	}
 	public void getFileLine(String fileName) {
 		try {
 			if (fileName == null || fileName.trim().length() == 0) {
