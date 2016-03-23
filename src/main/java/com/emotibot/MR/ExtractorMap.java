@@ -7,6 +7,8 @@
 package com.emotibot.MR;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -43,6 +45,7 @@ import com.emotibot.util.Entity;
 public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, ImmutableBytesWritable, Text> {
 	public static String URL = "url";
 	public static String HTMLBODY = "html";
+	public static String WORDS="words";
 	public static String type = "";
 	public static String label = "";
 	public static String Seperator = "ACBDGFX";
@@ -101,6 +104,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 				return;
 			String url = "";
 			String html = "";
+			String pmWord="";
 			KeyValue[] kv = value.raw();
 			for (int i = 0; i < kv.length; i++) {
 				System.err.println("kv[i].getQualifier()=" + Bytes.toString(kv[i].getQualifier()));
@@ -111,6 +115,11 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 				if ((HTMLBODY).equals(Bytes.toString(kv[i].getQualifier()))) {
 					html = Bytes.toString(kv[i].getValue());
 				}
+				if ((WORDS).equals(Bytes.toString(kv[i].getQualifier()))) {
+					pmWord = Bytes.toString(kv[i].getValue());
+					pmWord=URLDecoder.decode(pmWord).trim();
+				}
+
 			}
 			System.err.println("url.size=" + url.length() + " html.size=" + html.length());
 			if ((url != null && url.trim().length() > 0) && (html != null && html.trim().length() > 0)) {
@@ -119,12 +128,16 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					BaikeExtractor baikeExtractor = new BaikeExtractor(html);
 					PageExtractInfo pageExtractInfo = baikeExtractor.ProcessPage();
 					String name = pageExtractInfo.getName();
+					boolean flag = name.equals(pmWord);
+					System.err.println(name+"KKKKK"+pmWord+"  "+flag);
 					if (name != null && !WordLabelMap.containsKey(name)) {
-						System.err.println("name is not contain in WordLabelMap " + name+" "+url);
+						System.err.println("name is not contain in WordLabelMap " + name+"  "+pmWord+" "+url);
 						return;
 					}
-					label = WordLabelMap.get(name);
-					if(NodeOrRelation.equals("1")){
+					return;
+
+					/*label = WordLabelMap.get(name);*/
+					/*if(NodeOrRelation.equals("1")){
 					BuildCypherSQL bcy = new BuildCypherSQL();
 					String query = bcy.InsertEntityNode(label, pageExtractInfo.getName(), pageExtractInfo.getAttr());
 					System.err.println(NodeOrRelation+" queryMap=" + query);
@@ -152,7 +165,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 								}
 							}
 						}
-					}
+					}*/
 				}
 				if (type.contains("Solr")) {
 					BaikeExtractor baikeExtractor = new BaikeExtractor(html);
@@ -200,7 +213,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 			while (in.readLine(line) > 0) {
 				// result.add(line.toString());
 				lineStr = line.toString().trim();
-				System.err.println(lineStr + "  " + label);
+				System.err.println(lineStr + "MMMM" + label);
 				WordLabelMap.put(lineStr, label);
 			}
 			dis.close();
