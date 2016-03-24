@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
 
 import com.emotibot.common.BytesEncodingDetect;
 import com.emotibot.common.Common;
@@ -51,7 +52,30 @@ public class Tool {
 			return buffer.toString();
 		}
 	}
-	
+	public static Vector<String> getFileLines(String fileName) {
+		Vector<String> result = new Vector<String>();
+		if (isStrEmptyOrNull(fileName))
+			return result;
+		else {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312")) fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String line = "";
+				while ((line = dis.readLine()) != null) {
+                   result.add(line.trim());
+				}
+			} catch (Exception e) {
+				logService.log(e.getMessage());
+				return result;
+			}
+			return result;
+			}
+	}
+
 	public static Map<String,String> WordsInSent(final Map<String,String> MaoUrl,final String sent)
 	{
 		HashMap<String,String> result = new HashMap<>();
