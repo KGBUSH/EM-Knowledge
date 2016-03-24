@@ -1,0 +1,80 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ 是 谁 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 是 什 么 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 干 嘛 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 是 啥 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 是 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 是 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 认 识 ^ 吗 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 知 道 ^ 吗 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 了 解 ^ 吗 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 听 说 过 ^ 吗 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 熟 悉 ^ 吗 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 介 绍 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 陈 述 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+</aiml>

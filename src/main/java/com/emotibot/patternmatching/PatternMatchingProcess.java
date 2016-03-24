@@ -23,8 +23,9 @@ import com.hankcs.hanlp.seg.common.Term;
 
 public class PatternMatchingProcess {
 
-	final TemplateProcessor sentenceClassifier = new TemplateProcessor("Knowledge");
-	final TemplateProcessor classifierSelectQ = new TemplateProcessor("KG_Pre");
+	final TemplateProcessor sentenceTemplate = new TemplateProcessor("Knowledge");
+	final TemplateProcessor selectiveQuestionTemplate = new TemplateProcessor("Pre");
+	final TemplateProcessor introductionTemplate = new TemplateProcessor("Post");
 
 	// The entrance to understand the user query and get answer from Neo4j
 	// input: the question sentence from users,"姚明身高是多少"
@@ -60,6 +61,7 @@ public class PatternMatchingProcess {
 		PatternMatchingResultBean beanPM = new PatternMatchingResultBean();
 		// call different processes according to different situations
 		beanPM = getSingleEntityNormalQ(userSentence, entity);
+
 		// if it is the selective question
 		String strSeletive = processSelectQ(userSentence);
 		if (!strSeletive.isEmpty()) {
@@ -81,10 +83,9 @@ public class PatternMatchingProcess {
 		} else {
 			// case of matching property
 			beanPM.setAnswer("firstParamInfo");
-			beanPM.setScore(beanPM.getScore() * isIntroduction(userSentence));
-
+			beanPM.setScore(isIntroduction(userSentence) ? 100 : 0);
 		}
-		System.out.println("propName is " + beanPM.getAnswer());
+		System.out.println("PM.getAnswer: the returned beanPM is " + beanPM.toString());
 		answerBean.setAnswer(DBProcess.getPropertyValue(entity, beanPM.getAnswer()));
 		answerBean.setScore(beanPM.getScore());
 
@@ -100,8 +101,20 @@ public class PatternMatchingProcess {
 	// to test if the user want to get the introduction of the entity
 	// input: 姚明是谁？ 你喜欢姚明吗？
 	// output: 1 0
-	private int isIntroduction(String userSentence) {
-		return 1; // TBD: default is 0
+	private boolean isIntroduction(String sentence) {
+		boolean rs = false;
+		if (Tool.isStrEmptyOrNull(sentence)) {
+			return rs;
+		}
+
+		String feedback = introductionTemplate.process(sentence);
+		if (!feedback.isEmpty()) {
+			rs = true;
+			System.out.println("isIntro: input:" + sentence + " is to ask the introduction");
+		} else {
+			System.out.println("isIntro: input:" + sentence + " is NOT ");
+		}
+		return rs;
 	}
 
 	// to test if the user question is a seletive question or not
@@ -112,7 +125,7 @@ public class PatternMatchingProcess {
 			return "";
 		}
 
-		String rs = classifierSelectQ.inputSentenceRewrite(sentence);
+		String rs = selectiveQuestionTemplate.process(sentence);
 		if (!rs.isEmpty()) {
 			System.out.println("isSelectQ: input=" + sentence + ", output=" + rs);
 		}
@@ -181,8 +194,8 @@ public class PatternMatchingProcess {
 			rs.setScore(finalScore);
 		}
 
+		System.out.println("PM.getSingleEntityNormalQ return bean is " + rs.toString());
 		return rs;
-
 	}
 
 	// get the property set in DB with synonym process
@@ -461,7 +474,7 @@ public class PatternMatchingProcess {
 		}
 
 		// System.out.println("rs=" + rs);
-		rs = sentenceClassifier.inputSentenceRewrite(rs);
+		rs = sentenceTemplate.process(rs);
 		if (rs.isEmpty()) {
 			rs = sentence;
 		}
@@ -472,7 +485,7 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明是研究生吗？";
+		String str = "谁是姚明？";
 		mp.getAnswer(str);
 
 		// mp.templateProcess("姚明", str);
