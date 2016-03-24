@@ -31,16 +31,22 @@ public class Neo4jDBManagerTest {
 		files.add("/Users/Elaine/Documents/workspace/html/linxinru");
 		EmotibotNeo4jConnection conn = getEmotibotNeo4jConnection();
 		BuildCypherSQL BuildCypherSQLObj = new BuildCypherSQL();
+
  		for(String f : files)
 		{
-			String html=Tool.getFileContent(f);
-			Extractor ex = new BaikeExtractor(html);
-			PageExtractInfo pageInfo=ex.ProcessPage();
-			//System.err.println(ex.ProcessPage().toString());
+ 			String html=Tool.getFileContent(f);
+ 			Extractor ex = new BaikeExtractor(html);
+ 			PageExtractInfo pageInfo=ex.ProcessPage();
+
+ 			//for(int index=0;index<1000;index++)
+ 			//{
+ 				
+			//pageInfo.setName(String.valueOf(index));
 			String query=BuildCypherSQLObj.InsertEntityNodeByPageExtractInfo(pageInfo);
 			System.err.println(query);
 			Neo4jResultBean bean=conn.executeCypherSQL(query);
 			System.err.println(bean.toString());
+ 			//}
 
 
 		}
@@ -79,7 +85,18 @@ public class Neo4jDBManagerTest {
 	}
 	public static void main(String args[]) throws SQLException {
 		//BuildKG();
-		SQLExample();
+		//SQLExample();
+		EmotibotNeo4jConnection con=getEmotibotNeo4jConnection();
+		Vector<String> sqls = Tool.getFileLines("sql");
+		int index=0;
+		for(String sql:sqls)
+		{
+			sql=sql.substring(0, sql.indexOf("return"));
+			System.err.println(index+++"  "+sql);
+
+			System.err.println(con.updateQuery(sql));
+
+		}
 	}
 
 }
