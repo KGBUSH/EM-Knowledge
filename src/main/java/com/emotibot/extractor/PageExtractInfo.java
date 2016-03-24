@@ -38,21 +38,39 @@ public class PageExtractInfo {
 	{
 		if(Tool.isStrEmptyOrNull(key)) return ;
 		if(value==null) return ;
+		if(key.contains("<")||key.contains(">")) return ;
 		key=key.replaceAll("/", "");//
 		key=key.replaceAll("\\.", "");
 		key=key.replaceAll("!", "");
 		key=key.replaceAll("\\?", "");
 		key=key.replaceAll("\\*", "");
-		value=value.replace("'", "");
+		//" “ ”
+		key = key.replaceAll("[\\pP‘’“”]", "");
+		key = key.replaceAll("[0-9]", "");
+
+		key=key.replaceAll("\"", "");
+		key=key.replaceAll("“", "");
+		key=key.replaceAll("”", "");
+        key=removeAllBlank(key);
+		value=value.replace("'", " ");
 		value=value.replace("\\", "");
 		value=value.replace("/", "");
+		value=value.replaceAll("\"", "");
+		value=value.replaceAll("“", " ");
+		value=value.replaceAll("”", " ");
 
 		value=StringEscapeUtils.escapeSql(value);
 
 		attr.put(key, value);
 		return ;
 	}
-	
+	public static String removeAllBlank(String s){  
+	    String result = "";  
+	    if(null!=s && !"".equals(s)){  
+	        result = s.replaceAll("[　*| *| *|//s*]*", "");  
+	    }  
+	    return result;  
+	} 
 	public void addSentList(Sentence sentStr)
 	{
 		if(sentStr!=null) sentList.add(sentStr);
