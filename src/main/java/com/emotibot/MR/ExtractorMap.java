@@ -49,6 +49,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 	public static String type = "";
 	public static String label = "";
 	public static String Seperator = "ACBDGFX";
+	public static String Other = "other";
 
 	public static HashMap<String, String> WordLabelMap = null;
 	public static List<String> fileList = null;
@@ -135,15 +136,16 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					System.err.println("MM"+name+"KKKKK"+pmWord+"MM  "+flag+" "+name_flag+"  "+pmname_flag);
 					if (name != null && !WordLabelMap.containsKey(name)) {
 						System.err.println("name is not contain in WordLabelMap " + name+"  "+pmWord+" "+url);
-						return;
+						if(NodeOrRelation.equals("1")) return;
 					}
 					//return;
-
-					label = WordLabelMap.get(name);
+                    if(NodeOrRelation.equals("3")) label=Other;
+					if(NodeOrRelation.equals("1")) label = WordLabelMap.get(name);
+					
 					ImmutableBytesWritable outputKey = new ImmutableBytesWritable();
 					outputKey.set(Bytes.toBytes(getASCIISum(url, 3)));
 
-					if(NodeOrRelation.equals("1")){
+					if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3")){
 					BuildCypherSQL bcy = new BuildCypherSQL();
 					String query = bcy.InsertEntityNode(label, pageExtractInfo.getName(), pageExtractInfo.getAttr());
 					System.err.println(NodeOrRelation+" queryMap=" + query);
@@ -161,9 +163,8 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 								List<String> list = attr_Values.get(attr);
 								for(String val:list)
 								{
-									//name ,  attr    value
 									Entity a = new Entity(label, name);
-									Entity b = new Entity("other",val);
+									Entity b = new Entity(Other,val);
 									String query=bcy.InsertRelation(a, b, attr, null);
 									System.err.println(NodeOrRelation+" queryMap=" + query);
 									if (query == null || query.trim().length() == 0) return;

@@ -170,11 +170,27 @@ public class PageExtractInfo {
 	{
 		if(Tool.isStrEmptyOrNull(attr)) return ;
 		if(Tool.isStrEmptyOrNull(value)) return ;
+		if(attr.contains("<")||attr.contains(">")) return ;
 		attr=attr.replaceAll("/", "");//
 		attr=attr.replaceAll("\\.", "");
 		attr=attr.replaceAll("!", "");
 		attr=attr.replaceAll("\\?", "");
 		attr=attr.replaceAll("\\*", "");
+		//" “ ”
+		attr = attr.replaceAll("[\\pP‘’“”]", "");
+		attr = attr.replaceAll("[0-9]", "");
+
+		attr=attr.replaceAll("\"", "");
+		attr=attr.replaceAll("“", "");
+		attr=attr.replaceAll("”", "");
+		attr=removeAllBlank(attr);
+		value=value.replace("'", " ");
+		value=value.replace("\\", "");
+		value=value.replace("/", "");
+		value=value.replaceAll("\"", "");
+		value=value.replaceAll("“", " ");
+		value=value.replaceAll("”", " ");
+
 		value=StringEscapeUtils.escapeSql(value);
 
 		if(attr_Values.containsKey(attr))
