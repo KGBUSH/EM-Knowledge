@@ -38,6 +38,7 @@ import com.emotibot.common.Common;
 import com.emotibot.extractor.BaikeExtractor;
 import com.emotibot.extractor.PageExtractInfo;
 import com.emotibot.neo4jprocess.BuildCypherSQL;
+import com.emotibot.util.Entity;
 
 public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, ImmutableBytesWritable, Text> {
 	public static String URL = "url";
@@ -48,7 +49,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 
 	public static HashMap<String, String> WordLabelMap = null;
 	public static List<String> fileList = null;
-
+   public static String NodeOrRelation="";
 	/*
 	 * /domain/TV_series.txt /domain/anime.txt /domain/catchword.txt
 	 * /domain/college.txt /domain/computer_game.txt /domain/cosmetics.txt
@@ -67,6 +68,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 	@Override
 	public void setup(Context context) {
 		type = context.getConfiguration().get("type");
+		if (type.contains("Neo4j"))  NodeOrRelation=context.getConfiguration().get("NodeOrRelation");
 		label = context.getConfiguration().get("label");
 		fileList = new ArrayList<String>();
 		fileList.add("/domain/TV_series.txt");
@@ -112,39 +114,49 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 			}
 			System.err.println("url.size=" + url.length() + " html.size=" + html.length());
 			if ((url != null && url.trim().length() > 0) && (html != null && html.trim().length() > 0)) {
-				/*
-				 * BaikeExtractor baikeExtractor = new BaikeExtractor(html);
-				 * PageExtractInfo pageExtractInfo =
-				 * baikeExtractor.ProcessPage(); String info =
-				 * pageExtractInfo.toString();
-				 * System.err.println("info.size="+info.length());
-				 * context.write(key, new Text(info));
-				 */
 				if (type.contains("Neo4j")) {
 					BaikeExtractor baikeExtractor = new BaikeExtractor(html);
 					PageExtractInfo pageExtractInfo = baikeExtractor.ProcessPage();
 					String name = pageExtractInfo.getName();
 					if (name != null && !WordLabelMap.containsKey(name)) {
-						System.err.println("name is not contain in WordLabelMap " + name);
+						System.err.println("name is not contain in WordLabelMap " + name+" "+url);
 						return;
 					}
 					label = WordLabelMap.get(name);
+					if(NodeOrRelation.equals("1")){
 					BuildCypherSQL bcy = new BuildCypherSQL();
 					String query = bcy.InsertEntityNode(label, pageExtractInfo.getName(), pageExtractInfo.getAttr());
-					System.err.println("queryMap=" + query);
-					if (query == null || query.trim().length() == 0)
-						return;
+					System.err.println(NodeOrRelation+" queryMap=" + query);
+					if (query == null || query.trim().length() == 0) return;
 					context.write(key, new Text(query));
+					}
+					if(NodeOrRelation.equals("2"))
+					{
+						HashMap<String,List<String>> attr_Values = pageExtractInfo.getAttr_Values();
+						BuildCypherSQL bcy = new BuildCypherSQL();
+						if(attr_Values!=null&&attr_Values.size()>0)
+						{
+							for(String attr:attr_Values.keySet())
+							{
+								List<String> list = attr_Values.get(attr);
+								for(String val:list)
+								{
+									//name ,  attr    value
+									Entity a = new Entity();
+									Entity b = new Entity();
+									String query=bcy.InsertRelation(a, b, attr, null);
+									System.err.println(NodeOrRelation+" queryMap=" + query);
+									if (query == null || query.trim().length() == 0) return;
+									context.write(key, new Text(query));
+
+								}
+							}
+						}
+					}
 				}
 				if (type.contains("Solr")) {
 					BaikeExtractor baikeExtractor = new BaikeExtractor(html);
 					PageExtractInfo pageInfo = baikeExtractor.ProcessPage();
-					// doc.addField("id", pageInfo.getName());
-					// doc.addField(Name, pageInfo.getName());
-					// doc.addField(Attr, pageInfo.getAttrStr());
-					// doc.addField(Value, pageInfo.getValueStr());
-					// doc.addField(AttrValue, pageInfo.getAttrValueStr());
-					// doc.addField(Info, pageInfo.toSolrString());
 					StringBuffer buffer = new StringBuffer();
 					buffer.append(pageInfo.getName()).append(Seperator);
 					buffer.append(pageInfo.getName()).append(Seperator);

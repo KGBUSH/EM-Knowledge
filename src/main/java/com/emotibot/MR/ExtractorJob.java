@@ -38,9 +38,9 @@ public class ExtractorJob {
 	public static void main(String args[])
 	{
 		 try {
-			  if(args.length!=3) 
+			  if(args.length!=3&&args.length!=4) 
 			  {
-				  System.err.println("input two param:inputtable,desttable,Type");
+				  System.err.println("input two param:inputtable,desttable,Type,(=4,1 Node ,2 Relation)");
 				  System.exit(0);
 			  }
 		      Configuration conf = HBaseConfiguration.create();
@@ -63,6 +63,7 @@ public class ExtractorJob {
 				    conf.set("Password", cfg.getNeo4jPasswd());
 				    conf.setInt("Port", cfg.getNeo4jServerPort());
 				    conf.set("User", cfg.getNeo4jUserName());
+				    conf.set("NodeOrRelation",args[3].trim());
 				}
 				if(type.contains("Solr"))
 				{
