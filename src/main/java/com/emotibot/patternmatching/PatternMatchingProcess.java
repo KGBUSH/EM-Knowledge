@@ -23,14 +23,16 @@ import com.hankcs.hanlp.seg.common.Term;
 
 public class PatternMatchingProcess {
 
-	final SentenceTypeClassifier sentenceClassifier = new SentenceTypeClassifier();
+	final TemplateProcessor sentenceClassifier = new TemplateProcessor("Knowledge");
+	final TemplateProcessor classifierSelectQ = new TemplateProcessor("KG_Pre");
 
-	// Get the answer by the pattern matching method
+	// The entrance to understand the user query and get answer from Neo4j
 	// input: the question sentence from users,"姚明身高是多少"
 	// output: the answer without answer rewriting, “226cm”
 	public AnswerBean getAnswer(String userSentence) {
+
 		String sentence = userSentence;
-		System.out.println("PMP.getAnswer: sentence = " + sentence);
+		// System.out.println("PMP.getAnswer: sentence = " + sentence);
 		AnswerBean answerBean = new AnswerBean();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getAnswer: input is empty");
@@ -55,8 +57,75 @@ public class PatternMatchingProcess {
 			return answerBean;
 		}
 
-		// 2. split the sentence by the entities to get candidates
+		PatternMatchingResultBean beanPM = new PatternMatchingResultBean();
+		// call different processes according to different situations
+		beanPM = getSingleEntityNormalQ(userSentence, entity);
+		// if it is the selective question
+		String strSeletive = processSelectQ(userSentence);
+		if (!strSeletive.isEmpty()) {
+			if (beanPM.isValid()) {
+				answerBean.setAnswer(strSeletive.substring(0, 1));
+			} else {
+				answerBean.setAnswer(strSeletive.substring(1));
+			}
+			answerBean.setScore(beanPM.getScore());
+			System.out.println("Selective Qustion: anwerBean is " + answerBean.toString());
+			return answerBean;
+		}
 
+		if (beanPM.isValid()) {
+			// case of not matching property
+			if (isQuestion == false) {
+				beanPM.setScore(0);
+			}
+		} else {
+			// case of matching property
+			beanPM.setAnswer("firstParamInfo");
+			beanPM.setScore(beanPM.getScore() * isIntroduction(userSentence));
+
+		}
+		System.out.println("propName is " + beanPM.getAnswer());
+		answerBean.setAnswer(DBProcess.getPropertyValue(entity, beanPM.getAnswer()));
+		answerBean.setScore(beanPM.getScore());
+
+		// answer rewrite process
+		// AnswerRewrite answerRewite = new AnswerRewrite();
+		// rs = answerRewite.rewriteAnswer(rs);
+
+		System.out.println("anwerBean is " + answerBean.toString());
+
+		return answerBean;
+	}
+
+	// to test if the user want to get the introduction of the entity
+	// input: 姚明是谁？ 你喜欢姚明吗？
+	// output: 1 0
+	private int isIntroduction(String userSentence) {
+		return 1; // TBD: default is 0
+	}
+
+	// to test if the user question is a seletive question or not
+	// input: 姚明有老婆吗？
+	// output: 有没有
+	private String processSelectQ(String sentence) {
+		if (Tool.isStrEmptyOrNull(sentence)) {
+			return "";
+		}
+
+		String rs = classifierSelectQ.inputSentenceRewrite(sentence);
+		if (!rs.isEmpty()) {
+			System.out.println("isSelectQ: input=" + sentence + ", output=" + rs);
+		}
+		System.out.println("isSelectQ: input=" + sentence + ", output=" + rs);
+		return rs;
+	}
+
+	// Get the answer by the pattern matching method
+	// for the case of single entity in normal question mode
+	// input: the question sentence from users,"姚明身高是多少"
+	// output: the answer without answer rewriting, “226cm”
+	private PatternMatchingResultBean getSingleEntityNormalQ(String sentence, String entity) {
+		// 2. split the sentence by the entities to get candidates
 		// get candidates by splitting the sentence by entities.
 		Set<String> candidateSet = this.getCandidateSet(sentence, entity);
 		System.out.println("PMP.getAnswer: candidateSet = " + candidateSet);
@@ -79,11 +148,6 @@ public class PatternMatchingProcess {
 			List<String> synList = new ArrayList<>();
 			synList = this.replaceSynonymProcess(s);
 			System.out.println("\t after synonym process: " + synList + " & size is " + synList.size());
-
-			// // remove stopWord and get all possible candidates w.r.t.
-			// synonyms
-			// List<String> synList = auxilaryProcess(s);
-			// System.out.println("all syn candidates are " + synList);
 
 			for (String q : synList) {
 				System.out.println("q=" + q + " and s=" + s);
@@ -111,34 +175,14 @@ public class PatternMatchingProcess {
 			}
 		}
 
-		if (propName.isEmpty()) {
-			// case of matching property
-			propName = "firstParamInfo";
-			finalScore = finalScore * isIntroduction(userSentence);
-		} else {
-			// case of not matching property
-			if (isQuestion == false) {
-				finalScore = 0;
-			}
+		PatternMatchingResultBean rs = new PatternMatchingResultBean();
+		if (!propName.isEmpty()) {
+			rs.setAnswer(propMap.get(propName));
+			rs.setScore(finalScore);
 		}
-		System.out.println("propName is " + propName);
-		answerBean.setAnswer(DBProcess.getPropertyValue(entity, propMap.get(propName)));
-		answerBean.setScore(finalScore);
 
-		// answer rewrite process
-		// AnswerRewrite answerRewite = new AnswerRewrite();
-		// rs = answerRewite.rewriteAnswer(rs);
+		return rs;
 
-		System.out.println("anwerBean is " + answerBean.toString());
-
-		return answerBean;
-	}
-
-	// to test if the user want to get the introduction of the entity
-	// input: 姚明是谁？ 你喜欢姚明吗？
-	// output: 1 0
-	private int isIntroduction(String userSentence) {
-		return 1;	// TBD: default is 0
 	}
 
 	// get the property set in DB with synonym process
@@ -417,7 +461,7 @@ public class PatternMatchingProcess {
 		}
 
 		// System.out.println("rs=" + rs);
-		rs = sentenceClassifier.getSentenceType(rs);
+		rs = sentenceClassifier.inputSentenceRewrite(rs);
 		if (rs.isEmpty()) {
 			rs = sentence;
 		}
@@ -428,7 +472,7 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明女人是谁";
+		String str = "姚明是研究生吗？";
 		mp.getAnswer(str);
 
 		// mp.templateProcess("姚明", str);
