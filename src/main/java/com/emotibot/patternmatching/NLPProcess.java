@@ -144,14 +144,14 @@ public class NLPProcess {
 		return syn;
 	}
 
-	/*
-	 * Get the set of the first word in the line which contains input word in
-	 * synonym dictionary
-	 */
+	// Get the set of the first word in the line which contains input word in
+	// synonym dictionary
+	// input: "标志"
+	// output: ["标志"，"记号"]
 	public static Set<String> getSynonymWordSet(String str) {
 		Set<String> synSet = new HashSet<>();
 		Set<String> synWord = new HashSet<>();
-		if(Tool.isStrEmptyOrNull(str)){
+		if (Tool.isStrEmptyOrNull(str)) {
 			System.err.println("NLPProcess.getSynonymWordSet: input is empty");
 			return synWord;
 		}
