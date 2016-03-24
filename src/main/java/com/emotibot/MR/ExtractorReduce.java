@@ -145,7 +145,9 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 	{
 		//String sql="国家/'地区'";  
         //System.out.println("防SQL注入:"+StringEscapeUtils.escapeSql(sql)); //防SQL注入  
-		String attr="国家/地区";
+		String attr="国家/地区'''";
+		attr=attr.replace("'", "");
+
 		attr=attr.replaceAll("/", "");//
 		attr=attr.replaceAll("\\.", "");
 		attr=attr.replaceAll("!", "");

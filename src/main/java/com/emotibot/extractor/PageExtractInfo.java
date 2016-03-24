@@ -37,6 +37,18 @@ public class PageExtractInfo {
 	public void addAttr(String key,String value)
 	{
 		if(Tool.isStrEmptyOrNull(key)) return ;
+		if(value==null) return ;
+		key=key.replaceAll("/", "");//
+		key=key.replaceAll("\\.", "");
+		key=key.replaceAll("!", "");
+		key=key.replaceAll("\\?", "");
+		key=key.replaceAll("\\*", "");
+		value=value.replace("'", "");
+		value=value.replace("\\", "");
+		value=value.replace("/", "");
+
+		value=StringEscapeUtils.escapeSql(value);
+
 		attr.put(key, value);
 		return ;
 	}
@@ -146,6 +158,7 @@ public class PageExtractInfo {
 		attr=attr.replaceAll("\\?", "");
 		attr=attr.replaceAll("\\*", "");
 		value=StringEscapeUtils.escapeSql(value);
+
 		if(attr_Values.containsKey(attr))
 		{
 			attr_Values.get(attr).add(value);
