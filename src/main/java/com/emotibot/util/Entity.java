@@ -18,8 +18,24 @@ import java.util.Map;
 public class Entity {
 	private static int count = 0;
 	private int id;
+	private String name;
 	private String label;
 	private Map<String, String> ht;
+	
+	public Entity(String label, String name){
+		this.setID(count++);
+		this.setLabel(label);
+		this.setName(name);
+		this.ht = new HashMap<>();
+		ht.put("Name", name);
+	}
+	
+	public Entity(String name){
+		this.setID(count++);
+		this.setName(name);
+		this.ht = new HashMap<>();
+		ht.put("Name", name);
+	}
 
 	public Entity() {
 		this.setID(count++);
@@ -52,6 +68,14 @@ public class Entity {
 
 	public void setLabel(String label) {
 		this.label = label;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String s) {
+		name = s;
 	}
 
 }

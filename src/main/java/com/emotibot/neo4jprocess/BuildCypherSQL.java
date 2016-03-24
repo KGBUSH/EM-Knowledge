@@ -135,9 +135,14 @@ public class BuildCypherSQL implements CypherSQLParser {
 		entityB.setLabel(Common.PERSONLABEL);
 		buildCypherSQL.InsertEntityNode("Person", "叶莉", entityB.getProperties());
 		Map<String, String> relation = new HashMap<>();
-		 relation.put("时间", "2003");
+		relation.put("时间", "2003");
 
-		buildCypherSQL.InsertRelation(entityA, entityB, "夫妻", relation);
+		// instance two entity by lable and name
+		Entity a = new Entity(Common.PERSONLABEL, "姚明");
+		Entity b = new Entity(Common.PERSONLABEL, "叶莉");
+
+		// note that the relation point from a to b
+		buildCypherSQL.InsertRelation(a, b, "老婆", relation);
 
 	}
 
