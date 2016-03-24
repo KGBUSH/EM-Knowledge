@@ -14,10 +14,10 @@ import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
 import com.hankcs.hanlp.seg.common.Term;
 
-public class SentenceTypeClassifier extends AbstractAIMLEngine {
+public class TemplateProcessor extends AbstractAIMLEngine {
 
-	public SentenceTypeClassifier() {
-		super("Knowledge");
+	public TemplateProcessor(String str) {
+		super(str);
 	}
 
 	private String removeSpace(String str) {
@@ -30,8 +30,18 @@ public class SentenceTypeClassifier extends AbstractAIMLEngine {
 //		System.out.println("input is " + str + ", output is " + rs);
 		return rs;
 	}
+	
 
-	public String getSentenceType(String sentence) {
+	public String selectiveQuestionProcess(String sentence) {
+		String processedQ = insertSpace2Chinese(sentence);
+		String type = chatSession.multisentenceRespond(processedQ);
+		System.out.println("Sentence = "+sentence+"\n ProcessQ = "+processedQ+"\n type 1 = "+type);
+		type = removeSpace(type);
+		System.out.println("type 2 = "+type);
+		return type;
+	}
+
+	public String inputSentenceRewrite(String sentence) {
 		String processedQ;
 //		NLPResult tnode = NLPSevice.ProcessSentence(sentence, NLPFlag.all.getValue());
 //		List<Term> segword = tnode.getWordPos();
@@ -71,9 +81,13 @@ public class SentenceTypeClassifier extends AbstractAIMLEngine {
 	}
 
 	public static void main(String[] args) {
-		SentenceTypeClassifier sentenceTypeClassifier = new SentenceTypeClassifier();
-		String str = "姚明多重";
-		System.out.println("===="+sentenceTypeClassifier.getSentenceType(str));
+		TemplateProcessor sentenceTypeClassifier = new TemplateProcessor("KG_Pre");
+		String str = "姚明有没有老婆";
+		System.out.println("===="+sentenceTypeClassifier.inputSentenceRewrite(str));
+
+//		SentenceTypeClassifier sentenceTypeClassifier = new SentenceTypeClassifier("Knowledge");
+//		String str = "姚明多重";
+//		System.out.println("===="+sentenceTypeClassifier.inputSentenceRewrite(str));
 		
 		
 //		String str1 = "## 姚 明 <pos>nr</pos> 属 什 么";
