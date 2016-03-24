@@ -117,7 +117,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 				}
 				if ((WORDS).equals(Bytes.toString(kv[i].getQualifier()))) {
 					pmWord = Bytes.toString(kv[i].getValue());
-					pmWord=URLDecoder.decode(pmWord).trim();
+					pmWord=URLDecoder.decode(pmWord.trim()).trim();
 				}
 
 			}
@@ -129,20 +129,26 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					PageExtractInfo pageExtractInfo = baikeExtractor.ProcessPage();
 					String name = pageExtractInfo.getName();
 					boolean flag = name.equals(pmWord);
-					System.err.println(name+"KKKKK"+pmWord+"  "+flag);
+					boolean name_flag =WordLabelMap.containsKey(name);
+					boolean pmname_flag = WordLabelMap.containsKey(pmWord);
+
+					System.err.println("MM"+name+"KKKKK"+pmWord+"MM  "+flag+" "+name_flag+"  "+pmname_flag);
 					if (name != null && !WordLabelMap.containsKey(name)) {
 						System.err.println("name is not contain in WordLabelMap " + name+"  "+pmWord+" "+url);
 						return;
 					}
-					return;
+					//return;
 
-					/*label = WordLabelMap.get(name);*/
-					/*if(NodeOrRelation.equals("1")){
+					label = WordLabelMap.get(name);
+					ImmutableBytesWritable outputKey = new ImmutableBytesWritable();
+					outputKey.set(Bytes.toBytes(getASCIISum(url, 3)));
+
+					if(NodeOrRelation.equals("1")){
 					BuildCypherSQL bcy = new BuildCypherSQL();
 					String query = bcy.InsertEntityNode(label, pageExtractInfo.getName(), pageExtractInfo.getAttr());
 					System.err.println(NodeOrRelation+" queryMap=" + query);
 					if (query == null || query.trim().length() == 0) return;
-					context.write(key, new Text(query));
+					context.write(outputKey, new Text(query));
 					}
 					if(NodeOrRelation.equals("2"))
 					{
@@ -161,11 +167,11 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 									String query=bcy.InsertRelation(a, b, attr, null);
 									System.err.println(NodeOrRelation+" queryMap=" + query);
 									if (query == null || query.trim().length() == 0) return;
-									context.write(key, new Text(query));
+									context.write(outputKey, new Text(query));
 								}
 							}
 						}
-					}*/
+					}
 				}
 				if (type.contains("Solr")) {
 					BaikeExtractor baikeExtractor = new BaikeExtractor(html);
@@ -213,6 +219,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 			while (in.readLine(line) > 0) {
 				// result.add(line.toString());
 				lineStr = line.toString().trim();
+				if(lineStr==null||lineStr.length()==0) continue;
 				System.err.println(lineStr + "MMMM" + label);
 				WordLabelMap.put(lineStr, label);
 			}

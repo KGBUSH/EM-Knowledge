@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang.StringEscapeUtils;
+
 import com.emotibot.util.Tool;
 
 public class PageExtractInfo {
@@ -138,6 +140,12 @@ public class PageExtractInfo {
 	{
 		if(Tool.isStrEmptyOrNull(attr)) return ;
 		if(Tool.isStrEmptyOrNull(value)) return ;
+		attr=attr.replaceAll("/", "");//
+		attr=attr.replaceAll("\\.", "");
+		attr=attr.replaceAll("!", "");
+		attr=attr.replaceAll("\\?", "");
+		attr=attr.replaceAll("\\*", "");
+		value=StringEscapeUtils.escapeSql(value);
 		if(attr_Values.containsKey(attr))
 		{
 			attr_Values.get(attr).add(value);

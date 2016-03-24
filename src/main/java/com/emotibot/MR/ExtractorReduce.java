@@ -87,9 +87,13 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 				if (type.contains("Neo4j")) {
 					String query = value.toString();
 					System.err.println("queryReduce=" + query);
-					query = StringEscapeUtils.escapeSql(query);
-					System.err.println("queryReduce2=" + query);
-
+					//query = StringEscapeUtils.escapeSql(query);
+					//System.err.println("queryReduce2=" + query);
+                    if(query==null||query.trim().length()==0)
+                    {
+        				System.err.println("query==null||query==0");
+        				continue;
+                    }
 					if (conn != null) {
 					}
 					else
@@ -136,5 +140,17 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 			System.err.println("ReduceException="+e.getMessage());
 
 		}
+	}
+	public static void main(String args[])
+	{
+		//String sql="国家/'地区'";  
+        //System.out.println("防SQL注入:"+StringEscapeUtils.escapeSql(sql)); //防SQL注入  
+		String attr="国家/地区";
+		attr=attr.replaceAll("/", "");//
+		attr=attr.replaceAll("\\.", "");
+		attr=attr.replaceAll("!", "");
+		attr=attr.replaceAll("\\?", "");
+		attr=attr.replaceAll("\\*", "");
+		System.out.println("attr="+attr);
 	}
 }
