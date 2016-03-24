@@ -54,10 +54,12 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
     public static String Password = "";
     public static int Port = 0;
     public static String User = "";
-
+    public static String NodeOrRelation="";
 	@Override
 	public void setup(Context context) {
 		type = context.getConfiguration().get("type");
+		if (type.contains("Neo4j"))  NodeOrRelation=context.getConfiguration().get("NodeOrRelation");
+
 		outputTableName = context.getConfiguration().get("destTable");
 		puttable = new ImmutableBytesWritable(Bytes.toBytes(outputTableName));
 		///////
@@ -100,8 +102,19 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 					{
 						conn = new EmotibotNeo4jConnection(DriverName, Ip, Port, User, Password) ;
 					}
-					Neo4jResultBean bean = conn.executeCypherSQL(query);
-					System.err.println("bean="+bean.toString());
+					Neo4jResultBean bean ;//= conn.executeCypherSQL(query);
+					boolean result=false;
+                    if(NodeOrRelation.equals("1"))
+                    {
+                    	bean=conn.executeCypherSQL(query);
+    					System.err.println("bean="+bean.toString());
+
+                    }
+                    else
+                    {
+                    	result=conn.updateQuery(query);
+    					System.err.println("result="+result);
+                    }
 				}
 				if (type.contains("Solr")) {
                 	long t11 = System.currentTimeMillis();

@@ -135,13 +135,14 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 
 					System.err.println("MM"+name+"KKKKK"+pmWord+"MM  "+flag+" "+name_flag+"  "+pmname_flag);
 					if (name != null && !WordLabelMap.containsKey(name)) {
-						System.err.println("name is not contain in WordLabelMap " + name+"  "+pmWord+" "+url);
-						if(NodeOrRelation.equals("1")) return;
+						System.err.println("name is not contain in WordLabelMap " + name+"  "+pmWord+" "+url+" "+NodeOrRelation);
+						if(NodeOrRelation.equals("1")||NodeOrRelation.equals("2")) return;
 					}
 					//return;
                     if(NodeOrRelation.equals("3")) label=Other;
-					if(NodeOrRelation.equals("1")) label = WordLabelMap.get(name);
-					
+                    if(NodeOrRelation.equals("1")||NodeOrRelation.equals("2"))  label = WordLabelMap.get(name);
+					System.err.println("label="+label);
+
 					ImmutableBytesWritable outputKey = new ImmutableBytesWritable();
 					outputKey.set(Bytes.toBytes(getASCIISum(url, 3)));
 
