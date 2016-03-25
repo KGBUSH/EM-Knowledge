@@ -1,0 +1,26 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ 是 不 是 ^ </pattern>
+        <template>
+        是不是
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 有 没 有 ^ </pattern>
+        <template>
+        有没有
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 是 谁 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ </pattern>
+        <template>
+        firstParamInfo
+        </template>
+    </category>
+</aiml>

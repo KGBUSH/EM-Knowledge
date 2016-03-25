@@ -1,0 +1,14 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ 是 ^ </pattern>
+        <template>
+        是不是
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 有 ^ 吗 ^ </pattern>
+        <template>
+        有没有
+        </template>
+    </category>
+</aiml>
