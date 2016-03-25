@@ -78,9 +78,6 @@ public class BuildCypherSQL implements CypherSQLParser {
 				}
 				query = query.substring(0, query.length() - 1);
 			}
-
-			query += "  return p, r, q";
-
 		}
 		System.out.println("query in InsertRelation is: " + query);
 		return query;
