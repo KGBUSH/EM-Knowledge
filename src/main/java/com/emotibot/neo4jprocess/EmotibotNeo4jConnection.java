@@ -69,7 +69,6 @@ public class EmotibotNeo4jConnection {
 			while (rs.next()) {
 				bean.setResult(rs.getObject(Common.ResultObj).toString());
 			}
-			
 			bean.setStatus(true);
 		} catch (Exception e) {
 			e.printStackTrace();

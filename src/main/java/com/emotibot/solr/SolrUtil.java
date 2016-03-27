@@ -100,23 +100,24 @@ public class SolrUtil {
 		return true;
 	}
 
-    public String Search(String word)
+    public String Search(Solr_Query SolrQuery)
     {
     	try{
+    		String query = SolrQuery.getQuery();
         SolrQuery solrQuery = new SolrQuery();
         solrQuery.set("rows", 10);
         solrQuery.set("fl", "*,score");
-        solrQuery.set("q", word);
+        solrQuery.set("q", query);
         solrQuery.set("df", "KG_Name");
         QueryResponse response=server.query(solrQuery);
         SolrDocumentList docList = response.getResults();
         for (SolrDocument doc : docList) {
             String info = (String)doc.getFieldValue(Info);
-            System.err.println("info="+info);
+            //System.err.println("info="+info);
             String attr = (String)doc.getFieldValue(Attr);
-            System.err.println("attr="+attr);
+            //System.err.println("attr="+attr);
             String value = (String)doc.getFieldValue(Value);
-            System.err.println("value="+value);
+            //System.err.println("value="+value);
             String name = (String)doc.getFieldValue(Name);
             System.err.println("Name="+name);
             return name;
@@ -129,22 +130,7 @@ public class SolrUtil {
     }
 	public static void main(String args[]) throws SolrServerException, IOException, InterruptedException {
 		SolrUtil solr = new SolrUtil();
-		
-		/* Vector<String> files = new Vector<String>();
-		 files.add("/Users/Elaine/Documents/workspace/html/yaomin");
-		 files.add("/Users/Elaine/Documents/workspace/html/yaoxinlei");
-		 files.add("/Users/Elaine/Documents/workspace/html/caiyilin");
-		 files.add("/Users/Elaine/Documents/workspace/html/linxinru"); int
-		 index = 0; 
-		 for (int i = 0; i < files.size(); i++) { 
-		 String html =Tool.getFileContent(files.get(i)); 
-		 Extractor ex = new BaikeExtractor(html); 
-		 PageExtractInfo pageInfo = ex.ProcessPage();
-		 solr.addDoc(pageInfo);
-		 }
-		 solr.Commit(); 
-		 System.err.println("OK");*/
-    	Vector<String> files = new Vector<String>();
+    	/*Vector<String> files = new Vector<String>();
 		 files.add("/Users/Elaine/Documents/workspace/html/yaomin");
 		 files.add("/Users/Elaine/Documents/workspace/html/yaoxinlei");
 		 files.add("/Users/Elaine/Documents/workspace/html/caiyilin");
@@ -169,8 +155,13 @@ public class SolrUtil {
 	    	long t2=System.currentTimeMillis();
 			System.err.println("time="+(t2-t1));
            Thread.sleep(10*1000);
-		 }
-
+		 }*/
+		Solr_Query obj = new Solr_Query();
+		obj.setFindEntity(true);
+		//obj.setEntity("姚明");
+		obj.addWord("菩萨");
+		obj.addWord("忉利天");
+		solr.Search(obj);
 		return;
 	}
 
