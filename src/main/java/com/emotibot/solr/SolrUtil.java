@@ -7,6 +7,7 @@
 package com.emotibot.solr;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -100,10 +101,12 @@ public class SolrUtil {
 		return true;
 	}
 
-    public String Search(Solr_Query SolrQuery)
+    public List<String> Search(Solr_Query SolrQuery)
     {
+    	List<String> result = new ArrayList<String>();
     	try{
-    		String query = SolrQuery.getQuery();
+    	String query = SolrQuery.getQuery();
+    	if(Tool.isStrEmptyOrNull(query)) return result;
         SolrQuery solrQuery = new SolrQuery();
         solrQuery.set("rows", 10);
         solrQuery.set("fl", "*,score");
@@ -120,13 +123,14 @@ public class SolrUtil {
             //System.err.println("value="+value);
             String name = (String)doc.getFieldValue(Name);
             System.err.println("Name="+name);
-            return name;
+            //return name;
+            result.add(name);
         }
     	}catch(Exception e)
     	{
     		e.printStackTrace();
     	}
-    	return Common.EMPTY;
+    	return result;
     }
 	public static void main(String args[]) throws SolrServerException, IOException, InterruptedException {
 		SolrUtil solr = new SolrUtil();
