@@ -3,3 +3,6 @@ db.neo4j.server.port = 7474
 db.neo4j.user = neo4j
 db.neo4j.password = 123456
 db.neo4j.drivername = org.neo4j.jdbc.Driver
+index.solr.server.ip=192.168.1.81
+index.solr.server.port=8080
+index.solr.server.solrname=kgtest
