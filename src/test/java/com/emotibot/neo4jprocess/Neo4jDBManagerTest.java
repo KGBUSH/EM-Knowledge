@@ -3,7 +3,9 @@ package com.emotibot.neo4jprocess;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -31,7 +33,7 @@ public class Neo4jDBManagerTest {
 		files.add("/Users/Elaine/Documents/workspace/html/linxinru");
 		EmotibotNeo4jConnection conn = getEmotibotNeo4jConnection();
 		BuildCypherSQL BuildCypherSQLObj = new BuildCypherSQL();
-
+        List<String> list = new ArrayList<String>();
  		for(String f : files)
 		{
  			String html=Tool.getFileContent(f);
@@ -43,13 +45,17 @@ public class Neo4jDBManagerTest {
  				
 			//pageInfo.setName(String.valueOf(index));
 			String query=BuildCypherSQLObj.InsertEntityNodeByPageExtractInfo(pageInfo);
+			query=query.substring(0, query.indexOf("return"));
+
 			System.err.println(query);
-			Neo4jResultBean bean=conn.executeCypherSQL(query);
-			System.err.println(bean.toString());
+			list.add(query);
+			//Neo4jResultBean bean=conn.executeCypherSQL(query);
+			//System.err.println(bean.toString());
  			//}
 
 
 		}
+ 		conn.updateQueryBatch(list);
  		conn.close();
  		conn=null;
 	}
@@ -84,19 +90,24 @@ public class Neo4jDBManagerTest {
         return neo4jDBManager.getConnection();
 	}
 	public static void main(String args[]) throws SQLException {
-		//BuildKG();
+		BuildKG();
 		//SQLExample();
-		EmotibotNeo4jConnection con=getEmotibotNeo4jConnection();
-		Vector<String> sqls = Tool.getFileLines("sql");
-		int index=0;
-		for(String sql:sqls)
+		//EmotibotNeo4jConnection con=getEmotibotNeo4jConnection();
+		//Vector<String> sqls = Tool.getFileLines("sql");
+		//int index=0;
+		/*for(String sql:sqls)
 		{
 			sql=sql.substring(0, sql.indexOf("return"));
 			System.err.println(index+++"  "+sql);
 
 			System.err.println(con.updateQuery(sql));
 
-		}
+		}*/
+		//List<String> list = new ArrayList<String>();
+		//for(int index=0;index<100;index++)
+		//{
+			
+		//}
 	}
 
 }
