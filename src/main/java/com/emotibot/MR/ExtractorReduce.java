@@ -7,6 +7,8 @@
 package com.emotibot.MR;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -84,6 +86,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 			throws IOException, InterruptedException {
 		try {
 			long solrDocnum=0;
+			List<String> list = new ArrayList<>();
 			for (Text value : values) {
 				System.err.println("typeReduce=" + type+"  ");
 				if (type.contains("Neo4j")) {
@@ -96,6 +99,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
         				System.err.println("query==null||query==0");
         				continue;
                     }
+                    list.add(query);
 					if (conn != null) {
 					}
 					else
@@ -104,7 +108,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 					}
 					Neo4jResultBean bean ;//= conn.executeCypherSQL(query);
 					boolean result=false;
-                    if(NodeOrRelation.equals("1"))
+                    if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
                     {
                     	bean=conn.executeCypherSQL(query);
     					System.err.println("bean="+bean.toString());
@@ -115,6 +119,12 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
                     	result=conn.updateQuery(query);
     					System.err.println("result="+result);
                     }
+					/*if(list.size()>100)
+					{
+                    	result=conn.updateQueryBatch(list);
+    					System.err.println("result="+result);
+                        list.clear();
+					}*/
 				}
 				if (type.contains("Solr")) {
                 	long t11 = System.currentTimeMillis();
@@ -149,6 +159,11 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 				}
 			}
 			if(solrDocnum>0) solr.Commit();
+			/*if(list.size()>100)
+			{
+            	conn.updateQueryBatch(list);
+                list.clear();
+			}*/
 		} catch (Exception e) {
 			System.err.println("ReduceException="+e.getMessage());
 
