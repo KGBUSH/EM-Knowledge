@@ -33,6 +33,10 @@ public class ConfigManager implements ConfigInterface{
         System.out.println("getNeo4jPasswd="+getNeo4jPasswd());
         System.out.println("getNeo4jDriverName="+getNeo4jDriverName());
 
+        System.out.println("getIndexSolrServerIp="+getIndexSolrServerIp());
+        System.out.println("getIndexSolrServerPort="+getIndexSolrServerPort());
+        System.out.println("getIndexSolrServerSolrName="+getIndexSolrServerSolrName());
+
     }
 
 
@@ -83,4 +87,37 @@ public class ConfigManager implements ConfigInterface{
  {
 	 ConfigManager ConfigManagerObj = new ConfigManager();
  }
+
+
+@Override
+public String getIndexSolrServerIp() {
+	// TODO Auto-generated method stub
+	if(properties!=null&&properties.containsKey(ConfigKeyName.INDEX_SOLR_SERVER_IP))
+		return properties.getProperty(ConfigKeyName.INDEX_SOLR_SERVER_IP);
+	return null;
+}
+
+
+@Override
+public int getIndexSolrServerPort() {
+	// TODO Auto-generated method stub
+	try{
+	if(properties!=null&&properties.containsKey(ConfigKeyName.INDEX_SOLR_SERVER_PORT))
+		return Integer.valueOf(properties.getProperty(ConfigKeyName.INDEX_SOLR_SERVER_PORT));
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+
+	return 0;
+}
+
+
+@Override
+public String getIndexSolrServerSolrName() {
+	// TODO Auto-generated method stub
+	if(properties!=null&&properties.containsKey(ConfigKeyName.INDEX_SOLR_SERVER_SOLRNAME))
+		return properties.getProperty(ConfigKeyName.INDEX_SOLR_SERVER_SOLRNAME);
+	return null;
+}
 }

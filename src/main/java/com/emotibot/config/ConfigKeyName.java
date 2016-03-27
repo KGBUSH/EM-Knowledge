@@ -21,6 +21,11 @@ public class ConfigKeyName {
 	public static final String DB_NEO4J_PASSWD_NAME="db.neo4j.password";
 	public static final String DB_NEO4J_DRIVERNAME_NAME="db.neo4j.drivername";
 	
+	//============solr
+	public static final String  INDEX_SOLR_SERVER_IP="index.solr.server.ip";
+	public static final String  INDEX_SOLR_SERVER_PORT="index.solr.server.port";
+	public static final String	INDEX_SOLR_SERVER_SOLRNAME="index.solr.server.solrname";
+	
 	//===========System.getProperty("user.dir") + "/"+"config/"+
 	public static String ConfigFileName=System.getProperty("user.dir") + "/"+"config/"+"KG.property";
 

@@ -20,6 +20,7 @@ import org.apache.solr.common.SolrDocumentList;
 import org.apache.solr.common.SolrInputDocument;
 
 import com.emotibot.common.Common;
+import com.emotibot.config.ConfigManager;
 import com.emotibot.extractor.BaikeExtractor;
 import com.emotibot.extractor.Extractor;
 import com.emotibot.extractor.PageExtractInfo;
@@ -38,7 +39,11 @@ public class SolrUtil {
 	// new HttpSolrServer("http://192.168.1.81:8080/solr/kgtest");
 	public SolrUtil() {
 		if (server == null) {
-			server = new HttpSolrServer("http://192.168.1.81:8080/solr/kgtest");
+			ConfigManager cf = new ConfigManager();
+			String ip=cf.getIndexSolrServerIp();
+			int port = cf.getIndexSolrServerPort();
+			String solrName=cf.getIndexSolrServerSolrName();
+			server = new HttpSolrServer("http://"+ip+":"+port+"/solr/"+solrName);
 			server.setConnectionTimeout(10 * 1000);
 			server.setFollowRedirects(false);
 			server.setAllowCompression(true);

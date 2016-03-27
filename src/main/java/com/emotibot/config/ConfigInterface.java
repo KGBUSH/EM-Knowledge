@@ -19,7 +19,12 @@ public interface ConfigInterface {
 	public String getNeo4jUserName();
 	public String getNeo4jPasswd();
 	public String getNeo4jDriverName();
-	
+	//public static final String  INDEX_SOLR_SERVER_IP="index.solr.server.ip";
+	//public static final String  INDEX_SOLR_SERVER_PORT="index.solr.server.port";
+	//public static final String	INDEX_SOLR_SERVER_SOLRNAME="index.solr.server.solrname";
+    public String getIndexSolrServerIp();
+    public int getIndexSolrServerPort();
+    public String getIndexSolrServerSolrName();
 
 
 }
