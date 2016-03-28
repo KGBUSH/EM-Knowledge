@@ -168,12 +168,12 @@ public class SolrUtil {
 		 }*/
 		Solr_Query obj = new Solr_Query();
 		obj.setFindEntity(true);
-		obj.addEntity("姚明");
-		obj.addEntity("叶莉");
+		//obj.addEntity("姚明");
+		//obj.addEntity("叶莉");
 
 		//obj.addWord("姚明");
-		obj.addWord("丈夫");
-		obj.addWord("身高");
+		//obj.addWord("丈夫");
+		obj.addWord("熊猫明");
 
 		solr.Search(obj);
 		return;
