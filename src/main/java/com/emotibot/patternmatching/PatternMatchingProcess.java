@@ -69,11 +69,14 @@ public class PatternMatchingProcess {
 				return answerBean;
 			}
 
+			answerBean = mutlipleReasoningProcess(sentence, entity);
+
 			// old method for handling single property
 			// beanPM = getSingleEntityNormalQ(userSentence, entity);
 
-			List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(sentence, entity);
-			answerBean = mutlipleReasoningProcess(entity, listPMBean);
+			// List<PatternMatchingResultBean> listPMBean =
+			// this.matchPropertyFromSentence(sentence, entity);
+			// answerBean = mutlipleReasoningProcess(entity, listPMBean);
 		} else {
 			// for multiple entities, support at most two in 4/15 milestone
 
@@ -142,8 +145,12 @@ public class PatternMatchingProcess {
 		return rs;
 	}
 
-	private AnswerBean mutlipleReasoningProcess(String entity, List<PatternMatchingResultBean> listPMBean) {
-		System.out.println("PMP.mutlipleReasoningProcess: entity="+entity+", listPMBean="+listPMBean);
+	private AnswerBean mutlipleReasoningProcess(String sentence, String entity) {
+		System.out.println("PMP.mutlipleReasoningProcess: entity=" + entity + ", sentence =" + sentence);
+
+		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(sentence, entity);
+		System.out.println("PMP.mutlipleReasoningProcess: listPMBean=" + listPMBean);
+
 		AnswerBean rsBean = new AnswerBean();
 		String answer = coreMutlipleReasoningProcess(entity, listPMBean);
 
@@ -162,6 +169,100 @@ public class PatternMatchingProcess {
 		}
 
 		return rsBean;
+	}
+
+	// interface
+	private AnswerBean ReasoningProcess(String sentence, String entity, AnswerBean answerBean) {
+		System.out.println("PMP.ReasoningProcess: entity=" + entity + ", sentence =" + sentence + ", bean is "+answerBean);
+
+		String newSentence = sentence.substring(0, sentence.indexOf(entity))
+				+ sentence.substring(sentence.indexOf(entity) + entity.length());
+		System.out.println("\t new sentence is::::" + newSentence);
+
+		Map<String, String> relationMap = this.getRelationNameSet(entity);
+		System.out.println("ReasoningProcess: relationMap = " + relationMap);
+
+		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(sentence, entity);
+		System.out.println("PMP.mutlipleReasoningProcess: listPMBean=" + listPMBean);
+
+		if (listPMBean.isEmpty()) {
+			System.out.println("Reasoning case 0, return answer=" + answerBean);
+			return answerBean;
+		} else if (listPMBean.size() == 1) {
+			String prop = listPMBean.get(0).getAnswer();
+			String answer = DBProcess.getPropertyValue(entity, prop);
+			answerBean.setAnswer(answer);
+			answerBean.setProperty(prop);
+			answerBean.setValid(true);
+			answerBean.setScore(listPMBean.get(0).getScore());
+			System.out.println("ReasoningProcess: answer = " + answerBean);
+
+			if (relationMap.containsKey(prop)) {
+				// use the new answer as new entity
+				System.out.println("-----> case 1 recurrence into: nextEntity=" + answer + "; Bean="+answerBean);
+				return ReasoningProcess(newSentence.replace(prop, answer), answer, answerBean);
+			} else {
+				System.out.println("Reasoning case 1, return answer=" + answerBean);
+				return answerBean;
+			}
+		} else {
+			// in the case of multiple props, find a way out
+			String answer = "";
+			double score = 100;
+
+			boolean furtherSeach = false;
+			String newEntity = "";
+			String prop = "";
+
+			for (PatternMatchingResultBean b : listPMBean) {
+				String queryAnswer = DBProcess.getPropertyValue(entity, b.getAnswer());
+				if (relationMap.containsKey(b.getAnswer())) {
+					furtherSeach = true;
+					newEntity = queryAnswer;
+					prop = b.getAnswer();
+					answerBean.setAnswer(newEntity);
+					answerBean.setProperty(b.getAnswer());
+					answerBean.setValid(true);
+					answerBean.setScore(b.getScore());
+					break;
+				} else {
+					answer += queryAnswer;
+					score *= b.getScore() / 100;
+					System.out.print(" * " + b.getScore() + "/100 ");
+				}
+			}
+
+			if (furtherSeach == true) {
+				System.out.println("-----> case 2 recurrence into: nextEntity=" + newEntity + "; Bean="+answerBean);
+				return ReasoningProcess(newSentence.replace(prop, newEntity), newEntity, answerBean);
+			} else {
+				answerBean.setAnswer(answer);
+				answerBean.setScore(score);
+				answerBean.setValid(true);
+				System.out.println("Reasoning case 2, return answer = " + answerBean);
+				return answerBean;
+			}
+		}
+	}
+
+	private AnswerBean getNextLevelRS(String sentence, String entity, String property) {
+		AnswerBean rsBean = new AnswerBean();
+
+		// get all the relationship of the entity
+		Map<String, String> relationMap = this.getRelationNameSet(entity);
+		System.out.println("PMP.getAnswer: relationMap = " + relationMap);
+
+		if (!relationMap.containsKey(property)) {
+			String rs = DBProcess.getPropertyValue(entity, property);
+		} else {
+			String newSentence = sentence.substring(0, sentence.indexOf(property))
+					+ sentence.substring(sentence.indexOf(property) + property.length());
+			System.out.println("new sentence is::::" + newSentence);
+			return mutlipleReasoningProcess(newSentence, entity);
+		}
+
+		return rsBean;
+
 	}
 
 	// get the anwer by multi-level reasoning
@@ -192,6 +293,7 @@ public class PatternMatchingProcess {
 				if (!nextEntity.isEmpty()) {
 					System.out.println("-----> recurrence into: nextEntity=" + nextEntity);
 					rs = coreMutlipleReasoningProcess(nextEntity, copy);
+
 				}
 			} else {
 				System.out.println("@@@remove" + bean);
@@ -438,10 +540,7 @@ public class PatternMatchingProcess {
 		if (ent.equals("姚明")) {
 			rsMap.put("身高", "226");
 			rsMap.put("老婆", "叶莉");
-		} else if (ent.equals("叶莉")) {
-			rsMap.put("身高", "190");
-		}
-
+		} 
 		// List<String> propList = DBProcess.getPropertyNameSet(ent);
 		// for (String iProp : propList) {
 		// rsMap.put(iProp, iProp);
@@ -806,17 +905,22 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "你知不知道姚明的老婆的身高是多少？";
-		 mp.getAnswer(str);
+		String str = "姚明的老婆的身高是多少？";
+//		mp.getAnswer(str);
+		
+		AnswerBean answerBean = new AnswerBean();
+		System.out.println("RS="+mp.ReasoningProcess(str, "姚明", answerBean));
 
-//		List<PatternMatchingResultBean> listPMBean = new ArrayList<PatternMatchingResultBean>();
-//		PatternMatchingResultBean bean = new PatternMatchingResultBean();
-//		bean.setAnswer("身高");
-//		listPMBean.add(bean);
-//		PatternMatchingResultBean beanB = new PatternMatchingResultBean();
-//		beanB.setAnswer("老婆");
-//		listPMBean.add(beanB);
-//		System.out.println("result is " + mp.mutlipleReasoningProcess("姚明", listPMBean));
+		// List<PatternMatchingResultBean> listPMBean = new
+		// ArrayList<PatternMatchingResultBean>();
+		// PatternMatchingResultBean bean = new PatternMatchingResultBean();
+		// bean.setAnswer("身高");
+		// listPMBean.add(bean);
+		// PatternMatchingResultBean beanB = new PatternMatchingResultBean();
+		// beanB.setAnswer("老婆");
+		// listPMBean.add(beanB);
+		// System.out.println("result is " + mp.mutlipleReasoningProcess("姚明",
+		// listPMBean));
 
 		List<String> lstr = new ArrayList<>();
 		lstr.add("你知不知道");
