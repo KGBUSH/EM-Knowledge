@@ -169,11 +169,11 @@ public class SolrUtil {
 		Solr_Query obj = new Solr_Query();
 		obj.setFindEntity(true);
 		obj.addEntity("姚明");
-		obj.addEntity("姚沁蕾");
+		obj.addEntity("叶莉");
 
 		//obj.addWord("姚明");
-		//obj.addWord("女儿");
-		//obj.addWord("身高");
+		obj.addWord("丈夫");
+		obj.addWord("身高");
 
 		solr.Search(obj);
 		return;
