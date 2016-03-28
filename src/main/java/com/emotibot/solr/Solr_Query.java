@@ -42,12 +42,14 @@ public class Solr_Query {
 			if(words.size()>0) buffer.append(" OR ");
 			else buffer.append(" ");
 		}
+		if(words.size()>0){
 		for(int i=0;i<=words.size()-2;i++)
 		{
 			buffer.append("KG_Attr_Value:").append("*").append(words.get(i)).append("^1 ").append("* OR ");
 		}
 		buffer.append("KG_Attr_Value:").append("*").append(words.get(words.size()-1)).append("^1 ").append("*");
-       System.err.println("query="+buffer.toString());
+		}
+		System.err.println("query="+buffer.toString());
 		return buffer.toString();
 	}
 	public List<String> getEntity() {
