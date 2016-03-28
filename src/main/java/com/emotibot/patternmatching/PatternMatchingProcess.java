@@ -9,7 +9,7 @@ package com.emotibot.patternmatching;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -43,24 +43,51 @@ public class PatternMatchingProcess {
 		boolean isQuestion = true; // TBD: read from CU
 
 		// 1. get the entity by Solr and Revise by template
-		String entity = getEntityBySolr(sentence);
+		List<String> entitySet = getEntity(sentence);
+		if (entitySet.size() > 2) {
+			// check for 4/15 temporarily, may extent later
+			System.err.println("PM.getAnswer: there are more than two entities");
+		}
+
 		// TBD: if the sentence does not contain the entity, go through the
 		// process of matching value of properties
-		System.out.println("PMP.getAnswer: entity = " + entity);
-		if (Tool.isStrEmptyOrNull(entity)) {
+		System.out.println("PMP.getAnswer: entity = " + entitySet.toString());
+		if (entitySet == null || entitySet.isEmpty()) {
 			System.out.println("the sentence does not contain entity name and so return empty");
-			return answerBean;
-		}
-		sentence = templateProcess(entity, sentence);
-		System.out.println("PMP.getAnswer: templateProcess sentence = " + sentence);
-		if (Tool.isStrEmptyOrNull(sentence)) {
-			System.err.println("the sentence become empty after template process");
 			return answerBean;
 		}
 
 		PatternMatchingResultBean beanPM = new PatternMatchingResultBean();
-		// call different processes according to different situations
-		beanPM = getSingleEntityNormalQ(userSentence, entity);
+		String entity = "";
+		// for single entity case
+		if (entitySet.size() == 1) {
+			entity = entitySet.get(0);
+			sentence = templateProcess(entity, sentence);
+			System.out.println("PMP.getAnswer: single entity templateProcess sentence = " + sentence);
+			if (Tool.isStrEmptyOrNull(sentence)) {
+				System.err.println("the sentence become empty after template process");
+				return answerBean;
+			}
+
+			// call different processes according to different situations
+			beanPM = getSingleEntityNormalQ(userSentence, entity);
+
+			List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(sentence, entity);
+
+			// get all the relationship of the entity
+			Map<String, String> relationMap = this.getRelationNameSet(entity);
+			System.out.println("PMP.getAnswer: relationMap = " + relationMap);
+
+			String rsAnswer = mutlipleReaoningProcess(entity, listPMBean, relationMap);
+
+			for (PatternMatchingResultBean bean : listPMBean) {
+
+			}
+
+		} else {
+			// for multiple entities, support at most two in 4/15 milestone
+
+		}
 
 		// if it is the selective question
 		String strSeletive = processSelectQ(userSentence);
@@ -96,6 +123,99 @@ public class PatternMatchingProcess {
 		System.out.println("anwerBean is " + answerBean.toString());
 
 		return answerBean;
+	}
+
+	private String mutlipleReaoningProcess(String entity, List<PatternMatchingResultBean> listPMBean,
+			Map<String, String> relationMap) {
+		String rs = "";
+		if (listPMBean.size() == 1) {
+			rs = getAnswerbyProperty(entity, listPMBean.get(0).getAnswer());
+			return rs;
+		}
+
+		Iterator<PatternMatchingResultBean> iterator = listPMBean.iterator();
+		while (iterator.hasNext()) {
+			if (relationMap.containsKey(iterator.next().getAnswer())) {
+				List<PatternMatchingResultBean> copy = new ArrayList<PatternMatchingResultBean>(listPMBean.size());
+				Iterator<PatternMatchingResultBean> it = listPMBean.iterator();
+				while (it.hasNext()) {
+					if (!it.next().equals(iterator.next())) {
+						copy.add(it.next().clone());
+					}
+				}
+				String nextEntity = getEntitybyRelation(entity, iterator.next().getAnswer());
+				return this.mutlipleReaoningProcess(nextEntity, copy, relationMap);
+			} else {
+				iterator.remove();
+			}
+		}
+
+		return rs;
+
+		// for (PatternMatchingResultBean bean : listPMBean) {
+		// if (relationMap.containsKey(bean.getAnswer())) {
+		// List<PatternMatchingResultBean> copy = new
+		// ArrayList<PatternMatchingResultBean>(listPMBean.size());
+		// Iterator<PatternMatchingResultBean> it = listPMBean.iterator();
+		// while (it.hasNext()) {
+		// copy.add(it.next().clone());
+		// }
+		// copy.remove(bean);
+		// String nextEntity = getEntitybyRelation(entity, bean.getAnswer());
+		// return this.mutlipleReaoningProcess(nextEntity, copy, relationMap);
+		// } else {
+		// listPMBean.remove(bean);
+		// }
+		// }
+
+	}
+
+	private String getAnswerbyProperty(String entity, String property) {
+		if (Tool.isStrEmptyOrNull(entity) || Tool.isStrEmptyOrNull(property)) {
+			System.err.println("entity or property is null");
+			return "";
+		}
+		System.out.println("return get anwer by property");
+		String rsProp = "";
+		return rsProp;
+	}
+
+	private String getEntitybyRelation(String entity, String relation) {
+		String rsEntity = "";
+		// TBD: get the entity from DB by entity and relation
+
+		// Debug
+		if (entity.equals("姚明")) {
+			if (relation.equals("老婆")) {
+				return "叶莉";
+			}
+		} else if (entity.equals("叶莉")) {
+			if (relation.equals("身高")) {
+				return "190";
+			}
+		}
+
+		return rsEntity;
+	}
+
+	private List<String> getEntity(String sentence) {
+		List<String> simpleMatchEntity = NLPProcess.getEntitySimpleMatch(sentence);
+		if (simpleMatchEntity.isEmpty()) {
+			// TBD: transfer the data structure of solr
+			return getEntityBySolr(sentence);
+		} else {
+			List<String> solrEntity = getEntityBySolr(sentence);
+			if (solrEntity.isEmpty()) {
+				System.err.println("Solor return null");
+				return simpleMatchEntity;
+			} else if (simpleMatchEntity.get(0) != solrEntity.get(0)) {
+				System.err.println(
+						"the entity by Matching: " + simpleMatchEntity.get(0) + ", but by solr: " + solrEntity.get(0));
+			}
+
+			// return the result by simpley matching in 4/15
+			return simpleMatchEntity;
+		}
 	}
 
 	// to test if the user want to get the introduction of the entity
@@ -134,13 +254,13 @@ public class PatternMatchingProcess {
 	}
 
 	// Get the answer by the pattern matching method
-	// for the case of single entity in normal question mode
-	// input: the question sentence from users,"姚明身高是多少"
-	// output: the answer without answer rewriting, “226cm”
-	private PatternMatchingResultBean getSingleEntityNormalQ(String sentence, String entity) {
+	// for the case of single entity in multiple level reasoning case
+	// input: the question sentence from users,"姚明的老婆的身高是多少"
+	// output: the answer without answer rewriting, “190cm”
+	private List<PatternMatchingResultBean> matchPropertyFromSentence(String sentence, String entity) {
 		// 2. split the sentence by the entities to get candidates
 		// get candidates by splitting the sentence by entities.
-		Set<String> candidateSet = this.getCandidateSet(sentence, entity);
+		List<String> candidateSet = this.getCandidateSetbyStopWord(this.getCandidateSet(sentence, entity));
 		System.out.println("PMP.getAnswer: candidateSet = " + candidateSet);
 
 		// get all the property of the entity
@@ -149,7 +269,74 @@ public class PatternMatchingProcess {
 
 		// 3. compute the score for each candidate
 		List<PatternMatchingResultBean> rsBean = new ArrayList();
-		System.out.println("---------------Begin of Pattern Matching Candidate Process--------------------");
+		System.out.println(
+				"---------------Mutliple Entity: Begin of Pattern Matching Candidate Process--------------------");
+		for (String s : candidateSet) {
+			System.out.println("### Candidate is " + s);
+
+			List<PatternMatchingResultBean> tempBeanSet = new ArrayList();
+
+			// 2. generate candidates according to the synonyms
+			List<String> synList = new ArrayList<>();
+			synList = this.replaceSynonymProcess(s);
+			System.out.println("\t after synonym process: " + synList + " & size is " + synList.size());
+
+			for (String q : synList) {
+				System.out.println("q=" + q + " and s=" + s);
+				int orignalScore = (q.equals(s)) ? 100 : 80;
+				PatternMatchingResultBean pmRB = this.getCandidatePropName(q, propMap, orignalScore);
+				if (pmRB.isValid()) {
+					tempBeanSet.add(pmRB);
+					System.out.println("string " + q + " has the answer of " + pmRB.getAnswer() + " with score "
+							+ pmRB.getScore());
+				}
+			}
+
+			// 4. Build the Cypher SQL and get the answer
+			double localFinalScore = Double.MIN_VALUE;
+			String localPropName = "";
+			for (PatternMatchingResultBean b : tempBeanSet) {
+				if (b.isValid()) {
+					System.out.println("candidate " + b.getAnswer() + " has score:" + b.getScore());
+					if (b.getScore() > localFinalScore) {
+						localPropName = b.getAnswer();
+						localFinalScore = b.getScore();
+					}
+				}
+			}
+
+			PatternMatchingResultBean localrsBean = new PatternMatchingResultBean();
+			if (!localPropName.isEmpty()) {
+				localrsBean.setAnswer(propMap.get(localPropName));
+				localrsBean.setScore(localFinalScore);
+			}
+			rsBean.add(localrsBean);
+		}
+		System.out.println(
+				"---------------Multiple Entity: End of Pattern Matching Candidate Process--------------------");
+
+		System.out.println("PM.getSingleEntityNormalQ return bean is " + rsBean.toString());
+		return rsBean;
+	}
+
+	// Get the answer by the pattern matching method
+	// for the case of single entity in normal question mode
+	// input: the question sentence from users,"姚明身高是多少"
+	// output: the answer without answer rewriting, “226cm”
+	private PatternMatchingResultBean getSingleEntityNormalQ(String sentence, String entity) {
+		// 2. split the sentence by the entities to get candidates
+		// get candidates by splitting the sentence by entities.
+		List<String> candidateSet = this.getCandidateSet(sentence, entity);
+		System.out.println("PMP.getAnswer: candidateSet = " + candidateSet);
+
+		// get all the property of the entity
+		Map<String, String> propMap = this.getPropertyNameSet(entity);
+		System.out.println("PMP.getAnswer: propMap = " + propMap);
+
+		// 3. compute the score for each candidate
+		List<PatternMatchingResultBean> rsBean = new ArrayList();
+		System.out.println(
+				"---------------Single Entity: Begin of Pattern Matching Candidate Process--------------------");
 		for (String s : candidateSet) {
 			System.out.println("### Candidate is " + s);
 
@@ -173,7 +360,8 @@ public class PatternMatchingProcess {
 				}
 			}
 		}
-		System.out.println("---------------End of Pattern Matching Candidate Process--------------------");
+		System.out
+				.println("---------------Single Entity: End of Pattern Matching Candidate Process--------------------");
 
 		// 4. Build the Cypher SQL and get the answer
 		double finalScore = Double.MIN_VALUE;
@@ -196,6 +384,30 @@ public class PatternMatchingProcess {
 
 		System.out.println("PM.getSingleEntityNormalQ return bean is " + rs.toString());
 		return rs;
+	}
+
+	// TBD
+	// get the relationship set in DB with synonym process
+	// return Map<synProp, prop>
+	// input: 姚明
+	// output: [<老婆,老婆>, <妻,老婆>, ...]
+	private Map<String, String> getRelationNameSet(String ent) {
+		Map<String, String> rsMap = new HashMap<>();
+		if (Tool.isStrEmptyOrNull(ent)) {
+			System.err.println("PMP.getPropertyNameSet: input is empty");
+			return rsMap;
+		}
+
+		// List<String> propList = DBProcess.getPropertyNameSet(ent);
+		// for (String iProp : propList) {
+		// rsMap.put(iProp, iProp);
+		// Set<String> setSyn = NLPProcess.getSynonymWordSet(iProp);
+		// for (String iSyn : setSyn) {
+		// rsMap.put(iSyn, iProp);
+		// }
+		// }
+		// System.out.println("all the prop is: " + rsMap);
+		return rsMap;
 	}
 
 	// get the property set in DB with synonym process
@@ -224,25 +436,80 @@ public class PatternMatchingProcess {
 	// return the entity by Solr method
 	// input: the sentence from user, "姚明身高多少"
 	// output: the entity identified by Solr, "姚明"
-	private String getEntityBySolr(String sentence) {
+	private List<String> getEntityBySolr(String sentence) {
+		List<String> rsEntitySet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getEntityBySolr: input is empty");
-			return "";
+			return rsEntitySet;
 		}
+
 		// TBD: hard code for 3/15
 		String ent = "姚明";
-		if (!sentence.contains(ent))
-			return "";
-		else
-			return ent;
+		if (!sentence.contains(ent)) {
+			return rsEntitySet;
+		} else {
+			rsEntitySet.add(ent);
+			return rsEntitySet;
+		}
+	}
+
+	// get the candidiates by spliting the sentence accroding to the entity
+	// input: [你知道，的老婆的身高吗]（“你知道姚明的老婆的身高吗？”）
+	// output: [老婆，身高]
+	// if question does not contain ent, return null.
+	private List<String> getCandidateSetbyStopWord(List<String> strSet) {
+		List<String> rsList = new ArrayList<>();
+		if (strSet == null) {
+			System.err.println("PMP.getCandidateSet: input is empty");
+		}
+
+		for (String str : strSet) {
+			String tempStr = str;
+			NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
+			List<Term> segPos = tnNode.getWordPos();
+			for (int i = 0; i < segPos.size(); i++) {
+				String segWord = segPos.get(i).word;
+				if (NLPProcess.isStopWord(segWord)) {
+					if (!tempStr.startsWith(segWord)) {
+						rsList.add(tempStr.substring(0, tempStr.indexOf(segWord)));
+					}
+					tempStr = tempStr.substring(tempStr.indexOf(segWord) + segWord.length());
+				}
+			}
+			// System.out.println("str is " + str + ", and list is " +
+			// rsList.toString());
+		}
+		System.out.println("PM.getCandidateSetbyEntityandStopWord is " + rsList.toString());
+		return rsList;
+	}
+
+	// may remove to Tool, and use this in getCandidateSet
+	private List<String> splitSentenceByWord(String sentence, String word) {
+		List<String> list = new ArrayList<>();
+		if (!sentence.contains(word)) {
+			list.add(sentence);
+		}
+		while (sentence.lastIndexOf(word) != -1) {
+			String s = sentence.substring(sentence.lastIndexOf(word) + word.length()).trim();
+			if (!s.isEmpty()) {
+				list.add(s); // add the last part
+			}
+
+			// remove the last part
+			sentence = sentence.substring(0, sentence.lastIndexOf(word)).trim();
+			if (!sentence.isEmpty() && sentence.lastIndexOf(word) == -1) {
+				list.add(sentence);
+			}
+		}
+		return list;
 	}
 
 	// get the candidiates by spliting the sentence accroding to the entity
 	// input: “你知道姚明的身高吗？”
 	// output: [“你知道”，“的身高吗”]
 	// if question does not contain ent, return null.
-	private Set<String> getCandidateSet(String str, String ent) {
-		Set<String> listPart = new HashSet<>();
+	private List<String> getCandidateSet(String str, String ent) {
+		List<String> listPart = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(str) || Tool.isStrEmptyOrNull(ent)) {
 			System.err.println("PMP.getCandidateSet: input is empty");
 		}
@@ -483,11 +750,26 @@ public class PatternMatchingProcess {
 		return rs;
 	}
 
+	// template process, change the exception cases for the cases with two
+	// entities for 4/15 milestone
+	// input: entity and sentence, "姚明和叶莉的宝宝是谁"
+	// output: the sentence changed by template, "姚明和叶莉的孩子是谁"
+	private String templateProcess(String entityA, String entityB, String sentence) {
+		String rs = "";
+		// System.out.println("input=" + sentence + ", output=" + rs);
+		return rs;
+	}
+
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "谁是姚明？";
-		mp.getAnswer(str);
+		String str = "你知不知道姚明的老婆的身高是多少？";
+		// mp.getAnswer(str);
 
+		List<String> lstr = new ArrayList<>();
+		lstr.add("你知不知道");
+		lstr.add(str);
+
+		mp.getCandidateSetbyStopWord(mp.getCandidateSet(str, "姚明"));
 		// mp.templateProcess("姚明", str);
 
 		// System.out.println("senType="+mp.templateProcess("姚明", str));

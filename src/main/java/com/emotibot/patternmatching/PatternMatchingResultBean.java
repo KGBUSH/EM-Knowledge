@@ -7,10 +7,21 @@ package com.emotibot.patternmatching;
  * Primary Owner: quanzu@emotibot.com.cn
  */
 
-public class PatternMatchingResultBean {
+public class PatternMatchingResultBean implements Cloneable {
 	private String answer;
 	private double score;
 	private boolean valid = false;
+	
+	public PatternMatchingResultBean clone() {   
+		PatternMatchingResultBean clone = null;   
+	    try{   
+	        clone = (PatternMatchingResultBean) super.clone();   
+	    }catch(CloneNotSupportedException e){   
+	        throw new RuntimeException(e);  // won't happen   
+	    }   
+	      
+	    return clone;   
+	}  
 
 	public boolean isValid() {
 		return valid;

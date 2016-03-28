@@ -57,5 +57,11 @@ public class DBProcess {
 		System.out.println("in DBProcess, it return " + bean.getResult());
 		return bean.getResult();
 	}
+	
+	public static void main(String [] args){
+		String str = "match (p:college {Name:\"西安电子科技大学\"} ) match (q:other {Name:\"西安\"} ) merge (p)-[r:地区]->(q)   return p, r, q";
+		System.out.println("list of prop is: "+getPropertyNameSet("Yaoming"));
+		conn.updateQuery(str);
+	}
 
 }

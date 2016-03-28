@@ -7,8 +7,10 @@ package com.emotibot.patternmatching;
  * Primary Owner: quanzu@emotibot.com.cn
  */
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +31,43 @@ public class NLPProcess {
 	private static HashMap<String, Set<String>> synonymTable = createSynonymTable();
 	private static HashMap<String, List<String>> synonymTableRef = createSynonymTableRef();
 	private static Set<String> stopWordTable = createStopWordTable();
+	private static Set<String> entityTable = createEntityTable();
+
+	// create stopword table Set
+	private static Set<String> createEntityTable() {
+		Set<String> entitySet = new HashSet<>();
+		String filePath = Common.UserDir + "/knowledgedata/domain";
+		System.out.println("path is " + filePath);
+
+		if (!Tool.isStrEmptyOrNull(filePath)) {
+			try {
+				// BytesEncodingDetect s = new BytesEncodingDetect();
+				// String fileCode =
+				// BytesEncodingDetect.nicename[s.detectEncoding(new
+				// File(filePath))];
+				// if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+				// fileCode = "GB2312";
+				File fileDictoray = new File(filePath);
+				File[] allFile = fileDictoray.listFiles();
+				for (File f : allFile) {
+					FileInputStream fis = new FileInputStream(f);
+					InputStreamReader read = new InputStreamReader(fis);
+					BufferedReader dis = new BufferedReader(read);
+					String word = "";
+					while ((word = dis.readLine()) != null) {
+						if (!word.trim().isEmpty())
+							entitySet.add(word.trim());
+					}
+					dis.close();
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		return entitySet;
+	}
 
 	// create stopword table Set
 	private static Set<String> createStopWordTable() {
@@ -212,10 +251,48 @@ public class NLPProcess {
 			return rsList.get(0);
 	}
 
+	// return the set of entity which is contained in the input sentence
+	// input: 姚明和叶莉的女儿是谁？
+	// output: [姚明，叶莉]
+	public static List<String> getEntitySimpleMatch(String str) {
+		List<String> entitySet = new ArrayList<>();
+		for (String s : entityTable) {
+			if (str.contains(s)) {
+				entitySet.add(s);
+			}
+		}
+
+		System.out.println("the mached entities are: " + entitySet.toString());
+		return entitySet;
+	}
+
 	public static void main(String[] args) {
 		NLPProcess sp = new NLPProcess();
 		// sp.synonymProcess("");
-		System.out.println("syn is " + matchSynonymPropertyInDB("姚明", "女人"));
+
+		String str = "香港金像奖有没有上海大学";
+		List<String> es = getEntitySimpleMatch(str);
+		for (String s : es) {
+			System.out.println(s.length());
+		}
+
+		// String fileEntity = Common.UserDir + "/knowledgedata/entity.txt";
+		//
+		// try {
+		// File writename = new File(fileEntity);
+		// writename.createNewFile(); // 创建新文件
+		// BufferedWriter out = new BufferedWriter(new FileWriter(writename));
+		// for (String s : entityTable) {
+		// System.out.println(s.length());
+		// out.write(s+"\r\n"); // \r\n即为换行
+		// }
+		// out.flush(); // 把缓存区内容压入文件
+		// out.close(); // 最后记得关闭文件
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
+
+		// System.out.println("syn is " + matchSynonymPropertyInDB("姚明", "女人"));
 
 		// System.out.println("syn is " + sp.getSynonymWord("伯"));
 
