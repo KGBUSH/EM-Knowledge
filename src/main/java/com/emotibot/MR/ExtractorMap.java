@@ -126,6 +126,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 
 			}
 			System.err.println("url.size=" + url.length() + " html.size=" + html.length());
+			System.err.println("url=" + url);
 			if ((url != null && url.trim().length() > 0) && (html != null && html.trim().length() > 0)) {
 				if(url.indexOf("baike.baidu.com")==-1) return;
 				if (type.contains("Neo4j")) {
@@ -142,7 +143,13 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 						if(NodeOrRelation.equals("1")||NodeOrRelation.equals("2")) return;
 					}
 					//return;
-                    if(NodeOrRelation.equals("3")) label=Other;
+                    if(NodeOrRelation.equals("3")) {
+                    	if(WordLabelMap.containsKey(name)){
+        					System.err.println("First have the Name:="+name);
+        					return ;
+                    	}
+                    	label=Other;
+                    }
                     if(NodeOrRelation.equals("1")||NodeOrRelation.equals("2"))  label = WordLabelMap.get(name);
 					System.err.println("label="+label);
 
@@ -169,6 +176,10 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 								{
 									Entity a = new Entity(label, name);
 									Entity b = new Entity(Other,val);
+									if(name.trim().equals(val.trim())){
+										System.err.println(name+"(equals)" +val);
+                                        continue;
+									}
 									String query=bcy.InsertRelation(a, b, attr, null);
 									System.err.println(NodeOrRelation+" queryMap=" + query);
 									if (query == null || query.trim().length() == 0) return;

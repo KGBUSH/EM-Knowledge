@@ -146,11 +146,11 @@ public class BuildCypherSQL implements CypherSQLParser {
 		relation.put("时间", "2003");
 
 		// instance two entity by lable and name
-		Entity a = new Entity(Common.PERSONLABEL, "姚明");
-		Entity b = new Entity(Common.PERSONLABEL, "叶莉");
+		Entity a = new Entity(Common.PERSONLABEL, "黄晓明");
+		Entity b = new Entity(Common.PERSONLABEL, "angelababy");
 
 		// note that the relation point from a to b
-		buildCypherSQL.InsertRelation(a, b, "老婆", relation);
+		buildCypherSQL.InsertRelation(a, b, "老婆", null);
 
 	}
 
