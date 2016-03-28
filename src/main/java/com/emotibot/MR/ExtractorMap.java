@@ -91,6 +91,9 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 		fileList.add("/domain/sports_organization.txt");
 		fileList.add("/domain/tourism.txt");
 		fileList.add("/domain/varity_show.txt");
+		fileList.add("/domain/economy.txt");
+		fileList.add("/domain/medical_treatment.txt");
+
 		WordLabelMap = new HashMap<>();
 		for (String f : fileList) {
 			getFileLine(f);
