@@ -57,7 +57,7 @@ public class PatternMatchingProcess {
 			return answerBean;
 		}
 
-		PatternMatchingResultBean beanPM = new PatternMatchingResultBean();
+		// PatternMatchingResultBean beanPM = new PatternMatchingResultBean();
 		String entity = "";
 		// for single entity case
 		if (entitySet.size() == 1) {
@@ -73,7 +73,7 @@ public class PatternMatchingProcess {
 			// beanPM = getSingleEntityNormalQ(userSentence, entity);
 
 			List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(sentence, entity);
-			beanPM = mutlipleReasoningProcess(entity, listPMBean);
+			answerBean = mutlipleReasoningProcess(entity, listPMBean);
 		} else {
 			// for multiple entities, support at most two in 4/15 milestone
 
@@ -82,36 +82,27 @@ public class PatternMatchingProcess {
 		// if it is the selective question
 		String strSeletive = processSelectQ(userSentence);
 		if (!strSeletive.isEmpty()) {
-			if (beanPM.isValid()) {
-				answerBean.setAnswer(strSeletive.substring(0, 1));
+			if (!answerBean.getAnswer().isEmpty()) {
+				// valide answer
+				answerBean.setAnswer(strSeletive.substring(0, 1) + answerBean.getAnswer());
 			} else {
 				answerBean.setAnswer(strSeletive.substring(1));
 			}
-			answerBean.setScore(beanPM.getScore());
 			System.out.println("Selective Qustion: anwerBean is " + answerBean.toString());
 			return answerBean;
 		}
 
-		if (beanPM.isValid()) {
+		if (!answerBean.getAnswer().isEmpty()) {
 			// case of not matching property
 			if (isQuestion == false) {
-				beanPM.setScore(0);
+				answerBean.setScore(0);
 			}
 		} else {
 			// case of matching property
-			beanPM.setAnswer("firstParamInfo");
-			beanPM.setScore(isIntroduction(userSentence) ? 100 : 0);
+			answerBean.setAnswer(DBProcess.getPropertyValue(entity, "firtParamInfo"));
+			answerBean.setScore(isIntroduction(userSentence) ? 100 : 0);
 		}
-		System.out.println("PM.getAnswer: the returned beanPM is " + beanPM.toString());
-		answerBean.setAnswer(DBProcess.getPropertyValue(entity, beanPM.getAnswer()));
-		answerBean.setScore(beanPM.getScore());
-
-		// answer rewrite process
-		// AnswerRewrite answerRewite = new AnswerRewrite();
-		// rs = answerRewite.rewriteAnswer(rs);
-
-		System.out.println("anwerBean is " + answerBean.toString());
-
+		System.out.println("PM.getAnswer: the returned anwer is " + answerBean.toString());
 		return answerBean;
 	}
 
@@ -150,25 +141,26 @@ public class PatternMatchingProcess {
 
 		return rs;
 	}
-	
-	private PatternMatchingResultBean mutlipleReasoningProcess(String entity, List<PatternMatchingResultBean> listPMBean) {
-		PatternMatchingResultBean rsBean = new PatternMatchingResultBean();
+
+	private AnswerBean mutlipleReasoningProcess(String entity, List<PatternMatchingResultBean> listPMBean) {
+		System.out.println("PMP.mutlipleReasoningProcess: entity="+entity+", listPMBean="+listPMBean);
+		AnswerBean rsBean = new AnswerBean();
 		String answer = coreMutlipleReasoningProcess(entity, listPMBean);
-		
-		if(answer.isEmpty()){
+
+		if (answer.isEmpty()) {
 			return rsBean;
 		} else {
 			rsBean.setAnswer(answer);
-			
+
 			double score = 100;
-			for(PatternMatchingResultBean bean : listPMBean){
-				score *= bean.getScore()/100.00;
-				System.out.print(" * "+bean.getScore()+"/100 ");
+			for (PatternMatchingResultBean bean : listPMBean) {
+				score *= bean.getScore() / 100.00;
+				System.out.print(" * " + bean.getScore() + "/100 ");
 			}
-			System.out.println(" = "+score);
+			System.out.println(" = " + score);
 			rsBean.setScore(score);
 		}
-		
+
 		return rsBean;
 	}
 
@@ -181,7 +173,7 @@ public class PatternMatchingProcess {
 		if (listPMBean.size() == 1) {
 			rs = DBProcess.getPropertyValue(entity, listPMBean.get(0).getAnswer());
 			return rs;
-//			rs = getAnswerbyProperty(entity, listPMBean.get(0).getAnswer());
+			// rs = getAnswerbyProperty(entity, listPMBean.get(0).getAnswer());
 		}
 
 		// get all the relationship of the entity
@@ -349,12 +341,12 @@ public class PatternMatchingProcess {
 				}
 			}
 
-			PatternMatchingResultBean localrsBean = new PatternMatchingResultBean();
 			if (!localPropName.isEmpty()) {
+				PatternMatchingResultBean localrsBean = new PatternMatchingResultBean();
 				localrsBean.setAnswer(propMap.get(localPropName));
 				localrsBean.setScore(localFinalScore);
+				rsBean.add(localrsBean);
 			}
-			rsBean.add(localrsBean);
 		}
 		System.out.println(
 				"---------------Multiple Entity: End of Pattern Matching Candidate Process--------------------");
@@ -815,16 +807,16 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
 		String str = "你知不知道姚明的老婆的身高是多少？";
-		// mp.getAnswer(str);
+		 mp.getAnswer(str);
 
-		List<PatternMatchingResultBean> listPMBean = new ArrayList<PatternMatchingResultBean>();
-		PatternMatchingResultBean bean = new PatternMatchingResultBean();
-		bean.setAnswer("身高");
-		listPMBean.add(bean);
-		PatternMatchingResultBean beanB = new PatternMatchingResultBean();
-		beanB.setAnswer("老婆");
-		listPMBean.add(beanB);
-		System.out.println("result is " + mp.mutlipleReasoningProcess("姚明", listPMBean));
+//		List<PatternMatchingResultBean> listPMBean = new ArrayList<PatternMatchingResultBean>();
+//		PatternMatchingResultBean bean = new PatternMatchingResultBean();
+//		bean.setAnswer("身高");
+//		listPMBean.add(bean);
+//		PatternMatchingResultBean beanB = new PatternMatchingResultBean();
+//		beanB.setAnswer("老婆");
+//		listPMBean.add(beanB);
+//		System.out.println("result is " + mp.mutlipleReasoningProcess("姚明", listPMBean));
 
 		List<String> lstr = new ArrayList<>();
 		lstr.add("你知不知道");

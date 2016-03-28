@@ -98,9 +98,15 @@ public class BuildCypherSQL implements CypherSQLParser {
 	@Override
 	public String FindEntityAttr(String label, String name, String attr) {
 		String query = "";
-		if (Tool.isStrEmptyOrNull(label) || Tool.isStrEmptyOrNull(name)) {
+		if (Tool.isStrEmptyOrNull(name)) {
+			System.err.println("NEO4J: name is null");
+			return query;
 		}
-		{
+
+		if (label.isEmpty()) {
+			query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + name + "\"}) return e." + attr + " as "
+					+ Common.ResultObj;
+		} else {
 			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + name + "\"}) return e." + attr + " as "
 					+ Common.ResultObj;
 		}
@@ -111,8 +117,13 @@ public class BuildCypherSQL implements CypherSQLParser {
 	@Override
 	public String getPropNamebyEntityName(String label, String ent) {
 		String query = "";
-		if (Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(label)) {
-			// TBD
+		if (Tool.isStrEmptyOrNull(ent)) {
+			System.err.println("NEO4J: name is null");
+			return query;
+		}
+		
+		if (label.isEmpty()) {
+			query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) return keys(e) as " + Common.ResultObj;
 		} else {
 			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) return keys(e) as "
 					+ Common.ResultObj;

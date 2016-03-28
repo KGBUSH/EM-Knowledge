@@ -61,6 +61,7 @@ public class EmotibotNeo4jConnection {
 	}
 
 	public Neo4jResultBean executeCypherSQL(String query) {
+		System.out.println("NEO4J: executeCypherSQL-->"+query);
 		Neo4jResultBean bean = new Neo4jResultBean();
 
 		try {
@@ -71,6 +72,7 @@ public class EmotibotNeo4jConnection {
 			}
 			bean.setStatus(true);
 		} catch (Exception e) {
+			System.err.println("exception in NEO4J.executeCypherSQL");
 			e.printStackTrace();
 			bean.setStatus(false);
 			bean.setException(e.getMessage());

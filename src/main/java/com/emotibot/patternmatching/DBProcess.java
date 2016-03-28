@@ -34,16 +34,40 @@ public class DBProcess {
 		return neo4jDBManager.getConnection();
 	}
 
+	public static List<String> getPropertyNameSet(String entity, String label) {
+		List<String> propSet = new ArrayList<>();
+		if(Tool.isStrEmptyOrNull(entity)){
+			System.err.println("DBProcess.getPropertyNameSet: input is empty");
+			return propSet;
+		}
+		String query = buildCypherSQLObj.getPropNamebyEntityName(label, entity);
+		propSet = conn.getArrayList(query);
+		System.out.println("in DBProcess, prop name is " + propSet);
+		return propSet;
+	}
+	
 	public static List<String> getPropertyNameSet(String entity) {
 		List<String> propSet = new ArrayList<>();
 		if(Tool.isStrEmptyOrNull(entity)){
 			System.err.println("DBProcess.getPropertyNameSet: input is empty");
 			return propSet;
 		}
-		String query = buildCypherSQLObj.getPropNamebyEntityName(Common.PERSONLABEL, entity);
+		String query = buildCypherSQLObj.getPropNamebyEntityName("", entity);
 		propSet = conn.getArrayList(query);
 		System.out.println("in DBProcess, prop name is " + propSet);
 		return propSet;
+	}
+	
+	public static String getPropertyValue(String ent, String prop, String label) {
+		if(Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(prop)){
+			System.err.println("DBProcess.getPropertyValue: input is empty");
+			return "";
+		}
+		Neo4jResultBean bean = null;
+		String query = buildCypherSQLObj.FindEntityAttr(label, ent, prop);
+		bean = conn.executeCypherSQL(query);
+		System.out.println("in DBProcess, it return " + bean.getResult());
+		return bean.getResult();
 	}
 	
 	public static String getPropertyValue(String ent, String prop) {
@@ -52,7 +76,7 @@ public class DBProcess {
 			return "";
 		}
 		Neo4jResultBean bean = null;
-		String query = buildCypherSQLObj.FindEntityAttr(Common.PERSONLABEL, ent, prop);
+		String query = buildCypherSQLObj.FindEntityAttr("", ent, prop);
 		bean = conn.executeCypherSQL(query);
 		System.out.println("in DBProcess, it return " + bean.getResult());
 		return bean.getResult();
