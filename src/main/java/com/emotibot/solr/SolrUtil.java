@@ -117,6 +117,7 @@ public class SolrUtil {
         solrQuery.set("fl", "*,score");
         solrQuery.set("q", query);
         solrQuery.set("df", "KG_Name");
+        //solrQuery.s
         QueryResponse response=server.query(solrQuery);
         SolrDocumentList docList = response.getResults();
         for (SolrDocument doc : docList) {
@@ -167,9 +168,13 @@ public class SolrUtil {
 		 }*/
 		Solr_Query obj = new Solr_Query();
 		obj.setFindEntity(true);
-		//obj.setEntity("姚明");
-		obj.addWord("菩萨");
-		obj.addWord("寺庙");
+		obj.addEntity("姚明");
+		obj.addEntity("叶莉");
+
+		//obj.addWord("姚明");
+		obj.addWord("老婆");
+		//obj.addWord("身高");
+
 		solr.Search(obj);
 		return;
 	}
