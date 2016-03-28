@@ -69,21 +69,11 @@ public class PatternMatchingProcess {
 				return answerBean;
 			}
 
-			// call different processes according to different situations
-			beanPM = getSingleEntityNormalQ(userSentence, entity);
+			// old method for handling single property
+			// beanPM = getSingleEntityNormalQ(userSentence, entity);
 
 			List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(sentence, entity);
-
-			// get all the relationship of the entity
-			Map<String, String> relationMap = this.getRelationNameSet(entity);
-			System.out.println("PMP.getAnswer: relationMap = " + relationMap);
-
-			String rsAnswer = mutlipleReaoningProcess(entity, listPMBean, relationMap);
-
-			for (PatternMatchingResultBean bean : listPMBean) {
-
-			}
-
+			beanPM = mutlipleReasoningProcess(entity, listPMBean);
 		} else {
 			// for multiple entities, support at most two in 4/15 milestone
 
@@ -125,48 +115,99 @@ public class PatternMatchingProcess {
 		return answerBean;
 	}
 
-	private String mutlipleReaoningProcess(String entity, List<PatternMatchingResultBean> listPMBean,
-			Map<String, String> relationMap) {
+	private List<PatternMatchingResultBean> copyPMListExceptOne(List<PatternMatchingResultBean> listPMBean,
+			PatternMatchingResultBean one) {
+		List<PatternMatchingResultBean> copy = new ArrayList<PatternMatchingResultBean>(listPMBean.size());
+		Iterator<PatternMatchingResultBean> it = listPMBean.iterator();
+		while (it.hasNext()) {
+			PatternMatchingResultBean b = it.next();
+			if (!b.equals(one)) {
+				copy.add(b.clone());
+			}
+		}
+		return copy;
+	}
+
+	// to handle the case that not all the property will be used
+	// input: "姚明", ["身高"，"老婆", "祖籍"]
+	// output: “190”
+	private String mutlipleReasoningProcessException(String entity, List<PatternMatchingResultBean> listPMBean) {
+		System.out.println("MLProcess: entity=" + entity + "; listPMBean=" + listPMBean);
+
+		String answer = coreMutlipleReasoningProcess(entity, listPMBean);
+		if (!answer.isEmpty()) {
+			return answer;
+		}
+
+		String rs = "";
+		for (PatternMatchingResultBean bean : listPMBean) {
+			List<PatternMatchingResultBean> beanList = copyPMListExceptOne(listPMBean, bean);
+			String localRS = mutlipleReasoningProcessException(entity, beanList);
+			if (!Tool.isStrEmptyOrNull(localRS)) {
+				return localRS;
+			}
+		}
+
+		return rs;
+	}
+	
+	private PatternMatchingResultBean mutlipleReasoningProcess(String entity, List<PatternMatchingResultBean> listPMBean) {
+		PatternMatchingResultBean rsBean = new PatternMatchingResultBean();
+		String answer = coreMutlipleReasoningProcess(entity, listPMBean);
+		
+		if(answer.isEmpty()){
+			return rsBean;
+		} else {
+			rsBean.setAnswer(answer);
+			
+			double score = 100;
+			for(PatternMatchingResultBean bean : listPMBean){
+				score *= bean.getScore()/100.00;
+				System.out.print(" * "+bean.getScore()+"/100 ");
+			}
+			System.out.println(" = "+score);
+			rsBean.setScore(score);
+		}
+		
+		return rsBean;
+	}
+
+	// get the anwer by multi-level reasoning
+	// input: "姚明", ["身高"，"老婆"]
+	// output: “190”
+	private String coreMutlipleReasoningProcess(String entity, List<PatternMatchingResultBean> listPMBean) {
+		System.out.println("coreMLProcess: entity=" + entity + "; listPMBean=" + listPMBean);
 		String rs = "";
 		if (listPMBean.size() == 1) {
-			rs = getAnswerbyProperty(entity, listPMBean.get(0).getAnswer());
+			rs = DBProcess.getPropertyValue(entity, listPMBean.get(0).getAnswer());
 			return rs;
+//			rs = getAnswerbyProperty(entity, listPMBean.get(0).getAnswer());
 		}
+
+		// get all the relationship of the entity
+		Map<String, String> relationMap = this.getRelationNameSet(entity);
+		System.out.println("PMP.getAnswer: relationMap = " + relationMap);
 
 		Iterator<PatternMatchingResultBean> iterator = listPMBean.iterator();
 		while (iterator.hasNext()) {
-			if (relationMap.containsKey(iterator.next().getAnswer())) {
-				List<PatternMatchingResultBean> copy = new ArrayList<PatternMatchingResultBean>(listPMBean.size());
-				Iterator<PatternMatchingResultBean> it = listPMBean.iterator();
-				while (it.hasNext()) {
-					if (!it.next().equals(iterator.next())) {
-						copy.add(it.next().clone());
-					}
+			PatternMatchingResultBean bean = iterator.next();
+			// System.out.println("$$$$check:"+bean);
+			if (relationMap.containsKey(bean.getAnswer())) {
+				System.out.println("@@@process" + bean);
+				List<PatternMatchingResultBean> copy = copyPMListExceptOne(listPMBean, bean);
+				String nextEntity = getEntitybyRelation(entity, bean.getAnswer());
+				System.out.println("copy=" + copy + ", newEntity=" + nextEntity);
+				if (!nextEntity.isEmpty()) {
+					System.out.println("-----> recurrence into: nextEntity=" + nextEntity);
+					rs = coreMutlipleReasoningProcess(nextEntity, copy);
 				}
-				String nextEntity = getEntitybyRelation(entity, iterator.next().getAnswer());
-				return this.mutlipleReaoningProcess(nextEntity, copy, relationMap);
 			} else {
+				System.out.println("@@@remove" + bean);
 				iterator.remove();
 			}
 		}
 
 		return rs;
-
-		// for (PatternMatchingResultBean bean : listPMBean) {
-		// if (relationMap.containsKey(bean.getAnswer())) {
-		// List<PatternMatchingResultBean> copy = new
-		// ArrayList<PatternMatchingResultBean>(listPMBean.size());
-		// Iterator<PatternMatchingResultBean> it = listPMBean.iterator();
-		// while (it.hasNext()) {
-		// copy.add(it.next().clone());
-		// }
-		// copy.remove(bean);
-		// String nextEntity = getEntitybyRelation(entity, bean.getAnswer());
-		// return this.mutlipleReaoningProcess(nextEntity, copy, relationMap);
-		// } else {
-		// listPMBean.remove(bean);
-		// }
-		// }
 
 	}
 
@@ -177,6 +218,13 @@ public class PatternMatchingProcess {
 		}
 		System.out.println("return get anwer by property");
 		String rsProp = "";
+
+		if (entity.equals("叶莉")) {
+			if (property.equals("身高")) {
+				return "190";
+			}
+		}
+
 		return rsProp;
 	}
 
@@ -188,10 +236,6 @@ public class PatternMatchingProcess {
 		if (entity.equals("姚明")) {
 			if (relation.equals("老婆")) {
 				return "叶莉";
-			}
-		} else if (entity.equals("叶莉")) {
-			if (relation.equals("身高")) {
-				return "190";
 			}
 		}
 
@@ -396,6 +440,14 @@ public class PatternMatchingProcess {
 		if (Tool.isStrEmptyOrNull(ent)) {
 			System.err.println("PMP.getPropertyNameSet: input is empty");
 			return rsMap;
+		}
+
+		// TEST
+		if (ent.equals("姚明")) {
+			rsMap.put("身高", "226");
+			rsMap.put("老婆", "叶莉");
+		} else if (ent.equals("叶莉")) {
+			rsMap.put("身高", "190");
 		}
 
 		// List<String> propList = DBProcess.getPropertyNameSet(ent);
@@ -765,11 +817,20 @@ public class PatternMatchingProcess {
 		String str = "你知不知道姚明的老婆的身高是多少？";
 		// mp.getAnswer(str);
 
+		List<PatternMatchingResultBean> listPMBean = new ArrayList<PatternMatchingResultBean>();
+		PatternMatchingResultBean bean = new PatternMatchingResultBean();
+		bean.setAnswer("身高");
+		listPMBean.add(bean);
+		PatternMatchingResultBean beanB = new PatternMatchingResultBean();
+		beanB.setAnswer("老婆");
+		listPMBean.add(beanB);
+		System.out.println("result is " + mp.mutlipleReasoningProcess("姚明", listPMBean));
+
 		List<String> lstr = new ArrayList<>();
 		lstr.add("你知不知道");
 		lstr.add(str);
 
-		mp.getCandidateSetbyStopWord(mp.getCandidateSet(str, "姚明"));
+		// mp.getCandidateSetbyStopWord(mp.getCandidateSet(str, "姚明"));
 		// mp.templateProcess("姚明", str);
 
 		// System.out.println("senType="+mp.templateProcess("姚明", str));
