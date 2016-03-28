@@ -169,7 +169,7 @@ public class SolrUtil {
 		obj.setFindEntity(true);
 		//obj.setEntity("姚明");
 		obj.addWord("菩萨");
-		obj.addWord("忉利天");
+		obj.addWord("寺庙");
 		solr.Search(obj);
 		return;
 	}
