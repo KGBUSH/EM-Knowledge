@@ -11,6 +11,7 @@ public class PatternMatchingResultBean implements Cloneable {
 	private String answer;
 	private double score;
 	private boolean valid = false;
+	private String orignalWord = "";
 	
 	public PatternMatchingResultBean clone() {   
 		PatternMatchingResultBean clone = null;   
@@ -50,6 +51,14 @@ public class PatternMatchingResultBean implements Cloneable {
 
 	public String toString() {
 		return "answer:" + answer + ", score:" + score + ", valid is " + valid;
+	}
+
+	public String getOrignalWord() {
+		return orignalWord;
+	}
+
+	public void setOrignalWord(String orignalWord) {
+		this.orignalWord = orignalWord;
 	}
 
 }

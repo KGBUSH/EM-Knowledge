@@ -99,7 +99,7 @@ public class BuildCypherSQL implements CypherSQLParser {
 	public String FindEntityAttr(String label, String name, String attr) {
 		String query = "";
 		if (Tool.isStrEmptyOrNull(name)) {
-			System.err.println("NEO4J: name is null");
+			System.err.println("CYPHER: name is null");
 			return query;
 		}
 
@@ -110,7 +110,45 @@ public class BuildCypherSQL implements CypherSQLParser {
 			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + name + "\"}) return e." + attr + " as "
 					+ Common.ResultObj;
 		}
-		System.out.println("query in FindEnitityAttr is: " + query);
+		System.out.println("CYPHER in FindEnitityAttr is: " + query);
+		return query;
+	}
+
+	@Override
+	public String getEntityByRelationship(String label, String entity, String relation) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(entity) || Tool.isStrEmptyOrNull(relation)) {
+			System.err.println("CYPHER: entity or relation is null");
+			return query;
+		}
+
+		if (label.isEmpty()) {
+			query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + entity + "\"})-[r:" + relation
+					+ "]-(m) return m.Name as " + Common.ResultObj;
+		} else {
+			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + entity + "\"})-[r:" + relation
+					+ "]-(m) return m.Name as " + Common.ResultObj;
+		}
+		System.out.println("CYPHER of getEntityByRelationship: " + query);
+		return query;
+	}
+
+	@Override
+	public String getRelationshipByEntityName(String label, String ent) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(ent)) {
+			System.err.println("CYPHER: name is null");
+			return query;
+		}
+
+		if (label.isEmpty()) {
+			query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent
+					+ "\"})-[r]->() return collect(distinct type(r)) as " + Common.ResultObj;
+		} else {
+			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent
+					+ "\"})-[r]->() return collect(distinct type(r)) as " + Common.ResultObj;
+		}
+		System.out.println("CYPHER of getRelationshipByEntityName: " + query);
 		return query;
 	}
 
@@ -118,10 +156,10 @@ public class BuildCypherSQL implements CypherSQLParser {
 	public String getPropNamebyEntityName(String label, String ent) {
 		String query = "";
 		if (Tool.isStrEmptyOrNull(ent)) {
-			System.err.println("NEO4J: name is null");
+			System.err.println("CYPHER: name is null");
 			return query;
 		}
-		
+
 		if (label.isEmpty()) {
 			query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) return keys(e) as " + Common.ResultObj;
 		} else {
