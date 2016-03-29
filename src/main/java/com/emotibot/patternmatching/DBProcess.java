@@ -70,6 +70,19 @@ public class DBProcess {
 		return relationshipSet;
 	}
 	
+	// if there are multiple answers, return the first one.
+	public static String getEntityByRelationship(String label, String entity, String relationship) {
+		if(Tool.isStrEmptyOrNull(entity) || Tool.isStrEmptyOrNull(relationship)){
+			System.err.println("DBProcess.getEntityByRelationship: input is empty");
+			return "";
+		}
+		Neo4jResultBean bean = null;
+		String query = buildCypherSQLObj.getEntityByRelationship(label, entity, relationship);
+		bean = conn.executeCypherSQL(query);
+		System.out.println("in DBProcess, it return " + bean.getResult());
+		return bean.getResult();
+	}
+	
 	public static String getPropertyValue(String ent, String prop, String label) {
 		if(Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(prop)){
 			System.err.println("DBProcess.getPropertyValue: input is empty");
@@ -95,9 +108,12 @@ public class DBProcess {
 	}
 	
 	public static void main(String [] args){
+		System.out.println("list of prop is: "+getEntityByRelationship("", "test", "ACTS_IN"));
+		
+		
 		String str = "match (p:college {Name:\"西安电子科技大学\"} ) match (q:other {Name:\"西安\"} ) merge (p)-[r:地区]->(q)   return p, r, q";
-		System.out.println("list of prop is: "+getPropertyNameSet("Yaoming"));
-		conn.updateQuery(str);
+//		System.out.println("list of prop is: "+getPropertyNameSet("Yaoming"));
+//		conn.updateQuery(str);
 	}
 
 }

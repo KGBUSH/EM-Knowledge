@@ -60,7 +60,8 @@ public class PatternMatchingProcess {
 		// PatternMatchingResultBean beanPM = new PatternMatchingResultBean();
 		String entity = "";
 		// for single entity case
-		if (entitySet.size() == 1) {
+		// if (entitySet.size() == 1) {
+		if (entitySet.size()>0) {	// TBD: add case for size > 1
 			entity = entitySet.get(0);
 			sentence = templateProcess(entity, sentence);
 			System.out.println("PMP.getAnswer: single entity templateProcess sentence = " + sentence);
@@ -193,6 +194,9 @@ public class PatternMatchingProcess {
 
 		if (listPMBean.isEmpty()) {
 			System.out.println("\t @@ return case 0, answer=" + answerBean);
+			answerBean.setScore(answerBean.getScore() / 2); // does not match
+															// property, score
+															// decreases
 			return answerBean;
 		} else if (listPMBean.size() == 1) {
 			String prop = listPMBean.get(0).getAnswer();
@@ -207,10 +211,11 @@ public class PatternMatchingProcess {
 
 			if (relationMap.containsKey(prop)) {
 				// use the new answer as new entity
-				System.out.println("-----> case 1 recurrence into: nextEntity=" + answer + "; Bean=" + answerBean);
+				String newDBEntity = DBProcess.getEntityByRelationship("", entity, prop);
+				System.out.println("-----> case 1 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
 				System.out.println("prop:" + prop + ", new sentence:" + newSentence + ", after replace:"
-						+ newSentence.replace(oldWord, answer));
-				return ReasoningProcess(newSentence.replace(oldWord, answer), answer, answerBean);
+						+ newSentence.replace(oldWord, newDBEntity));
+				return ReasoningProcess(newSentence.replace(oldWord, newDBEntity), newDBEntity, answerBean);
 			} else {
 				System.out.println("\t @@ return case 1, answer=" + answerBean);
 				return answerBean;
@@ -221,16 +226,14 @@ public class PatternMatchingProcess {
 			double score = 100;
 
 			boolean furtherSeach = false;
-			String newEntity = "";
 			String prop = "";
 
 			for (PatternMatchingResultBean b : listPMBean) {
 				String queryAnswer = DBProcess.getPropertyValue(entity, b.getAnswer());
 				if (relationMap.containsKey(b.getAnswer())) {
 					furtherSeach = true;
-					newEntity = queryAnswer;
 					prop = b.getAnswer();
-					answerBean.setAnswer(newEntity);
+					answerBean.setAnswer(queryAnswer);
 					answerBean.setProperty(b.getAnswer());
 					answerBean.setValid(true);
 					answerBean.setScore(b.getScore());
@@ -245,8 +248,10 @@ public class PatternMatchingProcess {
 			}
 
 			if (furtherSeach == true) {
-				System.out.println("-----> case 2 recurrence into: nextEntity=" + newEntity + "; Bean=" + answerBean);
-				return ReasoningProcess(newSentence.replace(answerBean.getOriginalWord(), newEntity), newEntity, answerBean);
+				String newDBEntity = DBProcess.getEntityByRelationship("", entity, prop);
+				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
+				return ReasoningProcess(newSentence.replace(answerBean.getOriginalWord(), newDBEntity), newDBEntity,
+						answerBean);
 			} else {
 				answerBean.setAnswer(answer);
 				answerBean.setScore(score);
@@ -921,7 +926,7 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "黄晓明的经纪人的代表作品？";
+		String str = "黄晓明的妻子的别名？";
 		mp.getAnswer(str);
 
 		// AnswerBean answerBean = new AnswerBean();
