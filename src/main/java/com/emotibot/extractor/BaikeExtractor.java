@@ -52,7 +52,7 @@ public class BaikeExtractor extends Extractor {
 	            Elements hrefs = values.get(index).select("a");
             	for(Element href : hrefs){
             		String link = href.attr("href");
-            		String word = href.text().trim();
+            		String word = href.text().trim().toLowerCase();////////////
             		System.out.println(link+" ==> "+word);
             		pageInfo.addAttr_Values(attr, word);
             	}
