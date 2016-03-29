@@ -184,6 +184,7 @@ public class PageExtractInfo {
 		attr=attr.replaceAll("“", "");
 		attr=attr.replaceAll("”", "");
 		attr=removeAllBlank(attr);
+		if(Tool.isStrEmptyOrNull(attr)) return ;
 		//attr=attr.toLowerCase();
 		value=value.replace("'", " ");
 		value=value.replace("\\", "");
@@ -205,6 +206,24 @@ public class PageExtractInfo {
 		}
 	}
 	
+	public static void main(String args[])
+	{
+		String key=".";
+		key=key.replaceAll("/", "");//
+		key=key.replaceAll("\\.", "");
+		key=key.replaceAll("!", "");
+		key=key.replaceAll("\\?", "");
+		key=key.replaceAll("\\*", "");
+		//" “ ”
+		key = key.replaceAll("[\\pP‘’“”]", "");
+		key = key.replaceAll("[0-9]", "");
+
+		key=key.replaceAll("\"", "");
+		key=key.replaceAll("“", "");
+		key=key.replaceAll("”", "");
+        key=removeAllBlank(key);
+        System.err.println(key);
+	}
 	
 
 }

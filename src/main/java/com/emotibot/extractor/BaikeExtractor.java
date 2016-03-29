@@ -47,8 +47,8 @@ public class BaikeExtractor extends Extractor {
 	        values = element.select("dd.basicInfo-item");
 	        if(attributes.size()!=values.size()) continue;
 	        for(int index=0;index<values.size();index++){
-	               attr=attributes.get(index).html().replaceAll("&nbsp;", "");
-	               value=values.get(index).text();
+	               attr=attributes.get(index).html().replaceAll("&nbsp;", "").trim();
+	               value=values.get(index).text().trim();
 	               ///////////////////////////////////////////////
 	            Elements hrefs = values.get(index).select("a");
             	for(Element href : hrefs){
