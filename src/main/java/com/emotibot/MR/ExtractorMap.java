@@ -136,6 +136,8 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					boolean flag = name.equals(pmWord);
 					boolean name_flag =WordLabelMap.containsKey(name);
 					boolean pmname_flag = WordLabelMap.containsKey(pmWord);
+					System.err.println("NAME="+name);
+					System.err.println("NAME="+pmWord);
 
 					System.err.println("MM"+name+"KKKKK"+pmWord+"MM  "+flag+" "+name_flag+"  "+pmname_flag);
 					if (name != null && !WordLabelMap.containsKey(name)) {
