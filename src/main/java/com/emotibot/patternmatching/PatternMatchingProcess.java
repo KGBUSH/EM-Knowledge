@@ -69,7 +69,8 @@ public class PatternMatchingProcess {
 				return answerBean;
 			}
 
-			answerBean = mutlipleReasoningProcess(sentence, entity);
+//			answerBean = mutlipleReasoningProcess(sentence, entity);
+			answerBean = ReasoningProcess(sentence, entity, answerBean);
 
 			// old method for handling single property
 			// beanPM = getSingleEntityNormalQ(userSentence, entity);
@@ -173,20 +174,25 @@ public class PatternMatchingProcess {
 
 	// interface
 	private AnswerBean ReasoningProcess(String sentence, String entity, AnswerBean answerBean) {
-		System.out.println("PMP.ReasoningProcess: entity=" + entity + ", sentence =" + sentence + ", bean is "+answerBean);
+		System.out.println(
+				"PMP.ReasoningProcess: sentence=" + sentence + ", entity =" + entity + ", bean is " + answerBean);
 
+		if(!sentence.contains(entity)){
+			System.err.println("Sentence does not contain entity");
+			return answerBean;
+		} 
 		String newSentence = sentence.substring(0, sentence.indexOf(entity))
 				+ sentence.substring(sentence.indexOf(entity) + entity.length());
 		System.out.println("\t new sentence is::::" + newSentence);
 
-		Map<String, String> relationMap = this.getRelationNameSet(entity);
-		System.out.println("ReasoningProcess: relationMap = " + relationMap);
+		Map<String, String> relationMap = this.getRelationshipSet(entity);
+		System.out.println("\t relationMap = " + relationMap);
 
 		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(sentence, entity);
-		System.out.println("PMP.mutlipleReasoningProcess: listPMBean=" + listPMBean);
+		System.out.println("\t listPMBean=" + listPMBean);
 
 		if (listPMBean.isEmpty()) {
-			System.out.println("Reasoning case 0, return answer=" + answerBean);
+			System.out.println("\t @@ return case 0, answer=" + answerBean);
 			return answerBean;
 		} else if (listPMBean.size() == 1) {
 			String prop = listPMBean.get(0).getAnswer();
@@ -195,14 +201,17 @@ public class PatternMatchingProcess {
 			answerBean.setProperty(prop);
 			answerBean.setValid(true);
 			answerBean.setScore(listPMBean.get(0).getScore());
-			System.out.println("ReasoningProcess: answer = " + answerBean);
+			String oldWord = listPMBean.get(0).getOrignalWord();
+			answerBean.setOriginalWord(oldWord);
+			System.out.println("\t answer = " + answerBean);
 
 			if (relationMap.containsKey(prop)) {
 				// use the new answer as new entity
-				System.out.println("-----> case 1 recurrence into: nextEntity=" + answer + "; Bean="+answerBean);
-				return ReasoningProcess(newSentence.replace(prop, answer), answer, answerBean);
+				System.out.println("-----> case 1 recurrence into: nextEntity=" + answer + "; Bean=" + answerBean);
+				System.out.println("prop:"+prop+", new sentence:"+newSentence+", after replace:"+newSentence.replace(oldWord, answer));
+				return ReasoningProcess(newSentence.replace(oldWord, answer), answer, answerBean);
 			} else {
-				System.out.println("Reasoning case 1, return answer=" + answerBean);
+				System.out.println("\t @@ return case 1, answer=" + answerBean);
 				return answerBean;
 			}
 		} else {
@@ -233,13 +242,13 @@ public class PatternMatchingProcess {
 			}
 
 			if (furtherSeach == true) {
-				System.out.println("-----> case 2 recurrence into: nextEntity=" + newEntity + "; Bean="+answerBean);
+				System.out.println("-----> case 2 recurrence into: nextEntity=" + newEntity + "; Bean=" + answerBean);
 				return ReasoningProcess(newSentence.replace(prop, newEntity), newEntity, answerBean);
 			} else {
 				answerBean.setAnswer(answer);
 				answerBean.setScore(score);
 				answerBean.setValid(true);
-				System.out.println("Reasoning case 2, return answer = " + answerBean);
+				System.out.println("\t @@ return case 2, answer = " + answerBean);
 				return answerBean;
 			}
 		}
@@ -249,7 +258,7 @@ public class PatternMatchingProcess {
 		AnswerBean rsBean = new AnswerBean();
 
 		// get all the relationship of the entity
-		Map<String, String> relationMap = this.getRelationNameSet(entity);
+		Map<String, String> relationMap = this.getRelationshipSet(entity);
 		System.out.println("PMP.getAnswer: relationMap = " + relationMap);
 
 		if (!relationMap.containsKey(property)) {
@@ -278,7 +287,7 @@ public class PatternMatchingProcess {
 		}
 
 		// get all the relationship of the entity
-		Map<String, String> relationMap = this.getRelationNameSet(entity);
+		Map<String, String> relationMap = this.getRelationshipSet(entity);
 		System.out.println("PMP.getAnswer: relationMap = " + relationMap);
 
 		Iterator<PatternMatchingResultBean> iterator = listPMBean.iterator();
@@ -416,7 +425,8 @@ public class PatternMatchingProcess {
 
 			// 2. generate candidates according to the synonyms
 			List<String> synList = new ArrayList<>();
-			synList = this.replaceSynonymProcess(s);
+			Map<String, String> refPropMap = new HashMap<>();
+			synList = this.replaceSynonymProcess(s, refPropMap);
 			System.out.println("\t after synonym process: " + synList + " & size is " + synList.size());
 
 			for (String q : synList) {
@@ -447,6 +457,8 @@ public class PatternMatchingProcess {
 				PatternMatchingResultBean localrsBean = new PatternMatchingResultBean();
 				localrsBean.setAnswer(propMap.get(localPropName));
 				localrsBean.setScore(localFinalScore);
+				localrsBean.setOrignalWord(refPropMap.get(localPropName));
+				System.out.println("\t\t localPropName="+localPropName+", propMapName="+localrsBean.getAnswer()+", originalName="+localrsBean.getOrignalWord());
 				rsBean.add(localrsBean);
 			}
 		}
@@ -484,7 +496,8 @@ public class PatternMatchingProcess {
 
 			// 2. generate candidates according to the synonyms
 			List<String> synList = new ArrayList<>();
-			synList = this.replaceSynonymProcess(s);
+			Map<String, String> refPropMap = new HashMap<>();
+			synList = this.replaceSynonymProcess(s, refPropMap);
 			System.out.println("\t after synonym process: " + synList + " & size is " + synList.size());
 
 			for (String q : synList) {
@@ -524,32 +537,26 @@ public class PatternMatchingProcess {
 		return rs;
 	}
 
-	// TBD
 	// get the relationship set in DB with synonym process
-	// return Map<synProp, prop>
+	// return Map<synRelation, relationship>
 	// input: 姚明
-	// output: [<老婆,老婆>, <妻,老婆>, ...]
-	private Map<String, String> getRelationNameSet(String ent) {
+	// output: [<位置,位置>, <妻,老婆>, ...]
+	private Map<String, String> getRelationshipSet(String ent) {
 		Map<String, String> rsMap = new HashMap<>();
 		if (Tool.isStrEmptyOrNull(ent)) {
-			System.err.println("PMP.getPropertyNameSet: input is empty");
+			System.err.println("PMP.getRelationshipSet: input is empty");
 			return rsMap;
 		}
 
-		// TEST
-		if (ent.equals("姚明")) {
-			rsMap.put("身高", "226");
-			rsMap.put("老婆", "叶莉");
-		} 
-		// List<String> propList = DBProcess.getPropertyNameSet(ent);
-		// for (String iProp : propList) {
-		// rsMap.put(iProp, iProp);
-		// Set<String> setSyn = NLPProcess.getSynonymWordSet(iProp);
-		// for (String iSyn : setSyn) {
-		// rsMap.put(iSyn, iProp);
-		// }
-		// }
-		// System.out.println("all the prop is: " + rsMap);
+		List<String> rList = DBProcess.getRelationshipSet(ent);
+		for (String iRelation : rList) {
+			rsMap.put(iRelation, iRelation);
+			Set<String> setSyn = NLPProcess.getSynonymWordSet(iRelation);
+			for (String iSyn : setSyn) {
+				rsMap.put(iSyn, iRelation);
+			}
+		}
+		System.out.println("all the relationhip of " + ent + "is: " + rsMap);
 		return rsMap;
 	}
 
@@ -697,7 +704,7 @@ public class PatternMatchingProcess {
 	// generate all the possibility candidates according to synonyms
 	// input: 这个标志多少
 	// output: [这个记号数量, 这个标志数量, 这个记号多少, 这个标志多少]
-	private List<String> replaceSynonymProcess(String str) {
+	private List<String> replaceSynonymProcess(String str, Map<String, String> refMap) {
 		// System.out.println("input of replaceSynonymProcess is " + str);
 		List<String> rsSet = new ArrayList<>();
 		if (str.isEmpty()) {
@@ -715,12 +722,14 @@ public class PatternMatchingProcess {
 			Set<String> iSynSet = NLPProcess.getSynonymWordSet(iWord);
 			if (!iSynSet.contains(iWord)) {
 				iSynSet.add(iWord);
+				refMap.put(iWord, iWord);
 			}
 			if (iSynSet.size() > 0) {
 				// System.out.println(iWord + " has syn: " + iSynSet);
 				// combine each of the synonyms to generate mutliple candidates
 				List<String> newRS = new ArrayList<>();
 				for (String iSyn : iSynSet) {
+					refMap.put(iSyn, iWord);
 					// System.out.println("\t iSyn is " + iSyn);
 					List<String> tmpRS = new ArrayList<>();
 					tmpRS.addAll(rsSet);
@@ -758,7 +767,8 @@ public class PatternMatchingProcess {
 		System.out.println("PMP.auxilaryProcess: after removing Stop Words: " + str);
 
 		// 2. generate candidates according to the synonyms
-		rsSet = this.replaceSynonymProcess(str);
+		Map<String, String> refPropMap = new HashMap<>();
+		rsSet = this.replaceSynonymProcess(str, refPropMap);
 		System.out.println("PMP.auxilaryProcess: after synonym process: " + rsSet + " & size is " + rsSet.size());
 
 		return rsSet;
@@ -905,11 +915,11 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明的老婆的身高是多少？";
-//		mp.getAnswer(str);
-		
-		AnswerBean answerBean = new AnswerBean();
-		System.out.println("RS="+mp.ReasoningProcess(str, "姚明", answerBean));
+		String str = "姚明的妻子是谁？";
+		 mp.getAnswer(str);
+
+//		AnswerBean answerBean = new AnswerBean();
+//		System.out.println("RS=" + mp.ReasoningProcess(str, "姚明", answerBean));
 
 		// List<PatternMatchingResultBean> listPMBean = new
 		// ArrayList<PatternMatchingResultBean>();

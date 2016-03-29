@@ -41,7 +41,7 @@ public class DBProcess {
 			return propSet;
 		}
 		String query = buildCypherSQLObj.getPropNamebyEntityName(label, entity);
-		propSet = conn.getArrayList(query);
+		propSet = conn.getArrayListfromCollection(query);
 		System.out.println("in DBProcess, prop name is " + propSet);
 		return propSet;
 	}
@@ -53,9 +53,21 @@ public class DBProcess {
 			return propSet;
 		}
 		String query = buildCypherSQLObj.getPropNamebyEntityName("", entity);
-		propSet = conn.getArrayList(query);
+		propSet = conn.getArrayListfromCollection(query);
 		System.out.println("in DBProcess, prop name is " + propSet);
 		return propSet;
+	}
+
+	public static List<String> getRelationshipSet(String entity) {
+		List<String> relationshipSet = new ArrayList<>();
+		if(Tool.isStrEmptyOrNull(entity)){
+			System.err.println("DBProcess.getRelationshipSet: input is empty");
+			return relationshipSet;
+		}
+		String query = buildCypherSQLObj.getRelationshipByEntityName("", entity);
+		relationshipSet = conn.getArrayListfromCollection(query);
+		System.out.println("in DBProcess, prop name is " + relationshipSet);
+		return relationshipSet;
 	}
 	
 	public static String getPropertyValue(String ent, String prop, String label) {

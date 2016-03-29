@@ -99,7 +99,7 @@ public class BuildCypherSQL implements CypherSQLParser {
 	public String FindEntityAttr(String label, String name, String attr) {
 		String query = "";
 		if (Tool.isStrEmptyOrNull(name)) {
-			System.err.println("NEO4J: name is null");
+			System.err.println("CYPHER: name is null");
 			return query;
 		}
 
@@ -115,10 +115,28 @@ public class BuildCypherSQL implements CypherSQLParser {
 	}
 
 	@Override
+	public String getRelationshipByEntityName(String label, String ent) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(ent)) {
+			System.err.println("CYPHER: name is null");
+			return query;
+		}
+		
+		if (label.isEmpty()) {
+			query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"})-[r]->() return collect(distinct type(r)) as " + Common.ResultObj;
+		} else {
+			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"})-[r]->() return collect(distinct type(r)) as "
+					+ Common.ResultObj;
+		}
+		System.out.println("CYPHER of getRelationshipByEntityName: " + query);
+		return query;
+	}
+	
+	@Override
 	public String getPropNamebyEntityName(String label, String ent) {
 		String query = "";
 		if (Tool.isStrEmptyOrNull(ent)) {
-			System.err.println("NEO4J: name is null");
+			System.err.println("CYPHER: name is null");
 			return query;
 		}
 		

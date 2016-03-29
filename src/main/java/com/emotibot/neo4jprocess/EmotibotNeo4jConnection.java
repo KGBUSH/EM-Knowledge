@@ -44,8 +44,8 @@ public class EmotibotNeo4jConnection {
 			conn = null;
 		}
 	}
-	
-	public List<String> getArrayList(String query) {
+
+	public List<String> getArrayListfromCollection(String query) {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
@@ -61,7 +61,7 @@ public class EmotibotNeo4jConnection {
 	}
 
 	public Neo4jResultBean executeCypherSQL(String query) {
-		System.out.println("NEO4J: executeCypherSQL-->"+query);
+		System.out.println("NEO4J: executeCypherSQL-->" + query);
 		Neo4jResultBean bean = new Neo4jResultBean();
 
 		try {
@@ -110,25 +110,14 @@ public class EmotibotNeo4jConnection {
 			return false;
 		}
 	}
-	
-	/*public boolean updateQueryBatch(List<String> querys)
-	{
-	   try
-	   {
-		    if(querys==null||querys.size()==0) return true;
-			Statement stmt = conn.createStatement();
-			for(String sql:querys)
-			{
-				stmt.addBatch(sql);
-			}
-			stmt.executeBatch();
-			return true;
-	   }catch(Exception e)
-	   {
-		   e.printStackTrace();
-		   return false;
-	   }
-	}*/
+
+	/*
+	 * public boolean updateQueryBatch(List<String> querys) { try {
+	 * if(querys==null||querys.size()==0) return true; Statement stmt =
+	 * conn.createStatement(); for(String sql:querys) { stmt.addBatch(sql); }
+	 * stmt.executeBatch(); return true; }catch(Exception e) {
+	 * e.printStackTrace(); return false; } }
+	 */
 
 	public boolean close() {
 		// close the connection
@@ -140,6 +129,7 @@ public class EmotibotNeo4jConnection {
 		}
 		return true;
 	}
+
 	public Neo4jConnection getNeo4jConnnection() {
 		return conn;
 	}
