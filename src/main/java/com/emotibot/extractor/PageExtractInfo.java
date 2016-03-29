@@ -52,6 +52,8 @@ public class PageExtractInfo {
 		key=key.replaceAll("“", "");
 		key=key.replaceAll("”", "");
         key=removeAllBlank(key);
+		if(Tool.isStrEmptyOrNull(key)) return ;
+
 		value=value.replace("'", " ");
 		value=value.replace("\\", "");
 		value=value.replace("/", "");

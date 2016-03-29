@@ -86,20 +86,22 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 			throws IOException, InterruptedException {
 		try {
 			long solrDocnum=0;
-			List<String> list = new ArrayList<>();
+			//List<String> list = new ArrayList<>();
 			for (Text value : values) {
 				System.err.println("typeReduce=" + type+"  ");
 				if (type.contains("Neo4j")) {
 					String query = value.toString();
-					System.err.println("queryReduce=" + query);
 					//query = StringEscapeUtils.escapeSql(query);
 					//System.err.println("queryReduce2=" + query);
+                   // if(query.contains("return")) query=query.substring(0, query.lastIndexOf("return"));
+					System.err.println("queryReduce=" + query);
+
                     if(query==null||query.trim().length()==0)
                     {
         				System.err.println("query==null||query==0");
         				continue;
                     }
-                    list.add(query);
+                   // list.add(query);
 					if (conn != null) {
 					}
 					else
@@ -110,9 +112,8 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 					boolean result=false;
                     if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
                     {
-                    	bean=conn.executeCypherSQL(query);
-    					System.err.println("bean="+bean.toString());
-
+                        bean=conn.executeCypherSQL(query);
+                        System.err.println("bean="+bean.toString());
                     }
                     else
                     {
@@ -173,8 +174,9 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 	{
 		//String sql="国家/'地区'";  
         //System.out.println("防SQL注入:"+StringEscapeUtils.escapeSql(sql)); //防SQL注入  
-		String attr="​​主持人";
-		attr = attr.replaceAll("[\\pP‘’“”]", "");
-		System.out.println("attr="+attr);
+		String attr="​abc return asd";
+		attr=attr.substring(0, attr.lastIndexOf("return"));
+		//attr = attr.replaceAll("[\\pP‘’“”]", "");
+		System.out.println("attr="+attr+"NN");
 	}
 }
