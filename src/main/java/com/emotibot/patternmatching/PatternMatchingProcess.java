@@ -69,7 +69,7 @@ public class PatternMatchingProcess {
 				return answerBean;
 			}
 
-//			answerBean = mutlipleReasoningProcess(sentence, entity);
+			// answerBean = mutlipleReasoningProcess(sentence, entity);
 			answerBean = ReasoningProcess(sentence, entity, answerBean);
 
 			// old method for handling single property
@@ -177,10 +177,10 @@ public class PatternMatchingProcess {
 		System.out.println(
 				"PMP.ReasoningProcess: sentence=" + sentence + ", entity =" + entity + ", bean is " + answerBean);
 
-		if(!sentence.contains(entity)){
+		if (!sentence.contains(entity)) {
 			System.err.println("Sentence does not contain entity");
 			return answerBean;
-		} 
+		}
 		String newSentence = sentence.substring(0, sentence.indexOf(entity))
 				+ sentence.substring(sentence.indexOf(entity) + entity.length());
 		System.out.println("\t new sentence is::::" + newSentence);
@@ -208,7 +208,8 @@ public class PatternMatchingProcess {
 			if (relationMap.containsKey(prop)) {
 				// use the new answer as new entity
 				System.out.println("-----> case 1 recurrence into: nextEntity=" + answer + "; Bean=" + answerBean);
-				System.out.println("prop:"+prop+", new sentence:"+newSentence+", after replace:"+newSentence.replace(oldWord, answer));
+				System.out.println("prop:" + prop + ", new sentence:" + newSentence + ", after replace:"
+						+ newSentence.replace(oldWord, answer));
 				return ReasoningProcess(newSentence.replace(oldWord, answer), answer, answerBean);
 			} else {
 				System.out.println("\t @@ return case 1, answer=" + answerBean);
@@ -233,6 +234,8 @@ public class PatternMatchingProcess {
 					answerBean.setProperty(b.getAnswer());
 					answerBean.setValid(true);
 					answerBean.setScore(b.getScore());
+					String oldWord = b.getOrignalWord();
+					answerBean.setOriginalWord(oldWord);
 					break;
 				} else {
 					answer += queryAnswer;
@@ -243,7 +246,7 @@ public class PatternMatchingProcess {
 
 			if (furtherSeach == true) {
 				System.out.println("-----> case 2 recurrence into: nextEntity=" + newEntity + "; Bean=" + answerBean);
-				return ReasoningProcess(newSentence.replace(prop, newEntity), newEntity, answerBean);
+				return ReasoningProcess(newSentence.replace(answerBean.getOriginalWord(), newEntity), newEntity, answerBean);
 			} else {
 				answerBean.setAnswer(answer);
 				answerBean.setScore(score);
@@ -458,7 +461,8 @@ public class PatternMatchingProcess {
 				localrsBean.setAnswer(propMap.get(localPropName));
 				localrsBean.setScore(localFinalScore);
 				localrsBean.setOrignalWord(refPropMap.get(localPropName));
-				System.out.println("\t\t localPropName="+localPropName+", propMapName="+localrsBean.getAnswer()+", originalName="+localrsBean.getOrignalWord());
+				System.out.println("\t\t localPropName=" + localPropName + ", propMapName=" + localrsBean.getAnswer()
+						+ ", originalName=" + localrsBean.getOrignalWord());
 				rsBean.add(localrsBean);
 			}
 		}
@@ -572,11 +576,13 @@ public class PatternMatchingProcess {
 		}
 
 		List<String> propList = DBProcess.getPropertyNameSet(ent);
-		for (String iProp : propList) {
-			rsMap.put(iProp, iProp);
-			Set<String> setSyn = NLPProcess.getSynonymWordSet(iProp);
-			for (String iSyn : setSyn) {
-				rsMap.put(iSyn, iProp);
+		if (propList != null && !propList.isEmpty()) {
+			for (String iProp : propList) {
+				rsMap.put(iProp, iProp);
+				Set<String> setSyn = NLPProcess.getSynonymWordSet(iProp);
+				for (String iSyn : setSyn) {
+					rsMap.put(iSyn, iProp);
+				}
 			}
 		}
 		// System.out.println("all the prop is: " + rsMap);
@@ -915,11 +921,12 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明的妻子是谁？";
-		 mp.getAnswer(str);
+		String str = "黄晓明的经纪人的代表作品？";
+		mp.getAnswer(str);
 
-//		AnswerBean answerBean = new AnswerBean();
-//		System.out.println("RS=" + mp.ReasoningProcess(str, "姚明", answerBean));
+		// AnswerBean answerBean = new AnswerBean();
+		// System.out.println("RS=" + mp.ReasoningProcess(str, "姚明",
+		// answerBean));
 
 		// List<PatternMatchingResultBean> listPMBean = new
 		// ArrayList<PatternMatchingResultBean>();
