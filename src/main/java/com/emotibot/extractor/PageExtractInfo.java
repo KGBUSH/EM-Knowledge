@@ -80,7 +80,7 @@ public class PageExtractInfo {
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name.toLowerCase();
+		this.name = name;
 	}
 	//KG_Name
 	//KG_Attr
