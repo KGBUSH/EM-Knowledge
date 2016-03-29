@@ -18,6 +18,8 @@ import com.emotibot.WebService.AnswerBean;
 import com.emotibot.nlp.NLPFlag;
 import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
+import com.emotibot.solr.SolrUtil;
+import com.emotibot.solr.Solr_Query;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.seg.common.Term;
 
@@ -61,7 +63,7 @@ public class PatternMatchingProcess {
 		String entity = "";
 		// for single entity case
 		// if (entitySet.size() == 1) {
-		if (entitySet.size()>0) {	// TBD: add case for size > 1
+		if (entitySet.size() > 0) { // TBD: add case for size > 1
 			entity = entitySet.get(0);
 			sentence = templateProcess(entity, sentence);
 			System.out.println("PMP.getAnswer: single entity templateProcess sentence = " + sentence);
@@ -354,23 +356,33 @@ public class PatternMatchingProcess {
 	}
 
 	private List<String> getEntity(String sentence) {
-		List<String> simpleMatchEntity = NLPProcess.getEntitySimpleMatch(sentence);
-		if (simpleMatchEntity.isEmpty()) {
-			// TBD: transfer the data structure of solr
-			return getEntityBySolr(sentence);
-		} else {
-			List<String> solrEntity = getEntityBySolr(sentence);
-			if (solrEntity.isEmpty()) {
-				System.err.println("Solor return null");
-				return simpleMatchEntity;
-			} else if (simpleMatchEntity.get(0) != solrEntity.get(0)) {
-				System.err.println(
-						"the entity by Matching: " + simpleMatchEntity.get(0) + ", but by solr: " + solrEntity.get(0));
-			}
-
-			// return the result by simpley matching in 4/15
-			return simpleMatchEntity;
+		System.out.println("PMP.getEntity: sentence=" + sentence);
+		if (Tool.isStrEmptyOrNull(sentence)) {
+			System.err.println("PMP.getEntity: input is empty");
+			return null;
 		}
+
+		List<String> rsEntity = new ArrayList<>();
+		List<String> simpleMatchEntity = NLPProcess.getEntitySimpleMatch(sentence);
+		List<String> solrEntity = new ArrayList<>();
+
+		if (simpleMatchEntity.isEmpty()) {
+			solrEntity = getEntityBySolr(sentence, false);
+			rsEntity = solrEntity;
+		} else {
+			solrEntity = getEntityBySolr(sentence, true);
+
+			// get the intersection of two sets
+			for (String s : simpleMatchEntity) {
+				if (solrEntity.contains(s)) {
+					rsEntity.add(s);
+				}
+			}
+		}
+
+		System.out.println(
+				"\t simpleEntity = " + simpleMatchEntity + ",\n solrEntity=" + solrEntity + ",\n rsEntity=" + rsEntity);
+		return rsEntity;
 	}
 
 	// to test if the user want to get the introduction of the entity
@@ -597,21 +609,26 @@ public class PatternMatchingProcess {
 	// return the entity by Solr method
 	// input: the sentence from user, "姚明身高多少"
 	// output: the entity identified by Solr, "姚明"
-	private List<String> getEntityBySolr(String sentence) {
+	private List<String> getEntityBySolr(String sentence, boolean hasEntity) {
 		List<String> rsEntitySet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getEntityBySolr: input is empty");
 			return rsEntitySet;
 		}
 
-		// TBD: hard code for 3/15
-		String ent = "姚明";
-		if (!sentence.contains(ent)) {
-			return rsEntitySet;
-		} else {
-			rsEntitySet.add(ent);
-			return rsEntitySet;
+		SolrUtil solr = new SolrUtil();
+		Solr_Query obj = new Solr_Query();
+		obj.setFindEntity(hasEntity);
+		NLPResult tnNode = NLPSevice.ProcessSentence(sentence, NLPFlag.SegPos.getValue());
+		List<Term> segPos = tnNode.getWordPos();
+		for (int i = 0; i < segPos.size(); i++) {
+			String segWord = segPos.get(i).word;
+			if (!NLPProcess.isStopWord(segWord)) {
+				obj.addWord(segWord);
+			}
 		}
+
+		return solr.Search(obj);
 	}
 
 	// get the candidiates by spliting the sentence accroding to the entity
@@ -926,7 +943,7 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "黄晓明的妻子的别名？";
+		String str = "姚明的妻子的身高？";
 		mp.getAnswer(str);
 
 		// AnswerBean answerBean = new AnswerBean();
