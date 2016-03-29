@@ -80,7 +80,7 @@ public class PageExtractInfo {
 		return name;
 	}
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.toLowerCase();
 	}
 	//KG_Name
 	//KG_Attr
@@ -184,6 +184,7 @@ public class PageExtractInfo {
 		attr=attr.replaceAll("“", "");
 		attr=attr.replaceAll("”", "");
 		attr=removeAllBlank(attr);
+		//attr=attr.toLowerCase();
 		value=value.replace("'", " ");
 		value=value.replace("\\", "");
 		value=value.replace("/", "");
