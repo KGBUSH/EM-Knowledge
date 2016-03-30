@@ -79,6 +79,7 @@ public class PatternMatchingProcess {
 
 		}
 
+		System.out.println("\t into selective question, answerBean=" + answerBean);
 		// if it is the selective question
 		String strSeletive = processSelectQ(userSentence);
 		if (!strSeletive.isEmpty()) {
@@ -163,7 +164,7 @@ public class PatternMatchingProcess {
 
 				if (simpleMatchEntity.size() == 1) {
 					if (hasPropertyInSentence(sentence, simpleMatchEntity.get(0))) {
-						// case: 猫科动物的分布区域是哪？
+						// case: 猫猫是什么科的？
 						rsEntity = simpleMatchEntity;
 						System.out.println("case: 3: rsEntity=" + rsEntity);
 						return rsEntity;
@@ -187,7 +188,8 @@ public class PatternMatchingProcess {
 					}
 				}
 			} else {
-				// nlp is not empty, return the intersection among the reulsts by three methods
+				// nlp is not empty, return the intersection among the reulsts
+				// by three methods
 				List<String> mergeEntity = mergeTwoLists(simpleMatchEntity, nlpEntity);
 				List<String> solrEntity = getEntityBySolr(sentence, mergeEntity, segPos);
 				System.out.println("\t solrEntity with entity input=" + solrEntity);
@@ -546,22 +548,26 @@ public class PatternMatchingProcess {
 		}
 
 		for (String str : strSet) {
-			String tempStr = str;
+			String littleCandidate = "";
 			NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
 			List<Term> segPos = tnNode.getWordPos();
 			for (int i = 0; i < segPos.size(); i++) {
 				String segWord = segPos.get(i).word;
-				if (NLPProcess.isStopWord(segWord)) {
-					if (!tempStr.startsWith(segWord)) {
-						rsList.add(tempStr.substring(0, tempStr.indexOf(segWord)));
+				if (!NLPProcess.isStopWord(segWord)) {
+					// not stopword
+					littleCandidate += segWord;
+				} else {
+					if(!littleCandidate.isEmpty()){
+						rsList.add(littleCandidate);
+						littleCandidate = "";
 					}
-					tempStr = tempStr.substring(tempStr.indexOf(segWord) + segWord.length());
 				}
 			}
-			// System.out.println("str is " + str + ", and list is " +
-			// rsList.toString());
+			if(!littleCandidate.isEmpty()){
+				rsList.add(littleCandidate);
+			}
 		}
-		System.out.println("PM.getCandidateSetbyEntityandStopWord is " + rsList.toString());
+		System.out.println("\t getCandidateSetbyEntityandStopWord is " + rsList.toString());
 		return rsList;
 	}
 
@@ -589,6 +595,7 @@ public class PatternMatchingProcess {
 				// System.out.println("PMP.GetCandidateSet: str=" + str);
 			}
 		}
+		System.out.println("\t getCandidateSet=" + listPart);
 		return listPart;
 	}
 
@@ -786,7 +793,7 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "面对面是什么";
+		String str = "姚明有没有妻子";
 		mp.getAnswer(str);
 
 	}
