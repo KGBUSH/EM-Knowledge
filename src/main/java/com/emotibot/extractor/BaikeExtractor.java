@@ -30,6 +30,14 @@ public class BaikeExtractor extends Extractor {
 		String title = doc.title();
 		String name = doc.select("dd.lemmaWgt-lemmaTitle-title").select("h1").text();
 		name=name.toLowerCase();
+		name=name.replace("'", " ");
+		name=name.replace("\\", "");
+		name=name.replace("/", "");
+		name=name.replaceAll("\"", "");
+		name=name.replaceAll("“", " ");
+		name=name.replaceAll("”", " ");
+		name=name.replaceAll("'", "");
+
 		//System.out.println("title="+title+"  name="+name);
 		pageInfo.setName(name);
 		pageInfo.addAttr(Common.KGNODE_NAMEATRR, name);
@@ -113,7 +121,7 @@ public class BaikeExtractor extends Extractor {
 	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/jiucai";
+		String path="/Users/Elaine/Documents/workspace/html/yaomin";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		System.err.println(ex.ProcessPage().toString());

@@ -139,7 +139,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
                     {
             			if(query.contains("return")) query = query.substring(0, query.lastIndexOf("return"));
                         list.add(query);
-                        if(list.size()>100)
+                        if(list.size()>0)
                         {
                           String queryBtch=getRelationsSql(list);
                     	  result=conn.updateQuery(queryBtch);
@@ -251,13 +251,15 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 	}
 	public static void main(String args[])
 	{
-		//String sql="国家/'地区'";  
+		String sql="dog days''";  
+		sql=sql.replaceAll("'", "");
+
         //System.out.println("防SQL注入:"+StringEscapeUtils.escapeSql(sql)); //防SQL注入  
 		//String attr="​abc return asd";
 		//attr=attr.substring(0, attr.lastIndexOf("return"));
 		//attr = attr.replaceAll("[\\pP‘’“”]", "");
-		//System.out.println("attr="+attr+"NN");
-		String sql="match (p:Person {Name:\"黄晓明\"} ) match (q:Person {Name:\"angelababy\"} ) merge (p)-[r:老婆]->(q) ";
+		System.out.println(sql);
+		/*String sql="match (p:Person {Name:\"黄晓明\"} ) match (q:Person {Name:\"angelababy\"} ) merge (p)-[r:老婆]->(q) ";
 	    List<String> list = new ArrayList<String>();
 	    Vector<String> sqls = Tool.getFileLines("sql");
 	    for(int i=0;i<2;i++)
@@ -268,7 +270,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 
 	    }
 	    String s=getRelationsSql(list);
-	    System.out.println(""+s);
+	    System.out.println(""+s);*/
 
 	}
 }
