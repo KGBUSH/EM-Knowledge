@@ -36,30 +36,37 @@ public class NLPProcess {
 	// create stopword table Set
 	private static Set<String> createEntityTable() {
 		Set<String> entitySet = new HashSet<>();
-		String filePath = Common.UserDir + "/knowledgedata/domain";
-		System.out.println("path is " + filePath);
+		String fileName = Common.UserDir + "/knowledgedata/entity.txt";
+		System.out.println("path is " + fileName);
 
-		if (!Tool.isStrEmptyOrNull(filePath)) {
+		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
-				// BytesEncodingDetect s = new BytesEncodingDetect();
-				// String fileCode =
-				// BytesEncodingDetect.nicename[s.detectEncoding(new
-				// File(filePath))];
-				// if (fileCode.startsWith("GB") && fileCode.contains("2312"))
-				// fileCode = "GB2312";
-				File fileDictoray = new File(filePath);
-				File[] allFile = fileDictoray.listFiles();
-				for (File f : allFile) {
-					FileInputStream fis = new FileInputStream(f);
-					InputStreamReader read = new InputStreamReader(fis);
-					BufferedReader dis = new BufferedReader(read);
-					String word = "";
-					while ((word = dis.readLine()) != null) {
-						if (!word.trim().isEmpty())
-							entitySet.add(word.trim());
-					}
-					dis.close();
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = "";
+				while ((word = dis.readLine()) != null) {
+					entitySet.add(word.trim());
 				}
+				dis.close();
+				
+//				File fileDictoray = new File(filePath);
+//				File[] allFile = fileDictoray.listFiles();
+//				for (File f : allFile) {
+//					FileInputStream fis = new FileInputStream(f);
+//					InputStreamReader read = new InputStreamReader(fis);
+//					BufferedReader dis = new BufferedReader(read);
+//					String word = "";
+//					while ((word = dis.readLine()) != null) {
+//						if (!word.trim().isEmpty())
+//							entitySet.add(word.trim());
+//					}
+//					dis.close();
+//				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
@@ -271,7 +278,7 @@ public class NLPProcess {
 			}
 		}
 
-		System.out.println("the mached entities are: " + entitySet.toString());
+//		System.out.println("the macthed entities are: " + entitySet.toString());
 		return entitySet;
 	}
 	
@@ -287,8 +294,28 @@ public class NLPProcess {
 			}
 		}
 
-		System.out.println("the result entities are: " + entitySet.toString());
+//		System.out.println("the result entities are: " + entitySet.toString());
 		return entitySet;
+	}
+	
+	// remove the stopword in a string.
+	// input: "身高是多少"
+	// output: "身高"
+	public static String removeStopWord(String str) {
+		String rs = "";
+		// Segmentation Process
+		NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
+		System.out.println("original string is " + str);
+		List<Term> segPos = tnNode.getWordPos();
+		for (int i = 0; i < segPos.size(); i++) {
+			String s = segPos.get(i).word;
+			// System.out.print(s + ", ");
+			if (!NLPProcess.isStopWord(s))
+				rs += s;
+		}
+		// System.out.println("");
+
+		return rs;
 	}
 
 	public static void main(String[] args) {
