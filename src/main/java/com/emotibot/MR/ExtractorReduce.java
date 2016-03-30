@@ -9,6 +9,7 @@ package com.emotibot.MR;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringEscapeUtils;
@@ -38,6 +39,7 @@ import com.emotibot.neo4jprocess.Neo4jConfigBean;
 import com.emotibot.neo4jprocess.Neo4jDBManager;
 import com.emotibot.solr.SolrUtil;
 import com.emotibot.util.Neo4jResultBean;
+import com.emotibot.util.Tool;
 
 public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writable, Put> {
 	public static ImmutableBytesWritable puttable = new ImmutableBytesWritable();
@@ -135,8 +137,15 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
                     }
                     else
                     {
-                    	result=conn.updateQuery(query);
-    					System.err.println("result="+result);
+            			if(query.contains("return")) query = query.substring(0, query.lastIndexOf("return"));
+                        list.add(query);
+                        if(list.size()>100)
+                        {
+                          String queryBtch=getRelationsSql(list);
+                    	  result=conn.updateQuery(queryBtch);
+    					  System.err.println("result="+result);
+    					  list.clear();
+                        }
                     }
 				}
 				if (type.contains("Solr")) {
@@ -174,22 +183,88 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 			if(solrDocnum>0) solr.Commit();
 			if(list.size()>100)
 			{
+                       if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
+                       {
                         	boolean result=conn.updateQueryBatch(list);
         					System.err.println("result="+result);
         					list.clear();
+                       }
+                       else
+                       {
+                          String queryBtch=getRelationsSql(list);
+                     	  boolean result=conn.updateQuery(queryBtch);
+     					  System.err.println("result="+result);
+     					  list.clear();
+
+                       }
 			}
 		} catch (Exception e) {
 			System.err.println("ReduceException="+e.getMessage());
 
 		}
 	}
+	
+	public static String getRelationsSql(List<String> list)
+	{
+		StringBuffer bufferMatch = new StringBuffer();
+		StringBuffer bufferMerge = new StringBuffer();
+        StringBuffer buffer = new StringBuffer();
+		if(list==null||list.size()==0) return "";
+		else
+		{
+			int index=1;
+			for(String sql:list)
+			{
+				sql=sql.replaceAll("p\\:", "p"+index+":");
+				sql=sql.replaceAll("q\\:", "q"+index+":");
+				sql=sql.replaceAll("r\\:", "r"+index+":");
+
+				sql=sql.replaceAll("\\(p\\)", "(p"+index+")");
+				sql=sql.replaceAll("\\(q\\)", "(q"+index+")");
+                String[] arr = sql.split("match|merge");
+                for(String k:arr)
+                {
+                	if(k!=null&&k.trim().length()>0)
+                	{
+    				// System.err.println("k="+k);
+    				  if(k.contains("[")&&k.contains("]"))
+    				  {
+    					bufferMerge.append(" merge ").append(k).append(" ");
+    				  }
+    				  else
+    				  {
+    					bufferMatch.append(" match ").append(k).append(" ");
+    				  }
+                	}
+                }
+				//System.err.println("sql="+sql);
+				index++;
+			}
+			buffer.append(bufferMatch.toString());
+			buffer.append(bufferMerge.toString());
+		}
+		return buffer.toString();
+	}
 	public static void main(String args[])
 	{
 		//String sql="国家/'地区'";  
         //System.out.println("防SQL注入:"+StringEscapeUtils.escapeSql(sql)); //防SQL注入  
-		String attr="​abc return asd";
-		attr=attr.substring(0, attr.lastIndexOf("return"));
+		//String attr="​abc return asd";
+		//attr=attr.substring(0, attr.lastIndexOf("return"));
 		//attr = attr.replaceAll("[\\pP‘’“”]", "");
-		System.out.println("attr="+attr+"NN");
+		//System.out.println("attr="+attr+"NN");
+		String sql="match (p:Person {Name:\"黄晓明\"} ) match (q:Person {Name:\"angelababy\"} ) merge (p)-[r:老婆]->(q) ";
+	    List<String> list = new ArrayList<String>();
+	    Vector<String> sqls = Tool.getFileLines("sql");
+	    for(int i=0;i<20;i++)
+	    {
+	    	String query=sqls.get(i);
+			if(query.contains("return")) query = query.substring(0, query.lastIndexOf("return"));
+		    list.add(query);
+
+	    }
+	    String s=getRelationsSql(list);
+	    System.out.println(""+s);
+
 	}
 }

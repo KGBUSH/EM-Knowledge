@@ -187,8 +187,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 										System.err.println(name+"(equals)" +val);
                                         continue;
 									}
-									String query=bcy.InsertRelation(a, b, attr, null);
-									System.err.println(NodeOrRelation+" queryMap=" + query);
+					                  String query=bcy.InsertRelation(a, b, attr, null);									System.err.println(NodeOrRelation+" queryMap=" + query);
 									if (query == null || query.trim().length() == 0) return;
 									context.write(outputKey, new Text(query));
 								}
