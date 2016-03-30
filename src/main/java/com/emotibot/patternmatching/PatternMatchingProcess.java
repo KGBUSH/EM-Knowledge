@@ -106,94 +106,7 @@ public class PatternMatchingProcess {
 		return answerBean;
 	}
 
-	// interface
-	private AnswerBean ReasoningProcess(String sentence, String entity, AnswerBean answerBean) {
-		System.out.println(
-				"PMP.ReasoningProcess: sentence=" + sentence + ", entity =" + entity + ", bean is " + answerBean);
-
-		if (!sentence.contains(entity)) {
-			System.err.println("Sentence does not contain entity");
-			return answerBean;
-		}
-		String newSentence = sentence.substring(0, sentence.indexOf(entity))
-				+ sentence.substring(sentence.indexOf(entity) + entity.length());
-		System.out.println("\t new sentence is::::" + newSentence);
-
-		Map<String, String> relationMap = this.getRelationshipSet(entity);
-		System.out.println("\t relationMap = " + relationMap);
-
-		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(sentence, entity);
-		System.out.println("\t listPMBean=" + listPMBean);
-
-		if (listPMBean.isEmpty()) {
-			System.out.println("\t @@ return case 0, answer=" + answerBean);
-			// does not match property, score decreases
-			answerBean.setScore(answerBean.getScore() / 2); 
-			return answerBean;
-		} else if (listPMBean.size() == 1) {
-			String prop = listPMBean.get(0).getAnswer();
-			String answer = DBProcess.getPropertyValue(entity, prop);
-			answerBean.setAnswer(answer);
-			answerBean.setProperty(prop);
-			answerBean.setValid(true);
-			answerBean.setScore(listPMBean.get(0).getScore());
-			String oldWord = listPMBean.get(0).getOrignalWord();
-			answerBean.setOriginalWord(oldWord);
-			System.out.println("\t answer = " + answerBean);
-
-			if (relationMap.containsKey(prop)) {
-				// use the new answer as new entity
-				String newDBEntity = DBProcess.getEntityByRelationship("", entity, prop);
-				System.out.println("-----> case 1 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
-				System.out.println("prop:" + prop + ", new sentence:" + newSentence + ", after replace:"
-						+ newSentence.replace(oldWord, newDBEntity));
-				return ReasoningProcess(newSentence.replace(oldWord, newDBEntity), newDBEntity, answerBean);
-			} else {
-				System.out.println("\t @@ return case 1, answer=" + answerBean);
-				return answerBean;
-			}
-		} else {
-			// in the case of multiple props, find a way out
-			String answer = "";
-			double score = 100;
-
-			boolean furtherSeach = false;
-			String prop = "";
-
-			for (PatternMatchingResultBean b : listPMBean) {
-				String queryAnswer = DBProcess.getPropertyValue(entity, b.getAnswer());
-				if (relationMap.containsKey(b.getAnswer())) {
-					furtherSeach = true;
-					prop = b.getAnswer();
-					answerBean.setAnswer(queryAnswer);
-					answerBean.setProperty(b.getAnswer());
-					answerBean.setValid(true);
-					answerBean.setScore(b.getScore());
-					String oldWord = b.getOrignalWord();
-					answerBean.setOriginalWord(oldWord);
-					break;
-				} else {
-					answer += queryAnswer;
-					score *= b.getScore() / 100;
-					System.out.print(" * " + b.getScore() + "/100 ");
-				}
-			}
-
-			if (furtherSeach == true) {
-				String newDBEntity = DBProcess.getEntityByRelationship("", entity, prop);
-				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
-				return ReasoningProcess(newSentence.replace(answerBean.getOriginalWord(), newDBEntity), newDBEntity,
-						answerBean);
-			} else {
-				answerBean.setAnswer(answer);
-				answerBean.setScore(score);
-				answerBean.setValid(true);
-				System.out.println("\t @@ return case 2, answer = " + answerBean);
-				return answerBean;
-			}
-		}
-	}
-
+	// identify the entities in a sentence by SimpleMatching, NLP, Solr
 	private List<String> getEntity(String sentence) {
 		System.out.println("PMP.getEntity: sentence=" + sentence);
 		if (Tool.isStrEmptyOrNull(sentence)) {
@@ -274,9 +187,9 @@ public class PatternMatchingProcess {
 					}
 				}
 			} else {
-				// nlp is not empty
-				List<String> solrEntity = getEntityBySolr(sentence, mergeTwoLists(simpleMatchEntity, nlpEntity),
-						segPos);
+				// nlp is not empty, return the intersection among the reulsts by three methods
+				List<String> mergeEntity = mergeTwoLists(simpleMatchEntity, nlpEntity);
+				List<String> solrEntity = getEntityBySolr(sentence, mergeEntity, segPos);
 				System.out.println("\t solrEntity with entity input=" + solrEntity);
 
 				if (simpleMatchEntity.size() == 1) {
@@ -286,12 +199,11 @@ public class PatternMatchingProcess {
 				} else {
 					// size of simple matching is larger than 1
 					if (isRelationshipQuestion(sentence)) {
-						rsEntity.add(solrEntity.get(0));
-						rsEntity.add(solrEntity.get(1));
+						rsEntity = getIntersectionOfTwoLists(solrEntity, mergeEntity, 2);
 						System.out.println("case: 8: rsEntity=" + rsEntity);
 						return rsEntity;
 					} else {
-						rsEntity.add(solrEntity.get(0));
+						rsEntity = getIntersectionOfTwoLists(solrEntity, mergeEntity, 1);
 						System.out.println("case: 9: rsEntity=" + rsEntity);
 						return rsEntity;
 					}
@@ -300,8 +212,111 @@ public class PatternMatchingProcess {
 		}
 	}
 
+	// get the number elements from souce /\ reference
+	private List<String> getIntersectionOfTwoLists(List<String> source, List<String> reference, int number) {
+		List<String> rsSet = new ArrayList<>();
+		for (String s : source) {
+			if (reference.contains(s)) {
+				rsSet.add(s);
+				number--;
+			}
+			if (number == 0) {
+				break;
+			}
+		}
+		return rsSet;
+	}
+
+	// Multi-level Reasoning Understanding
+	private AnswerBean ReasoningProcess(String sentence, String entity, AnswerBean answerBean) {
+		System.out.println(
+				"PMP.ReasoningProcess: sentence=" + sentence + ", entity =" + entity + ", bean is " + answerBean);
+
+		if (!sentence.contains(entity)) {
+			System.err.println("Sentence does not contain entity");
+			return answerBean;
+		}
+		String newSentence = sentence.substring(0, sentence.indexOf(entity))
+				+ sentence.substring(sentence.indexOf(entity) + entity.length());
+		System.out.println("\t new sentence is::::" + newSentence);
+
+		Map<String, String> relationMap = this.getRelationshipSet(entity);
+		System.out.println("\t relationMap = " + relationMap);
+
+		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(sentence, entity);
+		System.out.println("\t listPMBean=" + listPMBean);
+
+		if (listPMBean.isEmpty()) {
+			System.out.println("\t @@ return case 0, answer=" + answerBean);
+			// does not match property, score decreases
+			answerBean.setScore(answerBean.getScore() / 2);
+			return answerBean;
+		} else if (listPMBean.size() == 1) {
+			String prop = listPMBean.get(0).getAnswer();
+			String answer = DBProcess.getPropertyValue(entity, prop);
+			answerBean.setAnswer(answer);
+			answerBean.setProperty(prop);
+			answerBean.setValid(true);
+			answerBean.setScore(listPMBean.get(0).getScore());
+			String oldWord = listPMBean.get(0).getOrignalWord();
+			answerBean.setOriginalWord(oldWord);
+			System.out.println("\t answer = " + answerBean);
+
+			if (relationMap.containsKey(prop)) {
+				// use the new answer as new entity
+				String newDBEntity = DBProcess.getEntityByRelationship("", entity, prop);
+				System.out.println("-----> case 1 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
+				System.out.println("prop:" + prop + ", new sentence:" + newSentence + ", after replace:"
+						+ newSentence.replace(oldWord, newDBEntity));
+				return ReasoningProcess(newSentence.replace(oldWord, newDBEntity), newDBEntity, answerBean);
+			} else {
+				System.out.println("\t @@ return case 1, answer=" + answerBean);
+				return answerBean;
+			}
+		} else {
+			// in the case of multiple props, find a way out
+			String answer = "";
+			double score = 100;
+
+			boolean furtherSeach = false;
+			String prop = "";
+
+			for (PatternMatchingResultBean b : listPMBean) {
+				String queryAnswer = DBProcess.getPropertyValue(entity, b.getAnswer());
+				if (relationMap.containsKey(b.getAnswer())) {
+					furtherSeach = true;
+					prop = b.getAnswer();
+					answerBean.setAnswer(queryAnswer);
+					answerBean.setProperty(b.getAnswer());
+					answerBean.setValid(true);
+					answerBean.setScore(b.getScore());
+					String oldWord = b.getOrignalWord();
+					answerBean.setOriginalWord(oldWord);
+					break;
+				} else {
+					answer += queryAnswer;
+					score *= b.getScore() / 100;
+					System.out.print(" * " + b.getScore() + "/100 ");
+				}
+			}
+
+			if (furtherSeach == true) {
+				String newDBEntity = DBProcess.getEntityByRelationship("", entity, prop);
+				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
+				return ReasoningProcess(newSentence.replace(answerBean.getOriginalWord(), newDBEntity), newDBEntity,
+						answerBean);
+			} else {
+				answerBean.setAnswer(answer);
+				answerBean.setScore(score);
+				answerBean.setValid(true);
+				System.out.println("\t @@ return case 2, answer = " + answerBean);
+				return answerBean;
+			}
+		}
+	}
+
 	private boolean hasPropertyInSentence(String sentence, String entity) {
-		if(matchPropertyFromSentence(sentence,entity).isEmpty())
+		if (matchPropertyFromSentence(sentence, entity).isEmpty())
 			return false;
 		else
 			return true;
