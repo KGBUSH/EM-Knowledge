@@ -105,6 +105,15 @@ public class NLPProcess {
 
 		return isSW;
 	}
+	
+	public static boolean isEntity(String str) {
+		boolean isSW = false;
+		if (!str.isEmpty() && entityTable.contains(str)) {
+			isSW = true;
+		}
+
+		return isSW;
+	}
 
 	// create synonym reference hash map table: Map<id, List of Synonym>
 	private static HashMap<String, List<String>> createSynonymTableRef() {
@@ -263,6 +272,22 @@ public class NLPProcess {
 		}
 
 		System.out.println("the mached entities are: " + entitySet.toString());
+		return entitySet;
+	}
+	
+	// return the set of entity which is contained in the input sentence by NLP Method
+	// input: 姚明和叶莉的女儿是谁？
+	// output: [姚明，叶莉]
+	public static List<String> getEntityByNLP(List<Term> segPos) {
+		List<String> entitySet = new ArrayList<>();
+		for (int i = 0; i < segPos.size(); i++) {
+			String segWord = segPos.get(i).word;
+			if (NLPProcess.isEntity(segWord)) {
+				entitySet.add(segWord);
+			}
+		}
+
+		System.out.println("the result entities are: " + entitySet.toString());
 		return entitySet;
 	}
 

@@ -362,27 +362,138 @@ public class PatternMatchingProcess {
 			return null;
 		}
 
+		NLPResult tnNode = NLPSevice.ProcessSentence(sentence, NLPFlag.SegPos.getValue());
+		List<Term> segPos = tnNode.getWordPos();
+		System.out.println("segPos=" + segPos);
+
 		List<String> rsEntity = new ArrayList<>();
 		List<String> simpleMatchEntity = NLPProcess.getEntitySimpleMatch(sentence);
-		List<String> solrEntity = new ArrayList<>();
+		List<String> nlpEntity = NLPProcess.getEntityByNLP(segPos);
+		System.out.println("\t simpleMatchingEntity=" + simpleMatchEntity + "\n\t nlpEntity=" + nlpEntity);
 
-		if (simpleMatchEntity.isEmpty()) {
-			solrEntity = getEntityBySolr(sentence, false);
-			rsEntity = solrEntity;
+		if (isTwoListsEqual(simpleMatchEntity, nlpEntity)) {
+			List<String> solrEntity = getEntityBySolr(sentence, nlpEntity, segPos);
+			System.out.println("\t solrEntity with entity input=" + solrEntity);
+
+			if (simpleMatchEntity.isEmpty()) {
+				rsEntity = solrEntity;
+				System.out.println("case: 0: rsEntity=" + rsEntity);
+				return rsEntity;
+			}
+
+			if (simpleMatchEntity.size() == 1) {
+				rsEntity = simpleMatchEntity;
+				System.out.println("case: 1: rsEntity=" + rsEntity);
+				return rsEntity;
+			}
+
+			if (isRelationshipQuestion(sentence)) {
+				// case: 叶莉和姚明的女儿是谁？
+				rsEntity.add(simpleMatchEntity.get(0));
+				rsEntity.add(simpleMatchEntity.get(1));
+				System.out.println("case: 2: rsEntity=" + rsEntity);
+				return rsEntity;
+			} else {
+				rsEntity.add(simpleMatchEntity.get(0));
+				System.out.println("case: 2.5: rsEntity=" + rsEntity);
+				return rsEntity;
+			}
 		} else {
-			solrEntity = getEntityBySolr(sentence, true);
+			// simeple Matching Entity != nlpEntity
+			if (!nlpEntity.isEmpty() && simpleMatchEntity.isEmpty()) {
+				System.err.println("simple Matching is empty but nlp is not");
+				return nlpEntity;
+			}
 
-			// get the intersection of two sets
-			for (String s : simpleMatchEntity) {
-				if (solrEntity.contains(s)) {
-					rsEntity.add(s);
+			if (nlpEntity.isEmpty()) {
+				List<String> solrEntity = getEntityBySolr(sentence, null, segPos);
+				System.out.println("\t solrEntity without entity input=" + solrEntity);
+
+				if (simpleMatchEntity.size() == 1) {
+					if (hasPropertyInSentence(sentence, simpleMatchEntity.get(0))) {
+						// case: 猫科动物的分布区域是哪？
+						rsEntity = simpleMatchEntity;
+						System.out.println("case: 3: rsEntity=" + rsEntity);
+						return rsEntity;
+					} else {
+						// case: 熊猫明是谁？
+						rsEntity.add(solrEntity.get(0));
+						System.out.println("case: 4: rsEntity=" + rsEntity);
+						return rsEntity;
+					}
+				} else {
+					// size of simple matching is larger than 1
+					if (isRelationshipQuestion(sentence)) {
+						rsEntity.add(solrEntity.get(0));
+						rsEntity.add(solrEntity.get(1));
+						System.out.println("case: 5: rsEntity=" + rsEntity);
+						return rsEntity;
+					} else {
+						rsEntity.add(solrEntity.get(0));
+						System.out.println("case: 6: rsEntity=" + rsEntity);
+						return rsEntity;
+					}
+				}
+			} else {
+				// nlp is not empty
+				List<String> solrEntity = getEntityBySolr(sentence, mergeTwoLists(simpleMatchEntity, nlpEntity),
+						segPos);
+				System.out.println("\t solrEntity with entity input=" + solrEntity);
+
+				if (simpleMatchEntity.size() == 1) {
+					rsEntity.add(solrEntity.get(0));
+					System.out.println("case: 7: rsEntity=" + rsEntity);
+					return rsEntity;
+				} else {
+					// size of simple matching is larger than 1
+					if (isRelationshipQuestion(sentence)) {
+						rsEntity.add(solrEntity.get(0));
+						rsEntity.add(solrEntity.get(1));
+						System.out.println("case: 8: rsEntity=" + rsEntity);
+						return rsEntity;
+					} else {
+						rsEntity.add(solrEntity.get(0));
+						System.out.println("case: 9: rsEntity=" + rsEntity);
+						return rsEntity;
+					}
 				}
 			}
 		}
+	}
 
-		System.out.println(
-				"\t simpleEntity = " + simpleMatchEntity + ",\n solrEntity=" + solrEntity + ",\n rsEntity=" + rsEntity);
-		return rsEntity;
+	private boolean hasPropertyInSentence(String sentence, String entity) {
+		// TBD
+		return false;
+	}
+
+	// to test if the user sentence is a question of relationship between two
+	// entities
+	private boolean isRelationshipQuestion(String sentence) {
+		// TBD
+		return false;
+	}
+
+	// to test if two list are equal
+	private List<String> mergeTwoLists(List<String> lhs, List<String> rhs) {
+		List<String> rsList = new ArrayList<>();
+		rsList.addAll(rhs);
+		for (String s : lhs) {
+			if (!rhs.contains(s))
+				rsList.add(s);
+		}
+		return rsList;
+	}
+
+	// to test if two list are equal
+	private boolean isTwoListsEqual(List<String> lhs, List<String> rhs) {
+		if (lhs.size() != rhs.size()) {
+			return false;
+		}
+		for (String s : lhs) {
+			if (!rhs.contains(s))
+				return false;
+		}
+		return true;
 	}
 
 	// to test if the user want to get the introduction of the entity
@@ -609,7 +720,7 @@ public class PatternMatchingProcess {
 	// return the entity by Solr method
 	// input: the sentence from user, "姚明身高多少"
 	// output: the entity identified by Solr, "姚明"
-	private List<String> getEntityBySolr(String sentence, boolean hasEntity) {
+	private List<String> getEntityBySolr(String sentence, List<String> entitySet, List<Term> segPos) {
 		List<String> rsEntitySet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getEntityBySolr: input is empty");
@@ -618,9 +729,12 @@ public class PatternMatchingProcess {
 
 		SolrUtil solr = new SolrUtil();
 		Solr_Query obj = new Solr_Query();
-		obj.setFindEntity(hasEntity);
-		NLPResult tnNode = NLPSevice.ProcessSentence(sentence, NLPFlag.SegPos.getValue());
-		List<Term> segPos = tnNode.getWordPos();
+
+		if (entitySet != null && !entitySet.isEmpty()) {
+			obj.setFindEntity(true);
+			obj.setEntity(entitySet);
+		}
+
 		for (int i = 0; i < segPos.size(); i++) {
 			String segWord = segPos.get(i).word;
 			if (!NLPProcess.isStopWord(segWord)) {
@@ -628,7 +742,9 @@ public class PatternMatchingProcess {
 			}
 		}
 
-		return solr.Search(obj);
+		rsEntitySet = solr.Search(obj);
+		System.out.println("getEntityBySolr return: " + rsEntitySet);
+		return rsEntitySet;
 	}
 
 	// get the candidiates by spliting the sentence accroding to the entity
@@ -943,7 +1059,7 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明的妻子的身高？";
+		String str = "熊猫明是什么";
 		mp.getAnswer(str);
 
 		// AnswerBean answerBean = new AnswerBean();
