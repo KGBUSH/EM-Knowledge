@@ -29,7 +29,7 @@ public class PatternMatchingProcess {
 	final TemplateProcessor selectiveQuestionTemplate = new TemplateProcessor("Pre");
 	final TemplateProcessor introductionTemplate = new TemplateProcessor("Post");
 	final TemplateProcessor questionClassifier = new TemplateProcessor("QuestionClassifier");
-	
+
 	final String introductionQuestionType = "IntroductionQuestion@:";
 	final String selectiveQuestionType = "SelectiveQuestion@:";
 
@@ -85,17 +85,23 @@ public class PatternMatchingProcess {
 
 		System.out.println("\t into selective question, answerBean=" + answerBean);
 		// if it is the selective question
-		String strSeletive = selectiveQuestionProcess(userSentence);
-		if (!strSeletive.isEmpty()) {
-			if (!answerBean.getAnswer().isEmpty()) {
-				// valide answer
-				answerBean.setAnswer(strSeletive.substring(0, 1) + answerBean.getAnswer());
-			} else {
-				answerBean.setAnswer(strSeletive.substring(1));
-			}
-			System.out.println("Selective Qustion: anwerBean is " + answerBean.toString());
+		if(isKindofQuestion(userSentence,selectiveQuestionType)){
+			answerBean = selectiveQuestionProcess(userSentence,answerBean);
+			System.out.println("RETURN of GETANSWER: Selective Qustion: anwerBean is " + answerBean.toString());
 			return answerBean;
 		}
+//		
+//		String strSeletive = selectiveQuestionProcess(userSentence);
+//		if (!strSeletive.isEmpty()) {
+//			if (!answerBean.getAnswer().isEmpty()) {
+//				// valide answer
+//				answerBean.setAnswer(strSeletive.substring(0, 1) + answerBean.getAnswer());
+//			} else {
+//				answerBean.setAnswer(strSeletive.substring(1));
+//			}
+//			System.out.println("Selective Qustion: anwerBean is " + answerBean.toString());
+//			return answerBean;
+//		}
 
 		if (!answerBean.getAnswer().isEmpty()) {
 			// case of not matching property
@@ -394,6 +400,20 @@ public class PatternMatchingProcess {
 			System.out.println("~~~~ NOT Introduction");
 		}
 		return rs;
+	}
+
+	private AnswerBean selectiveQuestionProcess(String sentence, AnswerBean answerBean) {
+		String strSeletive = questionClassifier.process(sentence).replace(selectiveQuestionType, "");
+		System.out.println("selectiveQuestionProcess str = " + strSeletive);
+
+		if (!answerBean.getAnswer().isEmpty()) {
+			// valide answer
+			answerBean.setAnswer(strSeletive.substring(0, 1) +", "+ answerBean.getAnswer());
+		} else {
+			answerBean.setAnswer(strSeletive.substring(1));
+		}
+		System.out.println("Selective Qustion: anwerBean is " + answerBean.toString());
+		return answerBean;
 	}
 
 	// to test if the user question is a seletive question or not
@@ -824,11 +844,8 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明是谁";
-//		mp.getAnswer(str);
-		
-		System.out.println("question type: "+mp.isKindofQuestion(str, mp.introductionQuestionType));
-		System.out.println("question type: "+mp.isKindofQuestion(str, mp.selectiveQuestionType));
+		String str = "姚明有没有丈夫";
+		mp.getAnswer(str);
 
 	}
 
