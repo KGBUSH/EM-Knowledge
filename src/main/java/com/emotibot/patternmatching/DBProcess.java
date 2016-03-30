@@ -1,6 +1,7 @@
 package com.emotibot.patternmatching;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 /*
  * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
  * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
@@ -8,6 +9,7 @@ import java.util.ArrayList;
  * Primary Owner: quanzu@emotibot.com.cn
  */
 import java.util.List;
+import java.util.Map;
 
 import com.emotibot.common.Common;
 import com.emotibot.config.ConfigManager;
@@ -34,6 +36,7 @@ public class DBProcess {
 		return neo4jDBManager.getConnection();
 	}
 
+	// get the property name set of an entity
 	public static List<String> getPropertyNameSet(String entity, String label) {
 		List<String> propSet = new ArrayList<>();
 		if(Tool.isStrEmptyOrNull(entity)){
@@ -68,6 +71,45 @@ public class DBProcess {
 		relationshipSet = conn.getArrayListfromCollection(query);
 		System.out.println("in DBProcess, prop name is " + relationshipSet);
 		return relationshipSet;
+	}
+	
+	// get the relationship set in the path from A to B
+	public static List<String> getRelationshipTypeInStraightPath(String labelA, String entityA, String labelB, String entityB) {
+		List<String> relationshipSet = new ArrayList<>();
+		if(Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)){
+			System.err.println("DBProcess.getRelationshipTypeInPath: input is empty");
+			return relationshipSet;
+		}
+		String query = buildCypherSQLObj.getRelationshipInStraightPath(labelA, entityA, labelB, entityB);
+		relationshipSet = conn.getArrayListfromCollection(query);
+		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + relationshipSet);
+		return relationshipSet;
+	}
+
+	// get the relationship set in the path from A and B to a node C between A and B
+	public static String getRelationshipTypeInConvergePath(String labelA, String entityA, String labelB, String entityB) {
+		String relationship = "";
+		if(Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)){
+			System.err.println("DBProcess.getRelationshipTypeInPath: input is empty");
+			return relationship;
+		}
+		String query = buildCypherSQLObj.getRelationshipInConvergePath(labelA, entityA, labelB, entityB);
+		relationship = conn.getStringFromDB(query);
+		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + relationship);
+		return relationship;
+	}
+	
+	// get the relationship set in the path from A and B to a node C between A and B
+	public static String getRelationshipTypeInDivergentPath(String labelA, String entityA, String labelB, String entityB) {
+		String relationship = "";
+		if(Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)){
+			System.err.println("DBProcess.getRelationshipTypeInPath: input is empty");
+			return relationship;
+		}
+		String query = buildCypherSQLObj.getRelationshipInDivergentPath(labelA, entityA, labelB, entityB);
+		relationship = conn.getStringFromDB(query);
+		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + relationship);
+		return relationship;
 	}
 	
 	// if there are multiple answers, return the first one.
@@ -107,11 +149,37 @@ public class DBProcess {
 		return bean.getResult();
 	}
 	
+	// get the property value Map of an entity
+	// [(身高,226),(老婆，叶莉)]
+	public static Map<String, Object> getEntityPropValueMap(String label, String entity) {
+		Map<String, Object> entityMap = new HashMap<>();
+		if(Tool.isStrEmptyOrNull(entity)){
+			System.err.println("DBProcess.getPropertyValueMap: input is empty");
+			return null;
+		}
+		String query = buildCypherSQLObj.getEntity(label, entity);
+		entityMap =  conn.getEntity(query);
+		
+//		Map<String, String> valuePropMap = new HashMap<>();
+//		for(Map.Entry<String, Object> entry : entityMap.entrySet()){
+//			valuePropMap.put(entry.getValue().toString(), entry.getKey());
+//		}
+		
+		System.out.println("in DBProcess, getPropertyValueMap = " + entityMap);
+		return entityMap;
+	}
+	
+	
 	public static void main(String [] args){
-		System.out.println("list of prop is: "+getEntityByRelationship("", "test", "ACTS_IN"));
+		
+		String entityA = "The Matrix";
+		String entityB = "The Matrix Reloaded";
+		
+		System.out.println("rs="+DBProcess.getEntityPropValueMap("",entityA).values());
 		
 		
-		String str = "match (p:college {Name:\"西安电子科技大学\"} ) match (q:other {Name:\"西安\"} ) merge (p)-[r:地区]->(q)   return p, r, q";
+		
+//		System.out.println("list of prop is: "+getEntityByRelationship("", "test", "ACTS_IN"));
 //		System.out.println("list of prop is: "+getPropertyNameSet("Yaoming"));
 //		conn.updateQuery(str);
 	}

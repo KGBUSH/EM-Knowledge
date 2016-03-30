@@ -31,11 +31,31 @@ public class PatternMatchingProcess {
 
 	final String introductionQuestionType = "IntroductionQuestion@:";
 	final String selectiveQuestionType = "SelectiveQuestion@:";
+	final String relationshipQuestionType = "RelationshipQuestion@:";
+
+	private String userSentence;
+	private List<Term> segPos;
+	private List<String> segWordWithoutStopWord;
+
+	public PatternMatchingProcess(String str) {
+		userSentence = str;
+		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
+		segPos = tnNode.getWordPos();
+		segWordWithoutStopWord = new ArrayList<>();
+		for (int i = 0; i < segPos.size(); i++) {
+			String segWord = segPos.get(i).word.trim();
+			if (!NLPProcess.isStopWord(segWord)) {
+				segWordWithoutStopWord.add(segWord);
+			}
+		}
+		System.out.println("segPos=" + segPos);
+		System.out.println("segWordWithoutStopWord=" + segWordWithoutStopWord);
+	}
 
 	// The entrance to understand the user query and get answer from Neo4j
 	// input: the question sentence from users,"姚明身高是多少"
 	// output: the answer without answer rewriting, “226cm”
-	public AnswerBean getAnswer(String userSentence) {
+	public AnswerBean getAnswer() {
 
 		String sentence = userSentence;
 		// System.out.println("PMP.getAnswer: sentence = " + sentence);
@@ -51,7 +71,7 @@ public class PatternMatchingProcess {
 		List<String> entitySet = getEntity(sentence);
 		if (entitySet.size() > 2) {
 			// check for 4/15 temporarily, may extent later
-			System.err.println("PM.getAnswer: there are more than two entities");
+			System.err.println("NOTES: PM.getAnswer: there are more than two entities");
 		}
 
 		// TBD: if the sentence does not contain the entity, go through the
@@ -66,7 +86,7 @@ public class PatternMatchingProcess {
 		String entity = "";
 		// for single entity case
 		// if (entitySet.size() == 1) {
-		if (entitySet.size() == 1) { 
+		if (entitySet.size() == 1) {
 			entity = entitySet.get(0);
 			sentence = templateProcess(entity, sentence);
 			System.out.println("PMP.getAnswer: single entity templateProcess sentence = " + sentence);
@@ -77,19 +97,58 @@ public class PatternMatchingProcess {
 
 			// answerBean = mutlipleReasoningProcess(sentence, entity);
 			answerBean = ReasoningProcess(sentence, entity, answerBean);
-		} else if (isRelationshipQuestion(sentence)) {
-			
+			System.out.println("\t ReasoningProcess answerBean = " + answerBean);
+		} else if (isKindofQuestion(userSentence, relationshipQuestionType)) {
+			List<String> relationNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(0),
+					"", entitySet.get(1));
+			List<String> relationReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(1),
+					"", entitySet.get(0));
+			String relationConverge = DBProcess.getRelationshipTypeInConvergePath("", entitySet.get(0), "",
+					entitySet.get(1));
+			String relationDiverge = DBProcess.getRelationshipTypeInDivergentPath("", entitySet.get(0), "",
+					entitySet.get(1));
+			System.out.println("\t SingleWay = " + relationNormalWayPathSet + "\n\t Converge=" + relationConverge
+					+ "\n\t" + relationDiverge);
 
-			
+			String answerRelation = "";
+			if (!relationNormalWayPathSet.isEmpty()) {
+				String normalWayRelation = entitySet.get(1) + "是" + entitySet.get(0);
+				for (String s : relationNormalWayPathSet) {
+					normalWayRelation += "的" + s;
+				}
+				answerRelation = normalWayRelation;
+			}
+
+			if (!relationReverseWayPathSet.isEmpty()) {
+				String reverseWayRelation = entitySet.get(1) + "是" + entitySet.get(0);
+				answerRelation = entitySet.get(0) + "是" + entitySet.get(1);
+				for (String s : relationReverseWayPathSet) {
+					reverseWayRelation += "的" + s;
+				}
+				answerRelation = (answerRelation.isEmpty()) ? reverseWayRelation
+						: answerRelation + "；" + reverseWayRelation;
+			}
+
+			answerRelation = (answerRelation.isEmpty()) ? relationConverge : answerRelation + "；" + relationConverge;
+			answerRelation = (answerRelation.isEmpty()) ? relationDiverge : answerRelation + "；" + relationDiverge;
+
+			if (!answerRelation.isEmpty()) {
+				answerBean.setAnswer(answerRelation);
+				answerBean.setScore(100);
+			}
+
+			System.out.println("RETURN of GETANSWER: Relationship Qustion: anwerBean is " + answerBean.toString());
+			return answerBean;
 		} else {
-			System.err.println("there are more than one entity, but it is not a relationship question");
+			System.err.println(
+					"there are more than a entity, but it is not a relationship question. entitySet = " + entitySet);
 			return answerBean;
 		}
 
 		System.out.println("\t into selective question, answerBean=" + answerBean);
 		// if it is the selective question
-		if(isKindofQuestion(userSentence,selectiveQuestionType)){
-			answerBean = selectiveQuestionProcess(userSentence,answerBean);
+		if (isKindofQuestion(userSentence, selectiveQuestionType)) {
+			answerBean = selectiveQuestionProcess(userSentence, answerBean);
 			System.out.println("RETURN of GETANSWER: Selective Qustion: anwerBean is " + answerBean.toString());
 			return answerBean;
 		}
@@ -101,11 +160,42 @@ public class PatternMatchingProcess {
 			}
 		} else {
 			// case of matching property
-			answerBean.setAnswer(DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME));
+			String localAnswer = "";
+			if (!userSentence.contains(entity)) {
+				localAnswer = matchPropertyValue(entity, segWordWithoutStopWord).replace("----####",
+						"是" + entity + "的")+"。";
+			}
+			String strIntroduce = DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
+			localAnswer += strIntroduce.substring(0, strIntroduce.indexOf("。"));
+			answerBean.setAnswer(localAnswer);
 			answerBean.setScore(isKindofQuestion(userSentence, introductionQuestionType) ? 100 : 0);
 		}
 		System.out.println("PM.getAnswer: the returned anwer is " + answerBean.toString());
 		return answerBean;
+	}
+
+	// to match a segword in sentence with some value of a entity.
+	String matchPropertyValue(String entity, List<String> segWord) {
+		String rs = "";
+		Map<String, Object> mapPropValue = DBProcess.getEntityPropValueMap("", entity);
+
+		// if a value contain a segword, then return the key which refer to the
+		// value
+		for (Object value : mapPropValue.values()) {
+			for (String s : segWord) {
+				if (value.toString().contains(s)) {
+					for (String key : mapPropValue.keySet()) {
+						if (value.equals(mapPropValue.get(key))) {
+							System.out.println(
+									"\t matchPropertyValue: key=" + key + ", value=" + value + ", segword=" + s);
+							return s + "----####" + key;
+						}
+					}
+				}
+			}
+		}
+
+		return rs;
 	}
 
 	// identify the entities in a sentence by SimpleMatching, NLP, Solr
@@ -116,9 +206,8 @@ public class PatternMatchingProcess {
 			return null;
 		}
 
-		NLPResult tnNode = NLPSevice.ProcessSentence(sentence, NLPFlag.SegPos.getValue());
-		List<Term> segPos = tnNode.getWordPos();
 		System.out.println("segPos=" + segPos);
+		System.out.println("segWordWithoutStopWord=" + segWordWithoutStopWord);
 
 		List<String> rsEntity = new ArrayList<>();
 		List<String> simpleMatchEntity = NLPProcess.getEntitySimpleMatch(sentence);
@@ -126,11 +215,18 @@ public class PatternMatchingProcess {
 		System.out.println("\t simpleMatchingEntity=" + simpleMatchEntity + "\n\t nlpEntity=" + nlpEntity);
 
 		if (isTwoListsEqual(simpleMatchEntity, nlpEntity)) {
-			List<String> solrEntity = getEntityBySolr(sentence, nlpEntity, segPos);
+			List<String> solrEntity = getEntityBySolr(sentence, nlpEntity, segWordWithoutStopWord);
 			System.out.println("\t solrEntity with entity input=" + solrEntity);
 
 			if (simpleMatchEntity.isEmpty()) {
-				rsEntity = solrEntity;
+				if (solrEntity.isEmpty())
+					return rsEntity;
+
+				String strEntity = solrEntity.get(0);
+				if (!matchPropertyValue(strEntity, segWordWithoutStopWord).isEmpty()) {
+					rsEntity.add(strEntity);
+				}
+
 				System.out.println("case: 0: rsEntity=" + rsEntity);
 				return rsEntity;
 			}
@@ -160,7 +256,7 @@ public class PatternMatchingProcess {
 			}
 
 			if (nlpEntity.isEmpty()) {
-				List<String> solrEntity = getEntityBySolr(sentence, null, segPos);
+				List<String> solrEntity = getEntityBySolr(sentence, null, segWordWithoutStopWord);
 				System.out.println("\t solrEntity without entity input=" + solrEntity);
 
 				if (simpleMatchEntity.size() == 1) {
@@ -189,10 +285,10 @@ public class PatternMatchingProcess {
 					}
 				}
 			} else {
-				// nlp is not empty, return the intersection among the reulsts
+				// nlp is not empty, return the intersection among the results
 				// by three methods
 				List<String> mergeEntity = mergeTwoLists(simpleMatchEntity, nlpEntity);
-				List<String> solrEntity = getEntityBySolr(sentence, mergeEntity, segPos);
+				List<String> solrEntity = getEntityBySolr(sentence, mergeEntity, segWordWithoutStopWord);
 				System.out.println("\t solrEntity with entity input=" + solrEntity);
 
 				if (simpleMatchEntity.size() == 1) {
@@ -380,7 +476,7 @@ public class PatternMatchingProcess {
 
 		if (!answerBean.getAnswer().isEmpty()) {
 			// valide answer
-			answerBean.setAnswer(strSeletive.substring(0, 1) +", "+ answerBean.getAnswer());
+			answerBean.setAnswer(strSeletive.substring(0, 1) + ", " + answerBean.getAnswer());
 		} else {
 			answerBean.setAnswer(strSeletive.substring(1));
 		}
@@ -509,7 +605,7 @@ public class PatternMatchingProcess {
 	// return the entity by Solr method
 	// input: the sentence from user, "姚明身高多少"
 	// output: the entity identified by Solr, "姚明"
-	private List<String> getEntityBySolr(String sentence, List<String> entitySet, List<Term> segPos) {
+	private List<String> getEntityBySolr(String sentence, List<String> entitySet, List<String> segWord) {
 		List<String> rsEntitySet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getEntityBySolr: input is empty");
@@ -524,11 +620,8 @@ public class PatternMatchingProcess {
 			obj.setEntity(entitySet);
 		}
 
-		for (int i = 0; i < segPos.size(); i++) {
-			String segWord = segPos.get(i).word;
-			if (!NLPProcess.isStopWord(segWord)) {
-				obj.addWord(segWord);
-			}
+		for (String s : segWord) {
+			obj.addWord(s);
 		}
 
 		rsEntitySet = solr.Search(obj);
@@ -791,9 +884,9 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明是谁呀";
-		mp.getAnswer(str);
+		String str = "姚明和叶莉是什么关系";
+		PatternMatchingProcess mp = new PatternMatchingProcess(str);
+		mp.getAnswer();
 
 	}
 

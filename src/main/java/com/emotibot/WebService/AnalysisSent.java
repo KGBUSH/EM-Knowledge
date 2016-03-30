@@ -14,16 +14,17 @@ import com.emotibot.util.Tool;
 
 public class AnalysisSent {
 	   public static SimpleKnowledgeGetAnwer simpleKnowledgeGetAnwer = new SimpleKnowledgeGetAnwer();
-	   public static PatternMatchingProcess patternMatchingProcess = new PatternMatchingProcess();
+//	   public static PatternMatchingProcess patternMatchingProcess = new PatternMatchingProcess();
 	   
 	   public AnalysisSent()
 	   {
 		   if(simpleKnowledgeGetAnwer!=null) simpleKnowledgeGetAnwer = new SimpleKnowledgeGetAnwer();
-		   if(patternMatchingProcess!=null) patternMatchingProcess = new PatternMatchingProcess();
+//		   if(patternMatchingProcess!=null) patternMatchingProcess = new PatternMatchingProcess();
 	   }
 	   
 	   public AnswerBean AnalysisSentence(String str)
 	   {
+		   PatternMatchingProcess patternMatchingProcess = new PatternMatchingProcess(str);
 		   AnswerBean bean = new AnswerBean();
 		   try{
 		   if(Tool.isStrEmptyOrNull(str)||!str.contains("姚明")) return bean;
@@ -31,7 +32,7 @@ public class AnalysisSent {
 		   {
 			   AnswerRewrite answerRewite = new AnswerRewrite();
 			   String ans1=simpleKnowledgeGetAnwer.getAnswer(str).trim();
-			   String ans2=patternMatchingProcess.getAnswer(str).getAnswer().trim();
+			   String ans2=patternMatchingProcess.getAnswer().getAnswer().trim();
 			   
 			   if(ans1.equals(ans2)){
 				   bean.setAnswer(answerRewite.rewriteAnswer(ans1));

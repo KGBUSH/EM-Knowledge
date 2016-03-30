@@ -101,4 +101,16 @@
         IntroductionQuestion@:firstParamInfo
         </template>
     </category>
+    <category>
+        <pattern> ^ 关 系 ^ </pattern>
+        <template>
+        RelationshipQuestion@:1
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 联 系 ^ </pattern>
+        <template>
+        RelationshipQuestion@:2
+        </template>
+    </category>
 </aiml>

@@ -8,6 +8,7 @@ package com.emotibot.neo4jprocess;
  */
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -45,15 +46,32 @@ public class EmotibotNeo4jConnection {
 		}
 	}
 
+	// return list of string
 	public List<String> getArrayListfromCollection(String query) {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			List<String> ls = null;
-			while (rs.next()) {
+			if (rs.next()) {
 				ls = (List<String>) rs.getObject(Common.ResultObj);
 			}
 			return ls;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	// return a string
+	public String getStringFromDB(String query) {
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			String strRS = null;
+			if (rs.next()) {
+				strRS = rs.getObject(Common.ResultObj).toString();
+			}
+			return strRS;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -82,18 +100,18 @@ public class EmotibotNeo4jConnection {
 	}
 
 	// get Entity only
-	public Entity getEntity(String query) {
+	public Map<String, Object> getEntity(String query) {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
-			Entity ent = new Entity();
-			Map<String, Object> m = (Map<String, Object>) rs.getObject("entity");
-			for (String key : m.keySet()) {
-				System.out.println(key + "  " + m.get(key));
-				ent.addProperty(key, m.get(key).toString());
+			Map<String, Object> mapEntity = new HashMap<>();
+			if (rs.next()) {
+				mapEntity = (Map<String, Object>) rs.getObject(Common.ResultObj);
 			}
-			return ent;
+
+			// System.out.println("object mpa is ="+mapEntity);
+			return mapEntity;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -110,14 +128,14 @@ public class EmotibotNeo4jConnection {
 			return false;
 		}
 	}
+
 	public boolean updateQueryBatch(List<String> querys) {
 		try {
-			if(querys==null||querys.size()==0) return true;
+			if (querys == null || querys.size() == 0)
+				return true;
 			StringBuffer buffer = new StringBuffer();
-			for(String query:querys)
-			{
-				if(query!=null&&query.trim().length()>0)
-				{
+			for (String query : querys) {
+				if (query != null && query.trim().length() > 0) {
 					buffer.append(query).append("\r\n");
 				}
 			}
