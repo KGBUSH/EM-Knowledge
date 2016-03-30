@@ -15,6 +15,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.emotibot.WebService.AnswerBean;
+import com.emotibot.common.Common;
 import com.emotibot.nlp.NLPFlag;
 import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
@@ -26,8 +27,6 @@ import com.hankcs.hanlp.seg.common.Term;
 public class PatternMatchingProcess {
 
 	final TemplateProcessor sentenceTemplate = new TemplateProcessor("Knowledge");
-	final TemplateProcessor selectiveQuestionTemplate = new TemplateProcessor("Pre");
-	final TemplateProcessor introductionTemplate = new TemplateProcessor("Post");
 	final TemplateProcessor questionClassifier = new TemplateProcessor("QuestionClassifier");
 
 	final String introductionQuestionType = "IntroductionQuestion@:";
@@ -67,7 +66,7 @@ public class PatternMatchingProcess {
 		String entity = "";
 		// for single entity case
 		// if (entitySet.size() == 1) {
-		if (entitySet.size() > 0) { // TBD: add case for size > 1
+		if (entitySet.size() == 1) { 
 			entity = entitySet.get(0);
 			sentence = templateProcess(entity, sentence);
 			System.out.println("PMP.getAnswer: single entity templateProcess sentence = " + sentence);
@@ -78,9 +77,13 @@ public class PatternMatchingProcess {
 
 			// answerBean = mutlipleReasoningProcess(sentence, entity);
 			answerBean = ReasoningProcess(sentence, entity, answerBean);
-		} else {
-			// for multiple entities, support at most two in 4/15 milestone
+		} else if (isRelationshipQuestion(sentence)) {
+			
 
+			
+		} else {
+			System.err.println("there are more than one entity, but it is not a relationship question");
+			return answerBean;
 		}
 
 		System.out.println("\t into selective question, answerBean=" + answerBean);
@@ -90,18 +93,6 @@ public class PatternMatchingProcess {
 			System.out.println("RETURN of GETANSWER: Selective Qustion: anwerBean is " + answerBean.toString());
 			return answerBean;
 		}
-//		
-//		String strSeletive = selectiveQuestionProcess(userSentence);
-//		if (!strSeletive.isEmpty()) {
-//			if (!answerBean.getAnswer().isEmpty()) {
-//				// valide answer
-//				answerBean.setAnswer(strSeletive.substring(0, 1) + answerBean.getAnswer());
-//			} else {
-//				answerBean.setAnswer(strSeletive.substring(1));
-//			}
-//			System.out.println("Selective Qustion: anwerBean is " + answerBean.toString());
-//			return answerBean;
-//		}
 
 		if (!answerBean.getAnswer().isEmpty()) {
 			// case of not matching property
@@ -110,8 +101,8 @@ public class PatternMatchingProcess {
 			}
 		} else {
 			// case of matching property
-			answerBean.setAnswer(DBProcess.getPropertyValue(entity, "firtParamInfo"));
-			answerBean.setScore(isIntroductionQuestion(userSentence) ? 100 : 0);
+			answerBean.setAnswer(DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME));
+			answerBean.setScore(isKindofQuestion(userSentence, introductionQuestionType) ? 100 : 0);
 		}
 		System.out.println("PM.getAnswer: the returned anwer is " + answerBean.toString());
 		return answerBean;
@@ -383,25 +374,6 @@ public class PatternMatchingProcess {
 		return rs;
 	}
 
-	// to test if the user want to get the introduction of the entity
-	// input: 姚明是谁？ 你喜欢姚明吗？
-	// output: 1 0
-	private boolean isIntroductionQuestion(String sentence) {
-		boolean rs = false;
-		if (Tool.isStrEmptyOrNull(sentence)) {
-			return rs;
-		}
-
-		String template = questionClassifier.process(sentence);
-		if (!template.isEmpty() && template.startsWith("IntroductionQuestion@:")) {
-			rs = true;
-			System.out.println("~~~~ IS Introduction");
-		} else {
-			System.out.println("~~~~ NOT Introduction");
-		}
-		return rs;
-	}
-
 	private AnswerBean selectiveQuestionProcess(String sentence, AnswerBean answerBean) {
 		String strSeletive = questionClassifier.process(sentence).replace(selectiveQuestionType, "");
 		System.out.println("selectiveQuestionProcess str = " + strSeletive);
@@ -414,30 +386,6 @@ public class PatternMatchingProcess {
 		}
 		System.out.println("Selective Qustion: anwerBean is " + answerBean.toString());
 		return answerBean;
-	}
-
-	// to test if the user question is a seletive question or not
-	// input: 姚明有老婆吗？
-	// output: 有没有
-	private String selectiveQuestionProcess(String sentence) {
-		if (Tool.isStrEmptyOrNull(sentence)) {
-			return "";
-		}
-
-		String template = questionClassifier.process(sentence);
-		if (!template.isEmpty() && template.startsWith("SelectiveQuestion@:")) {
-
-			System.out.println("~~~~ IS Selective");
-		} else {
-			System.out.println("~~~~ NOT Introduction");
-		}
-
-		String rs = selectiveQuestionTemplate.process(sentence);
-		if (!rs.isEmpty()) {
-			System.out.println("isSelectQ: input=" + sentence + ", output=" + rs);
-		}
-		System.out.println("isSelectQ: input=" + sentence + ", output=" + rs);
-		return rs;
 	}
 
 	// Get the answer by the pattern matching method
@@ -844,7 +792,7 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明有没有丈夫";
+		String str = "姚明是谁呀";
 		mp.getAnswer(str);
 
 	}
