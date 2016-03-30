@@ -140,25 +140,32 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					System.err.println("NAME="+pmWord);
 
 					System.err.println("MM"+name+"KKKKK"+pmWord+"MM  "+flag+" "+name_flag+"  "+pmname_flag);
+					if(name==null) return ;
 					if (name != null && !WordLabelMap.containsKey(name)) {
 						System.err.println("name is not contain in WordLabelMap " + name+"  "+pmWord+" "+url+" "+NodeOrRelation);
-						if(NodeOrRelation.equals("1")||NodeOrRelation.equals("2")) return;
+						//if(NodeOrRelation.equals("1")||NodeOrRelation.equals("2")) return;
 					}
 					//return;
-                    if(NodeOrRelation.equals("3")) {
+                   /* if(NodeOrRelation.equals("3")) {
                     	if(WordLabelMap.containsKey(name)){
         					System.err.println("First have the Name:="+name);
         					return ;
                     	}
                     	label=Other;
                     }
-                    if(NodeOrRelation.equals("1")||NodeOrRelation.equals("2"))  label = WordLabelMap.get(name);
-					System.err.println("label="+label);
+                    if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3")) {
+                    	if(WordLabelMap.containsKey(name)) label = WordLabelMap.get(name);
+                    	else label=Other;
+                    }*/
 
 					ImmutableBytesWritable outputKey = new ImmutableBytesWritable();
 					outputKey.set(Bytes.toBytes(getASCIISum(url, 3)));
 
-					if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3")){
+					if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
+					{
+					if(WordLabelMap.containsKey(name)) label = WordLabelMap.get(name);
+                    else label=Other;
+					System.err.println("label="+label);
 					BuildCypherSQL bcy = new BuildCypherSQL();
 					String query = bcy.InsertEntityNode(label, pageExtractInfo.getName(), pageExtractInfo.getAttr());
 					System.err.println(NodeOrRelation+" queryMap=" + query);
@@ -169,6 +176,10 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					{
 						HashMap<String,List<String>> attr_Values = pageExtractInfo.getAttr_Values();
 						BuildCypherSQL bcy = new BuildCypherSQL();
+						if(WordLabelMap.containsKey(name)) label = WordLabelMap.get(name);
+	                    else label=Other;
+						System.err.println("label="+label);
+
 						if(attr_Values!=null&&attr_Values.size()>0)
 						{
 							for(String attr:attr_Values.keySet())

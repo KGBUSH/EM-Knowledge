@@ -144,6 +144,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
                           String queryBtch=getRelationsSql(list);
                     	  result=conn.updateQuery(queryBtch);
     					  System.err.println("result="+result);
+    					  System.err.println("queryBtch="+queryBtch);
     					  list.clear();
                         }
                     }
@@ -181,7 +182,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 				}
 			}
 			if(solrDocnum>0) solr.Commit();
-			if(list.size()>100)
+			if(list.size()>0)
 			{
                        if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
                        {
@@ -194,6 +195,8 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
                           String queryBtch=getRelationsSql(list);
                      	  boolean result=conn.updateQuery(queryBtch);
      					  System.err.println("result="+result);
+    					  System.err.println("queryBtch="+queryBtch);
+
      					  list.clear();
 
                        }
@@ -218,7 +221,6 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 				sql=sql.replaceAll("p\\:", "p"+index+":");
 				sql=sql.replaceAll("q\\:", "q"+index+":");
 				sql=sql.replaceAll("r\\:", "r"+index+":");
-
 				sql=sql.replaceAll("\\(p\\)", "(p"+index+")");
 				sql=sql.replaceAll("\\(q\\)", "(q"+index+")");
                 String[] arr = sql.split("match|merge");
@@ -226,14 +228,16 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
                 {
                 	if(k!=null&&k.trim().length()>0)
                 	{
-    				// System.err.println("k="+k);
+        				k=k.trim();
+
+    				System.err.println("k="+k);
     				  if(k.contains("[")&&k.contains("]"))
     				  {
-    					bufferMerge.append(" merge ").append(k).append(" ");
+    					bufferMerge.append("merge").append(k).append("\r\n");
     				  }
     				  else
     				  {
-    					bufferMatch.append(" match ").append(k).append(" ");
+    					bufferMatch.append("match").append(k).append("\r\n");
     				  }
                 	}
                 }
@@ -256,7 +260,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 		String sql="match (p:Person {Name:\"黄晓明\"} ) match (q:Person {Name:\"angelababy\"} ) merge (p)-[r:老婆]->(q) ";
 	    List<String> list = new ArrayList<String>();
 	    Vector<String> sqls = Tool.getFileLines("sql");
-	    for(int i=0;i<20;i++)
+	    for(int i=0;i<2;i++)
 	    {
 	    	String query=sqls.get(i);
 			if(query.contains("return")) query = query.substring(0, query.lastIndexOf("return"));
