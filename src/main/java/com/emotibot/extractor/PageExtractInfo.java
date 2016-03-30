@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 
 public class PageExtractInfo {
@@ -45,6 +46,12 @@ public class PageExtractInfo {
 		key=key.replaceAll("!", "");
 		key=key.replaceAll("\\?", "");
 		key=key.replaceAll("\\*", "");
+		key=key.replaceAll("\u200B", "");
+		key=key.replaceAll("\u200E", "");
+
+		//key=CharUtil.zerolize(key);
+		//key=key.replaceAll("\\<200b\\>", "");
+		//​
 		//" “ ”
 		key = key.replaceAll("[\\pP‘’“”]", "");
 		key = key.replaceAll("[0-9]", "");
@@ -63,7 +70,6 @@ public class PageExtractInfo {
 		value=value.replaceAll("\"", "");
 		value=value.replaceAll("“", " ");
 		value=value.replaceAll("”", " ");
-
 		value=StringEscapeUtils.escapeSql(value);
 
 		attr.put(key, value);
@@ -189,6 +195,8 @@ public class PageExtractInfo {
 		attr=attr.replaceAll("“", "");
 		attr=attr.replaceAll("”", "");
 		attr=attr.replaceAll("`", "");
+		attr=attr.replaceAll("\u200B", "");
+		attr=attr.replaceAll("\u200E", "");
 
 		attr=removeAllBlank(attr);
 		if(Tool.isStrEmptyOrNull(attr)) return ;

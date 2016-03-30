@@ -95,7 +95,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 			throws IOException, InterruptedException {
 		try {
 			long solrDocnum=0;
-			//List<String> list = new ArrayList<>();
+			List<String> list = new ArrayList<>();
 			for (Text value : values) {
 				System.err.println("typeReduce=" + type+"  ");
 				if (type.contains("Neo4j")) {
@@ -110,7 +110,6 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
         				System.err.println("query==null||query==0");
         				continue;
                     }
-                   // list.add(query);
 					if (conn != null) {
 					}
 					else
@@ -121,20 +120,24 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 					boolean result=false;
                     if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
                     {
-                        bean=conn.executeCypherSQL(query);
-                        System.err.println("bean="+bean.toString());
+                        //bean=conn.executeCypherSQL(query);
+                        //System.err.println("bean="+bean.toString());
+            			if(query.contains("return")) query = query.substring(0, query.lastIndexOf("return"));
+            			query=query.replaceAll("result", "result"+list.size());
+                        list.add(query);
+                        if(list.size()>100)
+                        {
+                        	result=conn.updateQueryBatch(list);
+        					System.err.println("result="+result);
+        					list.clear();
+                        }
+
                     }
                     else
                     {
                     	result=conn.updateQuery(query);
     					System.err.println("result="+result);
                     }
-					/*if(list.size()>100)
-					{
-                    	result=conn.updateQueryBatch(list);
-    					System.err.println("result="+result);
-                        list.clear();
-					}*/
 				}
 				if (type.contains("Solr")) {
                 	long t11 = System.currentTimeMillis();
@@ -169,11 +172,12 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 				}
 			}
 			if(solrDocnum>0) solr.Commit();
-			/*if(list.size()>100)
+			if(list.size()>100)
 			{
-            	conn.updateQueryBatch(list);
-                list.clear();
-			}*/
+                        	boolean result=conn.updateQueryBatch(list);
+        					System.err.println("result="+result);
+        					list.clear();
+			}
 		} catch (Exception e) {
 			System.err.println("ReduceException="+e.getMessage());
 

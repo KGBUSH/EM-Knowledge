@@ -50,7 +50,12 @@ public class CharUtil {
         Pattern pattern = Pattern.compile("^[A-Z]+$");
         return pattern.matcher(str).matches();   
      }
-    
+    public static String zerolize(String s) {
+		if (s.length() < 4) {
+			s = "000".substring(0, 4 - s.length()) + s;
+		}
+		return s;
+	}
     public static void main(String args[])
     {
     	System.err.println(isEnglisgBigChar("A"));
