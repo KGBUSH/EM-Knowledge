@@ -55,9 +55,10 @@ public class ExtractorJob {
 		      conf.set("destTable", destTableName);
 		      conf.set("type", type);
 		      conf.set("label", Common.PERSONLABEL);
+			  ConfigManager cfg = new ConfigManager();
+
 				if(type.contains("Neo4j"))
 				{
-					ConfigManager cfg = new ConfigManager();
 				    conf.set("DriverName", cfg.getNeo4jDriverName());
 				    conf.set("Ip", cfg.getNeo4jServerIp());
 				    conf.set("Password", cfg.getNeo4jPasswd());
@@ -67,7 +68,13 @@ public class ExtractorJob {
 				}
 				if(type.contains("Solr"))
 				{
-					
+					//String ip,int port,String solrName
+					String ip = cfg.getIndexSolrServerIp();
+					int port = cfg.getIndexSolrServerPort();
+					String solrName = cfg.getIndexSolrServerSolrName();
+				    conf.set("ip", ip);
+                    conf.setInt("port", port);
+                    conf.set("solrName", solrName);
 				}
 		      Job job = new Job(conf);
 		      job.setPriority(JobPriority.HIGH);

@@ -20,6 +20,7 @@ public class PageExtractInfo {
 	private HashMap<String,String> attr = new HashMap<>();
 	private List<Sentence> sentList = new ArrayList<>();
 	private HashMap<String,List<String>> attr_Values = new HashMap<>();
+	String Blank=" ";
 
 	public HashMap<String,String> getAttr() {
 		return attr;
@@ -51,6 +52,8 @@ public class PageExtractInfo {
 		key=key.replaceAll("\"", "");
 		key=key.replaceAll("“", "");
 		key=key.replaceAll("”", "");
+		key=key.replaceAll("`", "");
+
         key=removeAllBlank(key);
 		if(Tool.isStrEmptyOrNull(key)) return ;
 
@@ -94,7 +97,7 @@ public class PageExtractInfo {
 		StringBuffer buffer = new StringBuffer();
 		for(String key:attr.keySet())
 		{
-			buffer.append(key).append("\t");
+			buffer.append(key).append(Blank);
 		}
         return buffer.toString().trim();
 	}
@@ -103,7 +106,7 @@ public class PageExtractInfo {
 		StringBuffer buffer = new StringBuffer();
 		for(String key:attr.keySet())
 		{
-			buffer.append(attr.get(key)).append("\t");
+			buffer.append(attr.get(key)).append(Blank);
 		}
         return buffer.toString().trim();
 	}
@@ -112,23 +115,23 @@ public class PageExtractInfo {
 		StringBuffer buffer = new StringBuffer();
 		for(String key:attr.keySet())
 		{
-			buffer.append(key).append("\t").append(attr.get(key)).append("\t");
+			buffer.append(key).append(Blank).append(attr.get(key)).append(Blank);
 		}
         return buffer.toString().trim();
 	}
 	public String toSolrString()
 	{
 		StringBuffer buffer = new StringBuffer();
-		buffer.append(name).append("\t");
+		buffer.append(name).append(Blank);
 		for(String key:attr.keySet())
 		{
-			buffer.append(key).append("\t"+attr.get(key)).append("\t");
+			buffer.append(key).append(Blank+attr.get(key)).append(Blank);
 		}
 		for(Sentence sent:sentList)
 		{
-			buffer.append(sent.toString()).append("\t");
+			buffer.append(sent.toString()).append(Blank);
 		}
-		buffer.append(firstPara).append("\t");
+		buffer.append(firstPara).append(Blank);
 		return buffer.toString().trim();
 	}
 
@@ -185,6 +188,8 @@ public class PageExtractInfo {
 		attr=attr.replaceAll("\"", "");
 		attr=attr.replaceAll("“", "");
 		attr=attr.replaceAll("”", "");
+		attr=attr.replaceAll("`", "");
+
 		attr=removeAllBlank(attr);
 		if(Tool.isStrEmptyOrNull(attr)) return ;
 		//attr=attr.toLowerCase();
@@ -210,12 +215,14 @@ public class PageExtractInfo {
 	
 	public static void main(String args[])
 	{
-		String key=".";
+		String key="上星平台`";
 		key=key.replaceAll("/", "");//
 		key=key.replaceAll("\\.", "");
 		key=key.replaceAll("!", "");
 		key=key.replaceAll("\\?", "");
 		key=key.replaceAll("\\*", "");
+		key=key.replaceAll("`", "");
+
 		//" “ ”
 		key = key.replaceAll("[\\pP‘’“”]", "");
 		key = key.replaceAll("[0-9]", "");

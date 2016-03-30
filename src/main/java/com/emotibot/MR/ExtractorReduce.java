@@ -57,6 +57,11 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
     public static int Port = 0;
     public static String User = "";
     public static String NodeOrRelation="";
+    ////
+	public static String ip = "";
+	public static int port = 0;
+	public static String solrName ="";
+
 	@Override
 	public void setup(Context context) {
 		type = context.getConfiguration().get("type");
@@ -77,7 +82,11 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 		}
 		else
 		{
-		solr = new SolrUtil();
+			ip = context.getConfiguration().get("ip");
+			port = context.getConfiguration().getInt("port", 0);
+			solrName = context.getConfiguration().get("solrName");
+
+		solr = new SolrUtil(ip,port,solrName);
 		}
 	}
 
