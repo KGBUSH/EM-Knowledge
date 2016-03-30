@@ -28,6 +28,10 @@ public class PatternMatchingProcess {
 	final TemplateProcessor sentenceTemplate = new TemplateProcessor("Knowledge");
 	final TemplateProcessor selectiveQuestionTemplate = new TemplateProcessor("Pre");
 	final TemplateProcessor introductionTemplate = new TemplateProcessor("Post");
+	final TemplateProcessor questionClassifier = new TemplateProcessor("QuestionClassifier");
+	
+	final String introductionQuestionType = "IntroductionQuestion@:";
+	final String selectiveQuestionType = "SelectiveQuestion@:";
 
 	// The entrance to understand the user query and get answer from Neo4j
 	// input: the question sentence from users,"姚明身高是多少"
@@ -81,7 +85,7 @@ public class PatternMatchingProcess {
 
 		System.out.println("\t into selective question, answerBean=" + answerBean);
 		// if it is the selective question
-		String strSeletive = processSelectQ(userSentence);
+		String strSeletive = selectiveQuestionProcess(userSentence);
 		if (!strSeletive.isEmpty()) {
 			if (!answerBean.getAnswer().isEmpty()) {
 				// valide answer
@@ -101,7 +105,7 @@ public class PatternMatchingProcess {
 		} else {
 			// case of matching property
 			answerBean.setAnswer(DBProcess.getPropertyValue(entity, "firtParamInfo"));
-			answerBean.setScore(isIntroduction(userSentence) ? 100 : 0);
+			answerBean.setScore(isIntroductionQuestion(userSentence) ? 100 : 0);
 		}
 		System.out.println("PM.getAnswer: the returned anwer is " + answerBean.toString());
 		return answerBean;
@@ -357,18 +361,37 @@ public class PatternMatchingProcess {
 	// to test if the user want to get the introduction of the entity
 	// input: 姚明是谁？ 你喜欢姚明吗？
 	// output: 1 0
-	private boolean isIntroduction(String sentence) {
+	private boolean isKindofQuestion(String sentence, String questionType) {
 		boolean rs = false;
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			return rs;
 		}
 
-		String feedback = introductionTemplate.process(sentence);
-		if (!feedback.isEmpty()) {
+		String template = questionClassifier.process(sentence);
+		if (!template.isEmpty() && template.startsWith(questionType)) {
 			rs = true;
-			System.out.println("isIntro: input:" + sentence + " is to ask the introduction");
+			System.out.println("~~~~ IS " + questionType);
 		} else {
-			System.out.println("isIntro: input:" + sentence + " is NOT ");
+			System.out.println("~~~~ NOT " + questionType);
+		}
+		return rs;
+	}
+
+	// to test if the user want to get the introduction of the entity
+	// input: 姚明是谁？ 你喜欢姚明吗？
+	// output: 1 0
+	private boolean isIntroductionQuestion(String sentence) {
+		boolean rs = false;
+		if (Tool.isStrEmptyOrNull(sentence)) {
+			return rs;
+		}
+
+		String template = questionClassifier.process(sentence);
+		if (!template.isEmpty() && template.startsWith("IntroductionQuestion@:")) {
+			rs = true;
+			System.out.println("~~~~ IS Introduction");
+		} else {
+			System.out.println("~~~~ NOT Introduction");
 		}
 		return rs;
 	}
@@ -376,9 +399,17 @@ public class PatternMatchingProcess {
 	// to test if the user question is a seletive question or not
 	// input: 姚明有老婆吗？
 	// output: 有没有
-	private String processSelectQ(String sentence) {
+	private String selectiveQuestionProcess(String sentence) {
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			return "";
+		}
+
+		String template = questionClassifier.process(sentence);
+		if (!template.isEmpty() && template.startsWith("SelectiveQuestion@:")) {
+
+			System.out.println("~~~~ IS Selective");
+		} else {
+			System.out.println("~~~~ NOT Introduction");
 		}
 
 		String rs = selectiveQuestionTemplate.process(sentence);
@@ -557,13 +588,13 @@ public class PatternMatchingProcess {
 					// not stopword
 					littleCandidate += segWord;
 				} else {
-					if(!littleCandidate.isEmpty()){
+					if (!littleCandidate.isEmpty()) {
 						rsList.add(littleCandidate);
 						littleCandidate = "";
 					}
 				}
 			}
-			if(!littleCandidate.isEmpty()){
+			if (!littleCandidate.isEmpty()) {
 				rsList.add(littleCandidate);
 			}
 		}
@@ -793,8 +824,11 @@ public class PatternMatchingProcess {
 
 	public static void main(String[] args) {
 		PatternMatchingProcess mp = new PatternMatchingProcess();
-		String str = "姚明有没有妻子";
-		mp.getAnswer(str);
+		String str = "姚明是谁";
+//		mp.getAnswer(str);
+		
+		System.out.println("question type: "+mp.isKindofQuestion(str, mp.introductionQuestionType));
+		System.out.println("question type: "+mp.isKindofQuestion(str, mp.selectiveQuestionType));
 
 	}
 
