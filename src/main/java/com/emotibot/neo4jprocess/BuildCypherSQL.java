@@ -153,6 +153,97 @@ public class BuildCypherSQL implements CypherSQLParser {
 	}
 
 	@Override
+	public String getRelationshipInStraightPath(String labelA, String entityA, String labelB, String entityB) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)) {
+			System.err.println("CYPHER.getRelationshipInPath: name is null");
+			return query;
+		}
+		
+		// set the length of path not exceed 5 for 4/15
+		if (labelA.isEmpty()) {
+			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA
+					+ "\"})-[r*0..5]->";
+		} else {
+			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA
+					+ "\"})-[r*0..5]->";
+		}
+		
+		if (labelB.isEmpty()) {
+			query += "({" + Common.KGNODE_NAMEATRR + ":\"" + entityB
+					+ "\"}) UNWIND r as x return collect(type(x)) as " + Common.ResultObj;
+		} else {
+			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB
+					+ "\"}) UNWIND r as x return collect(type(x)) as " + Common.ResultObj;
+		}
+		
+		System.out.println("CYPHER of getRelationshipInPath: " + query);
+		return query;
+	}
+	
+	@Override
+	public String getRelationshipInConvergePath(String labelA, String entityA, String labelB, String entityB) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)) {
+			System.err.println("CYPHER.getRelationshipInConvergePath: name is null");
+			return query;
+		}
+		
+		// set the length of path not exceed 5 for 4/15
+		if (labelA.isEmpty()) {
+			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA
+					+ "\"})-[r1]->()<-[r2]-";
+		} else {
+			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA
+					+ "\"})-[r1]->()<-[r2]-";
+		}
+		
+		if (labelB.isEmpty()) {
+			query += "({" + Common.KGNODE_NAMEATRR + ":\"" + entityB
+					+ "\"}) ";
+		} else {
+			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB
+					+ "\"}) ";
+		}
+		
+		query += "where type(r1)=type(r2) return type(r1) as " + Common.ResultObj;
+
+		System.out.println("CYPHER of getRelationshipInConvergePath: " + query);
+		return query;
+	}
+	
+	@Override
+	public String getRelationshipInDivergentPath(String labelA, String entityA, String labelB, String entityB) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)) {
+			System.err.println("CYPHER.getRelationshipInDivergentPath: name is null");
+			return query;
+		}
+		
+		// set the length of path not exceed 5 for 4/15
+		if (labelA.isEmpty()) {
+			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA
+					+ "\"})<-[r1]-()-[r2]->";
+		} else {
+			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA
+					+ "\"})<-[r1]-()-[r2]->";
+		}
+		
+		if (labelB.isEmpty()) {
+			query += "({" + Common.KGNODE_NAMEATRR + ":\"" + entityB
+					+ "\"}) ";
+		} else {
+			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB
+					+ "\"}) ";
+		}
+		
+		query += "where type(r1)=type(r2) return type(r1) as " + Common.ResultObj;
+		
+		System.out.println("CYPHER of getRelationshipInDivergentPath: " + query);
+		return query;
+	}
+
+	@Override
 	public String getPropNamebyEntityName(String label, String ent) {
 		String query = "";
 		if (Tool.isStrEmptyOrNull(ent)) {
