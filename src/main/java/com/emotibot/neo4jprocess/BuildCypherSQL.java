@@ -60,17 +60,19 @@ public class BuildCypherSQL implements CypherSQLParser {
 				|| Tool.isStrEmptyOrNull(entityA.getLabel()) || Tool.isStrEmptyOrNull(entityB.getLabel())) {
 			System.err.println("InsertRelation has invalid input");
 		} else {
-			query = "match (p:" + entityA.getLabel();
+			String name1="p";
+			String name2="q";
+			query = "match ("+name1+":" + entityA.getLabel();
 			for (String key : entityA.getProperties().keySet()) {
 				query += " {" + key + ":\"" + entityA.getProperties().get(key) + "\"} ";
 			}
 
-			query += ") match (q:" + entityB.getLabel();
+			query += ") match ("+name2+":" + entityB.getLabel();
 			for (String key : entityB.getProperties().keySet()) {
 				query += " {" + key + ":\"" + entityB.getProperties().get(key) + "\"} ";
 			}
 
-			query += ") merge (p)-[r:" + relationLabel + "]->(q) ";
+			query += ") merge ("+name1+")-[r:" + relationLabel + "]->("+name2+") ";
 			if (attr != null && attr.size() > 0) {
 				query += " set ";
 				for (String key : attr.keySet()) {

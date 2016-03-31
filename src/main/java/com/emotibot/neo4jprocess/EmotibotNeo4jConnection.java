@@ -126,6 +126,25 @@ public class EmotibotNeo4jConnection {
 			return false;
 		}
 	}
+	public boolean updateQueryBatch(List<String> querys) {
+		try {
+			if(querys==null||querys.size()==0) return true;
+			StringBuffer buffer = new StringBuffer();
+			for(String query:querys)
+			{
+				if(query!=null&&query.trim().length()>0)
+				{
+					buffer.append(query).append("\r\n");
+				}
+			}
+			String query = buffer.toString().trim();
+			conn.createStatement().executeQuery(query);
+			return true;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 
 	/*
 	 * public boolean updateQueryBatch(List<String> querys) { try {

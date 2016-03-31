@@ -177,13 +177,17 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 								for(String val:list)
 								{
 									Entity a = new Entity(label, name);
-									Entity b = new Entity(Other,val);
+									String label2=Other;
+									if(WordLabelMap.containsKey(val)) 
+									{
+										label2=WordLabelMap.get(val);
+									}
+									Entity b = new Entity(label2,val);
 									if(name.trim().equals(val.trim())){
 										System.err.println(name+"(equals)" +val);
                                         continue;
 									}
-									String query=bcy.InsertRelation(a, b, attr, null);
-									System.err.println(NodeOrRelation+" queryMap=" + query);
+					                  String query=bcy.InsertRelation(a, b, attr, null);									System.err.println(NodeOrRelation+" queryMap=" + query);
 									if (query == null || query.trim().length() == 0) return;
 									context.write(outputKey, new Text(query));
 								}

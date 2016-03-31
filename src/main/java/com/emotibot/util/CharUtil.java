@@ -1,4 +1,7 @@
 package com.emotibot.util;
+
+import java.util.regex.Pattern;
+
 /*
  * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
  * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
@@ -41,5 +44,20 @@ public class CharUtil {
         }
         return count;
 
+    }
+    public static boolean isEnglisgBigChar(String str){
+    	//if(Tool.isStrEmptyOrNull(str)) return false;
+        Pattern pattern = Pattern.compile("^[A-Z]+$");
+        return pattern.matcher(str).matches();   
+     }
+    public static String zerolize(String s) {
+		if (s.length() < 4) {
+			s = "000".substring(0, 4 - s.length()) + s;
+		}
+		return s;
+	}
+    public static void main(String args[])
+    {
+    	System.err.println(isEnglisgBigChar("A"));
     }
 }

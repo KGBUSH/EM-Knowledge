@@ -51,6 +51,20 @@ public class SolrUtil {
 		}
 	}
 
+	public SolrUtil(String ip,int port,String solrName) {
+		if (server == null) {
+			//ConfigManager cf = new ConfigManager();
+			//String ip=cf.getIndexSolrServerIp();
+			//int port = cf.getIndexSolrServerPort();
+			//String solrName=cf.getIndexSolrServerSolrName();
+			server = new HttpSolrServer("http://"+ip+":"+port+"/solr/"+solrName);
+			server.setConnectionTimeout(10 * 1000);
+			server.setFollowRedirects(false);
+			server.setAllowCompression(true);
+			server.setMaxRetries(10);
+		}
+	}
+
 	public boolean Commit() {
 		try {
 			if (server != null){
@@ -139,7 +153,7 @@ public class SolrUtil {
     	return result;
     }
 	public static void main(String args[]) throws SolrServerException, IOException, InterruptedException {
-		SolrUtil solr = new SolrUtil();
+		//SolrUtil solr = new SolrUtil();
     	/*Vector<String> files = new Vector<String>();
 		 files.add("/Users/Elaine/Documents/workspace/html/yaomin");
 		 files.add("/Users/Elaine/Documents/workspace/html/yaoxinlei");
@@ -175,7 +189,7 @@ public class SolrUtil {
 		//obj.addWord("丈夫");
 		obj.addWord("熊猫明");
 
-		solr.Search(obj);
+		//solr.Search(obj);
 		return;
 	}
 

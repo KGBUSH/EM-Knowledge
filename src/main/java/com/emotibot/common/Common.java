@@ -10,7 +10,7 @@ public class Common {
 	public final static String EMPTY="";
 	
 	//KnowledgeGraph Node First Param Info :Attribute Name
-	public final static String KG_NODE_FIRST_PARAM_ATTRIBUTENAME="firstParamInfo";
+	public final static String KG_NODE_FIRST_PARAM_ATTRIBUTENAME="ParamInfo";
 	
 	public final static String PERSONLABEL="Person";
 	public final static String KGNODE_NAMEATRR="Name";
