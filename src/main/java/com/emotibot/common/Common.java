@@ -16,6 +16,8 @@ public class Common {
 	public final static String KGNODE_NAMEATRR="Name";
     //sql返回变量的变量名
 	public static String ResultObj="result";
+	public static String RelationType="relationType";
+	public static String RelationName="relationName";
     public static String UserDir=System.getProperty("user.dir");
 	
 

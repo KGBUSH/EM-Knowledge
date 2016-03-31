@@ -87,29 +87,40 @@ public class DBProcess {
 	}
 
 	// get the relationship set in the path from A and B to a node C between A and B
-	public static String getRelationshipTypeInConvergePath(String labelA, String entityA, String labelB, String entityB) {
-		String relationship = "";
+	public static List<List<String>> getRelationshipTypeInConvergePath(String labelA, String entityA, String labelB, String entityB) {
+		List<List<String>> rsSet = new ArrayList<>();
 		if(Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)){
 			System.err.println("DBProcess.getRelationshipTypeInPath: input is empty");
-			return relationship;
+			return rsSet;
 		}
+		
+		List<String> list = new ArrayList<>();
+		list.add(Common.RelationName);
+		list.add(Common.RelationType);
+		
 		String query = buildCypherSQLObj.getRelationshipInConvergePath(labelA, entityA, labelB, entityB);
-		relationship = conn.getStringFromDB(query);
-		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + relationship);
-		return relationship;
+		rsSet = conn.getListSet(query, list);
+		
+		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + rsSet);
+		return rsSet;
 	}
 	
 	// get the relationship set in the path from A and B to a node C between A and B
-	public static String getRelationshipTypeInDivergentPath(String labelA, String entityA, String labelB, String entityB) {
-		String relationship = "";
+	public static List<List<String>> getRelationshipTypeInDivergentPath(String labelA, String entityA, String labelB, String entityB) {
+		List<List<String>> rsSet = new ArrayList<>();
 		if(Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)){
 			System.err.println("DBProcess.getRelationshipTypeInPath: input is empty");
-			return relationship;
+			return rsSet;
 		}
+
+		List<String> list = new ArrayList<>();
+		list.add(Common.RelationName);
+		list.add(Common.RelationType);
+		
 		String query = buildCypherSQLObj.getRelationshipInDivergentPath(labelA, entityA, labelB, entityB);
-		relationship = conn.getStringFromDB(query);
-		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + relationship);
-		return relationship;
+		rsSet = conn.getListSet(query, list);
+		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + rsSet);
+		return rsSet;
 	}
 	
 	// if there are multiple answers, return the first one.
@@ -158,7 +169,7 @@ public class DBProcess {
 			return null;
 		}
 		String query = buildCypherSQLObj.getEntity(label, entity);
-		entityMap =  conn.getEntity(query);
+		entityMap =  conn.getEntityMap(query);
 		
 //		Map<String, String> valuePropMap = new HashMap<>();
 //		for(Map.Entry<String, Object> entry : entityMap.entrySet()){
@@ -175,7 +186,13 @@ public class DBProcess {
 		String entityA = "The Matrix";
 		String entityB = "The Matrix Reloaded";
 		
-		System.out.println("rs="+DBProcess.getEntityPropValueMap("",entityA).values());
+		String query = "match ({Name:\"霍建华\"})-[r1]->(n)<-[r2]-({Name:\"赵丽颖\"}) where type(r1)=type(r2) return n.Name as relationName, type(r1) as relationType";
+		
+		List<String> list = new ArrayList<>();
+		list.add(Common.RelationName);
+		list.add(Common.RelationType);
+		
+		System.out.println("rs="+conn.getListSet(query, list));
 		
 		
 		

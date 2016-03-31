@@ -53,20 +53,20 @@ public class NLPProcess {
 					entitySet.add(word.trim());
 				}
 				dis.close();
-				
-//				File fileDictoray = new File(filePath);
-//				File[] allFile = fileDictoray.listFiles();
-//				for (File f : allFile) {
-//					FileInputStream fis = new FileInputStream(f);
-//					InputStreamReader read = new InputStreamReader(fis);
-//					BufferedReader dis = new BufferedReader(read);
-//					String word = "";
-//					while ((word = dis.readLine()) != null) {
-//						if (!word.trim().isEmpty())
-//							entitySet.add(word.trim());
-//					}
-//					dis.close();
-//				}
+
+				// File fileDictoray = new File(filePath);
+				// File[] allFile = fileDictoray.listFiles();
+				// for (File f : allFile) {
+				// FileInputStream fis = new FileInputStream(f);
+				// InputStreamReader read = new InputStreamReader(fis);
+				// BufferedReader dis = new BufferedReader(read);
+				// String word = "";
+				// while ((word = dis.readLine()) != null) {
+				// if (!word.trim().isEmpty())
+				// entitySet.add(word.trim());
+				// }
+				// dis.close();
+				// }
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
@@ -112,7 +112,7 @@ public class NLPProcess {
 
 		return isSW;
 	}
-	
+
 	public static boolean isEntity(String str) {
 		boolean isSW = false;
 		if (!str.isEmpty() && entityTable.contains(str)) {
@@ -278,11 +278,13 @@ public class NLPProcess {
 			}
 		}
 
-//		System.out.println("the macthed entities are: " + entitySet.toString());
+		// System.out.println("the macthed entities are: " +
+		// entitySet.toString());
 		return entitySet;
 	}
-	
-	// return the set of entity which is contained in the input sentence by NLP Method
+
+	// return the set of entity which is contained in the input sentence by NLP
+	// Method
 	// input: 姚明和叶莉的女儿是谁？
 	// output: [姚明，叶莉]
 	public static List<String> getEntityByNLP(List<Term> segPos) {
@@ -294,10 +296,11 @@ public class NLPProcess {
 			}
 		}
 
-//		System.out.println("the result entities are: " + entitySet.toString());
+		// System.out.println("the result entities are: " +
+		// entitySet.toString());
 		return entitySet;
 	}
-	
+
 	// remove the stopword in a string.
 	// input: "身高是多少"
 	// output: "身高"
@@ -318,17 +321,42 @@ public class NLPProcess {
 		return rs;
 	}
 
+	// remove the stopword in a string.
+	// input: "姚明是谁？"
+	// output: "姚明是谁"
+	public static String removePunctuateMark(String str) {
+		if(Tool.isStrEmptyOrNull(str)){
+			return str;
+		}
+		if(str.endsWith("？") || str.endsWith("?") || str.endsWith("。") || str.endsWith(".")){
+			return str.substring(0, str.length()-1);
+		}
+		return str;
+	}
+
 	public static void main(String[] args) {
+		String str = "姚明是谁。";
 		NLPProcess sp = new NLPProcess();
+		
+		System.out.println(sp.removePunctuateMark(str));
+
+		String rs = "";
+		NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
+		List<Term> segPos = tnNode.getWordPos();
+		for (int i = 0; i < segPos.size(); i++) {
+			String s = segPos.get(i).word;
+			rs += s;
+		}
+		System.out.println(rs);
+
 		// sp.synonymProcess("");
 
-		String str = "香港金像奖有没有上海大学";
 		List<String> es = getEntitySimpleMatch(str);
 		for (String s : es) {
 			System.out.println(s.length());
 		}
-		
-		System.out.print("size of entity table is "+entityTable.size());
+
+		System.out.print("size of entity table is " + entityTable.size());
 
 		String fileEntity = Common.UserDir + "/knowledgedata/entity.txt";
 
@@ -337,7 +365,7 @@ public class NLPProcess {
 			writename.createNewFile(); // 创建新文件
 			BufferedWriter out = new BufferedWriter(new FileWriter(writename));
 			for (String s : entityTable) {
-//				System.out.println(s.length());
+				// System.out.println(s.length());
 				out.write(s + "\r\n"); // \r\n即为换行
 			}
 			out.flush(); // 把缓存区内容压入文件

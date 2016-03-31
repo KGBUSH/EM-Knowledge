@@ -8,6 +8,7 @@ package com.emotibot.neo4jprocess;
  */
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,7 @@ public class EmotibotNeo4jConnection {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			List<String> ls = null;
+			List<String> ls = new ArrayList<>();
 			if (rs.next()) {
 				ls = (List<String>) rs.getObject(Common.ResultObj);
 			}
@@ -67,14 +68,14 @@ public class EmotibotNeo4jConnection {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			String strRS = null;
+			String strRS = "";
 			if (rs.next()) {
 				strRS = rs.getObject(Common.ResultObj).toString();
 			}
 			return strRS;
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return "";
 		}
 	}
 
@@ -99,17 +100,42 @@ public class EmotibotNeo4jConnection {
 		return bean;
 	}
 
-	// get Entity only
-	public Map<String, Object> getEntity(String query) {
+	// get result Set
+	public List<List<String>> getListSet(String query, List<String> propertySet) {
+		List<List<String>> listSet = new ArrayList<>();
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 
+			while (rs.next()) {
+				List<String> list = new ArrayList<>();
+				for(String prop : propertySet){
+					System.out.println("prop="+prop+", value="+rs.getObject(prop).toString());
+					list.add(rs.getObject(prop).toString());
+//					listSet.put(prop, rs.getObject(prop).toString());
+				}
+				listSet.add(list);
+			}
+
+			// System.out.println("object mpa is ="+mapEntity);
+			return listSet;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return listSet;
+		}
+	}
+
+	// get Entity only
+	public Map<String, Object> getEntityMap(String query) {
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			
 			Map<String, Object> mapEntity = new HashMap<>();
 			if (rs.next()) {
 				mapEntity = (Map<String, Object>) rs.getObject(Common.ResultObj);
 			}
-
+			
 			// System.out.println("object mpa is ="+mapEntity);
 			return mapEntity;
 		} catch (Exception e) {
