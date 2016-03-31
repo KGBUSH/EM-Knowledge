@@ -45,15 +45,31 @@ public class EmotibotNeo4jConnection {
 		}
 	}
 
+	// return list of string
 	public List<String> getArrayListfromCollection(String query) {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			List<String> ls = null;
-			while (rs.next()) {
+			if (rs.next()) {
 				ls = (List<String>) rs.getObject(Common.ResultObj);
 			}
 			return ls;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	// return a string
+	public String getStringFromDB(String query) {
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			String strRS = null;
+			if (rs.next()) {
+				strRS = rs.getObject(Common.ResultObj).toString();
+			}
+			return strRS;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
