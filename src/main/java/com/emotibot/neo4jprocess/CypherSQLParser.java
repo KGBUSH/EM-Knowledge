@@ -20,6 +20,7 @@ public interface CypherSQLParser {
 	// TBD
 
 	// search KnowledgeGraph
+	public String getEntity(String label, String entity); 
 	public String FindEntityInfo(String Label, String name);
 	public String FindEntityAttr(String Label, String name, String attr);
 	public String getPropNamebyEntityName(String label, String ent);

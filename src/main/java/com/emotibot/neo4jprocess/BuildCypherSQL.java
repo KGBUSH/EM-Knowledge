@@ -18,13 +18,26 @@ import com.emotibot.util.Tool;
 
 public class BuildCypherSQL implements CypherSQLParser {
 
-	/*
-	 * // get Entity Query
-	 * 
-	 * public String getEntity(String label, String name, String value) { String
-	 * query = "match (e:" + label + ") where " + name + "=" + value +
-	 * " return id(ee) as id, e as entity"; return query; }
-	 */
+	// get Entity Query
+
+	@Override
+	public String getEntity(String label, String entity) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(entity)) {
+			System.err.println("CYPHER.getEntity: name is null");
+			return query;
+		}
+
+		if (label.isEmpty()) {
+			query = "match (e{" + Common.KGNODE_NAMEATRR + ":\"" + entity + "\"}) return e as " + Common.ResultObj;
+		} else {
+			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":" + entity + "}) return e as "
+					+ Common.ResultObj;
+		}
+		
+		System.out.println("query in getEntity is: " + query);
+		return query;
+	}
 
 	public String InsertEntityNodeByPageExtractInfo(PageExtractInfo pageInfo) {
 		if (pageInfo == null)
@@ -60,19 +73,19 @@ public class BuildCypherSQL implements CypherSQLParser {
 				|| Tool.isStrEmptyOrNull(entityA.getLabel()) || Tool.isStrEmptyOrNull(entityB.getLabel())) {
 			System.err.println("InsertRelation has invalid input");
 		} else {
-			String name1="p";
-			String name2="q";
-			query = "match ("+name1+":" + entityA.getLabel();
+			String name1 = "p";
+			String name2 = "q";
+			query = "match (" + name1 + ":" + entityA.getLabel();
 			for (String key : entityA.getProperties().keySet()) {
 				query += " {" + key + ":\"" + entityA.getProperties().get(key) + "\"} ";
 			}
 
-			query += ") match ("+name2+":" + entityB.getLabel();
+			query += ") match (" + name2 + ":" + entityB.getLabel();
 			for (String key : entityB.getProperties().keySet()) {
 				query += " {" + key + ":\"" + entityB.getProperties().get(key) + "\"} ";
 			}
 
-			query += ") merge ("+name1+")-[r:" + relationLabel + "]->("+name2+") ";
+			query += ") merge (" + name1 + ")-[r:" + relationLabel + "]->(" + name2 + ") ";
 			if (attr != null && attr.size() > 0) {
 				query += " set ";
 				for (String key : attr.keySet()) {
@@ -161,28 +174,26 @@ public class BuildCypherSQL implements CypherSQLParser {
 			System.err.println("CYPHER.getRelationshipInPath: name is null");
 			return query;
 		}
-		
+
 		// set the length of path not exceed 5 for 4/15
 		if (labelA.isEmpty()) {
-			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA
-					+ "\"})-[r*0..5]->";
+			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*0..5]->";
 		} else {
-			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA
-					+ "\"})-[r*0..5]->";
+			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*0..5]->";
 		}
-		
+
 		if (labelB.isEmpty()) {
-			query += "({" + Common.KGNODE_NAMEATRR + ":\"" + entityB
-					+ "\"}) UNWIND r as x return collect(type(x)) as " + Common.ResultObj;
+			query += "({" + Common.KGNODE_NAMEATRR + ":\"" + entityB + "\"}) UNWIND r as x return collect(type(x)) as "
+					+ Common.ResultObj;
 		} else {
 			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB
 					+ "\"}) UNWIND r as x return collect(type(x)) as " + Common.ResultObj;
 		}
-		
+
 		System.out.println("CYPHER of getRelationshipInPath: " + query);
 		return query;
 	}
-	
+
 	@Override
 	public String getRelationshipInConvergePath(String labelA, String entityA, String labelB, String entityB) {
 		String query = "";
@@ -190,30 +201,26 @@ public class BuildCypherSQL implements CypherSQLParser {
 			System.err.println("CYPHER.getRelationshipInConvergePath: name is null");
 			return query;
 		}
-		
+
 		// set the length of path not exceed 5 for 4/15
 		if (labelA.isEmpty()) {
-			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA
-					+ "\"})-[r1]->()<-[r2]-";
+			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r1]->()<-[r2]-";
 		} else {
-			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA
-					+ "\"})-[r1]->()<-[r2]-";
+			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r1]->()<-[r2]-";
 		}
-		
+
 		if (labelB.isEmpty()) {
-			query += "({" + Common.KGNODE_NAMEATRR + ":\"" + entityB
-					+ "\"}) ";
+			query += "({" + Common.KGNODE_NAMEATRR + ":\"" + entityB + "\"}) ";
 		} else {
-			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB
-					+ "\"}) ";
+			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB + "\"}) ";
 		}
-		
+
 		query += "where type(r1)=type(r2) return type(r1) as " + Common.ResultObj;
 
 		System.out.println("CYPHER of getRelationshipInConvergePath: " + query);
 		return query;
 	}
-	
+
 	@Override
 	public String getRelationshipInDivergentPath(String labelA, String entityA, String labelB, String entityB) {
 		String query = "";
@@ -221,26 +228,22 @@ public class BuildCypherSQL implements CypherSQLParser {
 			System.err.println("CYPHER.getRelationshipInDivergentPath: name is null");
 			return query;
 		}
-		
+
 		// set the length of path not exceed 5 for 4/15
 		if (labelA.isEmpty()) {
-			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA
-					+ "\"})<-[r1]-()-[r2]->";
+			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})<-[r1]-()-[r2]->";
 		} else {
-			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA
-					+ "\"})<-[r1]-()-[r2]->";
+			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})<-[r1]-()-[r2]->";
 		}
-		
+
 		if (labelB.isEmpty()) {
-			query += "({" + Common.KGNODE_NAMEATRR + ":\"" + entityB
-					+ "\"}) ";
+			query += "({" + Common.KGNODE_NAMEATRR + ":\"" + entityB + "\"}) ";
 		} else {
-			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB
-					+ "\"}) ";
+			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB + "\"}) ";
 		}
-		
+
 		query += "where type(r1)=type(r2) return type(r1) as " + Common.ResultObj;
-		
+
 		System.out.println("CYPHER of getRelationshipInDivergentPath: " + query);
 		return query;
 	}

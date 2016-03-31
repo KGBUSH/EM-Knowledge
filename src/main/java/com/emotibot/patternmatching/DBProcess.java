@@ -1,6 +1,7 @@
 package com.emotibot.patternmatching;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 /*
  * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
  * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
@@ -8,6 +9,7 @@ import java.util.ArrayList;
  * Primary Owner: quanzu@emotibot.com.cn
  */
 import java.util.List;
+import java.util.Map;
 
 import com.emotibot.common.Common;
 import com.emotibot.config.ConfigManager;
@@ -34,6 +36,7 @@ public class DBProcess {
 		return neo4jDBManager.getConnection();
 	}
 
+	// get the property name set of an entity
 	public static List<String> getPropertyNameSet(String entity, String label) {
 		List<String> propSet = new ArrayList<>();
 		if(Tool.isStrEmptyOrNull(entity)){
@@ -146,6 +149,25 @@ public class DBProcess {
 		return bean.getResult();
 	}
 	
+	// get the property value Map of an entity
+	// [(身高,226),(老婆，叶莉)]
+	public static Map<String, Object> getEntityPropValueMap(String label, String entity) {
+		Map<String, Object> entityMap = new HashMap<>();
+		if(Tool.isStrEmptyOrNull(entity)){
+			System.err.println("DBProcess.getPropertyValueMap: input is empty");
+			return null;
+		}
+		String query = buildCypherSQLObj.getEntity(label, entity);
+		entityMap =  conn.getEntity(query);
+		
+//		Map<String, String> valuePropMap = new HashMap<>();
+//		for(Map.Entry<String, Object> entry : entityMap.entrySet()){
+//			valuePropMap.put(entry.getValue().toString(), entry.getKey());
+//		}
+		
+		System.out.println("in DBProcess, getPropertyValueMap = " + entityMap);
+		return entityMap;
+	}
 	
 	
 	public static void main(String [] args){
@@ -153,7 +175,7 @@ public class DBProcess {
 		String entityA = "The Matrix";
 		String entityB = "The Matrix Reloaded";
 		
-		System.out.println("rs="+DBProcess.getRelationshipTypeInDivergentPath("",entityA,"",entityB));
+		System.out.println("rs="+DBProcess.getEntityPropValueMap("",entityA).values());
 		
 		
 		
