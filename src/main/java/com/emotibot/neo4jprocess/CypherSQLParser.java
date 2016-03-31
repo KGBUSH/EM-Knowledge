@@ -25,5 +25,9 @@ public interface CypherSQLParser {
 	public String getPropNamebyEntityName(String label, String ent);
 	public String getRelationshipByEntityName(String label, String ent);
 	public String getEntityByRelationship(String label, String entity, String relation);
+	public String getRelationshipInStraightPath(String labelA, String entityA, String labelB, String entityB);
+	public String getRelationshipInConvergePath(String labelA, String entityA, String labelB, String entityB);
+	public String getRelationshipInDivergentPath(String labelA, String entityA, String labelB, String entityB);
+	
 	
 }

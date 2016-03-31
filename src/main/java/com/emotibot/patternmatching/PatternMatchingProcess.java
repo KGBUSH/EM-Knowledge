@@ -66,7 +66,7 @@ public class PatternMatchingProcess {
 		String entity = "";
 		// for single entity case
 		// if (entitySet.size() == 1) {
-		if (entitySet.size() == 1) { 
+		if (entitySet.size() == 1) {
 			entity = entitySet.get(0);
 			sentence = templateProcess(entity, sentence);
 			System.out.println("PMP.getAnswer: single entity templateProcess sentence = " + sentence);
@@ -77,19 +77,46 @@ public class PatternMatchingProcess {
 
 			// answerBean = mutlipleReasoningProcess(sentence, entity);
 			answerBean = ReasoningProcess(sentence, entity, answerBean);
-		} else if (isRelationshipQuestion(sentence)) {
-			
+		} else if (entitySet.size() == 2 && isRelationshipQuestion(sentence)) {
+			List<String> relationSingleWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(0),
+					"", entitySet.get(1));
+			String relationConverge = DBProcess.getRelationshipTypeInConvergePath("", entitySet.get(0), "",
+					entitySet.get(1));
+			String relationDiverge = DBProcess.getRelationshipTypeInDivergentPath("", entitySet.get(0), "",
+					entitySet.get(1));
+			System.out.println("\t SingleWay = " + relationSingleWayPathSet + "\n\t Converge=" + relationConverge
+					+ "\n\t" + relationDiverge);
 
+			String answerRelation = "";
+			if (!relationSingleWayPathSet.isEmpty()) {
+				answerRelation = entitySet.get(1) + "是" + entitySet.get(0);
+				for (String s : relationSingleWayPathSet) {
+					answerRelation += "的" + s;
+				}
+				answerBean.setScore(100);
+				System.out.println("\t after straight path" + answerRelation);
+			}
+
+			answerRelation = (answerRelation.isEmpty()) ? relationConverge : answerRelation + ";" + relationConverge;
+			answerRelation = (answerRelation.isEmpty()) ? relationDiverge : answerRelation + ";" + relationDiverge;
+
+			if (!answerRelation.isEmpty()){
+				answerBean.setAnswer(answerRelation);
+				answerBean.setScore(100);
+			}
 			
+			System.out.println("RETURN of GETANSWER: Relationship Qustion: anwerBean is " + answerBean.toString());
+			return answerBean;
 		} else {
-			System.err.println("there are more than one entity, but it is not a relationship question");
+			System.err.println(
+					"there are more than 2 entity, but it is not a relationship question. entitySet = " + entitySet);
 			return answerBean;
 		}
 
 		System.out.println("\t into selective question, answerBean=" + answerBean);
 		// if it is the selective question
-		if(isKindofQuestion(userSentence,selectiveQuestionType)){
-			answerBean = selectiveQuestionProcess(userSentence,answerBean);
+		if (isKindofQuestion(userSentence, selectiveQuestionType)) {
+			answerBean = selectiveQuestionProcess(userSentence, answerBean);
 			System.out.println("RETURN of GETANSWER: Selective Qustion: anwerBean is " + answerBean.toString());
 			return answerBean;
 		}
@@ -380,7 +407,7 @@ public class PatternMatchingProcess {
 
 		if (!answerBean.getAnswer().isEmpty()) {
 			// valide answer
-			answerBean.setAnswer(strSeletive.substring(0, 1) +", "+ answerBean.getAnswer());
+			answerBean.setAnswer(strSeletive.substring(0, 1) + ", " + answerBean.getAnswer());
 		} else {
 			answerBean.setAnswer(strSeletive.substring(1));
 		}

@@ -70,6 +70,45 @@ public class DBProcess {
 		return relationshipSet;
 	}
 	
+	// get the relationship set in the path from A to B
+	public static List<String> getRelationshipTypeInStraightPath(String labelA, String entityA, String labelB, String entityB) {
+		List<String> relationshipSet = new ArrayList<>();
+		if(Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)){
+			System.err.println("DBProcess.getRelationshipTypeInPath: input is empty");
+			return relationshipSet;
+		}
+		String query = buildCypherSQLObj.getRelationshipInStraightPath(labelA, entityA, labelB, entityB);
+		relationshipSet = conn.getArrayListfromCollection(query);
+		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + relationshipSet);
+		return relationshipSet;
+	}
+
+	// get the relationship set in the path from A and B to a node C between A and B
+	public static String getRelationshipTypeInConvergePath(String labelA, String entityA, String labelB, String entityB) {
+		String relationship = "";
+		if(Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)){
+			System.err.println("DBProcess.getRelationshipTypeInPath: input is empty");
+			return relationship;
+		}
+		String query = buildCypherSQLObj.getRelationshipInConvergePath(labelA, entityA, labelB, entityB);
+		relationship = conn.getStringFromDB(query);
+		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + relationship);
+		return relationship;
+	}
+	
+	// get the relationship set in the path from A and B to a node C between A and B
+	public static String getRelationshipTypeInDivergentPath(String labelA, String entityA, String labelB, String entityB) {
+		String relationship = "";
+		if(Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)){
+			System.err.println("DBProcess.getRelationshipTypeInPath: input is empty");
+			return relationship;
+		}
+		String query = buildCypherSQLObj.getRelationshipInDivergentPath(labelA, entityA, labelB, entityB);
+		relationship = conn.getStringFromDB(query);
+		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + relationship);
+		return relationship;
+	}
+	
 	// if there are multiple answers, return the first one.
 	public static String getEntityByRelationship(String label, String entity, String relationship) {
 		if(Tool.isStrEmptyOrNull(entity) || Tool.isStrEmptyOrNull(relationship)){
@@ -107,11 +146,18 @@ public class DBProcess {
 		return bean.getResult();
 	}
 	
+	
+	
 	public static void main(String [] args){
-		System.out.println("list of prop is: "+getEntityByRelationship("", "test", "ACTS_IN"));
+		
+		String entityA = "The Matrix";
+		String entityB = "The Matrix Reloaded";
+		
+		System.out.println("rs="+DBProcess.getRelationshipTypeInDivergentPath("",entityA,"",entityB));
 		
 		
-		String str = "match (p:college {Name:\"西安电子科技大学\"} ) match (q:other {Name:\"西安\"} ) merge (p)-[r:地区]->(q)   return p, r, q";
+		
+//		System.out.println("list of prop is: "+getEntityByRelationship("", "test", "ACTS_IN"));
 //		System.out.println("list of prop is: "+getPropertyNameSet("Yaoming"));
 //		conn.updateQuery(str);
 	}
