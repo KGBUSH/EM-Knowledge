@@ -36,6 +36,8 @@ public class ConfigManager implements ConfigInterface{
         System.out.println("getIndexSolrServerIp="+getIndexSolrServerIp());
         System.out.println("getIndexSolrServerPort="+getIndexSolrServerPort());
         System.out.println("getIndexSolrServerSolrName="+getIndexSolrServerSolrName());
+        System.out.println("WebserverPort="+getWebServerPort());
+
 
     }
 
@@ -108,7 +110,6 @@ public int getIndexSolrServerPort() {
 	{
 		e.printStackTrace();
 	}
-
 	return 0;
 }
 
@@ -119,5 +120,19 @@ public String getIndexSolrServerSolrName() {
 	if(properties!=null&&properties.containsKey(ConfigKeyName.INDEX_SOLR_SERVER_SOLRNAME))
 		return properties.getProperty(ConfigKeyName.INDEX_SOLR_SERVER_SOLRNAME);
 	return null;
+}
+
+
+@Override
+public int getWebServerPort() {
+	try{
+	if(properties!=null&&properties.containsKey(ConfigKeyName.WEBSERVER_PORT))
+		return Integer.valueOf(properties.getProperty(ConfigKeyName.WEBSERVER_PORT));
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+
+	return 0;
 }
 }

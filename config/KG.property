@@ -6,3 +6,4 @@ db.neo4j.drivername = org.neo4j.jdbc.Driver
 index.solr.server.ip=192.168.1.81
 index.solr.server.port=8080
 index.solr.server.solrname=kgtest
+webserver.port=9090

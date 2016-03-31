@@ -25,7 +25,8 @@ public class ConfigKeyName {
 	public static final String  INDEX_SOLR_SERVER_IP="index.solr.server.ip";
 	public static final String  INDEX_SOLR_SERVER_PORT="index.solr.server.port";
 	public static final String	INDEX_SOLR_SERVER_SOLRNAME="index.solr.server.solrname";
-	
+	//============webserver
+	public static final String WEBSERVER_PORT="webserver.port";
 	//===========System.getProperty("user.dir") + "/"+"config/"+
 	public static String ConfigFileName=System.getProperty("user.dir") + "/"+"config/"+"KG.property";
 

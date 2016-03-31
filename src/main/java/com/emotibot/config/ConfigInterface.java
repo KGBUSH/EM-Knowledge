@@ -25,6 +25,6 @@ public interface ConfigInterface {
     public String getIndexSolrServerIp();
     public int getIndexSolrServerPort();
     public String getIndexSolrServerSolrName();
-
+    public int getWebServerPort();
 
 }

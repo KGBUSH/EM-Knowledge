@@ -20,7 +20,9 @@ import org.apache.commons.lang.ObjectUtils.Null;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
 
+import com.emotibot.config.ConfigManager;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
+import com.emotibot.patternmatching.PatternMatchingProcess;
 import com.hankcs.hanlp.seg.common.Term;
 
 import net.sf.json.JSONArray;
@@ -36,7 +38,10 @@ public class WebServer {
 		// Note that if you set this to port 0 then a randomly available port
 		// will be assigned that you can either look in the logs for the port,
 		// or programmatically obtain it for use in test cases.
-		Server server = new Server(9000);
+		int port =9000;
+		ConfigManager cf = new ConfigManager();
+		port = cf.getWebServerPort();
+		Server server = new Server(port);
 
 		// The ServletHandler is a dead simple way to create a context handler
 		// that is backed by an instance of a Servlet.
@@ -154,25 +159,7 @@ public class WebServer {
 			String text = request.getParameter("t");
 			if (text != null) {
 				text = text.trim();
-				/*if (!text.isEmpty()) {
-					try {
-						flag = Integer.parseInt(request.getParameter("f"));
-					} catch (NumberFormatException e) {
-
-					}
-					System.out.println(text);
-					 SimpleKnowledgeGetAnwer simpleKnowledgeGetAnwer = new SimpleKnowledgeGetAnwer();
-					   String answer = simpleKnowledgeGetAnwer.getAnswer(text);
-					   JSONObject result_obj = new JSONObject();
-					   result_obj.put("ver", "");
-					   
-					   result_obj.put("score", "");
-					   result_obj.put("topic", "");
-					   result_obj.put("emotion", "");
-					   result_obj.put("answer", answer);
-					   out.println(result_obj);
-				}*/
-				AnswerBean bean = new AnalysisSent().AnalysisSentence(text);
+				AnswerBean bean =new PatternMatchingProcess(text).getAnswer();
 				JSONObject result_obj = new JSONObject();
 				   result_obj.put("ver", "");
 				   

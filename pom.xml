@@ -182,7 +182,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>com.emotibot.MR.ExtractorJob</mainClass>
+              <mainClass>com.emotibot.WebService.WebServer</mainClass>
             </manifest>
           </archive>
           <includes>
