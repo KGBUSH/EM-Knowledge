@@ -160,6 +160,17 @@ public class DBProcess {
 		return bean.getResult();
 	}
 	
+	public static String getEntityLabel(String ent) {
+		if(Tool.isStrEmptyOrNull(ent)){
+			System.err.println("DBProcess.getEntityLabel: input is empty");
+			return "";
+		}
+		String query = buildCypherSQLObj.getLabelByEntity(ent);
+		List<String> list = conn.getArrayListfromCollection(query);
+		System.out.println("in DBProcess, getEntityLabel " + list);
+		return list.get(0);
+	}
+	
 	// get the property value Map of an entity
 	// [(身高,226),(老婆，叶莉)]
 	public static Map<String, Object> getEntityPropValueMap(String label, String entity) {
@@ -182,6 +193,8 @@ public class DBProcess {
 	
 	
 	public static void main(String [] args){
+
+		System.out.println("label="+DBProcess.getEntityLabel("姚明"));
 		
 		String entityA = "The Matrix";
 		String entityB = "The Matrix Reloaded";

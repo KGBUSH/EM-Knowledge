@@ -34,7 +34,7 @@ public class BuildCypherSQL implements CypherSQLParser {
 			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":" + entity + "}) return e as "
 					+ Common.ResultObj;
 		}
-		
+
 		System.out.println("query in getEntity is: " + query);
 		return query;
 	}
@@ -177,7 +177,7 @@ public class BuildCypherSQL implements CypherSQLParser {
 
 		// set the length of path not exceed 5 for 4/15
 		if (labelA.isEmpty()) {
-			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*1..3]->";
+			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*1..2]->";
 		} else {
 			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*1..3]->";
 		}
@@ -215,7 +215,8 @@ public class BuildCypherSQL implements CypherSQLParser {
 			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB + "\"}) ";
 		}
 
-		query += "where type(r1)=type(r2) return n.Name as " + Common.RelationName + ", type(r1) as " + Common.RelationType;
+		query += "where type(r1)=type(r2) return n.Name as " + Common.RelationName + ", type(r1) as "
+				+ Common.RelationType;
 
 		System.out.println("CYPHER of getRelationshipInConvergePath: " + query);
 		return query;
@@ -242,7 +243,8 @@ public class BuildCypherSQL implements CypherSQLParser {
 			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB + "\"}) ";
 		}
 
-		query += "where type(r1)=type(r2) return n.Name as " + Common.RelationName + ", type(r1) as " + Common.RelationType;
+		query += "where type(r1)=type(r2) return n.Name as " + Common.RelationName + ", type(r1) as "
+				+ Common.RelationType;
 
 		System.out.println("CYPHER of getRelationshipInDivergentPath: " + query);
 		return query;
@@ -263,6 +265,18 @@ public class BuildCypherSQL implements CypherSQLParser {
 					+ Common.ResultObj;
 		}
 		System.out.println("query in getPropNamebyEntityName is: " + query);
+		return query;
+	}
+
+	@Override
+	public String getLabelByEntity(String ent) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(ent)) {
+			System.err.println("CYPHER: name is null");
+			return query;
+		}
+		query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) return labels(e) as " + Common.ResultObj;
+		System.out.println("query in getLabelByEntity is: " + query);
 		return query;
 	}
 

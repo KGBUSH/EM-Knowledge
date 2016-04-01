@@ -9,7 +9,6 @@ package com.emotibot.patternmatching;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -107,8 +106,8 @@ public class PatternMatchingProcess {
 					"", entitySet.get(0));
 			List<List<String>> relationConvergePathSet = DBProcess.getRelationshipTypeInConvergePath("",
 					entitySet.get(0), "", entitySet.get(1));
-			List<List<String>> relationDivergePathSet = DBProcess.getRelationshipTypeInDivergentPath("", entitySet.get(0), "",
-					entitySet.get(1));
+			List<List<String>> relationDivergePathSet = DBProcess.getRelationshipTypeInDivergentPath("",
+					entitySet.get(0), "", entitySet.get(1));
 			System.out.println("\n\t relationNormalWayPathSet = " + relationNormalWayPathSet
 					+ "\n\t relationReverseWayPathSet=" + relationReverseWayPathSet + "\n\t relationConverge="
 					+ relationConvergePathSet + "\n\t relationDiverge =" + relationDivergePathSet);
@@ -138,7 +137,7 @@ public class PatternMatchingProcess {
 				for (List<String> listStr : relationConvergePathSet) {
 					convergeRelation += listStr.get(1) + "都是" + listStr.get(0) + "，";
 				}
-				convergeRelation = convergeRelation.substring(0, convergeRelation.length()-1);
+				convergeRelation = convergeRelation.substring(0, convergeRelation.length() - 1);
 
 				answerRelation = (answerRelation.isEmpty()) ? convergeRelation
 						: answerRelation + "；" + convergeRelation;
@@ -150,10 +149,9 @@ public class PatternMatchingProcess {
 				for (List<String> listStr : relationDivergePathSet) {
 					divergeRelation += listStr.get(0) + "的" + listStr.get(1) + "，";
 				}
-				divergeRelation = divergeRelation.substring(0,divergeRelation.length()-1);
-				
-				answerRelation = (answerRelation.isEmpty()) ? divergeRelation
-						: answerRelation + "；" + divergeRelation;
+				divergeRelation = divergeRelation.substring(0, divergeRelation.length() - 1);
+
+				answerRelation = (answerRelation.isEmpty()) ? divergeRelation : answerRelation + "；" + divergeRelation;
 				System.out.println("\t divergeRelation = " + divergeRelation);
 			}
 
@@ -880,18 +878,19 @@ public class PatternMatchingProcess {
 			return "";
 		}
 
+		String label = DBProcess.getEntityLabel(entity);
+
 		String rs = strArr[0];
 		for (int i = 1; i < strArr.length; i++) {
-			rs += "## " + entity + "<type>entity</type> ";
+			rs += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
 			rs += strArr[i];
 		}
 
 		// if entity appear in the last
-		if (sentence.lastIndexOf(entity) == sentence.length() - entity.length()) {
-			rs += "## " + entity + "<type>entity</type> ";
+		if (sentence.endsWith(entity)) {
+			rs += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
 		}
 
-		// System.out.println("rs=" + rs);
 		rs = sentenceTemplate.process(rs);
 		if (rs.isEmpty()) {
 			rs = sentence;
@@ -912,9 +911,10 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		String str = "何炅和柳岩什么关系？";
+		String str = "孙俪和邓超是什么关系";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
+//		System.out.println("template=" + mp.templateProcess("姚明", str));
 
 	}
 

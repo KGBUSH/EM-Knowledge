@@ -24,13 +24,25 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 是 谁 ^ </pattern>
+        <pattern> ^ 关 系 ^ </pattern>
+        <template>
+        RelationshipQuestion@:1
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 联 系 ^ </pattern>
+        <template>
+        RelationshipQuestion@:2
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 是 谁 </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 是 什 么 ^ </pattern>
+        <pattern> ^ 是 什 么 </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo
         </template>
@@ -99,18 +111,6 @@
         <pattern> ^ 陈 述 ^ </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo
-        </template>
-    </category>
-    <category>
-        <pattern> ^ 关 系 ^ </pattern>
-        <template>
-        RelationshipQuestion@:1
-        </template>
-    </category>
-    <category>
-        <pattern> ^ 联 系 ^ </pattern>
-        <template>
-        RelationshipQuestion@:2
         </template>
     </category>
 </aiml>
