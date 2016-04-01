@@ -420,7 +420,7 @@ public class PatternMatchingProcess {
 					answerBean.setOriginalWord(oldWord);
 					break;
 				} else {
-					answer += queryAnswer;
+					answer += entity+"的"+b.getAnswer()+"是"+queryAnswer+"；";
 					score *= b.getScore() / 100;
 					System.out.print(" * " + b.getScore() + "/100 ");
 				}
@@ -432,7 +432,7 @@ public class PatternMatchingProcess {
 				return ReasoningProcess(sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity),
 						newDBEntity, answerBean);
 			} else {
-				answerBean.setAnswer(answer);
+				answerBean.setAnswer(answer.substring(0, answer.length()-1));
 				answerBean.setScore(score);
 				answerBean.setValid(true);
 				System.out.println("\t @@ return case 2, answer = " + answerBean);
@@ -906,7 +906,7 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		String str = "女医·明妃传是哪个出品公司的";
+		String str = "破产姐妹的英文名叫啥";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));

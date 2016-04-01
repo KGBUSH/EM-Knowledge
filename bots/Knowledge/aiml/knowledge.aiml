@@ -1,5 +1,11 @@
 <aiml version="1.0.1" encoding="UTF-8">
     <category>
+        <pattern>  ^ 叫 啥 </pattern>
+        <template>
+        <star index="1"/>是什么
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 属 什 么 ^ </pattern>
         <template>
         <star index="2"/>的生肖是什么
