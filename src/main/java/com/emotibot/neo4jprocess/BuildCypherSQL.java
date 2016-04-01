@@ -177,9 +177,9 @@ public class BuildCypherSQL implements CypherSQLParser {
 
 		// set the length of path not exceed 5 for 4/15
 		if (labelA.isEmpty()) {
-			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*0..5]->";
+			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*1..3]->";
 		} else {
-			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*0..5]->";
+			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*1..3]->";
 		}
 
 		if (labelB.isEmpty()) {
@@ -204,9 +204,9 @@ public class BuildCypherSQL implements CypherSQLParser {
 
 		// set the length of path not exceed 5 for 4/15
 		if (labelA.isEmpty()) {
-			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r1]->()<-[r2]-";
+			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r1]->(n)<-[r2]-";
 		} else {
-			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r1]->()<-[r2]-";
+			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r1]->(n)<-[r2]-";
 		}
 
 		if (labelB.isEmpty()) {
@@ -215,7 +215,7 @@ public class BuildCypherSQL implements CypherSQLParser {
 			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB + "\"}) ";
 		}
 
-		query += "where type(r1)=type(r2) return type(r1) as " + Common.ResultObj;
+		query += "where type(r1)=type(r2) return n.Name as " + Common.RelationName + ", type(r1) as " + Common.RelationType;
 
 		System.out.println("CYPHER of getRelationshipInConvergePath: " + query);
 		return query;
@@ -231,9 +231,9 @@ public class BuildCypherSQL implements CypherSQLParser {
 
 		// set the length of path not exceed 5 for 4/15
 		if (labelA.isEmpty()) {
-			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})<-[r1]-()-[r2]->";
+			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})<-[r1]-(n)-[r2]->";
 		} else {
-			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})<-[r1]-()-[r2]->";
+			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})<-[r1]-(n)-[r2]->";
 		}
 
 		if (labelB.isEmpty()) {
@@ -242,7 +242,7 @@ public class BuildCypherSQL implements CypherSQLParser {
 			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB + "\"}) ";
 		}
 
-		query += "where type(r1)=type(r2) return type(r1) as " + Common.ResultObj;
+		query += "where type(r1)=type(r2) return n.Name as " + Common.RelationName + ", type(r1) as " + Common.RelationType;
 
 		System.out.println("CYPHER of getRelationshipInDivergentPath: " + query);
 		return query;

@@ -31,11 +31,12 @@ public class PatternMatchingProcess {
 
 	final String introductionQuestionType = "IntroductionQuestion@:";
 	final String selectiveQuestionType = "SelectiveQuestion@:";
-	final String relationshipQuestionType = "RelationshipQuestion@:";
+	// final String relationshipQuestionType = "RelationshipQuestion@:";
 
-	private String userSentence;
+	private final String userSentence;
 	private List<Term> segPos;
 	private List<String> segWordWithoutStopWord;
+	private List<String> entitySet;
 
 	public PatternMatchingProcess(String str) {
 		userSentence = str;
@@ -48,17 +49,19 @@ public class PatternMatchingProcess {
 				segWordWithoutStopWord.add(segWord);
 			}
 		}
-		System.out.println("segPos=" + segPos);
-		System.out.println("segWordWithoutStopWord=" + segWordWithoutStopWord);
+		entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
+
+		System.out.println("Constructor: userSentence=" + userSentence);
+		System.out.println("Constructor: segPos=" + segPos);
+		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
+		System.out.println("Constructor: entitySet=" + entitySet);
 	}
 
 	// The entrance to understand the user query and get answer from Neo4j
 	// input: the question sentence from users,"姚明身高是多少"
 	// output: the answer without answer rewriting, “226cm”
 	public AnswerBean getAnswer() {
-
 		String sentence = userSentence;
-		// System.out.println("PMP.getAnswer: sentence = " + sentence);
 		AnswerBean answerBean = new AnswerBean();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getAnswer: input is empty");
@@ -68,7 +71,6 @@ public class PatternMatchingProcess {
 		boolean isQuestion = true; // TBD: read from CU
 
 		// 1. get the entity and Revise by template
-		List<String> entitySet = getEntity(sentence);
 		if (entitySet.size() > 2) {
 			// check for 4/15 temporarily, may extent later
 			System.err.println("NOTES: PM.getAnswer: there are more than two entities");
@@ -98,17 +100,18 @@ public class PatternMatchingProcess {
 			// answerBean = mutlipleReasoningProcess(sentence, entity);
 			answerBean = ReasoningProcess(sentence, entity, answerBean);
 			System.out.println("\t ReasoningProcess answerBean = " + answerBean);
-		} else if (isKindofQuestion(userSentence, relationshipQuestionType)) {
+		} else if (isRelationshipQuestion(userSentence)) {
 			List<String> relationNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(0),
 					"", entitySet.get(1));
 			List<String> relationReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(1),
 					"", entitySet.get(0));
-			String relationConverge = DBProcess.getRelationshipTypeInConvergePath("", entitySet.get(0), "",
+			List<List<String>> relationConvergePathSet = DBProcess.getRelationshipTypeInConvergePath("",
+					entitySet.get(0), "", entitySet.get(1));
+			List<List<String>> relationDivergePathSet = DBProcess.getRelationshipTypeInDivergentPath("", entitySet.get(0), "",
 					entitySet.get(1));
-			String relationDiverge = DBProcess.getRelationshipTypeInDivergentPath("", entitySet.get(0), "",
-					entitySet.get(1));
-			System.out.println("\t SingleWay = " + relationNormalWayPathSet + "\n\t Converge=" + relationConverge
-					+ "\n\t" + relationDiverge);
+			System.out.println("\n\t relationNormalWayPathSet = " + relationNormalWayPathSet
+					+ "\n\t relationReverseWayPathSet=" + relationReverseWayPathSet + "\n\t relationConverge="
+					+ relationConvergePathSet + "\n\t relationDiverge =" + relationDivergePathSet);
 
 			String answerRelation = "";
 			if (!relationNormalWayPathSet.isEmpty()) {
@@ -117,20 +120,42 @@ public class PatternMatchingProcess {
 					normalWayRelation += "的" + s;
 				}
 				answerRelation = normalWayRelation;
+				System.out.println("\t normalWayRelation = " + normalWayRelation);
 			}
 
 			if (!relationReverseWayPathSet.isEmpty()) {
-				String reverseWayRelation = entitySet.get(1) + "是" + entitySet.get(0);
-				answerRelation = entitySet.get(0) + "是" + entitySet.get(1);
+				String reverseWayRelation = entitySet.get(0) + "是" + entitySet.get(1);
 				for (String s : relationReverseWayPathSet) {
 					reverseWayRelation += "的" + s;
 				}
 				answerRelation = (answerRelation.isEmpty()) ? reverseWayRelation
 						: answerRelation + "；" + reverseWayRelation;
+				System.out.println("\t reverseWayRelation = " + reverseWayRelation);
 			}
 
-			answerRelation = (answerRelation.isEmpty()) ? relationConverge : answerRelation + "；" + relationConverge;
-			answerRelation = (answerRelation.isEmpty()) ? relationDiverge : answerRelation + "；" + relationDiverge;
+			if (!relationConvergePathSet.isEmpty()) {
+				String convergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "的";
+				for (List<String> listStr : relationConvergePathSet) {
+					convergeRelation += listStr.get(1) + "都是" + listStr.get(0) + "，";
+				}
+				convergeRelation = convergeRelation.substring(0, convergeRelation.length()-1);
+
+				answerRelation = (answerRelation.isEmpty()) ? convergeRelation
+						: answerRelation + "；" + convergeRelation;
+				System.out.println("\t convergeRelation = " + convergeRelation);
+			}
+
+			if (!relationDivergePathSet.isEmpty()) {
+				String divergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "都是";
+				for (List<String> listStr : relationDivergePathSet) {
+					divergeRelation += listStr.get(0) + "的" + listStr.get(1) + "，";
+				}
+				divergeRelation = divergeRelation.substring(0,divergeRelation.length()-1);
+				
+				answerRelation = (answerRelation.isEmpty()) ? divergeRelation
+						: answerRelation + "；" + divergeRelation;
+				System.out.println("\t divergeRelation = " + divergeRelation);
+			}
 
 			if (!answerRelation.isEmpty()) {
 				answerBean.setAnswer(answerRelation);
@@ -162,13 +187,14 @@ public class PatternMatchingProcess {
 			// case of matching property
 			String localAnswer = "";
 			if (!userSentence.contains(entity)) {
-				localAnswer = matchPropertyValue(entity, segWordWithoutStopWord).replace("----####",
-						"是" + entity + "的")+"。";
+				localAnswer = matchPropertyValue(entity, segWordWithoutStopWord).replace("----####", "是" + entity + "的")
+						+ "。";
 			}
 			String strIntroduce = DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 			localAnswer += strIntroduce.substring(0, strIntroduce.indexOf("。"));
 			answerBean.setAnswer(localAnswer);
-			answerBean.setScore(isKindofQuestion(userSentence, introductionQuestionType) ? 100 : 0);
+			answerBean.setScore(
+					isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), introductionQuestionType) ? 100 : 0);
 		}
 		System.out.println("PM.getAnswer: the returned anwer is " + answerBean.toString());
 		return answerBean;
@@ -424,7 +450,9 @@ public class PatternMatchingProcess {
 	// to test if the user sentence is a question of relationship between two
 	// entities
 	private boolean isRelationshipQuestion(String sentence) {
-		// TBD
+		// TBD: hard code for 4/15
+		if (sentence.contains("关系") || sentence.contains("联系"))
+			return true;
 		return false;
 	}
 
@@ -465,7 +493,7 @@ public class PatternMatchingProcess {
 			rs = true;
 			System.out.println("~~~~ IS " + questionType);
 		} else {
-			System.out.println("~~~~ NOT " + questionType);
+			System.out.println("template=" + template + "~~~~ NOT " + questionType);
 		}
 		return rs;
 	}
@@ -884,7 +912,7 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		String str = "姚明和叶莉是什么关系";
+		String str = "赵薇和袁姗姗什么关系？";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 
