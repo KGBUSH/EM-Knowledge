@@ -351,22 +351,22 @@ public class PatternMatchingProcess {
 	}
 
 	// Multi-level Reasoning Understanding
-	private AnswerBean ReasoningProcess(String sentence, String entity, AnswerBean answerBean) {
-		System.out.println(
-				"PMP.ReasoningProcess: sentence=" + sentence + ", entity =" + entity + ", bean is " + answerBean);
+	private AnswerBean ReasoningProcess(String templateSentence, String entity, AnswerBean answerBean) {
+		System.out.println("PMP.ReasoningProcess: sentence=" + templateSentence + ", entity =" + entity + ", bean is "
+				+ answerBean);
 
-		if (!sentence.contains(entity)) {
+		if (!templateSentence.contains(entity)) {
 			System.err.println("Sentence does not contain entity");
 			return answerBean;
 		}
-		String newSentence = sentence.substring(0, sentence.indexOf(entity))
-				+ sentence.substring(sentence.indexOf(entity) + entity.length());
-		System.out.println("\t new sentence is::::" + newSentence);
+		String sentenceNoEntity = templateSentence.substring(0, templateSentence.indexOf(entity))
+				+ templateSentence.substring(templateSentence.indexOf(entity) + entity.length());
+		System.out.println("\t new sentence is::::" + sentenceNoEntity);
 
 		Map<String, String> relationMap = this.getRelationshipSet(entity);
 		System.out.println("\t relationMap = " + relationMap);
 
-		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(sentence, entity);
+		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(templateSentence, entity);
 		System.out.println("\t listPMBean=" + listPMBean);
 
 		if (listPMBean.isEmpty()) {
@@ -388,10 +388,13 @@ public class PatternMatchingProcess {
 			if (relationMap.containsKey(prop)) {
 				// use the new answer as new entity
 				String newDBEntity = DBProcess.getEntityByRelationship("", entity, prop);
+				String newSentence = sentenceNoEntity;
+				if (!Tool.isStrEmptyOrNull(oldWord)) {
+					newSentence = sentenceNoEntity.replace(oldWord, newDBEntity);
+				}
 				System.out.println("-----> case 1 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
-				System.out.println("prop:" + prop + ", new sentence:" + newSentence + ", after replace:"
-						+ newSentence.replace(oldWord, newDBEntity));
-				return ReasoningProcess(newSentence.replace(oldWord, newDBEntity), newDBEntity, answerBean);
+				System.out.println("prop:" + prop + ", new sentence:" + newSentence);
+				return ReasoningProcess(newSentence, newDBEntity, answerBean);
 			} else {
 				System.out.println("\t @@ return case 1, answer=" + answerBean);
 				return answerBean;
@@ -426,8 +429,8 @@ public class PatternMatchingProcess {
 			if (furtherSeach == true) {
 				String newDBEntity = DBProcess.getEntityByRelationship("", entity, prop);
 				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
-				return ReasoningProcess(newSentence.replace(answerBean.getOriginalWord(), newDBEntity), newDBEntity,
-						answerBean);
+				return ReasoningProcess(sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity),
+						newDBEntity, answerBean);
 			} else {
 				answerBean.setAnswer(answer);
 				answerBean.setScore(score);
@@ -537,7 +540,7 @@ public class PatternMatchingProcess {
 			List<String> synList = new ArrayList<>();
 			Map<String, String> refPropMap = new HashMap<>();
 			synList = this.replaceSynonymProcess(s, refPropMap);
-			System.out.println("\t after synonym process: " + synList + " & size is " + synList.size());
+			System.out.println("\t after synonym process: " + synList + " refPropMap=" + refPropMap);
 
 			for (String q : synList) {
 				System.out.println("q=" + q + " and s=" + s);
@@ -567,7 +570,9 @@ public class PatternMatchingProcess {
 				PatternMatchingResultBean localrsBean = new PatternMatchingResultBean();
 				localrsBean.setAnswer(propMap.get(localPropName));
 				localrsBean.setScore(localFinalScore);
-				localrsBean.setOrignalWord(refPropMap.get(localPropName));
+				String orignalWord = Tool.isStrEmptyOrNull(refPropMap.get(localPropName)) ? localPropName
+						: refPropMap.get(localPropName);
+				localrsBean.setOrignalWord(orignalWord);
 				System.out.println("\t\t localPropName=" + localPropName + ", propMapName=" + localrsBean.getAnswer()
 						+ ", originalName=" + localrsBean.getOrignalWord());
 				rsBean.add(localrsBean);
@@ -900,21 +905,11 @@ public class PatternMatchingProcess {
 		return rs;
 	}
 
-	// template process, change the exception cases for the cases with two
-	// entities for 4/15 milestone
-	// input: entity and sentence, "姚明和叶莉的宝宝是谁"
-	// output: the sentence changed by template, "姚明和叶莉的孩子是谁"
-	private String templateProcess(String entityA, String entityB, String sentence) {
-		String rs = "";
-		// System.out.println("input=" + sentence + ", output=" + rs);
-		return rs;
-	}
-
 	public static void main(String[] args) {
-		String str = "孙俪和邓超是什么关系";
+		String str = "女医·明妃传是哪个出品公司的";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
-//		System.out.println("template=" + mp.templateProcess("姚明", str));
+		// System.out.println("template=" + mp.templateProcess("姚明", str));
 
 	}
 

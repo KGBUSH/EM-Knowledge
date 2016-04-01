@@ -26,7 +26,7 @@ public class AnswerBean {
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(property).append("(").append(originalWord).append(") : ").append(answer).append("; ");
-		buffer.append(score).append("\r\n");
+		buffer.append(score);
 		return buffer.toString();
 	}
 
