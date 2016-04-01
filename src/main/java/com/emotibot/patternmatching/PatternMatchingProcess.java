@@ -912,7 +912,7 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		String str = "赵薇和袁姗姗什么关系？";
+		String str = "何炅和柳岩什么关系？";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 
