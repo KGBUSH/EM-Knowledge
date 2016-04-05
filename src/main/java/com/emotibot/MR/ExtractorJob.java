@@ -30,6 +30,7 @@ import com.emotibot.config.ConfigManager;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
 
 import org.apache.hadoop.fs.Path;
+//com.emotibot.MR.ExtractorJob
 public class ExtractorJob {
 	public static String Type_Neo4j="Neo4j";
 	public static String Type_Solr="Solr";
