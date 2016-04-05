@@ -87,5 +87,55 @@ public class Tool {
         }
 		return result;
 	}
+	
+	public static boolean isChinese(char c) {
+        Character.UnicodeBlock ub = Character.UnicodeBlock.of(c);
+        if (ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS
+                || ub == Character.UnicodeBlock.CJK_COMPATIBILITY_IDEOGRAPHS
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_A
+                || ub == Character.UnicodeBlock.CJK_UNIFIED_IDEOGRAPHS_EXTENSION_B
+                || ub == Character.UnicodeBlock.CJK_SYMBOLS_AND_PUNCTUATION
+                || ub == Character.UnicodeBlock.HALFWIDTH_AND_FULLWIDTH_FORMS
+                || ub == Character.UnicodeBlock.GENERAL_PUNCTUATION) {
+            return true;
+        }
+        return false;
+    }
+  
+	public static String insertSpace2Chinese(String s) {
+        int tail = 0;
+        char[] temp = new char[s.length() * 2];
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (isChinese(c)) {
+                temp[tail] = c;
+                temp[tail + 1] = ' ';
+                tail += 2;
+            } else {
+                temp[tail] = c;
+                tail++;
+            }
+        }
+        return new String(temp);
+    }
+    
+	public static String removeSpaceFromChinese(String s) {
+        Boolean bCn = false;
+        int tail = 0;
+        char[] temp = new char[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (isChinese(c)) bCn = true;
+            else if (c != ' ') bCn = false;
+            if (c != ' ') {
+                temp[tail] = c;
+                tail ++;
+            } else if (!bCn) {
+                temp[tail] = c;
+                tail++;
+            }
+        }
+        return new String(temp);
+    }
 
 }

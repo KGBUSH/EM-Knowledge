@@ -189,7 +189,9 @@ public class PatternMatchingProcess {
 						+ "。";
 			}
 			String strIntroduce = DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
-			localAnswer += strIntroduce.substring(0, strIntroduce.indexOf("。"));
+			if (strIntroduce.contains("。"))
+				strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
+			localAnswer = strIntroduce;
 			answerBean.setAnswer(localAnswer);
 			answerBean.setScore(
 					isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), introductionQuestionType) ? 100 : 0);
@@ -420,7 +422,7 @@ public class PatternMatchingProcess {
 					answerBean.setOriginalWord(oldWord);
 					break;
 				} else {
-					answer += entity+"的"+b.getAnswer()+"是"+queryAnswer+"；";
+					answer += entity + "的" + b.getAnswer() + "是" + queryAnswer + "；";
 					score *= b.getScore() / 100;
 					System.out.print(" * " + b.getScore() + "/100 ");
 				}
@@ -432,7 +434,7 @@ public class PatternMatchingProcess {
 				return ReasoningProcess(sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity),
 						newDBEntity, answerBean);
 			} else {
-				answerBean.setAnswer(answer.substring(0, answer.length()-1));
+				answerBean.setAnswer(answer.substring(0, answer.length() - 1));
 				answerBean.setScore(score);
 				answerBean.setValid(true);
 				System.out.println("\t @@ return case 2, answer = " + answerBean);
@@ -906,7 +908,7 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		String str = "破产姐妹的英文名叫啥";
+		String str = "美人鱼放多久？";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));

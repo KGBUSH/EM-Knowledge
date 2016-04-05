@@ -12,6 +12,7 @@ import java.util.List;
 import com.emotibot.nlp.NLPFlag;
 import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
+import com.emotibot.util.Tool;
 import com.hankcs.hanlp.seg.common.Term;
 
 public class TemplateProcessor extends AbstractAIMLEngine {
@@ -32,7 +33,7 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 	}
 
 	public String selectiveQuestionProcess(String sentence) {
-		String processedQ = insertSpace2Chinese(sentence);
+		String processedQ = Tool.insertSpace2Chinese(sentence);
 		String type = chatSession.multisentenceRespond(processedQ);
 		System.out.println("Sentence = " + sentence + "\n ProcessQ = " + processedQ + "\n type 1 = " + type);
 		type = removeSpace(type);
@@ -72,7 +73,7 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 		// ss.append("</pos> ");
 		// }
 
-		processedQ = insertSpace2Chinese(sentence);
+		processedQ = Tool.insertSpace2Chinese(sentence);
 		String type = chatSession.multisentenceRespond(processedQ);
 		System.out.println("Sentence = " + sentence + "\n ProcessQ = " + processedQ + "\n type 1 = " + type);
 
