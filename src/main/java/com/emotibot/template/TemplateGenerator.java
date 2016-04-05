@@ -1,5 +1,12 @@
 package com.emotibot.template;
 
+/*
+ * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.
+ * EMOTIBOT CORPORATION CONFIDENTIAL AND TRADE SECRET
+ *
+ * Primary Owner: quanzu@emotibot.com.cn
+ */
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;

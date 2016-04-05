@@ -32,7 +32,7 @@ public class NLPProcess {
 	private static HashMap<String, List<String>> synonymTableRef = createSynonymTableRef();
 	private static Set<String> stopWordTable = createStopWordTable();
 	private static Set<String> entityTable = createEntityTable();
-
+	
 	// create stopword table Set
 	private static Set<String> createEntityTable() {
 		Set<String> entitySet = new HashSet<>();

@@ -20,6 +20,7 @@ import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
 import com.emotibot.solr.SolrUtil;
 import com.emotibot.solr.Solr_Query;
+import com.emotibot.template.TemplateProcessor;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.seg.common.Term;
 
@@ -368,6 +369,7 @@ public class PatternMatchingProcess {
 		Map<String, String> relationMap = this.getRelationshipSet(entity);
 		System.out.println("\t relationMap = " + relationMap);
 
+		// get teh matched properties by pattern matching method
 		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(templateSentence, entity);
 		System.out.println("\t listPMBean=" + listPMBean);
 
@@ -378,7 +380,12 @@ public class PatternMatchingProcess {
 			return answerBean;
 		} else if (listPMBean.size() == 1) {
 			String prop = listPMBean.get(0).getAnswer();
-			String answer = DBProcess.getPropertyValue(entity, prop);
+			String answer = "";
+			if(ImplicationProcess.isImplicationWord(prop)){
+				answer = ImplicationProcess.getImplicationAnswer(entity, prop);
+			} else {
+				answer = DBProcess.getPropertyValue(entity, prop);
+			}
 			answerBean.setAnswer(answer);
 			answerBean.setProperty(prop);
 			answerBean.setValid(true);
