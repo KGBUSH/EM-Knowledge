@@ -157,6 +157,14 @@ public class WebServer {
 			PrintWriter out = response.getWriter();
 			int flag = 0;
 			String text = request.getParameter("t");
+			String questionType =request.getParameter("questionType").trim();
+			String scoreStr =request.getParameter("scoreStr").trim();
+			double score =0;
+			if(scoreStr!=null&&scoreStr.trim().length()>0)
+			{
+				score=Double.valueOf(scoreStr);
+			}
+
 			if (text != null) {
 				text = text.trim();
 				AnswerBean bean =new PatternMatchingProcess(text).getAnswer();
