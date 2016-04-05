@@ -41,6 +41,10 @@ public class PatternMatchingProcess {
 	private boolean isQuestion;
 
 	public PatternMatchingProcess(String str) {
+		if(str == null) {
+			System.err.println("text is null");
+			str="";
+		}
 		userSentence = str;
 		isQuestion = true;
 		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
@@ -62,6 +66,19 @@ public class PatternMatchingProcess {
 	}
 	
 	public PatternMatchingProcess(String text, String questionType, String score) {
+		if(text == null) {
+			System.err.println("text is null");
+			text="";
+		}
+		if(questionType == null) {
+			System.err.println("text is null");
+			questionType="";
+		}
+		if(score == null) {
+			System.err.println("text is null");
+			score="";
+		}
+		
 		userSentence = text;
 		isQuestion = questionType.equals("question");
 		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
@@ -952,7 +969,7 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		String str = "阑尾炎的诊室在哪";
+		String str = "甲型病毒性肝炎的诊室在哪";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));

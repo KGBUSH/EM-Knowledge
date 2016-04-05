@@ -167,7 +167,7 @@ public class WebServer {
 
 			if (text != null) {
 				text = text.trim();
-				AnswerBean bean =new PatternMatchingProcess(text).getAnswer();
+				AnswerBean bean =new PatternMatchingProcess(text, questionType, scoreStr).getAnswer();
 				JSONObject result_obj = new JSONObject();
 				   result_obj.put("ver", "");
 				   
