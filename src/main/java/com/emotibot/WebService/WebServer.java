@@ -155,15 +155,11 @@ public class WebServer {
 			response.setContentType("text/json;charset=utf-8");
 			response.setCharacterEncoding("utf-8");
 			PrintWriter out = response.getWriter();
+			try{
 			int flag = 0;
 			String text = request.getParameter("t");
-			String questionType =request.getParameter("questionType").trim();
-			String scoreStr =request.getParameter("scoreStr").trim();
-			double score =0;
-			if(scoreStr!=null&&scoreStr.trim().length()>0)
-			{
-				score=Double.valueOf(scoreStr);
-			}
+			String questionType =request.getParameter("questionType");
+			String scoreStr =request.getParameter("scoreStr");
 
 			if (text != null) {
 				text = text.trim();
@@ -176,9 +172,18 @@ public class WebServer {
 				   result_obj.put("emotion", "");
 				   result_obj.put("answer", bean.getAnswer());
 				   out.println(result_obj);
-				
-				
 			}
+		}catch(Exception e)
+		{
+			JSONObject result_obj = new JSONObject();
+			   result_obj.put("ver", "");
+			   result_obj.put("score", 0);
+			   result_obj.put("topic", "");
+			   result_obj.put("emotion", "");
+			   result_obj.put("answer", "");
+			   result_obj.put("Exception", e.getMessage());
+			   out.println(result_obj);
+		}
 		}
 	}
 }
