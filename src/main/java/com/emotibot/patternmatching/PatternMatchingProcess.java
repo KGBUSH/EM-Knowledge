@@ -887,28 +887,28 @@ public class PatternMatchingProcess {
 
 		String label = DBProcess.getEntityLabel(entity);
 
-		String rs = strArr[0];
+		String tempStr = strArr[0];
 		for (int i = 1; i < strArr.length; i++) {
-			rs += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
-			rs += strArr[i];
+			tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
+			tempStr += strArr[i];
 		}
 
 		// if entity appear in the last
 		if (sentence.endsWith(entity)) {
-			rs += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
+			tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
 		}
 
-		rs = sentenceTemplate.process(rs);
-		if (rs.isEmpty()) {
-			rs = sentence;
+		String templateRS = sentenceTemplate.process(tempStr);
+		if (templateRS.isEmpty()) {
+			templateRS = sentence;
 		}
 
-		// System.out.println("input=" + sentence + ", output=" + rs);
-		return rs;
+		System.out.println("\t templateProcess: tempStr=" + tempStr + ", templateRS=" + templateRS);
+		return templateRS;
 	}
 
 	public static void main(String[] args) {
-		String str = "美人鱼放多久？";
+		String str = "姚明属什么";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));

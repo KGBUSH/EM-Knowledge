@@ -1,110 +1,128 @@
 <aiml version="1.0.1" encoding="UTF-8">
     <category>
-        <pattern>  ^ 叫 啥 </pattern>
-        <template>
-        <star index="1"/>是什么
-        </template>
-    </category>
-    <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 属 什 么 ^ </pattern>
         <template>
-        <star index="2"/>的生肖是什么
+            <star index="2"/>的生肖是多少
         </template>
     </category>
     <category>
-        <pattern>  ^ ## * <type>entity</type><label>figure</label> ^ 属 啥 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 属 啥 ^ </pattern>
         <template>
-        <star index="2"/>的生肖是多少
+            <star index="2"/>的生肖是多少
         </template>
     </category>
     <category>
-        <pattern>  ^ ## * <type>entity</type><label>figure</label> ^ 多 重 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 多 重 ^ </pattern>
         <template>
-        <star index="2"/>的体重是多少
+            <star index="2"/>的体重是多少
         </template>
     </category>
     <category>
-        <pattern>  ^ ## * <type>entity</type><label>figure</label> ^ 多 少 斤 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 多 少 斤 ^ </pattern>
         <template>
-        <star index="2"/>的体重是多少
+            <star index="2"/>的体重是多少
         </template>
     </category>
     <category>
-        <pattern>  ^ ## * <type>entity</type><label>figure</label> ^ 还 ^ 叫 什 么 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 还 ^ 叫 什 么 ^ </pattern>
         <template>
-        <star index="2"/>的别名是什么
+            <star index="2"/>的别名是什么
         </template>
     </category>
     <category>
         <pattern> ^ 称 呼 ^ ## * <type>entity</type><label>figure</label> ^ </pattern>
         <template>
-        <star index="3"/>的别名是什么
+            <star index="3"/>的别名是什么
         </template>
     </category>
     <category>
         <pattern> ^ 还 可 以 叫 ^ ## * <type>entity</type><label>figure</label> ^ </pattern>
         <template>
-        <star index="3"/>的别名是什么
+            <star index="3"/>的别名是什么
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 国 ^ 人 ^ </pattern>
         <template>
-        <star index="2"/>的国籍是什么
+            <star index="2"/>的国籍是什么
         </template>
-    </category>    
+    </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 多 少 米 ^ </pattern>
         <template>
-        <star index="2"/>的身高是多少
+            <star index="2"/>的身高是多少
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 脚 多 大 ^ </pattern>
         <template>
-        <star index="2"/>的鞋码是多少
+            <star index="2"/>的鞋码是多少
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 穿 ^ 多 大 码 ^ 的 ^ 鞋 ^ </pattern>
         <template>
-        <star index="2"/>的鞋码是多少
+            <star index="2"/>的鞋码是多少
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 属 于 ^ 哪 个 队 ^ </pattern>
         <template>
-        <star index="2"/>的所属运动队是什么
+            <star index="2"/>的所属运动队是什么
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 被 ^ 哪 个 队 ^ 签 约 ^ </pattern>
         <template>
-        <star index="2"/>的所属运动队是什么
+            <star index="2"/>的所属运动队是什么
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 什 么 ^ 时 候 ^ 出 生 ^ </pattern>
         <template>
-        <star index="2"/>的出生日期是什么
+            <star index="2"/>的出生日期是什么
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 在 哪 ^ 出 生 ^ </pattern>
         <template>
-        <star index="2"/>的出生地是什么
+            <star index="2"/>的出生地是什么
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 出 生 ^ 在 哪 ^ </pattern>
         <template>
-        <star index="2"/>的出生地是什么
+            <star index="2"/>的出生地是什么
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 最 多 ^ 拿 过 ^ 多 少 分 ^ </pattern>
         <template>
-        <star index="2"/>的生涯最高分是多少
+            <star index="2"/>的生涯最高分是多少
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 放 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>片长是多少
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 播 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>片长是多少
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 放 ^ 多 久 ^ </pattern>
+        <template>
+            <star index="2"/>片长是多少
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 播 ^ 多 久 ^ </pattern>
+        <template>
+            <star index="2"/>片长是多少
         </template>
     </category>
 </aiml>

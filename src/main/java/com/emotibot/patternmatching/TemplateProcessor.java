@@ -83,34 +83,13 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 	}
 
 	public static void main(String[] args) {
-		String str = "姚明是";
-		TemplateProcessor introTemplate = new TemplateProcessor("Post");
+		String str = "## 姚明<type>entity</type><label>Person</label> 多重";
+		TemplateProcessor introTemplate = new TemplateProcessor("Knowledge");
 		System.out.println("====" + introTemplate.process(str));
 
 		TemplateProcessor selectTemplate = new TemplateProcessor("Pre");
 		System.out.println("====" + selectTemplate.process(str));
 
-		// SentenceTypeClassifier sentenceTypeClassifier = new
-		// SentenceTypeClassifier("Knowledge");
-		// String str = "姚明多重";
-		// System.out.println("===="+sentenceTypeClassifier.inputSentenceRewrite(str));
-
-		// String str1 = "## 姚 明 <pos>nr</pos> 属 什 么";
-		// String str2 = "## 姚 明 <type>entity</type> 属 什 么";
-		// System.out.println("@@@@==="+sentenceTypeClassifier.chatSession.multisentenceRespond(str2));
-
-		// System.out.println("1=" +
-		// sentenceTypeClassifier.getSentenceType("姚明有多重"));
-		// System.out.println("1=" + sentenceTypeClassifier.getSentenceType("##
-		// 姚 明 <pos>n</pos> 属 什 么"));
-		// System.out.println("3=" +
-		// sentenceTypeClassifier.getSentenceType("姚明属什么"));
-		// System.out.println("1=" +
-		// sentenceTypeClassifier.getSentenceType("姚明有多重呢"));
-		// System.out.println("2=" +
-		// sentenceTypeClassifier.getSentenceType("姚明多重"));
-		// System.out.println("2=" +
-		// sentenceTypeClassifier.getSentenceType("姚明多重呢"));
 	}
 
 }

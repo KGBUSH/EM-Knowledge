@@ -13,9 +13,11 @@ import java.util.Map;
 
 import com.emotibot.common.Common;
 
+// input: "movie，^#^放/播^多长/多久;#片长是多少"
+// output: template amil file (4 cases for the above line)
 public class TemplateGenerator {
 	String inputFile = Common.UserDir + "/txt/templateTXT/templateSpec.txt";
-	String outputFile = Common.UserDir + "/txt/templateTXT/templateGenerator.txt";
+	String outputFile = Common.UserDir + "/bots/Knowledge/aiml/Knowledge.aiml";
 
 	public TemplateGenerator(String in, String out) {
 		if (!Tool.isStrEmptyOrNull(in))
@@ -30,6 +32,8 @@ public class TemplateGenerator {
 		try {
 			FileWriter newFile = new FileWriter(outputFile);
 			BufferedWriter out = new BufferedWriter(newFile);
+			out.write("<aiml version=\"1.0.1\" encoding=\"UTF-8\">\r\n");
+
 			BufferedReader in = new BufferedReader(new FileReader(inputFile));
 			String line = in.readLine();
 			while (line != null) {
@@ -68,7 +72,7 @@ public class TemplateGenerator {
 					System.err.println("wrong format in Line=" + line + ", with number of , is=" + firstArr.length);
 					continue;
 				}
-				String domain = " ## * <type>entity</type><label>" + firstArr[0] + "</label> ";
+				String domain = "## * <type>entity</type><label>" + firstArr[0] + "</label> ";
 				String pattern = firstArr[1];
 
 				// pattern process
@@ -81,7 +85,7 @@ public class TemplateGenerator {
 				for (String part : patternArr) {
 					List<String> list = new ArrayList<>();
 					if (part.contains("#")) {
-						System.out.println("##### part = "+part);
+						// System.out.println("##### part = "+part);
 						// entity case
 						if (!part.equals("#"))
 							System.err.println("wrong format: part=" + part);
@@ -112,18 +116,21 @@ public class TemplateGenerator {
 				secondLine = secondLine.replace("#", "<star index=\"" + entityPos + "\"/>");
 
 				for (String s : middlePatterList) {
-					out.write("\t<category>\r\n");
-					s = " " + s.substring(0, s.length() - 2);
-					out.write(Tool.insertSpace2Chinese("\t\t<pattern>" + s + "</pattern>\r\n"));
-					out.write("\t\t<template>\r\n");
-					out.write("\t\t\t" + secondLine + "\r\n");
-					out.write("\t\t</template>\r\n");
-					out.write("\t</category>\r\n");
+					out.write("    <category>\r\n");
+					// s = " " + s.substring(0, s.length() - 2);
+					s = " " + s;
+					String test = Tool.insertSpace4ChineseCharacter("        <pattern>" + s + "</pattern>\r\n");
+					out.write(test);
+					out.write("        <template>\r\n");
+					out.write("            " + secondLine + "\r\n");
+					out.write("        </template>\r\n");
+					out.write("    </category>\r\n");
 				}
 
 				line = in.readLine();
 			}
 
+			out.write("</aiml>\r\n");
 			out.close();
 
 		} catch (IOException e) {
