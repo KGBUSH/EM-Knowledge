@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.emotibot.WebService.AnswerBean;
+import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.common.Common;
 import com.emotibot.nlp.NLPFlag;
 import com.emotibot.nlp.NLPResult;
@@ -37,9 +38,11 @@ public class PatternMatchingProcess {
 	private List<Term> segPos;
 	private List<String> segWordWithoutStopWord;
 	private List<String> entitySet;
+	private boolean isQuestion;
 
 	public PatternMatchingProcess(String str) {
 		userSentence = str;
+		isQuestion = true;
 		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
 		segPos = tnNode.getWordPos();
 		segWordWithoutStopWord = new ArrayList<>();
@@ -52,6 +55,28 @@ public class PatternMatchingProcess {
 		entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
 
 		System.out.println("Constructor: userSentence=" + userSentence);
+		System.out.println("Constructor: isQuestion=" + isQuestion);
+		System.out.println("Constructor: segPos=" + segPos);
+		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
+		System.out.println("Constructor: entitySet=" + entitySet);
+	}
+	
+	public PatternMatchingProcess(String text, String questionType, String score) {
+		userSentence = text;
+		isQuestion = questionType.equals("question");
+		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
+		segPos = tnNode.getWordPos();
+		segWordWithoutStopWord = new ArrayList<>();
+		for (int i = 0; i < segPos.size(); i++) {
+			String segWord = segPos.get(i).word.trim();
+			if (!NLPProcess.isStopWord(segWord)) {
+				segWordWithoutStopWord.add(segWord);
+			}
+		}
+		entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
+
+		System.out.println("Constructor: userSentence=" + userSentence);
+		System.out.println("Constructor: isQuestion=" + isQuestion);
 		System.out.println("Constructor: segPos=" + segPos);
 		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
 		System.out.println("Constructor: entitySet=" + entitySet);
@@ -68,6 +93,7 @@ public class PatternMatchingProcess {
 			return answerBean;
 		}
 
+		AnswerRewrite answerRewite = new AnswerRewrite();
 		boolean isQuestion = true; // TBD: read from CU
 
 		// 1. get the entity and Revise by template
@@ -157,7 +183,7 @@ public class PatternMatchingProcess {
 			}
 
 			if (!answerRelation.isEmpty()) {
-				answerBean.setAnswer(answerRelation);
+				answerBean.setAnswer(answerRewite.rewriteAnswer(answerRelation));
 				answerBean.setScore(100);
 			}
 
@@ -173,17 +199,20 @@ public class PatternMatchingProcess {
 		// if it is the selective question
 		if (isKindofQuestion(userSentence, selectiveQuestionType)) {
 			answerBean = selectiveQuestionProcess(userSentence, answerBean);
+			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer()));
 			System.out.println("RETURN of GETANSWER: Selective Qustion: anwerBean is " + answerBean.toString());
 			return answerBean;
 		}
 
 		if (!answerBean.getAnswer().isEmpty()) {
-			// case of not matching property
+			// normal case
 			if (isQuestion == false) {
 				answerBean.setScore(0);
 			}
+			System.out.println("PM.getAnswer: the returned anwer is " + answerBean.toString());
+			return answerBean;
 		} else {
-			// case of matching property
+			// introduction case
 			String localAnswer = "";
 			if (!userSentence.contains(entity)) {
 				localAnswer = matchPropertyValue(entity, segWordWithoutStopWord).replace("----####", "是" + entity + "的")
@@ -192,13 +221,13 @@ public class PatternMatchingProcess {
 			String strIntroduce = DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 			if (strIntroduce.contains("。"))
 				strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
-			localAnswer = strIntroduce;
-			answerBean.setAnswer(localAnswer);
+			localAnswer += strIntroduce;
+			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(localAnswer));
 			answerBean.setScore(
 					isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), introductionQuestionType) ? 100 : 0);
+			System.out.println("PM.getAnswer: the returned anwer is " + answerBean.toString());
+			return answerBean;
 		}
-		System.out.println("PM.getAnswer: the returned anwer is " + answerBean.toString());
-		return answerBean;
 	}
 
 	// to match a segword in sentence with some value of a entity.
@@ -923,7 +952,7 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		String str = "黄晓明年龄多大";
+		String str = "阑尾炎的诊室在哪";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));
