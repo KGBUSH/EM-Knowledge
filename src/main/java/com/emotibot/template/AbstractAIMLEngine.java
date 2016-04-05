@@ -1,4 +1,4 @@
-package com.emotibot.patternmatching;
+package com.emotibot.template;
 
 /*
  * Copyright (c) 2016 by Emotibot Corporation. All rights reserved.

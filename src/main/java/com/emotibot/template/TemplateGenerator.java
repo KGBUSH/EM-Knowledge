@@ -1,4 +1,4 @@
-package com.emotibot.util;
+package com.emotibot.template;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,11 +12,12 @@ import java.util.List;
 import java.util.Map;
 
 import com.emotibot.common.Common;
+import com.emotibot.util.Tool;
 
-// input: "movie，^#^放/播^多长/多久;#片长是多少"
+// input: "movie，^#^放/播^多长/多久;#片长是多少/#时长是多少"
 // output: template amil file (4 cases for the above line)
 public class TemplateGenerator {
-	String inputFile = Common.UserDir + "/txt/templateTXT/templateSpec.txt";
+	String inputFile = Common.UserDir + "/knowledgedata/templateSpec.txt";
 	String outputFile = Common.UserDir + "/bots/Knowledge/aiml/Knowledge.aiml";
 
 	public TemplateGenerator(String in, String out) {
@@ -113,19 +114,25 @@ public class TemplateGenerator {
 				System.out.print("middlePatterList=" + middlePatterList);
 
 				// second line procedure
-				secondLine = secondLine.replace("#", "<star index=\"" + entityPos + "\"/>");
-
-				for (String s : middlePatterList) {
-					out.write("    <category>\r\n");
-					// s = " " + s.substring(0, s.length() - 2);
-					s = " " + s;
-					String test = Tool.insertSpace4ChineseCharacter("        <pattern>" + s + "</pattern>\r\n");
-					out.write(test);
-					out.write("        <template>\r\n");
-					out.write("            " + secondLine + "\r\n");
-					out.write("        </template>\r\n");
-					out.write("    </category>\r\n");
+				String[] secondLineArr = secondLine.split("/");
+				
+				for(String secondStr : secondLineArr){
+					System.out.println("secondStr="+secondStr);
+					secondStr = secondStr.replace("#", "<star index=\"" + entityPos + "\"/>");
+					System.out.println("secondStr="+secondStr);
+					for (String s : middlePatterList) {
+						out.write("    <category>\r\n");
+						// s = " " + s.substring(0, s.length() - 2);
+						s = " " + s;
+						String test = Tool.insertSpace4ChineseCharacter("        <pattern>" + s + "</pattern>\r\n");
+						out.write(test);
+						out.write("        <template>\r\n");
+						out.write("            " + secondStr + "\r\n");
+						out.write("        </template>\r\n");
+						out.write("    </category>\r\n");
+					}
 				}
+
 
 				line = in.readLine();
 			}
