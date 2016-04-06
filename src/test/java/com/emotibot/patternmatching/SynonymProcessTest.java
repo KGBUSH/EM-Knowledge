@@ -34,7 +34,7 @@ import com.hankcs.hanlp.seg.common.Term;
 import java.lang.reflect.Method;
 
 public class SynonymProcessTest {
-	
+
 	public static EmotibotNeo4jConnection conn = getDBConnection();
 
 	public static EmotibotNeo4jConnection getDBConnection() {
@@ -65,63 +65,102 @@ public class SynonymProcessTest {
 			while (line != null) {
 				line = line.trim();
 				System.out.println("enil=" + line + ";");
-				String queryCount = "match(n{Name:\""+line+"\"}) return count(n) as "+Common.ResultObj;
-				
+				String queryCount = "match(n{Name:\"" + line + "\"}) return count(n) as " + Common.ResultObj;
+
 				Neo4jResultBean bean = conn.executeCypherSQL(queryCount);
 				System.out.println("in DBProcess, it return " + bean.getResult());
-				if(bean.getResult().equals("2")){
-					String queryDel = "match(n:tourism{Name:\""+line+"\"}) delete n";
+				if (bean.getResult().equals("2")) {
+					String queryDel = "match(n:tourism{Name:\"" + line + "\"}) delete n";
 					conn.executeCypherSQL(queryDel);
-					String queryUpdate = "match(n:other{Name:\""+line+"\"}) set n:tourism remove n:other";
+					String queryUpdate = "match(n:other{Name:\"" + line + "\"}) set n:tourism remove n:other";
 					conn.executeCypherSQL(queryUpdate);
 				}
-				
+
 				line = in.readLine();
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
-	public static void generateEntity(){
-		
+
+	public static void generateEntity() {
+
 		String query = "match(n) with n return collect(n.Name) as result";
 		List<String> list = conn.getArrayListfromCollection(query);
-		
-		try{
+
+		try {
 			String tempFileName = Common.UserDir + "/knowledgedata/entity.txt";
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
-			
-			for(String s : list){
-				out.write(s+"\r\n");
+
+			for (String s : list) {
+				out.write(s + "\r\n");
 			}
 
 			out.close();
-		} catch (Exception e){
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void checkEntity() {
+		String query = "match(n) with n limit 1000 return collect(n.Name) as result";
+		List<String> list = conn.getArrayListfromCollection(query);
+
+		for (String s : list) {
+			if (!NLPProcess.isEntity(s)) {
+				System.out.println(s);
+			}
+
+		}
+	}
+
+	public static void generateEntityPMFile() {
+		String filePath = Common.UserDir + "/knowledgedata/domain";
+		List<String> entitySet = new ArrayList<>();
+		try {
+			String tempFileName = Common.UserDir + "/knowledgedata/entity_ref_PM.txt";
+			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
+			
+			File fileDictoray = new File(filePath);
+			File[] allFile = fileDictoray.listFiles();
+			for (File f : allFile) {
+				FileInputStream fis = new FileInputStream(f);
+				InputStreamReader read = new InputStreamReader(fis);
+				BufferedReader dis = new BufferedReader(read);
+				String word = "";
+				while ((word = dis.readLine()) != null) {
+					if (!word.trim().isEmpty()){
+						entitySet.add(word.trim());
+						out.write(word.trim()+"\r\n");
+					}
+				}
+				dis.close();
+			}
+			out.close();
+			
+			String missingFileName = Common.UserDir + "/knowledgedata/entity_missing.txt";
+			BufferedWriter outMissing = new BufferedWriter(new FileWriter(missingFileName));
+			for(String s : entitySet){
+				if(!NLPProcess.isEntity(s)){
+					outMissing.write(s+"\r\n");
+//					System.out.println(s);
+				}
+			}
+			outMissing.close();
+			
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-	}
-	
-	
-	public static void checkEntity(){
-		String query = "match(n) with n limit 1000 return collect(n.Name) as result";
-		List<String> list = conn.getArrayListfromCollection(query);
 		
-		for(String s : list){
-			if(!NLPProcess.isEntity(s)){
-				System.out.println(s);
-			}
-			
-		}
+		
 	}
 
 	public static void main(String[] args) {
 
-		
-//		SynonymProcessTest.changeDB();
-		SynonymProcessTest.generateEntity();
-		
+		// SynonymProcessTest.changeDB();
+		SynonymProcessTest.generateEntityPMFile();
 
 		String strA = "1980年10月";
 
