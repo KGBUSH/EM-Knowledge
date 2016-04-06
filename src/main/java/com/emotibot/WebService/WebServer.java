@@ -163,6 +163,7 @@ public class WebServer {
 
 			if (text != null) {
 				text = text.trim();
+				long t=System.currentTimeMillis();
 				AnswerBean bean =new PatternMatchingProcess(text, questionType, scoreStr).getAnswer();
 				JSONObject result_obj = new JSONObject();
 				   result_obj.put("ver", "");
@@ -171,6 +172,9 @@ public class WebServer {
 				   result_obj.put("topic", "");
 				   result_obj.put("emotion", "");
 				   result_obj.put("answer", bean.getAnswer());
+					long t2=System.currentTimeMillis();
+					   result_obj.put("time", (t2-t)+"ms");
+
 				   out.println(result_obj);
 			}
 		}catch(Exception e)
