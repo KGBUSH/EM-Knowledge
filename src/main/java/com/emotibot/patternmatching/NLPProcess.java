@@ -425,20 +425,21 @@ public class NLPProcess {
 	// input: "身高是多少"
 	// output: "身高"
 	public static String removeStopWord(String str) {
-		String rs = "";
+		//String rs = "";
+		StringBuffer buffer = new StringBuffer();
 		// Segmentation Process
-		NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
+		//NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
+		List<Term> segPos=getSegWord(str);
 		System.out.println("original string is " + str);
-		List<Term> segPos = tnNode.getWordPos();
+		//List<Term> segPos = tnNode.getWordPos();
 		for (int i = 0; i < segPos.size(); i++) {
 			String s = segPos.get(i).word;
 			// System.out.print(s + ", ");
-			if (!NLPProcess.isStopWord(s))
-				rs += s;
-		}
+			if (!NLPProcess.isStopWord(s)) buffer.append(s);
+				}
 		// System.out.println("");
 
-		return rs;
+		return buffer.toString();
 	}
 
 	// remove the stopword in a string.
