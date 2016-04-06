@@ -952,10 +952,9 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		String str = "小巨人是谁";
+		String str = "阑尾炎的诊室在哪";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
-		System.exit(0);
-//		mp.getAnswer();
+		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));
 
 	}
