@@ -22,6 +22,7 @@ import org.eclipse.jetty.servlet.ServletHandler;
 
 import com.emotibot.config.ConfigManager;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
+import com.emotibot.patternmatching.NLPProcess;
 import com.emotibot.patternmatching.PatternMatchingProcess;
 import com.hankcs.hanlp.seg.common.Term;
 
@@ -38,6 +39,7 @@ public class WebServer {
 		// Note that if you set this to port 0 then a randomly available port
 		// will be assigned that you can either look in the logs for the port,
 		// or programmatically obtain it for use in test cases.
+		NLPProcess.NLPProcessInit();
 		int port =9000;
 		ConfigManager cf = new ConfigManager();
 		port = cf.getWebServerPort();
