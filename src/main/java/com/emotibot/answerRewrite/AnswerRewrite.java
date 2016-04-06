@@ -19,6 +19,7 @@ import com.emotibot.util.Tool;
 
 public class AnswerRewrite {
 	private static String[] answerRewriteTable = createAnswerRewriteTable();
+	private static String[] answerRewriteTableIntro = createAnswerRewriteTableIntro();
 
 	private static String[] createAnswerRewriteTable() {
 		String[] rs = null;
@@ -54,6 +55,39 @@ public class AnswerRewrite {
 
 	}
 
+	private static String[] createAnswerRewriteTableIntro() {
+		String[] rs = null;
+		List<String> answerSet = new ArrayList<>();
+		String fileName = Common.UserDir + "/knowledgedata/AnswerTemplate4Intro.txt";
+		
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect detect = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[detect.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader readBuffer = new BufferedReader(read);
+				String sentence = "";
+				while ((sentence = readBuffer.readLine()) != null) {
+					answerSet.add(sentence.trim());
+				}
+				
+				rs = new String[answerSet.size()];
+				for (int i = 0; i < answerSet.size(); i++) {
+					rs[i] = answerSet.get(i);
+				}
+				// System.out.println("list is " + answerRewriteTable);
+				readBuffer.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return rs;
+	}
+	
 	public String rewriteAnswer(String answer){
 		// if answer is null or answer is introduction, then skip rewrite
 		// the process logic for introduction may be improved later
@@ -74,12 +108,22 @@ public class AnswerRewrite {
 		return rewrite;
 	}
 	
+	public String rewriteAnswer4Intro(String answer){
+		
+		String rewrite = "";
+		int id = (int) Math.round(Math.random()*(answerRewriteTableIntro.length-1));
+		System.out.println("id="+id);
+		String template = answerRewriteTableIntro[id];
+		rewrite = answer + "\r\n" + template;
+		return rewrite;
+	}
+	
 	public static void main(String [] args){
 		AnswerRewrite answerRewite = new AnswerRewrite();
 		String ans = "中锋";
-		System.out.println("answer is "+answerRewite.rewriteAnswer(ans));
+		System.out.println("answer is "+answerRewite.rewriteAnswer4Intro(ans));
 //		for(int i=0;i<200;i++){
-//			System.out.println("answer is "+answerRewite.rewriteAnswer("姚明"));
+//			System.out.println("answer is "+answerRewite.rewriteAnswer4Intro("姚明"));
 //		}
 	}
 

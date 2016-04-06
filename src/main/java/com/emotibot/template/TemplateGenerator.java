@@ -45,6 +45,11 @@ public class TemplateGenerator {
 			BufferedReader in = new BufferedReader(new FileReader(inputFile));
 			String line = in.readLine();
 			while (line != null) {
+				line = line.trim();
+				if (line.isEmpty()) {
+					line = in.readLine();
+					continue;
+				}
 				System.out.println("line=" + line);
 
 				Map<String, String> specialCharacterMap = new HashMap<>();
@@ -73,6 +78,7 @@ public class TemplateGenerator {
 				}
 				String firstLine = lineArr[0];
 				String secondLine = lineArr[1];
+				System.out.println("\t firstLine=" + firstLine + ", secondLine=" + secondLine);
 
 				// get the label and pattern
 				String[] firstArr = firstLine.split(",");
@@ -80,53 +86,56 @@ public class TemplateGenerator {
 					System.err.println("wrong format in Line=" + line + ", with number of , is=" + firstArr.length);
 					continue;
 				}
-				String domain = "## * <type>entity</type><label>" + firstArr[0] + "</label> ";
-				String pattern = firstArr[1];
 
-				// pattern process
-				String[] patternArr = pattern.split("\\^");
-				int count = 0;
-				int entityPos = 0; // pos of entity, may extend to many entity
-				// each part between ^s is a list of words;
-				// make the combination of all the parts
-				List<List<String>> patternList = new ArrayList<>();
-				for (String part : patternArr) {
-					List<String> list = new ArrayList<>();
-					if (part.contains("#")) {
-						// System.out.println("##### part = "+part);
-						// entity case
-						if (!part.equals("#"))
-							System.err.println("wrong format: part=" + part);
-						count++;
-						entityPos = count;
-						list.add(domain + "^ ");
-					} else if (part.contains("/")) {
-						// multiple possibility case
-						String[] strArr = part.split("/");
-						for (String s : strArr) {
-							list.add(s + "^ ");
+				String[] domainList = firstArr[0].split("&");
+				// for each domain
+				// case: TV_series & movie,^哪^拍^#^;#的拍摄地点在哪儿？
+				for (String domainStr : domainList) {
+					String domain = "## * <type>entity</type><label>" + domainStr + "</label> ";
+					String pattern = firstArr[1];
+
+					// pattern process
+					String[] patternArr = pattern.split("\\^");
+					int count = 0;
+					int entityPos = 0; // pos of entity, may extend to many
+										// entity
+					// each part between ^s is a list of words;
+					// make the combination of all the parts
+					List<List<String>> patternList = new ArrayList<>();
+					for (String part : patternArr) {
+						List<String> list = new ArrayList<>();
+						if (part.contains("#")) {
+							// System.out.println("##### part = "+part);
+							// entity case
+							if (!part.equals("#"))
+								System.err.println("wrong format: part=" + part);
+							count++;
+							entityPos = count;
+							list.add(domain + "^ ");
+						} else if (part.contains("/")) {
+							// multiple possibility case
+							String[] strArr = part.split("/");
+							for (String s : strArr) {
+								list.add(s + "^ ");
+							}
+						} else {
+							// normal case
+							list.add(part + "^ ");
 						}
-					} else {
-						// normal case
-						list.add(part + "^ ");
+						patternList.add(list);
+						count++;
 					}
-					patternList.add(list);
-					count++;
-				}
-				System.out.println("patternList=" + patternList);
+					System.out.println("patternList=" + patternList);
 
-				List<String> middlePatterList = new ArrayList<>();
-				middlePatterList.add("");
-				middlePatterList = writePattern(patternList, middlePatterList);
-				System.out.print("middlePatterList=" + middlePatterList);
+					List<String> middlePatterList = new ArrayList<>();
+					middlePatterList.add("");
+					middlePatterList = writePattern(patternList, middlePatterList);
+					System.out.print("middlePatterList=" + middlePatterList);
 
-				// second line procedure
-				String[] secondLineArr = secondLine.split("/");
-				
-				for(String secondStr : secondLineArr){
-					System.out.println("secondStr="+secondStr);
-					secondStr = secondStr.replace("#", "<star index=\"" + entityPos + "\"/>");
-					System.out.println("secondStr="+secondStr);
+					// second line procedure
+					String secondLineStr = secondLine;
+					secondLineStr = secondLineStr.replace("#", "<star index=\"" + entityPos + "\"/>");
+					System.out.println("secondStr=" + secondLineStr);
 					for (String s : middlePatterList) {
 						out.write("    <category>\r\n");
 						// s = " " + s.substring(0, s.length() - 2);
@@ -134,13 +143,11 @@ public class TemplateGenerator {
 						String test = Tool.insertSpace4ChineseCharacter("        <pattern>" + s + "</pattern>\r\n");
 						out.write(test);
 						out.write("        <template>\r\n");
-						out.write("            " + secondStr + "\r\n");
+						out.write("            " + secondLineStr + "\r\n");
 						out.write("        </template>\r\n");
 						out.write("    </category>\r\n");
 					}
 				}
-
-
 				line = in.readLine();
 			}
 
