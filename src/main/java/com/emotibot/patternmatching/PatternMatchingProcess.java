@@ -371,6 +371,9 @@ public class PatternMatchingProcess {
 
 		// get teh matched properties by pattern matching method
 		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(templateSentence, entity);
+		PatternMatchingResultBean implicationBean = ImplicationProcess.checkImplicationWord(templateSentence);
+		if(implicationBean.isValid())
+			listPMBean.add(implicationBean);
 		System.out.println("\t listPMBean=" + listPMBean);
 
 		if (listPMBean.isEmpty()) {
@@ -381,8 +384,13 @@ public class PatternMatchingProcess {
 		} else if (listPMBean.size() == 1) {
 			String prop = listPMBean.get(0).getAnswer();
 			String answer = "";
+			System.out.println("\t\t\t#### before Implication ");
 			if(ImplicationProcess.isImplicationWord(prop)){
-				answer = ImplicationProcess.getImplicationAnswer(entity, prop);
+				System.out.print("\t\t\t#### Implication ");
+				answer = ImplicationProcess.getImplicationAnswer(templateSentence, entity, prop);
+				if(Tool.isStrEmptyOrNull(answer))
+					listPMBean.get(0).setScore(0);
+				System.out.println("answer = "+answer);
 			} else {
 				answer = DBProcess.getPropertyValue(entity, prop);
 			}
@@ -540,24 +548,24 @@ public class PatternMatchingProcess {
 		List<PatternMatchingResultBean> rsBean = new ArrayList();
 		System.out.println(
 				"---------------Mutliple Entity: Begin of Pattern Matching Candidate Process--------------------");
-		for (String s : candidateSet) {
-			System.out.println("### Candidate is " + s);
+		for (String candidate : candidateSet) {
+			System.out.println("### Candidate is " + candidate);
 
 			List<PatternMatchingResultBean> tempBeanSet = new ArrayList();
 
 			// 2. generate candidates according to the synonyms
 			List<String> synList = new ArrayList<>();
 			Map<String, String> refPropMap = new HashMap<>();
-			synList = this.replaceSynonymProcess(s, refPropMap);
+			synList = this.replaceSynonymProcess(candidate, refPropMap);
 			System.out.println("\t after synonym process: " + synList + " refPropMap=" + refPropMap);
 
-			for (String q : synList) {
-				System.out.println("q=" + q + " and s=" + s);
-				int orignalScore = (q.equals(s)) ? 100 : 80;
-				PatternMatchingResultBean pmRB = this.getCandidatePropName(q, propMap, orignalScore);
+			for (String syn : synList) {
+				System.out.println("q=" + syn + " and s=" + candidate);
+				int orignalScore = (syn.equals(candidate)) ? 100 : 80;
+				PatternMatchingResultBean pmRB = this.getCandidatePropName(syn, propMap, orignalScore);
 				if (pmRB.isValid()) {
 					tempBeanSet.add(pmRB);
-					System.out.println("string " + q + " has the answer of " + pmRB.getAnswer() + " with score "
+					System.out.println("string " + syn + " has the answer of " + pmRB.getAnswer() + " with score "
 							+ pmRB.getScore());
 				}
 			}
@@ -915,7 +923,7 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		String str = "姚明属什么";
+		String str = "黄晓明年龄多大";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));
