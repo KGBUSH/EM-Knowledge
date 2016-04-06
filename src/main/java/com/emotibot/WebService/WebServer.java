@@ -159,7 +159,7 @@ public class WebServer {
 			int flag = 0;
 			String text = request.getParameter("t");
 			String questionType =request.getParameter("questionType");
-			String scoreStr =request.getParameter("scoreStr");
+			String scoreStr =request.getParameter("score");
 
 			if (text != null) {
 				text = text.trim();
