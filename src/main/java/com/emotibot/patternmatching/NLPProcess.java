@@ -32,11 +32,11 @@ import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.common.Term;
 
 public class NLPProcess {
-	private static HashMap<String, Set<String>> synonymTable ;
-	private static HashMap<String, List<String>> synonymTableRef;
-	private static Set<String> stopWordTable;
-	private static Set<String> entityTable ;
-	private static Map<String, String> entitySynonymTable;
+	private static HashMap<String, Set<String>> synonymTable = createSynonymTable();;
+	private static HashMap<String, List<String>> synonymTableRef = createSynonymTableRef();
+	private static Set<String> stopWordTable = createStopWordTable();
+	private static Set<String> entityTable = createEntityTable();
+	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
 
 	public static void NLPProcessInit()
 	{
