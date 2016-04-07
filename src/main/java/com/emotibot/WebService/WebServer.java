@@ -163,7 +163,7 @@ public class WebServer {
 			String text = request.getParameter("t");
 			String questionType =request.getParameter("questionType");
 			String scoreStr =request.getParameter("score");
-
+            String uniqId=request.getParameter("uniqId");
 			if (text != null) {
 				text = text.trim();
 				long t=System.currentTimeMillis();
