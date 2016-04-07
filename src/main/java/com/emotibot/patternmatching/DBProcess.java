@@ -57,7 +57,9 @@ public class DBProcess {
 			return propSet;
 		}
 		String query = buildCypherSQLObj.getPropNamebyEntityName(label, entity);
-		propSet = getDBConnection().getArrayListfromCollection(query);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		propSet = conn.getArrayListfromCollection(query);
+		conn.close();
 		System.out.println("in DBProcess, prop name is " + propSet);
 		return propSet;
 	}
@@ -69,7 +71,9 @@ public class DBProcess {
 			return propSet;
 		}
 		String query = buildCypherSQLObj.getPropNamebyEntityName("", entity);
-		propSet = getDBConnection().getArrayListfromCollection(query);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		propSet = conn.getArrayListfromCollection(query);
+		conn.close();
 		System.out.println("in DBProcess, prop name is " + propSet);
 		return propSet;
 	}
@@ -81,7 +85,9 @@ public class DBProcess {
 			return relationshipSet;
 		}
 		String query = buildCypherSQLObj.getRelationshipByEntityName("", entity);
-		relationshipSet = getDBConnection().getArrayListfromCollection(query);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		relationshipSet = conn.getArrayListfromCollection(query);
+		conn.close();
 		System.out.println("in DBProcess, prop name is " + relationshipSet);
 		return relationshipSet;
 	}
@@ -95,7 +101,9 @@ public class DBProcess {
 			return relationshipSet;
 		}
 		String query = buildCypherSQLObj.getRelationshipInStraightPath(labelA, entityA, labelB, entityB);
-		relationshipSet = getDBConnection().getArrayListfromCollection(query);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		relationshipSet = conn.getArrayListfromCollection(query);
+		conn.close();
 		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + relationshipSet);
 		return relationshipSet;
 	}
@@ -115,7 +123,9 @@ public class DBProcess {
 		list.add(Common.RelationType);
 
 		String query = buildCypherSQLObj.getRelationshipInConvergePath(labelA, entityA, labelB, entityB);
-		rsSet = getDBConnection().getListSet(query, list);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		rsSet = conn.getListSet(query, list);
+		conn.close();
 
 		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + rsSet);
 		return rsSet;
@@ -136,7 +146,9 @@ public class DBProcess {
 		list.add(Common.RelationType);
 
 		String query = buildCypherSQLObj.getRelationshipInDivergentPath(labelA, entityA, labelB, entityB);
-		rsSet = getDBConnection().getListSet(query, list);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		rsSet = conn.getListSet(query, list);
+		conn.close();
 		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + rsSet);
 		return rsSet;
 	}
@@ -149,7 +161,9 @@ public class DBProcess {
 		}
 		Neo4jResultBean bean = null;
 		String query = buildCypherSQLObj.getEntityByRelationship(label, entity, relationship);
-		bean = getDBConnection().executeCypherSQL(query);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		bean = conn.executeCypherSQL(query);
+		conn.close();
 		System.out.println("in DBProcess, it return " + bean.getResult());
 		return bean.getResult();
 	}
@@ -161,7 +175,9 @@ public class DBProcess {
 		}
 		Neo4jResultBean bean = null;
 		String query = buildCypherSQLObj.FindEntityAttr(label, ent, prop);
-		bean = getDBConnection().executeCypherSQL(query);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		bean = conn.executeCypherSQL(query);
+		conn.close();
 		System.out.println("in DBProcess, it return " + bean.getResult());
 		return bean.getResult();
 	}
@@ -173,7 +189,9 @@ public class DBProcess {
 		}
 		Neo4jResultBean bean = null;
 		String query = buildCypherSQLObj.FindEntityAttr("", ent, prop);
-		bean = getDBConnection().executeCypherSQL(query);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		bean = conn.executeCypherSQL(query);
+		conn.close();
 		System.out.println("in DBProcess, it return " + bean.getResult());
 		return bean.getResult();
 	}
@@ -184,7 +202,9 @@ public class DBProcess {
 			return "";
 		}
 		String query = buildCypherSQLObj.getLabelByEntity(ent);
-		List<String> list = getDBConnection().getArrayListfromCollection(query);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		List<String> list = conn.getArrayListfromCollection(query);
+		conn.close();
 		System.out.println("in DBProcess, getEntityLabel " + list);
 		return list.get(0);
 	}
@@ -198,7 +218,9 @@ public class DBProcess {
 			return null;
 		}
 		String query = buildCypherSQLObj.getEntity(label, entity);
-		entityMap = getDBConnection().getEntityMap(query);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		entityMap = conn.getEntityMap(query);
+		conn.close();
 
 		// Map<String, String> valuePropMap = new HashMap<>();
 		// for(Map.Entry<String, Object> entry : entityMap.entrySet()){
@@ -221,7 +243,9 @@ public class DBProcess {
 		list.add(Common.RelationName);
 		list.add(Common.RelationType);
 
-		System.out.println("rs=" + getDBConnection().getListSet(query, list));
+		EmotibotNeo4jConnection conn = getDBConnection();
+		System.out.println("rs=" + conn.getListSet(query, list));
+		conn.close();
 
 		// System.out.println("list of prop is: "+getEntityByRelationship("",
 		// "test", "ACTS_IN"));
