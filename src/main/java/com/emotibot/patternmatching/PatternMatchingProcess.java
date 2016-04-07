@@ -346,7 +346,8 @@ public class PatternMatchingProcess {
 				System.out.println("case: 2: rsEntity=" + rsEntity);
 				return rsEntity;
 			} else {
-				rsEntity.add(simpleMatchEntity.get(0));
+//				rsEntity.add(simpleMatchEntity.get(0));
+				rsEntity = getIntersectionOfTwoLists(solrEntity, simpleMatchEntity, 1);
 				System.out.println("case: 2.5: rsEntity=" + rsEntity);
 				return rsEntity;
 			}

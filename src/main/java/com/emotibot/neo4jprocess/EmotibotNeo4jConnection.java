@@ -24,8 +24,12 @@ public class EmotibotNeo4jConnection {
 	private Neo4jConnection conn;
 
 	// build connection
-	// (ip, port, usr, pwd)
-	public EmotibotNeo4jConnection(String driver, String ip, int port, String usr, String pwd) {
+	public EmotibotNeo4jConnection(Neo4jConfigBean neo4jConfigBean) {
+		String driver = neo4jConfigBean.getDriverName();
+		String ip = neo4jConfigBean.getIp();
+		int port = neo4jConfigBean.getPort();
+		String usr = neo4jConfigBean.getUser();
+		String pwd = neo4jConfigBean.getPassword();
 		try {
 			Class.forName(driver);
 
@@ -40,6 +44,30 @@ public class EmotibotNeo4jConnection {
 			// Neo4jConnection.getConnection("jdbc:neo4j://192.168.1.81:7474/");
 			conn = new Driver().connect("jdbc:neo4j://" + ip + ":" + port + "/", properties);
 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			conn = null;
+		}
+	}
+	
+	// build connection
+	// (ip, port, usr, pwd)
+	public EmotibotNeo4jConnection(String driver, String ip, int port, String usr, String pwd) {
+		try {
+			Class.forName(driver);
+			
+			// org.neo4j.jdbc.Driver
+			// Connect
+			Properties properties = new Properties();
+			properties.put("user", usr);
+			properties.put("password", pwd);
+			
+			// setNeo4jConnnection(new Driver().connect("jdbc:neo4j://" + ip +
+			// ":" + port + "/", properties));
+			// Neo4jConnection.getConnection("jdbc:neo4j://192.168.1.81:7474/");
+			conn = new Driver().connect("jdbc:neo4j://" + ip + ":" + port + "/", properties);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

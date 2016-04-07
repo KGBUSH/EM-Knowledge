@@ -23,7 +23,19 @@ import com.emotibot.util.Tool;
 public class DBProcess {
 	// public static EmotibotNeo4jConnection conn = getDBConnection();
 	public static BuildCypherSQL buildCypherSQLObj = CypherInit();
-	public static Neo4jDBManager neo4jDBManager = DBManagerInit();
+//	public static Neo4jDBManager neo4jDBManager = DBManagerInit();
+	public static final Neo4jConfigBean neo4jConfigBean = ConfigBeanInit();
+	
+	public static Neo4jConfigBean ConfigBeanInit(){
+		ConfigManager cfg = new ConfigManager();
+		Neo4jConfigBean neo4jConfigBean = new Neo4jConfigBean();
+		neo4jConfigBean.setDriverName(cfg.getNeo4jDriverName());
+		neo4jConfigBean.setIp(cfg.getNeo4jServerIp());
+		neo4jConfigBean.setPassword(cfg.getNeo4jPasswd());
+		neo4jConfigBean.setPort(cfg.getNeo4jServerPort());
+		neo4jConfigBean.setUser(cfg.getNeo4jUserName());
+		return neo4jConfigBean;
+	}
 
 	public static BuildCypherSQL CypherInit() {
 		System.out.println("CypherInit");
@@ -46,7 +58,13 @@ public class DBProcess {
 	}
 
 	public static EmotibotNeo4jConnection getDBConnection() {
-		return neo4jDBManager.getConnection();
+//		return neo4jDBManager.getConnection();
+		return new EmotibotNeo4jConnection(neo4jConfigBean);
+	}
+
+	public static void freeDBConnection(EmotibotNeo4jConnection conn) {
+//		neo4jDBManager.freeConnection(conn);
+		conn.close();
 	}
 
 	// get the property name set of an entity
@@ -59,7 +77,7 @@ public class DBProcess {
 		String query = buildCypherSQLObj.getPropNamebyEntityName(label, entity);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		propSet = conn.getArrayListfromCollection(query);
-		conn.close();
+		freeDBConnection(conn);
 		System.out.println("in DBProcess, prop name is " + propSet);
 		return propSet;
 	}
@@ -73,7 +91,7 @@ public class DBProcess {
 		String query = buildCypherSQLObj.getPropNamebyEntityName("", entity);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		propSet = conn.getArrayListfromCollection(query);
-		conn.close();
+		freeDBConnection(conn);
 		System.out.println("in DBProcess, prop name is " + propSet);
 		return propSet;
 	}
@@ -87,7 +105,7 @@ public class DBProcess {
 		String query = buildCypherSQLObj.getRelationshipByEntityName("", entity);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		relationshipSet = conn.getArrayListfromCollection(query);
-		conn.close();
+		freeDBConnection(conn);
 		System.out.println("in DBProcess, prop name is " + relationshipSet);
 		return relationshipSet;
 	}
@@ -103,7 +121,7 @@ public class DBProcess {
 		String query = buildCypherSQLObj.getRelationshipInStraightPath(labelA, entityA, labelB, entityB);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		relationshipSet = conn.getArrayListfromCollection(query);
-		conn.close();
+		freeDBConnection(conn);
 		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + relationshipSet);
 		return relationshipSet;
 	}
@@ -125,7 +143,7 @@ public class DBProcess {
 		String query = buildCypherSQLObj.getRelationshipInConvergePath(labelA, entityA, labelB, entityB);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		rsSet = conn.getListSet(query, list);
-		conn.close();
+		freeDBConnection(conn);
 
 		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + rsSet);
 		return rsSet;
@@ -148,7 +166,7 @@ public class DBProcess {
 		String query = buildCypherSQLObj.getRelationshipInDivergentPath(labelA, entityA, labelB, entityB);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		rsSet = conn.getListSet(query, list);
-		conn.close();
+		freeDBConnection(conn);
 		System.out.println("in DBProcess.getRelationshipTypeInPath, rs = " + rsSet);
 		return rsSet;
 	}
@@ -163,7 +181,7 @@ public class DBProcess {
 		String query = buildCypherSQLObj.getEntityByRelationship(label, entity, relationship);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		bean = conn.executeCypherSQL(query);
-		conn.close();
+		freeDBConnection(conn);
 		System.out.println("in DBProcess, it return " + bean.getResult());
 		return bean.getResult();
 	}
@@ -177,7 +195,7 @@ public class DBProcess {
 		String query = buildCypherSQLObj.FindEntityAttr(label, ent, prop);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		bean = conn.executeCypherSQL(query);
-		conn.close();
+		freeDBConnection(conn);
 		System.out.println("in DBProcess, it return " + bean.getResult());
 		return bean.getResult();
 	}
@@ -191,7 +209,7 @@ public class DBProcess {
 		String query = buildCypherSQLObj.FindEntityAttr("", ent, prop);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		bean = conn.executeCypherSQL(query);
-		conn.close();
+		freeDBConnection(conn);
 		System.out.println("in DBProcess, it return " + bean.getResult());
 		return bean.getResult();
 	}
@@ -204,7 +222,7 @@ public class DBProcess {
 		String query = buildCypherSQLObj.getLabelByEntity(ent);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		List<String> list = conn.getArrayListfromCollection(query);
-		conn.close();
+		freeDBConnection(conn);
 		System.out.println("in DBProcess, getEntityLabel " + list);
 		return list.get(0);
 	}
@@ -220,7 +238,7 @@ public class DBProcess {
 		String query = buildCypherSQLObj.getEntity(label, entity);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		entityMap = conn.getEntityMap(query);
-		conn.close();
+		freeDBConnection(conn);
 
 		// Map<String, String> valuePropMap = new HashMap<>();
 		// for(Map.Entry<String, Object> entry : entityMap.entrySet()){
@@ -232,7 +250,12 @@ public class DBProcess {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("label=" + DBProcess.getEntityLabel("姚明"));
+
+		for (int i = 0; i < 10; i++) {
+			System.out.println("label=" + DBProcess.getEntityLabel("姚明"));
+		}
+
+		System.exit(0);
 
 		String entityA = "The Matrix";
 		String entityB = "The Matrix Reloaded";
@@ -245,7 +268,7 @@ public class DBProcess {
 
 		EmotibotNeo4jConnection conn = getDBConnection();
 		System.out.println("rs=" + conn.getListSet(query, list));
-		conn.close();
+		freeDBConnection(conn);
 
 		// System.out.println("list of prop is: "+getEntityByRelationship("",
 		// "test", "ACTS_IN"));
