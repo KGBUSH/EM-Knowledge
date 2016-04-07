@@ -103,18 +103,21 @@ public class SynonymProcessTest {
 
 	}
 
+	// random check top 1000 entity with the Entity.txt
 	public static void checkEntity() {
 		String query = "match(n) with n limit 1000 return collect(n.Name) as result";
 		List<String> list = conn.getArrayListfromCollection(query);
 
 		for (String s : list) {
-			if (!NLPProcess.isEntity(s)) {
+			if (NLPProcess.isEntity(s)) {
 				System.out.println(s);
 			}
 
 		}
 	}
 
+	// generate the entity list entity_ref_PM.txt from domain directory, 
+	// and check with entity.txt which is used as the entity dictionary.
 	public static void generateEntityPMFile() {
 		String filePath = Common.UserDir + "/knowledgedata/domain";
 		List<String> entitySet = new ArrayList<>();
@@ -142,7 +145,7 @@ public class SynonymProcessTest {
 			String missingFileName = Common.UserDir + "/knowledgedata/entity_missing.txt";
 			BufferedWriter outMissing = new BufferedWriter(new FileWriter(missingFileName));
 			for(String s : entitySet){
-				if(!NLPProcess.isEntity(s)){
+				if(NLPProcess.isEntity(s)){
 					outMissing.write(s+"\r\n");
 //					System.out.println(s);
 				}

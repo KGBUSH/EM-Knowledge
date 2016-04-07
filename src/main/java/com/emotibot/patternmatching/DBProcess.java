@@ -26,14 +26,14 @@ public class DBProcess {
 	public static Neo4jDBManager neo4jDBManager = DBManagerInit();
 
 	public static BuildCypherSQL CypherInit() {
-		System.err.println("CypherInit");
+		System.out.println("CypherInit");
 		BuildCypherSQL cypherObj = new BuildCypherSQL();
 		ConfigManager cfg = new ConfigManager();
 		return cypherObj;
 	}
 
 	public static Neo4jDBManager DBManagerInit() {
-		System.err.println("DBManagerInit");
+		System.out.println("DBManagerInit");
 		ConfigManager cfg = new ConfigManager();
 		Neo4jConfigBean neo4jConfigBean = new Neo4jConfigBean();
 		neo4jConfigBean.setDriverName(cfg.getNeo4jDriverName());

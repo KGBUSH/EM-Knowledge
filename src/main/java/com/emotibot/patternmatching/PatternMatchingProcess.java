@@ -34,16 +34,18 @@ public class PatternMatchingProcess {
 	final String selectiveQuestionType = "SelectiveQuestion@:";
 	// final String relationshipQuestionType = "RelationshipQuestion@:";
 
-	private final String userSentence;
+	private String userSentence;
 	private List<Term> segPos;
 	private List<String> segWordWithoutStopWord;
 	private List<String> entitySet;
 	private boolean isQuestion;
+	private long timeCounter = System.currentTimeMillis();
 
 	public PatternMatchingProcess(String str) {
-		if(str == null) {
+
+		if (str == null) {
 			System.err.println("text is null");
-			str="";
+			str = "";
 		}
 		userSentence = str;
 		isQuestion = true;
@@ -56,7 +58,10 @@ public class PatternMatchingProcess {
 				segWordWithoutStopWord.add(segWord);
 			}
 		}
+		System.out.println("TIME - before get entity >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
 		entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
+		userSentence = changeEntitySynonym(entitySet, userSentence);
+		System.out.println("TIME - get entity >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
 
 		System.out.println("Constructor: userSentence=" + userSentence);
 		System.out.println("Constructor: isQuestion=" + isQuestion);
@@ -64,21 +69,21 @@ public class PatternMatchingProcess {
 		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
 		System.out.println("Constructor: entitySet=" + entitySet);
 	}
-	
+
 	public PatternMatchingProcess(String text, String questionType, String score) {
-		if(text == null) {
+		if (text == null) {
 			System.err.println("text is null");
-			text="";
+			text = "";
 		}
-		if(questionType == null) {
+		if (questionType == null) {
 			System.err.println("text is null");
-			questionType="";
+			questionType = "";
 		}
-		if(score == null) {
+		if (score == null) {
 			System.err.println("text is null");
-			score="";
+			score = "";
 		}
-		
+
 		userSentence = text;
 		isQuestion = questionType.equals("question");
 		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
@@ -90,13 +95,32 @@ public class PatternMatchingProcess {
 				segWordWithoutStopWord.add(segWord);
 			}
 		}
+		System.out.println("TIME - before get entity >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
 		entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
+		userSentence = changeEntitySynonym(entitySet, userSentence);
+		System.out.println("TIME - get entity >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
 
 		System.out.println("Constructor: userSentence=" + userSentence);
 		System.out.println("Constructor: isQuestion=" + isQuestion);
 		System.out.println("Constructor: segPos=" + segPos);
 		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
 		System.out.println("Constructor: entitySet=" + entitySet);
+	}
+
+	// if the sentnece contain a alias, change to wiki entity name
+	// input: “甲肝是什么” output: “甲型病毒性肝炎是什么”
+	private String changeEntitySynonym(List<String> entitySet, String sentence) {
+		// System.out.println("changeEntitySynonym:
+		// entitySet="+entitySet+",sentence="+sentence);
+		for (String s : entitySet) {
+			if (!sentence.contains(s) && NLPProcess.isEntitySynonym(s)) {
+				String oldEntity = NLPProcess.getEntitySynonymReverse(s);
+				sentence = sentence.replace(oldEntity, s);
+				// System.out.println("changeEntitySynonym change : s = "+s+",
+				// oldEntity="+oldEntity+"; sentence="+sentence);
+			}
+		}
+		return sentence;
 	}
 
 	// The entrance to understand the user query and get answer from Neo4j
@@ -142,6 +166,7 @@ public class PatternMatchingProcess {
 
 			// answerBean = mutlipleReasoningProcess(sentence, entity);
 			answerBean = ReasoningProcess(sentence, entity, answerBean);
+			System.out.println("TIME - Reasoning Process >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
 			System.out.println("\t ReasoningProcess answerBean = " + answerBean);
 		} else if (isRelationshipQuestion(userSentence)) {
 			List<String> relationNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(0),
@@ -155,6 +180,7 @@ public class PatternMatchingProcess {
 			System.out.println("\n\t relationNormalWayPathSet = " + relationNormalWayPathSet
 					+ "\n\t relationReverseWayPathSet=" + relationReverseWayPathSet + "\n\t relationConverge="
 					+ relationConvergePathSet + "\n\t relationDiverge =" + relationDivergePathSet);
+			System.out.println("TIME - get relationships >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
 
 			String answerRelation = "";
 			if (!relationNormalWayPathSet.isEmpty()) {
@@ -212,6 +238,8 @@ public class PatternMatchingProcess {
 			return answerBean;
 		}
 
+		System.out.println("TIME - before answer rewrite >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
+
 		System.out.println("\t into selective question, answerBean=" + answerBean);
 		// if it is the selective question
 		if (isKindofQuestion(userSentence, selectiveQuestionType)) {
@@ -232,6 +260,7 @@ public class PatternMatchingProcess {
 			// introduction case
 			String localAnswer = "";
 			if (!userSentence.contains(entity)) {
+				System.out.println("userSentence=" + userSentence + "++++ entity=" + entity);
 				localAnswer = matchPropertyValue(entity, segWordWithoutStopWord).replace("----####", "是" + entity + "的")
 						+ "。";
 			}
@@ -418,7 +447,7 @@ public class PatternMatchingProcess {
 		// get teh matched properties by pattern matching method
 		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(templateSentence, entity);
 		PatternMatchingResultBean implicationBean = ImplicationProcess.checkImplicationWord(templateSentence);
-		if(implicationBean.isValid())
+		if (implicationBean.isValid())
 			listPMBean.add(implicationBean);
 		System.out.println("\t listPMBean=" + listPMBean);
 
@@ -431,12 +460,12 @@ public class PatternMatchingProcess {
 			String prop = listPMBean.get(0).getAnswer();
 			String answer = "";
 			System.out.println("\t\t\t#### before Implication ");
-			if(ImplicationProcess.isImplicationWord(prop)){
+			if (ImplicationProcess.isImplicationWord(prop)) {
 				System.out.print("\t\t\t#### Implication ");
 				answer = ImplicationProcess.getImplicationAnswer(templateSentence, entity, prop);
-				if(Tool.isStrEmptyOrNull(answer))
+				if (Tool.isStrEmptyOrNull(answer))
 					listPMBean.get(0).setScore(0);
-				System.out.println("answer = "+answer);
+				System.out.println("answer = " + answer);
 			} else {
 				answer = DBProcess.getPropertyValue(entity, prop);
 			}
@@ -969,7 +998,7 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		String str = "甲型病毒性肝炎的诊室在哪";
+		String str = "姚明和叶莉什么关系";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));

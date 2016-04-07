@@ -55,7 +55,7 @@ public class Neo4jDBManagerTest {
 
 
 		}
- 		conn.updateQueryBatch(list);
+// 		conn.updateQueryBatch(list);
  		conn.close();
  		conn=null;
 	}

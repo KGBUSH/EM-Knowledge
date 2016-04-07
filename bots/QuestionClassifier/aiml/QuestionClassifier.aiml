@@ -36,13 +36,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 是 谁 </pattern>
+        <pattern> ^ 是 谁 ^ </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 是 什 么 </pattern>
+        <pattern> ^ 是 什 么 ^ </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo
         </template>

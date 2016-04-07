@@ -15,9 +15,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.emotibot.common.BytesEncodingDetect;
 import com.emotibot.common.Common;
@@ -25,6 +27,7 @@ import com.emotibot.nlp.NLPFlag;
 import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
 import com.emotibot.util.Tool;
+import com.emotibot.util.StringLengthComparator;
 import com.hankcs.hanlp.seg.common.Term;
 
 public class NLPProcess {
@@ -32,8 +35,44 @@ public class NLPProcess {
 	private static HashMap<String, List<String>> synonymTableRef = createSynonymTableRef();
 	private static Set<String> stopWordTable = createStopWordTable();
 	private static Set<String> entityTable = createEntityTable();
-	
-	// create stopword table Set
+	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
+
+	// create entity table Set
+	// ["甲型病毒性肝炎"，“甲肝”]
+	private static Map<String, String> createEntitySynonymTable() {
+		String fileName = Common.UserDir + "/knowledgedata/entitySynonym.txt";
+		System.out.println("path is " + fileName);
+		Map<String, String> entitySyn = new HashMap<>();
+
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String line = "";
+				while ((line = dis.readLine()) != null) {
+					String[] wordList = line.trim().split(" ");
+					if (wordList.length != 2) {
+						System.err.println("wrong format in entitySynonym.txt");
+						continue;
+					}
+					entitySyn.put(wordList[1], wordList[0]); // check
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		return entitySyn;
+	}
+
+	// create entity table Set
 	private static Set<String> createEntityTable() {
 		Set<String> entitySet = new HashSet<>();
 		String fileName = Common.UserDir + "/knowledgedata/entity.txt";
@@ -113,13 +152,55 @@ public class NLPProcess {
 		return isSW;
 	}
 
+	// is the string exists in Entity or Entity_Ref
 	public static boolean isEntity(String str) {
-		boolean isSW = false;
-		if (!str.isEmpty() && entityTable.contains(str)) {
-			isSW = true;
+		if (!getEntityInDictinoary(str).isEmpty() && !getEntitySynonymNormal(str).isEmpty()) {
+			return true;
+		} else {
+			return false;
 		}
+	}
 
-		return isSW;
+	private static String getEntityInDictinoary(String str) {
+		if (!Tool.isStrEmptyOrNull(str) && entityTable.contains(str)) {
+			return str;
+		} else {
+			return "";
+		}
+	}
+
+	// check the entity synonym
+	// input-output: 甲肝-甲型病毒性肝炎
+	// input-output: 姚明-“”
+	public static String getEntitySynonymNormal(String str) {
+		if (!Tool.isStrEmptyOrNull(str) && entitySynonymTable.keySet().contains(str))
+			return entitySynonymTable.get(str);
+		else
+			return "";
+	}
+
+	// check the entity synonym
+	// input-output: 甲型病毒性肝炎-甲肝
+	// input-output: 姚明-“”，甲肝-""
+	public static String getEntitySynonymReverse(String str) {
+		if (!Tool.isStrEmptyOrNull(str) && entitySynonymTable.values().contains(str)) {
+			for (String s : entitySynonymTable.keySet()) {
+				if (entitySynonymTable.get(s).equals(str))
+					return s;
+			}
+			System.err.println("error in getEntitySynonymReverse");
+			return "";
+		} else
+			return "";
+	}
+
+	// check the entity synonym existence
+	// input-output: 甲型病毒性肝炎-true
+	public static boolean isEntitySynonym(String str) {
+		if (!Tool.isStrEmptyOrNull(str) && entitySynonymTable.values().contains(str))
+			return true;
+		else
+			return false;
 	}
 
 	// create synonym reference hash map table: Map<id, List of Synonym>
@@ -268,18 +349,29 @@ public class NLPProcess {
 	}
 
 	// return the set of entity which is contained in the input sentence
+	// TBD: improve the performance after 4/15
 	// input: 姚明和叶莉的女儿是谁？
 	// output: [姚明，叶莉]
-	public static List<String> getEntitySimpleMatch(String str) {
+	public static List<String> getEntitySimpleMatch(String sentence) {
+		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthComparator());
 		List<String> entitySet = new ArrayList<>();
 		for (String s : entityTable) {
-			if (str.contains(s)) {
-				entitySet.add(s);
+			if (sentence.contains(s)) {
+				entityTreeSet.add(s);
+			}
+		}
+		for (String s : entitySynonymTable.keySet()) {
+			if (sentence.contains(s)) {
+				entityTreeSet.add(entitySynonymTable.get(s));
 			}
 		}
 
-		// System.out.println("the macthed entities are: " +
-		// entitySet.toString());
+		Iterator<String> it = entityTreeSet.iterator();
+		while (it.hasNext()) {
+			entitySet.add(it.next().toString());
+		}
+
+		System.out.println("the macthed entities are: " + entitySet.toString());
 		return entitySet;
 	}
 
@@ -289,12 +381,21 @@ public class NLPProcess {
 	// output: [姚明，叶莉]
 	public static List<String> getEntityByNLP(List<Term> segPos) {
 		List<String> entitySet = new ArrayList<>();
+		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthComparator());
+		
 		for (int i = 0; i < segPos.size(); i++) {
 			String segWord = segPos.get(i).word;
-			if (NLPProcess.isEntity(segWord)) {
-				entitySet.add(segWord);
+			if (!NLPProcess.getEntityInDictinoary(segWord).isEmpty()) {
+				entityTreeSet.add(segWord);
+			} else if (!NLPProcess.getEntitySynonymNormal(segWord).isEmpty()){
+				entityTreeSet.add(entitySynonymTable.get(segWord));
 			}
 		}
+		
+		Iterator<String> it = entityTreeSet.iterator();
+        while ( it.hasNext()) {
+            entitySet.add(it.next().toString());
+        }
 
 		// System.out.println("the result entities are: " +
 		// entitySet.toString());
@@ -325,11 +426,11 @@ public class NLPProcess {
 	// input: "姚明是谁？"
 	// output: "姚明是谁"
 	public static String removePunctuateMark(String str) {
-		if(Tool.isStrEmptyOrNull(str)){
+		if (Tool.isStrEmptyOrNull(str)) {
 			return str;
 		}
-		if(str.endsWith("？") || str.endsWith("?") || str.endsWith("。") || str.endsWith(".")){
-			return str.substring(0, str.length()-1);
+		if (str.endsWith("？") || str.endsWith("?") || str.endsWith("。") || str.endsWith(".")) {
+			return str.substring(0, str.length() - 1);
 		}
 		return str;
 	}
@@ -337,7 +438,7 @@ public class NLPProcess {
 	public static void main(String[] args) {
 		String str = "姚明是谁。";
 		NLPProcess sp = new NLPProcess();
-		
+
 		System.out.println(sp.removePunctuateMark(str));
 
 		String rs = "";
