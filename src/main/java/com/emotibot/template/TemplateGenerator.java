@@ -83,7 +83,8 @@ public class TemplateGenerator {
 				// get the label and pattern
 				String[] firstArr = firstLine.split(",");
 				if (firstArr.length != 2) {
-					System.err.println("wrong format in Line=" + line + ", with number of , is=" + firstArr.length);
+					System.err.println("wrong format in Line=" + line + ", with number of , is=" + firstArr.length
+							+ ", firstLine=" + firstLine);
 					continue;
 				}
 

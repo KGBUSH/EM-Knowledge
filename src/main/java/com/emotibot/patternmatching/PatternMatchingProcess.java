@@ -77,11 +77,11 @@ public class PatternMatchingProcess {
 			text = "";
 		}
 		if (questionType == null) {
-			System.err.println("text is null");
+			System.err.println("questionType is null");
 			questionType = "";
 		}
 		if (score == null) {
-			System.err.println("text is null");
+			System.err.println("score is null");
 			score = "";
 		}
 
@@ -89,11 +89,12 @@ public class PatternMatchingProcess {
 		isQuestion = questionType.equals("question");
 //		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
 //		segPos = tnNode.getWordPos();
-		
+		System.out.println("userSentence="+userSentence+", isQuestion="+isQuestion);
 		segPos = NLPProcess.getSegWord(userSentence);
 		segWordWithoutStopWord = new ArrayList<>();
 		for (int i = 0; i < segPos.size(); i++) {
 			String segWord = segPos.get(i).word.trim();
+			System.out.println("segWord="+segWord);
 			if (!NLPProcess.isStopWord(segWord)) {
 				segWordWithoutStopWord.add(segWord);
 			}
@@ -1004,7 +1005,8 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		String str = "姚明和叶莉什么关系";
+		NLPProcess.NLPProcessInit();
+		String str = "姚明多重";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));

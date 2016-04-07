@@ -83,7 +83,7 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 	}
 
 	public static void main(String[] args) {
-		String str = "## 姚明<type>entity</type><label>figure</label> 什么时候上班";
+		String str = "## 姚明<type>entity</type><label>figure</label> 多重";
 		TemplateProcessor introTemplate = new TemplateProcessor("Knowledge");
 		System.out.println("====" + introTemplate.process(str));
 

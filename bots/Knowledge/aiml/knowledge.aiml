@@ -378,12 +378,6 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 拍 ^ ## * <type>entity</type><label>movie</label> ^ </pattern>
-        <template>
-            <star index="4"/>的拍摄地点在哪儿？
-        </template>
-    </category>
-    <category>
         <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 ^ 拍 ^ </pattern>
         <template>
             <star index="2"/>的拍摄地点在哪儿？
@@ -2013,6 +2007,1770 @@
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 出 ^ 啥 ^ </pattern>
         <template>
             <star index="2"/>的代表作品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 创 建 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 创 办 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 成 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 建 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 设 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 做 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的经营范围有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 类 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 类 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 性 质 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 性 质 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 类 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 性 质 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 类 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 性 质 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 类 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 性 质 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 类 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 性 质 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 掌 管 ^ </pattern>
+        <template>
+            <star index="2"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 执 掌 ^ </pattern>
+        <template>
+            <star index="2"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 负 责 ^ </pattern>
+        <template>
+            <star index="2"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 董 事 会 ^ </pattern>
+        <template>
+            <star index="2"/>的董事长是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 创 建 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 创 建 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 创 办 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 创 办 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 成 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 成 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 建 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 建 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 设 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 设 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 谁 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 谁 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 谁 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 谁 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 谁 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 经 营 ^ 产 品 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 出 售 ^ 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 销 售 ^ 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 卖 ^ 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 出 售 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 销 售 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 卖 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 出 售 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 销 售 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 卖 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 多 少 人 ^ </pattern>
+        <template>
+            <star index="2"/>的员工数是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 几 人 ^ </pattern>
+        <template>
+            <star index="2"/>的员工数是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 禁 忌 ^ </pattern>
+        <template>
+            <star index="2"/>主要用药禁忌有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 注 意 ^ </pattern>
+        <template>
+            <star index="2"/>主要用药禁忌有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 病 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 病 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 病 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 症 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 症 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 症 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 ^ 病 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 ^ 病 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 啥 ^ 病 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 ^ 症 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 ^ 症 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 啥 ^ 症 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 么 ^ 吃 ^ </pattern>
+        <template>
+            <star index="2"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 如 何 ^ 吃 ^ </pattern>
+        <template>
+            <star index="2"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 咋 ^ 吃 ^ </pattern>
+        <template>
+            <star index="2"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 么 ^ 用 ^ </pattern>
+        <template>
+            <star index="2"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 如 何 ^ 用 ^ </pattern>
+        <template>
+            <star index="2"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 咋 ^ 用 ^ </pattern>
+        <template>
+            <star index="2"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 怎 么 ^ 吃 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 如 何 ^ 吃 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 咋 ^ 吃 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 怎 么 ^ 用 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 如 何 ^ 用 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 咋 ^ 用 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 诊 室 ^ </pattern>
+        <template>
+            <star index="2"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 科 室 ^ </pattern>
+        <template>
+            <star index="2"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 诊 室 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 科 室 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 挂 ^ 科 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 挂 ^ 号 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 挂 ^ 科 ^ </pattern>
+        <template>
+            <star index="2"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 挂 ^ 号 ^ </pattern>
+        <template>
+            <star index="2"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 为 什 么 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 为 啥 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 怎 么 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 为 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 为 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 么 ^ </pattern>
+        <template>
+            <star index="2"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 原 因 ^ </pattern>
+        <template>
+            <star index="2"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 原 因 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 生 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 生 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 感 染 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 感 染 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 得 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 得 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 ^ 生 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 ^ 生 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 ^ 感 染 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 ^ 感 染 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 ^ 得 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 ^ 得 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 出 席 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 出 席 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 到 场 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 到 场 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 加 入 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 加 入 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 参 与 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 参 与 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 参 加 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 参 加 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 来 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 来 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 谁 ^ 出 席 ^ </pattern>
+        <template>
+            <star index="2"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 出 席 ^ </pattern>
+        <template>
+            <star index="2"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 谁 ^ 到 场 ^ </pattern>
+        <template>
+            <star index="2"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 到 场 ^ </pattern>
+        <template>
+            <star index="2"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 谁 ^ 加 入 ^ </pattern>
+        <template>
+            <star index="2"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 加 入 ^ </pattern>
+        <template>
+            <star index="2"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 谁 ^ 参 与 ^ </pattern>
+        <template>
+            <star index="2"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 参 与 ^ </pattern>
+        <template>
+            <star index="2"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 谁 ^ 参 加 ^ </pattern>
+        <template>
+            <star index="2"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 参 加 ^ </pattern>
+        <template>
+            <star index="2"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 谁 ^ 来 ^ </pattern>
+        <template>
+            <star index="2"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 来 ^ </pattern>
+        <template>
+            <star index="2"/>的主要嘉宾有谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 台 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出频道是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 台 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出频道是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 频 道 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出频道是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 频 道 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出频道是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 台 ^ </pattern>
+        <template>
+            <star index="2"/>的播出频道是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 什 么 ^ 台 ^ </pattern>
+        <template>
+            <star index="2"/>的播出频道是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 频 道 ^ </pattern>
+        <template>
+            <star index="2"/>的播出频道是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 什 么 ^ 频 道 ^ </pattern>
+        <template>
+            <star index="2"/>的播出频道是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 什 么 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 啥 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 何 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 什 么 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 啥 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 何 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 什 么 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 啥 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 何 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 什 么 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 啥 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 何 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 演 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 演 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 ^ 演 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 演 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 播 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 播 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 ^ 播 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 播 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 有 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 有 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 ^ 有 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 有 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 看 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 看 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 ^ 看 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 看 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 几 点 ^ </pattern>
+        <template>
+            <star index="2"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 点 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="3"/>的播出时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 什 么 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 什 么 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 什 么 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 哪 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 什 么 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 看 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 看 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 播 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 播 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 演 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 演 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 有 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 有 ^ ## * <type>entity</type><label>variety_show</label> ^ </pattern>
+        <template>
+            <star index="4"/>的在线播放平台是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 一 集 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>每集长度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 每 集 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>每集长度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 一 期 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>每集长度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 每 期 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>每集长度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 一 集 ^ 多 久 ^ </pattern>
+        <template>
+            <star index="2"/>每集长度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 每 集 ^ 多 久 ^ </pattern>
+        <template>
+            <star index="2"/>每集长度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 一 期 ^ 多 久 ^ </pattern>
+        <template>
+            <star index="2"/>每集长度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 每 期 ^ 多 久 ^ </pattern>
+        <template>
+            <star index="2"/>每集长度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 一 集 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>每集长度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 每 集 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>每集长度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 一 期 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>每集长度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 每 期 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>每集长度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>variety_show</label> ^ 第 几 季 ^ </pattern>
+        <template>
+            <star index="2"/>播出状态是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 什 么 ^ 俱 乐 部 ^ </pattern>
+        <template>
+            <star index="2"/>的运动项目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 俱 乐 部 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的运动项目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 什 么 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 哪 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 什 么 ^ 联 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 哪 ^ 联 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 什 么 ^ 赛 事 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 哪 ^ 赛 事 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 创 建 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 创 办 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 成 立 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 建 立 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 设 立 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 隶 属 ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 归 ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 属 于 ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 隶 属 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 归 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 属 于 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 掌 管 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 掌 管 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 负 责 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 负 责 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 主 管 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 主 管 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 管 理 控 制 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 管 理 控 制 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 操 纵 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 操 纵 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 职 掌 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 职 掌 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 谁 ^ 出 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 哪 ^ 出 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 谁 ^ 有 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 哪 ^ 有 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 谁 ^ 著 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 哪 ^ 著 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 谁 ^ 知 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 哪 ^ 知 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 谁 ^ 熟 知 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 哪 ^ 熟 知 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 出 名 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 出 名 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 有 名 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 有 名 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 著 名 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 著 名 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 知 名 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 知 名 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 熟 知 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 熟 知 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的昵称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 称 ^ </pattern>
+        <template>
+            <star index="2"/>的昵称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 叫 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="3"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 称 ^ ## * <type>entity</type><label>sports_organization</label> ^ </pattern>
+        <template>
+            <star index="3"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 得 ^ 什 么 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 得 ^ 哪 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 得 ^ 什 么 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 得 ^ 哪 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 得 ^ 什 么 ^ 冠 军 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 得 ^ 哪 ^ 冠 军 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 得 ^ 什 么 ^ 名 次 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 得 ^ 哪 ^ 名 次 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 队 服 ^ 样 子 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 球 衣 ^ 样 子 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 服 装 ^ 样 子 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 队 服 ^ 颜 色 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 球 衣 ^ 颜 色 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 服 装 ^ 颜 色 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 队 服 ^ 特 点 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 球 衣 ^ 特 点 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 服 装 ^ 特 点 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 队 服 ^ 不 同 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 球 衣 ^ 不 同 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 服 装 ^ 不 同 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 样 子 ^ 队 服 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 颜 色 ^ 队 服 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 样 子 ^ 球 衣 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 颜 色 ^ 球 衣 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 样 子 ^ 服 装 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 颜 色 ^ 服 装 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
         </template>
     </category>
 </aiml>
