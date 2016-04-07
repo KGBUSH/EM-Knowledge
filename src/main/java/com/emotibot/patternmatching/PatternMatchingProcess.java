@@ -49,8 +49,9 @@ public class PatternMatchingProcess {
 		}
 		userSentence = str;
 		isQuestion = true;
-		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
-		segPos = tnNode.getWordPos();
+//		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
+//		segPos = tnNode.getWordPos();
+		segPos = NLPProcess.getSegWord(userSentence);
 		segWordWithoutStopWord = new ArrayList<>();
 		for (int i = 0; i < segPos.size(); i++) {
 			String segWord = segPos.get(i).word.trim();
@@ -86,8 +87,10 @@ public class PatternMatchingProcess {
 
 		userSentence = text;
 		isQuestion = questionType.equals("question");
-		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
-		segPos = tnNode.getWordPos();
+//		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
+//		segPos = tnNode.getWordPos();
+		
+		segPos = NLPProcess.getSegWord(userSentence);
 		segWordWithoutStopWord = new ArrayList<>();
 		for (int i = 0; i < segPos.size(); i++) {
 			String segWord = segPos.get(i).word.trim();
@@ -765,8 +768,9 @@ public class PatternMatchingProcess {
 
 		for (String str : strSet) {
 			String littleCandidate = "";
-			NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
-			List<Term> segPos = tnNode.getWordPos();
+//			NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
+//			List<Term> segPos = tnNode.getWordPos();
+			List<Term> segPos = NLPProcess.getSegWord(str);
 			for (int i = 0; i < segPos.size(); i++) {
 				String segWord = segPos.get(i).word;
 				if (!NLPProcess.isStopWord(segWord)) {
@@ -826,8 +830,9 @@ public class PatternMatchingProcess {
 			return rsSet;
 		}
 
-		NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
-		List<Term> segPos = tnNode.getWordPos();
+//		NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
+//		List<Term> segPos = tnNode.getWordPos();
+		List<Term> segPos = NLPProcess.getSegWord(str);
 		rsSet.add("");
 		for (int i = 0; i < segPos.size(); i++) {
 			String iWord = segPos.get(i).word;

@@ -28,6 +28,7 @@ import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
 import com.emotibot.util.Tool;
 import com.emotibot.util.StringLengthComparator;
+import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.common.Term;
 
 public class NLPProcess {
@@ -45,6 +46,16 @@ public class NLPProcess {
 		entityTable = createEntityTable();
 		entitySynonymTable = createEntitySynonymTable();
 	}
+
+	public static List<Term> getSegWord(String sentence){
+		List<Term> segWord = new ArrayList<>();
+		if(Tool.isStrEmptyOrNull(sentence)){
+			return segWord;
+		}
+		segWord = HanLP.segment(sentence);
+		return segWord;
+	}
+	
 	// create entity table Set
 	// ["甲型病毒性肝炎"，“甲肝”]
 	private static Map<String, String> createEntitySynonymTable() {
