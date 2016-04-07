@@ -1,0 +1,13 @@
+0,^ ## * <TYPE>ENTITY</TYPE> ^ 属 什 么 ^,*,*,<star index="2"/>的生肖是什么,knowledge.aiml
+0,^ ## * <TYPE>ENTITY</TYPE> ^ 属 啥 ^,*,*,<star index="2"/>的生肖是多少,knowledge.aiml
+0,^ ## * <TYPE>ENTITY</TYPE> ^ 多 重 ^,*,*,<star index="2"/>的体重是多少,knowledge.aiml
+0,^ ## * <TYPE>ENTITY</TYPE> ^ 多 少 斤 ^,*,*,<star index="2"/>的体重是多少,knowledge.aiml
+0,^ ## * <TYPE>ENTITY</TYPE> ^ 还 叫 什 么 ^,*,*,<star index="2"/>的别名是什么,knowledge.aiml
+0,^ 称 呼 ^ ## * <TYPE>ENTITY</TYPE> ^,*,*,<star index="3"/>的别名是什么,knowledge.aiml
+0,^ 还 可 以 叫 ^ ## * <TYPE>ENTITY</TYPE> ^,*,*,<star index="3"/>的别名是什么,knowledge.aiml
+0,^ ## * <TYPE>ENTITY</TYPE> ^ 哪 国 人 ^,*,*,<star index="2"/>的国籍是什么,knowledge.aiml
+0,^ ## * <TYPE>ENTITY</TYPE> ^ 多 少 米 ^,*,*,<star index="2"/>的身高是多少,knowledge.aiml
+0,^ ## * <TYPE>ENTITY</TYPE> ^ 脚 多 大 ^,*,*,<star index="2"/>的鞋码是多少,knowledge.aiml
+0,^ ## * <TYPE>ENTITY</TYPE> ^ 属 于 哪 个 队 ^,*,*,<star index="2"/>的所属运动队是什么,knowledge.aiml
+0,^ ## * <TYPE>ENTITY</TYPE> ^ 被 哪 个 队 签 约 ^,*,*,<star index="2"/>的所属运动队是什么,knowledge.aiml
+0,^ ## * <TYPE>ENTITY</TYPE> ^ 什 么 时 候 出 生 ^,*,*,<star index="2"/>的出生日期是什么,knowledge.aiml
