@@ -367,7 +367,7 @@ public class PatternMatchingProcess {
 
 			if (nlpEntity.isEmpty()) {
 				List<String> solrEntity = getEntityBySolr(sentence, null, segWordWithoutStopWord);
-				System.out.println("test test \t solrEntity without entity input=" + solrEntity);
+				System.out.println("\t solrEntity without entity input=" + solrEntity);
 
 				if (simpleMatchEntity.size() == 1) {
 					if (solrEntity.isEmpty()) {
@@ -1040,7 +1040,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		// NLPProcess.NLPProcessInit();
 		NLPProcess nlpProcess = new NLPProcess();
-		String str = "姚明多大？";
+		String str = "奶茶妹妹是什么？";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));

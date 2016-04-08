@@ -38,24 +38,24 @@ public class NLPProcess {
 	private static Set<String> entityTable = createEntityTable();
 	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
 
-//	public static void NLPProcessInit()
-//	{
-//		synonymTable = createSynonymTable();
-//		synonymTableRef = createSynonymTableRef();
-//		stopWordTable = createStopWordTable();
-//		entityTable = createEntityTable();
-//		entitySynonymTable = createEntitySynonymTable();
-//	}
+	// public static void NLPProcessInit()
+	// {
+	// synonymTable = createSynonymTable();
+	// synonymTableRef = createSynonymTableRef();
+	// stopWordTable = createStopWordTable();
+	// entityTable = createEntityTable();
+	// entitySynonymTable = createEntitySynonymTable();
+	// }
 
-	public static List<Term> getSegWord(String sentence){
+	public static List<Term> getSegWord(String sentence) {
 		List<Term> segWord = new ArrayList<>();
-		if(Tool.isStrEmptyOrNull(sentence)){
+		if (Tool.isStrEmptyOrNull(sentence)) {
 			return segWord;
 		}
 		segWord = HanLP.segment(sentence);
 		return segWord;
 	}
-	
+
 	// create entity table Set
 	// ["甲型病毒性肝炎"，“甲肝”]
 	private static Map<String, String> createEntitySynonymTable() {
@@ -368,6 +368,38 @@ public class NLPProcess {
 			return rsList.get(0);
 	}
 
+	// remove the elements which are contained in other elements
+	// input: [面对面，名人面对面] output: [名人面对面]
+	private static List<String> removeContainedElements(TreeSet<String> tSet) {
+		TreeSet<String> tempSet = new TreeSet<String>(new StringLengthComparator());
+		List<String> rsSet = new ArrayList<>();
+
+		Iterator<String> it = tSet.iterator();
+		while (it.hasNext()) {
+			String element = it.next();
+			it.remove();
+			boolean isContained = false;
+			for(String s : tSet){
+				if(s.contains(element)){
+					isContained = true;
+					break;
+				}
+			}
+			if (isContained == false) {
+				tempSet.add(element);
+			}
+		}
+
+		String[] tempArr = tempSet.toArray(new String[0]);
+		System.out.println("tempArr=" + tempArr);
+		for (int i = tempArr.length - 1; i >= 0; i--) {
+			rsSet.add(tempArr[i]);
+		}
+
+		System.out.println("rsSet=" + rsSet);
+		return rsSet;
+	}
+
 	// return the set of entity which is contained in the input sentence
 	// TBD: improve the performance after 4/15
 	// input: 姚明和叶莉的女儿是谁？
@@ -385,11 +417,13 @@ public class NLPProcess {
 				entityTreeSet.add(entitySynonymTable.get(s));
 			}
 		}
+		
+		entitySet = removeContainedElements(entityTreeSet);
 
-		Iterator<String> it = entityTreeSet.iterator();
-		while (it.hasNext()) {
-			entitySet.add(it.next().toString());
-		}
+//		Iterator<String> it = entityTreeSet.iterator();
+//		while (it.hasNext()) {
+//			entitySet.add(it.next().toString());
+//		}
 
 		System.out.println("the macthed entities are: " + entitySet.toString());
 		return entitySet;
@@ -402,23 +436,23 @@ public class NLPProcess {
 	public static List<String> getEntityByNLP(List<Term> segPos) {
 		List<String> entitySet = new ArrayList<>();
 		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthComparator());
-		
+
 		for (int i = 0; i < segPos.size(); i++) {
 			String segWord = segPos.get(i).word;
 			if (!NLPProcess.getEntityInDictinoary(segWord).isEmpty()) {
 				entityTreeSet.add(segWord);
-			} else if (!NLPProcess.getEntitySynonymNormal(segWord).isEmpty()){
+			} else if (!NLPProcess.getEntitySynonymNormal(segWord).isEmpty()) {
 				entityTreeSet.add(entitySynonymTable.get(segWord));
 			}
 		}
-		
-		Iterator<String> it = entityTreeSet.iterator();
-        while ( it.hasNext()) {
-            entitySet.add(it.next().toString());
-        }
 
-		// System.out.println("the result entities are: " +
-		// entitySet.toString());
+//		Iterator<String> it = entityTreeSet.iterator();
+//		while (it.hasNext()) {
+//			entitySet.add(it.next().toString());
+//		}
+
+		entitySet = removeContainedElements(entityTreeSet);
+		System.out.println("the result entities of NLP are: " +	 entitySet.toString());
 		return entitySet;
 	}
 
@@ -426,18 +460,20 @@ public class NLPProcess {
 	// input: "身高是多少"
 	// output: "身高"
 	public static String removeStopWord(String str) {
-		//String rs = "";
+		// String rs = "";
 		StringBuffer buffer = new StringBuffer();
 		// Segmentation Process
-		//NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
-		List<Term> segPos=getSegWord(str);
+		// NLPResult tnNode = NLPSevice.ProcessSentence(str,
+		// NLPFlag.SegPos.getValue());
+		List<Term> segPos = getSegWord(str);
 		System.out.println("original string is " + str);
-		//List<Term> segPos = tnNode.getWordPos();
+		// List<Term> segPos = tnNode.getWordPos();
 		for (int i = 0; i < segPos.size(); i++) {
 			String s = segPos.get(i).word;
 			// System.out.print(s + ", ");
-			if (!NLPProcess.isStopWord(s)) buffer.append(s);
-				}
+			if (!NLPProcess.isStopWord(s))
+				buffer.append(s);
+		}
 		// System.out.println("");
 
 		return buffer.toString();

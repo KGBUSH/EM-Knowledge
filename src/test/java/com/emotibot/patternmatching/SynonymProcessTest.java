@@ -15,6 +15,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.emotibot.common.BytesEncodingDetect;
 import com.emotibot.common.Common;
@@ -28,14 +29,14 @@ import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
 import com.emotibot.nlpparser.SentenceTemplate;
 import com.emotibot.util.Neo4jResultBean;
+import com.emotibot.util.StringLengthComparator;
 import com.emotibot.util.Tool;
+import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.common.Term;
 
 import java.lang.reflect.Method;
 
 public class SynonymProcessTest {
-
-	public static EmotibotNeo4jConnection conn = getDBConnection();
 
 	public static EmotibotNeo4jConnection getDBConnection() {
 		ConfigManager cfg = new ConfigManager();
@@ -58,10 +59,11 @@ public class SynonymProcessTest {
 	}
 
 	public static void changeDB() {
+		EmotibotNeo4jConnection conn = getDBConnection();
 		try {
-
 			BufferedReader in = new BufferedReader(new FileReader(Common.UserDir + "/txt/temp/tourism.txt.txt"));
 			String line = in.readLine();
+
 			while (line != null) {
 				line = line.trim();
 				System.out.println("enil=" + line + ";");
@@ -84,6 +86,7 @@ public class SynonymProcessTest {
 	}
 
 	public static void generateEntity() {
+		EmotibotNeo4jConnection conn = getDBConnection();
 
 		String query = "match(n) with n return collect(n.Name) as result";
 		List<String> list = conn.getArrayListfromCollection(query);
@@ -105,6 +108,7 @@ public class SynonymProcessTest {
 
 	// random check top 1000 entity with the Entity.txt
 	public static void checkEntity() {
+		EmotibotNeo4jConnection conn = getDBConnection();
 		String query = "match(n) with n limit 1000 return collect(n.Name) as result";
 		List<String> list = conn.getArrayListfromCollection(query);
 
@@ -116,7 +120,7 @@ public class SynonymProcessTest {
 		}
 	}
 
-	// generate the entity list entity_ref_PM.txt from domain directory, 
+	// generate the entity list entity_ref_PM.txt from domain directory,
 	// and check with entity.txt which is used as the entity dictionary.
 	public static void generateEntityPMFile() {
 		String filePath = Common.UserDir + "/knowledgedata/domain";
@@ -124,7 +128,7 @@ public class SynonymProcessTest {
 		try {
 			String tempFileName = Common.UserDir + "/knowledgedata/entity_ref_PM.txt";
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
-			
+
 			File fileDictoray = new File(filePath);
 			File[] allFile = fileDictoray.listFiles();
 			for (File f : allFile) {
@@ -133,38 +137,128 @@ public class SynonymProcessTest {
 				BufferedReader dis = new BufferedReader(read);
 				String word = "";
 				while ((word = dis.readLine()) != null) {
-					if (!word.trim().isEmpty()){
+					if (!word.trim().isEmpty()) {
 						entitySet.add(word.trim());
-						out.write(word.trim()+"\r\n");
+						out.write(word.trim() + "\r\n");
 					}
 				}
 				dis.close();
 			}
 			out.close();
-			
+
 			String missingFileName = Common.UserDir + "/knowledgedata/entity_missing.txt";
 			BufferedWriter outMissing = new BufferedWriter(new FileWriter(missingFileName));
-			for(String s : entitySet){
-				if(NLPProcess.isEntity(s)){
-					outMissing.write(s+"\r\n");
-//					System.out.println(s);
+			for (String s : entitySet) {
+				if (NLPProcess.isEntity(s)) {
+					outMissing.write(s + "\r\n");
+					// System.out.println(s);
 				}
 			}
 			outMissing.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+
+	}
+
+	public static void generateDuplicateEntityFile() {
+		List<String> entitySet = new ArrayList<>();
+		try {
+
+			BufferedReader in = new BufferedReader(
+					new FileReader(Common.UserDir + "/knowledgedata/entity/Baidu_PM_Word"));
+			String line = in.readLine();
+
+			String outFileName = Common.UserDir + "/knowledgedata/entitySynonym.txt";
+			BufferedWriter out = new BufferedWriter(new FileWriter(outFileName));
+
+			while (line != null) {
+				line = line.trim();
+				if (line.isEmpty()) {
+					line = in.readLine();
+					continue;
+				}
+				line = line.replace("  ", " ");
+				line = line.replace("  ", " ");
+
+				String[] strArr = line.split(" ");
+				if (strArr.length != 2) {
+					System.err.println("wrong format: line=" + line);
+					line = in.readLine();
+					continue;
+				}
+
+				if (!strArr[0].equals(strArr[1])) {
+					out.write(line + "\r\n");
+				}
+				line = in.readLine();
+			}
+
+			in.close();
+			out.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void findDuplicateEntity() {
+		try {
+			String tempFileName = Common.UserDir + "/txt/debug/duplicateEntity.txt";
+			BufferedWriter duplateOut = new BufferedWriter(new FileWriter(tempFileName));
+
+			BufferedReader in = new BufferedReader(new FileReader(Common.UserDir + "/knowledgedata/entity_ref_PM.txt"));
+			List<String> entityList = new ArrayList<>();
+			String line = in.readLine();
+			while (line != null) {
+				line = line.trim();
+				entityList.add(line);
+				line = in.readLine();
+			}
+
+			Iterator it = entityList.iterator();
+			while (it.hasNext()) {
+				String str = it.next().toString();
+				it.remove();
+				if (entityList.contains(str)) {
+					System.out.println(str);
+					duplateOut.write(str + "\r\n");
+				}
+			}
+
+			duplateOut.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 	}
 
 	public static void main(String[] args) {
 
-		// SynonymProcessTest.changeDB();
-		SynonymProcessTest.generateEntityPMFile();
+		SynonymProcessTest.generateDuplicateEntityFile();
+		System.exit(0);
 
+		// // SynonymProcessTest.changeDB();
+		// SynonymProcessTest.generateEntityPMFile();
+		// SynonymProcessTest.findDuplicateEntity();
+
+		TreeSet<String> tempSet = new TreeSet<String>(new StringLengthComparator());
+		tempSet.add("1");
+		tempSet.add("2");
+		String[] tempArr = tempSet.toArray(new String[0]);
+		System.out.println("tempArr=" + tempArr);
+
+		System.out.println("tree set size = " + tempSet.size() + ", lenth=" + tempArr.length);
+
+		List<String> list = new ArrayList<>();
+		list.add("a");
+		list.add("a");
+		System.out.println("list size = " + list.size());
+
+		System.exit(0);
 		String strA = "1980年10月";
 
 		System.out.println(strA.indexOf("年"));
@@ -173,8 +267,8 @@ public class SynonymProcessTest {
 		System.out.println("contain#=" + strA.contains("#"));
 		System.out.println(strA);
 		String[] tetList = strA.split("/");
-		for (String s : tetList) {
-			System.out.println("s=" + s + "|");
+		for (String s1 : tetList) {
+			System.out.println("s=" + s1 + "|");
 		}
 
 		System.out.println("什么是姚明".endsWith("姚明"));
@@ -196,103 +290,98 @@ public class SynonymProcessTest {
 			e.printStackTrace();
 		}
 
-		List<String> list = new ArrayList<>();
-		System.out.println(list.size());
-
-		list = null;
-		System.out.println(list);
-		System.out.println(list);
-
 		// if(list.isEmpty()){
 		// System.out.println("1111");
 		//// System.out.println(list.size());
 		//
 		// }
 		//
-		SynonymProcessTest test = new SynonymProcessTest();
-
-		String t = "a";
-		test.changeString(t);
-		System.out.print("t=" + t);
-
-		List<PatternMatchingResultBean> listPMBean = new ArrayList<>();
-		listPMBean = null;
-
-		if (listPMBean == null || listPMBean.isEmpty())
-			System.err.println("null");
-
-		PatternMatchingResultBean bean = new PatternMatchingResultBean();
-		bean.setAnswer("a");
-		System.out.println(bean);
-
-		test.changeObject(bean);
-		System.out.println(bean);
-
-		listPMBean.add(bean);
-
-		// List<PatternMatchingResultBean> copy = new ArrayList<>(listPMBean);
-
-		List<PatternMatchingResultBean> copy = new ArrayList<PatternMatchingResultBean>(listPMBean.size());
-		Iterator<PatternMatchingResultBean> it = listPMBean.iterator();
-		while (it.hasNext()) {
-			copy.add(it.next().clone());
-		}
-
-		System.out.println("before chagne: " + copy.get(0).getAnswer());
-		bean.setAnswer("b");
-		System.out.println("after chagne: " + copy.get(0).getAnswer());
-
-		System.out.println("".length());
-
-		String s1 = "姚明身#高多#少";
-		String s2 = "姚明";
-		Set<String> ss = new HashSet<>();
-		ss.add("ets");
-
-		System.out.println("list is " + list.toString());
-
-		Iterator<String> itList = list.iterator();
-		while (itList.hasNext()) {
-			if (itList.next().equals(s2)) {
-				itList.remove();
-			}
-		}
-
-		System.out.println("list is " + list.toString());
-
-		list.add(s2);
-		System.out.println("list.size=" + list.size());
-
-		List<String> c = new ArrayList<>();
-		c.add("testc");
-
-		list.addAll(c);
-
-		System.out.println("after merge is " + list);
-
-		String[] sa = s1.split("姚明");
-
-		for (String s : sa) {
-			System.out.println("string arr is: " + s);
-		}
-
-		String[] arr = { "a", "b", "c" };
-		System.out.println("array.length=" + arr.length);
-		// for (int i = 0; i < arr.length; i++) {
-		// System.out.println(arr[i]);
+		// SynonymProcessTest test = new SynonymProcessTest();
+		//
+		// String t = "a";
+		// test.changeString(t);
+		// System.out.print("t=" + t);
+		//
+		// List<PatternMatchingResultBean> listPMBean = new ArrayList<>();
+		// listPMBean = null;
+		//
+		// if (listPMBean == null || listPMBean.isEmpty())
+		// System.err.println("null");
+		//
+		// PatternMatchingResultBean bean = new PatternMatchingResultBean();
+		// bean.setAnswer("a");
+		// System.out.println(bean);
+		//
+		// test.changeObject(bean);
+		// System.out.println(bean);
+		//
+		// listPMBean.add(bean);
+		//
+		// // List<PatternMatchingResultBean> copy = new
+		// ArrayList<>(listPMBean);
+		//
+		// List<PatternMatchingResultBean> copy = new
+		// ArrayList<PatternMatchingResultBean>(listPMBean.size());
+		// Iterator<PatternMatchingResultBean> it = listPMBean.iterator();
+		// while (it.hasNext()) {
+		// copy.add(it.next().clone());
 		// }
-
-		String s = "12345";
-		System.out.println("string.length()=" + s.length());
-
-		for (int i = 0; i < s.length() - 1; i++)
-			System.out.println(s.charAt(i));
-
-		String str = "姚明多少斤";
-
-		// SynonymProcessTest spt = new SynonymProcessTest();
-		// spt.testSynTable();
-		// spt.testSplitSentence();
+		//
+		// System.out.println("before chagne: " + copy.get(0).getAnswer());
+		// bean.setAnswer("b");
+		// System.out.println("after chagne: " + copy.get(0).getAnswer());
+		//
+		// System.out.println("".length());
+		//
+		// String s1 = "姚明身#高多#少";
+		// String s2 = "姚明";
+		// Set<String> ss = new HashSet<>();
+		// ss.add("ets");
+		//
+		// System.out.println("list is " + list.toString());
+		//
+		// Iterator<String> itList = list.iterator();
+		// while (itList.hasNext()) {
+		// if (itList.next().equals(s2)) {
+		// itList.remove();
+		// }
+		// }
+		//
+		// System.out.println("list is " + list.toString());
+		//
+		// list.add(s2);
+		// System.out.println("list.size=" + list.size());
+		//
+		// List<String> c = new ArrayList<>();
+		// c.add("testc");
+		//
+		// list.addAll(c);
+		//
+		// System.out.println("after merge is " + list);
+		//
+		// String[] sa = s1.split("姚明");
+		//
+		// for (String s : sa) {
+		// System.out.println("string arr is: " + s);
+		// }
+		//
+		// String[] arr = { "a", "b", "c" };
+		// System.out.println("array.length=" + arr.length);
+		// // for (int i = 0; i < arr.length; i++) {
+		// // System.out.println(arr[i]);
+		// // }
+		//
+		// String s = "12345";
+		// System.out.println("string.length()=" + s.length());
+		//
+		// for (int i = 0; i < s.length() - 1; i++)
+		// System.out.println(s.charAt(i));
+		//
+		// String str = "姚明多少斤";
+		//
+		// // SynonymProcessTest spt = new SynonymProcessTest();
+		// // spt.testSynTable();
+		// // spt.testSplitSentence();
 	}
 
 	/*
