@@ -108,10 +108,17 @@ public class SynonymProcessTest {
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
 
 			for (String s : tempSet) {
-				out.write(s + " n" + " 2" + "\r\n");
+				out.write(s + "\r\n");
 			}
-
 			out.close();
+			
+			tempFileName = Common.UserDir + "/knowledgedata/entityH.txt";
+			BufferedWriter outH = new BufferedWriter(new FileWriter(tempFileName));
+			
+			for (String s : tempSet) {
+				outH.write(s + " n" + " 2" + "\r\n");
+			}
+			outH.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1066,7 +1066,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		// NLPProcess.NLPProcessInit();
 		NLPProcess nlpProcess = new NLPProcess();
-		String str = "沃尔夫斯堡是什么";
+		String str = "雪口山乡是什么";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));
