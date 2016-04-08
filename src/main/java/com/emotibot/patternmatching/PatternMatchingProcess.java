@@ -61,7 +61,8 @@ public class PatternMatchingProcess {
 			}
 		}
 		System.out.println("TIME - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
-		entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
+		// entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
+		entitySet = getEntity(userSentence);
 		userSentence = changeEntitySynonym(entitySet, userSentence);
 		System.out.println("TIME - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
@@ -102,7 +103,11 @@ public class PatternMatchingProcess {
 			}
 		}
 		System.out.println("TIME - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
-		entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
+		// change the follow method of getting entity, by the case:
+		// "玛丽和马克思的其他中文名叫什么"
+		// note:"和" is stop word
+		// entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
+		entitySet = getEntity(userSentence);
 		userSentence = changeEntitySynonym(entitySet, userSentence);
 		System.out.println("TIME - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
@@ -119,11 +124,11 @@ public class PatternMatchingProcess {
 		// System.out.println("changeEntitySynonym:
 		// entitySet="+entitySet+",sentence="+sentence);
 		for (String s : entitySet) {
-			if (!sentence.contains(s) && NLPProcess.isEntitySynonym(s)) {
+			if (NLPProcess.isEntitySynonym(s)) {
 				String oldEntity = NLPProcess.getEntitySynonymReverse(s);
 				sentence = sentence.replace(oldEntity, s);
-				// System.out.println("changeEntitySynonym change : s = "+s+",
-				// oldEntity="+oldEntity+"; sentence="+sentence);
+				System.out.println("changeEntitySynonym change : s = " + s + ", oldEntity=" + oldEntity + "; sentence="
+						+ sentence);
 			}
 		}
 		return sentence;
@@ -380,10 +385,16 @@ public class PatternMatchingProcess {
 						System.out.println("case: 3: rsEntity=" + rsEntity);
 						return rsEntity;
 					} else {
-						// case: 熊猫明是谁？
 						System.out.println("case 4::::: solrEntity=" + solrEntity);
-						rsEntity.add(solrEntity.get(0));
-						System.out.println("case: 4: rsEntity=" + rsEntity);
+						if (solrEntity.contains(simpleMatchEntity.get(0))) {
+							// 私人订制票房有多少
+							rsEntity.add(simpleMatchEntity.get(0));
+							System.out.println("case: 4.1: rsEntity=" + rsEntity);
+						} else {
+							// case: 熊猫明是谁？
+							rsEntity.add(solrEntity.get(0));
+							System.out.println("case: 4.2: rsEntity=" + rsEntity);
+						}
 						return rsEntity;
 					}
 				} else {
@@ -398,8 +409,13 @@ public class PatternMatchingProcess {
 						System.out.println("case: 5: rsEntity=" + rsEntity);
 						return rsEntity;
 					} else {
-						rsEntity.add(solrEntity.get(0));
-						System.out.println("case: 6: rsEntity=" + rsEntity);
+						if (solrEntity.contains(simpleMatchEntity.get(0))) {
+							rsEntity.add(simpleMatchEntity.get(0));
+							System.out.println("case: 6.1: rsEntity=" + rsEntity);
+						} else {
+							rsEntity.add(solrEntity.get(0));
+							System.out.println("case: 6.2: rsEntity=" + rsEntity);
+						}
 						return rsEntity;
 					}
 				}
@@ -416,8 +432,13 @@ public class PatternMatchingProcess {
 						System.out.println("case: 6.5: rsEntity=" + rsEntity);
 						return rsEntity;
 					} else {
-						rsEntity.add(solrEntity.get(0));
-						System.out.println("case: 7: rsEntity=" + rsEntity);
+						if (solrEntity.contains(simpleMatchEntity.get(0))) {
+							rsEntity.add(simpleMatchEntity.get(0));
+							System.out.println("case: 7.1: rsEntity=" + rsEntity);
+						} else {
+							rsEntity.add(solrEntity.get(0));
+							System.out.println("case: 7.2: rsEntity=" + rsEntity);
+						}
 						return rsEntity;
 					}
 				} else {
@@ -765,6 +786,7 @@ public class PatternMatchingProcess {
 	// input: the sentence from user, "姚明身高多少"
 	// output: the entity identified by Solr, "姚明"
 	private List<String> getEntityBySolr(String sentence, List<String> entitySet, List<String> segWord) {
+		System.out.println("getEntityBySolr: segWord="+segWord);
 		List<String> rsEntitySet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getEntityBySolr: input is empty");
@@ -799,6 +821,10 @@ public class PatternMatchingProcess {
 		}
 
 		for (String str : strSet) {
+			if (str.trim().isEmpty()) {
+				continue;
+			}
+			rsList.add(str);
 			String littleCandidate = "";
 			// NLPResult tnNode = NLPSevice.ProcessSentence(str,
 			// NLPFlag.SegPos.getValue());
@@ -1040,7 +1066,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		// NLPProcess.NLPProcessInit();
 		NLPProcess nlpProcess = new NLPProcess();
-		String str = "奶茶妹妹是什么？";
+		String str = "沃尔夫斯堡是什么";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));

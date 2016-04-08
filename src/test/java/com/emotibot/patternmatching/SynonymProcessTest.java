@@ -91,12 +91,24 @@ public class SynonymProcessTest {
 		String query = "match(n) with n return collect(n.Name) as result";
 		List<String> list = conn.getArrayListfromCollection(query);
 
+		Set<String> tempSet = new HashSet<>();
+
+		for (String s : list) {
+			tempSet.add(s);
+		}
+		for (String s : NLPProcess.getEntitySynonymTable().keySet()) {
+			tempSet.add(s);
+		}
+		for (String s : NLPProcess.getEntitySynonymTable().values()) {
+			tempSet.add(s);
+		}
+
 		try {
 			String tempFileName = Common.UserDir + "/knowledgedata/entity.txt";
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
 
-			for (String s : list) {
-				out.write(s + "\r\n");
+			for (String s : tempSet) {
+				out.write(s + " n" + " 2" + "\r\n");
 			}
 
 			out.close();
@@ -174,7 +186,14 @@ public class SynonymProcessTest {
 			BufferedWriter out = new BufferedWriter(new FileWriter(outFileName));
 
 			while (line != null) {
+				line = line.replace(" ", " ");
+				if (line.startsWith("小丈夫")) {
+					System.out.println("1111=" + line);
+				}
 				line = line.trim();
+				if (line.startsWith("小丈夫")) {
+					System.out.println("1111=" + line);
+				}
 				if (line.isEmpty()) {
 					line = in.readLine();
 					continue;
@@ -182,7 +201,7 @@ public class SynonymProcessTest {
 				line = line.replace("  ", " ");
 				line = line.replace("  ", " ");
 
-				String[] strArr = line.split(" ");
+				String[] strArr = line.split("##");
 				if (strArr.length != 2) {
 					System.err.println("wrong format: line=" + line);
 					line = in.readLine();
@@ -238,8 +257,15 @@ public class SynonymProcessTest {
 
 	public static void main(String[] args) {
 
-		SynonymProcessTest.generateDuplicateEntityFile();
+		SynonymProcessTest.generateEntity();
 		System.exit(0);
+
+		Set<String> sss = new HashSet<>();
+		sss.add("1");
+		sss.add("1");
+		System.out.println("sss.length=" + sss.size());
+
+		SynonymProcessTest.generateDuplicateEntityFile();
 
 		// // SynonymProcessTest.changeDB();
 		// SynonymProcessTest.generateEntityPMFile();

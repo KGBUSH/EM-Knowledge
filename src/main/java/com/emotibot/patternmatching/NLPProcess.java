@@ -55,6 +55,10 @@ public class NLPProcess {
 		segWord = HanLP.segment(sentence);
 		return segWord;
 	}
+	
+	public static Map<String, String> getEntitySynonymTable(){
+		return entitySynonymTable;
+	}
 
 	// create entity table Set
 	// ["甲型病毒性肝炎"，“甲肝”]
@@ -74,7 +78,7 @@ public class NLPProcess {
 				BufferedReader dis = new BufferedReader(read);
 				String line = "";
 				while ((line = dis.readLine()) != null) {
-					String[] wordList = line.trim().split(" ");
+					String[] wordList = line.trim().split("##");
 					if (wordList.length != 2) {
 						System.err.println("wrong format in entitySynonym.txt");
 						continue;
@@ -391,12 +395,12 @@ public class NLPProcess {
 		}
 
 		String[] tempArr = tempSet.toArray(new String[0]);
-		System.out.println("tempArr=" + tempArr);
+//		System.out.println("tempArr=" + tempArr);
 		for (int i = tempArr.length - 1; i >= 0; i--) {
 			rsSet.add(tempArr[i]);
 		}
 
-		System.out.println("rsSet=" + rsSet);
+//		System.out.println("rsSet=" + rsSet);
 		return rsSet;
 	}
 
