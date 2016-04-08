@@ -39,6 +39,7 @@ public class PatternMatchingProcess {
 	private List<String> entitySet;
 	private boolean isQuestion;
 	private long timeCounter = System.currentTimeMillis();
+	private String uniqueID;
 
 	public PatternMatchingProcess(String str) {
 //		Debug.printDebug()
@@ -77,7 +78,7 @@ public class PatternMatchingProcess {
 		String text = cuBean.getText(); 
 		String questionType = cuBean.getQuestionType();
 		String score = cuBean.getScore();
-		String uniqueID = cuBean.getUniqueID();
+		uniqueID = cuBean.getUniqueID();
 		if (text == null) {
 			System.err.println("text is null");
 			text = "";
@@ -90,6 +91,7 @@ public class PatternMatchingProcess {
 			System.err.println("score is null");
 			score = "";
 		}
+		Debug.printDebug(uniqueID, 3, "knowledge", cuBean.toString());
 
 		userSentence = text;
 		isQuestion = questionType.equals("question");

@@ -38,4 +38,12 @@ public class CUBean {
 		this.uniqueID = uniqueID;
 	}
 
+	public String toString() {
+		StringBuffer s = new StringBuffer();
+		s.append("CUBean: text=").append(text).append("; questionType").append(questionType).append("; score=")
+				.append(score).append("; uniqueID=").append(uniqueID);
+		
+		return s.toString();
+	}
+
 }
