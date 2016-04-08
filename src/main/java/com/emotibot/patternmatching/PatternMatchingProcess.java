@@ -49,8 +49,9 @@ public class PatternMatchingProcess {
 		}
 		userSentence = str;
 		isQuestion = true;
-//		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
-//		segPos = tnNode.getWordPos();
+		// NLPResult tnNode = NLPSevice.ProcessSentence(userSentence,
+		// NLPFlag.SegPos.getValue());
+		// segPos = tnNode.getWordPos();
 		segPos = NLPProcess.getSegWord(userSentence);
 		segWordWithoutStopWord = new ArrayList<>();
 		for (int i = 0; i < segPos.size(); i++) {
@@ -59,10 +60,10 @@ public class PatternMatchingProcess {
 				segWordWithoutStopWord.add(segWord);
 			}
 		}
-		System.out.println("TIME - before get entity >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
+		System.out.println("TIME - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 		entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
 		userSentence = changeEntitySynonym(entitySet, userSentence);
-		System.out.println("TIME - get entity >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
+		System.out.println("TIME - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 		System.out.println("Constructor: userSentence=" + userSentence);
 		System.out.println("Constructor: isQuestion=" + isQuestion);
@@ -87,22 +88,23 @@ public class PatternMatchingProcess {
 
 		userSentence = text;
 		isQuestion = questionType.equals("question");
-//		NLPResult tnNode = NLPSevice.ProcessSentence(userSentence, NLPFlag.SegPos.getValue());
-//		segPos = tnNode.getWordPos();
-		System.out.println("userSentence="+userSentence+", isQuestion="+isQuestion);
+		// NLPResult tnNode = NLPSevice.ProcessSentence(userSentence,
+		// NLPFlag.SegPos.getValue());
+		// segPos = tnNode.getWordPos();
+		System.out.println("userSentence=" + userSentence + ", isQuestion=" + isQuestion);
 		segPos = NLPProcess.getSegWord(userSentence);
 		segWordWithoutStopWord = new ArrayList<>();
 		for (int i = 0; i < segPos.size(); i++) {
 			String segWord = segPos.get(i).word.trim();
-			System.out.println("segWord="+segWord);
+			System.out.println("segWord=" + segWord);
 			if (!NLPProcess.isStopWord(segWord)) {
 				segWordWithoutStopWord.add(segWord);
 			}
 		}
-		System.out.println("TIME - before get entity >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
+		System.out.println("TIME - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 		entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
 		userSentence = changeEntitySynonym(entitySet, userSentence);
-		System.out.println("TIME - get entity >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
+		System.out.println("TIME - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 		System.out.println("Constructor: userSentence=" + userSentence);
 		System.out.println("Constructor: isQuestion=" + isQuestion);
@@ -170,7 +172,7 @@ public class PatternMatchingProcess {
 
 			// answerBean = mutlipleReasoningProcess(sentence, entity);
 			answerBean = ReasoningProcess(sentence, entity, answerBean);
-			System.out.println("TIME - Reasoning Process >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
+			System.out.println("TIME - Reasoning Process >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 			System.out.println("\t ReasoningProcess answerBean = " + answerBean);
 		} else if (isRelationshipQuestion(userSentence)) {
 			List<String> relationNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(0),
@@ -184,7 +186,7 @@ public class PatternMatchingProcess {
 			System.out.println("\n\t relationNormalWayPathSet = " + relationNormalWayPathSet
 					+ "\n\t relationReverseWayPathSet=" + relationReverseWayPathSet + "\n\t relationConverge="
 					+ relationConvergePathSet + "\n\t relationDiverge =" + relationDivergePathSet);
-			System.out.println("TIME - get relationships >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
+			System.out.println("TIME - get relationships >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 			String answerRelation = "";
 			if (!relationNormalWayPathSet.isEmpty()) {
@@ -242,7 +244,7 @@ public class PatternMatchingProcess {
 			return answerBean;
 		}
 
-		System.out.println("TIME - before answer rewrite >>>>>>>>>>>>>> "+(System.currentTimeMillis()-timeCounter));
+		System.out.println("TIME - before answer rewrite >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 		System.out.println("\t into selective question, answerBean=" + answerBean);
 		// if it is the selective question
@@ -351,7 +353,7 @@ public class PatternMatchingProcess {
 				System.out.println("case: 2: rsEntity=" + rsEntity);
 				return rsEntity;
 			} else {
-//				rsEntity.add(simpleMatchEntity.get(0));
+				// rsEntity.add(simpleMatchEntity.get(0));
 				rsEntity = getIntersectionOfTwoLists(solrEntity, simpleMatchEntity, 1);
 				System.out.println("case: 2.5: rsEntity=" + rsEntity);
 				return rsEntity;
@@ -365,23 +367,32 @@ public class PatternMatchingProcess {
 
 			if (nlpEntity.isEmpty()) {
 				List<String> solrEntity = getEntityBySolr(sentence, null, segWordWithoutStopWord);
-				System.out.println("\t solrEntity without entity input=" + solrEntity);
+				System.out.println("test test \t solrEntity without entity input=" + solrEntity);
 
 				if (simpleMatchEntity.size() == 1) {
-					if (hasPropertyInSentence(sentence, simpleMatchEntity.get(0))) {
+					if (solrEntity.isEmpty()) {
+						rsEntity = simpleMatchEntity;
+						System.out.println("case: 2.7: rsEntity=" + rsEntity);
+						return rsEntity;
+					} else if (hasPropertyInSentence(sentence, simpleMatchEntity.get(0))) {
 						// case: 猫猫是什么科的？
 						rsEntity = simpleMatchEntity;
 						System.out.println("case: 3: rsEntity=" + rsEntity);
 						return rsEntity;
 					} else {
 						// case: 熊猫明是谁？
+						System.out.println("case 4::::: solrEntity=" + solrEntity);
 						rsEntity.add(solrEntity.get(0));
 						System.out.println("case: 4: rsEntity=" + rsEntity);
 						return rsEntity;
 					}
 				} else {
 					// size of simple matching is larger than 1
-					if (isRelationshipQuestion(sentence)) {
+					if (solrEntity.size() < 2) {
+						rsEntity = simpleMatchEntity;
+						System.out.println("case: 2.7: rsEntity=" + rsEntity);
+						return rsEntity;
+					} else if (isRelationshipQuestion(sentence)) {
 						rsEntity.add(solrEntity.get(0));
 						rsEntity.add(solrEntity.get(1));
 						System.out.println("case: 5: rsEntity=" + rsEntity);
@@ -400,19 +411,38 @@ public class PatternMatchingProcess {
 				System.out.println("\t solrEntity with entity input=" + solrEntity);
 
 				if (simpleMatchEntity.size() == 1) {
-					rsEntity.add(solrEntity.get(0));
-					System.out.println("case: 7: rsEntity=" + rsEntity);
-					return rsEntity;
+					if (solrEntity.isEmpty()) {
+						rsEntity = simpleMatchEntity;
+						System.out.println("case: 6.5: rsEntity=" + rsEntity);
+						return rsEntity;
+					} else {
+						rsEntity.add(solrEntity.get(0));
+						System.out.println("case: 7: rsEntity=" + rsEntity);
+						return rsEntity;
+					}
 				} else {
 					// size of simple matching is larger than 1
 					if (isRelationshipQuestion(sentence)) {
-						rsEntity = getIntersectionOfTwoLists(solrEntity, mergeEntity, 2);
-						System.out.println("case: 8: rsEntity=" + rsEntity);
-						return rsEntity;
+						if (solrEntity.size() < 2) {
+							rsEntity.add(simpleMatchEntity.get(0));
+							rsEntity.add(simpleMatchEntity.get(1));
+							System.out.println("case: 7.5: rsEntity=" + rsEntity);
+							return rsEntity;
+						} else {
+							rsEntity = getIntersectionOfTwoLists(solrEntity, mergeEntity, 2);
+							System.out.println("case: 8: rsEntity=" + rsEntity);
+							return rsEntity;
+						}
 					} else {
-						rsEntity = getIntersectionOfTwoLists(solrEntity, mergeEntity, 1);
-						System.out.println("case: 9: rsEntity=" + rsEntity);
-						return rsEntity;
+						if (solrEntity.isEmpty()) {
+							rsEntity.add(simpleMatchEntity.get(0));
+							System.out.println("case: 8.5: rsEntity=" + rsEntity);
+							return rsEntity;
+						} else {
+							rsEntity = getIntersectionOfTwoLists(solrEntity, mergeEntity, 1);
+							System.out.println("case: 9: rsEntity=" + rsEntity);
+							return rsEntity;
+						}
 					}
 				}
 			}
@@ -770,8 +800,9 @@ public class PatternMatchingProcess {
 
 		for (String str : strSet) {
 			String littleCandidate = "";
-//			NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
-//			List<Term> segPos = tnNode.getWordPos();
+			// NLPResult tnNode = NLPSevice.ProcessSentence(str,
+			// NLPFlag.SegPos.getValue());
+			// List<Term> segPos = tnNode.getWordPos();
 			List<Term> segPos = NLPProcess.getSegWord(str);
 			for (int i = 0; i < segPos.size(); i++) {
 				String segWord = segPos.get(i).word;
@@ -832,8 +863,9 @@ public class PatternMatchingProcess {
 			return rsSet;
 		}
 
-//		NLPResult tnNode = NLPSevice.ProcessSentence(str, NLPFlag.SegPos.getValue());
-//		List<Term> segPos = tnNode.getWordPos();
+		// NLPResult tnNode = NLPSevice.ProcessSentence(str,
+		// NLPFlag.SegPos.getValue());
+		// List<Term> segPos = tnNode.getWordPos();
 		List<Term> segPos = NLPProcess.getSegWord(str);
 		rsSet.add("");
 		for (int i = 0; i < segPos.size(); i++) {
@@ -1006,9 +1038,9 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-//		NLPProcess.NLPProcessInit();
+		// NLPProcess.NLPProcessInit();
 		NLPProcess nlpProcess = new NLPProcess();
-		String str = "姚明身高多少？";
+		String str = "姚明多大？";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));
