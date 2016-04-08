@@ -38,14 +38,14 @@ public class NLPProcess {
 	private static Set<String> entityTable = createEntityTable();
 	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
 
-	public static void NLPProcessInit()
-	{
-		synonymTable = createSynonymTable();
-		synonymTableRef = createSynonymTableRef();
-		stopWordTable = createStopWordTable();
-		entityTable = createEntityTable();
-		entitySynonymTable = createEntitySynonymTable();
-	}
+//	public static void NLPProcessInit()
+//	{
+//		synonymTable = createSynonymTable();
+//		synonymTableRef = createSynonymTableRef();
+//		stopWordTable = createStopWordTable();
+//		entityTable = createEntityTable();
+//		entitySynonymTable = createEntitySynonymTable();
+//	}
 
 	public static List<Term> getSegWord(String sentence){
 		List<Term> segWord = new ArrayList<>();
@@ -260,6 +260,7 @@ public class NLPProcess {
 
 	// create synonym hash map table Map<words, id>
 	private static HashMap<String, Set<String>> createSynonymTable() {
+		System.err.println("init of synonymtable");
 		HashMap<String, Set<String>> syn = new HashMap<>();
 		String fileName = Common.UserDir + "/knowledgedata/SynonymNoun.txt";
 		if (!Tool.isStrEmptyOrNull(fileName)) {

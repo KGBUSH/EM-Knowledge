@@ -39,7 +39,8 @@ public class WebServer {
 		// Note that if you set this to port 0 then a randomly available port
 		// will be assigned that you can either look in the logs for the port,
 		// or programmatically obtain it for use in test cases.
-		NLPProcess.NLPProcessInit();
+		NLPProcess nlpProcess = new NLPProcess();
+//		NLPProcess.NLPProcessInit();
 		int port =9000;
 		ConfigManager cf = new ConfigManager();
 		port = cf.getWebServerPort();
