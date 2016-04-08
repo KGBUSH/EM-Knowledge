@@ -29,6 +29,7 @@ import com.emotibot.nlp.NLPSevice;
 import com.emotibot.util.Tool;
 import com.emotibot.util.StringLengthComparator;
 import com.hankcs.hanlp.HanLP;
+import com.hankcs.hanlp.dictionary.CustomDictionary;
 import com.hankcs.hanlp.seg.common.Term;
 
 public class NLPProcess {
@@ -38,15 +39,29 @@ public class NLPProcess {
 	private static Set<String> entityTable = createEntityTable();
 	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
 
-	// public static void NLPProcessInit()
-	// {
+	 public static void NLPProcessInit()
+	 {
+		 addCustomDictionaryInHanlp();
 	// synonymTable = createSynonymTable();
 	// synonymTableRef = createSynonymTableRef();
 	// stopWordTable = createStopWordTable();
 	// entityTable = createEntityTable();
 	// entitySynonymTable = createEntitySynonymTable();
-	// }
+	 }
 
+	private static void addCustomDictionaryInHanlp(){
+		for(String s : entityTable){
+			CustomDictionary.add(s);
+		}
+		for(String s : entitySynonymTable.keySet()){
+			CustomDictionary.add(s);
+		}
+		for(String s : entitySynonymTable.values()){
+			CustomDictionary.add(s);
+		}
+	}
+	
+	// return the segPos by Hanlp method
 	public static List<Term> getSegWord(String sentence) {
 		List<Term> segWord = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(sentence)) {

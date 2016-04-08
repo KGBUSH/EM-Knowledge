@@ -40,7 +40,7 @@ public class WebServer {
 		// will be assigned that you can either look in the logs for the port,
 		// or programmatically obtain it for use in test cases.
 		NLPProcess nlpProcess = new NLPProcess();
-//		NLPProcess.NLPProcessInit();
+		NLPProcess.NLPProcessInit();
 		int port =9000;
 		ConfigManager cf = new ConfigManager();
 		port = cf.getWebServerPort();

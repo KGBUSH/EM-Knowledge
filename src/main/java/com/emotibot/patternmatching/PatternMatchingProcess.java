@@ -121,8 +121,7 @@ public class PatternMatchingProcess {
 	// if the sentnece contain a alias, change to wiki entity name
 	// input: “甲肝是什么” output: “甲型病毒性肝炎是什么”
 	private String changeEntitySynonym(List<String> entitySet, String sentence) {
-		// System.out.println("changeEntitySynonym:
-		// entitySet="+entitySet+",sentence="+sentence);
+		System.out.println("changeEntitySynonym: entitySet=" + entitySet + ",sentence=" + sentence);
 		for (String s : entitySet) {
 			if (NLPProcess.isEntitySynonym(s)) {
 				String oldEntity = NLPProcess.getEntitySynonymReverse(s);
@@ -786,7 +785,7 @@ public class PatternMatchingProcess {
 	// input: the sentence from user, "姚明身高多少"
 	// output: the entity identified by Solr, "姚明"
 	private List<String> getEntityBySolr(String sentence, List<String> entitySet, List<String> segWord) {
-		System.out.println("getEntityBySolr: segWord="+segWord);
+		System.out.println("getEntityBySolr: segWord=" + segWord);
 		List<String> rsEntitySet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getEntityBySolr: input is empty");
@@ -1064,9 +1063,9 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		// NLPProcess.NLPProcessInit();
 		NLPProcess nlpProcess = new NLPProcess();
-		String str = "雪口山乡是什么";
+		NLPProcess.NLPProcessInit();
+		String str = "甲肝是什么";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));

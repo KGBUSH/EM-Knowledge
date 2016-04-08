@@ -224,7 +224,12 @@ public class DBProcess {
 		List<String> list = conn.getArrayListfromCollection(query);
 		freeDBConnection(conn);
 		System.out.println("in DBProcess, getEntityLabel " + list);
-		return list.get(0);
+		if(list == null || list.isEmpty()){
+			System.err.println("there is no node in DB");
+			return "";
+		} else {
+			return list.get(0);
+		}
 	}
 
 	// get the property value Map of an entity
