@@ -258,6 +258,7 @@ public class PatternMatchingProcess {
 			if (isQuestion == false) {
 				answerBean.setScore(0);
 			}
+			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer()));
 			System.out.println("PM.getAnswer: the returned anwer is " + answerBean.toString());
 			return answerBean;
 		} else {
@@ -1005,8 +1006,9 @@ public class PatternMatchingProcess {
 	}
 
 	public static void main(String[] args) {
-		NLPProcess.NLPProcessInit();
-		String str = "姚明多重";
+//		NLPProcess.NLPProcessInit();
+		NLPProcess nlpProcess = new NLPProcess();
+		String str = "姚明身高多少？";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));
