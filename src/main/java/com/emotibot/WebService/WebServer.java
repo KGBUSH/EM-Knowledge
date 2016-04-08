@@ -24,6 +24,7 @@ import com.emotibot.config.ConfigManager;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
 import com.emotibot.patternmatching.NLPProcess;
 import com.emotibot.patternmatching.PatternMatchingProcess;
+import com.emotibot.util.CUBean;
 import com.hankcs.hanlp.seg.common.Term;
 
 import net.sf.json.JSONArray;
@@ -167,7 +168,12 @@ public class WebServer {
 			if (text != null) {
 				text = text.trim();
 				long t=System.currentTimeMillis();
-				AnswerBean bean =new PatternMatchingProcess(text, questionType, scoreStr).getAnswer();
+				CUBean cuBean = new CUBean();
+				cuBean.setText(text);
+				cuBean.setQuestionType(questionType);
+				cuBean.setScore(scoreStr);
+				cuBean.setUniqueID(uniqId);
+				AnswerBean bean =new PatternMatchingProcess(cuBean).getAnswer();
 				JSONObject result_obj = new JSONObject();
 				   result_obj.put("ver", "");
 				   

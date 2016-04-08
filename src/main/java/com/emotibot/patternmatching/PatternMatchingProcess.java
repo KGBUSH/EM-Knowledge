@@ -16,13 +16,12 @@ import java.util.Set;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.common.Common;
-import com.emotibot.nlp.NLPFlag;
-import com.emotibot.nlp.NLPResult;
-import com.emotibot.nlp.NLPSevice;
 import com.emotibot.solr.SolrUtil;
 import com.emotibot.solr.Solr_Query;
 import com.emotibot.template.TemplateProcessor;
+import com.emotibot.util.CUBean;
 import com.emotibot.util.Tool;
+import com.emotibot.Debug.Debug;
 import com.hankcs.hanlp.seg.common.Term;
 
 public class PatternMatchingProcess {
@@ -42,6 +41,7 @@ public class PatternMatchingProcess {
 	private long timeCounter = System.currentTimeMillis();
 
 	public PatternMatchingProcess(String str) {
+//		Debug.printDebug()
 
 		if (str == null) {
 			System.err.println("text is null");
@@ -73,7 +73,11 @@ public class PatternMatchingProcess {
 		System.out.println("Constructor: entitySet=" + entitySet);
 	}
 
-	public PatternMatchingProcess(String text, String questionType, String score) {
+	public PatternMatchingProcess(CUBean cuBean) {
+		String text = cuBean.getText(); 
+		String questionType = cuBean.getQuestionType();
+		String score = cuBean.getScore();
+		String uniqueID = cuBean.getUniqueID();
 		if (text == null) {
 			System.err.println("text is null");
 			text = "";
