@@ -232,10 +232,19 @@ public class NLPProcess {
 			return "";
 	}
 
-	// check the entity synonym existence
+	// check the entity has a synonym 
 	// input-output: 甲型病毒性肝炎-true
-	public static boolean isEntitySynonym(String str) {
+	public static boolean hasEntitySynonym(String str) {
 		if (!Tool.isStrEmptyOrNull(str) && entitySynonymTable.values().contains(str))
+			return true;
+		else
+			return false;
+	}
+	
+	// check wether the word is a synonym of an entity
+	// input-output: 甲肝-true
+	public static boolean isEntitySynonym(String str) {
+		if (!Tool.isStrEmptyOrNull(str) && entitySynonymTable.keySet().contains(str))
 			return true;
 		else
 			return false;

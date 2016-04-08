@@ -123,7 +123,7 @@ public class PatternMatchingProcess {
 	private String changeEntitySynonym(List<String> entitySet, String sentence) {
 		System.out.println("changeEntitySynonym: entitySet=" + entitySet + ",sentence=" + sentence);
 		for (String s : entitySet) {
-			if (NLPProcess.isEntitySynonym(s)) {
+			if (NLPProcess.hasEntitySynonym(s)) {
 				String oldEntity = NLPProcess.getEntitySynonymReverse(s);
 				sentence = sentence.replace(oldEntity, s);
 				System.out.println("changeEntitySynonym change : s = " + s + ", oldEntity=" + oldEntity + "; sentence="
@@ -1065,7 +1065,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "甲肝是什么";
+		String str = "霍比特人：五军之战是什么";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));
