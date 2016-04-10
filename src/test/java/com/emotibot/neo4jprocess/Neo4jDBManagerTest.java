@@ -3,12 +3,14 @@ package com.emotibot.neo4jprocess;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import com.emotibot.Debug.Debug;
 import com.emotibot.common.Common;
 import com.emotibot.config.ConfigManager;
 import com.emotibot.extractor.BaikeExtractor;
@@ -90,7 +92,7 @@ public class Neo4jDBManagerTest {
         return neo4jDBManager.getConnection();
 	}
 	public static void main(String args[]) throws SQLException {
-		BuildKG();
+		//BuildKG();
 		//SQLExample();
 		//EmotibotNeo4jConnection con=getEmotibotNeo4jConnection();
 		//Vector<String> sqls = Tool.getFileLines("sql");
@@ -108,6 +110,13 @@ public class Neo4jDBManagerTest {
 		//{
 			
 		//}
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+	 //   System.err.println(sdf.format(System.currentTimeMillis()));
+		//Debug.printDebug(uniqueID, 3, "knowledge", cuBean.toString());
+
+	    //Debug.printDebug("111", 1, "liutao", sdf.format(System.currentTimeMillis()));
+	    int ret = Debug.printDebug("123", 1, "test", "hello!");
+	    System.out.printf("ret: %d\n", ret);
 	}
 
 }
