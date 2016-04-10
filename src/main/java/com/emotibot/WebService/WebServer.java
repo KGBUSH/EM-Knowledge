@@ -9,6 +9,7 @@ package com.emotibot.WebService;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -175,7 +176,10 @@ public class WebServer {
 				cuBean.setUniqueID(uniqId);
 				AnswerBean bean =new PatternMatchingProcess(cuBean).getAnswer();
 				JSONObject result_obj = new JSONObject();
-				   result_obj.put("ver", "");
+			    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
+			    String ver=sdf.format(System.currentTimeMillis());
+
+				   result_obj.put("ver", ver);
 				   
 				   result_obj.put("score", bean.getScore());
 				   result_obj.put("topic", "");
