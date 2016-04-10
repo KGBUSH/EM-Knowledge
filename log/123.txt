@@ -1,0 +1,1 @@
+2016-04-10 13:51:03 level:1 threadId:1 module:test	Neo4jDBManagerTest.java-main-118	hello!
