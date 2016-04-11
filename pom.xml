@@ -137,7 +137,6 @@
 	  <groupId>com.emotibot</groupId>
 	  <artifactId>debug-logger</artifactId>
 	  <version>1.0-SNAPSHOT</version>
-	  <scope>provided</scope>
     </dependency>
   </dependencies>
   <repositories>
