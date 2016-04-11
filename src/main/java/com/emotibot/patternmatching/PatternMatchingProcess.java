@@ -137,8 +137,8 @@ public class PatternMatchingProcess {
 		System.out.println("changeEntitySynonym: entitySet=" + entitySet + ",sentence=" + sentence);
 		for (String s : entitySet) {
 			if (NLPProcess.hasEntitySynonym(s)) {
-				String oldEntity = NLPProcess.getEntitySynonymReverse(s);
-				sentence = sentence.replace(oldEntity, s);
+				String oldEntity = NLPProcess.getEntitySynonymReverse(s).toLowerCase();
+				sentence = sentence.toLowerCase().replace(oldEntity, s);
 				System.out.println("changeEntitySynonym change : s = " + s + ", oldEntity=" + oldEntity + "; sentence="
 						+ sentence);
 			}
@@ -378,6 +378,7 @@ public class PatternMatchingProcess {
 				return rsEntity;
 			} else {
 				// rsEntity.add(simpleMatchEntity.get(0));
+				// change simple match set as source for fixing case: "百变小樱是哪种动漫"
 				rsEntity = getIntersectionOfTwoLists(simpleMatchEntity, solrEntity, 1);
 				System.out.println("case: 2.5: rsEntity=" + rsEntity);
 				return rsEntity;
@@ -1152,7 +1153,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "爱奇艺的ceo是谁";
+		String str = "dreamweaver的开发商是谁";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));
