@@ -43,6 +43,8 @@ public class WebServer {
 		// or programmatically obtain it for use in test cases.
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
+		System.out.println("init NLPProcess");
+		
 		int port =9000;
 		ConfigManager cf = new ConfigManager();
 		port = cf.getWebServerPort();
@@ -174,6 +176,7 @@ public class WebServer {
 				cuBean.setQuestionType(questionType);
 				cuBean.setScore(scoreStr);
 				cuBean.setUniqueID(uniqId);
+				System.out.println("@@@@@@@@@@@@@@@processing: cuBean="+cuBean);
 				AnswerBean bean =new PatternMatchingProcess(cuBean).getAnswer();
 				JSONObject result_obj = new JSONObject();
 			    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
