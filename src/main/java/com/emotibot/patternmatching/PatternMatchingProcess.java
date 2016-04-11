@@ -79,17 +79,17 @@ public class PatternMatchingProcess {
 		String questionType = cuBean.getQuestionType();
 		String score = cuBean.getScore();
 		uniqueID = cuBean.getUniqueID();
-		if(Tool.isStrEmptyOrNull(uniqueID)){
+		if (Tool.isStrEmptyOrNull(uniqueID)) {
 			uniqueID = "0";
 		}
-		
+
 		if (text == null) {
 			System.err.println("text is null");
 			Debug.printDebug(uniqueID, 2, "knowledge", "init, text is null");
 			text = "";
 		}
 		if (questionType == null) {
-			System.err.println("questionType is null"+"userID="+uniqueID);
+			System.err.println("questionType is null" + "userID=" + uniqueID);
 			Debug.printDebug(uniqueID, 2, "knowledge", "init, questionType is null");
 			questionType = "";
 		}
@@ -378,7 +378,7 @@ public class PatternMatchingProcess {
 				return rsEntity;
 			} else {
 				// rsEntity.add(simpleMatchEntity.get(0));
-				rsEntity = getIntersectionOfTwoLists(solrEntity, simpleMatchEntity, 1);
+				rsEntity = getIntersectionOfTwoLists(simpleMatchEntity, solrEntity, 1);
 				System.out.println("case: 2.5: rsEntity=" + rsEntity);
 				return rsEntity;
 			}
@@ -740,7 +740,7 @@ public class PatternMatchingProcess {
 
 			for (String syn : synList) {
 				System.out.println("q=" + syn + " and s=" + candidate);
-				int orignalScore = (syn.equals(candidate)) ? 100 : 80;
+				int orignalScore = (syn.toLowerCase().equals(candidate.toLowerCase())) ? 100 : 80;
 				PatternMatchingResultBean pmRB = this.getCandidatePropName(syn, propMap, orignalScore);
 				if (pmRB.isValid()) {
 					tempBeanSet.add(pmRB);
@@ -1033,7 +1033,7 @@ public class PatternMatchingProcess {
 			System.err.println("PMP.getCandidatePropName: input is empty");
 			return beanPM;
 		}
-
+		candidate = candidate.toLowerCase();
 		System.out.println("query string is: " + candidate);
 
 		for (String strProperty : propMap.keySet()) {
@@ -1046,7 +1046,7 @@ public class PatternMatchingProcess {
 			// pattern matching algorithm suggested by Phantom
 			// compute the score by scanning the sentence from left to right
 			// compare each char, if match, socre++, else score--
-			String tmpProp = strProperty;
+			String tmpProp = strProperty.toLowerCase();
 			int left2right = 0;
 			for (int i = 0; i < candidate.length(); i++) {
 				if (tmpProp.indexOf(candidate.charAt(i)) == 0) {
@@ -1065,7 +1065,7 @@ public class PatternMatchingProcess {
 			// case: "sentence is 所属运动队, prop is 运动项目; left=-1, right=-5"
 			// extend the algorithm by adding the process from right to left
 			// compute the score by scanning from right to left
-			tmpProp = strProperty;
+			tmpProp = strProperty.toLowerCase();
 			int right2left = 0;
 			for (int i = candidate.length() - 1; i >= 0; i--) {
 				// System.out.println(tmpProp + " " + str.charAt(i));
@@ -1152,7 +1152,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "斗罗大陆属于哪种小说";
+		String str = "爱奇艺的ceo是谁";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));
