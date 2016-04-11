@@ -42,7 +42,7 @@ public class PatternMatchingProcess {
 	private String uniqueID;
 
 	public PatternMatchingProcess(String str) {
-//		Debug.printDebug()
+		// Debug.printDebug()
 
 		if (str == null) {
 			System.err.println("text is null");
@@ -75,19 +75,22 @@ public class PatternMatchingProcess {
 	}
 
 	public PatternMatchingProcess(CUBean cuBean) {
-		String text = cuBean.getText(); 
+		String text = cuBean.getText();
 		String questionType = cuBean.getQuestionType();
 		String score = cuBean.getScore();
 		uniqueID = cuBean.getUniqueID();
 		if (text == null) {
 			System.err.println("text is null");
+			Debug.printDebug(uniqueID, 2, "knowledge", "init, text is null");
 			text = "";
 		}
 		if (questionType == null) {
 			System.err.println("questionType is null");
+			Debug.printDebug(uniqueID, 2, "knowledge", "init, questionType is null");
 			questionType = "";
 		}
 		if (score == null) {
+			Debug.printDebug(uniqueID, 2, "knowledge", "init, score is null");
 			System.err.println("score is null");
 			score = "";
 		}
@@ -494,9 +497,13 @@ public class PatternMatchingProcess {
 	private AnswerBean ReasoningProcess(String templateSentence, String entity, AnswerBean answerBean) {
 		System.out.println("PMP.ReasoningProcess: sentence=" + templateSentence + ", entity =" + entity + ", bean is "
 				+ answerBean);
+//		Debug.printDebug(uniqueID, 3, "knowledge", "PMP.ReasoningProcess: sentence=" + templateSentence + ", entity ="
+//				+ entity + ", bean is " + answerBean.toString());
+		// to be checked later
 
 		if (!templateSentence.contains(entity)) {
 			System.err.println("Sentence does not contain entity");
+			Debug.printDebug(uniqueID, 2, "knowledge", "Sentence does not contain entity");
 			return answerBean;
 		}
 		String sentenceNoEntity = templateSentence.substring(0, templateSentence.indexOf(entity))
@@ -506,8 +513,23 @@ public class PatternMatchingProcess {
 		Map<String, String> relationMap = this.getRelationshipSet(entity);
 		System.out.println("\t relationMap = " + relationMap);
 
-		// get teh matched properties by pattern matching method
-		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(templateSentence, entity);
+		// split the sentence by the entities to get candidates
+		// get candidates by splitting the sentence by entities and stopwords.
+		List<String> candidateSet = this.getCandidateSet(templateSentence, entity);
+		List<String> candidateSetbyStopWord = this.getCandidateSetbyStopWord(candidateSet);
+		System.out.println("PMP.ReasoningProcess: candidateSet = " + candidateSet);
+		System.out.println("PMP.ReasoningProcess: candidateSetbyStopWord = " + candidateSetbyStopWord);
+
+		// get all the property of the entity
+		Map<String, String> propMap = this.getPropertyNameSet(entity);
+		System.out.println("PMP.ReasoningProcess: propMap = " + propMap);
+
+		// get the matched properties by pattern matching method
+		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(templateSentence, entity,
+				candidateSetbyStopWord, propMap);
+		if (listPMBean.isEmpty()) {
+			listPMBean = this.matchPropertyFromSentence(templateSentence, entity, candidateSet, propMap);
+		}
 		PatternMatchingResultBean implicationBean = ImplicationProcess.checkImplicationWord(templateSentence);
 		if (implicationBean.isValid())
 			listPMBean.add(implicationBean);
@@ -596,7 +618,11 @@ public class PatternMatchingProcess {
 	}
 
 	private boolean hasPropertyInSentence(String sentence, String entity) {
-		if (matchPropertyFromSentence(sentence, entity).isEmpty())
+		List<String> candidateSet = this.getCandidateSet(sentence, entity);
+		List<String> candidateSetbyStopWord = this.getCandidateSetbyStopWord(candidateSet);
+		Map<String, String> propMap = this.getPropertyNameSet(entity);
+
+		if (matchPropertyFromSentence(sentence, entity, candidateSetbyStopWord, propMap).isEmpty())
 			return false;
 		else
 			return true;
@@ -671,15 +697,19 @@ public class PatternMatchingProcess {
 	// for the case of single entity in multiple level reasoning case
 	// input: the question sentence from users,"姚明的老婆的身高是多少"
 	// output: the valid property contained in the sentence
-	private List<PatternMatchingResultBean> matchPropertyFromSentence(String sentence, String entity) {
+	private List<PatternMatchingResultBean> matchPropertyFromSentence(String sentence, String entity,
+			List<String> candidateSet, Map<String, String> propMap) {
 		// 2. split the sentence by the entities to get candidates
 		// get candidates by splitting the sentence by entities and stopwords.
-		List<String> candidateSet = this.getCandidateSetbyStopWord(this.getCandidateSet(sentence, entity));
-		System.out.println("PMP.getAnswer: candidateSet = " + candidateSet);
+
+		// List<String> candidateSet =
+		// this.getCandidateSetbyStopWord(this.getCandidateSet(sentence,
+		// entity));
+		// System.out.println("PMP.getAnswer: candidateSet = " + candidateSet);
 
 		// get all the property of the entity
-		Map<String, String> propMap = this.getPropertyNameSet(entity);
-		System.out.println("PMP.getAnswer: propMap = " + propMap);
+		// Map<String, String> propMap = this.getPropertyNameSet(entity);
+		// System.out.println("PMP.getAnswer: propMap = " + propMap);
 
 		// 3. compute the score for each candidate
 		List<PatternMatchingResultBean> rsBean = new ArrayList();
@@ -823,33 +853,43 @@ public class PatternMatchingProcess {
 		List<String> rsList = new ArrayList<>();
 		if (strSet == null) {
 			System.err.println("PMP.getCandidateSet: input is empty");
+			Debug.printDebug(uniqueID, 2, "knowledge", "PMP.getCandidateSetbyStopWord: input is empty");
 		}
 
+		System.err.println("PMP.getCandidateSetbyStopWord: input="+strSet);
 		for (String str : strSet) {
 			if (str.trim().isEmpty()) {
 				continue;
 			}
-			rsList.add(str);
+			// remove below for fixing case : "7号房的礼物是啥类型的电影"
+//			rsList.add(str);
+			
 			String littleCandidate = "";
-			// NLPResult tnNode = NLPSevice.ProcessSentence(str,
-			// NLPFlag.SegPos.getValue());
-			// List<Term> segPos = tnNode.getWordPos();
 			List<Term> segPos = NLPProcess.getSegWord(str);
+			System.err.println("PMP.getCandidateSetbyStopWord: segPos="+segPos);
+			
 			for (int i = 0; i < segPos.size(); i++) {
 				String segWord = segPos.get(i).word;
 				if (!NLPProcess.isStopWord(segWord)) {
+					
 					// not stopword
 					littleCandidate += segWord;
+					System.err.println("NotStopWord: segWord="+segWord+", littleCandidate="+littleCandidate);
 				} else {
 					if (!littleCandidate.isEmpty()) {
 						rsList.add(littleCandidate);
+						System.err.println("StopWord 1: segWord="+segWord+", littleCandidate="+littleCandidate);
 						littleCandidate = "";
+					} else {
+						System.err.println("StopWord 2: segWord="+segWord+", littleCandidate="+littleCandidate);
 					}
 				}
 			}
-			if (!littleCandidate.isEmpty()) {
-				rsList.add(littleCandidate);
-			}
+			// remove below for fixing case : "7号房的礼物是啥类型的电影"
+			// move the case of empty to getCandidateSetbyEntity process
+//			if (!littleCandidate.isEmpty()) {
+//				rsList.add(littleCandidate);
+//			}
 		}
 		System.out.println("\t getCandidateSetbyEntityandStopWord is " + rsList.toString());
 		return rsList;
@@ -1071,7 +1111,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "霍比特人：五军之战是什么";
+		String str = "7号房的礼物是啥类型的电影";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));
