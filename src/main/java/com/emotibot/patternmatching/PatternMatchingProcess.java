@@ -80,15 +80,16 @@ public class PatternMatchingProcess {
 		String score = cuBean.getScore();
 		uniqueID = cuBean.getUniqueID();
 		if(Tool.isStrEmptyOrNull(uniqueID)){
-			uniqueID = "";
+			uniqueID = "0";
 		}
+		
 		if (text == null) {
 			System.err.println("text is null");
 			Debug.printDebug(uniqueID, 2, "knowledge", "init, text is null");
 			text = "";
 		}
 		if (questionType == null) {
-			System.err.println("questionType is null");
+			System.err.println("questionType is null"+"userID="+uniqueID);
 			Debug.printDebug(uniqueID, 2, "knowledge", "init, questionType is null");
 			questionType = "";
 		}
