@@ -39,7 +39,7 @@ public class PatternMatchingProcess {
 	private List<String> entitySet;
 	private boolean isQuestion;
 	private long timeCounter = System.currentTimeMillis();
-	private String uniqueID;
+	private String uniqueID = "";
 
 	public PatternMatchingProcess(String str) {
 		// Debug.printDebug()
@@ -61,11 +61,11 @@ public class PatternMatchingProcess {
 				segWordWithoutStopWord.add(segWord);
 			}
 		}
-		System.out.println("TIME - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+		System.out.println("TIME 1 - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 		// entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
 		entitySet = getEntity(userSentence);
 		userSentence = changeEntitySynonym(entitySet, userSentence);
-		System.out.println("TIME - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+		System.out.println("TIME 2 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 		System.out.println("Constructor: userSentence=" + userSentence);
 		System.out.println("Constructor: isQuestion=" + isQuestion);
@@ -111,14 +111,14 @@ public class PatternMatchingProcess {
 				segWordWithoutStopWord.add(segWord);
 			}
 		}
-		System.out.println("TIME - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+		System.out.println("TIME 3 - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 		// change the follow method of getting entity, by the case:
 		// "玛丽和马克思的其他中文名叫什么"
 		// note:"和" is stop word
 		// entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
 		entitySet = getEntity(userSentence);
 		userSentence = changeEntitySynonym(entitySet, userSentence);
-		System.out.println("TIME - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+		System.out.println("TIME 4 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 		System.out.println("Constructor: userSentence=" + userSentence);
 		System.out.println("Constructor: isQuestion=" + isQuestion);
@@ -176,7 +176,11 @@ public class PatternMatchingProcess {
 		// if (entitySet.size() == 1) {
 		if (entitySet.size() == 1) {
 			entity = entitySet.get(0);
+			System.out.println("TIME 5 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+
 			sentence = templateProcess(entity, sentence);
+			System.out.println("TIME 6 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+
 			System.out.println("PMP.getAnswer: single entity templateProcess sentence = " + sentence);
 			if (Tool.isStrEmptyOrNull(sentence)) {
 				System.err.println("the sentence become empty after template process");
@@ -185,7 +189,8 @@ public class PatternMatchingProcess {
 
 			// answerBean = mutlipleReasoningProcess(sentence, entity);
 			answerBean = ReasoningProcess(sentence, entity, answerBean);
-			System.out.println("TIME - Reasoning Process >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+			System.out
+					.println("TIME 7 - Reasoning Process >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 			System.out.println("\t ReasoningProcess answerBean = " + answerBean);
 		} else if (isRelationshipQuestion(userSentence)) {
 			List<String> relationNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(0),
@@ -199,7 +204,8 @@ public class PatternMatchingProcess {
 			System.out.println("\n\t relationNormalWayPathSet = " + relationNormalWayPathSet
 					+ "\n\t relationReverseWayPathSet=" + relationReverseWayPathSet + "\n\t relationConverge="
 					+ relationConvergePathSet + "\n\t relationDiverge =" + relationDivergePathSet);
-			System.out.println("TIME - get relationships >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+			System.out
+					.println("TIME 8 - get relationships >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 			String answerRelation = "";
 			if (!relationNormalWayPathSet.isEmpty()) {
@@ -257,7 +263,8 @@ public class PatternMatchingProcess {
 			return answerBean;
 		}
 
-		System.out.println("TIME - before answer rewrite >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+		System.out
+				.println("TIME 9 - before answer rewrite >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 		System.out.println("\t into selective question, answerBean=" + answerBean);
 		// if it is the selective question
@@ -497,8 +504,9 @@ public class PatternMatchingProcess {
 	private AnswerBean ReasoningProcess(String templateSentence, String entity, AnswerBean answerBean) {
 		System.out.println("PMP.ReasoningProcess: sentence=" + templateSentence + ", entity =" + entity + ", bean is "
 				+ answerBean);
-//		Debug.printDebug(uniqueID, 3, "knowledge", "PMP.ReasoningProcess: sentence=" + templateSentence + ", entity ="
-//				+ entity + ", bean is " + answerBean.toString());
+		// Debug.printDebug(uniqueID, 3, "knowledge", "PMP.ReasoningProcess:
+		// sentence=" + templateSentence + ", entity ="
+		// + entity + ", bean is " + answerBean.toString());
 		// to be checked later
 
 		if (!templateSentence.contains(entity)) {
@@ -525,11 +533,21 @@ public class PatternMatchingProcess {
 		System.out.println("PMP.ReasoningProcess: propMap = " + propMap);
 
 		// get the matched properties by pattern matching method
+		// first get the property by NOT segPos with NO stopword;
+		// if match null, then by NOT segPos with stopword
+		// if match null, then by segPos with stopword
 		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(templateSentence, entity,
 				candidateSetbyStopWord, propMap);
 		if (listPMBean.isEmpty()) {
 			listPMBean = this.matchPropertyFromSentence(templateSentence, entity, candidateSet, propMap);
+			System.out.println("PMP.ReasoningProcess: get ListBean not by StopWord = " + listPMBean);
 		}
+		if (listPMBean.isEmpty()) {
+			listPMBean = this.matchPropertyFromSentence(templateSentence, entity,
+					this.getCandidateSetbyNLP(candidateSet), propMap);
+			System.out.println("PMP.ReasoningProcess: get ListBean by NLP = " + listPMBean);
+		}
+
 		PatternMatchingResultBean implicationBean = ImplicationProcess.checkImplicationWord(templateSentence);
 		if (implicationBean.isValid())
 			listPMBean.add(implicationBean);
@@ -699,17 +717,7 @@ public class PatternMatchingProcess {
 	// output: the valid property contained in the sentence
 	private List<PatternMatchingResultBean> matchPropertyFromSentence(String sentence, String entity,
 			List<String> candidateSet, Map<String, String> propMap) {
-		// 2. split the sentence by the entities to get candidates
-		// get candidates by splitting the sentence by entities and stopwords.
-
-		// List<String> candidateSet =
-		// this.getCandidateSetbyStopWord(this.getCandidateSet(sentence,
-		// entity));
-		// System.out.println("PMP.getAnswer: candidateSet = " + candidateSet);
-
-		// get all the property of the entity
-		// Map<String, String> propMap = this.getPropertyNameSet(entity);
-		// System.out.println("PMP.getAnswer: propMap = " + propMap);
+		System.out.println("\t matchPropertyFromSentence candidateSet=" + candidateSet);
 
 		// 3. compute the score for each candidate
 		List<PatternMatchingResultBean> rsBean = new ArrayList();
@@ -856,40 +864,42 @@ public class PatternMatchingProcess {
 			Debug.printDebug(uniqueID, 2, "knowledge", "PMP.getCandidateSetbyStopWord: input is empty");
 		}
 
-		System.err.println("PMP.getCandidateSetbyStopWord: input="+strSet);
+		// System.err.println("PMP.getCandidateSetbyStopWord: input="+strSet);
 		for (String str : strSet) {
 			if (str.trim().isEmpty()) {
 				continue;
 			}
 			// remove below for fixing case : "7号房的礼物是啥类型的电影"
-//			rsList.add(str);
-			
+			// rsList.add(str);
+
 			String littleCandidate = "";
 			List<Term> segPos = NLPProcess.getSegWord(str);
-			System.err.println("PMP.getCandidateSetbyStopWord: segPos="+segPos);
-			
+			System.err.println("PMP.getCandidateSetbyStopWord: segPos=" + segPos);
+
 			for (int i = 0; i < segPos.size(); i++) {
 				String segWord = segPos.get(i).word;
 				if (!NLPProcess.isStopWord(segWord)) {
-					
 					// not stopword
 					littleCandidate += segWord;
-					System.err.println("NotStopWord: segWord="+segWord+", littleCandidate="+littleCandidate);
+					// System.err.println("NotStopWord: segWord="+segWord+",
+					// littleCandidate="+littleCandidate);
 				} else {
 					if (!littleCandidate.isEmpty()) {
 						rsList.add(littleCandidate);
-						System.err.println("StopWord 1: segWord="+segWord+", littleCandidate="+littleCandidate);
+						// System.err.println("StopWord 1: segWord="+segWord+",
+						// littleCandidate="+littleCandidate);
 						littleCandidate = "";
 					} else {
-						System.err.println("StopWord 2: segWord="+segWord+", littleCandidate="+littleCandidate);
+						// System.err.println("StopWord 2: segWord="+segWord+",
+						// littleCandidate="+littleCandidate);
 					}
 				}
 			}
 			// remove below for fixing case : "7号房的礼物是啥类型的电影"
 			// move the case of empty to getCandidateSetbyEntity process
-//			if (!littleCandidate.isEmpty()) {
-//				rsList.add(littleCandidate);
-//			}
+			// if (!littleCandidate.isEmpty()) {
+			// rsList.add(littleCandidate);
+			// }
 		}
 		System.out.println("\t getCandidateSetbyEntityandStopWord is " + rsList.toString());
 		return rsList;
@@ -921,6 +931,33 @@ public class PatternMatchingProcess {
 		}
 		System.out.println("\t getCandidateSet=" + listPart);
 		return listPart;
+	}
+
+	// get the candidiates by spliting the sentence accroding to the entity and
+	// return the words after removing stop word
+	// input: “斗罗大陆属于哪种小说”
+	// output: [属于，哪种，小说]
+	// if question does not contain ent, return null.
+	private List<String> getCandidateSetbyNLP(List<String> strList) {
+		List<String> rsList = new ArrayList<>();
+		if (strList == null) {
+			System.err.println("PMP.getCandidateSetbyNLP: input is empty");
+			Debug.printDebug(uniqueID, 2, "knowledge", "null in getCandidateSetbyNLP");
+			return rsList;
+		}
+
+		for (String str : strList) {
+			List<Term> segPos = NLPProcess.getSegWord(str);
+			for (int i = 0; i < segPos.size(); i++) {
+				String segWord = segPos.get(i).word.trim();
+				if (!segWord.isEmpty()) {
+					rsList.add(segWord);
+				}
+			}
+		}
+		System.out.println("\t getCandidateSetbyNLP=" + rsList);
+		Debug.printDebug(uniqueID, 4, "knowledge", "\t getCandidateSetbyNLP=" + rsList);
+		return rsList;
 	}
 
 	// generate all the possibility candidates according to synonyms
@@ -1111,7 +1148,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "姚明多重";
+		String str = "斗罗大陆属于哪种小说";
 		PatternMatchingProcess mp = new PatternMatchingProcess(str);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));
