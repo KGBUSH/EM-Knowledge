@@ -91,7 +91,7 @@ public class AnswerRewrite {
 	public String rewriteAnswer(String answer){
 		// if answer is null or answer is introduction, then skip rewrite
 		// the process logic for introduction may be improved later
-		if(Tool.isStrEmptyOrNull(answer) || answer.length()>20){
+		if(Tool.isStrEmptyOrNull(answer) || answer.length()>50){
 			return answer;
 		}
 		

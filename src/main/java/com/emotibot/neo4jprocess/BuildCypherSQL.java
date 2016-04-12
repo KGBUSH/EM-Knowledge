@@ -168,7 +168,8 @@ public class BuildCypherSQL implements CypherSQLParser {
 	}
 
 	@Override
-	public String getRelationshipInStraightPath(String labelA, String entityA, String labelB, String entityB) {
+	public String getRelationshipInStraightPath(String labelA, String entityA, String labelB, String entityB,
+			int step) {
 		String query = "";
 		if (Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)) {
 			System.err.println("CYPHER.getRelationshipInPath: name is null");
@@ -177,9 +178,9 @@ public class BuildCypherSQL implements CypherSQLParser {
 
 		// set the length of path not exceed 5 for 4/15
 		if (labelA.isEmpty()) {
-			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*1..2]->";
+			query = "match ({" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*1.." + step + "]->";
 		} else {
-			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*1..3]->";
+			query = "match (:" + labelA + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityA + "\"})-[r*1.." + step + "]->";
 		}
 
 		if (labelB.isEmpty()) {

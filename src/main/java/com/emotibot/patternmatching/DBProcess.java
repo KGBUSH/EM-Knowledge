@@ -112,13 +112,13 @@ public class DBProcess {
 
 	// get the relationship set in the path from A to B
 	public static List<String> getRelationshipTypeInStraightPath(String labelA, String entityA, String labelB,
-			String entityB) {
+			String entityB, int step) {
 		List<String> relationshipSet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)) {
 			System.err.println("DBProcess.getRelationshipTypeInPath: input is empty");
 			return relationshipSet;
 		}
-		String query = buildCypherSQLObj.getRelationshipInStraightPath(labelA, entityA, labelB, entityB);
+		String query = buildCypherSQLObj.getRelationshipInStraightPath(labelA, entityA, labelB, entityB, step);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		relationshipSet = conn.getArrayListfromCollection(query);
 		freeDBConnection(conn);

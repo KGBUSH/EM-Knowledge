@@ -42,38 +42,41 @@ public class PatternMatchingProcess {
 	private long timeCounter = System.currentTimeMillis();
 	private String uniqueID = "";
 
-//	public PatternMatchingProcess(String str) {
-//		// Debug.printDebug()
-//
-//		if (str == null) {
-//			System.err.println("text is null");
-//			str = "";
-//		}
-//		userSentence = str;
-//		isQuestion = true;
-//		// NLPResult tnNode = NLPSevice.ProcessSentence(userSentence,
-//		// NLPFlag.SegPos.getValue());
-//		// segPos = tnNode.getWordPos();
-//		segPos = NLPProcess.getSegWord(userSentence);
-//		segWordWithoutStopWord = new ArrayList<>();
-//		for (int i = 0; i < segPos.size(); i++) {
-//			String segWord = segPos.get(i).word.trim();
-//			if (!NLPProcess.isStopWord(segWord)) {
-//				segWordWithoutStopWord.add(segWord);
-//			}
-//		}
-//		System.out.println("TIME 1 - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
-//		// entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
-//		entitySet = getEntity(userSentence);
-//		userSentence = changeEntitySynonym(entitySet, userSentence);
-//		System.out.println("TIME 2 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
-//
-//		System.out.println("Constructor: userSentence=" + userSentence);
-//		System.out.println("Constructor: isQuestion=" + isQuestion);
-//		System.out.println("Constructor: segPos=" + segPos);
-//		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
-//		System.out.println("Constructor: entitySet=" + entitySet);
-//	}
+	// public PatternMatchingProcess(String str) {
+	// // Debug.printDebug()
+	//
+	// if (str == null) {
+	// System.err.println("text is null");
+	// str = "";
+	// }
+	// userSentence = str;
+	// isQuestion = true;
+	// // NLPResult tnNode = NLPSevice.ProcessSentence(userSentence,
+	// // NLPFlag.SegPos.getValue());
+	// // segPos = tnNode.getWordPos();
+	// segPos = NLPProcess.getSegWord(userSentence);
+	// segWordWithoutStopWord = new ArrayList<>();
+	// for (int i = 0; i < segPos.size(); i++) {
+	// String segWord = segPos.get(i).word.trim();
+	// if (!NLPProcess.isStopWord(segWord)) {
+	// segWordWithoutStopWord.add(segWord);
+	// }
+	// }
+	// System.out.println("TIME 1 - before get entity >>>>>>>>>>>>>> " +
+	// (System.currentTimeMillis() - timeCounter));
+	// // entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
+	// entitySet = getEntity(userSentence);
+	// userSentence = changeEntitySynonym(entitySet, userSentence);
+	// System.out.println("TIME 2 - get entity >>>>>>>>>>>>>> " +
+	// (System.currentTimeMillis() - timeCounter));
+	//
+	// System.out.println("Constructor: userSentence=" + userSentence);
+	// System.out.println("Constructor: isQuestion=" + isQuestion);
+	// System.out.println("Constructor: segPos=" + segPos);
+	// System.out.println("Constructor: segWordWithoutStopWord=" +
+	// segWordWithoutStopWord);
+	// System.out.println("Constructor: entitySet=" + entitySet);
+	// }
 
 	public PatternMatchingProcess(CUBean cuBean) {
 		String text = cuBean.getText();
@@ -195,10 +198,12 @@ public class PatternMatchingProcess {
 					.println("TIME 7 - Reasoning Process >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 			System.out.println("\t ReasoningProcess answerBean = " + answerBean);
 		} else if (isRelationshipQuestion(userSentence)) {
+			List<String> relationDirectNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("",
+					entitySet.get(0), "", entitySet.get(1), 1);
 			List<String> relationNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(0),
-					"", entitySet.get(1));
+					"", entitySet.get(1), 2);
 			List<String> relationReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(1),
-					"", entitySet.get(0));
+					"", entitySet.get(0), 2);
 			List<List<String>> relationConvergePathSet = DBProcess.getRelationshipTypeInConvergePath("",
 					entitySet.get(0), "", entitySet.get(1));
 			List<List<String>> relationDivergePathSet = DBProcess.getRelationshipTypeInDivergentPath("",
@@ -210,46 +215,81 @@ public class PatternMatchingProcess {
 					.println("TIME 8 - get relationships >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 			String answerRelation = "";
-			if (!relationNormalWayPathSet.isEmpty()) {
-				String normalWayRelation = entitySet.get(1) + "是" + entitySet.get(0);
-				for (String s : relationNormalWayPathSet) {
-					normalWayRelation += "的" + s;
+			if (!relationDirectNormalWayPathSet.isEmpty()) {
+				String directNormalWayRelation = entitySet.get(1) + "是" + entitySet.get(0);
+				for (String s : relationDirectNormalWayPathSet) {
+					directNormalWayRelation += "的" + s;
 				}
-				answerRelation = normalWayRelation;
-				System.out.println("\t normalWayRelation = " + normalWayRelation);
+				answerRelation = directNormalWayRelation;
+				System.out.println("\t directNormalWayRelation = " + directNormalWayRelation);
 			}
 
-			if (!relationReverseWayPathSet.isEmpty()) {
-				String reverseWayRelation = entitySet.get(0) + "是" + entitySet.get(1);
-				for (String s : relationReverseWayPathSet) {
-					reverseWayRelation += "的" + s;
+			if (answerRelation.isEmpty()) {
+				List<String> relationDirectReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath("",
+						entitySet.get(1), "", entitySet.get(0), 1);
+				if (!relationReverseWayPathSet.isEmpty()) {
+					String directReverseWayRelation = entitySet.get(0) + "是" + entitySet.get(1);
+					for (String s : relationDirectReverseWayPathSet) {
+						directReverseWayRelation += "的" + s;
+					}
+					answerRelation = directReverseWayRelation;
+					System.out.println("\t directReverseWayRelation = " + directReverseWayRelation);
 				}
-				answerRelation = (answerRelation.isEmpty()) ? reverseWayRelation
-						: answerRelation + "；" + reverseWayRelation;
-				System.out.println("\t reverseWayRelation = " + reverseWayRelation);
 			}
 
-			if (!relationConvergePathSet.isEmpty()) {
-				String convergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "的";
-				for (List<String> listStr : relationConvergePathSet) {
-					convergeRelation += listStr.get(1) + "都是" + listStr.get(0) + "，";
+			if (answerRelation.isEmpty()) {
+				if (!relationNormalWayPathSet.isEmpty()) {
+					String normalWayRelation = entitySet.get(1) + "是" + entitySet.get(0);
+					for (String s : relationNormalWayPathSet) {
+						normalWayRelation += "的" + s;
+					}
+					answerRelation = normalWayRelation;
+					System.out.println("\t normalWayRelation = " + normalWayRelation);
 				}
-				convergeRelation = convergeRelation.substring(0, convergeRelation.length() - 1);
-
-				answerRelation = (answerRelation.isEmpty()) ? convergeRelation
-						: answerRelation + "；" + convergeRelation;
-				System.out.println("\t convergeRelation = " + convergeRelation);
 			}
 
-			if (!relationDivergePathSet.isEmpty()) {
-				String divergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "都是";
-				for (List<String> listStr : relationDivergePathSet) {
-					divergeRelation += listStr.get(0) + "的" + listStr.get(1) + "，";
+			if (answerRelation.isEmpty()) {
+				if (!relationReverseWayPathSet.isEmpty()) {
+					String reverseWayRelation = entitySet.get(0) + "是" + entitySet.get(1);
+					for (String s : relationReverseWayPathSet) {
+						reverseWayRelation += "的" + s;
+					}
+					answerRelation = reverseWayRelation;
+					// answerRelation = (answerRelation.isEmpty()) ?
+					// reverseWayRelation
+					// : answerRelation + "；" + reverseWayRelation;
+					System.out.println("\t reverseWayRelation = " + reverseWayRelation);
 				}
-				divergeRelation = divergeRelation.substring(0, divergeRelation.length() - 1);
+			}
 
-				answerRelation = (answerRelation.isEmpty()) ? divergeRelation : answerRelation + "；" + divergeRelation;
-				System.out.println("\t divergeRelation = " + divergeRelation);
+			if (answerRelation.isEmpty()) {
+				if (!relationConvergePathSet.isEmpty()) {
+					String convergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "的";
+					for (List<String> listStr : relationConvergePathSet) {
+						convergeRelation += listStr.get(1) + "都是" + listStr.get(0) + "，";
+					}
+					convergeRelation = convergeRelation.substring(0, convergeRelation.length() - 1);
+					answerRelation = convergeRelation;
+					// answerRelation = (answerRelation.isEmpty()) ?
+					// convergeRelation
+					// : answerRelation + "；" + convergeRelation;
+					System.out.println("\t convergeRelation = " + convergeRelation);
+				}
+			}
+
+			if (answerRelation.isEmpty()) {
+				if (!relationDivergePathSet.isEmpty()) {
+					String divergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "都是";
+					for (List<String> listStr : relationDivergePathSet) {
+						divergeRelation += listStr.get(0) + "的" + listStr.get(1) + "，";
+					}
+					divergeRelation = divergeRelation.substring(0, divergeRelation.length() - 1);
+					answerRelation = divergeRelation;
+					// answerRelation = (answerRelation.isEmpty()) ?
+					// divergeRelation
+					// : answerRelation + "；" + divergeRelation;
+					System.out.println("\t divergeRelation = " + divergeRelation);
+				}
 			}
 
 			if (!answerRelation.isEmpty()) {
@@ -376,14 +416,16 @@ public class PatternMatchingProcess {
 				return rsEntity;
 			} else {
 				// rsEntity.add(simpleMatchEntity.get(0));
-				// change simple match set as source for fixing case: "百变小樱是哪种动漫" and "姚明的老婆的身高是多少"
-				List<String> tempList = getIntersectionOfTwoLists(simpleMatchEntity, solrEntity, simpleMatchEntity.size());
-				for(String s : tempList){
-					if(NLPProcess.isEntityPM(s)){
+				// change simple match set as source for fixing case:
+				// "百变小樱是哪种动漫" and "姚明的老婆的身高是多少"
+				List<String> tempList = getIntersectionOfTwoLists(simpleMatchEntity, solrEntity,
+						simpleMatchEntity.size());
+				for (String s : tempList) {
+					if (NLPProcess.isEntityPM(s)) {
 						rsEntity.add(s);
 						break;
 					}
-				}				
+				}
 				System.out.println("case: 2.5: rsEntity=" + rsEntity);
 				return rsEntity;
 			}
@@ -1119,40 +1161,43 @@ public class PatternMatchingProcess {
 		return beanPM;
 	}
 
-//	// template process, change the exception cases
-//	// input: entity and sentence, "姚明", "姚明多高"
-//	// output: the sentence changed by template, "姚明身高多少"
-//	private String templateProcess(String entity, String sentence) {
-//		if (sentence.lastIndexOf(entity) == -1 || sentence.equals(entity)) {
-//			return sentence;
-//		}
-//
-//		String[] strArr = sentence.split(entity);
-//		if (strArr.length == 0) {
-//			return "";
-//		}
-//
-//		String label = DBProcess.getEntityLabel(entity);
-//
-//		String tempStr = strArr[0];
-//		for (int i = 1; i < strArr.length; i++) {
-//			tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
-//			tempStr += strArr[i];
-//		}
-//
-//		// if entity appear in the last
-//		if (sentence.endsWith(entity)) {
-//			tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
-//		}
-//
-//		String templateRS = sentenceTemplate.process(tempStr);
-//		if (templateRS.isEmpty()) {
-//			templateRS = sentence;
-//		}
-//
-//		System.out.println("\t templateProcess: tempStr=" + tempStr + ", templateRS=" + templateRS);
-//		return templateRS;
-//	}
+	// // template process, change the exception cases
+	// // input: entity and sentence, "姚明", "姚明多高"
+	// // output: the sentence changed by template, "姚明身高多少"
+	// private String templateProcess(String entity, String sentence) {
+	// if (sentence.lastIndexOf(entity) == -1 || sentence.equals(entity)) {
+	// return sentence;
+	// }
+	//
+	// String[] strArr = sentence.split(entity);
+	// if (strArr.length == 0) {
+	// return "";
+	// }
+	//
+	// String label = DBProcess.getEntityLabel(entity);
+	//
+	// String tempStr = strArr[0];
+	// for (int i = 1; i < strArr.length; i++) {
+	// tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label +
+	// "</label> ";
+	// tempStr += strArr[i];
+	// }
+	//
+	// // if entity appear in the last
+	// if (sentence.endsWith(entity)) {
+	// tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label +
+	// "</label> ";
+	// }
+	//
+	// String templateRS = sentenceTemplate.process(tempStr);
+	// if (templateRS.isEmpty()) {
+	// templateRS = sentence;
+	// }
+	//
+	// System.out.println("\t templateProcess: tempStr=" + tempStr + ",
+	// templateRS=" + templateRS);
+	// return templateRS;
+	// }
 
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
