@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
 import com.emotibot.patternmatching.PatternMatchingProcess;
+import com.emotibot.util.CUBean;
 import com.emotibot.util.Tool;
 
 public class AnalysisSent {
@@ -24,7 +25,9 @@ public class AnalysisSent {
 	   
 	   public AnswerBean AnalysisSentence(String str)
 	   {
-		   PatternMatchingProcess patternMatchingProcess = new PatternMatchingProcess(str);
+		   CUBean cubean = new CUBean();
+		   cubean.setText(str);
+		   PatternMatchingProcess patternMatchingProcess = new PatternMatchingProcess(cubean);
 		   AnswerBean bean = new AnswerBean();
 		   try{
 		   if(Tool.isStrEmptyOrNull(str)||!str.contains("姚明")) return bean;

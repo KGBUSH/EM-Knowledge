@@ -36,6 +36,7 @@ public class NLPProcess {
 	private static HashMap<String, Set<String>> synonymTable = createSynonymTable();;
 	private static HashMap<String, List<String>> synonymTableRef = createSynonymTableRef();
 	private static Set<String> stopWordTable = createStopWordTable();
+	private static Set<String> entityPMTable = createEntityPMTable();
 	private static Set<String> entityTable = createEntityTable();
 	// entitySynonymTable:[甲肝，甲型病毒性肝炎]
 	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
@@ -107,10 +108,10 @@ public class NLPProcess {
 						String first = thisSynonEntity.substring(0, thisSynonEntity.indexOf("（"));
 						String second = thisSynonEntity.substring(thisSynonEntity.indexOf("（") + 1,
 								thisSynonEntity.indexOf("）"));
-						entitySyn.put(first, wordList[0]); 
-						entitySyn.put(second, wordList[0]); 
+						entitySyn.put(first.toLowerCase(), wordList[0].toLowerCase()); 
+						entitySyn.put(second.toLowerCase(), wordList[0].toLowerCase()); 
 					} else {
-						entitySyn.put(wordList[1], wordList[0]); 
+						entitySyn.put(wordList[1].toLowerCase(), wordList[0].toLowerCase()); 
 					}
 				}
 				dis.close();
@@ -121,6 +122,36 @@ public class NLPProcess {
 		}
 
 		return entitySyn;
+	}
+	
+	// create entity table Set
+	private static Set<String> createEntityPMTable() {
+		Set<String> entitySet = new HashSet<>();
+		String fileName = Common.UserDir + "/knowledgedata/entityPM.txt";
+		System.out.println("path is " + fileName);
+		
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = "";
+				while ((word = dis.readLine()) != null) {
+					// all entity in table are in low case
+					entitySet.add(word.trim().toLowerCase());
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		return entitySet;
 	}
 
 	// create entity table Set
@@ -140,7 +171,8 @@ public class NLPProcess {
 				BufferedReader dis = new BufferedReader(read);
 				String word = "";
 				while ((word = dis.readLine()) != null) {
-					entitySet.add(word.trim());
+					// all entity in table are in low case
+					entitySet.add(word.trim().toLowerCase());
 				}
 				dis.close();
 
@@ -211,7 +243,16 @@ public class NLPProcess {
 			return false;
 		}
 	}
-
+	
+	// check whether the work in entityPM.txt
+	public static boolean isEntityPM(String str){
+		if(!Tool.isStrEmptyOrNull(str) && entityPMTable.contains(str)){
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	private static String getEntityInDictinoary(String str) {
 		if (!Tool.isStrEmptyOrNull(str) && entityTable.contains(str)) {
 			return str;
@@ -285,7 +326,7 @@ public class NLPProcess {
 						List<String> setElementSyn = new ArrayList<>();
 
 						for (int j = 1; j < words.length; j++) {
-							setElementSyn.add(words[j]);
+							setElementSyn.add(words[j].toLowerCase());
 						}
 						syn.put(id, setElementSyn);
 					}
@@ -329,7 +370,7 @@ public class NLPProcess {
 								ss = new HashSet<String>();
 							}
 							ss.add(id);
-							syn.put(words[j], ss);
+							syn.put(words[j].toLowerCase(), ss);
 						}
 					}
 				}
@@ -446,15 +487,16 @@ public class NLPProcess {
 	// input: 姚明和叶莉的女儿是谁？
 	// output: [姚明，叶莉]
 	public static List<String> getEntitySimpleMatch(String sentence) {
+		sentence = sentence.toLowerCase();
 		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthComparator());
 		List<String> entitySet = new ArrayList<>();
 		for (String s : entityTable) {
-			if (sentence.contains(s)) {
+			if (sentence.contains(s.toLowerCase())) {
 				entityTreeSet.add(s);
 			}
 		}
 		for (String s : entitySynonymTable.keySet()) {
-			if (sentence.contains(s)) {
+			if (sentence.contains(s.toLowerCase())) {
 				entityTreeSet.add(entitySynonymTable.get(s));
 			}
 		}

@@ -41,38 +41,38 @@ public class PatternMatchingProcess {
 	private long timeCounter = System.currentTimeMillis();
 	private String uniqueID = "";
 
-	public PatternMatchingProcess(String str) {
-		// Debug.printDebug()
-
-		if (str == null) {
-			System.err.println("text is null");
-			str = "";
-		}
-		userSentence = str;
-		isQuestion = true;
-		// NLPResult tnNode = NLPSevice.ProcessSentence(userSentence,
-		// NLPFlag.SegPos.getValue());
-		// segPos = tnNode.getWordPos();
-		segPos = NLPProcess.getSegWord(userSentence);
-		segWordWithoutStopWord = new ArrayList<>();
-		for (int i = 0; i < segPos.size(); i++) {
-			String segWord = segPos.get(i).word.trim();
-			if (!NLPProcess.isStopWord(segWord)) {
-				segWordWithoutStopWord.add(segWord);
-			}
-		}
-		System.out.println("TIME 1 - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
-		// entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
-		entitySet = getEntity(userSentence);
-		userSentence = changeEntitySynonym(entitySet, userSentence);
-		System.out.println("TIME 2 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
-
-		System.out.println("Constructor: userSentence=" + userSentence);
-		System.out.println("Constructor: isQuestion=" + isQuestion);
-		System.out.println("Constructor: segPos=" + segPos);
-		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
-		System.out.println("Constructor: entitySet=" + entitySet);
-	}
+//	public PatternMatchingProcess(String str) {
+//		// Debug.printDebug()
+//
+//		if (str == null) {
+//			System.err.println("text is null");
+//			str = "";
+//		}
+//		userSentence = str;
+//		isQuestion = true;
+//		// NLPResult tnNode = NLPSevice.ProcessSentence(userSentence,
+//		// NLPFlag.SegPos.getValue());
+//		// segPos = tnNode.getWordPos();
+//		segPos = NLPProcess.getSegWord(userSentence);
+//		segWordWithoutStopWord = new ArrayList<>();
+//		for (int i = 0; i < segPos.size(); i++) {
+//			String segWord = segPos.get(i).word.trim();
+//			if (!NLPProcess.isStopWord(segWord)) {
+//				segWordWithoutStopWord.add(segWord);
+//			}
+//		}
+//		System.out.println("TIME 1 - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+//		// entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
+//		entitySet = getEntity(userSentence);
+//		userSentence = changeEntitySynonym(entitySet, userSentence);
+//		System.out.println("TIME 2 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+//
+//		System.out.println("Constructor: userSentence=" + userSentence);
+//		System.out.println("Constructor: isQuestion=" + isQuestion);
+//		System.out.println("Constructor: segPos=" + segPos);
+//		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
+//		System.out.println("Constructor: entitySet=" + entitySet);
+//	}
 
 	public PatternMatchingProcess(CUBean cuBean) {
 		String text = cuBean.getText();
@@ -100,11 +100,8 @@ public class PatternMatchingProcess {
 		}
 		Debug.printDebug(uniqueID, 3, "knowledge", cuBean.toString());
 
-		userSentence = text;
+		userSentence = text.toLowerCase();
 		isQuestion = questionType.equals("question");
-		// NLPResult tnNode = NLPSevice.ProcessSentence(userSentence,
-		// NLPFlag.SegPos.getValue());
-		// segPos = tnNode.getWordPos();
 		System.out.println("userSentence=" + userSentence + ", isQuestion=" + isQuestion);
 		segPos = NLPProcess.getSegWord(userSentence);
 		segWordWithoutStopWord = new ArrayList<>();
@@ -120,7 +117,7 @@ public class PatternMatchingProcess {
 		// "玛丽和马克思的其他中文名叫什么"
 		// note:"和" is stop word
 		// entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
-		entitySet = getEntity(userSentence);
+		entitySet = getEntity(userSentence.toLowerCase());
 		userSentence = changeEntitySynonym(entitySet, userSentence);
 		System.out.println("TIME 4 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
@@ -378,8 +375,14 @@ public class PatternMatchingProcess {
 				return rsEntity;
 			} else {
 				// rsEntity.add(simpleMatchEntity.get(0));
-				// change simple match set as source for fixing case: "百变小樱是哪种动漫"
-				rsEntity = getIntersectionOfTwoLists(simpleMatchEntity, solrEntity, 1);
+				// change simple match set as source for fixing case: "百变小樱是哪种动漫" and "姚明的老婆的身高是多少"
+				List<String> tempList = getIntersectionOfTwoLists(simpleMatchEntity, solrEntity, simpleMatchEntity.size());
+				for(String s : tempList){
+					if(NLPProcess.isEntityPM(s)){
+						rsEntity.add(s);
+						break;
+					}
+				}				
 				System.out.println("case: 2.5: rsEntity=" + rsEntity);
 				return rsEntity;
 			}
@@ -1153,8 +1156,10 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "皇家马德里的运动项目是";
-		PatternMatchingProcess mp = new PatternMatchingProcess(str);
+		String str = "姚明的老婆的身高多少";
+		CUBean bean = new CUBean();
+		bean.setText(str);
+		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));
 
