@@ -37,30 +37,33 @@ public class NLPProcess {
 	private static HashMap<String, List<String>> synonymTableRef = createSynonymTableRef();
 	private static Set<String> stopWordTable = createStopWordTable();
 	private static Set<String> entityTable = createEntityTable();
+	// entitySynonymTable:[甲肝，甲型病毒性肝炎]
 	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
+	// entitySynonymReverseTable:[甲肝，甲型病毒性肝炎]
+	// private static Map<String, String> entitySynonymReverseTable =
+	// createEntitySynonymReverseTable();
 
-	 public static void NLPProcessInit()
-	 {
-		 addCustomDictionaryInHanlp();
-	// synonymTable = createSynonymTable();
-	// synonymTableRef = createSynonymTableRef();
-	// stopWordTable = createStopWordTable();
-	// entityTable = createEntityTable();
-	// entitySynonymTable = createEntitySynonymTable();
-	 }
+	public static void NLPProcessInit() {
+		addCustomDictionaryInHanlp();
+		// synonymTable = createSynonymTable();
+		// synonymTableRef = createSynonymTableRef();
+		// stopWordTable = createStopWordTable();
+		// entityTable = createEntityTable();
+		// entitySynonymTable = createEntitySynonymTable();
+	}
 
-	private static void addCustomDictionaryInHanlp(){
-		for(String s : entityTable){
+	private static void addCustomDictionaryInHanlp() {
+		for (String s : entityTable) {
 			CustomDictionary.add(s);
 		}
-		for(String s : entitySynonymTable.keySet()){
+		for (String s : entitySynonymTable.keySet()) {
 			CustomDictionary.add(s);
 		}
-		for(String s : entitySynonymTable.values()){
+		for (String s : entitySynonymTable.values()) {
 			CustomDictionary.add(s);
 		}
 	}
-	
+
 	// return the segPos by Hanlp method
 	public static List<Term> getSegWord(String sentence) {
 		List<Term> segWord = new ArrayList<>();
@@ -70,8 +73,8 @@ public class NLPProcess {
 		segWord = HanLP.segment(sentence);
 		return segWord;
 	}
-	
-	public static Map<String, String> getEntitySynonymTable(){
+
+	public static Map<String, String> getEntitySynonymTable() {
 		return entitySynonymTable;
 	}
 
@@ -98,7 +101,17 @@ public class NLPProcess {
 						System.err.println("wrong format in entitySynonym.txt");
 						continue;
 					}
-					entitySyn.put(wordList[1], wordList[0]); // check
+					// address the case 曼彻斯特联（曼联）
+					if (wordList[1].contains("（") && wordList[1].contains("）")) {
+						String thisSynonEntity = wordList[1];
+						String first = thisSynonEntity.substring(0, thisSynonEntity.indexOf("（"));
+						String second = thisSynonEntity.substring(thisSynonEntity.indexOf("（") + 1,
+								thisSynonEntity.indexOf("）"));
+						entitySyn.put(first, wordList[0]); 
+						entitySyn.put(second, wordList[0]); 
+					} else {
+						entitySyn.put(wordList[1], wordList[0]); 
+					}
 				}
 				dis.close();
 			} catch (Exception e) {
@@ -232,7 +245,7 @@ public class NLPProcess {
 			return "";
 	}
 
-	// check the entity has a synonym 
+	// check the entity has a synonym
 	// input-output: 甲型病毒性肝炎-true
 	public static boolean hasEntitySynonym(String str) {
 		if (!Tool.isStrEmptyOrNull(str) && entitySynonymTable.values().contains(str))
@@ -240,8 +253,8 @@ public class NLPProcess {
 		else
 			return false;
 	}
-	
-	// check wether the word is a synonym of an entity
+
+	// check whether the word is a synonym of an entity
 	// input-output: 甲肝-true
 	public static boolean isEntitySynonym(String str) {
 		if (!Tool.isStrEmptyOrNull(str) && entitySynonymTable.keySet().contains(str))
@@ -407,8 +420,8 @@ public class NLPProcess {
 			String element = it.next();
 			it.remove();
 			boolean isContained = false;
-			for(String s : tSet){
-				if(s.contains(element)){
+			for (String s : tSet) {
+				if (s.contains(element)) {
 					isContained = true;
 					break;
 				}
@@ -419,12 +432,12 @@ public class NLPProcess {
 		}
 
 		String[] tempArr = tempSet.toArray(new String[0]);
-//		System.out.println("tempArr=" + tempArr);
+		// System.out.println("tempArr=" + tempArr);
 		for (int i = tempArr.length - 1; i >= 0; i--) {
 			rsSet.add(tempArr[i]);
 		}
 
-//		System.out.println("rsSet=" + rsSet);
+		// System.out.println("rsSet=" + rsSet);
 		return rsSet;
 	}
 
@@ -445,13 +458,13 @@ public class NLPProcess {
 				entityTreeSet.add(entitySynonymTable.get(s));
 			}
 		}
-		
+
 		entitySet = removeContainedElements(entityTreeSet);
 
-//		Iterator<String> it = entityTreeSet.iterator();
-//		while (it.hasNext()) {
-//			entitySet.add(it.next().toString());
-//		}
+		// Iterator<String> it = entityTreeSet.iterator();
+		// while (it.hasNext()) {
+		// entitySet.add(it.next().toString());
+		// }
 
 		System.out.println("the macthed entities are: " + entitySet.toString());
 		return entitySet;
@@ -474,13 +487,13 @@ public class NLPProcess {
 			}
 		}
 
-//		Iterator<String> it = entityTreeSet.iterator();
-//		while (it.hasNext()) {
-//			entitySet.add(it.next().toString());
-//		}
+		// Iterator<String> it = entityTreeSet.iterator();
+		// while (it.hasNext()) {
+		// entitySet.add(it.next().toString());
+		// }
 
 		entitySet = removeContainedElements(entityTreeSet);
-		System.out.println("the result entities of NLP are: " +	 entitySet.toString());
+		System.out.println("the result entities of NLP are: " + entitySet.toString());
 		return entitySet;
 	}
 

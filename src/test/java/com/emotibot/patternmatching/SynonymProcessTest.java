@@ -49,6 +49,16 @@ public class SynonymProcessTest {
 
 
 	public static void main(String[] args) {
+		String entity = "马德里竞技（马竞）对方的";
+		
+		System.out.println("fist="+entity.substring(0, entity.indexOf("（"))+", second="+entity.substring(entity.indexOf("（")+1, entity.indexOf("）")));
+		 
+		addLabelinEntity();
+		
+		System.exit(0);
+		
+		
+		
 		String str = "霍比特人：五军之战";
 		System.out.println("is entity = "+NLPProcess.hasEntitySynonym(str));
 		
@@ -421,6 +431,33 @@ public class SynonymProcessTest {
 			}
 		}
 
+	}
+	
+	private static void addLabelinEntity(){
+		String tempFileName = Common.UserDir + "/txt/temp/multiMean.txt";
+
+		try{
+			BufferedReader reader = new BufferedReader(new FileReader(tempFileName));
+            String entity = null;
+            
+            FileWriter writeFile = new FileWriter(Common.UserDir + "/txt/temp/multiMeanUpate.txt");
+			BufferedWriter out = new BufferedWriter(writeFile);
+		
+            
+            while ((entity = reader.readLine()) != null) {
+            	String label = DBProcess.getEntityLabel(entity);
+            	if(Tool.isStrEmptyOrNull(label)){
+            		label = DBProcess.getEntityLabel(NLPProcess.getEntitySynonymNormal(entity));
+            	}
+            	out.write(entity+" "+label+"\r\n");
+            }
+            
+            out.close();
+            
+		} catch (Exception e){
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void synonymProcess(String str) {
