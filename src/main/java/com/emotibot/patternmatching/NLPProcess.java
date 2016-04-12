@@ -599,21 +599,21 @@ public class NLPProcess {
 
 		System.out.print("size of entity table is " + entityTable.size());
 
-		String fileEntity = Common.UserDir + "/knowledgedata/entity.txt";
-
-		try {
-			File writename = new File(fileEntity);
-			writename.createNewFile(); // 创建新文件
-			BufferedWriter out = new BufferedWriter(new FileWriter(writename));
-			for (String s : entityTable) {
-				// System.out.println(s.length());
-				out.write(s + "\r\n"); // \r\n即为换行
-			}
-			out.flush(); // 把缓存区内容压入文件
-			out.close(); // 最后记得关闭文件
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+//		String fileEntity = Common.UserDir + "/knowledgedata/entity.txt";
+//
+//		try {
+//			File writename = new File(fileEntity);
+//			writename.createNewFile(); // 创建新文件
+//			BufferedWriter out = new BufferedWriter(new FileWriter(writename));
+//			for (String s : entityTable) {
+//				// System.out.println(s.length());
+//				out.write(s + "\r\n"); // \r\n即为换行
+//			}
+//			out.flush(); // 把缓存区内容压入文件
+//			out.close(); // 最后记得关闭文件
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 
 		// System.out.println("syn is " + matchSynonymPropertyInDB("姚明", "女人"));
 

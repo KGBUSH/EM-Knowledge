@@ -100,6 +100,8 @@ public class GenerateDictionaryFile {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("entity generation done");
 
 	}
 
