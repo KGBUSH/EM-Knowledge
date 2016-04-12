@@ -24,18 +24,20 @@ import com.emotibot.util.Tool;
 // input: "movie，^#^放/播^多长/多久;#片长是多少/#时长是多少"
 // output: template amil file (4 cases for the above line)
 public class TemplateGenerator {
-	String inputFile = Common.UserDir + "/knowledgedata/templateSpec.txt";
-	String outputFile = Common.UserDir + "/bots/Knowledge/aiml/Knowledge.aiml";
+	// String inputFile = Common.UserDir + "/knowledgedata/templateSpec.txt";
+	// String outputFile = Common.UserDir +
+	// "/bots/Knowledge/aiml/Knowledge.aiml";
 
-	public TemplateGenerator(String in, String out) {
-		if (!Tool.isStrEmptyOrNull(in))
-			inputFile = in;
-		if (!Tool.isStrEmptyOrNull(out))
-			outputFile = out;
-		System.out.println("file name: inputFile=" + inputFile + "; outputFile=" + outputFile);
-	}
+	// public TemplateGenerator(String in, String out) {
+	// if (!Tool.isStrEmptyOrNull(in))
+	// inputFile = in;
+	// if (!Tool.isStrEmptyOrNull(out))
+	// outputFile = out;
+	// System.out.println("file name: inputFile=" + inputFile + "; outputFile="
+	// + outputFile);
+	// }
 
-	public void generator() {
+	private void generator(String inputFile, String outputFile) {
 
 		try {
 			FileWriter newFile = new FileWriter(outputFile);
@@ -154,6 +156,7 @@ public class TemplateGenerator {
 
 			out.write("</aiml>\r\n");
 			out.close();
+			in.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -182,9 +185,34 @@ public class TemplateGenerator {
 		return writePattern(patternList, returnList);
 	}
 
+	private void generateTemplate() {
+		String listFileName = Common.UserDir + "/knowledgedata/domainList.txt";
+
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader(listFileName));
+			String domain = null;
+			int i = 0;
+			while ((domain = reader.readLine()) != null) {
+				String specFileName = Common.UserDir + "/knowledgedata/template/templateSpec/" + domain + ".txt";
+				String aimlFileName = Common.UserDir + "/bots/" + domain + "/aiml/" + domain + ".aiml";
+
+				System.out.println(
+						"domain=" + domain + ",\n specFileName=" + specFileName + ";\n aimlFileName=" + aimlFileName);
+				generator(specFileName, aimlFileName);
+			}
+
+			reader.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 	public static void main(String[] args) {
-		TemplateGenerator tg = new TemplateGenerator("", "");
-		tg.generator();
+		TemplateGenerator tg = new TemplateGenerator();
+		tg.generateTemplate();
+		// tg.generator();
 	}
 
 }

@@ -18,6 +18,7 @@ import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.common.Common;
 import com.emotibot.solr.SolrUtil;
 import com.emotibot.solr.Solr_Query;
+import com.emotibot.template.TemplateEntry;
 import com.emotibot.template.TemplateProcessor;
 import com.emotibot.util.CUBean;
 import com.emotibot.util.Tool;
@@ -179,7 +180,7 @@ public class PatternMatchingProcess {
 			entity = entitySet.get(0);
 			System.out.println("TIME 5 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
-			sentence = templateProcess(entity, sentence);
+			sentence = TemplateEntry.templateProcess(entity, sentence, uniqueID);
 			System.out.println("TIME 6 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 			System.out.println("PMP.getAnswer: single entity templateProcess sentence = " + sentence);
@@ -1118,45 +1119,45 @@ public class PatternMatchingProcess {
 		return beanPM;
 	}
 
-	// template process, change the exception cases
-	// input: entity and sentence, "姚明", "姚明多高"
-	// output: the sentence changed by template, "姚明身高多少"
-	private String templateProcess(String entity, String sentence) {
-		if (sentence.lastIndexOf(entity) == -1 || sentence.equals(entity)) {
-			return sentence;
-		}
-
-		String[] strArr = sentence.split(entity);
-		if (strArr.length == 0) {
-			return "";
-		}
-
-		String label = DBProcess.getEntityLabel(entity);
-
-		String tempStr = strArr[0];
-		for (int i = 1; i < strArr.length; i++) {
-			tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
-			tempStr += strArr[i];
-		}
-
-		// if entity appear in the last
-		if (sentence.endsWith(entity)) {
-			tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
-		}
-
-		String templateRS = sentenceTemplate.process(tempStr);
-		if (templateRS.isEmpty()) {
-			templateRS = sentence;
-		}
-
-		System.out.println("\t templateProcess: tempStr=" + tempStr + ", templateRS=" + templateRS);
-		return templateRS;
-	}
+//	// template process, change the exception cases
+//	// input: entity and sentence, "姚明", "姚明多高"
+//	// output: the sentence changed by template, "姚明身高多少"
+//	private String templateProcess(String entity, String sentence) {
+//		if (sentence.lastIndexOf(entity) == -1 || sentence.equals(entity)) {
+//			return sentence;
+//		}
+//
+//		String[] strArr = sentence.split(entity);
+//		if (strArr.length == 0) {
+//			return "";
+//		}
+//
+//		String label = DBProcess.getEntityLabel(entity);
+//
+//		String tempStr = strArr[0];
+//		for (int i = 1; i < strArr.length; i++) {
+//			tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
+//			tempStr += strArr[i];
+//		}
+//
+//		// if entity appear in the last
+//		if (sentence.endsWith(entity)) {
+//			tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
+//		}
+//
+//		String templateRS = sentenceTemplate.process(tempStr);
+//		if (templateRS.isEmpty()) {
+//			templateRS = sentence;
+//		}
+//
+//		System.out.println("\t templateProcess: tempStr=" + tempStr + ", templateRS=" + templateRS);
+//		return templateRS;
+//	}
 
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "姚明的老婆的身高多少";
+		String str = "姚明属什么";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
