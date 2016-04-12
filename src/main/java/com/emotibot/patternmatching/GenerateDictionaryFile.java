@@ -121,7 +121,7 @@ public class GenerateDictionaryFile {
 
 	// generate the entity list entity_ref_PM.txt from domain directory,
 	// and check with entity.txt which is used as the entity dictionary.
-	public static void generateEntityPMFile() {
+	public static void generateEntityPMRefFile() {
 		String filePath = Common.UserDir + "/knowledgedata/domain";
 		List<String> entitySet = new ArrayList<>();
 		try {
@@ -159,6 +159,27 @@ public class GenerateDictionaryFile {
 			e.printStackTrace();
 		}
 
+	}
+	
+	// generate the entity list entity_ref_PM.txt from domain directory,
+	// and check with entity.txt which is used as the entity dictionary.
+	public static void generateEntityPMFile() {
+		String filePath = Common.UserDir + "/knowledgedata/domain";
+		List<String> entitySet = new ArrayList<>();
+		try {
+//			BufferedReader ref = new BufferedReader(new FileReader(Common.UserDir + "/knowledgedata/entity_ref_PM.txt"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt", true));
+			
+			for(String s : NLPProcess.getEntitySynonymTable().values()){
+				writer.write(s+"\r\n");
+			}
+			
+			writer.close();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 	public static void generateDuplicateEntityFile() {
@@ -244,7 +265,7 @@ public class GenerateDictionaryFile {
 	
 
 	public static void main(String[] args) {
-		generateEntity();
+		generateEntityPMFile();
 	}
 
 	
