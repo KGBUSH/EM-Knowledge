@@ -1,0 +1,734 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 啥 时 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 何 时 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 时 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 年 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 啥 时 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 何 时 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 时 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 年 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 啥 时 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 何 时 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 时 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 年 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 啥 时 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 何 时 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 时 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 年 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 啥 时 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 何 时 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 时 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 年 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 创 建 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 创 建 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 创 建 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 创 建 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 创 办 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 创 办 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 创 办 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 创 办 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 成 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 成 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 成 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 成 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 建 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 建 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 建 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 建 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 设 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 设 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 设 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 设 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 做 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的经营范围有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 类 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 类 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 性 质 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 性 质 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 类 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 性 质 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 类 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 性 质 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 掌 管 ^ </pattern>
+        <template>
+            <star index="2"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 执 掌 ^ </pattern>
+        <template>
+            <star index="2"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 负 责 ^ </pattern>
+        <template>
+            <star index="2"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 管 理 ^ </pattern>
+        <template>
+            <star index="2"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 主 管 ^ </pattern>
+        <template>
+            <star index="2"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 掌 管 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="3"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 执 掌 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="3"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 负 责 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="3"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 管 理 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="3"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 主 管 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="3"/>的总裁是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 董 事 ^ </pattern>
+        <template>
+            <star index="2"/>的董事长是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 创 建 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 创 建 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 创 建 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 创 办 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 创 办 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 创 办 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 成 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 成 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 成 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 建 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 建 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 建 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 设 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 设 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 设 立 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 谁 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 谁 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 谁 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 谁 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 谁 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 经 营 ^ 产 品 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 出 售 ^ 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 销 售 ^ 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 卖 ^ 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 出 售 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 销 售 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 卖 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 出 售 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 销 售 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 卖 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 多 少 人 ^ </pattern>
+        <template>
+            <star index="2"/>的员工数是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 几 人 ^ </pattern>
+        <template>
+            <star index="2"/>的员工数是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 总 部 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的总部地点是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 总 公 司 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的总部地点是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 总 部 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的总部地点是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 总 公 司 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的总部地点是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 总 部 ^ 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的总部地点是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 总 公 司 ^ 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的总部地点是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 国 家 ^ </pattern>
+        <template>
+            <star index="2"/>的国别是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 国 家 ^ </pattern>
+        <template>
+            <star index="2"/>的国别是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 属 ^ 哪 个 ^ 公 司 ^ </pattern>
+        <template>
+            <star index="2"/>的所属公司是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 是 ^ 哪 个 ^ 公 司 ^ </pattern>
+        <template>
+            <star index="2"/>的所属公司是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 属 ^ 什 么 ^ 公 司 ^ </pattern>
+        <template>
+            <star index="2"/>的所属公司是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 是 ^ 什 么 ^ 公 司 ^ </pattern>
+        <template>
+            <star index="2"/>的所属公司是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 行 业 ^ </pattern>
+        <template>
+            <star index="2"/>的所属行业是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 行 业 ^ </pattern>
+        <template>
+            <star index="2"/>的所属行业是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 英 文 ^ 怎 么 ^ 说 ^ </pattern>
+        <template>
+            <star index="2"/>的英文名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 英 文 ^ 咋 ^ 说 ^ </pattern>
+        <template>
+            <star index="2"/>的英文名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 英 文 ^ 怎 么 ^ 读 ^ </pattern>
+        <template>
+            <star index="2"/>的英文名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 英 文 ^ 咋 ^ 读 ^ </pattern>
+        <template>
+            <star index="2"/>的英文名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 英 文 ^ 怎 么 ^ 念 ^ </pattern>
+        <template>
+            <star index="2"/>的英文名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
+        <template>
+            <star index="2"/>的英文名是什么？
+        </template>
+    </category>
+</aiml>

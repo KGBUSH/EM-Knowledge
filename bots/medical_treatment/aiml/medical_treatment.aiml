@@ -1,0 +1,530 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 英 文 ^ 怎 么 ^ 说 ^ </pattern>
+        <template>
+            <star index="2"/>的英文名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 英 文 ^ 咋 ^ 说 ^ </pattern>
+        <template>
+            <star index="2"/>的英文名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 英 文 ^ 怎 么 ^ 读 ^ </pattern>
+        <template>
+            <star index="2"/>的英文名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 英 文 ^ 咋 ^ 读 ^ </pattern>
+        <template>
+            <star index="2"/>的英文名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 英 文 ^ 怎 么 ^ 念 ^ </pattern>
+        <template>
+            <star index="2"/>的英文名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
+        <template>
+            <star index="2"/>的英文名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 诊 室 ^ </pattern>
+        <template>
+            <star index="2"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 科 室 ^ </pattern>
+        <template>
+            <star index="2"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 科 ^ </pattern>
+        <template>
+            <star index="2"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 诊 室 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 科 室 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 科 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 挂 ^ 科 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 挂 ^ 号 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 挂 ^ 科 ^ </pattern>
+        <template>
+            <star index="2"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 挂 ^ 号 ^ </pattern>
+        <template>
+            <star index="2"/>的就诊科室是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 为 什 么 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 为 啥 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 怎 么 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 为 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 为 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 么 ^ </pattern>
+        <template>
+            <star index="2"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 原 因 ^ </pattern>
+        <template>
+            <star index="2"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 原 因 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="3"/>的常见病因有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 样 ^ </pattern>
+        <template>
+            <star index="2"/>的常见症状有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 感 觉 ^ </pattern>
+        <template>
+            <star index="2"/>的常见症状有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 么 ^ 传 播 ^ </pattern>
+        <template>
+            <star index="2"/>的传播途径是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 样 ^ 传 播 ^ </pattern>
+        <template>
+            <star index="2"/>的传播途径是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 么 ^ 传 染 ^ </pattern>
+        <template>
+            <star index="2"/>的传播途径是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 样 ^ 传 染 ^ </pattern>
+        <template>
+            <star index="2"/>的传播途径是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 生 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 生 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 生 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 感 染 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 感 染 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 感 染 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 得 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 得 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 得 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 ^ 生 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 ^ 生 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 谁 ^ 生 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 ^ 感 染 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 ^ 感 染 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 谁 ^ 感 染 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 ^ 得 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 ^ 得 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 谁 ^ 得 ^ </pattern>
+        <template>
+            <star index="2"/>的多发群体是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 禁 忌 ^ </pattern>
+        <template>
+            <star index="2"/>主要用药禁忌有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 注 意 ^ </pattern>
+        <template>
+            <star index="2"/>主要用药禁忌有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 病 ^ 适 合 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="5"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 病 ^ 适 合 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="5"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 病 ^ 适 合 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="5"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 症 ^ 适 合 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="5"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 症 ^ 适 合 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="5"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 症 ^ 适 合 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="5"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 病 ^ 适 用 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="5"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 病 ^ 适 用 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="5"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 病 ^ 适 用 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="5"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 症 ^ 适 用 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="5"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 症 ^ 适 用 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="5"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 症 ^ 适 用 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="5"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 适 合 ^ 什 么 ^ 病 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 适 用 ^ 什 么 ^ 病 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 适 合 ^ 哪 ^ 病 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 适 用 ^ 哪 ^ 病 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 适 合 ^ 啥 ^ 病 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 适 用 ^ 啥 ^ 病 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 适 合 ^ 什 么 ^ 症 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 适 用 ^ 什 么 ^ 症 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 适 合 ^ 哪 ^ 症 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 适 用 ^ 哪 ^ 症 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 适 合 ^ 啥 ^ 症 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 适 用 ^ 啥 ^ 症 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 运 动 员 ^ </pattern>
+        <template>
+            运动员慎用吗？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 运 动 员 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            运动员慎用吗？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 么 ^ 吃 ^ </pattern>
+        <template>
+            <star index="2"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 如 何 ^ 吃 ^ </pattern>
+        <template>
+            <star index="2"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 咋 ^ 吃 ^ </pattern>
+        <template>
+            <star index="2"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 么 ^ 用 ^ </pattern>
+        <template>
+            <star index="2"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 如 何 ^ 用 ^ </pattern>
+        <template>
+            <star index="2"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 咋 ^ 用 ^ </pattern>
+        <template>
+            <star index="2"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 怎 么 ^ 吃 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 如 何 ^ 吃 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 咋 ^ 吃 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 怎 么 ^ 用 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 如 何 ^ 用 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的用法用量是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 咋 ^ 用 ^ ## * <type>entity</type><label>medical_treatment</label> ^ </pattern>
+        <template>
+            <star index="4"/>的用法用量是什么？
+        </template>
+    </category>
+</aiml>

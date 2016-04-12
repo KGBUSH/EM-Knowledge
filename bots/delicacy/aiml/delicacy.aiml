@@ -1,0 +1,200 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 什 么 ^ 做 ^ </pattern>
+        <template>
+            <star index="2"/>的主要食材是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 啥 ^ 做 ^ </pattern>
+        <template>
+            <star index="2"/>的主要食材是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 哪 ^ 做 ^ </pattern>
+        <template>
+            <star index="2"/>的主要食材是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 做 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要食材是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 做 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要食材是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 做 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主要食材是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 做 ^ ## * <type>entity</type><label>delicacy</label> ^ 什 么 ^ </pattern>
+        <template>
+            <star index="3"/>的主要食材是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 做 ^ ## * <type>entity</type><label>delicacy</label> ^ 啥 ^ </pattern>
+        <template>
+            <star index="3"/>的主要食材是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 做 ^ ## * <type>entity</type><label>delicacy</label> ^ 哪 ^ </pattern>
+        <template>
+            <star index="3"/>的主要食材是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 哪 ^ 系 ^ </pattern>
+        <template>
+            <star index="2"/>的分类是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 什 么 ^ 系 ^ </pattern>
+        <template>
+            <star index="2"/>的分类是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 系 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的分类是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 系 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的分类是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 哪 ^ 系 ^ </pattern>
+        <template>
+            <star index="2"/>的菜系是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 什 么 ^ 系 ^ </pattern>
+        <template>
+            <star index="2"/>的菜系是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 系 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的菜系是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 系 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的菜系是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 哪 ^ 省 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 什 么 ^ 省 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 哪 ^ 市 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 什 么 ^ 市 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 哪 ^ 地 区 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 什 么 ^ 地 区 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 哪 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 什 么 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 省 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 省 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 市 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 市 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 地 区 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 地 区 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 地 方 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 地 方 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的所属地区是哪儿？
+        </template>
+    </category>
+</aiml>

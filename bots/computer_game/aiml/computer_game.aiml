@@ -1,0 +1,506 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ 运 行 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ 运 行 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ 运 行 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ 玩 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ 玩 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ 玩 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ 载 体 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ 载 体 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ 载 体 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 运 行 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 运 行 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 运 行 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 玩 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 玩 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 玩 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 载 体 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 载 体 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 载 体 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 运 行 ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ </pattern>
+        <template>
+            <star index="3"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 玩 ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ </pattern>
+        <template>
+            <star index="3"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 载 体 ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ </pattern>
+        <template>
+            <star index="3"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 运 行 ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ </pattern>
+        <template>
+            <star index="3"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 玩 ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ </pattern>
+        <template>
+            <star index="3"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 载 体 ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ </pattern>
+        <template>
+            <star index="3"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 运 行 ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ </pattern>
+        <template>
+            <star index="3"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 玩 ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ </pattern>
+        <template>
+            <star index="3"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 载 体 ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ </pattern>
+        <template>
+            <star index="3"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ 研 发 ^ </pattern>
+        <template>
+            <star index="2"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ 研 发 ^ </pattern>
+        <template>
+            <star index="2"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ 研 发 ^ </pattern>
+        <template>
+            <star index="2"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ 研 发 ^ </pattern>
+        <template>
+            <star index="2"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ 开 发 ^ </pattern>
+        <template>
+            <star index="2"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ 开 发 ^ </pattern>
+        <template>
+            <star index="2"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ 开 发 ^ </pattern>
+        <template>
+            <star index="2"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ 开 发 ^ </pattern>
+        <template>
+            <star index="2"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 研 发 ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ </pattern>
+        <template>
+            <star index="3"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 开 发 ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ </pattern>
+        <template>
+            <star index="3"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 研 发 ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ </pattern>
+        <template>
+            <star index="3"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 开 发 ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ </pattern>
+        <template>
+            <star index="3"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 研 发 ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ </pattern>
+        <template>
+            <star index="3"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 开 发 ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ </pattern>
+        <template>
+            <star index="3"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 研 发 ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 开 发 ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 研 发 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 研 发 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 研 发 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 研 发 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 开 发 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 开 发 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 开 发 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 开 发 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的开发商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的发行商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的发行商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的发行商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的发行商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的发行商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的发行商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的发行商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的发行商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ </pattern>
+        <template>
+            <star index="3"/>的发行商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ </pattern>
+        <template>
+            <star index="3"/>的发行商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ </pattern>
+        <template>
+            <star index="3"/>的发行商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>的发行商是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 时 ^ </pattern>
+        <template>
+            <star index="3"/>的发行日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 时 ^ </pattern>
+        <template>
+            <star index="3"/>的发行日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ 何 时 ^ </pattern>
+        <template>
+            <star index="3"/>的发行日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 时 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的发行日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 时 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的发行日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 何 时 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的发行日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的发行日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的发行日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的发行日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 多 少 人 ^ </pattern>
+        <template>
+            <star index="2"/>的玩家人数是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 几 人 ^ </pattern>
+        <template>
+            <star index="2"/>的玩家人数是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 人 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="3"/>的玩家人数是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 人 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="3"/>的玩家人数是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 代 言 ^ </pattern>
+        <template>
+            <star index="2"/>的代言人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 代 言 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="3"/>的代言人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ 制 作 ^ </pattern>
+        <template>
+            <star index="2"/>的制作人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ 设 计 ^ </pattern>
+        <template>
+            <star index="2"/>的制作人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ 策 划 ^ </pattern>
+        <template>
+            <star index="2"/>的制作人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 制 作 ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>的制作人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 设 计 ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>的制作人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 策 划 ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>的制作人是谁？
+        </template>
+    </category>
+</aiml>

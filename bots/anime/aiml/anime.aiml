@@ -1,0 +1,1982 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 地 区 ^ 制 片 ^ </pattern>
+        <template>
+            <star index="2"/>的制片地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 地 方 ^ 制 片 ^ </pattern>
+        <template>
+            <star index="2"/>的制片地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 国 家 ^ 制 片 ^ </pattern>
+        <template>
+            <star index="2"/>的制片地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ 国 ^ </pattern>
+        <template>
+            <star index="2"/>的制片地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 国 ^ </pattern>
+        <template>
+            <star index="2"/>的制片地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 放 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>的片长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 播 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>的片长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 演 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>的片长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 放 ^ 多 久 ^ </pattern>
+        <template>
+            <star index="2"/>的片长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 播 ^ 多 久 ^ </pattern>
+        <template>
+            <star index="2"/>的片长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 演 ^ 多 久 ^ </pattern>
+        <template>
+            <star index="2"/>的片长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 放 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的片长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 播 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的片长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 演 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的片长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 出 品 ^ </pattern>
+        <template>
+            <star index="2"/>的出品时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ 出 品 ^ </pattern>
+        <template>
+            <star index="2"/>的出品时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 出 品 ^ </pattern>
+        <template>
+            <star index="2"/>的出品时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 年 ^ 出 品 ^ </pattern>
+        <template>
+            <star index="2"/>的出品时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 公 司 ^ 出 品 ^ </pattern>
+        <template>
+            <star index="2"/>的出品方是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ 出 品 ^ </pattern>
+        <template>
+            <star index="2"/>的出品方是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 原 版 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 老 板 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 初 版 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 首 版 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 初 稿 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 首 稿 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 原 版 ^ 名 字 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 老 板 ^ 名 字 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 初 版 ^ 名 字 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 首 版 ^ 名 字 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 初 稿 ^ 名 字 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 首 稿 ^ 名 字 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 原 版 ^ ## * <type>entity</type><label>anime</label> ^ 叫 ^ </pattern>
+        <template>
+            <star index="3"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 老 板 ^ ## * <type>entity</type><label>anime</label> ^ 叫 ^ </pattern>
+        <template>
+            <star index="3"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 初 版 ^ ## * <type>entity</type><label>anime</label> ^ 叫 ^ </pattern>
+        <template>
+            <star index="3"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 首 版 ^ ## * <type>entity</type><label>anime</label> ^ 叫 ^ </pattern>
+        <template>
+            <star index="3"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 初 稿 ^ ## * <type>entity</type><label>anime</label> ^ 叫 ^ </pattern>
+        <template>
+            <star index="3"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 首 稿 ^ ## * <type>entity</type><label>anime</label> ^ 叫 ^ </pattern>
+        <template>
+            <star index="3"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 原 版 ^ ## * <type>entity</type><label>anime</label> ^ 名 字 ^ </pattern>
+        <template>
+            <star index="3"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 老 板 ^ ## * <type>entity</type><label>anime</label> ^ 名 字 ^ </pattern>
+        <template>
+            <star index="3"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 初 版 ^ ## * <type>entity</type><label>anime</label> ^ 名 字 ^ </pattern>
+        <template>
+            <star index="3"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 首 版 ^ ## * <type>entity</type><label>anime</label> ^ 名 字 ^ </pattern>
+        <template>
+            <star index="3"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 初 稿 ^ ## * <type>entity</type><label>anime</label> ^ 名 字 ^ </pattern>
+        <template>
+            <star index="3"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 首 稿 ^ ## * <type>entity</type><label>anime</label> ^ 名 字 ^ </pattern>
+        <template>
+            <star index="3"/>的原版名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ 写 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ 写 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ 写 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ 创 作 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ 创 作 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ 创 作 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ 出 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ 出 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ 出 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ 编 写 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ 编 写 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ 编 写 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ 编 撰 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ 编 撰 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ 编 撰 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ 撰 写 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ 撰 写 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ 撰 写 ^ </pattern>
+        <template>
+            <star index="2"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 写 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 ^ 写 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 位 ^ 写 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 创 作 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 ^ 创 作 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 位 ^ 创 作 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 出 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 ^ 出 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 位 ^ 出 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 编 写 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 ^ 编 写 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 位 ^ 编 写 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 编 撰 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 ^ 编 撰 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 位 ^ 编 撰 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 撰 写 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 ^ 撰 写 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 位 ^ 撰 写 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 写 ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 创 作 ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 出 ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 编 写 ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 编 撰 ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 撰 写 ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 写 ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 创 作 ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 出 ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 编 写 ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 编 撰 ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 撰 写 ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 写 ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 创 作 ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 出 ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 编 写 ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 编 撰 ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 撰 写 ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ </pattern>
+        <template>
+            <star index="3"/>的原作是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的导演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的导演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的导演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ 导 ^ </pattern>
+        <template>
+            <star index="2"/>的导演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ 导 ^ </pattern>
+        <template>
+            <star index="2"/>的导演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ 导 ^ </pattern>
+        <template>
+            <star index="2"/>的导演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 拍 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的导演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 ^ 拍 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的导演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 位 ^ 拍 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的导演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 导 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的导演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 ^ 导 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的导演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 位 ^ 导 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的导演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 改 编 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的编剧是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 ^ 改 编 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的编剧是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 位 ^ 改 编 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的编剧是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 谁 ^ 改 编 ^ </pattern>
+        <template>
+            <star index="2"/>的编剧是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ 改 编 ^ </pattern>
+        <template>
+            <star index="2"/>的编剧是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 位 ^ 改 编 ^ </pattern>
+        <template>
+            <star index="2"/>的编剧是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 演 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 些 ^ 演 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 参 与 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 些 ^ 参 与 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的主演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 有 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的主演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 有 哪 些 ^ </pattern>
+        <template>
+            <star index="2"/>的主演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 乐 ^ 配 ^ </pattern>
+        <template>
+            <star index="2"/>的配乐是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 乐 ^ 创 作 ^ </pattern>
+        <template>
+            <star index="2"/>的配乐是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 配 ^ 乐 ^ </pattern>
+        <template>
+            <star index="2"/>的配乐是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 创 作 ^ 乐 ^ </pattern>
+        <template>
+            <star index="2"/>的配乐是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 上 ^ </pattern>
+        <template>
+            <star index="2"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ 上 ^ </pattern>
+        <template>
+            <star index="2"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 上 ^ </pattern>
+        <template>
+            <star index="2"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 上 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 上 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 上 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 看 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 看 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 看 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 看 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 看 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 播 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 播 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 演 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 演 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 地 方 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 地 方 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 杂 志 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 杂 志 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 刊 物 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 刊 物 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 地 方 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 地 方 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 杂 志 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 杂 志 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 刊 物 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 刊 物 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 地 方 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 地 方 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 杂 志 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 杂 志 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 刊 物 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 刊 物 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 连 载 ^ 哪 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 刊 登 ^ 哪 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 连 载 ^ 什 么 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 刊 登 ^ 什 么 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 连 载 ^ 哪 ^ 杂 志 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 刊 登 ^ 哪 ^ 杂 志 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 连 载 ^ 什 么 ^ 杂 志 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 刊 登 ^ 什 么 ^ 杂 志 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 连 载 ^ 哪 ^ 刊 物 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 刊 登 ^ 哪 ^ 刊 物 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 连 载 ^ 什 么 ^ 刊 物 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 刊 登 ^ 什 么 ^ 刊 物 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 地 方 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 地 方 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 杂 志 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 杂 志 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 刊 物 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 刊 物 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 地 方 ^ 刊 登 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 地 方 ^ 刊 登 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 杂 志 ^ 刊 登 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 杂 志 ^ 刊 登 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 刊 物 ^ 刊 登 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 刊 物 ^ 刊 登 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 地 方 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 地 方 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 杂 志 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 杂 志 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 刊 物 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 刊 物 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 刊 登 ^ </pattern>
+        <template>
+            <star index="2"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ 刊 登 ^ </pattern>
+        <template>
+            <star index="2"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 刊 登 ^ </pattern>
+        <template>
+            <star index="2"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ </pattern>
+        <template>
+            <star index="3"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ </pattern>
+        <template>
+            <star index="3"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ </pattern>
+        <template>
+            <star index="3"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ </pattern>
+        <template>
+            <star index="3"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ </pattern>
+        <template>
+            <star index="3"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ </pattern>
+        <template>
+            <star index="3"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 出 版 ^ </pattern>
+        <template>
+            <star index="2"/>的出版社是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 出 版 ^ </pattern>
+        <template>
+            <star index="2"/>的出版社是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的出版社是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的出版社是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 出 版 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的出版社是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 发 行 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的出版社是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 出 版 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的出版社是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 发 行 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的出版社是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 出 版 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的出版社是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 出 版 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的出版社是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 发 行 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的出版社是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 发 行 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的出版社是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 台 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 台 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 频 道 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 频 道 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 台 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 台 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 频 道 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 频 道 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 台 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 台 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 频 道 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 频 道 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 台 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 台 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 频 道 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 ^ 频 道 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 台 ^ 看 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 台 ^ 看 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 频 道 ^ 看 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 频 道 ^ 看 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 台 ^ 播 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 台 ^ 播 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 频 道 ^ 播 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 频 道 ^ 播 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 台 ^ 演 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 台 ^ 演 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 频 道 ^ 演 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 频 道 ^ 演 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 台 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 台 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 频 道 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 频 道 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="5"/>的首播电视台是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ## * <type>entity</type><label>anime</label> ^ 还 ^ 叫 ^ </pattern>
+        <template>
+            <star index="1"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ## * <type>entity</type><label>anime</label> ^ 还 ^ 称 呼 ^ </pattern>
+        <template>
+            <star index="1"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 还 ^ 叫 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 还 ^ 称 呼 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 卖 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的定价是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 买 ^ ## * <type>entity</type><label>anime</label> ^ 多 少 ^ </pattern>
+        <template>
+            <star index="3"/>的定价是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 ^ 买 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的定价是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 出 版 ^ </pattern>
+        <template>
+            <star index="2"/>的出版时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ 出 版 ^ </pattern>
+        <template>
+            <star index="2"/>的出版时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 出 版 ^ </pattern>
+        <template>
+            <star index="2"/>的出版时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的出版时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的出版时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的出版时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 出 版 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的出版时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 出 版 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的出版时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 出 版 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的出版时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 发 行 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的出版时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 发 行 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的出版时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 发 行 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的出版时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 什 么 时 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 播 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 播 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 播 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 看 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 看 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 看 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 演 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 演 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 演 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的播放期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 得 ^ 什 么 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>的奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 获 ^ 什 么 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>的奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 得 ^ 哪 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>的奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 获 ^ 哪 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>的奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 得 ^ 什 么 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>的奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 获 ^ 什 么 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>的奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 得 ^ 哪 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>的奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 获 ^ 哪 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>的奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 得 ^ 什 么 ^ 成 就 ^ </pattern>
+        <template>
+            <star index="2"/>的奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 获 ^ 什 么 ^ 成 就 ^ </pattern>
+        <template>
+            <star index="2"/>的奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 得 ^ 哪 ^ 成 就 ^ </pattern>
+        <template>
+            <star index="2"/>的奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 获 ^ 哪 ^ 成 就 ^ </pattern>
+        <template>
+            <star index="2"/>的奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 多 少 集 ^ </pattern>
+        <template>
+            <star index="2"/>的集数多少?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 几 集 ^ </pattern>
+        <template>
+            <star index="2"/>的集数多少?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 多 少 话 ^ </pattern>
+        <template>
+            <star index="2"/>的集数多少?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 几 话 ^ </pattern>
+        <template>
+            <star index="2"/>的集数多少?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 还 有 ^ 电 视 台 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的其他电视台有什么？
+        </template>
+    </category>
+</aiml>
