@@ -200,17 +200,9 @@ public class PatternMatchingProcess {
 		} else if (isRelationshipQuestion(userSentence)) {
 			List<String> relationDirectNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("",
 					entitySet.get(0), "", entitySet.get(1), 1);
-			List<String> relationNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(0),
-					"", entitySet.get(1), 2);
-			List<String> relationReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(1),
-					"", entitySet.get(0), 2);
-			List<List<String>> relationConvergePathSet = DBProcess.getRelationshipTypeInConvergePath("",
-					entitySet.get(0), "", entitySet.get(1));
-			List<List<String>> relationDivergePathSet = DBProcess.getRelationshipTypeInDivergentPath("",
-					entitySet.get(0), "", entitySet.get(1));
-			System.out.println("\n\t relationNormalWayPathSet = " + relationNormalWayPathSet
-					+ "\n\t relationReverseWayPathSet=" + relationReverseWayPathSet + "\n\t relationConverge="
-					+ relationConvergePathSet + "\n\t relationDiverge =" + relationDivergePathSet);
+//			System.out.println("\n\t relationNormalWayPathSet = " + relationNormalWayPathSet
+//					+ "\n\t relationReverseWayPathSet=" + relationReverseWayPathSet + "\n\t relationConverge="
+//					+ relationConvergePathSet + "\n\t relationDiverge =" + relationDivergePathSet);
 			System.out
 					.println("TIME 8 - get relationships >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
@@ -227,7 +219,8 @@ public class PatternMatchingProcess {
 			if (answerRelation.isEmpty()) {
 				List<String> relationDirectReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath("",
 						entitySet.get(1), "", entitySet.get(0), 1);
-				if (!relationReverseWayPathSet.isEmpty()) {
+				if (!relationDirectReverseWayPathSet.isEmpty()) {
+					System.out.println("relationReverseWayPathSet="+relationDirectReverseWayPathSet);
 					String directReverseWayRelation = entitySet.get(0) + "是" + entitySet.get(1);
 					for (String s : relationDirectReverseWayPathSet) {
 						directReverseWayRelation += "的" + s;
@@ -238,7 +231,10 @@ public class PatternMatchingProcess {
 			}
 
 			if (answerRelation.isEmpty()) {
+				List<String> relationNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(0),
+						"", entitySet.get(1), 2);
 				if (!relationNormalWayPathSet.isEmpty()) {
+					System.out.println("relationNormalWayPathSet="+relationNormalWayPathSet);
 					String normalWayRelation = entitySet.get(1) + "是" + entitySet.get(0);
 					for (String s : relationNormalWayPathSet) {
 						normalWayRelation += "的" + s;
@@ -249,7 +245,10 @@ public class PatternMatchingProcess {
 			}
 
 			if (answerRelation.isEmpty()) {
+				List<String> relationReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(1),
+						"", entitySet.get(0), 2);
 				if (!relationReverseWayPathSet.isEmpty()) {
+					System.out.println("relationReverseWayPathSet="+relationReverseWayPathSet);
 					String reverseWayRelation = entitySet.get(0) + "是" + entitySet.get(1);
 					for (String s : relationReverseWayPathSet) {
 						reverseWayRelation += "的" + s;
@@ -263,7 +262,10 @@ public class PatternMatchingProcess {
 			}
 
 			if (answerRelation.isEmpty()) {
+				List<List<String>> relationConvergePathSet = DBProcess.getRelationshipTypeInConvergePath("",
+						entitySet.get(0), "", entitySet.get(1));
 				if (!relationConvergePathSet.isEmpty()) {
+					System.out.println("relationConvergePathSet="+relationConvergePathSet);
 					String convergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "的";
 					for (List<String> listStr : relationConvergePathSet) {
 						convergeRelation += listStr.get(1) + "都是" + listStr.get(0) + "，";
@@ -278,7 +280,10 @@ public class PatternMatchingProcess {
 			}
 
 			if (answerRelation.isEmpty()) {
+				List<List<String>> relationDivergePathSet = DBProcess.getRelationshipTypeInDivergentPath("",
+						entitySet.get(0), "", entitySet.get(1));
 				if (!relationDivergePathSet.isEmpty()) {
+					System.out.println("relationDivergePathSet="+relationDivergePathSet);
 					String divergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "都是";
 					for (List<String> listStr : relationDivergePathSet) {
 						divergeRelation += listStr.get(0) + "的" + listStr.get(1) + "，";
@@ -1202,7 +1207,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "贝克汉姆踢什么位置？";
+		String str = "宋慧乔和赵寅成是什么关系";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
