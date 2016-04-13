@@ -54,6 +54,24 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 哪 ^ 运 行 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
         <template>
             <star index="4"/>的游戏平台是哪个？
@@ -103,6 +121,24 @@
     </category>
     <category>
         <pattern> ^ 啥 ^ 载 体 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 有 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 有 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="4"/>的游戏平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 有 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
         <template>
             <star index="4"/>的游戏平台是哪个？
         </template>
@@ -396,6 +432,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 发 行 ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 年 ^ </pattern>
+        <template>
+            <star index="3"/>的发行日期是什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 啥 时 ^ 发 行 ^ </pattern>
         <template>
             <star index="2"/>的发行日期是什么时候？
@@ -409,6 +451,12 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 何 时 ^ 发 行 ^ </pattern>
+        <template>
+            <star index="2"/>的发行日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 哪 年 ^ 发 行 ^ </pattern>
         <template>
             <star index="2"/>的发行日期是什么时候？
         </template>
@@ -501,6 +549,72 @@
         <pattern> ^ 策 划 ^ ## * <type>entity</type><label>computer_game</label> ^ 谁 ^ </pattern>
         <template>
             <star index="3"/>的制作人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 什 么 样 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏类型是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 原 版 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称叫什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 老 版 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称叫什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 最 初 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称叫什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 初 版 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称叫什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 第 一 版 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称叫什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 原 版 ^ 名 字 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称叫什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 老 版 ^ 名 字 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称叫什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 最 初 ^ 名 字 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称叫什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 初 版 ^ 名 字 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称叫什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 第 一 版 ^ 名 字 ^ </pattern>
+        <template>
+            <star index="2"/>的原版名称叫什么？
         </template>
     </category>
 </aiml>
