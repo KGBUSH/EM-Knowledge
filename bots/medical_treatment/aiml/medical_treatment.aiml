@@ -156,6 +156,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 么 样 ^ </pattern>
+        <template>
+            <star index="2"/>的常见症状有什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 怎 么 ^ 传 播 ^ </pattern>
         <template>
             <star index="2"/>的传播途径是什么？
