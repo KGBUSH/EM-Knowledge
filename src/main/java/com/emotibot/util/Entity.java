@@ -22,19 +22,19 @@ public class Entity {
 	private String label;
 	private Map<String, String> ht;
 	
-	public Entity(String label, String name){
+	public Entity(String label, String name,String keyName){
 		this.setID(count++);
 		this.setLabel(label);
 		this.setName(name);
 		this.ht = new HashMap<>();
-		ht.put("Name", name);
+		ht.put(keyName, name);
 	}
 	
-	public Entity(String name){
+	public Entity(String name,String keyName){
 		this.setID(count++);
 		this.setName(name);
 		this.ht = new HashMap<>();
-		ht.put("Name", name);
+		ht.put(keyName, name);
 	}
 
 	public Entity() {

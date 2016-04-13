@@ -50,6 +50,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 	public static String label = "";
 	public static String Seperator = "ACBDGFX";
 	public static String Other = "other";
+	public static String md5 = "urlmd5";
 
 	public static HashMap<String, String> WordLabelMap = null;
 	public static List<String> fileList = null;
@@ -167,6 +168,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
                     else label=Other;
 					System.err.println("label="+label);
 					BuildCypherSQL bcy = new BuildCypherSQL();
+					pageExtractInfo.addAttr(md5, DigestUtils.md5Hex(url));
 					String query = bcy.InsertEntityNode(label, pageExtractInfo.getName(), pageExtractInfo.getAttr());
 					System.err.println(NodeOrRelation+" queryMap=" + query);
 					if (query == null || query.trim().length() == 0) return;
@@ -187,18 +189,18 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 								List<String> list = attr_Values.get(attr);
 								for(String val:list)
 								{
-									Entity a = new Entity(label, name);
+									Entity a = new Entity(label, name,"Name");
 									String label2=Other;
 									if(WordLabelMap.containsKey(val)) 
 									{
 										label2=WordLabelMap.get(val);
 									}
-									Entity b = new Entity(label2,val);
+									Entity b = new Entity(label2,val,"Name");
 									if(name.trim().equals(val.trim())){
 										System.err.println(name+"(equals)" +val);
                                         continue;
 									}
-					                  String query=bcy.InsertRelation(a, b, attr, null);									System.err.println(NodeOrRelation+" queryMap=" + query);
+					                String query=bcy.InsertRelation(a, b, attr, null);									System.err.println(NodeOrRelation+" queryMap=" + query);
 									if (query == null || query.trim().length() == 0) return;
 									context.write(outputKey, new Text(query));
 								}

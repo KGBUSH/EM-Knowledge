@@ -22,6 +22,7 @@ public class PageExtractInfo {
 	private List<Sentence> sentList = new ArrayList<>();
 	private HashMap<String,List<String>> attr_Values = new HashMap<>();
 	String Blank=" ";
+	private HashMap<String,String> wordLink = new HashMap<>();
 
 	public HashMap<String,String> getAttr() {
 		return attr;
@@ -240,6 +241,16 @@ public class PageExtractInfo {
 		key=key.replaceAll("”", "");
         key=removeAllBlank(key);
         System.err.println(key);
+	}
+	public String getWordLink(String word) {
+		//return wordLink;
+		if(wordLink!=null&&word!=null) return wordLink.get(word);
+		return "";
+	}
+	public void addWordLink(String w,String l) {
+		if(wordLink==null) wordLink = new HashMap<>();
+		if(l!=null&&w!=null) wordLink.put(w,l);
+		return ;
 	}
 	
 

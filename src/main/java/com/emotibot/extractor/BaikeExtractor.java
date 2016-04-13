@@ -62,7 +62,9 @@ public class BaikeExtractor extends Extractor {
             	for(Element href : hrefs){
             		String link = href.attr("href");
             		String word = href.text().trim().toLowerCase();////////////
-            		System.out.println(link+" ==> "+word);
+            		System.out.println(link+" =========> "+word);
+            		if(!link.startsWith("http://")) link ="http://baike.baidu.com"+link;
+            		pageInfo.addWordLink(word, link);
             		pageInfo.addAttr_Values(attr, word);
             	}
 	               /////////////////////////////////////////////
@@ -124,7 +126,9 @@ public class BaikeExtractor extends Extractor {
 		String path="/Users/Elaine/Documents/workspace/html/yaomin";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
-		System.err.println(ex.ProcessPage().toString());
+		PageExtractInfo info = ex.ProcessPage();
+		System.err.println(info.toString());
+		System.err.println(info.getWordLink("上海市"));
 	}
 
 }
