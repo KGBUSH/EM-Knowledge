@@ -6,7 +6,19 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 又 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的别名是什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 还 ^ 称 呼 ^ </pattern>
+        <template>
+            <star index="2"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 又 ^ 称 呼 ^ </pattern>
         <template>
             <star index="2"/>的别名是什么？
         </template>
@@ -18,7 +30,19 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 又 ^ 叫 ^ ## * <type>entity</type><label>figure</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别名是什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 还 ^ 称 呼 ^ ## * <type>entity</type><label>figure</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 又 ^ 称 呼 ^ ## * <type>entity</type><label>figure</label> ^ </pattern>
         <template>
             <star index="4"/>的别名是什么？
         </template>
@@ -57,6 +81,24 @@
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 多 少 斤 ^ </pattern>
         <template>
             <star index="2"/>的体重是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 儿 人 ^ </pattern>
+        <template>
+            <star index="2"/>的出生地是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 里 人 ^ </pattern>
+        <template>
+            <star index="2"/>的出生地是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 人 ^ </pattern>
+        <template>
+            <star index="2"/>的出生地是哪儿？
         </template>
     </category>
     <category>
@@ -168,6 +210,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 几 岁 ^ </pattern>
+        <template>
+            <star index="2"/>的年龄是多少？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 做 什 么 ^ </pattern>
         <template>
             <star index="2"/>的职业是什么？
@@ -216,7 +264,7 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 个 ^ 公 司 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 ^ 公 司 ^ </pattern>
         <template>
             <star index="2"/>的经纪公司是哪个？
         </template>
@@ -228,7 +276,7 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 个 ^ 公 司 ^ ## * <type>entity</type><label>figure</label> ^ </pattern>
+        <pattern> ^ 哪 ^ 公 司 ^ ## * <type>entity</type><label>figure</label> ^ </pattern>
         <template>
             <star index="4"/>的经纪公司是哪个？
         </template>
@@ -711,24 +759,6 @@
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 ^ 语 言 ^ </pattern>
         <template>
             <star index="2"/>的语言是什么？
-        </template>
-    </category>
-    <category>
-        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 儿 人 ^ </pattern>
-        <template>
-            <star index="2"/>的祖籍是哪儿？
-        </template>
-    </category>
-    <category>
-        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 里 人 ^ </pattern>
-        <template>
-            <star index="2"/>的祖籍是哪儿？
-        </template>
-    </category>
-    <category>
-        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 人 ^ </pattern>
-        <template>
-            <star index="2"/>的祖籍是哪儿？
         </template>
     </category>
     <category>

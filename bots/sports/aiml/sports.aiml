@@ -1,2 +1,110 @@
 <aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 一 场 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的比赛时间是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 每 场 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的比赛时间是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 一 场 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>的比赛时间是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 每 场 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>的比赛时间是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 一 场 ^ 多 久 ^ </pattern>
+        <template>
+            <star index="2"/>的比赛时间是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 每 场 ^ 多 久 ^ </pattern>
+        <template>
+            <star index="2"/>的比赛时间是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 怎 么 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的比赛方式是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 如 何 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的比赛方式是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 包 含 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的内容有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 包 括 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的内容有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 包 含 ^ 哪 些 ^ </pattern>
+        <template>
+            <star index="2"/>的内容有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 包 括 ^ 哪 些 ^ </pattern>
+        <template>
+            <star index="2"/>的内容有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 怎 么 ^ 用 ^ </pattern>
+        <template>
+            <star index="2"/>的使用方式是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 如 何 ^ 用 ^ </pattern>
+        <template>
+            <star index="2"/>的使用方式是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 还 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 还 ^ 称 呼 ^ </pattern>
+        <template>
+            <star index="2"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 还 ^ 叫 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 还 ^ 称 呼 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别名是什么？
+        </template>
+    </category>
 </aiml>
