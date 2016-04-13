@@ -22,7 +22,7 @@ public class SynonymGenerator {
 			BufferedWriter outTemp = new BufferedWriter(newAddedFile);
 
 			BufferedReader in = new BufferedReader(
-					new FileReader(Common.UserDir + "/knowledgedata/synonymPM.txt"));
+					new FileReader(Common.UserDir + "/knowledgedata/SynonymPM.txt"));
 			String line = in.readLine();
 			while (line != null) {
 				line = line.trim();
