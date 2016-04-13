@@ -431,6 +431,12 @@ public class PatternMatchingProcess {
 						break;
 					}
 				}
+				if(rsEntity.isEmpty()){
+					// bug fixing for the case of "黄金矿工哪年发行"
+					rsEntity.add(simpleMatchEntity.get(0));
+					System.err.println("case check in case 2.5=" + rsEntity);
+					Debug.printDebug(uniqueID, 2, "knowledge", "case check in case 2.5=" + rsEntity);
+				}
 				System.out.println("case: 2.5: rsEntity=" + rsEntity);
 				return rsEntity;
 			}
@@ -1207,7 +1213,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "雨果的其他名称什么";
+		String str = "黄金矿工哪年发行";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
