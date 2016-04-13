@@ -36,31 +36,31 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 是 谁 ^ </pattern>
+        <pattern> ^ 是 谁 </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 是 什 么 ^ </pattern>
+        <pattern> ^ 是 什 么 </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 干 嘛 ^ </pattern>
+        <pattern> ^ 干 嘛 的 </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 是 啥 ^ </pattern>
+        <pattern> ^ 是 啥 </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 谁 是 ^ </pattern>
+        <pattern> 谁 是 ^ </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo
         </template>
@@ -102,13 +102,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 介 绍 ^ </pattern>
+        <pattern> 介 绍 ^ </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 陈 述 ^ </pattern>
+        <pattern> 陈 述 ^ </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo
         </template>
