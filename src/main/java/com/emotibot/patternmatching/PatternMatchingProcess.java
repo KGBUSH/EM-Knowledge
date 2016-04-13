@@ -298,7 +298,7 @@ public class PatternMatchingProcess {
 			}
 
 			if (!answerRelation.isEmpty()) {
-				answerBean.setAnswer(answerRewite.rewriteAnswer(answerRelation));
+				answerBean.setAnswer(answerRewite.rewriteAnswer(answerRelation, 1));
 				answerBean.setScore(100);
 			}
 
@@ -1207,7 +1207,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "宋慧乔和赵寅成是什么关系";
+		String str = "雨果的其他名称什么";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);

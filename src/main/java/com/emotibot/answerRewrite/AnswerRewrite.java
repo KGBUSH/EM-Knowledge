@@ -108,6 +108,35 @@ public class AnswerRewrite {
 		return rewrite;
 	}
 	
+	// QuestinType: 0-normal, 1-relationship
+	public String rewriteAnswer(String answer, int QuestionType){
+		// if answer is null or answer is introduction, then skip rewrite
+		// the process logic for introduction may be improved later
+		if(Tool.isStrEmptyOrNull(answer) || answer.length()>50){
+			return answer;
+		}
+		
+		String rewrite = "";
+		int id = (int) Math.round(Math.random()*(answerRewriteTable.length-1));
+		System.out.println("id="+id);
+		String template = answerRewriteTable[id];
+		
+		if(!template.contains("__")) {
+			return answer;
+		} else {
+			if (QuestionType == 1){
+				// relation type
+//				System.out.println("template=="+template);
+				if(template.charAt(template.indexOf("__")-1)=='是'){
+					template = template.substring(0, template.indexOf("__")-1)+template.substring(template.indexOf("__"));
+//					System.out.println("template after change =="+template);
+				}
+			}
+			rewrite = template.substring(0, template.lastIndexOf("__"))+answer+template.substring(template.lastIndexOf("__")+2);
+		}
+		return rewrite;
+	}
+	
 	public String rewriteAnswer4Intro(String answer){
 		
 		String rewrite = "";
