@@ -360,6 +360,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 有 什 么 ^ 好 玩 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 逛 ^ 多 长 ^ </pattern>
         <template>
             <star index="2"/>的游玩儿时间是多少？

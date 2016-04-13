@@ -323,7 +323,7 @@ public class PatternMatchingProcess {
 		// if it is the selective question
 		if (isKindofQuestion(userSentence, selectiveQuestionType)) {
 			answerBean = selectiveQuestionProcess(userSentence, answerBean);
-			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer()));
+			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(), 2));
 			System.out.println("RETURN of GETANSWER: Selective Qustion: anwerBean is " + answerBean.toString());
 			return answerBean;
 		}
@@ -507,7 +507,7 @@ public class PatternMatchingProcess {
 				// by three methods
 				List<String> mergeEntity = mergeTwoLists(simpleMatchEntity, nlpEntity);
 				List<String> solrEntity = getEntityBySolr(sentence, mergeEntity, segWordWithoutStopWord);
-				System.out.println("\t solrEntity with entity input=" + solrEntity);
+				System.out.println("\t solrEntity with entity input=" + solrEntity+",\n mergeEntity="+mergeEntity);
 
 				if (simpleMatchEntity.size() == 1) {
 					if (solrEntity.isEmpty()) {
@@ -544,6 +544,11 @@ public class PatternMatchingProcess {
 							return rsEntity;
 						} else {
 							rsEntity = getIntersectionOfTwoLists(solrEntity, mergeEntity, 1);
+							if(rsEntity.isEmpty()){
+								System.out.println("rsEntity is empty");
+								rsEntity.add(simpleMatchEntity.get(0));
+							}
+							
 							System.out.println("case: 9: rsEntity=" + rsEntity);
 							return rsEntity;
 						}
@@ -771,7 +776,7 @@ public class PatternMatchingProcess {
 
 		if (!answerBean.getAnswer().isEmpty()) {
 			// valide answer
-			answerBean.setAnswer(strSeletive.substring(0, 1) + ", " + answerBean.getAnswer());
+			answerBean.setAnswer(strSeletive.substring(0, 1) + "的, "+entitySet.get(0)+"的"+answerBean.getProperty()+"是" + answerBean.getAnswer());
 		} else {
 			answerBean.setAnswer(strSeletive.substring(1));
 		}
@@ -1219,7 +1224,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "你在干嘛呢";
+		String str = "上海有什么好玩的地方";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);

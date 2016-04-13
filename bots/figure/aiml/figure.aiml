@@ -960,6 +960,42 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 组 合 ^ 做 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 队 ^ 做 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 组 合 ^ 干 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 队 ^ 干 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 组 合 ^ 干 嘛 ^ </pattern>
+        <template>
+            <star index="2"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 队 ^ 干 嘛 ^ </pattern>
+        <template>
+            <star index="2"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 组 合 ^ 干 什 么 ^ </pattern>
         <template>
             <star index="2"/>的队内职务是什么?
@@ -979,6 +1015,18 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 队 ^ 职 责 ^ </pattern>
+        <template>
+            <star index="2"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 组 合 ^ 负 责 ^ </pattern>
+        <template>
+            <star index="2"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 队 ^ 负 责 ^ </pattern>
         <template>
             <star index="2"/>的队内职务是什么?
         </template>
@@ -1008,6 +1056,42 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 组 合 ^ ## * <type>entity</type><label>figure</label> ^ 做 啥 ^ </pattern>
+        <template>
+            <star index="3"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 队 ^ ## * <type>entity</type><label>figure</label> ^ 做 啥 ^ </pattern>
+        <template>
+            <star index="3"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 组 合 ^ ## * <type>entity</type><label>figure</label> ^ 干 啥 ^ </pattern>
+        <template>
+            <star index="3"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 队 ^ ## * <type>entity</type><label>figure</label> ^ 干 啥 ^ </pattern>
+        <template>
+            <star index="3"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 组 合 ^ ## * <type>entity</type><label>figure</label> ^ 干 嘛 ^ </pattern>
+        <template>
+            <star index="3"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 队 ^ ## * <type>entity</type><label>figure</label> ^ 干 嘛 ^ </pattern>
+        <template>
+            <star index="3"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
         <pattern> ^ 组 合 ^ ## * <type>entity</type><label>figure</label> ^ 职 责 ^ </pattern>
         <template>
             <star index="3"/>的队内职务是什么?
@@ -1015,6 +1099,18 @@
     </category>
     <category>
         <pattern> ^ 队 ^ ## * <type>entity</type><label>figure</label> ^ 职 责 ^ </pattern>
+        <template>
+            <star index="3"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 组 合 ^ ## * <type>entity</type><label>figure</label> ^ 负 责 ^ </pattern>
+        <template>
+            <star index="3"/>的队内职务是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 队 ^ ## * <type>entity</type><label>figure</label> ^ 负 责 ^ </pattern>
         <template>
             <star index="3"/>的队内职务是什么?
         </template>

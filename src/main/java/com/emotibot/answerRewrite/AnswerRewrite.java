@@ -59,7 +59,7 @@ public class AnswerRewrite {
 		String[] rs = null;
 		List<String> answerSet = new ArrayList<>();
 		String fileName = Common.UserDir + "/knowledgedata/AnswerTemplate4Intro.txt";
-		
+
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
 				BytesEncodingDetect detect = new BytesEncodingDetect();
@@ -73,7 +73,7 @@ public class AnswerRewrite {
 				while ((sentence = readBuffer.readLine()) != null) {
 					answerSet.add(sentence.trim());
 				}
-				
+
 				rs = new String[answerSet.size()];
 				for (int i = 0; i < answerSet.size(); i++) {
 					rs[i] = answerSet.get(i);
@@ -87,73 +87,77 @@ public class AnswerRewrite {
 		}
 		return rs;
 	}
-	
-	public String rewriteAnswer(String answer){
+
+	public String rewriteAnswer(String answer) {
 		// if answer is null or answer is introduction, then skip rewrite
 		// the process logic for introduction may be improved later
-		if(Tool.isStrEmptyOrNull(answer) || answer.length()>50){
+		if (Tool.isStrEmptyOrNull(answer) || answer.length() > 50) {
 			return answer;
 		}
-		
+
 		String rewrite = "";
-		int id = (int) Math.round(Math.random()*(answerRewriteTable.length-1));
-		System.out.println("id="+id);
+		int id = (int) Math.round(Math.random() * (answerRewriteTable.length - 1));
+		System.out.println("id=" + id);
 		String template = answerRewriteTable[id];
-		
-		if(!template.contains("__")) {
+
+		if (!template.contains("__")) {
 			return answer;
 		} else {
-			rewrite = template.substring(0, template.lastIndexOf("__"))+answer+template.substring(template.lastIndexOf("__")+2);
+			rewrite = template.substring(0, template.lastIndexOf("__")) + answer
+					+ template.substring(template.lastIndexOf("__") + 2);
 		}
 		return rewrite;
 	}
-	
-	// QuestinType: 0-normal, 1-relationship
-	public String rewriteAnswer(String answer, int QuestionType){
+
+	// QuestinType: 0-normal, 1-relationship, 2-selective
+	public String rewriteAnswer(String answer, int QuestionType) {
 		// if answer is null or answer is introduction, then skip rewrite
 		// the process logic for introduction may be improved later
-		if(Tool.isStrEmptyOrNull(answer) || answer.length()>50){
+		if (Tool.isStrEmptyOrNull(answer) || answer.length() > 50) {
 			return answer;
 		}
-		
+
 		String rewrite = "";
-		int id = (int) Math.round(Math.random()*(answerRewriteTable.length-1));
-		System.out.println("id="+id);
+		int id = (int) Math.round(Math.random() * (answerRewriteTable.length - 1));
+		System.out.println("id=" + id);
 		String template = answerRewriteTable[id];
-		
-		if(!template.contains("__")) {
+
+		if (!template.contains("__")) {
 			return answer;
 		} else {
-			if (QuestionType == 1){
+			if (QuestionType > 0) {
 				// relation type
-//				System.out.println("template=="+template);
-				if(template.charAt(template.indexOf("__")-1)=='是'){
-					template = template.substring(0, template.indexOf("__")-1)+template.substring(template.indexOf("__"));
-//					System.out.println("template after change =="+template);
+				System.out.println("template==" + template);
+				if (!template.startsWith("__") && template.charAt(template.indexOf("__") - 1) == '是') {
+					template = template.substring(0, template.indexOf("__") - 1)
+							+ template.substring(template.indexOf("__"));
+					System.out.println("template after change ==" + template);
 				}
 			}
-			rewrite = template.substring(0, template.lastIndexOf("__"))+answer+template.substring(template.lastIndexOf("__")+2);
+			rewrite = template.substring(0, template.lastIndexOf("__")) + answer
+					+ template.substring(template.lastIndexOf("__") + 2);
 		}
 		return rewrite;
 	}
-	
-	public String rewriteAnswer4Intro(String answer){
-		
+
+	public String rewriteAnswer4Intro(String answer) {
+
 		String rewrite = "";
-		int id = (int) Math.round(Math.random()*(answerRewriteTableIntro.length-1));
-		System.out.println("id="+id);
+		int id = (int) Math.round(Math.random() * (answerRewriteTableIntro.length - 1));
+		System.out.println("id=" + id);
 		String template = answerRewriteTableIntro[id];
 		rewrite = answer + "\r\n" + template;
 		return rewrite;
 	}
-	
-	public static void main(String [] args){
+
+	public static void main(String[] args) {
 		AnswerRewrite answerRewite = new AnswerRewrite();
 		String ans = "中锋";
-		System.out.println("answer is "+answerRewite.rewriteAnswer4Intro(ans));
-//		for(int i=0;i<200;i++){
-//			System.out.println("answer is "+answerRewite.rewriteAnswer4Intro("姚明"));
-//		}
+		System.out.println("answer is " + answerRewite.rewriteAnswer4Intro(ans));
+		// for(int i=0;i<200;i++){
+		// System.out.println("answer is
+		// "+answerRewite.rewriteAnswer4Intro("姚明"));
+		// }
 	}
 
 }
