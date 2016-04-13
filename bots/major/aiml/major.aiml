@@ -12,13 +12,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>major</label> ^ 就 业 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>major</label> ^ 就 业 </pattern>
         <template>
             <star index="2"/>的就业方向是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>major</label> ^ 工 作 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>major</label> ^ 工 作 </pattern>
         <template>
             <star index="2"/>的就业方向是什么？
         </template>

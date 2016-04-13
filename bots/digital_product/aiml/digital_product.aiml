@@ -684,13 +684,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 行 业 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 行 业 </pattern>
         <template>
             <star index="2"/>的所属行业是哪个？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 行 业 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 行 业 </pattern>
         <template>
             <star index="2"/>的所属行业是哪个？
         </template>

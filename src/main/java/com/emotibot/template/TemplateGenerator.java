@@ -105,7 +105,9 @@ public class TemplateGenerator {
 					// each part between ^s is a list of words;
 					// make the combination of all the parts
 					List<List<String>> patternList = new ArrayList<>();
-					for (String part : patternArr) {
+					
+					for(int i=0;i<patternArr.length;i++){
+						String part = patternArr[i];
 						List<String> list = new ArrayList<>();
 						if (part.contains("#")) {
 							// System.out.println("##### part = "+part);
@@ -125,10 +127,48 @@ public class TemplateGenerator {
 							// normal case
 							list.add(part + "^ ");
 						}
+						
+						if(i == patternArr.length-1 && !pattern.trim().endsWith("^")){
+							for(int j=0; j<list.size();j++){
+								String tempS = list.get(j);
+								list.set(j, tempS.substring(0, tempS.length()-2));
+							}
+						}
+						
 						patternList.add(list);
 						count++;
 					}
-					System.out.println("patternList=" + patternList);
+					
+//					for (String part : patternArr) {
+//						List<String> list = new ArrayList<>();
+//						if (part.contains("#")) {
+//							// System.out.println("##### part = "+part);
+//							// entity case
+//							if (!part.equals("#"))
+//								System.err.println("wrong format: part=" + part);
+//							count++;
+//							entityPos = count;
+//							list.add(domain + "^ ");
+//						} else if (part.contains("/")) {
+//							// multiple possibility case
+//							String[] strArr = part.split("/");
+//							for (String s : strArr) {
+//								list.add(s + "^ ");
+//							}
+//						} else {
+//							// normal case
+//							list.add(part + "^ ");
+//						}
+//						patternList.add(list);
+//						count++;
+//					}
+					
+					System.out.println("pattern="+pattern+", patternList=" + patternList);
+					if(pattern.endsWith("^")){
+//						for(String s : patternList){
+//							
+//						}
+					}
 
 					List<String> middlePatterList = new ArrayList<>();
 					middlePatterList.add("");

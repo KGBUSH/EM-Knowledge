@@ -114,49 +114,49 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 哪 ^ 地 方 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 哪 ^ 地 方 </pattern>
         <template>
             <star index="2"/>的出生地是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 什 么 ^ 地 方 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 什 么 ^ 地 方 </pattern>
         <template>
             <star index="2"/>的出生地是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 哪 ^ 地 区 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 哪 ^ 地 区 </pattern>
         <template>
             <star index="2"/>的出生地是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 什 么 ^ 地 区 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 什 么 ^ 地 区 </pattern>
         <template>
             <star index="2"/>的出生地是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 哪 ^ 国 家 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 哪 ^ 国 家 </pattern>
         <template>
             <star index="2"/>的出生地是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 什 么 ^ 国 家 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 什 么 ^ 国 家 </pattern>
         <template>
             <star index="2"/>的出生地是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 哪 ^ 州 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 哪 ^ 州 </pattern>
         <template>
             <star index="2"/>的出生地是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 什 么 ^ 州 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 生 ^ 什 么 ^ 州 </pattern>
         <template>
             <star index="2"/>的出生地是哪儿？
         </template>

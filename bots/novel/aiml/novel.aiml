@@ -1128,7 +1128,7 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 多 少 字 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 多 少 字 </pattern>
         <template>
             <star index="2"/>的书籍字数有多少？
         </template>

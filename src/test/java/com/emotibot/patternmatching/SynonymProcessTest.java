@@ -49,11 +49,24 @@ public class SynonymProcessTest {
 
 
 	public static void main(String[] args) {
+		List<String> arrStr = new ArrayList<>();
+		arrStr.add("1 ^ ");
+		arrStr.add("2 ^ ");
+		
+		for(int i = 0; i<arrStr.size(); i++){
+			String tempS = arrStr.get(i);
+			arrStr.set(i, tempS.substring(0, tempS.length()-2));
+		}
+		
+		for(String s : arrStr){
+			System.out.println(s);
+		}
+		
 		String entity = "马德里竞技（马竞）对方的";
 		
 		System.out.println("fist="+entity.substring(0, entity.indexOf("（"))+", second="+entity.substring(entity.indexOf("（")+1, entity.indexOf("）")));
 		 
-		addLabelinEntity();
+//		addLabelinEntity();
 		
 		System.exit(0);
 		

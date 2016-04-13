@@ -666,7 +666,7 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>varity_show</label> ^ 几 点 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>varity_show</label> ^ 几 点 </pattern>
         <template>
             <star index="2"/>的播出时间什么时候？
         </template>
@@ -840,19 +840,19 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>varity_show</label> ^ 谁 ^ 制 片 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>varity_show</label> ^ 谁 ^ 制 片 </pattern>
         <template>
             <star index="2"/>的制片人是谁？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>varity_show</label> ^ 哪 位 ^ 制 片 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>varity_show</label> ^ 哪 位 ^ 制 片 </pattern>
         <template>
             <star index="2"/>的制片人是谁？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>varity_show</label> ^ 哪 个 ^ 制 片 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>varity_show</label> ^ 哪 个 ^ 制 片 </pattern>
         <template>
             <star index="2"/>的制片人是谁？
         </template>

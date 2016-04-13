@@ -690,19 +690,19 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 谁 ^ 制 片 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 谁 ^ 制 片 </pattern>
         <template>
             <star index="2"/>的制片人是谁？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 位 ^ 制 片 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 位 ^ 制 片 </pattern>
         <template>
             <star index="2"/>的制片人是谁？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 个 ^ 制 片 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 个 ^ 制 片 </pattern>
         <template>
             <star index="2"/>的制片人是谁？
         </template>

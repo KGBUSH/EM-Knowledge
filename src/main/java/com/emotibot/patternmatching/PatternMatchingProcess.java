@@ -1213,7 +1213,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "黄金矿工哪年发行";
+		String str = "爱琴海在哪个国家";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
