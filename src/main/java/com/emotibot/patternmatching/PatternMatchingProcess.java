@@ -12,6 +12,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.answerRewrite.AnswerRewrite;
@@ -21,6 +22,7 @@ import com.emotibot.solr.Solr_Query;
 import com.emotibot.template.TemplateEntry;
 import com.emotibot.template.TemplateProcessor;
 import com.emotibot.util.CUBean;
+import com.emotibot.util.StringLengthComparator;
 import com.emotibot.util.Tool;
 import com.emotibot.Debug.Debug;
 import com.hankcs.hanlp.seg.common.Term;
@@ -271,6 +273,8 @@ public class PatternMatchingProcess {
 						convergeRelation += listStr.get(1) + "都是" + listStr.get(0) + "，";
 					}
 					convergeRelation = convergeRelation.substring(0, convergeRelation.length() - 1);
+					// for now, return the longest one
+					convergeRelation = Tool.getLongestStringInArray(convergeRelation.split("，"));
 					answerRelation = convergeRelation;
 					// answerRelation = (answerRelation.isEmpty()) ?
 					// convergeRelation
@@ -289,6 +293,8 @@ public class PatternMatchingProcess {
 						divergeRelation += listStr.get(0) + "的" + listStr.get(1) + "，";
 					}
 					divergeRelation = divergeRelation.substring(0, divergeRelation.length() - 1);
+					// for now, return the longest one
+					divergeRelation = Tool.getLongestStringInArray(divergeRelation.split("，"));
 					answerRelation = divergeRelation;
 					// answerRelation = (answerRelation.isEmpty()) ?
 					// divergeRelation
@@ -1213,7 +1219,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "爱琴海在哪个国家";
+		String str = "赵薇和袁姗姗什么关系";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);

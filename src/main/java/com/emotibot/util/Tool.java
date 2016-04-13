@@ -109,8 +109,8 @@ public class Tool {
 	public static String insertSpace4ChineseCharacter(String str) {
 		String temp = "";
 		for (int i = 0; i < str.length(); i++) {
-			if(isChinese(str.charAt(i))){
-				temp += str.charAt(i)+" ";
+			if (isChinese(str.charAt(i))) {
+				temp += str.charAt(i) + " ";
 			} else {
 				temp += str.charAt(i);
 			}
@@ -155,6 +155,22 @@ public class Tool {
 			}
 		}
 		return new String(temp);
+	}
+
+	public static String getLongestStringInArray(String[] arr) {
+		if(arr == null || arr.length==0){
+			return "";
+		}
+		
+		int index = 0;
+		int length = -1;
+		for (int i = 0; i < arr.length; i++) {
+			if (length < arr[i].length()) {
+				length = arr[i].length();
+				index = i;
+			}
+		}
+		return arr[index];
 	}
 
 }
