@@ -200,9 +200,22 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 										System.err.println(name+"(equals)" +val);
                                         continue;
 									}
-					                String query=bcy.InsertRelation(a, b, attr, null);									System.err.println(NodeOrRelation+" queryMap=" + query);
-									if (query == null || query.trim().length() == 0) return;
-									context.write(outputKey, new Text(query));
+					                String query=bcy.InsertRelation(a, b, attr, null);	
+					                String query2="";
+					                System.err.println(NodeOrRelation+" queryMap=" + query);
+									Entity aa = new Entity(label, DigestUtils.md5Hex(url),md5);
+									//Entity b = new Entity(label2,val,"Name");
+                                    String urlval=pageExtractInfo.getWordLink(val);
+                                    if(urlval!=null&&urlval.trim().length()>0)
+                                    {
+                                    	Entity bb = new Entity(label2,DigestUtils.md5Hex(urlval),md5);
+                                    	query2=bcy.InsertRelation(aa, bb, attr, null);	
+    					                System.err.println(NodeOrRelation+" queryMap2=" + query2);
+
+                                    }
+									if (query !=null && query.trim().length()>0) context.write(outputKey, new Text(query));
+									if (query2 !=null && query2.trim().length()>0) context.write(outputKey, new Text(query2));
+
 								}
 							}
 						}

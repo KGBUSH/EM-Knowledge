@@ -128,7 +128,7 @@ public class BaikeExtractor extends Extractor {
 		Extractor ex = new BaikeExtractor(html);
 		PageExtractInfo info = ex.ProcessPage();
 		System.err.println(info.toString());
-		System.err.println(info.getWordLink("上海市"));
+		System.err.println(info.getWordLink("上海市第二中学"));
 	}
 
 }
