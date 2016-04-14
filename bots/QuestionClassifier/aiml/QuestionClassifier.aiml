@@ -36,6 +36,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 会 不 会 ^ </pattern>
+        <template>
+        SelectiveQuestion@:会不会
+        </template>
+    </category>
+    <category>
         <pattern> ^ 关 系 ^ </pattern>
         <template>
         RelationshipQuestion@:1
