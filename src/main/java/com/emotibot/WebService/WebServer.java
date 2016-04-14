@@ -21,6 +21,7 @@ import org.apache.commons.lang.ObjectUtils.Null;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
 
+import com.emotibot.Debug.Debug;
 import com.emotibot.config.ConfigManager;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
 import com.emotibot.patternmatching.NLPProcess;
@@ -168,6 +169,7 @@ public class WebServer {
 			String questionType =request.getParameter("questionType");
 			String scoreStr =request.getParameter("score");
             String uniqId=request.getParameter("uniqId");
+            Debug.printDebug(uniqId, 3, "knowledge", "knowedge doService request="+request.toString());
 			if (text != null) {
 				text = text.trim();
 				long t=System.currentTimeMillis();
@@ -176,7 +178,7 @@ public class WebServer {
 				cuBean.setQuestionType(questionType);
 				cuBean.setScore(scoreStr);
 				cuBean.setUniqueID(uniqId);
-				System.out.println("@@@@@@@@@@@@@@@processing: cuBean="+cuBean);
+				System.out.println("@@@@@@@@@@@@@@@processing: cuBean="+cuBean+"\n request="+request);
 				AnswerBean bean =new PatternMatchingProcess(cuBean).getAnswer();
 				JSONObject result_obj = new JSONObject();
 			    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  

@@ -78,6 +78,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 什 么 意 思 </pattern>
+        <template>
+        IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
         <pattern> ^ 干 嘛 的 </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo

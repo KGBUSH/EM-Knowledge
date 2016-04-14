@@ -48,6 +48,30 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 哪 ^ 创 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 什 么 时 ^ 创 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 啥 时 ^ 创 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 何 时 ^ 创 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 哪 ^ 成 立 ^ </pattern>
         <template>
             <star index="2"/>的成立时间什么时候？
@@ -132,6 +156,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 创 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ 哪 ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 成 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ 哪 ^ </pattern>
         <template>
             <star index="3"/>的成立时间什么时候？
@@ -157,6 +187,12 @@
     </category>
     <category>
         <pattern> ^ 创 办 ^ ## * <type>entity</type><label>cosmetics</label> ^ 什 么 时 ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 创 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ 什 么 时 ^ </pattern>
         <template>
             <star index="3"/>的成立时间什么时候？
         </template>
@@ -192,6 +228,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 创 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ 啥 时 ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 成 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ 啥 时 ^ </pattern>
         <template>
             <star index="3"/>的成立时间什么时候？
@@ -217,6 +259,12 @@
     </category>
     <category>
         <pattern> ^ 创 办 ^ ## * <type>entity</type><label>cosmetics</label> ^ 何 时 ^ </pattern>
+        <template>
+            <star index="3"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 创 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ 何 时 ^ </pattern>
         <template>
             <star index="3"/>的成立时间什么时候？
         </template>
@@ -283,6 +331,30 @@
     </category>
     <category>
         <pattern> ^ 何 时 ^ 创 办 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 创 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 创 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 创 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 创 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
         <template>
             <star index="4"/>的成立时间什么时候？
         </template>
@@ -444,12 +516,6 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 创 建 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
-        <template>
-            <star index="4"/>的创办人是谁？
-        </template>
-    </category>
-    <category>
         <pattern> ^ 什 么 ^ 创 建 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
         <template>
             <star index="4"/>的创办人是谁？
@@ -462,25 +528,25 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 创 办 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
-        <template>
-            <star index="4"/>的创办人是谁？
-        </template>
-    </category>
-    <category>
         <pattern> ^ 什 么 ^ 创 办 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
         <template>
             <star index="4"/>的创办人是谁？
         </template>
     </category>
     <category>
-        <pattern> ^ 谁 ^ 成 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
+        <pattern> ^ 谁 ^ 创 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
         <template>
             <star index="4"/>的创办人是谁？
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 成 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
+        <pattern> ^ 什 么 ^ 创 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创办人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 成 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
         <template>
             <star index="4"/>的创办人是谁？
         </template>
@@ -498,12 +564,6 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 建 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
-        <template>
-            <star index="4"/>的创办人是谁？
-        </template>
-    </category>
-    <category>
         <pattern> ^ 什 么 ^ 建 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
         <template>
             <star index="4"/>的创办人是谁？
@@ -511,12 +571,6 @@
     </category>
     <category>
         <pattern> ^ 谁 ^ 设 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
-        <template>
-            <star index="4"/>的创办人是谁？
-        </template>
-    </category>
-    <category>
-        <pattern> ^ 哪 ^ 设 立 ^ ## * <type>entity</type><label>cosmetics</label> ^ </pattern>
         <template>
             <star index="4"/>的创办人是谁？
         </template>
@@ -534,12 +588,6 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 哪 ^ 创 建 ^ </pattern>
-        <template>
-            <star index="2"/>的创办人是谁？
-        </template>
-    </category>
-    <category>
         <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 什 么 ^ 创 建 ^ </pattern>
         <template>
             <star index="2"/>的创办人是谁？
@@ -552,25 +600,25 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 哪 ^ 创 办 ^ </pattern>
-        <template>
-            <star index="2"/>的创办人是谁？
-        </template>
-    </category>
-    <category>
         <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 什 么 ^ 创 办 ^ </pattern>
         <template>
             <star index="2"/>的创办人是谁？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 谁 ^ 成 立 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 谁 ^ 创 立 ^ </pattern>
         <template>
             <star index="2"/>的创办人是谁？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 哪 ^ 成 立 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 什 么 ^ 创 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创办人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 谁 ^ 成 立 ^ </pattern>
         <template>
             <star index="2"/>的创办人是谁？
         </template>
@@ -588,12 +636,6 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 哪 ^ 建 立 ^ </pattern>
-        <template>
-            <star index="2"/>的创办人是谁？
-        </template>
-    </category>
-    <category>
         <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 什 么 ^ 建 立 ^ </pattern>
         <template>
             <star index="2"/>的创办人是谁？
@@ -601,12 +643,6 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 谁 ^ 设 立 ^ </pattern>
-        <template>
-            <star index="2"/>的创办人是谁？
-        </template>
-    </category>
-    <category>
-        <pattern> ^ ## * <type>entity</type><label>cosmetics</label> ^ 哪 ^ 设 立 ^ </pattern>
         <template>
             <star index="2"/>的创办人是谁？
         </template>

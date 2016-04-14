@@ -83,7 +83,8 @@ public class PatternMatchingProcess {
 	public PatternMatchingProcess(CUBean cuBean) {
 		String text = cuBean.getText();
 		String questionType = cuBean.getQuestionType();
-		String score = cuBean.getScore();
+		String requestScore = cuBean.getScore();
+		double questionScore = 0;
 		uniqueID = cuBean.getUniqueID();
 		if (Tool.isStrEmptyOrNull(uniqueID)) {
 			uniqueID = "0";
@@ -94,26 +95,29 @@ public class PatternMatchingProcess {
 			Debug.printDebug(uniqueID, 2, "knowledge", "init, text is null");
 			text = "";
 		}
-		if (questionType == null) {
-			System.err.println("questionType is null" + "userID=" + uniqueID);
-			Debug.printDebug(uniqueID, 2, "knowledge", "init, questionType is null");
+		userSentence = text.toLowerCase();
+
+		if (questionType == null || requestScore == null) {
+			Debug.printDebug(uniqueID, 2, "knowledge", "init, question or score is null");
+			System.err.println("question or score is null");
 			questionType = "";
+			requestScore = "";
+		} else if (questionType.equals("question")) {
+			try {
+				questionScore = Double.parseDouble(requestScore);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
-		if (score == null) {
-			Debug.printDebug(uniqueID, 2, "knowledge", "init, score is null");
-			System.err.println("score is null");
-			score = "";
+
+		if (userSentence.endsWith("?") || userSentence.endsWith("？")) {
+			isQuestion = true;
+		} else if (questionScore >= 0.3) {
+			isQuestion = true;
 		}
+
 		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:" + cuBean.toString());
 
-		userSentence = text.toLowerCase();
-		
-		if(userSentence.endsWith("?") || userSentence.endsWith("？")){
-			isQuestion = true;
-		} else if(questionType.contains("question")) {
-			isQuestion = true;
-		}
-		
 		System.out.println("userSentence=" + userSentence + ", isQuestion=" + isQuestion);
 		segPos = NLPProcess.getSegWord(userSentence);
 		segWordWithoutStopWord = new ArrayList<>();
@@ -165,8 +169,8 @@ public class PatternMatchingProcess {
 			System.err.println("PMP.getAnswer: input is empty");
 			return answerBean;
 		}
-		
-		if(isQuestion == false){
+
+		if (isQuestion == false) {
 			Debug.printDebug(uniqueID, 4, "knowledge", "the input sentence is not a question");
 			return answerBean;
 		}
@@ -358,7 +362,8 @@ public class PatternMatchingProcess {
 				System.out.println("userSentence=" + userSentence + "++++ entity=" + entity);
 				localAnswer = matchPropertyValue(entity, segWordWithoutStopWord).replace("----####", "是" + entity + "的")
 						+ "。";
-				// System.out.println("segWordWithoutStopWord="+segWordWithoutStopWord+", tempProp="+tempProp+", replacePro="+replaceProp);
+				// System.out.println("segWordWithoutStopWord="+segWordWithoutStopWord+",
+				// tempProp="+tempProp+", replacePro="+replaceProp);
 			}
 			String strIntroduce = DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 			if (strIntroduce.contains("。"))
@@ -387,8 +392,9 @@ public class PatternMatchingProcess {
 				if (value.toString().contains(s)) {
 					for (String key : mapPropValue.keySet()) {
 						if (value.equals(mapPropValue.get(key))) {
-							if (key.equals(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME)){
-								continue;	// if the word comes from introduction, remove
+							if (key.equals(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME)) {
+								continue; // if the word comes from
+											// introduction, remove
 							}
 							System.out.println(
 									"\t matchPropertyValue: key=" + key + ", value=" + value + ", segword=" + s);
