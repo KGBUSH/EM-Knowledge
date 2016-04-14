@@ -348,10 +348,7 @@ public class PatternMatchingProcess {
 				System.out.println("userSentence=" + userSentence + "++++ entity=" + entity);
 				localAnswer = matchPropertyValue(entity, segWordWithoutStopWord).replace("----####", "是" + entity + "的")
 						+ "。";
-
-				String tempProp = matchPropertyValue(entity, segWordWithoutStopWord);
-				String replaceProp = tempProp.replace("----####", "是" + entity + "的") + "。";
-				System.out.println("segWordWithoutStopWord="+segWordWithoutStopWord+", tempProp="+tempProp+", replacePro="+replaceProp);
+				// System.out.println("segWordWithoutStopWord="+segWordWithoutStopWord+", tempProp="+tempProp+", replacePro="+replaceProp);
 			}
 			String strIntroduce = DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 			if (strIntroduce.contains("。"))
