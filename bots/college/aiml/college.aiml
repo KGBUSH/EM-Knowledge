@@ -833,4 +833,124 @@
             <star index="2"/>的知名校友是什么？
         </template>
     </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ 创 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ 开 拓 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ 建 校 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> 成 立 ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> 创 办 ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> 创 建 ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> 创 立 ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> 开 拓 ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> 建 立 ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> 建 校 ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 成 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 创 办 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 创 建 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 创 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 开 拓 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 建 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
 </aiml>
