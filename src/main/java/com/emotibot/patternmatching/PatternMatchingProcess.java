@@ -769,7 +769,7 @@ public class PatternMatchingProcess {
 			return rs;
 		}
 
-		String template = questionClassifier.process(sentence);
+		String template = questionClassifier.processQuestionClassifier(sentence);
 		if (!template.isEmpty() && template.startsWith(questionType)) {
 			rs = true;
 			System.out.println("~~~~ IS " + questionType);
@@ -780,7 +780,7 @@ public class PatternMatchingProcess {
 	}
 
 	private AnswerBean selectiveQuestionProcess(String sentence, AnswerBean answerBean) {
-		String strSeletive = questionClassifier.process(sentence).replace(selectiveQuestionType, "");
+		String strSeletive = questionClassifier.processQuestionClassifier(sentence).replace(selectiveQuestionType, "");
 		System.out.println("selectiveQuestionProcess str = " + strSeletive);
 
 		if (!answerBean.getAnswer().isEmpty()) {
@@ -1233,7 +1233,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "你知道东北大学吗";
+		String str = "北京的行政代码是110000，对不对？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);

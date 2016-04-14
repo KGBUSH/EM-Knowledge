@@ -104,6 +104,34 @@ public class GenerateDictionaryFile {
 		System.out.println("entity generation done");
 
 	}
+	
+	public static void generateFirstLevelEntity() {
+		EmotibotNeo4jConnection conn = getDBConnection();
+		
+		String query = "match(n) where not n:other with n return collect(n.Name) as result";
+		List<String> list = conn.getArrayListfromCollection(query);
+		
+		Set<String> tempSet = new HashSet<>();
+		
+		for (String s : list) {
+			tempSet.add(s);
+		}
+		
+		try {
+			String tempFileName = Common.UserDir + "/knowledgedata/entityFirstLevel.txt";
+			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
+			
+			for (String s : tempSet) {
+				out.write(s + "\r\n");
+			}
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("entity generation done");
+		
+	}
 
 	// random check top 1000 entity with the Entity.txt
 	public static void checkEntity() {
@@ -265,7 +293,7 @@ public class GenerateDictionaryFile {
 	
 
 	public static void main(String[] args) {
-		generateEntityPMFile();
+		generateFirstLevelEntity();
 	}
 
 	

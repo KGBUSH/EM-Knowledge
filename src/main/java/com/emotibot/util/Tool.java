@@ -105,6 +105,10 @@ public class Tool {
 		return false;
 	}
 
+	public static boolean isEnglish(String str) {
+		return str.matches("^[a-zA-Z]*");
+	}
+
 	// add a space for each Chinese character in the sentence.
 	public static String insertSpace4ChineseCharacter(String str) {
 		String temp = "";
@@ -125,6 +129,23 @@ public class Tool {
 		for (int i = 0; i < s.length(); i++) {
 			char c = s.charAt(i);
 			if (isChinese(c)) {
+				temp[tail] = c;
+				temp[tail + 1] = ' ';
+				tail += 2;
+			} else {
+				temp[tail] = c;
+				tail++;
+			}
+		}
+		return new String(temp);
+	}
+
+	public static String insertSpace2Sentence(String s) {
+		int tail = 0;
+		char[] temp = new char[s.length() * 2];
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if (isChinese(c) || isEnglish(Character.toString(c))) {
 				temp[tail] = c;
 				temp[tail + 1] = ' ';
 				tail += 2;
@@ -158,10 +179,10 @@ public class Tool {
 	}
 
 	public static String getLongestStringInArray(String[] arr) {
-		if(arr == null || arr.length==0){
+		if (arr == null || arr.length == 0) {
 			return "";
 		}
-		
+
 		int index = 0;
 		int length = -1;
 		for (int i = 0; i < arr.length; i++) {

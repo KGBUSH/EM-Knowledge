@@ -24,6 +24,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 对 不 对 </pattern>
+        <template>
+        SelectiveQuestion@:对不对
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 对 吗 </pattern>
+        <template>
+        SelectiveQuestion@:对不对
+        </template>
+    </category>
+    <category>
         <pattern> ^ 关 系 ^ </pattern>
         <template>
         RelationshipQuestion@:1

@@ -42,6 +42,7 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 	}
 
 	public String process(String sentence) {
+		System.out.println("s = "+sentence);
 		String processedQ;
 		// NLPResult tnode = NLPSevice.ProcessSentence(sentence,
 		// NLPFlag.all.getValue());
@@ -81,14 +82,37 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 		System.out.println("type 2 = " + type);
 		return type;
 	}
+	
+	public String processQuestionClassifier(String sentence) {
+		System.out.println("s = "+sentence);
+		String processedQ;
+
+		processedQ = Tool.insertSpace2Sentence(sentence);
+		String type = chatSession.multisentenceRespond(processedQ);
+		System.out.println("Sentence = " + sentence + "\n ProcessQ = " + processedQ + "\n type 1 = " + type);
+
+		type = removeSpace(type);
+		System.out.println("type 2 = " + type);
+		return type;
+	}
+
 
 	public static void main(String[] args) {
-		String str = "## 姚明<type>entity</type><label>figure</label> 多重";
-		TemplateProcessor introTemplate = new TemplateProcessor("Knowledge");
-		System.out.println("====" + introTemplate.process(str));
 
-		TemplateProcessor selectTemplate = new TemplateProcessor("Pre");
-		System.out.println("====" + selectTemplate.process(str));
+		String sen = "## exo <type>entity</type><label>figure</label> 多重abc";
+		sen = "北京的行政代码是不是110000";
+
+		String str = sen;
+		TemplateProcessor introTemplate = new TemplateProcessor("QuestionClassifier");
+		System.out.println("\n\n processTest====");
+		System.out.println(introTemplate.process(str));
+		
+		TemplateProcessor tt = new TemplateProcessor("QuestionClassifier");
+		
+		str = sen;
+		System.out.println("str="+str);
+		System.out.println("\n process====");
+		System.out.println(introTemplate.processQuestionClassifier(str));
 
 	}
 
