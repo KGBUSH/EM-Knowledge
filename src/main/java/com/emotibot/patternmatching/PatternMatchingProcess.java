@@ -104,7 +104,7 @@ public class PatternMatchingProcess {
 			System.err.println("score is null");
 			score = "";
 		}
-		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:"+cuBean.toString());
+		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:" + cuBean.toString());
 
 		userSentence = text.toLowerCase();
 		isQuestion = questionType.equals("question");
@@ -161,7 +161,7 @@ public class PatternMatchingProcess {
 		}
 
 		AnswerRewrite answerRewite = new AnswerRewrite();
-//		boolean isQuestion = true; // TBD: read from CU
+		boolean isQuestion = true; // TBD: read from CU
 
 		// 1. get the entity and Revise by template
 		if (entitySet.size() > 2) {
@@ -186,7 +186,7 @@ public class PatternMatchingProcess {
 			System.out.println("TIME 5 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 			sentence = TemplateEntry.templateProcess(entity, sentence, uniqueID);
-			Debug.printDebug(uniqueID, 4, "knowledge", "tempalte in PatternMatchingProcess: sentence="+sentence);
+			Debug.printDebug(uniqueID, 4, "knowledge", "tempalte in PatternMatchingProcess: sentence=" + sentence);
 
 			System.out.println("TIME 6 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
@@ -204,9 +204,12 @@ public class PatternMatchingProcess {
 		} else if (isRelationshipQuestion(userSentence)) {
 			List<String> relationDirectNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("",
 					entitySet.get(0), "", entitySet.get(1), 1);
-//			System.out.println("\n\t relationNormalWayPathSet = " + relationNormalWayPathSet
-//					+ "\n\t relationReverseWayPathSet=" + relationReverseWayPathSet + "\n\t relationConverge="
-//					+ relationConvergePathSet + "\n\t relationDiverge =" + relationDivergePathSet);
+			// System.out.println("\n\t relationNormalWayPathSet = " +
+			// relationNormalWayPathSet
+			// + "\n\t relationReverseWayPathSet=" + relationReverseWayPathSet +
+			// "\n\t relationConverge="
+			// + relationConvergePathSet + "\n\t relationDiverge =" +
+			// relationDivergePathSet);
 			System.out
 					.println("TIME 8 - get relationships >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
@@ -224,7 +227,7 @@ public class PatternMatchingProcess {
 				List<String> relationDirectReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath("",
 						entitySet.get(1), "", entitySet.get(0), 1);
 				if (!relationDirectReverseWayPathSet.isEmpty()) {
-					System.out.println("relationReverseWayPathSet="+relationDirectReverseWayPathSet);
+					System.out.println("relationReverseWayPathSet=" + relationDirectReverseWayPathSet);
 					String directReverseWayRelation = entitySet.get(0) + "是" + entitySet.get(1);
 					for (String s : relationDirectReverseWayPathSet) {
 						directReverseWayRelation += "的" + s;
@@ -235,10 +238,10 @@ public class PatternMatchingProcess {
 			}
 
 			if (answerRelation.isEmpty()) {
-				List<String> relationNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(0),
-						"", entitySet.get(1), 2);
+				List<String> relationNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("",
+						entitySet.get(0), "", entitySet.get(1), 2);
 				if (!relationNormalWayPathSet.isEmpty()) {
-					System.out.println("relationNormalWayPathSet="+relationNormalWayPathSet);
+					System.out.println("relationNormalWayPathSet=" + relationNormalWayPathSet);
 					String normalWayRelation = entitySet.get(1) + "是" + entitySet.get(0);
 					for (String s : relationNormalWayPathSet) {
 						normalWayRelation += "的" + s;
@@ -249,10 +252,10 @@ public class PatternMatchingProcess {
 			}
 
 			if (answerRelation.isEmpty()) {
-				List<String> relationReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath("", entitySet.get(1),
-						"", entitySet.get(0), 2);
+				List<String> relationReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath("",
+						entitySet.get(1), "", entitySet.get(0), 2);
 				if (!relationReverseWayPathSet.isEmpty()) {
-					System.out.println("relationReverseWayPathSet="+relationReverseWayPathSet);
+					System.out.println("relationReverseWayPathSet=" + relationReverseWayPathSet);
 					String reverseWayRelation = entitySet.get(0) + "是" + entitySet.get(1);
 					for (String s : relationReverseWayPathSet) {
 						reverseWayRelation += "的" + s;
@@ -269,7 +272,7 @@ public class PatternMatchingProcess {
 				List<List<String>> relationConvergePathSet = DBProcess.getRelationshipTypeInConvergePath("",
 						entitySet.get(0), "", entitySet.get(1));
 				if (!relationConvergePathSet.isEmpty()) {
-					System.out.println("relationConvergePathSet="+relationConvergePathSet);
+					System.out.println("relationConvergePathSet=" + relationConvergePathSet);
 					String convergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "的";
 					for (List<String> listStr : relationConvergePathSet) {
 						convergeRelation += listStr.get(1) + "都是" + listStr.get(0) + "，";
@@ -289,7 +292,7 @@ public class PatternMatchingProcess {
 				List<List<String>> relationDivergePathSet = DBProcess.getRelationshipTypeInDivergentPath("",
 						entitySet.get(0), "", entitySet.get(1));
 				if (!relationDivergePathSet.isEmpty()) {
-					System.out.println("relationDivergePathSet="+relationDivergePathSet);
+					System.out.println("relationDivergePathSet=" + relationDivergePathSet);
 					String divergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "都是";
 					for (List<String> listStr : relationDivergePathSet) {
 						divergeRelation += listStr.get(0) + "的" + listStr.get(1) + "，";
@@ -345,6 +348,10 @@ public class PatternMatchingProcess {
 				System.out.println("userSentence=" + userSentence + "++++ entity=" + entity);
 				localAnswer = matchPropertyValue(entity, segWordWithoutStopWord).replace("----####", "是" + entity + "的")
 						+ "。";
+
+				String tempProp = matchPropertyValue(entity, segWordWithoutStopWord);
+				String replaceProp = tempProp.replace("----####", "是" + entity + "的") + "。";
+				System.out.println("segWordWithoutStopWord="+segWordWithoutStopWord+", tempProp="+tempProp+", replacePro="+replaceProp);
 			}
 			String strIntroduce = DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 			if (strIntroduce.contains("。"))
@@ -373,6 +380,9 @@ public class PatternMatchingProcess {
 				if (value.toString().contains(s)) {
 					for (String key : mapPropValue.keySet()) {
 						if (value.equals(mapPropValue.get(key))) {
+							if (key.equals(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME)){
+								continue;	// if the word comes from introduction, remove
+							}
 							System.out.println(
 									"\t matchPropertyValue: key=" + key + ", value=" + value + ", segword=" + s);
 							return s + "----####" + key;
@@ -442,7 +452,7 @@ public class PatternMatchingProcess {
 						break;
 					}
 				}
-				if(rsEntity.isEmpty()){
+				if (rsEntity.isEmpty()) {
 					// bug fixing for the case of "黄金矿工哪年发行"
 					rsEntity.add(simpleMatchEntity.get(0));
 					System.err.println("case check in case 2.5=" + rsEntity);
@@ -512,7 +522,7 @@ public class PatternMatchingProcess {
 				// by three methods
 				List<String> mergeEntity = mergeTwoLists(simpleMatchEntity, nlpEntity);
 				List<String> solrEntity = getEntityBySolr(sentence, mergeEntity, segWordWithoutStopWord);
-				System.out.println("\t solrEntity with entity input=" + solrEntity+",\n mergeEntity="+mergeEntity);
+				System.out.println("\t solrEntity with entity input=" + solrEntity + ",\n mergeEntity=" + mergeEntity);
 
 				if (simpleMatchEntity.size() == 1) {
 					if (solrEntity.isEmpty()) {
@@ -549,11 +559,11 @@ public class PatternMatchingProcess {
 							return rsEntity;
 						} else {
 							rsEntity = getIntersectionOfTwoLists(solrEntity, mergeEntity, 1);
-							if(rsEntity.isEmpty()){
+							if (rsEntity.isEmpty()) {
 								System.out.println("rsEntity is empty");
 								rsEntity.add(simpleMatchEntity.get(0));
 							}
-							
+
 							System.out.println("case: 9: rsEntity=" + rsEntity);
 							return rsEntity;
 						}
@@ -616,7 +626,7 @@ public class PatternMatchingProcess {
 		// if match null, then by segPos with stopword
 		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(templateSentence, entity,
 				candidateSetbyStopWord, propMap);
-		
+
 		// add for introduction questions
 		if (listPMBean.isEmpty() && isKindofQuestion(userSentence, introductionQuestionType)) {
 			System.out.println("\t introudction case @@ return case 0.0, answer=" + answerBean);
@@ -624,7 +634,7 @@ public class PatternMatchingProcess {
 			answerBean.setScore(answerBean.getScore() / 2);
 			return answerBean;
 		}
-		
+
 		if (listPMBean.isEmpty()) {
 			listPMBean = this.matchPropertyFromSentence(templateSentence, entity, candidateSet, propMap);
 			System.out.println("PMP.ReasoningProcess: get ListBean not by StopWord = " + listPMBean);
@@ -790,7 +800,8 @@ public class PatternMatchingProcess {
 
 		if (!answerBean.getAnswer().isEmpty()) {
 			// valide answer
-			answerBean.setAnswer(strSeletive.substring(0, 1) + "的, "+entitySet.get(0)+"的"+answerBean.getProperty()+"是" + answerBean.getAnswer());
+			answerBean.setAnswer(strSeletive.substring(0, 1) + "的, " + entitySet.get(0) + "的" + answerBean.getProperty()
+					+ "是" + answerBean.getAnswer());
 		} else {
 			answerBean.setAnswer(strSeletive.substring(1));
 		}
@@ -1238,7 +1249,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "北京的行政代码是110000，对不对？";
+		String str = "你说这么多是什么意思？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
