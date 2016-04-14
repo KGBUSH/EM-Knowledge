@@ -40,7 +40,7 @@ public class PatternMatchingProcess {
 	private List<Term> segPos;
 	private List<String> segWordWithoutStopWord;
 	private List<String> entitySet;
-	private boolean isQuestion;
+	private boolean isQuestion = false;
 	private long timeCounter = System.currentTimeMillis();
 	private String uniqueID = "";
 
@@ -107,7 +107,13 @@ public class PatternMatchingProcess {
 		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:" + cuBean.toString());
 
 		userSentence = text.toLowerCase();
-		isQuestion = questionType.equals("question");
+		
+		if(userSentence.endsWith("?") || userSentence.endsWith("？")){
+			isQuestion = true;
+		} else if(questionType.contains("question")) {
+			isQuestion = true;
+		}
+		
 		System.out.println("userSentence=" + userSentence + ", isQuestion=" + isQuestion);
 		segPos = NLPProcess.getSegWord(userSentence);
 		segWordWithoutStopWord = new ArrayList<>();
@@ -159,9 +165,13 @@ public class PatternMatchingProcess {
 			System.err.println("PMP.getAnswer: input is empty");
 			return answerBean;
 		}
+		
+		if(isQuestion == false){
+			Debug.printDebug(uniqueID, 4, "knowledge", "the input sentence is not a question");
+			return answerBean;
+		}
 
 		AnswerRewrite answerRewite = new AnswerRewrite();
-		boolean isQuestion = true; // TBD: read from CU
 
 		// 1. get the entity and Revise by template
 		if (entitySet.size() > 2) {
