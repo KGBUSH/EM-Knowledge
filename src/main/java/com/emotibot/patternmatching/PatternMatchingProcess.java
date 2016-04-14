@@ -104,7 +104,7 @@ public class PatternMatchingProcess {
 			System.err.println("score is null");
 			score = "";
 		}
-		Debug.printDebug(uniqueID, 3, "knowledge", cuBean.toString());
+		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:"+cuBean.toString());
 
 		userSentence = text.toLowerCase();
 		isQuestion = questionType.equals("question");
@@ -186,6 +186,8 @@ public class PatternMatchingProcess {
 			System.out.println("TIME 5 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 			sentence = TemplateEntry.templateProcess(entity, sentence, uniqueID);
+			Debug.printDebug(uniqueID, 4, "knowledge", "tempalte in PatternMatchingProcess: sentence="+sentence);
+
 			System.out.println("TIME 6 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 			System.out.println("PMP.getAnswer: single entity templateProcess sentence = " + sentence);
@@ -351,6 +353,9 @@ public class PatternMatchingProcess {
 			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(localAnswer));
 			answerBean.setScore(
 					isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), introductionQuestionType) ? 100 : 0);
+			if (isQuestion == false) {
+				answerBean.setScore(0);
+			}
 			System.out.println("PM.getAnswer: the returned anwer is " + answerBean.toString());
 			return answerBean;
 		}
