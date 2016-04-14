@@ -60,6 +60,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 指 什 么 ^ </pattern>
+        <template>
+        IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 意 思 </pattern>
+        <template>
+        IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
         <pattern> ^ 干 嘛 的 </pattern>
         <template>
         IntroductionQuestion@:firstParamInfo

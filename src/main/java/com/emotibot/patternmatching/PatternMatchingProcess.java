@@ -161,7 +161,7 @@ public class PatternMatchingProcess {
 		}
 
 		AnswerRewrite answerRewite = new AnswerRewrite();
-		boolean isQuestion = true; // TBD: read from CU
+//		boolean isQuestion = true; // TBD: read from CU
 
 		// 1. get the entity and Revise by template
 		if (entitySet.size() > 2) {
