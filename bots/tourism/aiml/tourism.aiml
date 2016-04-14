@@ -24,6 +24,54 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 在 哪 里 </pattern>
+        <template>
+            <star index="2"/>地点在哪？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 在 哪 呢 </pattern>
+        <template>
+            <star index="2"/>地点在哪？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 是 哪 呢 </pattern>
+        <template>
+            <star index="2"/>地点在哪？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 在 哪 儿 呢 </pattern>
+        <template>
+            <star index="2"/>地点在哪？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 是 哪 儿 呢 </pattern>
+        <template>
+            <star index="2"/>地点在哪？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 在 哪 了 </pattern>
+        <template>
+            <star index="2"/>地点在哪？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 在 哪 儿 了 </pattern>
+        <template>
+            <star index="2"/>地点在哪？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 在 哪 里 呢 </pattern>
+        <template>
+            <star index="2"/>地点在哪？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 属 ^ 哪 个 ^ 地 区 ^ </pattern>
         <template>
             <star index="2"/>地点在哪？
@@ -354,7 +402,7 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 好 玩 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 ^ 好 玩 ^ </pattern>
         <template>
             <star index="2"/>的著名景点是什么？
         </template>

@@ -216,6 +216,24 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 年 芳 ^ </pattern>
+        <template>
+            <star index="2"/>的年龄是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 芳 龄 ^ </pattern>
+        <template>
+            <star index="2"/>的年龄是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 贵 庚 ^ </pattern>
+        <template>
+            <star index="2"/>的年龄是多少？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 做 什 么 ^ </pattern>
         <template>
             <star index="2"/>的职业是什么？

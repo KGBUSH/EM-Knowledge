@@ -827,4 +827,10 @@
             <star index="2"/>的属性是什么？
         </template>
     </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 出 ^ 名 人 ^ </pattern>
+        <template>
+            <star index="2"/>的知名校友是什么？
+        </template>
+    </category>
 </aiml>

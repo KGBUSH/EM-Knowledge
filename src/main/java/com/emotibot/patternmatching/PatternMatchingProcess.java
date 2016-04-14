@@ -611,6 +611,15 @@ public class PatternMatchingProcess {
 		// if match null, then by segPos with stopword
 		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(templateSentence, entity,
 				candidateSetbyStopWord, propMap);
+		
+		// add for introduction questions
+		if (listPMBean.isEmpty() && isKindofQuestion(userSentence, introductionQuestionType)) {
+			System.out.println("\t introudction case @@ return case 0.0, answer=" + answerBean);
+			// does not match property, score decreases
+			answerBean.setScore(answerBean.getScore() / 2);
+			return answerBean;
+		}
+		
 		if (listPMBean.isEmpty()) {
 			listPMBean = this.matchPropertyFromSentence(templateSentence, entity, candidateSet, propMap);
 			System.out.println("PMP.ReasoningProcess: get ListBean not by StopWord = " + listPMBean);
@@ -1224,7 +1233,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "上海有什么好玩的地方";
+		String str = "你知道东北大学吗";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
