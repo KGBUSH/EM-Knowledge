@@ -127,7 +127,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
             			if(query.contains("return")) query = query.substring(0, query.lastIndexOf("return"));
             			query=query.replaceAll("result", "result"+list.size());
                         list.add(query);
-                        if(list.size()>100)
+                        if(list.size()>0)
                         {
                         	result=conn.updateQueryBatch(list);
         					System.err.println("result="+result);
