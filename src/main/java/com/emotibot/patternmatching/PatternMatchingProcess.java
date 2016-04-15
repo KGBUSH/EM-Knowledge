@@ -83,7 +83,8 @@ public class PatternMatchingProcess {
 	public PatternMatchingProcess(CUBean cuBean) {
 		String text = cuBean.getText();
 		String questionType = cuBean.getQuestionType();
-		String score = cuBean.getScore();
+		String requestScore = cuBean.getScore();
+		double questionScore = 0;
 		uniqueID = cuBean.getUniqueID();
 		if (Tool.isStrEmptyOrNull(uniqueID)) {
 			uniqueID = "0";
@@ -94,25 +95,25 @@ public class PatternMatchingProcess {
 			Debug.printDebug(uniqueID, 2, "knowledge", "init, text is null");
 			text = "";
 		}
-		if (questionType == null) {
-			System.err.println("questionType is null" + "userID=" + uniqueID);
-			Debug.printDebug(uniqueID, 2, "knowledge", "init, questionType is null");
-			questionType = "";
-		}
-		if (score == null) {
-			Debug.printDebug(uniqueID, 2, "knowledge", "init, score is null");
-			System.err.println("score is null");
-			score = "";
-		}
-		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:" + cuBean.toString());
-
 		userSentence = text.toLowerCase();
 		
+		if (questionType == null || requestScore == null) {
+			Debug.printDebug(uniqueID, 2, "knowledge", "init, question or score is null");
+			System.err.println("question or score is null");
+			questionType = "";
+			requestScore = "";
+		} else if (questionType.equals("question")){
+//			questionScore = Double.parseDouble(requestScore);
+			questionScore = Double.valueOf(requestScore);
+		}
+
 		if(userSentence.endsWith("?") || userSentence.endsWith("？")){
 			isQuestion = true;
-		} else if(questionType.contains("question")) {
+		} else if(questionScore >= 0.3) {
 			isQuestion = true;
 		}
+		
+		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:" + cuBean.toString());
 		
 		System.out.println("userSentence=" + userSentence + ", isQuestion=" + isQuestion);
 		segPos = NLPProcess.getSegWord(userSentence);
