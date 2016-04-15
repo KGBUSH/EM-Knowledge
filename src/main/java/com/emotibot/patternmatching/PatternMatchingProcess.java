@@ -9,6 +9,7 @@ package com.emotibot.patternmatching;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,6 +34,7 @@ public class PatternMatchingProcess {
 	final TemplateProcessor questionClassifier = new TemplateProcessor("QuestionClassifier");
 
 	final String introductionQuestionType = "IntroductionQuestion@:";
+	final String strictIntroductionQuestionType = "StrictIntroductionQuestion@:";
 	final String selectiveQuestionType = "SelectiveQuestion@:";
 	// final String relationshipQuestionType = "RelationshipQuestion@:";
 
@@ -134,6 +136,9 @@ public class PatternMatchingProcess {
 		// note:"和" is stop word
 		// entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
 		entitySet = getEntity(userSentence.toLowerCase());
+
+		removeAbnormalEntity(entitySet);
+
 		userSentence = changeEntitySynonym(entitySet, userSentence);
 		System.out.println("TIME 4 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
@@ -142,6 +147,22 @@ public class PatternMatchingProcess {
 		System.out.println("Constructor: segPos=" + segPos);
 		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
 		System.out.println("Constructor: entitySet=" + entitySet);
+	}
+
+	// remove stopword and other abnormal word in entity
+	private void removeAbnormalEntity(List<String> entitySet) {
+		Iterator<String> it = entitySet.iterator();
+		while (it.hasNext()) {
+			String tempEntity = it.next();
+			if (NLPProcess.isInSynonymDict(tempEntity)) {
+				boolean isStrictType = isKindofQuestion(userSentence, strictIntroductionQuestionType, tempEntity);
+				System.out.println("abnormal entity:" + tempEntity);
+				if (!isStrictType) {
+					System.out.println("remove entity:" + tempEntity);
+					it.remove();
+				}
+			}
+		}
 	}
 
 	// if the sentnece contain a alias, change to wiki entity name
@@ -340,7 +361,7 @@ public class PatternMatchingProcess {
 
 		System.out.println("\t into selective question, answerBean=" + answerBean);
 		// if it is the selective question
-		if (isKindofQuestion(userSentence, selectiveQuestionType)) {
+		if (isKindofQuestion(userSentence, selectiveQuestionType, "")) {
 			answerBean = selectiveQuestionProcess(userSentence, answerBean);
 			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(), 2));
 			System.out.println("RETURN of GETANSWER: Selective Qustion: anwerBean is " + answerBean.toString());
@@ -371,7 +392,8 @@ public class PatternMatchingProcess {
 			localAnswer += strIntroduce;
 			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(localAnswer));
 			answerBean.setScore(
-					isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), introductionQuestionType) ? 100 : 0);
+					isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), introductionQuestionType, "") ? 100
+							: 0);
 			if (isQuestion == false) {
 				answerBean.setScore(0);
 			}
@@ -641,7 +663,7 @@ public class PatternMatchingProcess {
 				candidateSetbyStopWord, propMap);
 
 		// add for introduction questions
-		if (listPMBean.isEmpty() && isKindofQuestion(userSentence, introductionQuestionType)) {
+		if (listPMBean.isEmpty() && isKindofQuestion(userSentence, introductionQuestionType, "")) {
 			System.out.println("\t introudction case @@ return case 0.0, answer=" + answerBean);
 			// does not match property, score decreases
 			answerBean.setScore(answerBean.getScore() / 2);
@@ -791,13 +813,26 @@ public class PatternMatchingProcess {
 	// to test if the user want to get the introduction of the entity
 	// input: 姚明是谁？ 你喜欢姚明吗？
 	// output: 1 0
-	private boolean isKindofQuestion(String sentence, String questionType) {
+	private boolean isKindofQuestion(String sentence, String questionType, String entity) {
 		boolean rs = false;
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			return rs;
 		}
 
-		String template = questionClassifier.processQuestionClassifier(sentence);
+		String template = "";
+		if (!entity.isEmpty()) {
+			if (!sentence.contains(entity)) {
+				System.err.println("isKindofQuestion: sentence has no entity, s = " + sentence + ", e=" + entity);
+			}
+			String first = sentence.substring(0, sentence.indexOf(entity));
+			String second = sentence.substring(sentence.indexOf(entity) + entity.length(), sentence.length());
+			System.out.println("isKindof: first=" + first + ", entity=" + entity + ", second=" + second);
+			sentence = first + " ## " + entity + "<type>entity</type> " + second;
+			template = questionClassifier.process(sentence);
+		} else {
+			template = questionClassifier.processQuestionClassifier(sentence);
+		}
+
 		if (!template.isEmpty() && template.startsWith(questionType)) {
 			rs = true;
 			System.out.println("~~~~ IS " + questionType);
@@ -1262,7 +1297,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "你说这么多是什么意思？";
+		String str = "朋友，你在做的是什么意思？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);

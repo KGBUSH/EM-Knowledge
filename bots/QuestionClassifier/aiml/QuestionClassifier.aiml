@@ -149,4 +149,16 @@
         IntroductionQuestion@:firstParamInfo
         </template>
     </category>
+    <category>
+        <pattern> ## * <type>entity</type> 是 什 么 </pattern>
+        <template>
+        StrictIntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 什 么 是 ## * <type>entity</type> </pattern>
+        <template>
+        StrictIntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
 </aiml>
