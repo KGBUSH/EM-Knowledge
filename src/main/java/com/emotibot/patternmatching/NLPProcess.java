@@ -381,6 +381,15 @@ public class NLPProcess {
 		}
 		return syn;
 	}
+	
+	// if str in synonym dictionary or not
+	public static boolean isInSynonymDict(String str){
+		if (!str.isEmpty() && synonymTable.containsKey(str)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	// Get the set of the first word in the line which contains input word in
 	// synonym dictionary
