@@ -75,6 +75,8 @@ public class BaikeExtractor extends Extractor {
 	    }
 		////////////////
 		Elements basicInfoPre = doc.select("div[id=slider_relations]");//doc.select("div.star-info-block");
+		if(basicInfoPre!=null)
+		{
 		for(Element element:basicInfoPre)
 		{
     		//System.err.println("KKK="+element.text());
@@ -98,8 +100,10 @@ public class BaikeExtractor extends Extractor {
 
         	}
 		}
+		}
 		
 		//<div class="open-tag-title">
+		//tags
 		Elements tags = doc.select("dd[id=open-tag-item]");
 		//System.err.println("tags="+tags.html());
         if(tags!=null){
@@ -111,9 +115,23 @@ public class BaikeExtractor extends Extractor {
 		pageInfo.setTags(tagsBuffer.toString().trim());
         }
 		//////////////////
-		//String h1 = doc.body().text();  
-		   
-        //System.out.println("Afte parsing, Body : " + h1);
+        //pics
+        //<div class="summary-pic">
+		Elements bigPic = doc.select("div[class=summary-pic]");
+		String BigPicUrl=bigPic.select("img").attr("src");
+		System.err.println("BigPicUrl="+BigPicUrl);
+		Elements picElements = doc.select("img[class=picture]");
+		if(picElements!=null)
+		{
+		for(Element element:picElements)
+		{
+			String picUrl=element.attr("src").trim();
+			String des=element.attr("alt").trim();
+			String style=element.attr("style").trim();
+			System.err.println("Pic="+des+"  "+style+"  "+picUrl);
+		}
+		}
+
 ///////////////////////////sentence MaoText
 		Elements para = doc.select("div.para");
 		Map<String,String> MaoTextUrlMap = new HashMap<String,String>();
@@ -163,7 +181,7 @@ public class BaikeExtractor extends Extractor {
 	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/linxinru";
+		String path="/Users/Elaine/Documents/workspace/html/yaomin";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		PageExtractInfo info = ex.ProcessPage();
