@@ -90,8 +90,7 @@ public class AnswerRewrite {
 
 	public String rewriteAnswer(String answer) {
 		// if answer is null or answer is introduction, then skip rewrite
-		// the process logic for introduction may be improved later
-		if (Tool.isStrEmptyOrNull(answer) || answer.length() > 50) {
+		if (Tool.isStrEmptyOrNull(answer) || answer.length() > 50 || Common.KG_DebugStatus) {
 			return answer;
 		}
 
@@ -112,8 +111,7 @@ public class AnswerRewrite {
 	// QuestinType: 0-normal, 1-relationship, 2-selective
 	public String rewriteAnswer(String answer, int QuestionType) {
 		// if answer is null or answer is introduction, then skip rewrite
-		// the process logic for introduction may be improved later
-		if (Tool.isStrEmptyOrNull(answer) || answer.length() > 50) {
+		if (Tool.isStrEmptyOrNull(answer) || answer.length() > 50 || Common.KG_DebugStatus) {
 			return answer;
 		}
 
@@ -141,6 +139,9 @@ public class AnswerRewrite {
 	}
 
 	public String rewriteAnswer4Intro(String answer) {
+		if (Tool.isStrEmptyOrNull(answer) || Common.KG_DebugStatus) {
+			return answer;
+		}
 
 		String rewrite = "";
 		int id = (int) Math.round(Math.random() * (answerRewriteTableIntro.length - 1));

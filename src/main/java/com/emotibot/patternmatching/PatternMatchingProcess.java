@@ -117,6 +117,7 @@ public class PatternMatchingProcess {
 		} else if (questionScore >= 0.3) {
 			isQuestion = true;
 		}
+		userSentence = NLPProcess.removePunctuateMark(userSentence);
 
 		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:" + cuBean.toString());
 
@@ -625,8 +626,8 @@ public class PatternMatchingProcess {
 
 	// Multi-level Reasoning Understanding
 	private AnswerBean ReasoningProcess(String templateSentence, String entity, AnswerBean answerBean) {
-		System.out.println("PMP.ReasoningProcess: sentence=" + templateSentence + ", entity =" + entity + ", bean is "
-				+ answerBean);
+		System.out.println("PMP.ReasoningProcess INIT: sentence=" + templateSentence + ", entity =" + entity
+				+ ", bean is " + answerBean);
 		// Debug.printDebug(uniqueID, 3, "knowledge", "PMP.ReasoningProcess:
 		// sentence=" + templateSentence + ", entity ="
 		// + entity + ", bean is " + answerBean.toString());
@@ -664,7 +665,7 @@ public class PatternMatchingProcess {
 
 		// add for introduction questions
 		if (listPMBean.isEmpty() && isKindofQuestion(userSentence, introductionQuestionType, "")) {
-			System.out.println("\t introudction case @@ return case 0.0, answer=" + answerBean);
+			System.out.println("\t EndOfRP introudction case @@ return case 0.0, answer=" + answerBean);
 			// does not match property, score decreases
 			answerBean.setScore(answerBean.getScore() / 2);
 			return answerBean;
@@ -686,9 +687,10 @@ public class PatternMatchingProcess {
 		System.out.println("\t listPMBean=" + listPMBean);
 
 		if (listPMBean.isEmpty()) {
-			System.out.println("\t @@ return case 0, answer=" + answerBean);
+			System.out.println("\t EndOfRP @@ return case 0, answer=" + answerBean);
 			// does not match property, score decreases
-			answerBean.setScore(answerBean.getScore() / 2);
+			// remove for the case: “姚明的初中在哪里”
+			// answerBean.setScore(answerBean.getScore() / 2);
 			return answerBean;
 		} else if (listPMBean.size() == 1) {
 			String prop = listPMBean.get(0).getAnswer();
@@ -722,7 +724,7 @@ public class PatternMatchingProcess {
 				System.out.println("prop:" + prop + ", new sentence:" + newSentence);
 				return ReasoningProcess(newSentence, newDBEntity, answerBean);
 			} else {
-				System.out.println("\t @@ return case 1, answer=" + answerBean);
+				System.out.println("\t EndOfRP  @@ return case 1, answer=" + answerBean);
 				return answerBean;
 			}
 		} else {
@@ -761,7 +763,7 @@ public class PatternMatchingProcess {
 				answerBean.setAnswer(answer.substring(0, answer.length() - 1));
 				answerBean.setScore(score);
 				answerBean.setValid(true);
-				System.out.println("\t @@ return case 2, answer = " + answerBean);
+				System.out.println("\t EndOfRP  @@ return case 2, answer = " + answerBean);
 				return answerBean;
 			}
 		}
@@ -883,7 +885,8 @@ public class PatternMatchingProcess {
 			for (String syn : synList) {
 				System.out.println("q=" + syn + " and s=" + candidate);
 				int orignalScore = (syn.toLowerCase().equals(candidate.toLowerCase())) ? 100 : 80;
-				PatternMatchingResultBean pmRB = this.getCandidatePropName(syn, propMap, orignalScore);
+				PatternMatchingResultBean pmRB = new PatternMatchingResultBean();
+				pmRB = this.recognizingProp(syn, propMap.keySet(), orignalScore);
 				if (pmRB.isValid()) {
 					tempBeanSet.add(pmRB);
 					System.out.println("string " + syn + " has the answer of " + pmRB.getAnswer() + " with score "
@@ -1020,7 +1023,7 @@ public class PatternMatchingProcess {
 
 			String littleCandidate = "";
 			List<Term> segPos = NLPProcess.getSegWord(str);
-			System.err.println("PMP.getCandidateSetbyStopWord: segPos=" + segPos);
+			System.out.println("PMP.getCandidateSetbyStopWord: segPos=" + segPos);
 
 			for (int i = 0; i < segPos.size(); i++) {
 				String segWord = segPos.get(i).word;
@@ -1161,25 +1164,133 @@ public class PatternMatchingProcess {
 		return rsSet;
 	}
 
+	private boolean isMapEqual(HashMap<String, Integer> lhs, HashMap<String, Integer> rhs) {
+
+		for (String s : lhs.keySet()) {
+			if (!rhs.containsKey(s)) {
+				System.err.print(">>>isMapEqual: rhs does not contain " + s);
+				return false;
+			} else {
+				if (lhs.get(s) != rhs.get(s)) {
+					System.err.print(">>>isMapEqual: lhs.get(s)=" + lhs.get(s) + ", rhs.get(s)=" + rhs.get(s));
+					return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	// test the similarity between target (strProperty) and ref (candidate)
+	private boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
+			boolean isPass) {
+		// System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap + ",
+		// strProperty=" + strProperty
+		// + ", candidate=" + candidate);
+
+		// case of length == 1
+		if (strProperty.length() == 1 || candidate.length() == 1) {
+			if (strProperty.equals(candidate)) {
+				rsMap.put(strProperty, 5);
+				isPass = true;
+			} else {
+				rsMap.put(strProperty, Integer.MIN_VALUE);
+			}
+			return isPass;
+		}
+
+		// case of length == 2
+		if (strProperty.length() == 2 || candidate.length() == 2) {
+			String longStr = (strProperty.length() > candidate.length()) ? strProperty : candidate;
+			String shortStr = (strProperty.length() > candidate.length()) ? candidate : strProperty;
+			if (longStr.contains(shortStr) && longStr.length() <= shortStr.length() * 2) {
+				int iScore = (strProperty.equals(candidate)) ? 5 : 2 * shortStr.length() - longStr.length();
+				rsMap.put(strProperty, iScore);
+				isPass = true;
+			} else {
+				rsMap.put(strProperty, Integer.MIN_VALUE);
+			}
+			return isPass;
+		}
+
+		if (!isPass && candidate.lastIndexOf(strProperty) != -1) {
+			isPass = true;
+		}
+
+		// pattern matching algorithm suggested by Phantom
+		// compute the score by scanning the sentence from left to right
+		// compare each char, if match, socre++, else score--
+		String tmpProp = strProperty.toLowerCase();
+		int left2right = 0;
+		for (int i = 0; i < candidate.length(); i++) {
+			if (tmpProp.indexOf(candidate.charAt(i)) == 0) {
+				left2right++;
+				tmpProp = tmpProp.substring(1);
+			} else {
+
+				left2right--;
+			}
+		}
+		if (tmpProp.isEmpty()) {
+			isPass = true;
+		}
+		// System.out.println("left is " + left2right);
+
+		// case: "sentence is 所属运动队, prop is 运动项目; left=-1, right=-5"
+		// extend the algorithm by adding the process from right to left
+		// compute the score by scanning from right to left
+		tmpProp = strProperty.toLowerCase();
+		int right2left = 0;
+		for (int i = candidate.length() - 1; i >= 0; i--) {
+			// System.out.println(tmpProp + " " + str.charAt(i));
+			if (!tmpProp.isEmpty() && tmpProp.lastIndexOf(candidate.charAt(i)) == tmpProp.length() - 1) {
+				right2left++;
+				tmpProp = tmpProp.substring(0, tmpProp.length() - 1);
+			} else {
+				right2left--;
+			}
+		}
+		// System.out.println("right is " + right2left + " isPass is " +
+		// isPass);
+
+		// if (left2right != right2left)
+		// System.err.println(
+		// "sentence is " + str + ", prop is " + s + "; left=" + left2right
+		// + ", right=" + right2left);
+
+		if (left2right > right2left) {
+			rsMap.put(strProperty, left2right);
+		} else {
+			rsMap.put(strProperty, right2left);
+		}
+
+		return isPass;
+	}
+
 	// return the property with the highest score; return null if the threshold
 	// is hold the version without segPos
 	// input: （姚明）妻
 	// output: 叶莉
-	private PatternMatchingResultBean getCandidatePropName(String candidate, Map<String, String> propMap,
-			int originalScore) {
+	private PatternMatchingResultBean getCandidatePropName(String candidate, List<String> propSet, int originalScore) {
 		// threshold to pass: if str contain a property in DB, pass
 		boolean isPass = false;
 		HashMap<String, Integer> rsMap = new HashMap<String, Integer>();
 		PatternMatchingResultBean beanPM = new PatternMatchingResultBean();
-		if (Tool.isStrEmptyOrNull(candidate) || propMap == null) {
+
+		if (Tool.isStrEmptyOrNull(candidate) || propSet == null) {
 			System.err.println("PMP.getCandidatePropName: input is empty");
 			return beanPM;
 		}
 		candidate = candidate.toLowerCase();
 		System.out.println("query string is: " + candidate);
 
-		for (String strProperty : propMap.keySet()) {
+		HashMap<String, Integer> rsMapRef = new HashMap<String, Integer>();
+		boolean isPassRef = false;
+
+		for (String strProperty : propSet) {
 			// System.out.println("current prop is: " + s);
+
+			isPassRef = SinglePatternMatching(rsMapRef, strProperty, candidate, isPass);
 
 			if (!isPass && candidate.lastIndexOf(strProperty) != -1) {
 				isPass = true;
@@ -1232,10 +1343,17 @@ public class PatternMatchingProcess {
 				rsMap.put(strProperty, right2left);
 			}
 
+			if (isPass != isPassRef) {
+				System.err.println("isPass error");
+			}
+		}
+
+		if (!isMapEqual(rsMap, rsMapRef)) {
+			System.err.println("rsMap error");
 		}
 
 		int finalScore = Integer.MIN_VALUE;
-		for (String s : propMap.keySet()) {
+		for (String s : propSet) {
 			if (rsMap.get(s) > finalScore) {
 				finalScore = rsMap.get(s);
 				beanPM.setAnswer(s);
@@ -1256,48 +1374,53 @@ public class PatternMatchingProcess {
 		return beanPM;
 	}
 
-	// // template process, change the exception cases
-	// // input: entity and sentence, "姚明", "姚明多高"
-	// // output: the sentence changed by template, "姚明身高多少"
-	// private String templateProcess(String entity, String sentence) {
-	// if (sentence.lastIndexOf(entity) == -1 || sentence.equals(entity)) {
-	// return sentence;
-	// }
-	//
-	// String[] strArr = sentence.split(entity);
-	// if (strArr.length == 0) {
-	// return "";
-	// }
-	//
-	// String label = DBProcess.getEntityLabel(entity);
-	//
-	// String tempStr = strArr[0];
-	// for (int i = 1; i < strArr.length; i++) {
-	// tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label +
-	// "</label> ";
-	// tempStr += strArr[i];
-	// }
-	//
-	// // if entity appear in the last
-	// if (sentence.endsWith(entity)) {
-	// tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label +
-	// "</label> ";
-	// }
-	//
-	// String templateRS = sentenceTemplate.process(tempStr);
-	// if (templateRS.isEmpty()) {
-	// templateRS = sentence;
-	// }
-	//
-	// System.out.println("\t templateProcess: tempStr=" + tempStr + ",
-	// templateRS=" + templateRS);
-	// return templateRS;
-	// }
+	// return the property with the highest score; return null if the threshold
+	// is hold the version without segPos
+	// input: （姚明）妻
+	// output: 叶莉
+	private PatternMatchingResultBean recognizingProp(String candidate, Set<String> propSet, int originalScore) {
+		// threshold to pass: if str contain a property in DB, pass
+		boolean isPass = false;
+		HashMap<String, Integer> rsMap = new HashMap<String, Integer>();
+		PatternMatchingResultBean beanPM = new PatternMatchingResultBean();
+
+		if (Tool.isStrEmptyOrNull(candidate) || propSet == null) {
+			System.err.println("PMP.recognizingProp: input is empty");
+			return beanPM;
+		}
+		candidate = candidate.toLowerCase();
+		System.out.println("query string is: " + candidate);
+
+		for (String strProperty : propSet) {
+			isPass = SinglePatternMatching(rsMap, strProperty, candidate, isPass);
+		}
+
+		int finalScore = Integer.MIN_VALUE;
+		for (String s : propSet) {
+			if (rsMap.get(s) > finalScore) {
+				finalScore = rsMap.get(s);
+				beanPM.setAnswer(s);
+				beanPM.setScore(finalScore);
+			}
+		}
+		if (isPass == false && beanPM.getScore() < 0) {
+			beanPM.set2NotValid();
+		} else {
+			System.out.println("original score is " + originalScore + " and final score is: " + beanPM.getScore());
+			if (isPass == true && candidate.lastIndexOf(beanPM.getAnswer()) == -1) {
+				System.err.println("threshold pass but the candidate does not contain the property");
+			}
+			double fs = (isPass == false) ? originalScore * (beanPM.getScore() * 0.1 + 0.5) : originalScore;
+			beanPM.setScore(fs);
+		}
+		System.out.println("in recognizingProp---finalScore is " + finalScore + ". rs is " + beanPM.toString());
+		return beanPM;
+	}
 
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "朋友，你在做的是什么意思？";
+		String str = "小时代1.0折纸时代哪个出版社出版的？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
