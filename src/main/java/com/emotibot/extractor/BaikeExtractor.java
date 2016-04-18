@@ -62,7 +62,9 @@ public class BaikeExtractor extends Extractor {
             	for(Element href : hrefs){
             		String link = href.attr("href");
             		String word = href.text().trim().toLowerCase();////////////
+            		if(link==null||link.trim().length()==0) continue;
             		System.out.println(link+" =========> "+word);
+
             		if(!link.startsWith("http://")) link ="http://baike.baidu.com"+link;
             		pageInfo.addWordLink(word, link);
             		pageInfo.addAttr_Values(attr, word);
@@ -71,6 +73,44 @@ public class BaikeExtractor extends Extractor {
 	               pageInfo.addAttr(attr, value);
 	        }		
 	    }
+		////////////////
+		Elements basicInfoPre = doc.select("div[id=slider_relations]");//doc.select("div.star-info-block");
+		for(Element element:basicInfoPre)
+		{
+    		//System.err.println("KKK="+element.text());
+			Elements sub=element.select("li");
+        	for(Element sub2 : sub){
+        		//System.err.println("KKK1="+sub2.html());
+        		String link = sub2.select("a").attr("href");
+        		String subname = sub2.select("div").attr("title");
+        		String relation = sub2.select("div").text();
+        		relation=relation.replaceAll(subname, "").trim();
+        		System.err.println("KKK2="+link+"  "+subname+"==>"+relation);
+        		if(link!=null&&link.trim().length()>0)
+        		{
+            		if(!link.startsWith("http://")) link ="http://baike.baidu.com"+link;
+            		pageInfo.addWordLink(subname, link);
+
+        		}
+        		if(!Tool.isStrEmptyOrNull(relation)&&!Tool.isStrEmptyOrNull(subname)){
+        			pageInfo.addAttr_Values(relation, subname);
+        	    }
+
+        	}
+		}
+		
+		//<div class="open-tag-title">
+		Elements tags = doc.select("dd[id=open-tag-item]");
+		//System.err.println("tags="+tags.html());
+        if(tags!=null){
+        StringBuffer tagsBuffer = new StringBuffer();
+		for(Element element:tags)
+		{
+    		System.err.println("tag="+tagsBuffer.append(element.select("span[class=taglist]").text()));
+		}
+		pageInfo.setTags(tagsBuffer.toString().trim());
+        }
+		//////////////////
 		//String h1 = doc.body().text();  
 		   
         //System.out.println("Afte parsing, Body : " + h1);
@@ -123,7 +163,7 @@ public class BaikeExtractor extends Extractor {
 	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/taiyang";
+		String path="/Users/Elaine/Documents/workspace/html/linxinru";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		PageExtractInfo info = ex.ProcessPage();

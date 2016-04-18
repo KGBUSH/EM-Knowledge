@@ -17,6 +17,7 @@ import com.emotibot.util.Tool;
 
 public class PageExtractInfo {
 	private String name="";
+	private String tags="";
 	private String firstPara="";
 	private HashMap<String,String> attr = new HashMap<>();
 	private List<Sentence> sentList = new ArrayList<>();
@@ -162,7 +163,7 @@ public class PageExtractInfo {
 		{
 			buffer.append("attr="+attr).append(" ").append(attr_Values.get(attr).toString()).append("\r\n");
 		}
-
+		buffer.append("tags=").append(this.tags);
 		return buffer.toString();
 	}
 	public String getFirstPara() {
@@ -251,6 +252,12 @@ public class PageExtractInfo {
 		if(wordLink==null) wordLink = new HashMap<>();
 		if(l!=null&&w!=null) wordLink.put(w,l);
 		return ;
+	}
+	public String getTags() {
+		return tags;
+	}
+	public void setTags(String tags) {
+		this.tags = tags;
 	}
 	
 
