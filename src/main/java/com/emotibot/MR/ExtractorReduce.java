@@ -85,8 +85,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 			ip = context.getConfiguration().get("ip");
 			port = context.getConfiguration().getInt("port", 0);
 			solrName = context.getConfiguration().get("solrName");
-
-		solr = new SolrUtil(ip,port,solrName);
+		    solr = new SolrUtil(ip,port,solrName);
 		}
 	}
 
