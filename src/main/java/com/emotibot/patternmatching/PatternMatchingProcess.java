@@ -375,7 +375,7 @@ public class PatternMatchingProcess {
 				answerBean.setScore(0);
 			}
 			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer()));
-			System.out.println("PM.getAnswer: the returned anwer is " + answerBean.toString());
+			System.out.println("PM.getAnswer 5: the returned anwer is " + answerBean.toString());
 			return answerBean;
 		} else {
 			// introduction case
@@ -383,7 +383,7 @@ public class PatternMatchingProcess {
 			if (!userSentence.contains(entity)) {
 				System.out.println("userSentence=" + userSentence + "++++ entity=" + entity);
 				localAnswer = matchPropertyValue(entity, segWordWithoutStopWord).replace("----####", "是" + entity + "的")
-						+ "。";
+						+ "。"+ entity + "是";
 				// System.out.println("segWordWithoutStopWord="+segWordWithoutStopWord+",
 				// tempProp="+tempProp+", replacePro="+replaceProp);
 			}
@@ -398,7 +398,7 @@ public class PatternMatchingProcess {
 			if (isQuestion == false) {
 				answerBean.setScore(0);
 			}
-			System.out.println("PM.getAnswer: the returned anwer is " + answerBean.toString());
+			System.out.println("PM.getAnswer 7: the returned anwer is " + answerBean.toString());
 			return answerBean;
 		}
 	}
@@ -1030,25 +1030,22 @@ public class PatternMatchingProcess {
 				if (!NLPProcess.isStopWord(segWord)) {
 					// not stopword
 					littleCandidate += segWord;
-					// System.err.println("NotStopWord: segWord="+segWord+",
-					// littleCandidate="+littleCandidate);
+//					 System.err.println("NotStopWord: segWord="+segWord+", little=" + littleCandidate);
 				} else {
 					if (!littleCandidate.isEmpty()) {
 						rsList.add(littleCandidate);
-						// System.err.println("StopWord 1: segWord="+segWord+",
-						// littleCandidate="+littleCandidate);
+//						 System.err.println("StopWord 1: segWord="+segWord+", little=" + littleCandidate);
 						littleCandidate = "";
 					} else {
-						// System.err.println("StopWord 2: segWord="+segWord+",
-						// littleCandidate="+littleCandidate);
+//						 System.err.println("StopWord 2: segWord="+segWord+", little=" + littleCandidate);
 					}
 				}
 			}
 			// remove below for fixing case : "7号房的礼物是啥类型的电影"
 			// move the case of empty to getCandidateSetbyEntity process
-			// if (!littleCandidate.isEmpty()) {
-			// rsList.add(littleCandidate);
-			// }
+			 if (!littleCandidate.isEmpty()) {
+			 rsList.add(littleCandidate);
+			 }
 		}
 		System.out.println("\t getCandidateSetbyEntityandStopWord is " + rsList.toString());
 		return rsList;
@@ -1184,9 +1181,8 @@ public class PatternMatchingProcess {
 	// test the similarity between target (strProperty) and ref (candidate)
 	private boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
 			boolean isPass) {
-		// System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap + ",
-		// strProperty=" + strProperty
-		// + ", candidate=" + candidate);
+//		 System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap + "\t strProperty=" + strProperty
+//		 + ", candidate=" + candidate);
 
 		// case of length == 1
 		if (strProperty.length() == 1 || candidate.length() == 1) {
@@ -1227,14 +1223,15 @@ public class PatternMatchingProcess {
 				left2right++;
 				tmpProp = tmpProp.substring(1);
 			} else {
-
+ 
 				left2right--;
 			}
+//			System.out.println("candidate at i = " +candidate.charAt(i) + ", left2right = " + left2right);
 		}
 		if (tmpProp.isEmpty()) {
 			isPass = true;
 		}
-		// System.out.println("left is " + left2right);
+//		System.out.println("left is " + left2right);
 
 		// case: "sentence is 所属运动队, prop is 运动项目; left=-1, right=-5"
 		// extend the algorithm by adding the process from right to left
@@ -1250,8 +1247,7 @@ public class PatternMatchingProcess {
 				right2left--;
 			}
 		}
-		// System.out.println("right is " + right2left + " isPass is " +
-		// isPass);
+//		 System.out.println("right is " + right2left + " isPass is " + isPass);
 
 		// if (left2right != right2left)
 		// System.err.println(
@@ -1379,6 +1375,7 @@ public class PatternMatchingProcess {
 	// input: （姚明）妻
 	// output: 叶莉
 	private PatternMatchingResultBean recognizingProp(String candidate, Set<String> propSet, int originalScore) {
+		System.out.println("init of recognizingProp: candidate="+candidate);
 		// threshold to pass: if str contain a property in DB, pass
 		boolean isPass = false;
 		HashMap<String, Integer> rsMap = new HashMap<String, Integer>();
@@ -1389,7 +1386,6 @@ public class PatternMatchingProcess {
 			return beanPM;
 		}
 		candidate = candidate.toLowerCase();
-		System.out.println("query string is: " + candidate);
 
 		for (String strProperty : propSet) {
 			isPass = SinglePatternMatching(rsMap, strProperty, candidate, isPass);
@@ -1420,9 +1416,11 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "小时代1.0折纸时代哪个出版社出版的？";
+		String str = "哪些人容易得骨质增生？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
+		bean.setQuestionType("question");
+		bean.setScore("50");
 		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
 		mp.getAnswer();
 		// System.out.println("template=" + mp.templateProcess("姚明", str));

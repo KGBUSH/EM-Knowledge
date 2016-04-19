@@ -416,223 +416,223 @@
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 逛 ^ 多 长 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿时间是多少？
+            <star index="2"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 玩 ^ 多 长 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿时间是多少？
+            <star index="2"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 游 ^ 多 长 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿时间是多少？
+            <star index="2"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 逛 ^ 多 少 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿时间是多少？
+            <star index="2"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 玩 ^ 多 少 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿时间是多少？
+            <star index="2"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 游 ^ 多 少 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿时间是多少？
+            <star index="2"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 逛 ^ 多 久 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿时间是多少？
+            <star index="2"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 玩 ^ 多 久 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿时间是多少？
+            <star index="2"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 游 ^ 多 久 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿时间是多少？
+            <star index="2"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 多 长 ^ 逛 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿时间是多少？
+            <star index="4"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 多 少 ^ 逛 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿时间是多少？
+            <star index="4"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 多 久 ^ 逛 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿时间是多少？
+            <star index="4"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 多 长 ^ 玩 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿时间是多少？
+            <star index="4"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 多 少 ^ 玩 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿时间是多少？
+            <star index="4"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 多 久 ^ 玩 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿时间是多少？
+            <star index="4"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 多 长 ^ 游 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿时间是多少？
+            <star index="4"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 多 少 ^ 游 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿时间是多少？
+            <star index="4"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 多 久 ^ 游 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿时间是多少？
+            <star index="4"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 逛 ^ ## * <type>entity</type><label>tourism</label> ^ 多 长 ^ </pattern>
         <template>
-            <star index="3"/>的游玩儿时间是多少？
+            <star index="3"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 玩 ^ ## * <type>entity</type><label>tourism</label> ^ 多 长 ^ </pattern>
         <template>
-            <star index="3"/>的游玩儿时间是多少？
+            <star index="3"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 游 ^ ## * <type>entity</type><label>tourism</label> ^ 多 长 ^ </pattern>
         <template>
-            <star index="3"/>的游玩儿时间是多少？
+            <star index="3"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 逛 ^ ## * <type>entity</type><label>tourism</label> ^ 多 少 ^ </pattern>
         <template>
-            <star index="3"/>的游玩儿时间是多少？
+            <star index="3"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 玩 ^ ## * <type>entity</type><label>tourism</label> ^ 多 少 ^ </pattern>
         <template>
-            <star index="3"/>的游玩儿时间是多少？
+            <star index="3"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 游 ^ ## * <type>entity</type><label>tourism</label> ^ 多 少 ^ </pattern>
         <template>
-            <star index="3"/>的游玩儿时间是多少？
+            <star index="3"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 逛 ^ ## * <type>entity</type><label>tourism</label> ^ 多 久 ^ </pattern>
         <template>
-            <star index="3"/>的游玩儿时间是多少？
+            <star index="3"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 玩 ^ ## * <type>entity</type><label>tourism</label> ^ 多 久 ^ </pattern>
         <template>
-            <star index="3"/>的游玩儿时间是多少？
+            <star index="3"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 游 ^ ## * <type>entity</type><label>tourism</label> ^ 多 久 ^ </pattern>
         <template>
-            <star index="3"/>的游玩儿时间是多少？
+            <star index="3"/>的游玩时间是多少？
         </template>
     </category>
     <category>
         <pattern> ^ 哪 个 ^ 季 节 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿季节是什么时候？
+            <star index="4"/>的游玩季节是什么时候？
         </template>
     </category>
     <category>
         <pattern> ^ 什 么 ^ 季 节 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿季节是什么时候？
+            <star index="4"/>的游玩季节是什么时候？
         </template>
     </category>
     <category>
         <pattern> ^ 哪 个 ^ 时 候 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿季节是什么时候？
+            <star index="4"/>的游玩季节是什么时候？
         </template>
     </category>
     <category>
         <pattern> ^ 什 么 ^ 时 候 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="4"/>的游玩儿季节是什么时候？
+            <star index="4"/>的游玩季节是什么时候？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 个 ^ 季 节 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿季节是什么时候？
+            <star index="2"/>的游玩季节是什么时候？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 ^ 季 节 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿季节是什么时候？
+            <star index="2"/>的游玩季节是什么时候？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 个 ^ 时 候 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿季节是什么时候？
+            <star index="2"/>的游玩季节是什么时候？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 ^ 时 候 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿季节是什么时候？
+            <star index="2"/>的游玩季节是什么时候？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 几 月 ^ </pattern>
         <template>
-            <star index="2"/>的游玩儿季节是什么时候？
+            <star index="2"/>的游玩季节是什么时候？
         </template>
     </category>
     <category>
         <pattern> ^ 几 月 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
-            <star index="3"/>的游玩儿季节是什么时候？
+            <star index="3"/>的游玩季节是什么时候？
         </template>
     </category>
     <category>

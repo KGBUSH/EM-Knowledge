@@ -1121,4 +1121,28 @@
             <star index="2"/>的原著是什么？
         </template>
     </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 是 ^ 哪 种 ^ </pattern>
+        <template>
+            <star index="2"/>的类型？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 属 于 ^ 哪 种 ^ </pattern>
+        <template>
+            <star index="2"/>的类型？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 是 ^ 何 种 ^ </pattern>
+        <template>
+            <star index="2"/>的类型？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 属 于 ^ 何 种 ^ </pattern>
+        <template>
+            <star index="2"/>的类型？
+        </template>
+    </category>
 </aiml>
