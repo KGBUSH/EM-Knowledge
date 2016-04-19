@@ -253,6 +253,10 @@ public class PageExtractInfo {
 		if(l!=null&&w!=null) wordLink.put(w,l);
 		return ;
 	}
+	public HashMap<String,String>  getWordLinkMap()
+	{
+		return wordLink;
+	}
 	public String getTags() {
 		return tags;
 	}

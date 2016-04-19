@@ -12,6 +12,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.hadoop.conf.Configuration;
@@ -139,7 +140,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					boolean pmname_flag = WordLabelMap.containsKey(pmWord);
 					System.err.println("NAME="+name);
 					System.err.println("NAME="+pmWord);
-
+					System.err.println("Tongyici1:"+name+"###"+pmWord+"###");
 					System.err.println("MM"+name+"KKKKK"+pmWord+"MM  "+flag+" "+name_flag+"  "+pmname_flag);
 					if(name==null) return ;
 					if (name != null && !WordLabelMap.containsKey(name)) {
@@ -171,6 +172,16 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					pageExtractInfo.addAttr(md5, DigestUtils.md5Hex(url));
 					String query = bcy.InsertEntityNode(label, pageExtractInfo.getName(), pageExtractInfo.getAttr());
 					System.err.println(NodeOrRelation+" queryMap=" + query);
+					/////////TongyiciMap
+					Map<String,String> WordLink=pageExtractInfo.getWordLinkMap();
+					if(WordLink!=null&&WordLink.size()>0)
+					{
+					  for(String word:WordLink.keySet())
+					  {
+						System.err.println("Tongyici2:"+word+"###"+WordLink.get(word)+"###");
+					  }
+					}
+					/////////
 					if (query == null || query.trim().length() == 0) return;
 					context.write(outputKey, new Text(query));
 					}
