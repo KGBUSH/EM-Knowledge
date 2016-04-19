@@ -78,9 +78,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 		 Password = context.getConfiguration().get("Password");
 		 Port = context.getConfiguration().getInt("Port", 0);
 		 User = context.getConfiguration().get("User");
-
-		conn = new EmotibotNeo4jConnection(DriverName, Ip, Port, User, Password) ;
-
+		 conn = new EmotibotNeo4jConnection(DriverName, Ip, Port, User, Password) ;
 		}
 		else
 		{
