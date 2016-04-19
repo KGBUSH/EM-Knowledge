@@ -52,6 +52,10 @@ public class NLPProcess {
 		// entityTable = createEntityTable();
 		// entitySynonymTable = createEntitySynonymTable();
 	}
+	
+	public static Set<String> getEntityTable(){
+		return entityTable;
+	}
 
 	private static void addCustomDictionaryInHanlp() {
 		for (String s : entityTable) {

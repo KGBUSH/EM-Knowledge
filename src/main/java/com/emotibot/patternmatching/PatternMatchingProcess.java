@@ -156,9 +156,10 @@ public class PatternMatchingProcess {
 		while (it.hasNext()) {
 			String tempEntity = it.next();
 			if (NLPProcess.isInSynonymDict(tempEntity)) {
+				boolean isIntroductionType = isKindofQuestion(userSentence, introductionQuestionType, tempEntity);
 				boolean isStrictType = isKindofQuestion(userSentence, strictIntroductionQuestionType, tempEntity);
 				System.out.println("abnormal entity:" + tempEntity);
-				if (!isStrictType) {
+				if (isIntroductionType && !isStrictType) {
 					System.out.println("remove entity:" + tempEntity);
 					it.remove();
 				}
@@ -1416,7 +1417,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "哪些人容易得骨质增生？";
+		String str = "lady gaga几岁了？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");
