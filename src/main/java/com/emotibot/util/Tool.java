@@ -177,6 +177,17 @@ public class Tool {
 		}
 		return new String(temp);
 	}
+	
+	public static String removeSpaceInChinese(String str) {
+		String[] splitStr = str.split(" ");
+		String rs = "";
+		for (String s : splitStr) {
+			rs += s;
+		}
+
+		// System.out.println("input is " + str + ", output is " + rs);
+		return rs;
+	}
 
 	public static String getLongestStringInArray(String[] arr) {
 		if (arr == null || arr.length == 0) {

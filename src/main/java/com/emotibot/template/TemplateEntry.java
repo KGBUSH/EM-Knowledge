@@ -93,12 +93,12 @@ public class TemplateEntry {
 		String label = DBProcess.getEntityLabel(entity);
 		String tempStr = strArr[0];
 		for (int i = 1; i < strArr.length; i++) {
-			tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
+			tempStr += "## " + entity + " <type>entity</type>" + "<label>" + label + "</label> ";
 			tempStr += strArr[i];
 		}
 		// if entity appear in the last
 		if (sentence.endsWith(entity)) {
-			tempStr += "## " + entity + "<type>entity</type>" + "<label>" + label + "</label> ";
+			tempStr += "## " + entity + " <type>entity</type>" + "<label>" + label + "</label> ";
 		}
 
 		System.out.println("\t templateProcess: label=" + label);

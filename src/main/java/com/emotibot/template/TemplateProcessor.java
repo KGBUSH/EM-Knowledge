@@ -21,22 +21,13 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 		super(str);
 	}
 
-	private String removeSpace(String str) {
-		String[] splitStr = str.split(" ");
-		String rs = "";
-		for (String s : splitStr) {
-			rs += s;
-		}
-
-		// System.out.println("input is " + str + ", output is " + rs);
-		return rs;
-	}
+	
 
 	public String selectiveQuestionProcess(String sentence) {
 		String processedQ = Tool.insertSpace2Chinese(sentence);
 		String type = chatSession.multisentenceRespond(processedQ);
 		System.out.println("Sentence = " + sentence + "\n ProcessQ = " + processedQ + "\n type 1 = " + type);
-		type = removeSpace(type);
+		type = Tool.removeSpaceFromChinese(type);
 		System.out.println("type 2 = " + type);
 		return type;
 	}
@@ -78,7 +69,7 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 		String type = chatSession.multisentenceRespond(processedQ);
 		System.out.println("Sentence = " + sentence + "\n ProcessQ = " + processedQ + "\n type 1 = " + type);
 
-		type = removeSpace(type);
+		type = Tool.removeSpaceFromChinese(type);
 		System.out.println("type 2 = " + type);
 		return type;
 	}
@@ -91,7 +82,7 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 		String type = chatSession.multisentenceRespond(processedQ);
 		System.out.println("Sentence = " + sentence + "\n ProcessQ = " + processedQ + "\n type 1 = " + type);
 
-		type = removeSpace(type);
+		type = Tool.removeSpaceFromChinese(type);
 		System.out.println("type 2 = " + type);
 		return type;
 	}
@@ -99,9 +90,14 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 
 	public static void main(String[] args) {
 
-		String sen = "## exo <type>entity</type><label>figure</label> 多重abc";
-		sen = "北京的行政代码是不是110000";
+		String sen = "## lady gaga  <type>entity</type><label>figure</label> 多重";
+//		sen = "北京的行政代码是不是110000";
+		
+		TemplateProcessor temp = new TemplateProcessor("Knowledge");
+		temp.process(sen);
 
+		
+		System.exit(0);
 		String str = sen;
 		TemplateProcessor introTemplate = new TemplateProcessor("QuestionClassifier");
 		System.out.println("\n\n processTest====");
