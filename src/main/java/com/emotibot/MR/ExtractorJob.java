@@ -5,6 +5,8 @@
  * Primary Owner: taoliu@emotibot.com.cn
  */
 package com.emotibot.MR;
+import java.util.Vector;
+
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -28,76 +30,86 @@ import org.apache.hadoop.mapreduce.Reducer.Context;
 import com.emotibot.common.Common;
 import com.emotibot.config.ConfigManager;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
+import com.emotibot.util.Tool;
 
 import org.apache.hadoop.fs.Path;
 //com.emotibot.MR.ExtractorJob
 public class ExtractorJob {
-	public static String Type_Neo4j="Neo4j";
-	public static String Type_Solr="Solr";
+  public static String Type_Neo4j="Neo4j";
+  public static String Type_Solr="Solr";
 
-	@SuppressWarnings("deprecation")
-	public static void main(String args[])
-	{
-		 try {
-			  if(args.length!=3&&args.length!=4) 
-			  {
-				  System.err.println("input two param:inputtable,desttable,Type,(=4,1 Node ,2 Relation)");
-				  System.exit(0);
-			  }
-		      Configuration conf = HBaseConfiguration.create();
-		      conf.addResource(new Path("conf/hbase-site.xml"));
-		      String inputTableName = args[0].trim();
-		      String destTableName=args[1].trim();
-		      String type=args[2].trim();
-		      Scan scan = new Scan();
-		      scan.setCaching(100);
-		      scan.setCacheBlocks(false);
-		      conf.set(TableInputFormat.INPUT_TABLE, inputTableName);
-		      conf.set("destTable", destTableName);
-		      conf.set("type", type);
-		      conf.set("label", Common.PERSONLABEL);
-			  ConfigManager cfg = new ConfigManager();
+  @SuppressWarnings("deprecation")
+  public static void main(String args[])
+  {
+     try {
+        if(args.length!=3&&args.length!=4) 
+        {
+          System.err.println("input two param:inputtable,desttable,Type,(=4,1 Node ,2 Relation)");
+          System.exit(0);
+        }
+          Configuration conf = HBaseConfiguration.create();
+          conf.addResource(new Path("conf/hbase-site.xml"));
+          String inputTableFile = args[0].trim();
+          String destTableName=args[1].trim();
+          String type=args[2].trim();
+          Scan scan = new Scan();
+          scan.setCaching(100);
+          scan.setCacheBlocks(false);
+         // conf.set(TableInputFormat.INPUT_TABLE, inputTableName);
+          conf.set("destTable", destTableName);
+          conf.set("type", type);
+          conf.set("label", Common.PERSONLABEL);
+        ConfigManager cfg = new ConfigManager();
 
-				if(type.contains("Neo4j"))
-				{
-				    conf.set("DriverName", cfg.getNeo4jDriverName());
-				    conf.set("Ip", cfg.getNeo4jServerIp());
-				    conf.set("Password", cfg.getNeo4jPasswd());
-				    conf.setInt("Port", cfg.getNeo4jServerPort());
-				    conf.set("User", cfg.getNeo4jUserName());
-				    conf.set("NodeOrRelation",args[3].trim());
-				}
-				if(type.contains("Solr"))
-				{
-					//String ip,int port,String solrName
-					String ip = cfg.getIndexSolrServerIp();
-					int port = cfg.getIndexSolrServerPort();
-					String solrName = cfg.getIndexSolrServerSolrName();
-				    conf.set("ip", ip);
+        if(type.contains("Neo4j"))
+        {
+            conf.set("DriverName", cfg.getNeo4jDriverName());
+            conf.set("Ip", cfg.getNeo4jServerIp());
+            conf.set("Password", cfg.getNeo4jPasswd());
+            conf.setInt("Port", cfg.getNeo4jServerPort());
+            conf.set("User", cfg.getNeo4jUserName());
+            conf.set("NodeOrRelation",args[3].trim());
+        }
+        if(type.contains("Solr"))
+        {
+          //String ip,int port,String solrName
+          String ip = cfg.getIndexSolrServerIp();
+          int port = cfg.getIndexSolrServerPort();
+          String solrName = cfg.getIndexSolrServerSolrName();
+            conf.set("ip", ip);
                     conf.setInt("port", port);
                     conf.set("solrName", solrName);
-				}
-		      Job job = new Job(conf);
-		      job.setPriority(JobPriority.HIGH);
-		      job.setInputFormatClass(TableInputFormat.class);
-		      job.setOutputFormatClass(TableOutputFormat.class);
-		      job.setMapOutputValueClass(Text.class);
-		      job.setMapOutputKeyClass(ImmutableBytesWritable.class);
-		      job.setOutputKeyClass(ImmutableBytesWritable.class);
-		      job.setOutputValueClass(Writable.class);
-		      job.setOutputFormatClass(MultiTableOutputFormat.class);
-		      job.setMapperClass(ExtractorMap.class);
-		      job.setReducerClass(ExtractorReduce.class);
-		      job.setJarByClass(ExtractorMap.class);
-		      job.setJobName("ExtractorJob");
-		      System.exit(job.waitForCompletion(true) ? 0 : 1);
-		    } catch (Exception e) {
-		    	e.printStackTrace();
-		        System.out.println(e.toString());
-		    }
-		
-		//new ExtractorMap().getFileLine("/domain/TV_series.txt");
+        }
+        Vector<String> tables = Tool.getFileLines(inputTableFile);
+        for(String inputTableName:tables){
+          conf.set(TableInputFormat.INPUT_TABLE, inputTableName);
+          Job job = new Job(conf);
+          job.setPriority(JobPriority.HIGH);
+          job.setInputFormatClass(TableInputFormat.class);
+          job.setOutputFormatClass(TableOutputFormat.class);
+          job.setMapOutputValueClass(Text.class);
+          job.setMapOutputKeyClass(ImmutableBytesWritable.class);
+          job.setOutputKeyClass(ImmutableBytesWritable.class);
+          job.setOutputValueClass(Writable.class);
+          job.setOutputFormatClass(MultiTableOutputFormat.class);
+          job.setMapperClass(ExtractorMap.class);
+          job.setReducerClass(ExtractorReduce.class);
+          job.setJarByClass(ExtractorMap.class);
+          job.setJobName("ExtractorJob");
+         // System.exit(job.waitForCompletion(true) ? 0 : 1);
+          while (true) {
+				if (job.waitForCompletion(true)) break;
+				Thread.sleep(10000);
+			}
+          System.err.println(inputTableName+"  "+"Finished!!!");
+        }
+        } catch (Exception e) {
+          e.printStackTrace();
+            System.out.println(e.toString());
+        }
+    
+    //new ExtractorMap().getFileLine("/domain/TV_series.txt");
 
-	}
+  }
 
 }
