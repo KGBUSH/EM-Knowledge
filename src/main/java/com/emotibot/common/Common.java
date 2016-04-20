@@ -21,6 +21,7 @@ public class Common {
     public static String UserDir=System.getProperty("user.dir");
     
     public static boolean KG_DebugStatus = false;
-	
+	////////////Page
+    
 
 }

@@ -24,7 +24,7 @@ public class PageExtractInfo {
 	private HashMap<String,List<String>> attr_Values = new HashMap<>();
 	String Blank=" ";
 	private HashMap<String,String> wordLink = new HashMap<>();
-
+   public static String nameFields="中文名#外文名#别名#别称#别号#别字#昵称#又名#又称#别称#又叫#其他名称#译名#外号#绰号#诨号#诨名";
 	public HashMap<String,String> getAttr() {
 		return attr;
 	}
@@ -263,6 +263,22 @@ public class PageExtractInfo {
 	public void setTags(String tags) {
 		this.tags = tags;
 	}
-	
+	public String GetSynonym()
+	{
+		String arr[]=nameFields.split("#");
+		StringBuffer buffer = new StringBuffer();
+		for(String w :arr)
+		{
+			if(w!=null&&w.trim().length()>0)
+			{
+	               //pageInfo.addAttr(attr, value);
+				if(attr.containsKey(w))
+				{
+					buffer.append(",").append(attr.get(w));
+				}
+			}
+		}
+		return buffer.toString();
+	}
 
 }
