@@ -30,7 +30,6 @@ import com.hankcs.hanlp.seg.common.Term;
 
 public class PatternMatchingProcess {
 
-	final TemplateProcessor sentenceTemplate = new TemplateProcessor("Knowledge");
 	final TemplateProcessor questionClassifier = new TemplateProcessor("QuestionClassifier");
 
 	final String introductionQuestionType = "IntroductionQuestion@:";
@@ -137,10 +136,8 @@ public class PatternMatchingProcess {
 		// note:"和" is stop word
 		// entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
 		entitySet = getEntity(userSentence.toLowerCase());
-
-		removeAbnormalEntity(entitySet);
-
 		userSentence = changeEntitySynonym(entitySet, userSentence);
+		removeAbnormalEntity(entitySet);
 		System.out.println("TIME 4 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 		System.out.println("Constructor: userSentence=" + userSentence);
@@ -148,6 +145,10 @@ public class PatternMatchingProcess {
 		System.out.println("Constructor: segPos=" + segPos);
 		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
 		System.out.println("Constructor: entitySet=" + entitySet);
+		
+		if(Common.KG_DebugStatus){
+			Debug.printDebug("042001", 1, "KG", "userSentence="+userSentence+"; entitySet="+entitySet);
+		}
 	}
 
 	// remove stopword and other abnormal word in entity
@@ -1417,7 +1418,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "lady gaga几岁了？";
+		String str = "lady gaga唱过什么歌?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");

@@ -5,7 +5,7 @@ public class AnswerBean {
 	private String answer = "";
 	private String property = "";
 	private boolean isValid = false;
-	private String originalWord = "";	// the word in the sentence
+	private String originalWord = ""; // the word in the sentence
 
 	public double getScore() {
 		return score;
@@ -25,8 +25,8 @@ public class AnswerBean {
 
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
-		buffer.append(property).append("(").append(originalWord).append(") : ").append(answer).append("; ");
-		buffer.append(score);
+		buffer.append(property).append("(").append(originalWord).append(") : [").append(score).append("] ")
+				.append(answer).append("; ");
 		return buffer.toString();
 	}
 
