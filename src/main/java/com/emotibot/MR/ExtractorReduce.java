@@ -93,15 +93,12 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 	protected void reduce(ImmutableBytesWritable key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
 		try {
-			long solrDocnum=0;
+			/*long solrDocnum=0;
 			List<String> list = new ArrayList<>();
 			for (Text value : values) {
 				System.err.println("typeReduce=" + type+"  ");
 				if (type.contains("Neo4j")) {
 					String query = value.toString();
-					//query = StringEscapeUtils.escapeSql(query);
-					//System.err.println("queryReduce2=" + query);
-                   // if(query.contains("return")) query=query.substring(0, query.lastIndexOf("return"));
 					System.err.println("queryReduce=" + query);
 
                     if(query==null||query.trim().length()==0)
@@ -119,8 +116,6 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 					boolean result=false;
                     if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
                     {
-                        //bean=conn.executeCypherSQL(query);
-                        //System.err.println("bean="+bean.toString());
             			if(query.contains("return")) query = query.substring(0, query.lastIndexOf("return"));
             			query=query.replaceAll("result", "result"+list.size());
                         list.add(query);
@@ -197,10 +192,9 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
      					  list.clear();
 
                        }
-			}
+			}*/
 		} catch (Exception e) {
 			System.err.println("ReduceException="+e.getMessage());
-
 		}
 	}
 	
