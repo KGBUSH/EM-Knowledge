@@ -33,7 +33,7 @@ public class dataprocess {
 
 	public static void main(String args[])
 	{
-		String path="Tongyici";
+		String path="Tong";
 		Vector<String> lines= Tool.getFileLines(path);
 		Map<String,Map<String,String>> md5Words = new HashMap<>();
 		for(String line:lines)
@@ -43,9 +43,12 @@ public class dataprocess {
 			{
 				line=line.replace("Tongyici1:", "").trim();
 				String[] arr = line.split(flag3);
-				if(arr.length==3)
+				//System.err.println(arr.length);
+				String md5 = getUrlMd5(arr[2].trim());
+
+				if(arr.length==3||arr.length==4)
 				{
-					String md5 = getUrlMd5(arr[2].trim());
+					//String md5 = getUrlMd5(arr[2].trim());
 					if(!md5Words.containsKey(md5))
 					{
 						md5Words.put(md5, new HashMap<String,String>());
@@ -56,7 +59,23 @@ public class dataprocess {
 					if(arr[1].trim().length()>0){
 					if(!md5Words.get(md5).containsKey(arr[1].trim()))  md5Words.get(md5).put(arr[1].trim(),"");
 					}
-
+				}
+				if(arr.length==4)
+				{
+					String l=arr[3].trim();
+					l=l.replaceAll(",", ",");
+					l=l.replaceAll("，", ",");
+					l=l.replaceAll("、", ",");
+                    String arr2[] = l.split(",");
+                    for(String w:arr2)
+                    {
+                    	w=transform(w);
+    					if(!md5Words.containsKey(md5))
+    					{
+    						md5Words.put(md5, new HashMap<String,String>());
+    					}
+                        if(!Tool.isStrEmptyOrNull(w)) md5Words.get(md5).put(w,"");
+                    }
 				}
 			}
 			if(line.startsWith("Tongyici2"))

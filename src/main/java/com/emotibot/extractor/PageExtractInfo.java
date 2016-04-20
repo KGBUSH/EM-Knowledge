@@ -272,9 +272,9 @@ public class PageExtractInfo {
 			if(w!=null&&w.trim().length()>0)
 			{
 	               //pageInfo.addAttr(attr, value);
-				if(attr.containsKey(w))
+				for(String key:attr.keySet())
 				{
-					buffer.append(",").append(attr.get(w));
+					if(key.contains(w)) buffer.append(",").append(attr.get(w));
 				}
 			}
 		}
