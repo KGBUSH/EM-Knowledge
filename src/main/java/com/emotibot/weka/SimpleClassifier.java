@@ -71,6 +71,7 @@ public class SimpleClassifier {
 	}
     public static String getLabels(String tags)
     {
+    	StringBuffer buffer = new StringBuffer();
     	if(Tool.isStrEmptyOrNull(tags)) return OHTHER;
 		String[] subtags = tags.split(" ");
 		long sum=0;
@@ -96,12 +97,18 @@ public class SimpleClassifier {
             }
 
         }); 
-		System.err.println("tags="+tags);
-
+        //buffer.append("tags="+tag"");
+        int index=0;
         for (Map.Entry<String, Long> mapping : list) {  
-            System.err.println("domain="+mapping.getKey() + ":" + mapping.getValue());  
-        }  
-		return OHTHER;
+        	buffer.append("domain="+mapping.getKey() + " score=" + mapping.getValue()+" ; ");  
+        	index++;
+        	if(index>=3) break;
+        } 
+        if(list==null||list.size()==0)
+        {
+            buffer.append(OHTHER);
+        }
+		return buffer.toString();
     }
     
 	public static void main(String args[])
