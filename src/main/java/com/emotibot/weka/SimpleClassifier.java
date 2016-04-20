@@ -1,5 +1,113 @@
 package com.emotibot.weka;
 
-public class SimpleClassifier {
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Vector;
 
+import com.emotibot.util.Tool;
+
+public class SimpleClassifier {
+	public static Map<String,String> DomainNames;
+	public static Map<String,Integer> wordsDomainTime = new HashMap<>();
+	public static String OHTHER="other";
+	public static void Init()
+	{
+		DomainNames = new HashMap<>();
+		DomainNames.put("TV_series","");
+		DomainNames.put("anime","");
+		DomainNames.put("catchword","");
+		DomainNames.put("college","");
+		DomainNames.put("computer_game","");
+		DomainNames.put("cosmetics","");
+		DomainNames.put("delicacy","");
+		DomainNames.put("digital_product","");
+		DomainNames.put("figure","");
+		DomainNames.put("major","");
+		DomainNames.put("movie","");
+		DomainNames.put("novel","");
+		DomainNames.put("sports","");
+		DomainNames.put("sports_organization","");
+		DomainNames.put("tourism","");
+		DomainNames.put("varity_show","");
+		DomainNames.put("economy","");
+		DomainNames.put("medical_treatment","");
+		wordsDomainTime = new HashMap<>();
+	}
+	public static void Train(String fileName)
+	{
+		Vector<String> lines = Tool.getFileLines(fileName);
+		for(String line:lines)
+		{
+			line=line.replaceAll("Weka:", "");
+			String[] arr = line.split("###");
+			String tags = arr[0].trim();
+			String domain = arr[1].trim();
+			System.err.println(tags+"=="+domain);
+			String[] subtags = tags.split(" ");
+			for(String tag:subtags)
+			{
+				tag=tag.trim();
+				System.err.println(tag+"==>");
+				if(!DomainNames.containsKey(domain))
+				{
+					System.err.println("domain="+domain);
+					System.exit(0);
+				}
+                if(tag.trim().length()==0) continue;
+                tag=tag+domain;
+                if(!wordsDomainTime.containsKey(tag)) wordsDomainTime.put(tag, 1);
+                else
+                {
+                	wordsDomainTime.put(tag, wordsDomainTime.get(tag)+1);
+                }
+			}
+			
+		}
+	}
+    public static String getLabels(String tags)
+    {
+    	if(Tool.isStrEmptyOrNull(tags)) return OHTHER;
+		String[] subtags = tags.split(" ");
+		long sum=0;
+		 Map<String, Long>  map = new HashMap<>();
+
+		for(String key:DomainNames.keySet())
+		{
+			sum=0;
+			for(String tag:subtags)
+			{
+				tag=tag+key;
+				if(wordsDomainTime.containsKey(tag)) sum+=wordsDomainTime.get(tag);
+			}
+			map.put(key, sum);
+		}
+        List<Map.Entry<String, Long>> list = new ArrayList<Map.Entry<String, Long>>(map.entrySet());  
+        Collections.sort(list, new Comparator<Map.Entry<String, Long>>() {  
+            //降序排序  
+            @Override  
+            public int compare(Entry<String, Long> o1, Entry<String, Long> o2) {  
+                //return o1.getValue().compareTo(o2.getValue());  
+                return o2.getValue().compareTo(o1.getValue());  
+            }
+
+        }); 
+		System.err.println("tags="+tags);
+
+        for (Map.Entry<String, Long> mapping : list) {  
+            System.err.println("domain="+mapping.getKey() + ":" + mapping.getValue());  
+        }  
+		return OHTHER;
+    }
+    
+	public static void main(String args[])
+	{
+		Init();
+		Train("Weka6000");
+		getLabels("体育赛事 体育");
+	}
 }
