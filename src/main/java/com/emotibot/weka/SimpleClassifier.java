@@ -10,7 +10,7 @@ import java.util.Map.Entry;
 import java.util.Vector;
 
 import com.emotibot.util.Tool;
-
+//com.emotibot.weka.SimpleClassifier
 public class SimpleClassifier {
 	public static Map<String,String> DomainNames;
 	public static Map<String,Integer> wordsDomainTime = new HashMap<>();

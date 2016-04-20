@@ -29,6 +29,7 @@ import net.sf.json.JSONObject;
  * 
  *
  */
+//com.emotibot.weka.WekaWebserver
 public class WekaWebserver {
 	public static void main(String[] args) throws Exception {
 		// Create a basic jetty server object that will listen on port 8080.
