@@ -173,14 +173,14 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					System.err.println(NodeOrRelation+" queryMap=" + query);
 					/////////TongyiciMap
 					////////duoyici
-					if(pageExtractInfo.isDuoyici()) System.err.println("Duoyici:"+name+"###"+pmWord+"###"+url);
+					if(pageExtractInfo.getDuoyici().length()>0) System.err.println("Duoyici:"+pageExtractInfo.getDuoyici()+"###"+url);
                      //					System.err.println("Tongyici1:"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.GetSynonym());
                     String tongyici="";
 					if(pageExtractInfo.getTongyici().trim().length()>0)
                     {
 						tongyici=pageExtractInfo.getTongyici().trim();
                     }
-					System.err.println("Tongyici1:"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.GetSynonym()+","+tongyici);
+					System.err.println("Tongyici1:"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.GetSynonym()+",,,"+tongyici);
 
 					//////////
 					Map<String,String> WordLink=pageExtractInfo.getWordLinkMap();

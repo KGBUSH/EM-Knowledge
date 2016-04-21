@@ -200,8 +200,23 @@ public class BaikeExtractor extends Extractor {
          if(duoyiciElement!=null)
          {
         	 boolean duoyici = duoyiciElement.outerHtml().contains("target=\"_blank\">多义词</a>");
-        	 pageInfo.setDuoyici(duoyici);
-        	 System.err.println("duoyiciElement.outerHtml()="+duoyiciElement.outerHtml());
+        	/* pageInfo.setDuoyici(duoyici);
+        	 System.err.println("duoyiciElement.outerHtml()="+duoyiciElement.outerHtml());*/
+        	 if(duoyici)
+        	 {
+        		 String html=duoyiciElement.outerHtml();
+        		 //html=html.substring(0, html)
+        		 if(html.contains("</b>是一个"))
+        		 {
+        			 html=html.substring(0, html.indexOf("</b>是一个"));
+        			 if(html.contains("<b>"))
+        			 {
+        				 html=html.substring(html.lastIndexOf("<b>")+"<b>".length(), html.length());
+        				 html=html.trim();
+        				 pageInfo.setDuoyici(html);
+        			 }
+        		 }
+        	 }
          }
 
          /////
@@ -211,7 +226,7 @@ public class BaikeExtractor extends Extractor {
 	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/bubu";
+		String path="/Users/Elaine/Documents/workspace/html/cluo";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		PageExtractInfo info = ex.ProcessPage();
@@ -226,6 +241,6 @@ public class BaikeExtractor extends Extractor {
 
         }
 		System.err.println("getTongyici.........."+info.getTongyici());
-		System.err.println("isDuoyici.........."+info.isDuoyici());
+		System.err.println("isDuoyici.........."+info.getDuoyici());
 	}
 }
