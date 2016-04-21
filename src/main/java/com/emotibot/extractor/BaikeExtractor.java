@@ -185,16 +185,33 @@ public class BaikeExtractor extends Extractor {
              }
             }
 		}
-		  pageInfo.setFirstPara(buffer.toString());
+		 pageInfo.setFirstPara(buffer.toString());
          pageInfo.addAttr(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME, buffer.toString());
+         ////
+         //<span class="viewTip-fromTitle">卡迪夫城</span>
+         Elements tongyiciElement = doc.select("span[class=viewTip-fromTitle]");
+         if(tongyiciElement!=null&&tongyiciElement.text()!=null)
+         {
+        	 String tongyici = tongyiciElement.text().trim();
+        	 if(tongyici.length()>0) pageInfo.setTongyici(tongyici.toLowerCase());
+         }
+         //<a href="/view/10812277.htm" target="_blank">多义词</a>
+         Elements duoyiciElement  = doc.select("div[class=polysemantList-header-title]");
+         if(duoyiciElement!=null)
+         {
+        	 boolean duoyici = duoyiciElement.outerHtml().contains("target=\"_blank\">多义词</a>");
+        	 pageInfo.setDuoyici(duoyici);
+        	 System.err.println("duoyiciElement.outerHtml()="+duoyiciElement.outerHtml());
+         }
 
+         /////
         return pageInfo;
 
 	}
 	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/caiyilin";
+		String path="/Users/Elaine/Documents/workspace/html/cluo";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		PageExtractInfo info = ex.ProcessPage();
@@ -208,6 +225,8 @@ public class BaikeExtractor extends Extractor {
     		System.err.println(key+"===>>>"+map.get(key));
 
         }
+		System.err.println("getTongyici.........."+info.getTongyici());
+		System.err.println("isDuoyici.........."+info.isDuoyici());
 
 	}
 
