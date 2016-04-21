@@ -18,6 +18,7 @@ import com.emotibot.config.ConfigManager;
 import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
 import com.emotibot.neo4jprocess.Neo4jDBManager;
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.Neo4jResultBean;
 
 public class GenerateDictionaryFile {
@@ -43,7 +44,7 @@ public class GenerateDictionaryFile {
 			String line = in.readLine();
 
 			while (line != null) {
-				line = line.trim();
+				line = CharUtil.trim(line);
 				System.out.println("enil=" + line + ";");
 				String queryCount = "match(n{Name:\"" + line + "\"}) return count(n) as " + Common.ResultObj;
 
@@ -170,9 +171,9 @@ public class GenerateDictionaryFile {
 				BufferedReader dis = new BufferedReader(read);
 				String word = "";
 				while ((word = dis.readLine()) != null) {
-					if (!word.trim().isEmpty()) {
-						entitySet.add(word.trim());
-						out.write(word.trim() + "\r\n");
+					if (!CharUtil.trim(word).isEmpty()) {
+						entitySet.add(CharUtil.trim(word));
+						out.write(CharUtil.trim(word) + "\r\n");
 					}
 				}
 				dis.close();
@@ -231,7 +232,7 @@ public class GenerateDictionaryFile {
 				if (line.startsWith("小丈夫")) {
 					System.out.println("1111=" + line);
 				}
-				line = line.trim();
+				line = CharUtil.trim(line);
 				if (line.startsWith("小丈夫")) {
 					System.out.println("1111=" + line);
 				}
@@ -273,7 +274,7 @@ public class GenerateDictionaryFile {
 			List<String> entityList = new ArrayList<>();
 			String line = in.readLine();
 			while (line != null) {
-				line = line.trim();
+				line = CharUtil.trim(line);
 				entityList.add(line);
 				line = in.readLine();
 			}

@@ -23,6 +23,7 @@ import com.emotibot.solr.Solr_Query;
 import com.emotibot.template.TemplateEntry;
 import com.emotibot.template.TemplateProcessor;
 import com.emotibot.util.CUBean;
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.StringLengthComparator;
 import com.emotibot.util.Tool;
 import com.emotibot.Debug.Debug;
@@ -124,7 +125,7 @@ public class PatternMatchingProcess {
 		segPos = NLPProcess.getSegWord(userSentence);
 		segWordWithoutStopWord = new ArrayList<>();
 		for (int i = 0; i < segPos.size(); i++) {
-			String segWord = segPos.get(i).word.trim();
+			String segWord = CharUtil.trim(segPos.get(i).word);
 			System.out.println("segWord=" + segWord);
 			if (!NLPProcess.isStopWord(segWord)) {
 				segWordWithoutStopWord.add(segWord);
@@ -1021,7 +1022,7 @@ public class PatternMatchingProcess {
 
 		// System.err.println("PMP.getCandidateSetbyStopWord: input="+strSet);
 		for (String str : strSet) {
-			if (str.trim().isEmpty()) {
+			if (CharUtil.trim(str).isEmpty()) {
 				continue;
 			}
 			// remove below for fixing case : "7号房的礼物是啥类型的电影"
@@ -1068,14 +1069,14 @@ public class PatternMatchingProcess {
 		}
 
 		while (str.lastIndexOf(ent) != -1) {
-			String s = str.substring(str.lastIndexOf(ent) + ent.length()).trim();
+			String s = CharUtil.trim(str.substring(str.lastIndexOf(ent) + ent.length()));
 			if (!s.isEmpty()) {
 				// System.out.println("PMP.GetCandidateSet, s ="+s);
 				listPart.add(s); // add the last part
 			}
 
 			// remove the last part
-			str = str.substring(0, str.lastIndexOf(ent)).trim();
+			str = CharUtil.trim(str.substring(0, str.lastIndexOf(ent)));
 			if (!str.isEmpty() && str.lastIndexOf(ent) == -1) {
 				listPart.add(str);
 				// System.out.println("PMP.GetCandidateSet: str=" + str);
@@ -1101,7 +1102,7 @@ public class PatternMatchingProcess {
 		for (String str : strList) {
 			List<Term> segPos = NLPProcess.getSegWord(str);
 			for (int i = 0; i < segPos.size(); i++) {
-				String segWord = segPos.get(i).word.trim();
+				String segWord = CharUtil.trim(segPos.get(i).word);
 				if (!segWord.isEmpty()) {
 					rsList.add(segWord);
 				}
@@ -1422,7 +1423,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "罗永浩是什么公司的?";
+		String str = "天梯用英文怎么说?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");

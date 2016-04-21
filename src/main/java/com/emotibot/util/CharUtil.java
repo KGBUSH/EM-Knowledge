@@ -56,6 +56,11 @@ public class CharUtil {
 		}
 		return s;
 	}
+    
+    public static String trim(String s){
+    	return s.replace(String.valueOf((char) 160), " ").trim();
+    }
+    
     public static void main(String args[])
     {
     	System.err.println(isEnglisgBigChar("A"));

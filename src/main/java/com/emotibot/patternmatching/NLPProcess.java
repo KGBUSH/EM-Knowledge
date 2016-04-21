@@ -27,6 +27,7 @@ import com.emotibot.nlp.NLPFlag;
 import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
 import com.emotibot.util.Tool;
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.StringLengthComparator;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.dictionary.CustomDictionary;
@@ -101,7 +102,7 @@ public class NLPProcess {
 				BufferedReader dis = new BufferedReader(read);
 				String line = "";
 				while ((line = dis.readLine()) != null) {
-					String[] wordList = line.trim().split("##");
+					String[] wordList = CharUtil.trim(line).split("##");
 					if (wordList.length != 2) {
 						System.err.println("wrong format in entitySynonym.txt");
 						continue;
@@ -124,7 +125,7 @@ public class NLPProcess {
 				return null;
 			}
 		}
-
+		
 		return entitySyn;
 	}
 
@@ -146,7 +147,7 @@ public class NLPProcess {
 				String word = "";
 				while ((word = dis.readLine()) != null) {
 					// all entity in table are in low case
-					entitySet.add(word.trim().toLowerCase());
+					entitySet.add(CharUtil.trim(word).toLowerCase());
 					// if(word.length() == 1) System.out.println(word);
 				}
 				dis.close();
@@ -177,7 +178,7 @@ public class NLPProcess {
 				String word = "";
 				while ((word = dis.readLine()) != null) {
 					// all entity in table are in low case
-					entitySet.add(word.trim().toLowerCase());
+					entitySet.add(CharUtil.trim(word).toLowerCase());
 				}
 				dis.close();
 
@@ -219,7 +220,7 @@ public class NLPProcess {
 				BufferedReader dis = new BufferedReader(read);
 				String word = "";
 				while ((word = dis.readLine()) != null) {
-					stopWordSet.add(word.trim());
+					stopWordSet.add(CharUtil.trim(word));
 				}
 				// System.out.println("list is " + stopWordSet);
 				dis.close();
@@ -326,7 +327,7 @@ public class NLPProcess {
 
 				while ((line = dis.readLine()) != null) {
 					if (line.lastIndexOf("=") != -1) {
-						String[] words = line.trim().split(" ");
+						String[] words = CharUtil.trim(line).split(" ");
 						String id = words[0].substring(0, words[0].length() - 1);
 						List<String> setElementSyn = new ArrayList<>();
 
@@ -364,7 +365,7 @@ public class NLPProcess {
 
 				while ((line = dis.readLine()) != null) {
 					if (line.lastIndexOf("=") != -1) {
-						String[] words = line.trim().split(" ");
+						String[] words = CharUtil.trim(line).split(" ");
 						String id = words[0].substring(0, words[0].length() - 1);
 						// System.out.println("id=" + id);
 						for (int j = 1; j < words.length; j++) {
