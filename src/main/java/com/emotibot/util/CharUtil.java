@@ -58,7 +58,13 @@ public class CharUtil {
 	}
     
     public static String trim(String s){
-    	return s.replace(String.valueOf((char) 160), " ").trim();
+    	String str = s.replace(String.valueOf((char) 160), " ").trim();
+//    	String test = s.trim();
+//    	if(!str.equals(test)){
+//    		System.err.println("str="+str+", test="+test);
+//    	}
+    	return str;
+    	
     }
     
     public static void main(String args[])

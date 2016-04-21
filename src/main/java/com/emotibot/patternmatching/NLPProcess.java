@@ -107,16 +107,18 @@ public class NLPProcess {
 						System.err.println("wrong format in entitySynonym.txt");
 						continue;
 					}
+					String fullName = CharUtil.trim(wordList[0]);
+					String shortName = CharUtil.trim(wordList[1]);
 					// address the case 曼彻斯特联（曼联）
-					if (wordList[1].contains("（") && wordList[1].contains("）")) {
-						String thisSynonEntity = wordList[1];
+					if (shortName.contains("（") && shortName.contains("）")) {
+						String thisSynonEntity = shortName;
 						String first = thisSynonEntity.substring(0, thisSynonEntity.indexOf("（"));
 						String second = thisSynonEntity.substring(thisSynonEntity.indexOf("（") + 1,
 								thisSynonEntity.indexOf("）"));
-						entitySyn.put(first.toLowerCase(), wordList[0].toLowerCase());
-						entitySyn.put(second.toLowerCase(), wordList[0].toLowerCase());
+						entitySyn.put(first.toLowerCase(), fullName.toLowerCase());
+						entitySyn.put(second.toLowerCase(), fullName.toLowerCase());
 					} else {
-						entitySyn.put(wordList[1].toLowerCase(), wordList[0].toLowerCase());
+						entitySyn.put(shortName.toLowerCase(), fullName.toLowerCase());
 					}
 				}
 				dis.close();

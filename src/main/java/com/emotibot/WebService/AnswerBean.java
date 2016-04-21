@@ -19,11 +19,12 @@ public class AnswerBean {
 	}
 
 	public String getAnswer() {
-		if (Common.KG_DebugStatus) {
-			return answer + "\n " + comments;
-		} else {
-			return answer;
-		}
+		return answer;
+//		if (Common.KG_DebugStatus) {
+//			return answer + "\n " + comments;
+//		} else {
+//			return answer;
+//		}
 	}
 
 	public void setAnswer(String answer) {

@@ -133,6 +133,7 @@ public class PatternMatchingProcess {
 
 		System.out.println("userSentence=" + userSentence + ", isQuestion=" + isQuestion);
 		segPos = NLPProcess.getSegWord(userSentence);
+		System.out.println("Constructor: segPos=" + segPos);
 		segWordWithoutStopWord = new ArrayList<>();
 		for (int i = 0; i < segPos.size(); i++) {
 			String segWord = CharUtil.trim(segPos.get(i).word);
@@ -1445,7 +1446,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "天梯用英文怎么说?";
+		String str = "麦当娜全名是什么?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");
