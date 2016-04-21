@@ -109,11 +109,6 @@ public class TemplateEntry {
 		}
 
 		System.out.println("\t templateProcess: tempStr=" + tempStr + ", templateRS=" + templateRS);
-		if (Common.KG_DebugStatus) {
-			Debug.printDebug("123456", 1, "KG", "template process: from:" + sentence + " to:" + templateRS);
-		} else {
-			Debug.printDebug(uniqueID, 3, "KG", "template process: from:" + sentence + " to:" + templateRS);
-		}
 		return templateRS;
 	}
 

@@ -45,6 +45,8 @@ public class PatternMatchingProcess {
 	private boolean isQuestion = false;
 	private long timeCounter = System.currentTimeMillis();
 	private String uniqueID = "";
+	
+	private boolean debugFlag = false;
 
 	// public PatternMatchingProcess(String str) {
 	// // Debug.printDebug()
@@ -118,6 +120,14 @@ public class PatternMatchingProcess {
 			isQuestion = true;
 		}
 		userSentence = NLPProcess.removePunctuateMark(userSentence);
+		
+		// add for debug by PM
+		if(questionType.equals("debug")){
+			debugFlag = true;
+		} else {
+			debugFlag = false;
+		}
+			
 
 		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:" + cuBean.toString());
 
@@ -147,13 +157,6 @@ public class PatternMatchingProcess {
 		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
 		System.out.println("Constructor: entitySet=" + entitySet);
 		
-		if(Common.KG_DebugStatus){
-			String tempLabel  = "";
-			if(!entitySet.isEmpty()){
-				tempLabel = DBProcess.getEntityLabel(entitySet.get(0));
-			}
-			Debug.printDebug("123456", 1, "KG", "userSentence="+userSentence+"; entitySet="+entitySet+"; label="+tempLabel);
-		}
 	}
 
 	// remove stopword and other abnormal word in entity
@@ -192,6 +195,7 @@ public class PatternMatchingProcess {
 	// input: the question sentence from users,"姚明身高是多少"
 	// output: the answer without answer rewriting, “226cm”
 	public AnswerBean getAnswer() {
+		
 		String sentence = userSentence;
 		AnswerBean answerBean = new AnswerBean();
 		if (Tool.isStrEmptyOrNull(sentence)) {
@@ -204,6 +208,16 @@ public class PatternMatchingProcess {
 			return answerBean;
 		}
 
+		if(Common.KG_DebugStatus || debugFlag){
+			String tempLabel  = "";
+			if(!entitySet.isEmpty()){
+				tempLabel = DBProcess.getEntityLabel(entitySet.get(0));
+			}
+			String debugInfo = "userSentence="+userSentence+"; entitySet="+entitySet+"; label="+tempLabel;
+			Debug.printDebug("123456", 1, "KG", debugInfo);
+			answerBean.setComments(debugInfo);
+		}
+		
 		AnswerRewrite answerRewite = new AnswerRewrite();
 
 		// 1. get the entity and Revise by template
@@ -228,8 +242,16 @@ public class PatternMatchingProcess {
 			entity = entitySet.get(0);
 			System.out.println("TIME 5 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
+			String oldSentence = sentence;
 			sentence = TemplateEntry.templateProcess(entity, sentence, uniqueID);
 			Debug.printDebug(uniqueID, 4, "knowledge", "tempalte in PatternMatchingProcess: sentence=" + sentence);
+			String debugInfo = "template process: from:" + oldSentence + " to:" + sentence;
+			if (Common.KG_DebugStatus || debugFlag) {
+				Debug.printDebug("123456", 1, "KG", debugInfo);
+				answerBean.setComments(debugInfo);
+			} else {
+				Debug.printDebug(uniqueID, 3, "KG", debugInfo);
+			}
 
 			System.out.println("TIME 6 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
