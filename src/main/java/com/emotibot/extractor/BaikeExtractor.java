@@ -63,7 +63,7 @@ public class BaikeExtractor extends Extractor {
             		String link = href.attr("href");
             		String word = href.text().trim().toLowerCase();////////////
             		if(link==null||link.trim().length()==0) continue;
-            		System.out.println(link+" =========> "+word);
+            		System.out.println(link+"===>>>"+word);
 
             		if(!link.startsWith("http://")) link ="http://baike.baidu.com"+link;
             		pageInfo.addWordLink(word, link);
@@ -88,6 +88,9 @@ public class BaikeExtractor extends Extractor {
         		String relation = sub2.select("div").text();
         		relation=relation.replaceAll(subname, "").trim();
         		System.err.println("KKK2="+link+"  "+subname+"==>"+relation);
+        		//===>>>
+        		System.err.println(link+"===>>>"+subname);
+
         		if(link!=null&&link.trim().length()>0)
         		{
             		if(!link.startsWith("http://")) link ="http://baike.baidu.com"+link;
