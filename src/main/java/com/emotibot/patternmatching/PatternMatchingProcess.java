@@ -147,7 +147,11 @@ public class PatternMatchingProcess {
 		System.out.println("Constructor: entitySet=" + entitySet);
 		
 		if(Common.KG_DebugStatus){
-			Debug.printDebug("042001", 1, "KG", "userSentence="+userSentence+"; entitySet="+entitySet);
+			String tempLabel  = "";
+			if(!entitySet.isEmpty()){
+				tempLabel = DBProcess.getEntityLabel(entitySet.get(0));
+			}
+			Debug.printDebug("123456", 1, "KG", "userSentence="+userSentence+"; entitySet="+entitySet+"; label="+tempLabel);
 		}
 	}
 
@@ -1418,7 +1422,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "lady gaga唱过什么歌?";
+		String str = "罗永浩是什么公司的?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");

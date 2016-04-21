@@ -86,17 +86,23 @@ public class GenerateDictionaryFile {
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
 
 			for (String s : tempSet) {
+				if(s.length()==1 && !NLPProcess.isEntityPM(s)) {
+					// remove in 5/31, may be added later
+					System.out.println(s);
+					continue;
+				}
 				out.write(s + "\r\n");
 			}
 			out.close();
 			
-			tempFileName = Common.UserDir + "/knowledgedata/entityH.txt";
-			BufferedWriter outH = new BufferedWriter(new FileWriter(tempFileName));
-			
-			for (String s : tempSet) {
-				outH.write(s + " n" + " 2" + "\r\n");
-			}
-			outH.close();
+			// tempFileName = Common.UserDir + "/knowledgedata/entityH.txt";
+			// BufferedWriter outH = new BufferedWriter(new
+			// FileWriter(tempFileName));
+			//
+			// for (String s : tempSet) {
+			// outH.write(s + " n" + " 2" + "\r\n");
+			// }
+			// outH.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -192,14 +198,13 @@ public class GenerateDictionaryFile {
 	// generate the entity list entity_ref_PM.txt from domain directory,
 	// and check with entity.txt which is used as the entity dictionary.
 	public static void generateEntityPMFile() {
-		String filePath = Common.UserDir + "/knowledgedata/domain";
-		List<String> entitySet = new ArrayList<>();
 		try {
-//			BufferedReader ref = new BufferedReader(new FileReader(Common.UserDir + "/knowledgedata/entity_ref_PM.txt"));
-			BufferedWriter writer = new BufferedWriter(new FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt", true));
+//			BufferedWriter writer = new BufferedWriter(new FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt", true));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt"));
 			
 			for(String s : NLPProcess.getEntitySynonymTable().values()){
 				writer.write(s+"\r\n");
+				if(s.length()==1) System.out.println(s);
 			}
 			
 			writer.close();
@@ -293,7 +298,13 @@ public class GenerateDictionaryFile {
 	
 
 	public static void main(String[] args) {
-		generateFirstLevelEntity();
+		NLPProcess nlp = new NLPProcess();
+		NLPProcess.NLPProcessInit();
+		generateEntity();
+		System.exit(0);
+//		generateFirstLevelEntity();
+		
+//		generateEntityPMFile();
 	}
 
 	
