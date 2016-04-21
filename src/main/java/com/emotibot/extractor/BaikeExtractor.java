@@ -136,6 +136,8 @@ public class BaikeExtractor extends Extractor {
 		Elements para = doc.select("div.para");
 		Map<String,String> MaoTextUrlMap = new HashMap<String,String>();
 		Elements MaoTexts=null;
+		StringBuffer buffer = new StringBuffer();
+		int time=0;
 		for(Element element:para)
 		{
 			element.select("sup").remove();
@@ -159,8 +161,13 @@ public class BaikeExtractor extends Extractor {
     			if(pageInfo.getFirstPara()==null||pageInfo.getFirstPara().trim().length()==0)
     			{
     			   String firstParam=element.text();
-    			   pageInfo.setFirstPara(firstParam);
- 	               pageInfo.addAttr(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME, firstParam);
+    			  // pageInfo.setFirstPara(firstParam);
+ 	               //pageInfo.addAttr(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME, firstParam);
+    			   time++;
+    			   if(time<=2)
+    			   {
+    				   buffer.append(firstParam);
+    			   }
     			}
              for(String sent:SentencesUtil.toSentenceList(element.text()))
              {
@@ -175,19 +182,29 @@ public class BaikeExtractor extends Extractor {
              }
             }
 		}
+		  pageInfo.setFirstPara(buffer.toString());
+         pageInfo.addAttr(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME, buffer.toString());
+
         return pageInfo;
 
 	}
 	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/yaomin";
+		String path="/Users/Elaine/Documents/workspace/html/caiyilin";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		PageExtractInfo info = ex.ProcessPage();
 		System.err.println(info.toString());
 		//System.err.println(info.getWordLink("上海市第二中学"));
 		System.err.println(info.GetSynonym());
+		System.err.println(info.getFirstPara());
+        Map<String,String> map = info.getWordLinkMap();
+        for(String key:map.keySet())
+        {
+    		System.err.println(key+"===>>>"+map.get(key));
+
+        }
 
 	}
 
