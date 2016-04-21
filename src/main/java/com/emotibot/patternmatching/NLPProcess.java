@@ -27,6 +27,7 @@ import com.emotibot.nlp.NLPFlag;
 import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
 import com.emotibot.util.Tool;
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.StringLengthComparator;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.dictionary.CustomDictionary;
@@ -52,8 +53,8 @@ public class NLPProcess {
 		// entityTable = createEntityTable();
 		// entitySynonymTable = createEntitySynonymTable();
 	}
-	
-	public static Set<String> getEntityTable(){
+
+	public static Set<String> getEntityTable() {
 		return entityTable;
 	}
 
@@ -101,21 +102,23 @@ public class NLPProcess {
 				BufferedReader dis = new BufferedReader(read);
 				String line = "";
 				while ((line = dis.readLine()) != null) {
-					String[] wordList = line.trim().split("##");
+					String[] wordList = CharUtil.trim(line).split("##");
 					if (wordList.length != 2) {
 						System.err.println("wrong format in entitySynonym.txt");
 						continue;
 					}
+					String fullName = CharUtil.trim(wordList[0]);
+					String shortName = CharUtil.trim(wordList[1]);
 					// address the case 曼彻斯特联（曼联）
-					if (wordList[1].contains("（") && wordList[1].contains("）")) {
-						String thisSynonEntity = wordList[1];
+					if (shortName.contains("（") && shortName.contains("）")) {
+						String thisSynonEntity = shortName;
 						String first = thisSynonEntity.substring(0, thisSynonEntity.indexOf("（"));
 						String second = thisSynonEntity.substring(thisSynonEntity.indexOf("（") + 1,
 								thisSynonEntity.indexOf("）"));
-						entitySyn.put(first.toLowerCase(), wordList[0].toLowerCase()); 
-						entitySyn.put(second.toLowerCase(), wordList[0].toLowerCase()); 
+						entitySyn.put(first.toLowerCase(), fullName.toLowerCase());
+						entitySyn.put(second.toLowerCase(), fullName.toLowerCase());
 					} else {
-						entitySyn.put(wordList[1].toLowerCase(), wordList[0].toLowerCase()); 
+						entitySyn.put(shortName.toLowerCase(), fullName.toLowerCase());
 					}
 				}
 				dis.close();
@@ -124,16 +127,16 @@ public class NLPProcess {
 				return null;
 			}
 		}
-
+		
 		return entitySyn;
 	}
-	
+
 	// create entity table Set
 	private static Set<String> createEntityPMTable() {
 		Set<String> entitySet = new HashSet<>();
-		String fileName = Common.UserDir + "/knowledgedata/entityPM.txt";
+		String fileName = Common.UserDir + "/knowledgedata/entity_ref_PM.txt";
 		System.out.println("path is " + fileName);
-		
+
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
 				BytesEncodingDetect s = new BytesEncodingDetect();
@@ -146,7 +149,8 @@ public class NLPProcess {
 				String word = "";
 				while ((word = dis.readLine()) != null) {
 					// all entity in table are in low case
-					entitySet.add(word.trim().toLowerCase());
+					entitySet.add(CharUtil.trim(word).toLowerCase());
+					// if(word.length() == 1) System.out.println(word);
 				}
 				dis.close();
 			} catch (Exception e) {
@@ -154,7 +158,7 @@ public class NLPProcess {
 				return null;
 			}
 		}
-		
+
 		return entitySet;
 	}
 
@@ -176,7 +180,7 @@ public class NLPProcess {
 				String word = "";
 				while ((word = dis.readLine()) != null) {
 					// all entity in table are in low case
-					entitySet.add(word.trim().toLowerCase());
+					entitySet.add(CharUtil.trim(word).toLowerCase());
 				}
 				dis.close();
 
@@ -218,7 +222,7 @@ public class NLPProcess {
 				BufferedReader dis = new BufferedReader(read);
 				String word = "";
 				while ((word = dis.readLine()) != null) {
-					stopWordSet.add(word.trim());
+					stopWordSet.add(CharUtil.trim(word));
 				}
 				// System.out.println("list is " + stopWordSet);
 				dis.close();
@@ -247,16 +251,16 @@ public class NLPProcess {
 			return false;
 		}
 	}
-	
+
 	// check whether the work in entityPM.txt
-	public static boolean isEntityPM(String str){
-		if(!Tool.isStrEmptyOrNull(str) && entityPMTable.contains(str)){
+	public static boolean isEntityPM(String str) {
+		if (!Tool.isStrEmptyOrNull(str) && entityPMTable.contains(str)) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
+
 	private static String getEntityInDictinoary(String str) {
 		if (!Tool.isStrEmptyOrNull(str) && entityTable.contains(str)) {
 			return str;
@@ -325,7 +329,7 @@ public class NLPProcess {
 
 				while ((line = dis.readLine()) != null) {
 					if (line.lastIndexOf("=") != -1) {
-						String[] words = line.trim().split(" ");
+						String[] words = CharUtil.trim(line).split(" ");
 						String id = words[0].substring(0, words[0].length() - 1);
 						List<String> setElementSyn = new ArrayList<>();
 
@@ -363,7 +367,7 @@ public class NLPProcess {
 
 				while ((line = dis.readLine()) != null) {
 					if (line.lastIndexOf("=") != -1) {
-						String[] words = line.trim().split(" ");
+						String[] words = CharUtil.trim(line).split(" ");
 						String id = words[0].substring(0, words[0].length() - 1);
 						// System.out.println("id=" + id);
 						for (int j = 1; j < words.length; j++) {
@@ -385,9 +389,9 @@ public class NLPProcess {
 		}
 		return syn;
 	}
-	
+
 	// if str in synonym dictionary or not
-	public static boolean isInSynonymDict(String str){
+	public static boolean isInSynonymDict(String str) {
 		if (!str.isEmpty() && synonymTable.containsKey(str)) {
 			return true;
 		} else {
@@ -612,21 +616,21 @@ public class NLPProcess {
 
 		System.out.print("size of entity table is " + entityTable.size());
 
-//		String fileEntity = Common.UserDir + "/knowledgedata/entity.txt";
-//
-//		try {
-//			File writename = new File(fileEntity);
-//			writename.createNewFile(); // 创建新文件
-//			BufferedWriter out = new BufferedWriter(new FileWriter(writename));
-//			for (String s : entityTable) {
-//				// System.out.println(s.length());
-//				out.write(s + "\r\n"); // \r\n即为换行
-//			}
-//			out.flush(); // 把缓存区内容压入文件
-//			out.close(); // 最后记得关闭文件
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		// String fileEntity = Common.UserDir + "/knowledgedata/entity.txt";
+		//
+		// try {
+		// File writename = new File(fileEntity);
+		// writename.createNewFile(); // 创建新文件
+		// BufferedWriter out = new BufferedWriter(new FileWriter(writename));
+		// for (String s : entityTable) {
+		// // System.out.println(s.length());
+		// out.write(s + "\r\n"); // \r\n即为换行
+		// }
+		// out.flush(); // 把缓存区内容压入文件
+		// out.close(); // 最后记得关闭文件
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
 
 		// System.out.println("syn is " + matchSynonymPropertyInDB("姚明", "女人"));
 

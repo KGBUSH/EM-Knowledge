@@ -17,7 +17,7 @@ import com.emotibot.util.Tool;
 public class TemplateEntry {
 	static TemplateProcessor sentenceTemplate = new TemplateProcessor("Knowledge");
 	static TemplateProcessor questionClassifier = new TemplateProcessor("QuestionClassifier");
-//	static TemplateProcessor  = new TemplateProcessor("QuestionClassifier");
+	// static TemplateProcessor = new TemplateProcessor("QuestionClassifier");
 
 	static TemplateProcessor TV_seriesTemplate = new TemplateProcessor("TV_series");
 	static TemplateProcessor animeTemplate = new TemplateProcessor("anime");
@@ -37,10 +37,10 @@ public class TemplateEntry {
 	static TemplateProcessor sports_organizationTemplate = new TemplateProcessor("sports_organization");
 	static TemplateProcessor tourismTemplate = new TemplateProcessor("tourism");
 	static TemplateProcessor varity_showTemplate = new TemplateProcessor("varity_show");
-	
+
 	static Map<String, TemplateProcessor> templateMap = buildTemplateMap();
-	
-	private static Map<String, TemplateProcessor> buildTemplateMap(){
+
+	private static Map<String, TemplateProcessor> buildTemplateMap() {
 		Map<String, TemplateProcessor> map = new HashMap<>();
 
 		map.put("TV_series", TV_seriesTemplate);
@@ -61,27 +61,26 @@ public class TemplateEntry {
 		map.put("sports_organization", sports_organizationTemplate);
 		map.put("tourism", tourismTemplate);
 		map.put("varity_show", varity_showTemplate);
-		
+
 		return map;
 	}
-	
-	private static TemplateProcessor getDomainTemplate(String domain){
-		if(Tool.isStrEmptyOrNull(domain) || !templateMap.keySet().contains(domain)){
-			System.err.println("wrong input, domain="+domain);
+
+	private static TemplateProcessor getDomainTemplate(String domain) {
+		if (Tool.isStrEmptyOrNull(domain) || !templateMap.keySet().contains(domain)) {
+			System.err.println("wrong input, domain=" + domain);
 			return new TemplateProcessor("");
 		}
 		return templateMap.get(domain);
 	}
-	
 
 	// template process, change the exception cases
 	// input: entity and sentence, "姚明", "姚明多高"
 	// output: the sentence changed by template, "姚明身高多少"
 	public static String templateProcess(String entity, String sentence, String uniqueID) {
-		Debug.printDebug(uniqueID, 3, "knowledge", "entity="+entity+", setnence="+sentence);
-		System.out.println("TEMPLATE: entity="+entity+", setnence="+sentence);
+		Debug.printDebug(uniqueID, 3, "knowledge", "entity=" + entity + ", setnence=" + sentence);
+		System.out.println("TEMPLATE: entity=" + entity + ", setnence=" + sentence);
 		if (sentence.lastIndexOf(entity) == -1 || sentence.equals(entity)) {
-			Debug.printDebug(uniqueID, 4, "knowledge", "special case: return setnence="+sentence);
+			Debug.printDebug(uniqueID, 4, "knowledge", "special case: return setnence=" + sentence);
 			return sentence;
 		}
 
@@ -103,41 +102,40 @@ public class TemplateEntry {
 
 		System.out.println("\t templateProcess: label=" + label);
 		String templateRS = getDomainTemplate(label).process(tempStr);
-		
-//		String templateRS = sentenceTemplate.process(tempStr);
+
+		// String templateRS = sentenceTemplate.process(tempStr);
 		if (templateRS.isEmpty()) {
 			templateRS = sentence;
 		}
 
 		System.out.println("\t templateProcess: tempStr=" + tempStr + ", templateRS=" + templateRS);
-		Debug.printDebug(uniqueID, 4, "knowledge", "normal case: return setnence="+sentence);
 		return templateRS;
 	}
-	
-	
-	private static void generateTemplateName(){
+
+	private static void generateTemplateName() {
 		String tempFileName = Common.UserDir + "/knowledgedata/domain/list";
 
-		try{
+		try {
 			BufferedReader reader = new BufferedReader(new FileReader(tempFileName));
-            String domain = null;
-            int i = 0;
-            while ((domain = reader.readLine()) != null) {
-//            	System.out.println("static TemplateProcessor "+domain+"Template"+" = new TemplateProcessor(\""+domain+"\");");
-//            	System.out.println(domain+"Template("+i+++"), ");
-            	System.out.println("map.put(\""+domain+"\", "+domain+"Template);");
-            }
-            
-            
-		} catch (Exception e){
+			String domain = null;
+			int i = 0;
+			while ((domain = reader.readLine()) != null) {
+				// System.out.println("static TemplateProcessor
+				// "+domain+"Template"+" = new
+				// TemplateProcessor(\""+domain+"\");");
+				// System.out.println(domain+"Template("+i+++"), ");
+				System.out.println("map.put(\"" + domain + "\", " + domain + "Template);");
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	public static void main(String[] args){
-//		generateTemplateName();
-		
+	public static void main(String[] args) {
+		// generateTemplateName();
+
 	}
 
 }

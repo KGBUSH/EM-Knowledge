@@ -18,6 +18,7 @@ import com.emotibot.config.ConfigManager;
 import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
 import com.emotibot.neo4jprocess.Neo4jDBManager;
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.Neo4jResultBean;
 
 public class GenerateDictionaryFile {
@@ -43,7 +44,7 @@ public class GenerateDictionaryFile {
 			String line = in.readLine();
 
 			while (line != null) {
-				line = line.trim();
+				line = CharUtil.trim(line);
 				System.out.println("enil=" + line + ";");
 				String queryCount = "match(n{Name:\"" + line + "\"}) return count(n) as " + Common.ResultObj;
 
@@ -86,17 +87,23 @@ public class GenerateDictionaryFile {
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
 
 			for (String s : tempSet) {
+				if(s.length()==1 && !NLPProcess.isEntityPM(s)) {
+					// remove in 5/31, may be added later
+					System.out.println(s);
+					continue;
+				}
 				out.write(s + "\r\n");
 			}
 			out.close();
 			
-			tempFileName = Common.UserDir + "/knowledgedata/entityH.txt";
-			BufferedWriter outH = new BufferedWriter(new FileWriter(tempFileName));
-			
-			for (String s : tempSet) {
-				outH.write(s + " n" + " 2" + "\r\n");
-			}
-			outH.close();
+			// tempFileName = Common.UserDir + "/knowledgedata/entityH.txt";
+			// BufferedWriter outH = new BufferedWriter(new
+			// FileWriter(tempFileName));
+			//
+			// for (String s : tempSet) {
+			// outH.write(s + " n" + " 2" + "\r\n");
+			// }
+			// outH.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -164,9 +171,9 @@ public class GenerateDictionaryFile {
 				BufferedReader dis = new BufferedReader(read);
 				String word = "";
 				while ((word = dis.readLine()) != null) {
-					if (!word.trim().isEmpty()) {
-						entitySet.add(word.trim());
-						out.write(word.trim() + "\r\n");
+					if (!CharUtil.trim(word).isEmpty()) {
+						entitySet.add(CharUtil.trim(word));
+						out.write(CharUtil.trim(word) + "\r\n");
 					}
 				}
 				dis.close();
@@ -192,14 +199,13 @@ public class GenerateDictionaryFile {
 	// generate the entity list entity_ref_PM.txt from domain directory,
 	// and check with entity.txt which is used as the entity dictionary.
 	public static void generateEntityPMFile() {
-		String filePath = Common.UserDir + "/knowledgedata/domain";
-		List<String> entitySet = new ArrayList<>();
 		try {
-//			BufferedReader ref = new BufferedReader(new FileReader(Common.UserDir + "/knowledgedata/entity_ref_PM.txt"));
-			BufferedWriter writer = new BufferedWriter(new FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt", true));
+//			BufferedWriter writer = new BufferedWriter(new FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt", true));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt"));
 			
 			for(String s : NLPProcess.getEntitySynonymTable().values()){
 				writer.write(s+"\r\n");
+				if(s.length()==1) System.out.println(s);
 			}
 			
 			writer.close();
@@ -226,7 +232,7 @@ public class GenerateDictionaryFile {
 				if (line.startsWith("小丈夫")) {
 					System.out.println("1111=" + line);
 				}
-				line = line.trim();
+				line = CharUtil.trim(line);
 				if (line.startsWith("小丈夫")) {
 					System.out.println("1111=" + line);
 				}
@@ -268,7 +274,7 @@ public class GenerateDictionaryFile {
 			List<String> entityList = new ArrayList<>();
 			String line = in.readLine();
 			while (line != null) {
-				line = line.trim();
+				line = CharUtil.trim(line);
 				entityList.add(line);
 				line = in.readLine();
 			}
@@ -293,7 +299,13 @@ public class GenerateDictionaryFile {
 	
 
 	public static void main(String[] args) {
-		generateFirstLevelEntity();
+		NLPProcess nlp = new NLPProcess();
+		NLPProcess.NLPProcessInit();
+		generateEntity();
+		System.exit(0);
+//		generateFirstLevelEntity();
+		
+//		generateEntityPMFile();
 	}
 
 	

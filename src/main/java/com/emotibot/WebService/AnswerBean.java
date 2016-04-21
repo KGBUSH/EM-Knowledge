@@ -1,11 +1,14 @@
 package com.emotibot.WebService;
 
+import com.emotibot.common.Common;
+
 public class AnswerBean {
 	private double score = 0;
 	private String answer = "";
 	private String property = "";
 	private boolean isValid = false;
 	private String originalWord = ""; // the word in the sentence
+	private String comments = "";
 
 	public double getScore() {
 		return score;
@@ -17,10 +20,19 @@ public class AnswerBean {
 
 	public String getAnswer() {
 		return answer;
+//		if (Common.KG_DebugStatus) {
+//			return answer + "\n " + comments;
+//		} else {
+//			return answer;
+//		}
 	}
 
 	public void setAnswer(String answer) {
 		this.answer = answer;
+	}
+	
+	public void setComments(String s){
+		this.comments += s;
 	}
 
 	public String toString() {

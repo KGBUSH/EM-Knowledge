@@ -18,6 +18,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 里 ^ 国 ^ </pattern>
+        <template>
+            <star index="2"/>的制片地区是哪儿？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 个 ^ 国 ^ </pattern>
         <template>
             <star index="2"/>的制片地区是哪儿？

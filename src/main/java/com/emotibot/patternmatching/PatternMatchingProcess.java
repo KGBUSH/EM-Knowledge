@@ -23,6 +23,7 @@ import com.emotibot.solr.Solr_Query;
 import com.emotibot.template.TemplateEntry;
 import com.emotibot.template.TemplateProcessor;
 import com.emotibot.util.CUBean;
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.StringLengthComparator;
 import com.emotibot.util.Tool;
 import com.emotibot.Debug.Debug;
@@ -44,6 +45,8 @@ public class PatternMatchingProcess {
 	private boolean isQuestion = false;
 	private long timeCounter = System.currentTimeMillis();
 	private String uniqueID = "";
+	
+	private boolean debugFlag = false;
 
 	// public PatternMatchingProcess(String str) {
 	// // Debug.printDebug()
@@ -117,14 +120,23 @@ public class PatternMatchingProcess {
 			isQuestion = true;
 		}
 		userSentence = NLPProcess.removePunctuateMark(userSentence);
+		
+		// add for debug by PM
+		if(questionType.equals("debug")){
+			debugFlag = true;
+		} else {
+			debugFlag = false;
+		}
+			
 
 		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:" + cuBean.toString());
 
 		System.out.println("userSentence=" + userSentence + ", isQuestion=" + isQuestion);
 		segPos = NLPProcess.getSegWord(userSentence);
+		System.out.println("Constructor: segPos=" + segPos);
 		segWordWithoutStopWord = new ArrayList<>();
 		for (int i = 0; i < segPos.size(); i++) {
-			String segWord = segPos.get(i).word.trim();
+			String segWord = CharUtil.trim(segPos.get(i).word);
 			System.out.println("segWord=" + segWord);
 			if (!NLPProcess.isStopWord(segWord)) {
 				segWordWithoutStopWord.add(segWord);
@@ -146,9 +158,6 @@ public class PatternMatchingProcess {
 		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
 		System.out.println("Constructor: entitySet=" + entitySet);
 		
-		if(Common.KG_DebugStatus){
-			Debug.printDebug("042001", 1, "KG", "userSentence="+userSentence+"; entitySet="+entitySet);
-		}
 	}
 
 	// remove stopword and other abnormal word in entity
@@ -187,6 +196,7 @@ public class PatternMatchingProcess {
 	// input: the question sentence from users,"姚明身高是多少"
 	// output: the answer without answer rewriting, “226cm”
 	public AnswerBean getAnswer() {
+		
 		String sentence = userSentence;
 		AnswerBean answerBean = new AnswerBean();
 		if (Tool.isStrEmptyOrNull(sentence)) {
@@ -199,6 +209,16 @@ public class PatternMatchingProcess {
 			return answerBean;
 		}
 
+		if(Common.KG_DebugStatus || debugFlag){
+			String tempLabel  = "";
+			if(!entitySet.isEmpty()){
+				tempLabel = DBProcess.getEntityLabel(entitySet.get(0));
+			}
+			String debugInfo = "userSentence="+userSentence+"; entitySet="+entitySet+"; label="+tempLabel;
+			Debug.printDebug("123456", 1, "KG", debugInfo);
+			answerBean.setComments(debugInfo);
+		}
+		
 		AnswerRewrite answerRewite = new AnswerRewrite();
 
 		// 1. get the entity and Revise by template
@@ -223,8 +243,16 @@ public class PatternMatchingProcess {
 			entity = entitySet.get(0);
 			System.out.println("TIME 5 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
+			String oldSentence = sentence;
 			sentence = TemplateEntry.templateProcess(entity, sentence, uniqueID);
 			Debug.printDebug(uniqueID, 4, "knowledge", "tempalte in PatternMatchingProcess: sentence=" + sentence);
+			String debugInfo = "template process: from:" + oldSentence + " to:" + sentence;
+			if (Common.KG_DebugStatus || debugFlag) {
+				Debug.printDebug("123456", 1, "KG", debugInfo);
+				answerBean.setComments(debugInfo);
+			} else {
+				Debug.printDebug(uniqueID, 3, "KG", debugInfo);
+			}
 
 			System.out.println("TIME 6 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
@@ -1017,7 +1045,7 @@ public class PatternMatchingProcess {
 
 		// System.err.println("PMP.getCandidateSetbyStopWord: input="+strSet);
 		for (String str : strSet) {
-			if (str.trim().isEmpty()) {
+			if (CharUtil.trim(str).isEmpty()) {
 				continue;
 			}
 			// remove below for fixing case : "7号房的礼物是啥类型的电影"
@@ -1064,14 +1092,14 @@ public class PatternMatchingProcess {
 		}
 
 		while (str.lastIndexOf(ent) != -1) {
-			String s = str.substring(str.lastIndexOf(ent) + ent.length()).trim();
+			String s = CharUtil.trim(str.substring(str.lastIndexOf(ent) + ent.length()));
 			if (!s.isEmpty()) {
 				// System.out.println("PMP.GetCandidateSet, s ="+s);
 				listPart.add(s); // add the last part
 			}
 
 			// remove the last part
-			str = str.substring(0, str.lastIndexOf(ent)).trim();
+			str = CharUtil.trim(str.substring(0, str.lastIndexOf(ent)));
 			if (!str.isEmpty() && str.lastIndexOf(ent) == -1) {
 				listPart.add(str);
 				// System.out.println("PMP.GetCandidateSet: str=" + str);
@@ -1097,7 +1125,7 @@ public class PatternMatchingProcess {
 		for (String str : strList) {
 			List<Term> segPos = NLPProcess.getSegWord(str);
 			for (int i = 0; i < segPos.size(); i++) {
-				String segWord = segPos.get(i).word.trim();
+				String segWord = CharUtil.trim(segPos.get(i).word);
 				if (!segWord.isEmpty()) {
 					rsList.add(segWord);
 				}
@@ -1418,7 +1446,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "lady gaga唱过什么歌?";
+		String str = "麦当娜全名是什么?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");
