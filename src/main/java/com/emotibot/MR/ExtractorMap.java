@@ -181,7 +181,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 						System.err.println("Tongyici2:"+word+"###"+WordLink.get(word)+"###");
 					  }
 					}
-					System.err.println("Weka:"+pageExtractInfo.getTags()+"###"+label+"###"+url);
+					System.err.println("Weka:"+pageExtractInfo.getTags()+"###"+label+"###"+name+"###"+pmWord+"###"+url);
 					/////////
 					if (query == null || query.trim().length() == 0) return;
 					context.write(outputKey, new Text(query));
