@@ -20,19 +20,18 @@ public class AnswerBean {
 
 	public String getAnswer() {
 		return answer;
-//		if (Common.KG_DebugStatus) {
-//			return answer + "\n " + comments;
-//		} else {
-//			return answer;
-//		}
 	}
 
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
 	
+	public String getComments() {
+		return comments;
+	}
+	
 	public void setComments(String s){
-		this.comments += s;
+		this.comments += " | "+s;
 	}
 
 	public String toString() {
