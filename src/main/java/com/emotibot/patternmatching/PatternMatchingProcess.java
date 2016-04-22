@@ -45,7 +45,7 @@ public class PatternMatchingProcess {
 	private boolean isQuestion = false;
 	private long timeCounter = System.currentTimeMillis();
 	private String uniqueID = "";
-	
+
 	private boolean debugFlag = false;
 
 	// public PatternMatchingProcess(String str) {
@@ -120,14 +120,13 @@ public class PatternMatchingProcess {
 			isQuestion = true;
 		}
 		userSentence = NLPProcess.removePunctuateMark(userSentence);
-		
+
 		// add for debug by PM
-		if(questionType.equals("debug")){
+		if (questionType.equals("debug")) {
 			debugFlag = true;
 		} else {
 			debugFlag = false;
 		}
-			
 
 		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:" + cuBean.toString());
 
@@ -157,7 +156,7 @@ public class PatternMatchingProcess {
 		System.out.println("Constructor: segPos=" + segPos);
 		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
 		System.out.println("Constructor: entitySet=" + entitySet);
-		
+
 	}
 
 	// remove stopword and other abnormal word in entity
@@ -196,7 +195,7 @@ public class PatternMatchingProcess {
 	// input: the question sentence from users,"姚明身高是多少"
 	// output: the answer without answer rewriting, “226cm”
 	public AnswerBean getAnswer() {
-		
+
 		String sentence = userSentence;
 		AnswerBean answerBean = new AnswerBean();
 		if (Tool.isStrEmptyOrNull(sentence)) {
@@ -209,16 +208,16 @@ public class PatternMatchingProcess {
 			return answerBean;
 		}
 
-		if(Common.KG_DebugStatus || debugFlag){
-			String tempLabel  = "";
-			if(!entitySet.isEmpty()){
+		if (Common.KG_DebugStatus || debugFlag) {
+			String tempLabel = "";
+			if (!entitySet.isEmpty()) {
 				tempLabel = DBProcess.getEntityLabel(entitySet.get(0));
 			}
-			String debugInfo = "userSentence="+userSentence+"; entitySet="+entitySet+"; label="+tempLabel;
+			String debugInfo = "userSentence=" + userSentence + "; entitySet=" + entitySet + "; label=" + tempLabel;
 			Debug.printDebug("123456", 1, "KG", debugInfo);
 			answerBean.setComments(debugInfo);
 		}
-		
+
 		AnswerRewrite answerRewite = new AnswerRewrite();
 
 		// 1. get the entity and Revise by template
@@ -413,7 +412,7 @@ public class PatternMatchingProcess {
 			if (!userSentence.contains(entity)) {
 				System.out.println("userSentence=" + userSentence + "++++ entity=" + entity);
 				localAnswer = matchPropertyValue(entity, segWordWithoutStopWord).replace("----####", "是" + entity + "的")
-						+ "。"+ entity + "是";
+						+ "。" + entity + "是";
 				// System.out.println("segWordWithoutStopWord="+segWordWithoutStopWord+",
 				// tempProp="+tempProp+", replacePro="+replaceProp);
 			}
@@ -512,6 +511,7 @@ public class PatternMatchingProcess {
 				// "百变小樱是哪种动漫" and "姚明的老婆的身高是多少"
 				List<String> tempList = getIntersectionOfTwoLists(simpleMatchEntity, solrEntity,
 						simpleMatchEntity.size());
+
 				for (String s : tempList) {
 					if (NLPProcess.isEntityPM(s)) {
 						rsEntity.add(s);
@@ -521,8 +521,11 @@ public class PatternMatchingProcess {
 				if (rsEntity.isEmpty()) {
 					// bug fixing for the case of "黄金矿工哪年发行"
 					rsEntity.add(simpleMatchEntity.get(0));
+					// rsEntity.add(getSimilarEntityFromTwoLists(solrEntity,
+					// simpleMatchEntity));
 					System.err.println("case check in case 2.5=" + rsEntity);
-					Debug.printDebug(uniqueID, 2, "knowledge", "case check in case 2.5=" + rsEntity);
+					// Debug.printDebug(uniqueID, 2, "knowledge", "case check in
+					// case 2.5=" + rsEntity);
 				}
 				System.out.println("case: 2.5: rsEntity=" + rsEntity);
 				return rsEntity;
@@ -565,7 +568,7 @@ public class PatternMatchingProcess {
 					// size of simple matching is larger than 1
 					if (solrEntity.size() < 2) {
 						rsEntity = simpleMatchEntity;
-						System.out.println("case: 2.7: rsEntity=" + rsEntity);
+						System.out.println("case: 4.7: rsEntity=" + rsEntity);
 						return rsEntity;
 					} else if (isRelationshipQuestion(sentence)) {
 						rsEntity.add(solrEntity.get(0));
@@ -652,6 +655,23 @@ public class PatternMatchingProcess {
 			}
 		}
 		return rsSet;
+	}
+
+	// get the similar element of two lists
+	// if a element in source contain or is contained by another element in
+	// solorEntity, return the first element.
+	private String getSimilarEntityFromTwoLists(List<String> solrEntity, List<String> sourceEntity) {
+		for (String ss : solrEntity) {
+			for (String rs : sourceEntity) {
+				if (rs.length() >= ss.length() && rs.contains(ss)) {
+					return rs;
+				}
+				if (rs.length() < ss.length() && ss.contains(rs)) {
+					return rs;
+				}
+			}
+		}
+		return "";
 	}
 
 	// Multi-level Reasoning Understanding
@@ -1060,22 +1080,25 @@ public class PatternMatchingProcess {
 				if (!NLPProcess.isStopWord(segWord)) {
 					// not stopword
 					littleCandidate += segWord;
-//					 System.err.println("NotStopWord: segWord="+segWord+", little=" + littleCandidate);
+					// System.err.println("NotStopWord: segWord="+segWord+",
+					// little=" + littleCandidate);
 				} else {
 					if (!littleCandidate.isEmpty()) {
 						rsList.add(littleCandidate);
-//						 System.err.println("StopWord 1: segWord="+segWord+", little=" + littleCandidate);
+						// System.err.println("StopWord 1: segWord="+segWord+",
+						// little=" + littleCandidate);
 						littleCandidate = "";
 					} else {
-//						 System.err.println("StopWord 2: segWord="+segWord+", little=" + littleCandidate);
+						// System.err.println("StopWord 2: segWord="+segWord+",
+						// little=" + littleCandidate);
 					}
 				}
 			}
 			// remove below for fixing case : "7号房的礼物是啥类型的电影"
 			// move the case of empty to getCandidateSetbyEntity process
-			 if (!littleCandidate.isEmpty()) {
-			 rsList.add(littleCandidate);
-			 }
+			if (!littleCandidate.isEmpty()) {
+				rsList.add(littleCandidate);
+			}
 		}
 		System.out.println("\t getCandidateSetbyEntityandStopWord is " + rsList.toString());
 		return rsList;
@@ -1211,8 +1234,9 @@ public class PatternMatchingProcess {
 	// test the similarity between target (strProperty) and ref (candidate)
 	private boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
 			boolean isPass) {
-//		 System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap + "\t strProperty=" + strProperty
-//		 + ", candidate=" + candidate);
+		// System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap + "\t
+		// strProperty=" + strProperty
+		// + ", candidate=" + candidate);
 
 		// case of length == 1
 		if (strProperty.length() == 1 || candidate.length() == 1) {
@@ -1253,15 +1277,16 @@ public class PatternMatchingProcess {
 				left2right++;
 				tmpProp = tmpProp.substring(1);
 			} else {
- 
+
 				left2right--;
 			}
-//			System.out.println("candidate at i = " +candidate.charAt(i) + ", left2right = " + left2right);
+			// System.out.println("candidate at i = " +candidate.charAt(i) + ",
+			// left2right = " + left2right);
 		}
 		if (tmpProp.isEmpty()) {
 			isPass = true;
 		}
-//		System.out.println("left is " + left2right);
+		// System.out.println("left is " + left2right);
 
 		// case: "sentence is 所属运动队, prop is 运动项目; left=-1, right=-5"
 		// extend the algorithm by adding the process from right to left
@@ -1277,7 +1302,8 @@ public class PatternMatchingProcess {
 				right2left--;
 			}
 		}
-//		 System.out.println("right is " + right2left + " isPass is " + isPass);
+		// System.out.println("right is " + right2left + " isPass is " +
+		// isPass);
 
 		// if (left2right != right2left)
 		// System.err.println(
@@ -1405,7 +1431,7 @@ public class PatternMatchingProcess {
 	// input: （姚明）妻
 	// output: 叶莉
 	private PatternMatchingResultBean recognizingProp(String candidate, Set<String> propSet, int originalScore) {
-		System.out.println("init of recognizingProp: candidate="+candidate);
+		System.out.println("init of recognizingProp: candidate=" + candidate);
 		// threshold to pass: if str contain a property in DB, pass
 		boolean isPass = false;
 		HashMap<String, Integer> rsMap = new HashMap<String, Integer>();
@@ -1446,7 +1472,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "麦当娜全名是什么?";
+		String str = "愤怒的小鸟有几种语言?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");

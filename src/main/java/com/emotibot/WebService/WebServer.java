@@ -190,6 +190,11 @@ public class WebServer {
 				   result_obj.put("topic", "");
 				   result_obj.put("emotion", "");
 				   result_obj.put("answer", bean.getAnswer());
+				   
+				   if(questionType.equals("debug")){
+					   result_obj.put("debug", bean.getComments());
+				   }
+				   
 					long t2=System.currentTimeMillis();
 					   result_obj.put("time", (t2-t)+"ms");
 

@@ -40,7 +40,7 @@ public class CUBean {
 
 	public String toString() {
 		StringBuffer s = new StringBuffer();
-		s.append("CUBean: text=").append(text).append("; questionType").append(questionType).append("; score=")
+		s.append("CUBean: text=").append(text).append("; questionType=").append(questionType).append("; score=")
 				.append(score).append("; uniqueID=").append(uniqueID);
 		
 		return s.toString();
