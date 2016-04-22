@@ -63,7 +63,7 @@ public class BaikeExtractor extends Extractor {
             		String link = href.attr("href");
             		String word = href.text().trim().toLowerCase();////////////
             		if(link==null||link.trim().length()==0) continue;
-            		System.out.println(link+" =========> "+word);
+            		System.out.println(link+"===>>>"+word);
 
             		if(!link.startsWith("http://")) link ="http://baike.baidu.com"+link;
             		pageInfo.addWordLink(word, link);
@@ -88,6 +88,9 @@ public class BaikeExtractor extends Extractor {
         		String relation = sub2.select("div").text();
         		relation=relation.replaceAll(subname, "").trim();
         		System.err.println("KKK2="+link+"  "+subname+"==>"+relation);
+        		//===>>>
+        		System.err.println(link+"===>>>"+subname);
+
         		if(link!=null&&link.trim().length()>0)
         		{
             		if(!link.startsWith("http://")) link ="http://baike.baidu.com"+link;
@@ -136,6 +139,8 @@ public class BaikeExtractor extends Extractor {
 		Elements para = doc.select("div.para");
 		Map<String,String> MaoTextUrlMap = new HashMap<String,String>();
 		Elements MaoTexts=null;
+		StringBuffer buffer = new StringBuffer();
+		int time=0;
 		for(Element element:para)
 		{
 			element.select("sup").remove();
@@ -159,8 +164,13 @@ public class BaikeExtractor extends Extractor {
     			if(pageInfo.getFirstPara()==null||pageInfo.getFirstPara().trim().length()==0)
     			{
     			   String firstParam=element.text();
-    			   pageInfo.setFirstPara(firstParam);
- 	               pageInfo.addAttr(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME, firstParam);
+    			  // pageInfo.setFirstPara(firstParam);
+ 	               //pageInfo.addAttr(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME, firstParam);
+    			   time++;
+    			   if(time<=2)
+    			   {
+    				   buffer.append(firstParam);
+    			   }
     			}
              for(String sent:SentencesUtil.toSentenceList(element.text()))
              {
@@ -175,20 +185,47 @@ public class BaikeExtractor extends Extractor {
              }
             }
 		}
+		 pageInfo.setFirstPara(buffer.toString());
+         pageInfo.addAttr(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME, buffer.toString());
+         ////
+         //<span class="viewTip-fromTitle">卡迪夫城</span>
+         Elements tongyiciElement = doc.select("span[class=viewTip-fromTitle]");
+         if(tongyiciElement!=null&&tongyiciElement.text()!=null)
+         {
+        	 String tongyici = tongyiciElement.text().trim();
+        	 if(tongyici.length()>0) pageInfo.setTongyici(tongyici.toLowerCase());
+         }
+         //<a href="/view/10812277.htm" target="_blank">多义词</a>
+         Elements duoyiciElement  = doc.select("div[class=polysemantList-header-title]");
+         if(duoyiciElement!=null)
+         {
+        	 boolean duoyici = duoyiciElement.outerHtml().contains("target=\"_blank\">多义词</a>");
+        	 pageInfo.setDuoyici(duoyici);
+        	 System.err.println("duoyiciElement.outerHtml()="+duoyiciElement.outerHtml());
+         }
+
+         /////
         return pageInfo;
 
 	}
 	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/yaomin";
+		String path="/Users/Elaine/Documents/workspace/html/xihanmulian";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		PageExtractInfo info = ex.ProcessPage();
 		System.err.println(info.toString());
 		//System.err.println(info.getWordLink("上海市第二中学"));
 		System.err.println(info.GetSynonym());
+		System.err.println(info.getFirstPara());
+        Map<String,String> map = info.getWordLinkMap();
+        for(String key:map.keySet())
+        {
+    		System.err.println(key+"===>>>"+map.get(key));
 
+        }
+		System.err.println("getTongyici.........."+info.getTongyici());
+		System.err.println("isDuoyici.........."+info.isDuoyici());
 	}
-
 }

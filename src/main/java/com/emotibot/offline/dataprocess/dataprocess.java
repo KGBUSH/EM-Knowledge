@@ -1,5 +1,7 @@
 package com.emotibot.offline.dataprocess;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,8 +24,8 @@ public class dataprocess {
     }
     public static String transform(String url)
     {
-    	url = url.replaceAll("[　*| *| *|//s*]*", ""); 
-    	url=url.replaceAll("\u200B", "");
+    	//url = url.replaceAll("[　*| *| *|//s*]*", ""); 
+    	//url=url.replaceAll("\u200B", "");
     	url=url.replaceAll(" ", "");
 
         url=url.trim();
@@ -31,9 +33,9 @@ public class dataprocess {
         return url;
     }
 
-	public static void main(String args[])
+	public static void main(String args[]) throws IOException
 	{
-		String path="Tong";
+		String path="T";
 		Vector<String> lines= Tool.getFileLines(path);
 		Map<String,Map<String,String>> md5Words = new HashMap<>();
 		for(String line:lines)
@@ -70,6 +72,7 @@ public class dataprocess {
                     for(String w:arr2)
                     {
                     	w=transform(w);
+                    	if(w.equals("null")) continue;
     					if(!md5Words.containsKey(md5))
     					{
     						md5Words.put(md5, new HashMap<String,String>());
@@ -102,17 +105,18 @@ public class dataprocess {
 			}
 
 		}
+		FileWriter f  = new FileWriter("word");
 		for(String key:md5Words.keySet())
 		{
 			if(md5Words.get(key).size()>1)
 			{
-				System.err.print(key+"###");
+				f.write(key+"###");
 				for(String w:md5Words.get(key).keySet())
 				{
-					System.err.print(w.trim()+"###");
+					f.write(w.trim()+"###");
 				}
-				System.err.print("###");
-				System.err.println();
+				f.write("###");
+				f.write("\r\n");
 			}
 		}
 	}

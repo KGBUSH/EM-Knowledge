@@ -140,9 +140,8 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					boolean pmname_flag = WordLabelMap.containsKey(pmWord);
 					System.err.println("NAME="+name);
 					System.err.println("NAME="+pmWord);
-					System.err.println("Tongyici1:"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.GetSynonym());
 					System.err.println("MM"+name+"KKKKK"+pmWord+"MM  "+flag+" "+name_flag+"  "+pmname_flag);
-					if(name==null) return ;
+					//if(name==null) return ;
 					if (name != null && !WordLabelMap.containsKey(name)) {
 						System.err.println("name is not contain in WordLabelMap " + name+"  "+pmWord+" "+url+" "+NodeOrRelation);
 						//if(NodeOrRelation.equals("1")||NodeOrRelation.equals("2")) return;
@@ -173,6 +172,17 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					String query = bcy.InsertEntityNode(label, pageExtractInfo.getName(), pageExtractInfo.getAttr());
 					System.err.println(NodeOrRelation+" queryMap=" + query);
 					/////////TongyiciMap
+					////////duoyici
+					if(pageExtractInfo.isDuoyici()) System.err.println("Duoyici:"+name+"###"+pmWord+"###");
+                     //					System.err.println("Tongyici1:"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.GetSynonym());
+                    String tongyici="";
+					if(pageExtractInfo.getTongyici().trim().length()>0)
+                    {
+						tongyici=pageExtractInfo.getTongyici().trim();
+                    }
+					System.err.println("Tongyici1:"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.GetSynonym()+","+tongyici);
+
+					//////////
 					Map<String,String> WordLink=pageExtractInfo.getWordLinkMap();
 					if(WordLink!=null&&WordLink.size()>0)
 					{
@@ -181,7 +191,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 						System.err.println("Tongyici2:"+word+"###"+WordLink.get(word)+"###");
 					  }
 					}
-					System.err.println("Weka:"+pageExtractInfo.getTags()+"###"+label+"###"+url);
+					System.err.println("Weka:"+pageExtractInfo.getTags()+"###"+label+"###"+name+"###"+pmWord+"###"+url);
 					/////////
 					if (query == null || query.trim().length() == 0) return;
 					context.write(outputKey, new Text(query));
