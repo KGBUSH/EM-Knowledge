@@ -675,21 +675,21 @@ public class PatternMatchingProcess {
 	}
 
 	// Multi-level Reasoning Understanding
-	private AnswerBean ReasoningProcess(String templateSentence, String entity, AnswerBean answerBean) {
-		System.out.println("PMP.ReasoningProcess INIT: sentence=" + templateSentence + ", entity =" + entity
-				+ ", bean is " + answerBean);
+	private AnswerBean ReasoningProcess(String sentence, String entity, AnswerBean answerBean) {
+		System.out.println(
+				"PMP.ReasoningProcess INIT: sentence=" + sentence + ", entity =" + entity + ", bean is " + answerBean);
 		// Debug.printDebug(uniqueID, 3, "knowledge", "PMP.ReasoningProcess:
 		// sentence=" + templateSentence + ", entity ="
 		// + entity + ", bean is " + answerBean.toString());
 		// to be checked later
 
-		if (!templateSentence.contains(entity)) {
+		if (!sentence.contains(entity)) {
 			System.err.println("Sentence does not contain entity");
 			Debug.printDebug(uniqueID, 2, "knowledge", "Sentence does not contain entity");
 			return answerBean;
 		}
-		String sentenceNoEntity = templateSentence.substring(0, templateSentence.indexOf(entity))
-				+ templateSentence.substring(templateSentence.indexOf(entity) + entity.length());
+		String sentenceNoEntity = sentence.substring(0, sentence.indexOf(entity))
+				+ sentence.substring(sentence.indexOf(entity) + entity.length());
 		System.out.println("\t new sentence is::::" + sentenceNoEntity);
 
 		Map<String, String> relationMap = this.getRelationshipSet(entity);
@@ -697,7 +697,7 @@ public class PatternMatchingProcess {
 
 		// split the sentence by the entities to get candidates
 		// get candidates by splitting the sentence by entities and stopwords.
-		List<String> candidateSet = this.getCandidateSet(templateSentence, entity);
+		List<String> candidateSet = this.getCandidateSet(sentence, entity);
 		List<String> candidateSetbyStopWord = this.getCandidateSetbyStopWord(candidateSet);
 		System.out.println("PMP.ReasoningProcess: candidateSet = " + candidateSet);
 		System.out.println("PMP.ReasoningProcess: candidateSetbyStopWord = " + candidateSetbyStopWord);
@@ -710,7 +710,7 @@ public class PatternMatchingProcess {
 		// first get the property by NOT segPos with NO stopword;
 		// if match null, then by NOT segPos with stopword
 		// if match null, then by segPos with stopword
-		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(templateSentence, entity,
+		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(sentence, entity,
 				candidateSetbyStopWord, propMap);
 
 		// add for introduction questions
@@ -722,16 +722,16 @@ public class PatternMatchingProcess {
 		}
 
 		if (listPMBean.isEmpty()) {
-			listPMBean = this.matchPropertyFromSentence(templateSentence, entity, candidateSet, propMap);
+			listPMBean = this.matchPropertyFromSentence(sentence, entity, candidateSet, propMap);
 			System.out.println("PMP.ReasoningProcess: get ListBean not by StopWord = " + listPMBean);
 		}
 		if (listPMBean.isEmpty()) {
-			listPMBean = this.matchPropertyFromSentence(templateSentence, entity,
-					this.getCandidateSetbyNLP(candidateSet), propMap);
+			listPMBean = this.matchPropertyFromSentence(sentence, entity, this.getCandidateSetbyNLP(candidateSet),
+					propMap);
 			System.out.println("PMP.ReasoningProcess: get ListBean by NLP = " + listPMBean);
 		}
 
-		PatternMatchingResultBean implicationBean = ImplicationProcess.checkImplicationWord(templateSentence);
+		PatternMatchingResultBean implicationBean = ImplicationProcess.checkImplicationWord(sentence);
 		if (implicationBean.isValid())
 			listPMBean.add(implicationBean);
 		System.out.println("\t listPMBean=" + listPMBean);
@@ -748,7 +748,7 @@ public class PatternMatchingProcess {
 			System.out.println("\t\t\t#### before Implication ");
 			if (ImplicationProcess.isImplicationWord(prop)) {
 				System.out.print("\t\t\t#### Implication ");
-				answer = ImplicationProcess.getImplicationAnswer(templateSentence, entity, prop);
+				answer = ImplicationProcess.getImplicationAnswer(sentence, entity, prop);
 				if (Tool.isStrEmptyOrNull(answer))
 					listPMBean.get(0).setScore(0);
 				System.out.println("answer = " + answer);
@@ -757,7 +757,7 @@ public class PatternMatchingProcess {
 			}
 			answerBean.setAnswer(answer);
 			answerBean.setProperty(prop);
-			answerBean.setValid(true);
+			// answerBean.setValid(true);
 			answerBean.setScore(listPMBean.get(0).getScore());
 			String oldWord = listPMBean.get(0).getOrignalWord();
 			answerBean.setOriginalWord(oldWord);
@@ -792,7 +792,7 @@ public class PatternMatchingProcess {
 					prop = b.getAnswer();
 					answerBean.setAnswer(queryAnswer);
 					answerBean.setProperty(b.getAnswer());
-					answerBean.setValid(true);
+					// answerBean.setValid(true);
 					answerBean.setScore(b.getScore());
 					String oldWord = b.getOrignalWord();
 					answerBean.setOriginalWord(oldWord);
@@ -812,7 +812,7 @@ public class PatternMatchingProcess {
 			} else {
 				answerBean.setAnswer(answer.substring(0, answer.length() - 1));
 				answerBean.setScore(score);
-				answerBean.setValid(true);
+				// answerBean.setValid(true);
 				System.out.println("\t EndOfRP  @@ return case 2, answer = " + answerBean);
 				return answerBean;
 			}
@@ -875,6 +875,8 @@ public class PatternMatchingProcess {
 		if (!entity.isEmpty()) {
 			if (!sentence.contains(entity)) {
 				System.err.println("isKindofQuestion: sentence has no entity, s = " + sentence + ", e=" + entity);
+				Debug.printDebug(uniqueID, 2, "KG", "isKindofQuestion: sentence has no entity");
+				return false;
 			}
 			String first = sentence.substring(0, sentence.indexOf(entity));
 			String second = sentence.substring(sentence.indexOf(entity) + entity.length(), sentence.length());
@@ -1234,9 +1236,8 @@ public class PatternMatchingProcess {
 	// test the similarity between target (strProperty) and ref (candidate)
 	private boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
 			boolean isPass) {
-		// System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap + "\t
-		// strProperty=" + strProperty
-		// + ", candidate=" + candidate);
+//		 System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap + "\t"+"strProperty=" + strProperty
+//		 + ", candidate=" + candidate);
 
 		// case of length == 1
 		if (strProperty.length() == 1 || candidate.length() == 1) {
@@ -1254,7 +1255,8 @@ public class PatternMatchingProcess {
 			String longStr = (strProperty.length() > candidate.length()) ? strProperty : candidate;
 			String shortStr = (strProperty.length() > candidate.length()) ? candidate : strProperty;
 			if (longStr.contains(shortStr) && longStr.length() <= shortStr.length() * 2) {
-				int iScore = (strProperty.equals(candidate)) ? 5 : 2 * shortStr.length() - longStr.length();
+				int iScore = (strProperty.equals(candidate)) ? 5
+						: 5 * shortStr.length() / longStr.length();
 				rsMap.put(strProperty, iScore);
 				isPass = true;
 			} else {
@@ -1472,7 +1474,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "愤怒的小鸟有几种语言?";
+		String str = "男朋友每次吃饭都不让我付钱，感觉有点不好意思诶?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");

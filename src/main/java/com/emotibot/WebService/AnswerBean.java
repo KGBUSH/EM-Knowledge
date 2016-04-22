@@ -50,12 +50,16 @@ public class AnswerBean {
 	}
 
 	public boolean isValid() {
-		return isValid;
+		if(answer.isEmpty() || score == 0){
+			return false;
+		} else {
+			return true;
+		}
 	}
 
-	public void setValid(boolean isValid) {
-		this.isValid = isValid;
-	}
+	// public void setValid(boolean isValid) {
+	// this.isValid = isValid;
+	// }
 
 	public String getOriginalWord() {
 		return originalWord;
