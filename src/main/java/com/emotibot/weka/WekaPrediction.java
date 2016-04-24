@@ -22,9 +22,10 @@ public class WekaPrediction {
 	  {
 		  super();
 	  }
-	  public void setClassifier(String name, String[] options) throws Exception {
+	  public void setClassifier(String name, String[] options) throws Exception 
+	  {
 		    m_Classifier = AbstractClassifier.forName(name, options);
-		  }
+	  }
 
 		  public void setTraining(String name) throws Exception {
 		    m_TrainingFile = name;

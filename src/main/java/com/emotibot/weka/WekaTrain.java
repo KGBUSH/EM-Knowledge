@@ -2,7 +2,7 @@ package com.emotibot.weka;
 import weka.classifiers.Classifier;
 import weka.classifiers.bayes.NaiveBayesUpdateable;
 import weka.classifiers.evaluation.Evaluation;
-import weka.classifiers.functions.Logistic;
+import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.trees.J48;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -20,19 +20,6 @@ public class WekaTrain {
 	
 	public static void main(String args[]) throws Exception
 	{
-		   /* ArffLoader loader = new ArffLoader();
-		    loader.setFile(new File("tag.arff"));
-		    Instances structure = loader.getStructure();
-		    structure.setClassIndex(0);
-
-		    // train NaiveBayes
-		    NaiveBayesUpdateable nb = new NaiveBayesUpdateable();
-		    nb.buildClassifier(structure);
-		    Instance current;
-		    while ((current = loader.getNextInstance(structure)) != null){
-		    System.out.println(nb);
-		    break;
-		    }*/
 		    Instances train = DataSource.read("tag.arff");
 		    train.setClassIndex(0);
 		    Instances test = DataSource.read("tag.arff");
@@ -42,24 +29,13 @@ public class WekaTrain {
 			  "Train and test set are not compatible: " + train.equalHeadersMsg(test));
 		    
 		    // train classifier
-		   // NaiveBayesUpdateable cls = new NaiveBayesUpdateable();
-		   // cls.buildClassifier(train);
-	          Logistic cls=new Logistic();//Logistic用以建立一个逻辑回归分类器
-
-            String options[]=new String[4];//训练参数数组
-
-            options[0]="-R";//cost函数中的预设参数  影响cost函数中参数的模长的比重
-
-            options[1]="1E-5";//设为1E-5
-
-            options[2]="-M";//最大迭代次数
-
-            options[3]="10";//最多迭代计算10次
-            cls.setOptions(options);
+		    NaiveBayesUpdateable cls = new NaiveBayesUpdateable();
+		    cls.buildClassifier(train);
+            cls.buildClassifier(train);
 		    // output predictions
 		    int r=0;int all=0;
 		    System.out.println("# - actual - predicted - error - distribution");
-		   /* for (int i = 0; i < test.numInstances(); i++) {
+		    for (int i = 0; i < test.numInstances(); i++) {
 		      double pred = cls.classifyInstance(test.instance(i));
 		      double[] dist = cls.distributionForInstance(test.instance(i));
 		      System.out.print((i+1));
@@ -79,10 +55,9 @@ public class WekaTrain {
 		      System.out.print(" - ");
 		     // System.out.print(Utils.arrayToString(dist));
 		      System.out.println();
-		    
-		    		    }
-		      System.out.println("all="+all+"  r="+r+" ratio="+(r*100)/all);*/
-		    Evaluation eval=null;
+		   }
+		      System.out.println("all="+all+"  r="+r+" ratio="+(r*100)/all);
+		   /* Evaluation eval=null;
 		    System.out.println("==========");
 		    for(int i=0;i<1;i++){
 		     eval=new Evaluation(test);
@@ -91,6 +66,6 @@ public class WekaTrain {
 		    System.out.println("==========2");
 		    System.out.println(eval.toSummaryString());//输出总结信息
 		    System.out.println(eval.toClassDetailsString());//输出分类详细信息
-		    System.out.println(eval.toMatrixString());//输出分类的混淆矩阵
+		    System.out.println(eval.toMatrixString());//输出分类的混淆矩阵*/
 	}
 }
