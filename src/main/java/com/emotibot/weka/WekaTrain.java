@@ -5,6 +5,10 @@ import weka.classifiers.trees.J48;
 import weka.core.Instance;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
+import weka.core.converters.ArffSaver;
+import weka.core.converters.ConverterUtils.DataSource;
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.StringToWordVector;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,41 +17,56 @@ public class WekaTrain {
 	
 	public static void main(String args[]) throws Exception
 	{
-		/* ArffLoader loader = new ArffLoader();
+		   /* ArffLoader loader = new ArffLoader();
 		    loader.setFile(new File("tag.arff"));
 		    Instances structure = loader.getStructure();
-		    System.out.println("structure.numAttributes()="+structure.numAttributes());
+		    structure.setClassIndex(0);
 
-		    structure.setClassIndex(structure.numAttributes() - 1);
-
+		    // train NaiveBayes
 		    NaiveBayesUpdateable nb = new NaiveBayesUpdateable();
 		    nb.buildClassifier(structure);
 		    Instance current;
-		    while ((current = loader.getNextInstance(structure)) != null)
-		      nb.updateClassifier(current);
+		    while ((current = loader.getNextInstance(structure)) != null){
+		    System.out.println(nb);
+		    break;
+		    }*/
+		  Instances train = DataSource.read("tag.arff");
+		    train.setClassIndex(0);
+		    Instances test = DataSource.read("tag.arff");
+		    test.setClassIndex(0);
+		    if (!train.equalHeaders(test))
+		      throw new IllegalArgumentException(
+			  "Train and test set are not compatible: " + train.equalHeadersMsg(test));
+		    
+		    // train classifier
+		    NaiveBayesUpdateable cls = new NaiveBayesUpdateable();
+		    cls.buildClassifier(train);
+		    
+		    // output predictions
+		    int r=0;int all=0;
+		    System.out.println("# - actual - predicted - error - distribution");
+		    for (int i = 0; i < test.numInstances(); i++) {
+		      double pred = cls.classifyInstance(test.instance(i));
+		      double[] dist = cls.distributionForInstance(test.instance(i));
+		      System.out.print((i+1));
+		      System.out.print(" - ");
+		      System.out.print(test.instance(i).toString(test.classIndex()));
+		      System.out.print(" - ");
+		      System.out.print(test.classAttribute().value((int) pred));
+		      System.out.print(" - ");
+		      all++;
+		      if (pred != test.instance(i).classValue())
+			     System.out.print("Wrong");
+		      else{
+			     System.out.print("Right"); r++;
+		      }
+		      System.out.print(" - ");
+		     // System.out.print(Utils.arrayToString(dist));
+		      System.out.println();
+		    
+		    		    }
+		      System.out.println("all="+all+"  r="+r+" ratio="+(r*100)/all);
 
-		    System.out.println(nb);*/
-        Classifier m_classifier = new J48();  
-        File inputFile = new File("tag.arff");//训练语料文件  
-        ArffLoader atf = new ArffLoader();   
-        atf.setFile(inputFile);  
-        Instances instancesTrain = atf.getDataSet(); // 读入训练文件      
-        inputFile = new File("tag.arff");//测试语料文件  
-        atf.setFile(inputFile);            
-        Instances instancesTest = atf.getDataSet(); // 读入测试文件  
-        instancesTest.setClassIndex(instancesTest.numAttributes() - 1); //设置分类属性所在行号（第一行为0号），instancesTest.numAttributes()可以取得属性总数  
-        double sum = instancesTest.numInstances(),//测试语料实例数  
-        right = 0.0f;  
-        instancesTrain.setClassIndex(instancesTest.numAttributes() - 1);  
-         m_classifier.buildClassifier(instancesTrain); //训练             
-        for(int  i = 0;i<sum;i++)//测试分类结果  
-        {  
-            if(m_classifier.classifyInstance(instancesTest.instance(i))==instancesTest.instance(i).classValue())//如果预测值和答案值相等（测试语料中的分类列提供的须为正确答案，结果才有意义）  
-            {  
-              right++;//正确值加1  
-            }  
-        }  
-        System.out.println("J48 classification precision:"+(right/sum));  
 	}
 
 }
