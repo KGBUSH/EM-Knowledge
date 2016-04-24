@@ -14,7 +14,6 @@ import java.util.Map.Entry;
 import com.emotibot.util.Tool;
 
 public class PreProcess {
-	public static Map<String,Integer> mapIndex = new HashMap<>();
 
 	public static void ProduceArff(String dataFile) throws IOException
 	{
@@ -71,7 +70,7 @@ public class PreProcess {
 
 		for(String w:words)
 		{
-			mapIndex.put(w, index);
+			TagCommon.mapIndex.put(w, index);
 			index++;
 		}
 		StringBuffer buffer = new StringBuffer();
@@ -105,35 +104,31 @@ public class PreProcess {
 			String[] arr = line.split("###");
 			String tags = arr[0].trim();
 			String domain = arr[1].trim();
-			/*String newLine="{0 "+domain;
-			for(String tag:tags.split(" "))
+			if(!TagCommon.DomainNum.containsKey(domain))
 			{
-				tag=tag.trim();
-				newLine+=","+mapIndex.get(tag)+" 1";
+				TagCommon.DomainNum.put(domain, 1);
 			}
-			newLine+="}";
-			buffer.append(newLine+"\r\n");*/
+			else
+			{
+				TagCommon.DomainNum.put(domain, TagCommon.DomainNum.get(domain)+1);
+			}
+
 			 Map<Integer, Integer>  map = new HashMap<>();
 			 for(String tag:tags.split(" "))
 				{
-				 map.put(mapIndex.get(tag), 1);
+				 map.put(TagCommon.mapIndex.get(tag), 1);
 				 }
 		        List<Map.Entry<Integer, Integer>> list = new ArrayList<Map.Entry<Integer, Integer>>(map.entrySet());  
 		        Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {  
 		            //降序排序  
 		            @Override  
 		            public int compare(Entry<Integer, Integer> o1, Entry<Integer, Integer> o2) {  
-		                //return o1.getValue().compareTo(o2.getValue());  
 		                return o1.getKey().compareTo(o2.getKey());  
 		            }
 		        }); 
-		        /*System.err.println("===");
-		        for (Map.Entry<Integer, Integer> mapping : list) {  
-		        	System.err.println("domain="+mapping.getKey() + " score=" + mapping.getValue()+" ; ");  
-		        } */
+
 		        String newLine="{0 "+domain;
 		        for (Map.Entry<Integer, Integer> mapping : list) {  
-		        	//System.err.println("domain="+mapping.getKey() + " score=" + mapping.getValue()+" ; ");  
 					newLine+=","+mapping.getKey()+" 1";
 		        } 
 
@@ -143,6 +138,10 @@ public class PreProcess {
 		FileWriter f = new FileWriter("tag.arff");
         f.write(buffer.toString());
         f.close();
+        for(String key:TagCommon.DomainNum.keySet())
+        {
+        	System.err.println(key+"="+TagCommon.DomainNum.get(key));
+        }
 	}
 
 	public static void main(String args[]) throws IOException

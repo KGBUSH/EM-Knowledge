@@ -6,6 +6,9 @@ import java.util.Map;
 public class TagCommon {
 	
 	public static Map<String,String> DomainNames;
+	public static Map<String,Integer> mapIndex = new HashMap<>();
+	public static Map<String,Integer> DomainNum = new HashMap<>();
+
 	static
 	{
 		DomainNames = new HashMap<>();

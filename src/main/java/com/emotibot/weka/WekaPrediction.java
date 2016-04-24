@@ -90,9 +90,9 @@ public class WekaPrediction {
 			  WekaPrediction demo;
 
 		    // parse command line
-		   // String classifier = "weka.classifiers.bayes.NaiveBayesUpdateable";
+		    String classifier = "weka.classifiers.bayes.NaiveBayesUpdateable";
 			  //weka.classifiers.functions.Logistic
-			  String classifier = "weka.classifiers.functions.Logistic";
+			 // String classifier = "weka.classifiers.functions.Logistic";
 		    String filter = "";
 		    String dataset = "tag.arff";
             Vector<String> classifiers = new Vector<String>();
@@ -101,19 +101,8 @@ public class WekaPrediction {
             //for(String classifier:classifiers){
            // Logistic m_classifier=new Logistic();//Logistic用以建立一个逻辑回归分类器
 
-            String options[]=new String[4];//训练参数数组
-
-            options[0]="-R";//cost函数中的预设参数  影响cost函数中参数的模长的比重
-
-            options[1]="1E-5";//设为1E-5
-
-            options[2]="-M";//最大迭代次数
-
-            options[3]="10";//最多迭代计算10次
-
-            //m_classifier.setOptions(options);
 		    demo = new WekaPrediction();
-		   // String[] options = new String[0];
+		    String[] options = new String[0];
 		    demo.setClassifier(classifier,options);
 		    demo.setTraining(dataset);
 		    demo.execute();
