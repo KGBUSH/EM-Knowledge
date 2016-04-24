@@ -53,7 +53,7 @@ public class BuildCypherSQL implements CypherSQLParser {
 		if (Tool.isStrEmptyOrNull(Label) || Tool.isStrEmptyOrNull(name) || (attr == null || attr.size() == 0)) {
 			System.err.println("InsertEntityNode has invalid input");
 		} else {
-			query = "merge (" + Common.ResultObj + ":" + Label + "{" + Common.KGNODE_NAMEATRR + ":\"" + name
+			query = "merge (" + Common.ResultObj + ":" + Label + "{" + Common.KG_NODE_FIRST_PARAM_MD5 + ":\"" + name
 					+ "\"}) set ";
 			for (String key : attr.keySet()) {
 				query += Common.ResultObj + "." + key + "=\"" + attr.get(key) + "\",";

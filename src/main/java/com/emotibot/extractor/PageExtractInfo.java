@@ -27,6 +27,7 @@ public class PageExtractInfo {
     public static String nameFields="中文名#外文名#别名#别称#别号#别字#昵称#又名#又称#别称#又叫#其他名称#译名#外号#绰号#诨号#诨名";
 	private String Tongyici="";
 	private String Duoyici="";
+	private String ParamMd5="";
     public HashMap<String,String> getAttr() {
 		return attr;
 	}
@@ -293,6 +294,12 @@ public class PageExtractInfo {
 	}
 	public void setDuoyici(String duoyici) {
 		Duoyici = duoyici;
+	}
+	public String getParamMd5() {
+		return ParamMd5;
+	}
+	public void setParamMd5(String paramMd5) {
+		ParamMd5 = paramMd5;
 	}
 
 }

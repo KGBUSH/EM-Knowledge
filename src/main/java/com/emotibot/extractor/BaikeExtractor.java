@@ -3,6 +3,7 @@ package com.emotibot.extractor;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -188,6 +189,8 @@ public class BaikeExtractor extends Extractor {
 		}
 		 pageInfo.setFirstPara(buffer.toString());
          pageInfo.addAttr(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME, buffer.toString());
+         pageInfo.addAttr(Common.KG_NODE_FIRST_PARAM_MD5, DigestUtils.md5Hex(buffer.toString()));
+         pageInfo.setParamMd5(DigestUtils.md5Hex(buffer.toString()));
          ////
          //<span class="viewTip-fromTitle">卡迪夫城</span>
          Elements tongyiciElement = doc.select("span[class=viewTip-fromTitle]");

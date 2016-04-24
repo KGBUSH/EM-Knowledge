@@ -169,7 +169,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					System.err.println("label="+label);
 					BuildCypherSQL bcy = new BuildCypherSQL();
 					pageExtractInfo.addAttr(md5, DigestUtils.md5Hex(url));
-					String query = bcy.InsertEntityNode(label, pageExtractInfo.getName(), pageExtractInfo.getAttr());
+					String query = bcy.InsertEntityNode(label, pageExtractInfo.getParamMd5(), pageExtractInfo.getAttr());
 					System.err.println(NodeOrRelation+" queryMap=" + query);
 					/////////TongyiciMap
 					////////duoyici
@@ -233,7 +233,6 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
                                     	Entity bb = new Entity(label2,DigestUtils.md5Hex(urlval),md5);
                                     	query2=bcy.InsertRelation(aa, bb, attr, null);	
     					                System.err.println(NodeOrRelation+" queryMap2=" + query2);
-
                                     }
 									if (query !=null && query.trim().length()>0) context.write(outputKey, new Text(query));
 									if (query2 !=null && query2.trim().length()>0) context.write(outputKey, new Text(query2));
