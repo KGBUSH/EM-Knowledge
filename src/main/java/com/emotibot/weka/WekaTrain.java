@@ -72,8 +72,8 @@ public class WekaTrain {
 		   }
 		   for(int i=0;i<1;i++)
 		   {
-				     eval=new Evaluation(test);
-				     eval.crossValidateModel(m_Classifier, test, 10, new Random(i));//实现交叉验证模型
+			 eval=new Evaluation(test);
+			 eval.crossValidateModel(m_Classifier, test, 10, new Random(i));//实现交叉验证模型
 		   }
 		   System.out.println(eval.toSummaryString());//输出总结信息
  	       System.out.println(eval.toClassDetailsString());//输出分类详细信息
