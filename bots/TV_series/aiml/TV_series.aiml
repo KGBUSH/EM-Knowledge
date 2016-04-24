@@ -216,19 +216,19 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 啥 时 ^ 开 播 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 啥 时 ^ 播 ^ </pattern>
         <template>
             <star index="2"/>的首播时间什么时候？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 什 么 时 ^ 开 播 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 什 么 时 ^ 播 ^ </pattern>
         <template>
             <star index="2"/>的首播时间什么时候？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 何 时 ^ 开 播 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 何 时 ^ 播 ^ </pattern>
         <template>
             <star index="2"/>的首播时间什么时候？
         </template>

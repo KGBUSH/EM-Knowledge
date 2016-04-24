@@ -45,8 +45,8 @@ public class WebServer {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
 		System.out.println("init NLPProcess");
-		
-		int port =9000;
+
+		int port = 9000;
 		ConfigManager cf = new ConfigManager();
 		port = cf.getWebServerPort();
 		Server server = new Server(port);
@@ -118,18 +118,20 @@ public class WebServer {
 					}
 					System.out.println(text);
 					SimpleKnowledgeGetAnwer simpleKnowledgeGetAnwer = new SimpleKnowledgeGetAnwer();
-					   String answer = simpleKnowledgeGetAnwer.getAnswer(text);
-					   JSONObject result_obj = new JSONObject();
-					 /*  out.println( "");
-					   
-					   out.println( "");
-					   out.println( "");
-					   out.println( "");*/
-					   out.println( answer);
-					/*NLPResult tnNode = NLPSevice.ProcessSentence(text, flag);
-					out.println(tnNode.getWordPos());
-					out.println(tnNode.getReCoNLLSentence());
-					out.println(tnNode.getNer());*/
+					String answer = simpleKnowledgeGetAnwer.getAnswer(text);
+					JSONObject result_obj = new JSONObject();
+					/*
+					 * out.println( "");
+					 * 
+					 * out.println( ""); out.println( ""); out.println( "");
+					 */
+					out.println(answer);
+					/*
+					 * NLPResult tnNode = NLPSevice.ProcessSentence(text, flag);
+					 * out.println(tnNode.getWordPos());
+					 * out.println(tnNode.getReCoNLLSentence());
+					 * out.println(tnNode.getNer());
+					 */
 					// out.println(tnNode.getSynonyms());
 				}
 			}
@@ -163,49 +165,55 @@ public class WebServer {
 			response.setContentType("text/json;charset=utf-8");
 			response.setCharacterEncoding("utf-8");
 			PrintWriter out = response.getWriter();
-			try{
-			int flag = 0;
-			String text = request.getParameter("t");
-			String questionType =request.getParameter("questionType");
-			String scoreStr =request.getParameter("score");
-            String uniqId=request.getParameter("uniqId");
-            Debug.printDebug(uniqId, 3, "knowledge", "knowedge doService request="+request.toString());
-			if (text != null) {
-				text = text.trim();
-				long t=System.currentTimeMillis();
-				CUBean cuBean = new CUBean();
-				cuBean.setText(text);
-				cuBean.setQuestionType(questionType);
-				cuBean.setScore(scoreStr);
-				cuBean.setUniqueID(uniqId);
-				System.out.println("@@@@@@@@@@@@@@@processing: cuBean="+cuBean+"\n request="+request);
-				AnswerBean bean =new PatternMatchingProcess(cuBean).getAnswer();
+			try {
+				int flag = 0;
+				String text = request.getParameter("t");
+				String questionType = request.getParameter("questionType");
+				String scoreStr = request.getParameter("score");
+				String uniqId = request.getParameter("uniqId");
+				Debug.printDebug(uniqId, 3, "knowledge", "knowedge doService request=" + request.toString());
+				if (text != null) {
+					text = text.trim();
+					long t = System.currentTimeMillis();
+					CUBean cuBean = new CUBean();
+					cuBean.setText(text);
+					cuBean.setQuestionType(questionType);
+					cuBean.setScore(scoreStr);
+					cuBean.setUniqueID(uniqId);
+					System.out.println("@@@@@@@@@@@@@@@processing: cuBean=" + cuBean + "\n request=" + request);
+					AnswerBean bean = new PatternMatchingProcess(cuBean).getAnswer();
+					System.out.println("Webserver bean=" + bean);
+					JSONObject result_obj = new JSONObject();
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					String ver = sdf.format(System.currentTimeMillis());
+
+					result_obj.put("ver", ver);
+
+					result_obj.put("score", bean.getScore());
+					result_obj.put("topic", "");
+					result_obj.put("emotion", "");
+					result_obj.put("answer", bean.getAnswer());
+
+					if (questionType != null && questionType.equals("debug")) {
+						result_obj.put("debug", bean.getComments());
+						System.out.println("debug comments=" + bean.getComments());
+					}
+
+					long t2 = System.currentTimeMillis();
+					result_obj.put("time", (t2 - t) + "ms");
+
+					out.println(result_obj);
+				}
+			} catch (Exception e) {
 				JSONObject result_obj = new JSONObject();
-			    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");  
-			    String ver=sdf.format(System.currentTimeMillis());
-
-				   result_obj.put("ver", ver);
-				   
-				   result_obj.put("score", bean.getScore());
-				   result_obj.put("topic", "");
-				   result_obj.put("emotion", "");
-				   result_obj.put("answer", bean.getAnswer());
-					long t2=System.currentTimeMillis();
-					   result_obj.put("time", (t2-t)+"ms");
-
-				   out.println(result_obj);
+				result_obj.put("ver", "");
+				result_obj.put("score", 0);
+				result_obj.put("topic", "");
+				result_obj.put("emotion", "");
+				result_obj.put("answer", "");
+				result_obj.put("Exception", e.getMessage());
+				out.println(result_obj);
 			}
-		}catch(Exception e)
-		{
-			JSONObject result_obj = new JSONObject();
-			   result_obj.put("ver", "");
-			   result_obj.put("score", 0);
-			   result_obj.put("topic", "");
-			   result_obj.put("emotion", "");
-			   result_obj.put("answer", "");
-			   result_obj.put("Exception", e.getMessage());
-			   out.println(result_obj);
-		}
 		}
 	}
 }

@@ -593,6 +593,11 @@ public class NLPProcess {
 	}
 
 	public static void main(String[] args) {
+		
+		System.out.println(entitySynonymTable.keySet());
+		System.exit(0);
+		
+		
 		String str = "姚明是谁。";
 		NLPProcess sp = new NLPProcess();
 

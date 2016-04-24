@@ -1,4 +1,4 @@
-package com.emotibot.patternmatching;
+package com.emotibot.dictionary;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,6 +18,7 @@ import com.emotibot.config.ConfigManager;
 import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
 import com.emotibot.neo4jprocess.Neo4jDBManager;
+import com.emotibot.patternmatching.NLPProcess;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Neo4jResultBean;
 
