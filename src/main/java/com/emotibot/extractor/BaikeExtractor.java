@@ -98,7 +98,8 @@ public class BaikeExtractor extends Extractor {
 
         		}
         		if(!Tool.isStrEmptyOrNull(relation)&&!Tool.isStrEmptyOrNull(subname)){
-        			pageInfo.addAttr_Values(relation, subname);
+        		   pageInfo.addAttr_Values(relation, subname);
+ 	               pageInfo.addAttr(relation, subname);
         	    }
 
         	}
