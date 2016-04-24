@@ -117,7 +117,7 @@ public class PreProcess {
 			 for(String tag:tags.split(" "))
 				{
 				 map.put(TagCommon.mapIndex.get(tag), 1);
-				 }
+				}
 		        List<Map.Entry<Integer, Integer>> list = new ArrayList<Map.Entry<Integer, Integer>>(map.entrySet());  
 		        Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {  
 		            //降序排序  

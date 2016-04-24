@@ -92,10 +92,11 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 	@Override
 	protected void reduce(ImmutableBytesWritable key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
-		try {
-			/*long solrDocnum=0;
+
+			long solrDocnum=0;
 			List<String> list = new ArrayList<>();
 			for (Text value : values) {
+		try {
 				System.err.println("typeReduce=" + type+"  ");
 				if (type.contains("Neo4j")) {
 					String query = value.toString();
@@ -172,6 +173,10 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 				System.err.println("time2="+(t22-t11));
 
 				}
+			} catch (Exception e) {
+				System.err.println("ReduceException="+e.getMessage());
+			}
+
 			}
 			if(solrDocnum>0) solr.Commit();
 			if(list.size()>0)
@@ -192,10 +197,8 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
      					  list.clear();
 
                        }
-			}*/
-		} catch (Exception e) {
-			System.err.println("ReduceException="+e.getMessage());
-		}
+			}
+		
 	}
 	
 	public static String getRelationsSql(List<String> list)
