@@ -36,9 +36,15 @@ public class PreProcess {
 			f.write("‘"+tags+"’,"+domain+"\r\n");
 		}
 		f.close();
+	}
+		
+	
+	public static void ProduceArffNum(String dataFile) throws IOException
+	{
+		if(Tool.isStrEmptyOrNull(dataFile)) return ;
 		
 	}
-	
+
 	public static void main(String args[]) throws IOException
 	{
 		ProduceArff("weka.txt");
