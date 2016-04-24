@@ -2,6 +2,7 @@ package com.emotibot.weka;
 import weka.classifiers.Classifier;
 import weka.classifiers.bayes.NaiveBayesUpdateable;
 import weka.classifiers.evaluation.Evaluation;
+import weka.classifiers.functions.Logistic;
 import weka.classifiers.trees.J48;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -32,7 +33,7 @@ public class WekaTrain {
 		    System.out.println(nb);
 		    break;
 		    }*/
-		  Instances train = DataSource.read("tag.arff");
+		    Instances train = DataSource.read("tag.arff");
 		    train.setClassIndex(0);
 		    Instances test = DataSource.read("tag.arff");
 		    test.setClassIndex(0);
@@ -41,9 +42,20 @@ public class WekaTrain {
 			  "Train and test set are not compatible: " + train.equalHeadersMsg(test));
 		    
 		    // train classifier
-		    NaiveBayesUpdateable cls = new NaiveBayesUpdateable();
-		    cls.buildClassifier(train);
-		    
+		   // NaiveBayesUpdateable cls = new NaiveBayesUpdateable();
+		   // cls.buildClassifier(train);
+	          Logistic cls=new Logistic();//Logistic用以建立一个逻辑回归分类器
+
+            String options[]=new String[4];//训练参数数组
+
+            options[0]="-R";//cost函数中的预设参数  影响cost函数中参数的模长的比重
+
+            options[1]="1E-5";//设为1E-5
+
+            options[2]="-M";//最大迭代次数
+
+            options[3]="10";//最多迭代计算10次
+            cls.setOptions(options);
 		    // output predictions
 		    int r=0;int all=0;
 		    System.out.println("# - actual - predicted - error - distribution");
