@@ -176,6 +176,9 @@
         <configuration>
           <source>1.7</source>
           <target>1.7</target>
+          <compilerArguments>
+          <extdirs>lib/</extdirs>
+          </compilerArguments>
         </configuration>
       </plugin>
       <plugin>
@@ -187,7 +190,7 @@
           </descriptorRefs>
           <archive>
             <manifest>
-              <mainClass>com.emotibot.WebService.WebServer</mainClass>
+              <mainClass>com.emotibot.MR.ExtractorJob</mainClass>
             </manifest>
           </archive>
           <includes>
