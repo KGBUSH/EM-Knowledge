@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringEscapeUtils;
 
+import com.emotibot.common.Common;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 
@@ -46,6 +47,11 @@ public class PageExtractInfo {
 	{
 		if(Tool.isStrEmptyOrNull(key)) return ;
 		if(value==null) return ;
+		if(key.equals(Common.KG_NODE_Pic)) {
+			attr.put(key, value);
+			return ;
+		}
+
 		if(key.contains("<")||key.contains(">")) return ;
 		key=key.replaceAll("/", "");//
 		key=key.replaceAll("\\.", "");

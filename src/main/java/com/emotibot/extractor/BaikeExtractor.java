@@ -144,7 +144,7 @@ public class BaikeExtractor extends Extractor {
 		 }
 		}
 		pageInfo.setPic(pic);
-        pageInfo.addAttr(Common.KG_NODE_Pic, pic);
+		if(pic!=null&&pic.trim().length() >0)  pageInfo.addAttr(Common.KG_NODE_Pic, pic);
 
 ///////////////////////////sentence MaoText
 		Elements para = doc.select("div.para");
