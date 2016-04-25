@@ -77,8 +77,8 @@ public class ExtractorJob {
           int port = cfg.getIndexSolrServerPort();
           String solrName = cfg.getIndexSolrServerSolrName();
             conf.set("ip", ip);
-                    conf.setInt("port", port);
-                    conf.set("solrName", solrName);
+            conf.setInt("port", port);
+            conf.set("solrName", solrName);
         }
         Vector<String> tables = Tool.getFileLines(inputTableFile);
         for(String inputTableName:tables){
