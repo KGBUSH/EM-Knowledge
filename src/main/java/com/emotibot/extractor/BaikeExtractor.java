@@ -123,19 +123,28 @@ public class BaikeExtractor extends Extractor {
         //pics
         //<div class="summary-pic">
 		Elements bigPic = doc.select("div[class=summary-pic]");
+		String pic="";
 		String BigPicUrl=bigPic.select("img").attr("src");
 		System.err.println("BigPicUrl="+BigPicUrl);
+		//if()
+		pic=BigPicUrl;
 		Elements picElements = doc.select("img[class=picture]");
-		if(picElements!=null)
+		if(picElements!=null&&BigPicUrl!=null&&BigPicUrl.trim().length()>0)
 		{
-		for(Element element:picElements)
-		{
+		 for(Element element:picElements)
+		 {
 			String picUrl=element.attr("src").trim();
 			String des=element.attr("alt").trim();
 			String style=element.attr("style").trim();
 			System.err.println("Pic="+des+"  "+style+"  "+picUrl);
+			if(picUrl!=null&&picUrl.trim().length()>0){
+				pic=picUrl;
+				break;
+			}
+		 }
 		}
-		}
+		pageInfo.setPic(pic);
+        pageInfo.addAttr(Common.KG_NODE_Pic, pic);
 
 ///////////////////////////sentence MaoText
 		Elements para = doc.select("div.para");

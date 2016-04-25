@@ -28,6 +28,7 @@ public class PageExtractInfo {
 	private String Tongyici="";
 	private String Duoyici="";
 	private String ParamMd5="";
+	private String Pic="";
     public HashMap<String,String> getAttr() {
 		return attr;
 	}
@@ -300,6 +301,12 @@ public class PageExtractInfo {
 	}
 	public void setParamMd5(String paramMd5) {
 		ParamMd5 = paramMd5;
+	}
+	public String getPic() {
+		return Pic;
+	}
+	public void setPic(String pic) {
+		Pic = pic;
 	}
 
 }
