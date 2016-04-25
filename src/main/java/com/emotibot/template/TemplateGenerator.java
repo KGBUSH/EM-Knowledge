@@ -82,36 +82,79 @@ public class TemplateGenerator {
 					continue;
 				}
 				String questionType = lineArr[0];
-				String patternLine = lineArr[1];
-				System.out.println("\t questionType=" + questionType + ", patternLine=" + patternLine);
+				String ruleLine = lineArr[1];
+				System.out.println("\t questionType=" + questionType + ", patternLine=" + ruleLine);
+
+				// List<String> patternList = new ArrayList<>();
+				// patternList.add("");
+
+				String domain = "## * <type>entity</type> ";
 
 				// get each component
-				String[] compList = patternLine.split("&");
-				for (String comp : compList) {
-					String currentStr = comp;
-					List<String> patternSet = new ArrayList<>();
-					if (comp.startsWith("[")) {
-						if (!comp.endsWith("]")) {
+				String[] patternArr = ruleLine.split("&");
+				List<List<String>> patternList = new ArrayList<>();
+
+				for (int i = 0; i < patternArr.length; i++) {
+					String part = patternArr[i];
+					List<String> list = new ArrayList<>();
+					if (part.startsWith("[")) {
+						if (!part.endsWith("]")) {
 							System.err.println("wrong format [] in line=" + line);
 							continue;
 						}
-						currentStr = currentStr.substring(1, currentStr.length() - 1);
-						System.out.println("comp = " + comp + ", currrentStr=" + currentStr);
-						patternSet.add("");
+						part = part.substring(1, part.length() - 1);
+						list.add("");
 					}
 
-					String[] tempArr = currentStr.split("/");
-					for (String s : tempArr) {
-						patternSet.add(s);
+					if (part.contains("#")) {
+						// System.out.println("##### part = "+part);
+						// entity case
+						if (!part.equals("#"))
+							System.err.println("wrong format: part=" + part);
+						list.add(domain);
+					} else if (part.contains("/")) {
+						// multiple possibility case
+						String[] strArr = part.split("/");
+						for (String s : strArr) {
+							list.add(s);
+						}
+					} else if (part.contains("^")) {
+						if (!part.equals("^")) {
+							System.err.println("wrong format of ^");
+						}
+						list.add("^ ");
+					} else {
+						// normal case
+						list.add(part);
 					}
-
-					line = in.readLine();
+					patternList.add(list);
 				}
 
-				out.write("</aiml>\r\n");
-				out.close();
-				in.close();
+				List<String> middlePatterList = new ArrayList<>();
+				middlePatterList.add("");
+				middlePatterList = writePattern(patternList, middlePatterList);
+				System.out.print("middlePatterList=" + middlePatterList);
+
+				// second line procedure
+				String secondLineStr = "IntroductionQuestion@:firstParamInfo";
+				for (String s : middlePatterList) {
+					out.write("    <category>\r\n");
+					// s = " " + s.substring(0, s.length() - 2);
+					s = " " + s;
+					s = s.replace("  ", " ");
+					String test = Tool.insertSpace4ChineseCharacter("        <pattern>" + s + "</pattern>\r\n");
+					out.write(test);
+					out.write("        <template>\r\n");
+					out.write("            " + secondLineStr + "\r\n");
+					out.write("        </template>\r\n");
+					out.write("    </category>\r\n");
+				}
+				line = in.readLine();
 			}
+
+			out.write("</aiml>\r\n");
+			out.close();
+			in.close();
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -331,9 +374,16 @@ public class TemplateGenerator {
 
 	}
 
+	private void generateQuestionClassifierTemplate() {
+		String specFileName = Common.UserDir + "/knowledgedata/template/questionClassifier.txt";
+		String aimlFileName = Common.UserDir + "/bots/QuestionClassifier/aiml/test.aiml";
+		generateQuestionClassifierTemplate(specFileName, aimlFileName);
+	}
+
 	public static void main(String[] args) {
 		TemplateGenerator tg = new TemplateGenerator();
-		tg.generateDomainTemplate();
+		tg.generateQuestionClassifierTemplate();
+		// tg.generateDomainTemplate();
 		// tg.generator();
 	}
 
