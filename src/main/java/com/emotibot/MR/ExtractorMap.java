@@ -123,7 +123,14 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 				}
 				if ((WORDS).equals(Bytes.toString(kv[i].getQualifier()))) {
 					pmWord = Bytes.toString(kv[i].getValue());
+					//System.err.println("SSS="+pmWord+"###");
+					//System.err.println("SSS2="+pmWord.trim()+"###");
 					pmWord=URLDecoder.decode(pmWord.trim()).trim();
+					//System.err.println("SSS3="+URLDecoder.decode(pmWord).trim()+"###");
+					//MyTrim
+					//System.err.println("SSS4="+pmWord.trim()+"###");
+					//System.err.println("SSS5="+MyTrim(pmWord)+"###");
+					pmWord=MyTrim(pmWord);
 				}
 
 			}
@@ -252,6 +259,11 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 		}
 		return;
 	}
+    public  String MyTrim(String s){
+    	String str = s.replace(String.valueOf((char) 160), " ").trim();
+    	return str;
+    }
+
 	public String getASCIISum(String url, int n) {
 		long sum = 0;
 		url = url.toLowerCase();
