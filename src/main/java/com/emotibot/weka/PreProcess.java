@@ -96,7 +96,10 @@ public class PreProcess {
 		buffer.append("\r\n");
 		buffer.append("@data "+"\r\n");
 		buffer.append("\r\n");
-
+        if(TagCommon.CommonTarffStr.length()==0)
+        {
+        	TagCommon.CommonTarffStr=buffer.toString();
+        }
 		for(String line:lines)
 		{
 			line=line.replaceAll("Weka:", "");
@@ -143,7 +146,6 @@ public class PreProcess {
         	System.err.println(key+"="+TagCommon.DomainNum.get(key));
         }
 	}
-
 	public static void main(String args[]) throws IOException
 	{
 		ProduceArffNum("weka.txt");

@@ -8,7 +8,8 @@ public class TagCommon {
 	public static Map<String,String> DomainNames;
 	public static Map<String,Integer> mapIndex = new HashMap<>();
 	public static Map<String,Integer> DomainNum = new HashMap<>();
-
+    public static String CommonTarffStr="";
+    public final static String other="other";
 	static
 	{
 		DomainNames = new HashMap<>();
