@@ -14,11 +14,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.emotibot.common.Common;
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 
 // input: "movie，^#^放/播^多长/多久;#片长是多少/#时长是多少"
@@ -37,7 +40,86 @@ public class TemplateGenerator {
 	// + outputFile);
 	// }
 
-	private void generator(String inputFile, String outputFile) {
+	private void generateQuestionClassifierTemplate(String inputFile, String outputFile) {
+
+		try {
+			FileWriter newFile = new FileWriter(outputFile);
+			BufferedWriter out = new BufferedWriter(newFile);
+			out.write("<aiml version=\"1.0.1\" encoding=\"UTF-8\">\r\n");
+
+			BufferedReader in = new BufferedReader(new FileReader(inputFile));
+			String line = in.readLine();
+			while (line != null) {
+				line = CharUtil.trim(line).toLowerCase();
+				if (line.isEmpty()) {
+					line = in.readLine();
+					continue;
+				}
+				System.out.println("line=" + line);
+
+				Map<String, String> specialCharacterMap = new HashMap<>();
+				specialCharacterMap.put(" ", " ");
+				specialCharacterMap.put("；", ";");
+				specialCharacterMap.put("，", ",");
+
+				// replace special character in Chinese
+				for (String s : specialCharacterMap.keySet()) {
+					System.out.println("s=" + s + "; S=" + specialCharacterMap.get(s));
+					line = line.replace(s, specialCharacterMap.get(s));
+				}
+				line = line.replace(" ", ""); // remove blank
+				System.out.println("line after special character procedure===" + line);
+
+				if (!line.contains(";")) {
+					System.err.println("wrong format in Line=" + line);
+					continue;
+				}
+
+				// get the first line and second line
+				String[] lineArr = line.split(";");
+				if (lineArr.length != 2) {
+					System.err.println("wrong format in Line=" + line + ", with number of ; is=" + lineArr.length);
+					continue;
+				}
+				String questionType = lineArr[0];
+				String patternLine = lineArr[1];
+				System.out.println("\t questionType=" + questionType + ", patternLine=" + patternLine);
+
+				// get each component
+				String[] compList = patternLine.split("&");
+				for (String comp : compList) {
+					String currentStr = comp;
+					List<String> patternSet = new ArrayList<>();
+					if (comp.startsWith("[")) {
+						if (!comp.endsWith("]")) {
+							System.err.println("wrong format [] in line=" + line);
+							continue;
+						}
+						currentStr = currentStr.substring(1, currentStr.length() - 1);
+						System.out.println("comp = " + comp + ", currrentStr=" + currentStr);
+						patternSet.add("");
+					}
+
+					String[] tempArr = currentStr.split("/");
+					for (String s : tempArr) {
+						patternSet.add(s);
+					}
+
+					line = in.readLine();
+				}
+
+				out.write("</aiml>\r\n");
+				out.close();
+				in.close();
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	private void generateSingleDomainTemplate(String inputFile, String outputFile) {
 
 		try {
 			FileWriter newFile = new FileWriter(outputFile);
@@ -105,8 +187,8 @@ public class TemplateGenerator {
 					// each part between ^s is a list of words;
 					// make the combination of all the parts
 					List<List<String>> patternList = new ArrayList<>();
-					
-					for(int i=0;i<patternArr.length;i++){
+
+					for (int i = 0; i < patternArr.length; i++) {
 						String part = patternArr[i];
 						List<String> list = new ArrayList<>();
 						if (part.contains("#")) {
@@ -127,47 +209,47 @@ public class TemplateGenerator {
 							// normal case
 							list.add(part + "^ ");
 						}
-						
-						if(i == patternArr.length-1 && !pattern.trim().endsWith("^")){
-							for(int j=0; j<list.size();j++){
+
+						if (i == patternArr.length - 1 && !pattern.trim().endsWith("^")) {
+							for (int j = 0; j < list.size(); j++) {
 								String tempS = list.get(j);
-								list.set(j, tempS.substring(0, tempS.length()-2));
+								list.set(j, tempS.substring(0, tempS.length() - 2));
 							}
 						}
-						
+
 						patternList.add(list);
 						count++;
 					}
-					
-//					for (String part : patternArr) {
-//						List<String> list = new ArrayList<>();
-//						if (part.contains("#")) {
-//							// System.out.println("##### part = "+part);
-//							// entity case
-//							if (!part.equals("#"))
-//								System.err.println("wrong format: part=" + part);
-//							count++;
-//							entityPos = count;
-//							list.add(domain + "^ ");
-//						} else if (part.contains("/")) {
-//							// multiple possibility case
-//							String[] strArr = part.split("/");
-//							for (String s : strArr) {
-//								list.add(s + "^ ");
-//							}
-//						} else {
-//							// normal case
-//							list.add(part + "^ ");
-//						}
-//						patternList.add(list);
-//						count++;
-//					}
-					
-					System.out.println("pattern="+pattern+", patternList=" + patternList);
-					if(pattern.endsWith("^")){
-//						for(String s : patternList){
-//							
-//						}
+
+					// for (String part : patternArr) {
+					// List<String> list = new ArrayList<>();
+					// if (part.contains("#")) {
+					// // System.out.println("##### part = "+part);
+					// // entity case
+					// if (!part.equals("#"))
+					// System.err.println("wrong format: part=" + part);
+					// count++;
+					// entityPos = count;
+					// list.add(domain + "^ ");
+					// } else if (part.contains("/")) {
+					// // multiple possibility case
+					// String[] strArr = part.split("/");
+					// for (String s : strArr) {
+					// list.add(s + "^ ");
+					// }
+					// } else {
+					// // normal case
+					// list.add(part + "^ ");
+					// }
+					// patternList.add(list);
+					// count++;
+					// }
+
+					System.out.println("pattern=" + pattern + ", patternList=" + patternList);
+					if (pattern.endsWith("^")) {
+						// for(String s : patternList){
+						//
+						// }
 					}
 
 					List<String> middlePatterList = new ArrayList<>();
@@ -225,7 +307,7 @@ public class TemplateGenerator {
 		return writePattern(patternList, returnList);
 	}
 
-	private void generateTemplate() {
+	private void generateDomainTemplate() {
 		String listFileName = Common.UserDir + "/knowledgedata/domainList.txt";
 
 		try {
@@ -238,7 +320,7 @@ public class TemplateGenerator {
 
 				System.out.println(
 						"domain=" + domain + ",\n specFileName=" + specFileName + ";\n aimlFileName=" + aimlFileName);
-				generator(specFileName, aimlFileName);
+				generateSingleDomainTemplate(specFileName, aimlFileName);
 			}
 
 			reader.close();
@@ -251,7 +333,7 @@ public class TemplateGenerator {
 
 	public static void main(String[] args) {
 		TemplateGenerator tg = new TemplateGenerator();
-		tg.generateTemplate();
+		tg.generateDomainTemplate();
 		// tg.generator();
 	}
 

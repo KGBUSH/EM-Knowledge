@@ -91,6 +91,7 @@ public class AnswerRewrite {
 	public String rewriteAnswer(String answer) {
 		// if answer is null or answer is introduction, then skip rewrite
 		if (Tool.isStrEmptyOrNull(answer) || answer.length() > 50 || Common.KG_DebugStatus) {
+			System.err.println("Debug STATUS = "+Common.KG_DebugStatus);
 			return answer;
 		}
 
@@ -112,6 +113,7 @@ public class AnswerRewrite {
 	public String rewriteAnswer(String answer, int QuestionType) {
 		// if answer is null or answer is introduction, then skip rewrite
 		if (Tool.isStrEmptyOrNull(answer) || answer.length() > 50 || Common.KG_DebugStatus) {
+			System.err.println("Debug STATUS = "+Common.KG_DebugStatus);
 			return answer;
 		}
 

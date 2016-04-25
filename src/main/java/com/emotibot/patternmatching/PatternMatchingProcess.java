@@ -94,6 +94,17 @@ public class PatternMatchingProcess {
 			uniqueID = "0";
 		}
 
+		// add for debug by PM
+		if (questionType != null && questionType.equals("debug")) {
+			debugFlag = true;
+		} else {
+			debugFlag = false;
+		}
+		// System.err.println("questionType="+questionType+", debugFlag =
+		// "+debugFlag);
+
+		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:" + cuBean.toString());
+
 		if (text == null) {
 			System.err.println("text is null");
 			Debug.printDebug(uniqueID, 2, "knowledge", "init, text is null");
@@ -120,15 +131,6 @@ public class PatternMatchingProcess {
 			isQuestion = true;
 		}
 		userSentence = NLPProcess.removePunctuateMark(userSentence);
-
-		// add for debug by PM
-		if (questionType.equals("debug")) {
-			debugFlag = true;
-		} else {
-			debugFlag = false;
-		}
-
-		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:" + cuBean.toString());
 
 		System.out.println("userSentence=" + userSentence + ", isQuestion=" + isQuestion);
 		segPos = NLPProcess.getSegWord(userSentence);
@@ -164,15 +166,21 @@ public class PatternMatchingProcess {
 		Iterator<String> it = entitySet.iterator();
 		while (it.hasNext()) {
 			String tempEntity = it.next();
-			if (NLPProcess.isInSynonymDict(tempEntity)) {
-				boolean isIntroductionType = isKindofQuestion(userSentence, introductionQuestionType, tempEntity);
-				boolean isStrictType = isKindofQuestion(userSentence, strictIntroductionQuestionType, tempEntity);
-				System.out.println("abnormal entity:" + tempEntity);
-				if (isIntroductionType && !isStrictType) {
-					System.out.println("remove entity:" + tempEntity);
-					it.remove();
-				}
+			if (NLPProcess.isInRemoveableDict(tempEntity)) {
+				System.out.println("remove entity:" + tempEntity);
+				it.remove();
 			}
+			// if (NLPProcess.isInSynonymDict(tempEntity)) {
+			// boolean isIntroductionType = isKindofQuestion(userSentence,
+			// introductionQuestionType, tempEntity);
+			// boolean isStrictType = isKindofQuestion(userSentence,
+			// strictIntroductionQuestionType, tempEntity);
+			// System.out.println("abnormal entity:" + tempEntity);
+			// if (isIntroductionType && !isStrictType) {
+			// System.out.println("remove entity:" + tempEntity);
+			// it.remove();
+			// }
+			// }
 		}
 	}
 
@@ -421,8 +429,11 @@ public class PatternMatchingProcess {
 				strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
 			localAnswer += strIntroduce;
 			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(localAnswer));
+//			answerBean.setScore(
+//					isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), introductionQuestionType, "") ? 100
+//							: 0);
 			answerBean.setScore(
-					isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), introductionQuestionType, "") ? 100
+					isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), introductionQuestionType, entity) ? 100
 							: 0);
 			if (isQuestion == false) {
 				answerBean.setScore(0);
@@ -1236,8 +1247,9 @@ public class PatternMatchingProcess {
 	// test the similarity between target (strProperty) and ref (candidate)
 	private boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
 			boolean isPass) {
-//		 System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap + "\t"+"strProperty=" + strProperty
-//		 + ", candidate=" + candidate);
+		// System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap +
+		// "\t"+"strProperty=" + strProperty
+		// + ", candidate=" + candidate);
 
 		// case of length == 1
 		if (strProperty.length() == 1 || candidate.length() == 1) {
@@ -1255,8 +1267,7 @@ public class PatternMatchingProcess {
 			String longStr = (strProperty.length() > candidate.length()) ? strProperty : candidate;
 			String shortStr = (strProperty.length() > candidate.length()) ? candidate : strProperty;
 			if (longStr.contains(shortStr) && longStr.length() <= shortStr.length() * 2) {
-				int iScore = (strProperty.equals(candidate)) ? 5
-						: 5 * shortStr.length() / longStr.length();
+				int iScore = (strProperty.equals(candidate)) ? 5 : 5 * shortStr.length() / longStr.length();
 				rsMap.put(strProperty, iScore);
 				isPass = true;
 			} else {
@@ -1474,7 +1485,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "男朋友每次吃饭都不让我付钱，感觉有点不好意思诶?";
+		String str = "大熊猫是谁?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");

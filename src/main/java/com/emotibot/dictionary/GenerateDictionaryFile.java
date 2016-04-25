@@ -18,12 +18,12 @@ import com.emotibot.config.ConfigManager;
 import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
 import com.emotibot.neo4jprocess.Neo4jDBManager;
+import com.emotibot.patternmatching.DBProcess;
 import com.emotibot.patternmatching.NLPProcess;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Neo4jResultBean;
 
 public class GenerateDictionaryFile {
-	
 
 	public static EmotibotNeo4jConnection getDBConnection() {
 		ConfigManager cfg = new ConfigManager();
@@ -36,7 +36,6 @@ public class GenerateDictionaryFile {
 		Neo4jDBManager neo4jDBManager = new Neo4jDBManager(neo4jConfigBean);
 		return neo4jDBManager.getConnection();
 	}
-
 
 	public static void changeDB() {
 		EmotibotNeo4jConnection conn = getDBConnection();
@@ -76,19 +75,19 @@ public class GenerateDictionaryFile {
 		for (String s : list) {
 			tempSet.add(s);
 		}
-//		for (String s : NLPProcess.getEntitySynonymTable().keySet()) {
-//			tempSet.add(s);
-//		}
-//		for (String s : NLPProcess.getEntitySynonymTable().values()) {
-//			tempSet.add(s);
-//		}
+		// for (String s : NLPProcess.getEntitySynonymTable().keySet()) {
+		// tempSet.add(s);
+		// }
+		// for (String s : NLPProcess.getEntitySynonymTable().values()) {
+		// tempSet.add(s);
+		// }
 
 		try {
 			String tempFileName = Common.UserDir + "/knowledgedata/entity.txt";
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
 
 			for (String s : tempSet) {
-				if(s.length()==1 && !NLPProcess.isEntityPM(s)) {
+				if (s.length() == 1 && !NLPProcess.isEntityPM(s)) {
 					// remove in 5/31, may be added later
 					System.out.println(s);
 					continue;
@@ -96,7 +95,7 @@ public class GenerateDictionaryFile {
 				out.write(s + "\r\n");
 			}
 			out.close();
-			
+
 			// tempFileName = Common.UserDir + "/knowledgedata/entityH.txt";
 			// BufferedWriter outH = new BufferedWriter(new
 			// FileWriter(tempFileName));
@@ -108,27 +107,27 @@ public class GenerateDictionaryFile {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		System.out.println("entity generation done");
 
 	}
-	
+
 	public static void generateFirstLevelEntity() {
 		EmotibotNeo4jConnection conn = getDBConnection();
-		
+
 		String query = "match(n) where not n:other with n return collect(n.Name) as result";
 		List<String> list = conn.getArrayListfromCollection(query);
-		
+
 		Set<String> tempSet = new HashSet<>();
-		
+
 		for (String s : list) {
 			tempSet.add(s);
 		}
-		
+
 		try {
 			String tempFileName = Common.UserDir + "/knowledgedata/entityFirstLevel.txt";
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
-			
+
 			for (String s : tempSet) {
 				out.write(s + "\r\n");
 			}
@@ -136,9 +135,9 @@ public class GenerateDictionaryFile {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		System.out.println("entity generation done");
-		
+
 	}
 
 	// random check top 1000 entity with the Entity.txt
@@ -196,25 +195,28 @@ public class GenerateDictionaryFile {
 		}
 
 	}
-	
+
 	// generate the entity list entity_ref_PM.txt from domain directory,
 	// and check with entity.txt which is used as the entity dictionary.
 	public static void generateEntityPMFile() {
 		try {
-//			BufferedWriter writer = new BufferedWriter(new FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt", true));
+			// BufferedWriter writer = new BufferedWriter(new
+			// FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt",
+			// true));
 			BufferedWriter writer = new BufferedWriter(new FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt"));
-			
-			for(String s : NLPProcess.getEntitySynonymTable().values()){
-				writer.write(s+"\r\n");
-				if(s.length()==1) System.out.println(s);
+
+			for (String s : NLPProcess.getEntitySynonymTable().values()) {
+				writer.write(s + "\r\n");
+				if (s.length() == 1)
+					System.out.println(s);
 			}
-			
+
 			writer.close();
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	public static void generateDuplicateEntityFile() {
@@ -297,18 +299,96 @@ public class GenerateDictionaryFile {
 		}
 
 	}
-	
+
+	public static void generatehighFrequentWordFile() {
+		List<String> entitySet = new ArrayList<>();
+		try {
+
+			BufferedReader in = new BufferedReader(
+					new FileReader(Common.UserDir + "/knowledgedata/dictionary/highFrequentWord.txt"));
+			String line = in.readLine();
+
+			String outFileName = Common.UserDir + "/knowledgedata/dictionary/highFrequent1W.txt";
+			BufferedWriter out = new BufferedWriter(new FileWriter(outFileName));
+
+			Set<String> strSet = new HashSet<>();
+
+			while (line != null) {
+				line = line.replace(" ", " ");
+				line = CharUtil.trim(line).toLowerCase();
+				if (line.isEmpty()) {
+					line = in.readLine();
+					continue;
+				}
+				line = line.replace("  ", " ");
+				line = line.replace("  ", " ");
+
+				String[] strArr = line.split("\t");
+				if (strArr.length != 3) {
+					System.err.println("wrong format: line=" + line + ", length=" + strArr.length);
+					line = in.readLine();
+					continue;
+				}
+
+				int fq = Integer.parseInt(strArr[2]);
+				if (fq <= 10000) {
+					strSet.add(strArr[0]);
+				}
+
+				line = in.readLine();
+			}
+
+			for (String s : strSet) {
+				out.write(s + "\r\n");
+			}
+
+			in.close();
+			out.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void generateRemoveableHighFrequentWordFile() {
+		List<String> entitySet = new ArrayList<>();
+		try {
+
+			String outFileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent.txt";
+			BufferedWriter out = new BufferedWriter(new FileWriter(outFileName));
+
+			Set<String> setEntity = NLPProcess.getEntityTable();
+			Set<String> setHighWord = NLPProcess.getHighFeqWordTable();
+
+			for (String s : setEntity) {
+				if (setHighWord.contains(s)) {
+					String tempLabel = DBProcess.getEntityLabel(s);
+					if (tempLabel.endsWith("other")) {
+						out.write(s + "\r\n");
+					}
+				}
+			}
+			out.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	public static void main(String[] args) {
 		NLPProcess nlp = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		generateEntity();
-		System.exit(0);
-//		generateFirstLevelEntity();
-		
-//		generateEntityPMFile();
-	}
 
-	
+		generateRemoveableHighFrequentWordFile();
+
+		System.exit(0);
+//		generatehighFrequentWordFile();
+		// generateEntity();
+		// generateFirstLevelEntity();
+
+		// generateEntityPMFile();
+	}
 
 }

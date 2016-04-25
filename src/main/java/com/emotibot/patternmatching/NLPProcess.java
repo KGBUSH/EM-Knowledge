@@ -44,6 +44,8 @@ public class NLPProcess {
 	// entitySynonymReverseTable:[甲肝，甲型病毒性肝炎]
 	// private static Map<String, String> entitySynonymReverseTable =
 	// createEntitySynonymReverseTable();
+	private static Set<String> highFeqWordTable = createHighFeqWordTable();
+	private static Set<String> removeableHighFeqWordTable = createRemoveableHighFeqWordTable();
 
 	public static void NLPProcessInit() {
 		addCustomDictionaryInHanlp();
@@ -52,6 +54,10 @@ public class NLPProcess {
 		// stopWordTable = createStopWordTable();
 		// entityTable = createEntityTable();
 		// entitySynonymTable = createEntitySynonymTable();
+	}
+
+	public static Set<String> getHighFeqWordTable() {
+		return highFeqWordTable;
 	}
 
 	public static Set<String> getEntityTable() {
@@ -127,7 +133,7 @@ public class NLPProcess {
 				return null;
 			}
 		}
-		
+
 		return entitySyn;
 	}
 
@@ -159,7 +165,90 @@ public class NLPProcess {
 			}
 		}
 
+		System.out.println("entitySet lengh = "+entitySet.size());
 		return entitySet;
+	}
+
+//	// createRemoveableHighFeqWordTable
+//	private static Set<String> createRemoveableHighFeqWordTable() {
+//		Set<String> setEntity = NLPProcess.getEntityTable();
+//		Set<String> setHighWord = NLPProcess.getHighFeqWordTable();
+//		Set<String> setRemovealbeHighFWord = new HashSet<>();
+//
+//		for (String s : setEntity) {
+//			if (setHighWord.contains(s)) {
+//				String tempLabel = DBProcess.getEntityLabel(s);
+//				if (tempLabel.endsWith("other")){
+//					setRemovealbeHighFWord.add(s);
+//				}
+//			}
+//		}
+//
+//		System.out.println("setRemovealbeHighFWord lengh = "+setRemovealbeHighFWord.size());
+//		return setRemovealbeHighFWord;
+//	}
+
+	// createHighFeqWordTable
+	private static Set<String> createRemoveableHighFeqWordTable() {
+		Set<String> wordSet = new HashSet<>();
+		String fileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent.txt";
+		System.out.println("path is " + fileName);
+		
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = "";
+				while ((word = dis.readLine()) != null) {
+					// all entity in table are in low case
+					wordSet.add(CharUtil.trim(word).toLowerCase());
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		System.out.println("createRemoveableHighFeqWordTable lengh = "+wordSet.size());
+		return wordSet;
+	}
+	
+	
+	// createHighFeqWordTable
+	private static Set<String> createHighFeqWordTable() {
+		Set<String> wordSet = new HashSet<>();
+		String fileName = Common.UserDir + "/knowledgedata/dictionary/highFrequent1W.txt";
+		System.out.println("path is " + fileName);
+
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = "";
+				while ((word = dis.readLine()) != null) {
+					// all entity in table are in low case
+					wordSet.add(CharUtil.trim(word).toLowerCase());
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+
+		System.out.println("createHighFeqWordTable lengh = "+wordSet.size());
+		return wordSet;
 	}
 
 	// create entity table Set
@@ -391,6 +480,15 @@ public class NLPProcess {
 	}
 
 	// if str in synonym dictionary or not
+	public static boolean isInRemoveableDict(String str) {
+		if (!str.isEmpty() && removeableHighFeqWordTable.contains(str)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// if str in synonym dictionary or not
 	public static boolean isInSynonymDict(String str) {
 		if (!str.isEmpty() && synonymTable.containsKey(str)) {
 			return true;
@@ -593,11 +691,10 @@ public class NLPProcess {
 	}
 
 	public static void main(String[] args) {
-		
+
 		System.out.println(entitySynonymTable.keySet());
 		System.exit(0);
-		
-		
+
 		String str = "姚明是谁。";
 		NLPProcess sp = new NLPProcess();
 
