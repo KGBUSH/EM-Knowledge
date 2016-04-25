@@ -146,27 +146,16 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 						System.err.println("name is not contain in WordLabelMap " + name+"  "+pmWord+" "+url+" "+NodeOrRelation);
 						//if(NodeOrRelation.equals("1")||NodeOrRelation.equals("2")) return;
 					}
-					//return;
-                   /* if(NodeOrRelation.equals("3")) {
-                    	if(WordLabelMap.containsKey(name)){
-        					System.err.println("First have the Name:="+name);
-        					return ;
-                    	}
-                    	label=Other;
-                    }
-                    if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3")) {
-                    	if(WordLabelMap.containsKey(name)) label = WordLabelMap.get(name);
-                    	else label=Other;
-                    }*/
 
 					ImmutableBytesWritable outputKey = new ImmutableBytesWritable();
 					outputKey.set(Bytes.toBytes(getASCIISum(url, 3)));
 
 					if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
 					{
-					if(WordLabelMap.containsKey(name)) label = WordLabelMap.get(name);
+					if(WordLabelMap.containsKey(pmWord)) label = WordLabelMap.get(pmWord);
                     else label=Other;
 					System.err.println("label="+label);
+					System.err.println("LabelInfo:"+name+"###"+pmWord+"###"+label);
 					BuildCypherSQL bcy = new BuildCypherSQL();
 					pageExtractInfo.addAttr(md5, DigestUtils.md5Hex(url));
 					String query = bcy.InsertEntityNode(label, pageExtractInfo.getParamMd5(), pageExtractInfo.getAttr());
