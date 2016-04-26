@@ -299,7 +299,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 			String label = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
 			while (in.readLine(line) > 0) {
 				// result.add(line.toString());
-				lineStr = line.toString().trim();
+				lineStr = line.toString().trim().toLowerCase();
 				if(lineStr==null||lineStr.length()==0) continue;
 				System.err.println(lineStr + "MMMM" + label);
 				WordLabelMap.put(lineStr, label);
