@@ -142,6 +142,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					BaikeExtractor baikeExtractor = new BaikeExtractor(html);
 					PageExtractInfo pageExtractInfo = baikeExtractor.ProcessPage();
 					String name = pageExtractInfo.getName();
+					name=MyTrim(name);
 					boolean flag = name.equals(pmWord);
 					boolean name_flag =WordLabelMap.containsKey(name);
 					boolean pmname_flag = WordLabelMap.containsKey(pmWord);
@@ -159,8 +160,18 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 
 					if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
 					{
-					if(WordLabelMap.containsKey(pmWord)) label = WordLabelMap.get(pmWord);
-                    else label=Other;
+					//if(WordLabelMap.containsKey(pmWord)) label = WordLabelMap.get(pmWord);
+                    //else label=Other;
+					if(pmWord!=null&&pmWord.trim().length()>0)
+					{
+						if(WordLabelMap.containsKey(pmWord)) label = WordLabelMap.get(pmWord);
+	                    else label=Other;
+					}
+					else
+					{
+						if(WordLabelMap.containsKey(name)) label = WordLabelMap.get(name);
+	                    else label=Other;
+					}
 					System.err.println("label="+label);
 					System.err.println("LabelInfo:"+name+"###"+pmWord+"###"+label);
 					BuildCypherSQL bcy = new BuildCypherSQL();

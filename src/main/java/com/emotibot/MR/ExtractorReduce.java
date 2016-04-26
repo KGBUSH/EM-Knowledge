@@ -93,7 +93,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 	protected void reduce(ImmutableBytesWritable key, Iterable<Text> values, Context context)
 			throws IOException, InterruptedException {
 
-			/*long solrDocnum=0;
+			long solrDocnum=0;
 			List<String> list = new ArrayList<>();
 			for (Text value : values) {
 		try {
@@ -197,7 +197,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
      					  list.clear();
 
                        }
-			}*/
+			}
 		
 	}
 	
