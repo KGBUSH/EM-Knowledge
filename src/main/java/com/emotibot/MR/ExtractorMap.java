@@ -100,6 +100,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 		for (String f : fileList) {
 			getFileLine(f);
 		}
+		getWordLabel("/domain/label.txt");
 	}
 
 	@Override
@@ -146,8 +147,8 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					boolean flag = name.equals(pmWord);
 					boolean name_flag =WordLabelMap.containsKey(name);
 					boolean pmname_flag = WordLabelMap.containsKey(pmWord);
-					System.err.println("NAME="+name);
-					System.err.println("NAME="+pmWord);
+					//if(name_flag)  System.err.println("NAME="+name+"###"+WordLabelMap.get(name));
+					//if(pmname_flag) System.err.println("NAME="+pmWord+"###"+WordLabelMap.get(pmname_flag));
 					System.err.println("MM"+name+"KKKKK"+pmWord+"MM  "+flag+" "+name_flag+"  "+pmname_flag);
 					//if(name==null) return ;
 					if (name != null && !WordLabelMap.containsKey(name)) {
@@ -174,6 +175,9 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					}
 					System.err.println("label="+label);
 					System.err.println("LabelInfo:"+name+"###"+pmWord+"###"+label);
+					System.err.println("LabelInfoData:"+pmWord+"###"+label);
+					System.err.println("LabelInfoData:"+name+"###"+label);
+
 					BuildCypherSQL bcy = new BuildCypherSQL();
 					pageExtractInfo.addAttr(md5, DigestUtils.md5Hex(url));
 					String query = bcy.InsertEntityNode(label, pageExtractInfo.getParamMd5(), pageExtractInfo.getAttr());
@@ -311,4 +315,33 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 		}
 
 	}
+	
+	public void getWordLabel(String fileName) {
+		try {
+			if (fileName == null || fileName.trim().length() == 0) {
+				System.err.println("fileName==null||fileName.trim().length()==0");
+				System.exit(0);
+			}
+			Configuration conf = new Configuration();
+			FileSystem hdfs = FileSystem.get(conf);
+			Path inPath = new Path(fileName);
+			FSDataInputStream dis = hdfs.open(inPath);
+			LineReader in = new LineReader(dis, conf);
+			Text line = new Text();
+			String lineStr = "";
+			while (in.readLine(line) > 0) {
+				if(lineStr==null||lineStr.length()==0) continue;
+				lineStr = line.toString().trim().toLowerCase();
+				String[] arr = lineStr.split("###");
+				System.err.println(lineStr + "MMMM2" + label);
+				if(arr!=null&&arr.length==2) WordLabelMap.put(arr[0].trim(), arr[1].trim());
+			}
+			dis.close();
+			in.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
 }
