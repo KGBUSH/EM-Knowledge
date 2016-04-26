@@ -191,7 +191,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
                     {
 						tongyici=pageExtractInfo.getTongyici().trim();
                     }
-					System.err.println("Tongyici1:"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.GetSynonym()+",,,"+tongyici);
+					System.err.println("Tongyici1:"+name+"tiletags"+"###"+pmWord+"###"+url+"###"+pageExtractInfo.GetSynonym()+",,,"+tongyici);
 
 					//////////
 					Map<String,String> WordLink=pageExtractInfo.getWordLinkMap();
