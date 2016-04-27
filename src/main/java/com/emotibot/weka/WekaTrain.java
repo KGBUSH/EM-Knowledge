@@ -85,7 +85,7 @@ public class WekaTrain {
 
 	public static void main(String args[]) throws Exception
 	{
-		String file="tag.arff";
+		String file="tagNew.arff";
 		Train(file);
 		LoadTest(file);
 		CrossValidateModelTest();

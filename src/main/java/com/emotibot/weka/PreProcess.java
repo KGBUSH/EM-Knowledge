@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.Map.Entry;
 
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 
 public class PreProcess {
@@ -61,7 +62,13 @@ public class PreProcess {
 			for(String tag:tags.split(" "))
 			{
 				tag=tag.trim();
-				System.err.println("tag="+tag);
+				tag=CharUtil.trim(tag);
+				if(tag.length()==0){
+					System.err.println("tag="+tag);
+					continue;
+				}
+				//System.err.println("tag="+tag);
+				
 				if(!words.contains(tag)) words.add(tag);
 			}
 		}
@@ -119,8 +126,17 @@ public class PreProcess {
 			 Map<Integer, Integer>  map = new HashMap<>();
 			 for(String tag:tags.split(" "))
 				{
+					tag=tag.trim();
+					tag=CharUtil.trim(tag);
+					if(tag.length()==0){
+						System.err.println("tag="+tag);
+						continue;
+					}
+
 				 map.put(TagCommon.mapIndex.get(tag), 1);
 				}
+			// System.err.println("map.size="+map.size());
+
 		        List<Map.Entry<Integer, Integer>> list = new ArrayList<Map.Entry<Integer, Integer>>(map.entrySet());  
 		        Collections.sort(list, new Comparator<Map.Entry<Integer, Integer>>() {  
 		            //降序排序  
@@ -138,7 +154,7 @@ public class PreProcess {
 				newLine+="}";
 				buffer.append(newLine+"\r\n");
 		}
-		FileWriter f = new FileWriter("tag.arff");
+		FileWriter f = new FileWriter("tagNew.arff");
         f.write(buffer.toString());
         f.close();
         for(String key:TagCommon.DomainNum.keySet())
@@ -148,7 +164,7 @@ public class PreProcess {
 	}
 	public static void main(String args[]) throws IOException
 	{
-		ProduceArffNum("weka.txt");
+		ProduceArffNum("arff/wekaNew.txt");
 	}
 
 }
