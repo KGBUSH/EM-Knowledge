@@ -47,9 +47,9 @@ public class DebugTest {
 	
 	public static void main(String [] args){
 		String debugLevel = "bad_case"; //bad_case, debugAll
-		String date = "0422";
+		String date = "0427";
 		String reader = Common.UserDir + "/log/debug/cases/"+debugLevel+".txt";
-		String writer = Common.UserDir + "/log/debug/"+debugLevel+"_cases-"+date+"-02.txt";
+		String writer = Common.UserDir + "/log/debug/"+debugLevel+"_cases-"+date+"-01.txt";
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
 		System.out.println("TIME 1 - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));

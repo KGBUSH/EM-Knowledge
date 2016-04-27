@@ -59,6 +59,15 @@ public class NLPProcess {
 	public static Set<String> getHighFeqWordTable() {
 		return highFeqWordTable;
 	}
+	
+	// if str in high frequent word dictionary or not
+	public static boolean isInHighFreqDict(String str) {
+		if (!str.isEmpty() && highFeqWordTable.contains(str)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public static Set<String> getEntityTable() {
 		return entityTable;
@@ -478,6 +487,28 @@ public class NLPProcess {
 		}
 		return syn;
 	}
+	
+	// remove the removeable string in the set
+	public static Set<String> removeRemoveableEntity(Set<String> entitySet){
+		Set<String> rsSet = new HashSet<>();
+		for(String s : entitySet){
+			if(!isInRemoveableDict(s)){
+				rsSet.add(s);
+			}
+		}
+		return rsSet;
+	}
+	
+	// remove the removeable string in the set
+	public static List<String> removeRemoveableEntity(List<String> entitySet){
+		List<String> rsSet = new ArrayList<>();
+		for(String s : entitySet){
+			if(!isInRemoveableDict(s)){
+				rsSet.add(s);
+			}
+		}
+		return rsSet;
+	}
 
 	// if str in synonym dictionary or not
 	public static boolean isInRemoveableDict(String str) {
@@ -617,11 +648,9 @@ public class NLPProcess {
 		}
 
 		entitySet = removeContainedElements(entityTreeSet);
-
-		// Iterator<String> it = entityTreeSet.iterator();
-		// while (it.hasNext()) {
-		// entitySet.add(it.next().toString());
-		// }
+		
+		// remove the high frequent entities
+		entitySet = removeRemoveableEntity(entitySet);
 
 		System.out.println("the macthed entities are: " + entitySet.toString());
 		return entitySet;
@@ -650,6 +679,7 @@ public class NLPProcess {
 		// }
 
 		entitySet = removeContainedElements(entityTreeSet);
+		entitySet = removeRemoveableEntity(entitySet);
 		System.out.println("the result entities of NLP are: " + entitySet.toString());
 		return entitySet;
 	}

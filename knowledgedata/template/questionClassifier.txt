@@ -1,4 +1,8 @@
-IntroductionQuestion;^&#&是谁/是什么/指什么/啥意思/什么意思/干嘛的/是啥/怎么样&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗]
-IntroductionQuestion;^&谁是/什么是&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗]
-IntroductionQuestion;^&认识/知道/了解/听说过/熟悉&#&吗
+IntroductionQuestion;^&#&是什么&^
+IntroductionQuestion;^&#&是谁/是啥/指什么&[意思/含义]&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗]
+IntroductionQuestion;^&#&[有]&啥/什么&意思/含义&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗]
+IntroductionQuestion;^&#&[是]&做什么的/干嘛的/怎么样&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗]
+IntroductionQuestion;^&谁是/什么是&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛]
+IntroductionQuestion;^&认识/知道/了解/听说过/熟悉&#&吗/嘛
 IntroductionQuestion;[请]&介绍/陈述&[一下/下]&#&[吧]
+IntroductionQuestion;什么&叫/叫做/是&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗]
