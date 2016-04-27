@@ -9945,7 +9945,7 @@ Weka:音乐作品 娱乐作品 单曲 R&B###varity_show
 Weka:娱乐明星 娱乐人物 偶像 SNH48###figure
 Weka:行业人物 经济人物 人物 YYCEO###figure
 Weka:韩国组合 娱乐明星 偶像 exo EXO-K###figure
-Weka:日本动画 原创动画 动画 其他 DOG%20DAYS###anime
+Weka:日本动画 原创动画 动画 其他###anime
 Weka:行业人物 科研人员 电影 教授 教师 学者 其他 人物###figure
 Weka:文学作品 文学书籍 散文 名著 古诗 作家 书籍 中国文学###novel
 Weka:自然地理 组织机构 社会 景点 城镇 地理 地点 中国地名###tourism
