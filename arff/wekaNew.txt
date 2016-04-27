@@ -5370,7 +5370,6 @@ Weka:2011年电视剧 剧情剧 电视剧作品 电视剧 电影 影视作品 �
 Weka:2011年电视剧 剧情剧 电视剧作品 电视剧 影视作品 娱乐作品###TV_series
 Weka:2011年电视剧 电视剧作品 电视剧 影视作品 小说 娱乐作品###TV_series
 Weka:2011年电视剧 电视剧作品 电视剧 影视作品###TV_series
-Weka:2011年美国公告牌百强单曲榜冠军单曲###other
 Weka:2012年电影 剧情电影 电影作品 电影 影视作品 娱乐作品###movie
 Weka:2012年电影 剧情电影 电影作品 美国电影 电影 影视作品 娱乐作品###movie
 Weka:2012年电影 剧情电影 电影作品 美国电影 电影 影视作品###movie
@@ -5476,7 +5475,6 @@ Weka:2015年电视剧 科幻剧 爱情剧 古装剧 动作剧 电视剧作品 �
 Weka:2015年电视剧 科幻剧 爱情剧 古装剧 电视剧作品 电视剧 影视作品 娱乐作品###TV_series
 Weka:2015年电视剧 剧情剧 爱情剧 电视剧作品 电视剧 影视作品 娱乐作品 内地剧###TV_series
 Weka:2015年电视剧 剧情电影 动作电影 惊悚电影 科幻电影 电影作品 电视剧 影视作品 娱乐作品###movie
-Weka:2015年流行专辑###other
 Weka:80年代电影 00年代电影 大陆电影 动作电影 电影作品 香港电影 美国电影 电影 影视演员 影视作品 娱乐作品###movie
 Weka:80年代电影 90年代电影 00年代电影 剧情电影 爱情电影 电影作品 美国电影 电影 影视作品 娱乐作品###movie
 Weka:80年代电影 电影 影视作品 小说作品 小说 书籍###novel
@@ -5569,7 +5567,6 @@ Weka:90年代电视剧 古装剧 电视剧作品 电视剧 影视作品 娱乐�
 Weka:90年代电视剧 爱情剧 电视剧作品 电视剧 影视作品 娱乐作品###TV_series
 Weka:90年代电视剧 剧情剧 电视剧作品 娱乐作品###TV_series
 Weka:90年代电视剧 古装剧 电视剧作品 娱乐作品###TV_series
-Weka:###other
 Weka:阁 杜甫 景点 建筑 其他文化 仿古###tourism
 Weka:词 电影 演出 戏剧###movie
 Weka:男 演员 歌手 娱乐人物 人物 80后演员###figure
@@ -5599,7 +5596,6 @@ Weka:词 生物物种 植物###medical_treatment
 Weka:词 文学作品 文学书籍 文学###novel
 Weka:词 言情小说 文学作品 文学书籍 小说作品 小说 娱乐作品 出版物###novel
 Weka:茶###medical_treatment
-Weka:词###other
 Weka:人物 J罗###figure
 Weka:动漫 galgame###catchword
 Weka:生物 狗 犬种 宠物 动物###major
@@ -5635,7 +5631,6 @@ Weka:景点 旅游 四川 AAAA###tourism
 Weka:综艺 相声 电视 cctv CCTV-3###varity_show
 Weka:景点 旅游 山脉 山 地理 地点 南京###tourism
 Weka:景点 景区 旅游 山 南京###tourism
-Weka:钦州 灵山 广西 县 六峰山###other
 Weka:省份 湖泊 湖南 湖###tourism
 Weka:读书 图书 书籍 书###novel
 Weka:景点 景区 旅游 建筑 寺庙 南京 佛教###tourism
@@ -5878,7 +5873,6 @@ Weka:电影 其他 人物 书画家###figure
 Weka:画家 外国 人物 书画家###figure
 Weka:文化 学科 哲学 出版物###major
 Weka:药物 功效 中药 中成药###medical_treatment
-Weka:花卉 石蒜 梵语 彼岸花###other
 Weka:文化 山脉 地点 出版物###tourism
 Weka:景点 旅游 历史 博物馆###tourism
 Weka:湖南 景点 旅游 张家界###tourism
@@ -6128,7 +6122,6 @@ Weka:文学 小说 多义词 地球###novel
 Weka:期刊 文学 出版物 书籍###novel
 Weka:谜语 词汇 歇后语 文学###novel
 Weka:景点 景区 影视城 地点###tourism
-Weka:陈越 旅途 女声版 在路上 MV###other
 Weka:画家 人物 书画家 主持人 中国###figure
 Weka:诗人 曹魏 政治家 军事家 三国###major
 Weka:逆天 诗歌 花小探 梦游体 文学###novel
@@ -6436,7 +6429,6 @@ Weka:科技 疾病 医学术语###medical_treatment
 Weka:电影 演出 娱乐作品###movie
 Weka:电影 演出 影视作品###movie
 Weka:演出 小说 娱乐作品###novel
-Weka:燃料 溶剂 有机化学###other
 Weka:词语 体育 交通工具###sports
 Weka:地名 乡镇 中国地名###tourism
 Weka:地理 地点 中国地名###tourism
@@ -6628,10 +6620,6 @@ Weka:科学 小说###novel
 Weka:经典 文学###novel
 Weka:诗词 文学###novel
 Weka:音乐 小说###novel
-Weka:探月 嫦娥###other
-Weka:澳门 教堂###other
-Weka:色彩 分类###other
-Weka:苹果 水果###other
 Weka:字词 体育###sports
 Weka:科技 体育###sports
 Weka:足球 体育###sports
@@ -6685,7 +6673,6 @@ Weka:饮料 茶文化 茶叶 红茶 保健###medical_treatment
 Weka:鹦鹉 鹦形目 鸟纲 攀禽 动物###major
 Weka:大学 非文化 语言 文化 交通术语 书籍###major
 Weka:大牌 非科学 经济 科学 知名品牌 汽车型号 手机品牌 手机 中国品牌###digital_product
-Weka:鹦鹉 鹦形目 鸟纲 攀禽 凤头鹦鹉科###other
 Weka:漫画 多义词 动画 动漫###anime
 Weka:词语 科学家 字词 人物###catchword
 Weka:饮食 非人物 技术 人物###delicacy
@@ -6720,7 +6707,6 @@ Weka:豆科 农产品 中药###medical_treatment
 Weka:电影 多义词 公司###movie
 Weka:小说 多义词 书籍###novel
 Weka:期刊 出版物 作家###novel
-Weka:福建 白水洋 屏南###other
 Weka:电影 武术家 咏春拳 其他 一代宗师###movie
 Weka:重庆 渝中区 洪崖洞 景点 城市名片###tourism
 Weka:语言 著作权 摄影师 摄影大展 摄影作品###catchword
@@ -6783,8 +6769,6 @@ Weka:自然 农作物###medical_treatment
 Weka:中药 中成药###medical_treatment
 Weka:小说 多义词###novel
 Weka:文学 出版物###novel
-Weka:属性 商品房###other
-Weka:省会 地级市###other
 Weka:城镇 南昌市###tourism
 Weka:音乐 非地理###varity_show
 Weka:时尚 奥黛丽·赫本 奥斯卡影后 人道主义者###figure
@@ -7154,7 +7138,6 @@ Weka:电影 历史书籍 出版物 其他 书籍###novel
 Weka:电影 文学书籍 出版物 其他 书籍###novel
 Weka:电影 烹饪书籍 出版物 其他 书籍###novel
 Weka:自然 生物物种 植物药 植物 保健品 中药###medical_treatment
-Weka:舒淇 电影歌曲 张学友 刘烨 不再让你孤单###other
 Weka:歌手 娱乐人物 制作人 人物###figure
 Weka:教程 工业书籍 出版物 书籍###major
 Weka:文化 化工产品 出版物 书籍###major
@@ -7647,8 +7630,6 @@ Weka:间谍 角色扮演游戏 网页游戏 游戏作品 游戏 密室逃脱###c
 Weka:大学 文化产业管理 文化产业 工商管理 专业###major
 Weka:动画 创圣的大天使###anime
 Weka:浙江 历史文化名城###tourism
-Weka:王宁 海南省民政厅###other
-Weka:苏扬 听见你的声音###other
 Weka:山脉 乡级行政区划###tourism
 Weka:首都 外国行政区划###tourism
 Weka:语言 真历史考古资料 民族 殷姓氏 商朝 商族###catchword
@@ -7656,7 +7637,6 @@ Weka:省会 湖南省行政区划 国家历史文化名城 中国地名###touris
 Weka:乡镇 中国其他行政区划###tourism
 Weka:国家 中国其他行政区划###tourism
 Weka:山脉 中国其他行政区划###tourism
-Weka:猫咪122只###other
 Weka:动画###anime
 Weka:漫画###anime
 Weka:其他###catchword
@@ -7735,17 +7715,6 @@ Weka:疾病###medical_treatment
 Weka:电影###movie
 Weka:小说###novel
 Weka:文学###novel
-Weka:名字###other
-Weka:声优###other
-Weka:年号###other
-Weka:招式###other
-Weka:文章###other
-Weka:曲艺###other
-Weka:术语###other
-Weka:漏了###other
-Weka:舞剧###other
-Weka:货币###other
-Weka:院长###other
 Weka:体育###sports
 Weka:时尚###sports
 Weka:公园###tourism
@@ -7792,7 +7761,6 @@ Weka:大陆剧 2015年电视剧 剧情剧 电视剧作品 影视作品 娱乐作
 Weka:大陆剧 2015年电视剧 剧情剧 电视剧作品 娱乐作品###TV_series
 Weka:大陆剧 2015年电视剧 小说作品 娱乐作品###novel
 Weka:大陆剧 2015年电视剧 电视剧作品 影视作品 娱乐作品###TV_series
-Weka:一青窈 CD###other
 Weka:朴灿烈 exo LUHAN KAI JINO###figure
 Weka:轻小说 vocaloid###novel
 Weka:秋叶原 日本 公司 CBD ACGN###digital_product
@@ -7970,7 +7938,6 @@ Weka:非社会 社会 书籍###major
 Weka:非社会 社会 教育###major
 Weka:出版物 作家 书籍###novel
 Weka:非文化 文化 小说###novel
-Weka:黑龙江 省会 东北###other
 Weka:街区路 城镇 地点###tourism
 Weka:街区路 景点 地点###tourism
 Weka:非地理 地理 地点###tourism
@@ -7984,7 +7951,6 @@ Weka:鲈形目 鱼类 自然界 神枪手 生物物种 动物###medical_treatmen
 Weka:搞笑剧 港剧 古装剧 动作剧 电视剧作品 电视剧 影视作品 娱乐作品 四大名著###TV_series
 Weka:剧情剧 台剧 古装剧 动作剧 电视剧作品 电视剧 影视作品 娱乐作品###TV_series
 Weka:剧情剧 台剧 爱情剧 古装剧 电视剧作品 电视剧 影视作品###TV_series
-Weka:陶渊明 游记 文言文 文化艺术 古代文学###other
 Weka:谢霆锋 综艺 真人秀 浙江卫视###major
 Weka:悬疑剧 日剧 推理剧 小说改编剧 2010年电视剧###major
 Weka:爱情剧 港剧 战争剧 电视剧作品 电视剧 电影 影视作品###TV_series
@@ -8168,7 +8134,6 @@ Weka:剧情剧 爱情剧 港剧 动作剧 电视剧作品 电视剧 影视作品
 Weka:剧情剧 搞笑剧 港剧 动作剧 电视剧作品 电视剧 影视作品###TV_series
 Weka:运动员 快船队 外国 体育人物 人物 nba###figure
 Weka:非文化 科学家 文化 教育学家 学科 人物###figure
-Weka:鹦鹉科 鹦形目 鸟类 牡丹鹦鹉 攀禽###other
 Weka:非社会 非历史 足球 组织机构 社会团体 历史 俱乐部 体育###sports_organization
 Weka:剧情剧 爱情剧 社会 电视剧作品 电视剧 电影 字词 娱乐作品 其他文化###TV_series
 Weka:剧情剧 爱情剧 舞曲 电视剧作品 电视剧 歌曲 广场舞 中国媳妇###TV_series
@@ -8199,7 +8164,6 @@ Weka:长野博 奥特曼 动漫###catchword
 Weka:非社会 非娱乐 社会###catchword
 Weka:非生活 电视剧 生活###cosmetics
 Weka:非生活 非娱乐 生活###cosmetics
-Weka:钢的琴 郭晓冬 话剧###other
 Weka:非自然 古代史 历史###tourism
 Weka:剧情剧 搞笑剧 爱情剧 日剧 音乐 青春 电视剧作品 漫画改编 娱乐作品 与理想有关###TV_series
 Weka:爱情剧 古装剧 动作剧 陈晓 金庸 电视剧作品 武侠 娱乐作品###TV_series
@@ -8305,7 +8269,6 @@ Weka:剧情剧 恐怖剧 网络剧 电视剧作品 影视作品 娱乐作品###T
 Weka:剧情剧 搞笑剧 爱情剧 韩国电视剧 电视剧作品 影视作品 娱乐作品###TV_series
 Weka:搞笑剧 科幻剧 古装剧 电视剧作品###TV_series
 Weka:剧情剧 搞笑剧 爱情剧 还珠格格系列 电视剧作品 电视剧 国语###TV_series
-Weka:王大陆 李玉玺 宋芸桦###other
 Weka:文学家 教育家 教育学家 学者 作家 人物 中国###figure
 Weka:运动员 跆拳道 体育人物 体育 人物 中国###figure
 Weka:非自然 非社会 自然地理 社会 地点 地形地貌 乡级行政区划 中国其他行政区划###tourism
@@ -8437,7 +8400,6 @@ Weka:剧情剧 搞笑剧 韩国电视剧 电视剧作品 电视剧###TV_series
 Weka:剧情剧 爱情剧 电视剧现代 电视剧作品 影视作品 娱乐作品 刘恺威###TV_series
 Weka:古装剧 动作剧 电视剧作品###TV_series
 Weka:大陆剧 战争剧 革命历史题材 电视剧作品 电视剧 2007年电视剧###TV_series
-Weka:经济学 社会学 社会主义经济学 思想政治###other
 Weka:太平洋 大洋洲###major
 Weka:西安市 地理学###major
 Weka:非社会 行业人物 经济 社会 文化 教育 人物###economy
@@ -8559,7 +8521,6 @@ Weka:非自然 体育术语 体育###sports
 Weka:非地理 自然地理 考古学 景点 旅游 学科 地理学术语 地理 地点###tourism
 Weka:设计师 行业人物 工程师 人物###figure
 Weka:龙应台 文学书籍 出版物 书籍###novel
-Weka:陶渊明 湖南常德 桃花源 桃源县 故事典故###other
 Weka:轻小说 电击文库 川原砾 小说作品 小说 娱乐作品 加速世界###novel
 Weka:电视剧 影视作品 多义词###TV_series
 Weka:电视剧 歌曲名称 剧情片###TV_series
@@ -8602,7 +8563,6 @@ Weka:轻小说 娱乐作品 动漫作品 剧情类动漫 京都###anime
 Weka:电视剧 影视作品 动漫作品 剧情类动漫###anime
 Weka:电视剧 影视作品 娱乐作品###TV_series
 Weka:轻小说 小说作品 娱乐作品###novel
-Weka:阿坝州 四川地理 四川县城###other
 Weka:脱口秀 相声演员 相声时评人 演员 娱乐人物 人物 主持人###figure
 Weka:动作剧 香港电影 电视剧作品 电影 影视作品 娱乐作品###TV_series
 Weka:集英社 空知英秋 科幻魔幻类 漫画 搞笑类动漫 少年JUMP 娱乐作品 动漫作品 动作类动漫###anime
@@ -8610,8 +8570,6 @@ Weka:陈忠实 长篇小说 茅盾文学奖 史诗 中国当代文学###major
 Weka:剧情剧 超级战队 电视剧作品 电视剧 特摄 影视作品###TV_series
 Weka:战争剧 艺术书籍 电视剧作品 电视剧 影视作品 娱乐作品 历史 出版物 中国历史###TV_series
 Weka:运动员 话题人物 篮球运动员 体育人物###sports
-Weka:桃花岛 广西景区 崇左桃花岛 南宁周边游###other
-Weka:轰炸机 美国空军 战略轰炸机###other
 Weka:非自然 自然地理 外国行政区划 城镇 地理 地点###tourism
 Weka:街区路 自然地理 外国行政区划 城镇 地点 俱乐部###tourism
 Weka:非自然 自然地理 外国行政区划 地理 地点###tourism
@@ -8620,8 +8578,6 @@ Weka:电视剧 影视作品###TV_series
 Weka:非社会 社会团体###catchword
 Weka:出版物 其他书籍###major
 Weka:现代诗 文学作品###novel
-Weka:江苏省 中心城市###other
-Weka:音乐会 文娱演出###other
 Weka:非自然 体育项目###sports
 Weka:地级市 中国地名###tourism
 Weka:微电影 影视作品###varity_show
@@ -8755,16 +8711,7 @@ Weka:轻小说###novel
 Weka:非地理###major
 Weka:非娱乐###major
 Weka:音乐剧###major
-Weka:七龙珠###other
-Weka:不解释###other
-Weka:少女番###other
 Weka:广播剧###TV_series
-Weka:文化节###other
-Weka:歌舞剧###other
-Weka:白洋淀###other
-Weka:直辖市###other
-Weka:茶餐厅###other
-Weka:蓝宝石###other
 Weka:主持人###varity_show
 Weka:大陆节目 2013年电影 大陆电影 剧情电影 喜剧电影 电影作品 电影 影视作品 娱乐作品###movie
 Weka:中国高校 211高校 理工类高校 教育部隶属高校 高等教育 学校 北京高校河北高校 211###college
@@ -9680,7 +9627,6 @@ Weka:综艺节目 小说 娱乐作品###varity_show
 Weka:虚拟物品 武器 娱乐作品###varity_show
 Weka:音乐作品 歌曲 娱乐作品###varity_show
 Weka:音乐作品 音乐 娱乐作品###varity_show
-Weka:天地之中 古都 中原经济区 中原 中华###other
 Weka:金融工程 金融 计算机术语 经济 其他文化 书籍###economy
 Weka:神奈川县 歌手 早安少女组 日本 娱乐人物 人物###figure
 Weka:玄幻小说 漫画 我吃西红柿 小说作品 小说 娱乐作品 古典仙侠###novel
@@ -9810,9 +9756,6 @@ Weka:文学作品 作家###novel
 Weka:文学作品 戏剧###novel
 Weka:文学作品 文化###novel
 Weka:文学作品 文学###novel
-Weka:宗教词汇 佛教###other
-Weka:英语教名 教名###other
-Weka:重装机兵 红狼###other
 Weka:体育项目 体育###sports
 Weka:工业产品 体育###sports
 Weka:教育书籍 体育###sports
@@ -9897,7 +9840,6 @@ Weka:考试书籍 出版物 书籍###major
 Weka:艺术书籍 出版物 书籍###major
 Weka:生物物种 慈鲷科 动物###medical_treatment
 Weka:文学书籍 出版物 书籍###novel
-Weka:伊朗语族 伊斯兰 中亚###other
 Weka:经济学家 科学家 研究员 教授 学者 人物###figure
 Weka:著名作家 法国人 文学家 外国 人物###figure
 Weka:选秀状元 运动员 快船队 外国 体育人物 人物 nba###figure
@@ -9937,7 +9879,6 @@ Weka:音乐作品 非地理 流行音乐 外国行政区划 地理 地点 单曲
 Weka:娱乐作品 多义词 动漫作品###anime
 Weka:电视节目 爱奇艺 明星真人秀 东方卫视###varity_show
 Weka:电视节目 多义词 中央电视台###varity_show
-Weka:金庸武侠 连环画 浙江人美出版 射雕###other
 Weka:电影作品 电视剧###TV_series
 Weka:生活用品 化妆品###cosmetics
 Weka:影视演员 主持人###figure
@@ -9946,7 +9887,6 @@ Weka:行业人物 主持人###figure
 Weka:经管书籍 出版物###major
 Weka:自然学科 红宝石###major
 Weka:艺术书籍 出版物###major
-Weka:额尔古纳 内蒙古###other
 Weka:自然地理 内蒙古###tourism
 Weka:影视作品 动画片###varity_show
 Weka:武器装备 主持人###varity_show
@@ -10005,7 +9945,7 @@ Weka:音乐作品 娱乐作品 单曲 R&B###varity_show
 Weka:娱乐明星 娱乐人物 偶像 SNH48###figure
 Weka:行业人物 经济人物 人物 YYCEO###figure
 Weka:韩国组合 娱乐明星 偶像 exo EXO-K###figure
-Weka:日本动画 原创动画 动画 其他###anime
+Weka:日本动画 原创动画 动画 其他 DOG%20DAYS###anime
 Weka:行业人物 科研人员 电影 教授 教师 学者 其他 人物###figure
 Weka:文学作品 文学书籍 散文 名著 古诗 作家 书籍 中国文学###novel
 Weka:自然地理 组织机构 社会 景点 城镇 地理 地点 中国地名###tourism
@@ -10162,7 +10102,6 @@ Weka:文学作品 文学书籍 文学 古诗###novel
 Weka:言情小说 小说作品 小说 书籍###novel
 Weka:音乐作品 娱乐作品 单曲 书籍###novel
 Weka:音乐作品 流行音乐 小说 单曲###novel
-Weka:民权名人 民族英雄 明朝 功臣###other
 Weka:其他文化 体育人物 体育 书籍###sports
 Weka:森林公园 景观景点 景点 公园###tourism
 Weka:自然地理 外国地名 城镇 城市###tourism
@@ -10474,7 +10413,6 @@ Weka:自然地理 景观景点 山脉 中国其他行政区划###tourism
 Weka:行政区划 景观景点 地理 中国其他行政区划###tourism
 Weka:音乐作品 流行音乐 单曲 中国其他行政区划###tourism
 Weka:音乐作品 娱乐作品 单曲 中国其他行政区划###varity_show
-Weka:网易游戏 大话西游 大话2###other
 Weka:小说人物 天煞孤星 动画###anime
 Weka:日本动画 原创动画 动画###anime
 Weka:艺术作品 美术作品 字词###catchword
@@ -11835,7 +11773,6 @@ Weka:神话形象 文学作品 文学书籍###novel
 Weka:网络小说 小说作品 娱乐作品###novel
 Weka:网络小说 玄幻小说 小说作品###novel
 Weka:都市小说 网络小说 小说作品###novel
-Weka:游戏门派 游戏场景 游戏地名###other
 Weka:大陆节目 情感节目 综艺节目###varity_show
 Weka:大陆节目 生活节目 综艺节目###varity_show
 Weka:大陆节目 纪实节目 综艺节目###varity_show
@@ -11862,7 +11799,6 @@ Weka:股票名称 股票传媒 股票创业板 公司 传媒###digital_product
 Weka:行业人物 组织机构 新闻主持人 手机 人物###figure
 Weka:娱乐明星 娱乐人物 娱乐主持人 人物 主持人###figure
 Weka:影视演员 娱乐人物 娱乐主持人 人物 主持人###figure
-Weka:浦东新区 新闻中心 广播电视塔 地标###other
 Weka:行业人物 经济人物 天使投资人 企业家 人物###figure
 Weka:网络小说 玄幻小说 我吃西红柿 小说作品 小说 娱乐作品###novel
 Weka:美国大学 组织机构 波士顿大学 教育机构 学校###college
@@ -12051,7 +11987,6 @@ Weka:中国高校 公办高校 研究生院高校 理工类高校 地方所属�
 Weka:中国高校 公办高校 研究生院高校 理工类高校 地方所属高校 黑龙江高校 本科高校 大学 高等教育 石油院校 全国重点大学###college
 Weka:美国大学 教育机构 国际关系研究 哥伦比亚特区 乔治敦大学###major
 Weka:行政区划 自然地理 外国行政区划 国外行政区划###tourism
-Weka:战舰世界 战机世界 坦克世界闪电战 坦克世界 Wargaming###other
 Weka:网络游戏 益智游戏 电脑客户端游戏 游戏作品 模拟游戏 娱乐作品###computer_game
 Weka:网络游戏 策略游戏 电脑客户端游戏 游戏作品 娱乐作品###computer_game
 Weka:文学作品 文学书籍 中国其他行政区划###novel
@@ -12142,7 +12077,6 @@ Weka:音乐作品 酉阳桃花源 流行音乐 娱乐作品 单曲###varity_show
 Weka:阿来作品 茅盾文学奖 文学作品 文学书籍 小说作品 中国文学###novel
 Weka:系列作品 科幻魔幻类 娱乐作品 动漫作品###anime
 Weka:综艺节目 真人秀节目 电视节目 娱乐作品###varity_show
-Weka:龙多活佛 宝尔汗佛塔 呼和浩特 世界第一佛塔###other
 Weka:综艺节目 真人秀节目 娱乐作品###varity_show
 Weka:综艺节目 真人秀节目 电视节目###varity_show
 Weka:车田正美 科幻魔幻类 热血类动漫 日本动漫 动画 动漫作品 动漫 动作类动漫 剧情类动漫 东映###anime
@@ -12153,7 +12087,6 @@ Weka:中国高校 农林类高校 地方所属高校 湖南高校 本科高校 �
 Weka:公办高校 师范类高校 地方所属高校 甘肃高校 本科高校 大学 教育机构 学校###college
 Weka:综艺节目 真人秀节目###varity_show
 Weka:公办高校 研究生院高校 211高校 985高校 专科高校 医药类高校 其他中央部委隶属高校 北京高校 本科高校 学院 教育机构 学校 医院###college
-Weka:网页设计 网站开发工具 Macromedia FTP Adobe###other
 Weka:游戏资料 恋爱冒险游戏 单机 PS2游戏###major
 Weka:自然地理 外国行政区划 城镇 地理 地点 中国文学###tourism
 Weka:自然地理 外国行政区划 城镇 地理 地点###tourism
@@ -12199,7 +12132,6 @@ Weka:苏州园林 全国重点文物保护单位 AAAAA级旅游景区###tourism
 Weka:文学作品(202)(202) 文学 小说作品 小说 娱乐作品 书籍###novel
 Weka:文学作品(202)(202) 文学书籍 文学 影视演员 小说作品 小说 娱乐作品 历史小说 书籍###novel
 Weka:文学作品(202)(202) 文学书籍 小说作品 小说###novel
-Weka:天天有喜2之人间有爱.真实资料###other
 Weka:网络语言###catchword
 Weka:手机游戏###computer_game
 Weka:电子游戏###computer_game
@@ -12262,29 +12194,6 @@ Weka:小说作品###novel
 Weka:文学书籍###novel
 Weka:文学作品###novel
 Weka:网络小说###novel
-Weka:中国西部###other
-Weka:京剧作品###other
-Weka:军事行动###other
-Weka:办公软件###other
-Weka:动漫招式###other
-Weka:动漫角色###other
-Weka:动画角色###other
-Weka:卡片游戏###other
-Weka:古代官职###other
-Weka:汉语成语###other
-Weka:法国文学###other
-Weka:游戏代理###other
-Weka:游戏公司###other
-Weka:游戏场景###other
-Weka:游戏技能###other
-Weka:游戏系列###other
-Weka:游戏职业###other
-Weka:游戏门派###other
-Weka:犯罪分子###other
-Weka:短篇小说###other
-Weka:社区区划###other
-Weka:经典名著###other
-Weka:网络公司###other
 Weka:体育人物###sports
 Weka:体育赛事###sports
 Weka:体育项目###sports
@@ -12295,7 +12204,6 @@ Weka:自然地理###tourism
 Weka:影视作品###varity_show
 Weka:电视节目###varity_show
 Weka:高桥留美子 铃 邪见 犬夜叉###figure
-Weka:泰国电视剧 勇士 Matt JamesMa###other
 Weka:蜀汉五虎将 蜀汉 将领 人物 中国 三国###figure
 Weka:足球俱乐部 绿城 浙江 杭州 中国足球###sports_organization
 Weka:计算机术语 电影 字词 其他###catchword
@@ -12545,7 +12453,6 @@ Weka:篮球俱乐部 社会团体 体育###sports_organization
 Weka:计算机书籍 艺术书籍 出版物 公司###major
 Weka:足球俱乐部 社会团体 俱乐部 体育组织###sports_organization
 Weka:光之美少女 东映动画 东堂泉###major
-Weka:芭蕾牡丹亭 舞蹈芭蕾 牡丹亭###other
 Weka:足球俱乐部 社会团体 俱乐部###sports_organization
 Weka:师范类高校 本科高校 教育机构 山东 学校###college
 Weka:计算机术语 经济术语 经济人物 教育 公司###economy
@@ -12655,7 +12562,6 @@ Weka:科幻魔幻类 搞笑类动漫 影视作品 娱乐作品 动画 动漫作�
 Weka:科幻魔幻类 热血类动漫 影视作品 娱乐作品 动画 动漫作品 动漫人物 动漫 动作类动漫 剧情类动漫###anime
 Weka:科幻魔幻类 校园类动漫 日本动画 娱乐作品 原创动画 动画 动漫作品 动漫 动作类动漫 剧情类动漫###anime
 Weka:科幻魔幻类 热血类动漫 娱乐作品 国产动画 动漫作品 动作类动漫 冒险类动漫###anime
-Weka:战地越野车 勇士越野车 中国勇士###other
 Weka:校园类动漫 搞笑类动漫 情感类动漫 娱乐作品 动画 动漫作品 动漫###anime
 Weka:科幻魔幻类 校园类动漫 搞笑类动漫 影视作品 动画 动漫作品 动漫###anime
 Weka:校园类动漫 搞笑类动漫 情感类动漫 娱乐作品 动画 动漫作品###anime
@@ -12670,9 +12576,6 @@ Weka:客户端游戏###computer_game
 Weka:特摄电视剧###TV_series
 Weka:韩国电视剧###TV_series
 Weka:计算机术语###medical_treatment
-Weka:心理学术语###other
-Weka:电视剧人物###other
-Weka:足球俱乐部###other
 Weka:中国通信学会 词语 美术 动画 其他###catchword
 Weka:外国行政区划 城镇 城市 地理 地点###tourism
 Weka:中国电子学会 大学 科技 理学 医学人物 医学###major
@@ -12819,7 +12722,6 @@ Weka:中国力学学会 航天学家 空气动力学 科学巨匠 科学家 物�
 Weka:角色扮演游戏 游戏作品 武则天传奇 摸摸手游帮 手机游戏 安卓游戏###computer_game
 Weka:角色扮演游戏 网络游戏 电脑客户端游戏 游戏作品 娱乐作品###computer_game
 Weka:角色扮演游戏 网络游戏 电脑客户端游戏 游戏作品###computer_game
-Weka:经济管理学院 延边大学 信息管理与信息系统###other
 Weka:角色扮演游戏 游戏作品###computer_game
 Weka:教育学类专业 本科专业###major
 Weka:管理学类专业 本科专业###major
@@ -12955,7 +12857,6 @@ Weka:股票进阶术语 股票交易术语 股票类术语###economy
 Weka:股票进阶术语 股票行情术语 股票类术语###economy
 Weka:股票进阶术语 股票财务术语 股票类术语###economy
 Weka:股票进阶术语 股票基础术语 股票行情术语 股票类术语 词语 计算机术语 经济术语 经济###economy
-Weka:呼伦贝尔草原 呼伦贝尔旅游 呼伦贝尔大草原 呼伦贝尔###other
 Weka:济宁历史人物 商丘历史人物 儒家思想代表人物 中国古代思想家###figure
 Weka:魔法禁书目录 魔法的禁书目录 轻小说 电击文库###figure
 Weka:角色扮演游戏 电脑客户端游戏 游戏作品 娱乐作品 单机游戏###computer_game
@@ -12964,12 +12865,10 @@ Weka:室内体育运动###sports
 Weka:战略棋盘游戏###computer_game
 Weka:日本推理小说###novel
 Weka:青岛科技大学###college
-Weka:中国水产学会###other
 Weka:中国体育学会###sports
 Weka:外国行政区划###tourism
 Weka:经典游戏机游戏 游戏 娱乐作品 动画 动漫作品 动漫 动作类动漫 剧情类动漫###anime
 Weka:金刚座舍利宝塔 景点 呼和浩特 内蒙古 五塔寺###tourism
-Weka:长江文艺出版社 郭敬明 最小说###other
 Weka:无头骑士异闻录 娱乐作品 动画 动漫作品 剧情类动漫###anime
 Weka:轻小说改编动画 电视动画 日本动画 A-1Pictures###anime
 Weka:无头骑士异闻录 成田良悟 娱乐作品 动画 动漫作品 剧情类动漫###anime
@@ -12980,11 +12879,9 @@ Weka:电脑客户端游戏 游戏作品 娱乐作品 单机游戏###computer_gam
 Weka:电脑客户端游戏 游戏作品 射击游戏 娱乐作品###computer_game
 Weka:电脑客户端游戏 游戏作品 单机游戏###computer_game
 Weka:电脑客户端游戏###computer_game
-Weka:迪斯尼动画电影###other
 Weka:重庆旅游集散中心 景观景点 旅游 地理 地点 国家5A级旅游景区 名胜###tourism
 Weka:重庆旅游集散中心 石刻艺术 旅游 历史文化 世界遗产###tourism
 Weka:言情小说重生小说 言情小说 网络小说 穿越小说 文学作品 文学书籍 小说作品 小说 中国文学###novel
-Weka:龙之谷：破晓奇兵 龙之谷大电影###other
 Weka:你是不是我的爱人###movie
 Weka:中国其他行政区划###tourism
 Weka:水利部发展研究中心 湖泊 咸水湖 出游 内陆湖###major
