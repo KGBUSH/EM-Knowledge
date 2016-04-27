@@ -51,7 +51,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 	public static String label = "";
 	public static String Seperator = "ACBDGFX";
 	public static String Other = "other";
-	public static String md5 = "key";
+	public static String md5 = "urlkey";
 
 	public static HashMap<String, String> WordLabelMap = null;
 	public static List<String> fileList = null;
