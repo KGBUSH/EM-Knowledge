@@ -314,5 +314,43 @@ public class PageExtractInfo {
 	public void setPic(String pic) {
 		Pic = pic;
 	}
+    private String getListStr(List<String> list)
+    {
+    	StringBuffer buffer = new StringBuffer();
+    	if(list==null||list.size()==0) return buffer.toString().trim();
+    	for(String s:list)
+    	{
+    		buffer.append(s).append(" ");
+    	}
+    	return buffer.toString().trim();
+    }
+    public void putArrValuestoAttr()
+    {
+    	//private HashMap<String,String> attr = new HashMap<>();
+    	//private List<Sentence> sentList = new ArrayList<>();
+    	//private HashMap<String,List<String>> attr_Values = new HashMap<>();
+    	if(attr_Values==null||attr_Values.size()==0) return ;
+    	else
+    	{
+    		for(String key:attr_Values.keySet())
+    		{
+    			if(!attr.containsKey(key))
+    			{
+    				attr.put(key,getListStr(attr_Values.get(key)));
+    			}
+    			else
+    			{
+    		    	StringBuffer buffer = new StringBuffer();
+    		    	String line=attr.get(key);
+                    buffer.append(line).append(" ");
+                	for(String s:attr_Values.get(key))
+                	{
+                		if(!line.contains(s))  buffer.append(s).append(" ");
+                	}
+    				attr.put(key,buffer.toString());
+    			}
+    		}
+    	}
 
+    }
 }

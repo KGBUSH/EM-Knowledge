@@ -231,7 +231,7 @@ public class BaikeExtractor extends Extractor {
         		 }
         	 }
          }
-
+         pageInfo.putArrValuestoAttr();
          /////
         return pageInfo;
 
@@ -239,7 +239,7 @@ public class BaikeExtractor extends Extractor {
 	//http://baike.baidu.com/link?url=72qLVN_ClKpxrX47ZOyTzAprqBQdLy234q5PbfAk1Y5pVi7a0VJrZAGq1KJ1z61YcYQDnlWrnDvdcm1yVzJBxa
 	public static void main(String args[])
 	{
-		String path="/Users/Elaine/Documents/workspace/html/yaomin";
+		String path="/Users/Elaine/Documents/workspace/html/yangying";
 		String html=Tool.getFileContent(path);
 		Extractor ex = new BaikeExtractor(html);
 		PageExtractInfo info = ex.ProcessPage();
@@ -253,6 +253,17 @@ public class BaikeExtractor extends Extractor {
     		System.err.println(key+"===>>>"+map.get(key));
 
         }
+        for(String key:info.getAttr_Values().keySet())
+        {
+    		System.err.println(key+"===2>>>"+info.getAttr_Values().get(key));
+
+        }
+        for(String key:info.getAttr().keySet())
+        {
+    		System.err.println(key+"===3>>>"+info.getAttr().get(key));
+
+        }
+
 		System.err.println("getTongyici.........."+info.getTongyici());
 		System.err.println("isDuoyici.........."+info.getDuoyici());
 		System.err.println("pic.........."+info.getPic());
