@@ -117,14 +117,6 @@ public class GenerateAuxFiles {
 					logger.write(s = "\r\n");
 					continue;
 				}
-				
-				if(partArr[0].contains(String.valueOf((char) 160)) || partArr[1].contains(String.valueOf((char) 160))){
-					System.err.println(i+++" line="+line);
-				}
-				
-				if(partArr[0].contains(" ") || partArr[1].contains(" ")){
-					System.err.println(i+++" line="+line);
-				}
 
 				String dbEntity = CharUtil.trim(partArr[0]);
 				String pmEntity = CharUtil.trim(partArr[1]);
@@ -162,7 +154,7 @@ public class GenerateAuxFiles {
 //				 match(n{Name:"北京"}) set n:other remove n:tourism
 				 String queryCount = "match(n{Name:\"" + dbEntity + "\"}) set n:"+label+" remove n:other";
 				 cypherWriter.write(queryCount+"\r\n");
-//				 Neo4jResultBean bean = conn.executeCypherSQL(queryCount);
+				 Neo4jResultBean bean = conn.executeCypherSQL(queryCount);
 
 			}
 
