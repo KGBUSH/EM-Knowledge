@@ -1057,7 +1057,9 @@ public class PatternMatchingProcess {
 		}
 
 		for (String s : segWord) {
-			obj.addWord(s);
+			if(!NLPProcess.isInHighFreqDict(s)){
+				obj.addWord(s);
+			}
 		}
 
 		rsEntitySet = solr.Search(obj);
@@ -1485,7 +1487,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "姚明有没有老婆?";
+		String str = "倩碧是哪个国家的？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");
