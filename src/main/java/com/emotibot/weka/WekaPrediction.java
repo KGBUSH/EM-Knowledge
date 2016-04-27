@@ -163,11 +163,11 @@ public class WekaPrediction {
 		  
 		  public static void main(String args[]) throws Exception
 		  {
-			    PreProcess.ProduceArffNum("weka.txt");
+			    PreProcess.ProduceArffNum("arff/wekaNew.txt");
 			    
 			    WekaPrediction demo;
 			    String classifier = "weka.classifiers.bayes.NaiveBayes";
-			    String dataset = "tag.arff";
+			    String dataset = "tagNew.arff";
 			    demo = new WekaPrediction();
 			    String[] options = new String[0];
 			    demo.setClassifier(classifier,options);
@@ -185,7 +185,8 @@ public class WekaPrediction {
 			    {
 			    	try{
 			    	tag=tag.trim();
-	                f.write("Tag="+ tag+"===>"+demo.getClassifierTag(tag)+"\r\n");
+	                f.write("Tag="+ tag+"===>"+demo.getClassifierTag(tag)+"\r\n");	                
+	                System.err.println("Tag="+ tag+"===>"+demo.getClassifierTag(tag)+"\r\n");
 			    	}catch(Exception e)
 			    	{
 			    		e.printStackTrace();
