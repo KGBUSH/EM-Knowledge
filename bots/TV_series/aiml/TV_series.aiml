@@ -1,36 +1,36 @@
 <aiml version="1.0.1" encoding="UTF-8">
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 英 文 ^ 怎 么 ^ 说 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿TV_series</label> ^ 英 文 ^ 怎 么 ^ 说 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 英 文 ^ 咋 ^ 说 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿TV_series</label> ^ 英 文 ^ 咋 ^ 说 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 英 文 ^ 怎 么 ^ 读 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿TV_series</label> ^ 英 文 ^ 怎 么 ^ 读 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 英 文 ^ 咋 ^ 读 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿TV_series</label> ^ 英 文 ^ 咋 ^ 读 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 英 文 ^ 怎 么 ^ 念 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿TV_series</label> ^ 英 文 ^ 怎 么 ^ 念 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿TV_series</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么？
         </template>
@@ -120,37 +120,109 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <pattern> ^ 哪 ^ 地 方 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
         <template>
-            <star index="4"/>的拍摄地点在哪儿？
+            <star index="5"/>的拍摄地点在哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ 什 么 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <pattern> ^ 什 么 ^ 地 方 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
         <template>
-            <star index="4"/>的拍摄地点在哪儿？
+            <star index="5"/>的拍摄地点在哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ 啥 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <pattern> ^ 啥 ^ 地 方 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
         <template>
-            <star index="4"/>的拍摄地点在哪儿？
+            <star index="5"/>的拍摄地点在哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 ^ 拍 ^ </pattern>
+        <pattern> ^ 哪 ^ 地 区 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="5"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 地 区 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="5"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 地 区 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="5"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 国 家 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="5"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 国 家 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="5"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 ^ 国 家 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="5"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 ^ 地 方 ^ 拍 ^ </pattern>
         <template>
             <star index="2"/>的拍摄地点在哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 什 么 ^ 拍 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 什 么 ^ 地 方 ^ 拍 ^ </pattern>
         <template>
             <star index="2"/>的拍摄地点在哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 啥 ^ 拍 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 啥 ^ 地 方 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 ^ 地 区 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 什 么 ^ 地 区 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 啥 ^ 地 区 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 ^ 国 家 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 什 么 ^ 国 家 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 啥 ^ 国 家 ^ 拍 ^ </pattern>
         <template>
             <star index="2"/>的拍摄地点在哪儿？
         </template>
@@ -288,19 +360,19 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 啥 时 ^ 开 播 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <pattern> ^ 啥 时 ^ 播 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
         <template>
             <star index="4"/>的首播时间什么时候？
         </template>
     </category>
     <category>
-        <pattern> ^ 什 么 时 ^ 开 播 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <pattern> ^ 什 么 时 ^ 播 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
         <template>
             <star index="4"/>的首播时间什么时候？
         </template>
     </category>
     <category>
-        <pattern> ^ 何 时 ^ 开 播 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <pattern> ^ 何 时 ^ 播 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
         <template>
             <star index="4"/>的首播时间什么时候？
         </template>
@@ -660,6 +732,42 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 啥 时 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 什 么 时 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 何 时 ^ 演 ^ </pattern>
+        <template>
+            <star index="2"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 啥 时 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 什 么 时 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 何 时 ^ 播 ^ </pattern>
+        <template>
+            <star index="2"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 啥 时 ^ 上 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
         <template>
             <star index="4"/>的上映时间是什么时候？
@@ -709,6 +817,42 @@
     </category>
     <category>
         <pattern> ^ 何 时 ^ 有 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 演 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 演 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 演 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 播 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 播 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 播 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
         <template>
             <star index="4"/>的上映时间是什么时候？
         </template>
@@ -1167,6 +1311,42 @@
         <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 属 于 ^ 何 种 ^ </pattern>
         <template>
             <star index="2"/>的类型？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 还 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的其它译名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 又 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的其它译名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 还 ^ 称 呼 ^ </pattern>
+        <template>
+            <star index="2"/>的其它译名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 又 ^ 称 呼 ^ </pattern>
+        <template>
+            <star index="2"/>的其它译名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 还 ^ 译 ^ </pattern>
+        <template>
+            <star index="2"/>的其它译名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 又 ^ 译 ^ </pattern>
+        <template>
+            <star index="2"/>的其它译名是什么？
         </template>
     </category>
 </aiml>

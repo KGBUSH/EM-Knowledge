@@ -1,18 +1,18 @@
 <aiml version="1.0.1" encoding="UTF-8">
     <category>
-        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 地 区 ^ 制 片 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿anime</label> ^ 地 区 ^ 制 片 ^ </pattern>
         <template>
             <star index="2"/>的制片地区是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 地 方 ^ 制 片 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿anime</label> ^ 地 方 ^ 制 片 ^ </pattern>
         <template>
             <star index="2"/>的制片地区是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 国 家 ^ 制 片 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿anime</label> ^ 国 家 ^ 制 片 ^ </pattern>
         <template>
             <star index="2"/>的制片地区是哪儿？
         </template>
@@ -975,6 +975,30 @@
         <pattern> ^ 什 么 ^ 有 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
         <template>
             <star index="4"/>的网络播放是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="6"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="6"/>的连载杂志是哪本？
         </template>
     </category>
     <category>

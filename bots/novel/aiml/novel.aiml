@@ -1,36 +1,36 @@
 <aiml version="1.0.1" encoding="UTF-8">
     <category>
-        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 英 文 ^ 怎 么 ^ 说 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿novel</label> ^ 英 文 ^ 怎 么 ^ 说 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么?
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 英 文 ^ 咋 ^ 说 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿novel</label> ^ 英 文 ^ 咋 ^ 说 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么?
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 英 文 ^ 怎 么 ^ 读 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿novel</label> ^ 英 文 ^ 怎 么 ^ 读 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么?
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 英 文 ^ 咋 ^ 读 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿novel</label> ^ 英 文 ^ 咋 ^ 读 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么?
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 英 文 ^ 怎 么 ^ 念 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿novel</label> ^ 英 文 ^ 怎 么 ^ 念 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么?
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿novel</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么?
         </template>
@@ -744,6 +744,42 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 出 版 ^ 啥 时 ^ </pattern>
+        <template>
+            <star index="2"/>的出版日期什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 发 行 ^ 啥 时 ^ </pattern>
+        <template>
+            <star index="2"/>的出版日期什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 出 版 ^ 什 么 时 ^ </pattern>
+        <template>
+            <star index="2"/>的出版日期什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 发 行 ^ 什 么 时 ^ </pattern>
+        <template>
+            <star index="2"/>的出版日期什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 出 版 ^ 何 时 ^ </pattern>
+        <template>
+            <star index="2"/>的出版日期什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 发 行 ^ 何 时 ^ </pattern>
+        <template>
+            <star index="2"/>的出版日期什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 啥 时 ^ 出 版 ^ ## * <type>entity</type><label>novel</label> ^ </pattern>
         <template>
             <star index="4"/>的出版日期什么时候？
@@ -804,6 +840,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 哪 ^ 连 载 ^ ## * <type>entity</type><label>novel</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 连 载 ^ ## * <type>entity</type><label>novel</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载平台是哪个？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 哪 ^ 有 ^ </pattern>
         <template>
             <star index="2"/>的连载平台是哪个？
@@ -823,6 +871,18 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 什 么 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的连载平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 哪 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载平台是哪个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 什 么 ^ 连 载 ^ </pattern>
         <template>
             <star index="2"/>的连载平台是哪个？
         </template>

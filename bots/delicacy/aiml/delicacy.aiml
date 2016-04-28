@@ -1,18 +1,18 @@
 <aiml version="1.0.1" encoding="UTF-8">
     <category>
-        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 什 么 ^ 做 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿delicacy</label> ^ 什 么 ^ 做 ^ </pattern>
         <template>
             <star index="2"/>的主要食材是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 啥 ^ 做 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿delicacy</label> ^ 啥 ^ 做 ^ </pattern>
         <template>
             <star index="2"/>的主要食材是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 哪 ^ 做 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿delicacy</label> ^ 哪 ^ 做 ^ </pattern>
         <template>
             <star index="2"/>的主要食材是什么？
         </template>
@@ -195,6 +195,24 @@
         <pattern> ^ 什 么 ^ 地 方 ^ ## * <type>entity</type><label>delicacy</label> ^ </pattern>
         <template>
             <star index="4"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 哪 儿 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 哪 里 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>delicacy</label> ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
         </template>
     </category>
 </aiml>

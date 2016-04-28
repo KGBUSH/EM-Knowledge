@@ -1,36 +1,36 @@
 <aiml version="1.0.1" encoding="UTF-8">
     <category>
-        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 英 文 ^ 怎 么 ^ 说 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿sports_organization</label> ^ 英 文 ^ 怎 么 ^ 说 ^ </pattern>
         <template>
             <star index="2"/>的外文队名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 英 文 ^ 咋 ^ 说 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿sports_organization</label> ^ 英 文 ^ 咋 ^ 说 ^ </pattern>
         <template>
             <star index="2"/>的外文队名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 英 文 ^ 怎 么 ^ 读 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿sports_organization</label> ^ 英 文 ^ 怎 么 ^ 读 ^ </pattern>
         <template>
             <star index="2"/>的外文队名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 英 文 ^ 咋 ^ 读 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿sports_organization</label> ^ 英 文 ^ 咋 ^ 读 ^ </pattern>
         <template>
             <star index="2"/>的外文队名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 英 文 ^ 怎 么 ^ 念 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿sports_organization</label> ^ 英 文 ^ 怎 么 ^ 念 ^ </pattern>
         <template>
             <star index="2"/>的外文队名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿sports_organization</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
         <template>
             <star index="2"/>的外文队名是什么？
         </template>
@@ -157,6 +157,24 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 什 么 ^ 国 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 在 哪 儿 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 在 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 哪 里 ^ </pattern>
         <template>
             <star index="2"/>的所属地区是哪儿？
         </template>
