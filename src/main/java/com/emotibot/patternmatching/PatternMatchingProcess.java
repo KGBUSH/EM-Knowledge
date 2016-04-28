@@ -18,6 +18,7 @@ import java.util.TreeSet;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.common.Common;
+import com.emotibot.log.LogService;
 import com.emotibot.solr.SolrUtil;
 import com.emotibot.solr.Solr_Query;
 import com.emotibot.template.TemplateEntry;
@@ -188,11 +189,25 @@ public class PatternMatchingProcess {
 	// input: “甲肝是什么” output: “甲型病毒性肝炎是什么”
 	private String changeEntitySynonym(List<String> entitySet, String sentence) {
 		System.out.println("changeEntitySynonym: entitySet=" + entitySet + ",sentence=" + sentence);
-		for (String s : entitySet) {
-			if (NLPProcess.hasEntitySynonym(s)) {
-				String oldEntity = NLPProcess.getEntitySynonymReverse(s).toLowerCase();
-				sentence = sentence.toLowerCase().replace(oldEntity, s);
-				System.out.println("changeEntitySynonym change : s = " + s + ", oldEntity=" + oldEntity + "; sentence="
+		for (String entity : entitySet) {
+			if (NLPProcess.hasEntitySynonym(entity)) {
+				List<String> list = NLPProcess.getSynonymnEntityList(entity);
+				String oldEntity = "";
+				for(String s : list){
+					if(sentence.contains(s)){
+						oldEntity = s;
+						break;
+					}
+				}
+				if(oldEntity.isEmpty() || !sentence.contains(entity)){
+					LogService.printLog(uniqueID, "PatternMatching.changeEntitySynonym", "entity="+entity);
+					System.err.println("PatternMatching.changeEntitySynonym: entity="+entity);
+				}
+//				String oldEntity = NLPProcess.getEntitySynonymReverse(entity).toLowerCase();
+				if(!oldEntity.isEmpty()){
+					sentence = sentence.toLowerCase().replace(oldEntity, entity);
+				}
+				System.out.println("changeEntitySynonym change : s = " + entity + ", oldEntity=" + oldEntity + "; sentence="
 						+ sentence);
 			}
 		}
@@ -208,12 +223,28 @@ public class PatternMatchingProcess {
 		AnswerBean answerBean = new AnswerBean();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getAnswer: input is empty");
-			return answerBean;
+			return answerBean.returnAnswer(answerBean);
+		}
+		
+		AnswerRewrite answerRewite = new AnswerRewrite();
+		
+		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
+			String tempEntity = entitySet.get(0);
+			if (tempEntity.equals(sentence) || NLPProcess.getEntitySynonymReverse(tempEntity).equals(sentence)) {
+				String tempStrIntroduce = DBProcess.getPropertyValue(tempEntity,
+						Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
+				if (tempStrIntroduce.contains("。"))
+					tempStrIntroduce = tempStrIntroduce.substring(0, tempStrIntroduce.indexOf("。"));
+				answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(tempStrIntroduce));
+				answerBean.setScore(100);
+				System.out.println("PM.getAnswer 0.1: the returned anwer is " + answerBean.toString());
+				return answerBean.returnAnswer(answerBean);
+			}
 		}
 
 		if (isQuestion == false) {
 			Debug.printDebug(uniqueID, 4, "knowledge", "the input sentence is not a question");
-			return answerBean;
+			return answerBean.returnAnswer(answerBean);
 		}
 
 		if (Common.KG_DebugStatus || debugFlag) {
@@ -226,8 +257,6 @@ public class PatternMatchingProcess {
 			answerBean.setComments(debugInfo);
 		}
 
-		AnswerRewrite answerRewite = new AnswerRewrite();
-
 		// 1. get the entity and Revise by template
 		if (entitySet.size() > 2) {
 			// check for 4/15 temporarily, may extent later
@@ -239,7 +268,7 @@ public class PatternMatchingProcess {
 		System.out.println("PMP.getAnswer: entity = " + entitySet.toString());
 		if (entitySet == null || entitySet.isEmpty()) {
 			System.out.println("the sentence does not contain entity name and so return empty");
-			return answerBean;
+			return answerBean.returnAnswer(answerBean);
 		}
 
 		// PatternMatchingResultBean beanPM = new PatternMatchingResultBean();
@@ -266,7 +295,7 @@ public class PatternMatchingProcess {
 			System.out.println("PMP.getAnswer: single entity templateProcess sentence = " + sentence);
 			if (Tool.isStrEmptyOrNull(sentence)) {
 				System.err.println("the sentence become empty after template process");
-				return answerBean;
+				return answerBean.returnAnswer(answerBean);
 			}
 
 			// answerBean = mutlipleReasoningProcess(sentence, entity);
@@ -387,11 +416,11 @@ public class PatternMatchingProcess {
 			}
 
 			System.out.println("RETURN of GETANSWER: Relationship Qustion: anwerBean is " + answerBean.toString());
-			return answerBean;
+			return answerBean.returnAnswer(answerBean);
 		} else {
 			System.err.println(
 					"there are more than a entity, but it is not a relationship question. entitySet = " + entitySet);
-			return answerBean;
+			return answerBean.returnAnswer(answerBean);
 		}
 
 		System.out
@@ -403,7 +432,7 @@ public class PatternMatchingProcess {
 			answerBean = selectiveQuestionProcess(userSentence, answerBean);
 			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(), 2));
 			System.out.println("RETURN of GETANSWER: Selective Qustion: anwerBean is " + answerBean.toString());
-			return answerBean;
+			return answerBean.returnAnswer(answerBean);
 		}
 
 		if (!answerBean.getAnswer().isEmpty()) {
@@ -413,7 +442,7 @@ public class PatternMatchingProcess {
 			}
 			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer()));
 			System.out.println("PM.getAnswer 5: the returned anwer is " + answerBean.toString());
-			return answerBean;
+			return answerBean.returnAnswer(answerBean);
 		} else {
 			// introduction case
 			String localAnswer = "";
@@ -429,17 +458,18 @@ public class PatternMatchingProcess {
 				strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
 			localAnswer += strIntroduce;
 			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(localAnswer));
-//			answerBean.setScore(
-//					isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), introductionQuestionType, "") ? 100
-//							: 0);
+			// answerBean.setScore(
+			// isKindofQuestion(NLPProcess.removePunctuateMark(userSentence),
+			// introductionQuestionType, "") ? 100
+			// : 0);
 			answerBean.setScore(
-					isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), introductionQuestionType, entity) ? 100
-							: 0);
+					isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), introductionQuestionType, entity)
+							? 100 : 0);
 			if (isQuestion == false) {
 				answerBean.setScore(0);
 			}
 			System.out.println("PM.getAnswer 7: the returned anwer is " + answerBean.toString());
-			return answerBean;
+			return answerBean.returnAnswer(answerBean);
 		}
 	}
 
@@ -697,7 +727,7 @@ public class PatternMatchingProcess {
 		if (!sentence.contains(entity)) {
 			System.err.println("Sentence does not contain entity");
 			Debug.printDebug(uniqueID, 2, "knowledge", "Sentence does not contain entity");
-			return answerBean;
+			return answerBean.returnAnswer(answerBean);
 		}
 		String sentenceNoEntity = sentence.substring(0, sentence.indexOf(entity))
 				+ sentence.substring(sentence.indexOf(entity) + entity.length());
@@ -729,7 +759,7 @@ public class PatternMatchingProcess {
 			System.out.println("\t EndOfRP introudction case @@ return case 0.0, answer=" + answerBean);
 			// does not match property, score decreases
 			answerBean.setScore(answerBean.getScore() / 2);
-			return answerBean;
+			return answerBean.returnAnswer(answerBean);
 		}
 
 		if (listPMBean.isEmpty()) {
@@ -752,7 +782,7 @@ public class PatternMatchingProcess {
 			// does not match property, score decreases
 			// remove for the case: “姚明的初中在哪里”
 			// answerBean.setScore(answerBean.getScore() / 2);
-			return answerBean;
+			return answerBean.returnAnswer(answerBean);
 		} else if (listPMBean.size() == 1) {
 			String prop = listPMBean.get(0).getAnswer();
 			String answer = "";
@@ -786,7 +816,7 @@ public class PatternMatchingProcess {
 				return ReasoningProcess(newSentence, newDBEntity, answerBean);
 			} else {
 				System.out.println("\t EndOfRP  @@ return case 1, answer=" + answerBean);
-				return answerBean;
+				return answerBean.returnAnswer(answerBean);
 			}
 		} else {
 			// in the case of multiple props, find a way out
@@ -825,7 +855,7 @@ public class PatternMatchingProcess {
 				answerBean.setScore(score);
 				// answerBean.setValid(true);
 				System.out.println("\t EndOfRP  @@ return case 2, answer = " + answerBean);
-				return answerBean;
+				return answerBean.returnAnswer(answerBean);
 			}
 		}
 	}
@@ -919,7 +949,7 @@ public class PatternMatchingProcess {
 			answerBean.setAnswer(strSeletive.substring(1));
 		}
 		System.out.println("Selective Qustion: anwerBean is " + answerBean.toString());
-		return answerBean;
+		return answerBean.returnAnswer(answerBean);
 	}
 
 	// Get the answer by the pattern matching method
@@ -1057,9 +1087,12 @@ public class PatternMatchingProcess {
 		}
 
 		for (String s : segWord) {
-			if(!NLPProcess.isInHighFreqDict(s)){
-				obj.addWord(s);
-			}
+			obj.addWord(s);
+			
+//			if (!NLPProcess.isInHighFreqDict(s)) {
+//				obj.addWord(s);
+//			}
+			
 		}
 
 		rsEntitySet = solr.Search(obj);
@@ -1487,7 +1520,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "倩碧是哪个国家的？";
+		String str = "小米的CEO是谁";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");

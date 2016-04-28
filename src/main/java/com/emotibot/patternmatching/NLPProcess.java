@@ -23,6 +23,7 @@ import java.util.TreeSet;
 
 import com.emotibot.common.BytesEncodingDetect;
 import com.emotibot.common.Common;
+import com.emotibot.log.LogService;
 import com.emotibot.nlp.NLPFlag;
 import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
@@ -41,9 +42,8 @@ public class NLPProcess {
 	private static Set<String> entityTable = createEntityTable();
 	// entitySynonymTable:[甲肝，甲型病毒性肝炎]
 	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
-	// entitySynonymReverseTable:[甲肝，甲型病毒性肝炎]
-	// private static Map<String, String> entitySynonymReverseTable =
-	// createEntitySynonymReverseTable();
+	// entitySynonymReverseTable:[山大，<山西大学，山东大学>]
+	 private static Map<String, List<String>> entitySynonymReverseTable = createEntitySynonymReverseTable();
 	private static Set<String> highFeqWordTable = createHighFeqWordTable();
 	private static Set<String> removeableHighFeqWordTable = createRemoveableHighFeqWordTable();
 
@@ -98,9 +98,39 @@ public class NLPProcess {
 	public static Map<String, String> getEntitySynonymTable() {
 		return entitySynonymTable;
 	}
+	
+	// input: 欧洲
+	// output: <欧罗巴,欧罗巴洲>
+	public static List<String> getSynonymnEntityList(String dbEntity){
+		List<String> list = new ArrayList<>();
+		if (!Tool.isStrEmptyOrNull(dbEntity)) {
+			list = entitySynonymReverseTable.get(dbEntity);
+			if(list == null || list.isEmpty()){
+				System.err.println("NLPProcess.getSynonymnEntityList"+"input="+dbEntity);
+				LogService.printLog("0", "NLPProcess.getSynonymnEntityList", "input="+dbEntity);
+			}
+			return list;
+		}
+		return list;
+	}
+	
+	// [欧洲，<欧罗巴，欧罗巴洲>]
+	private static Map<String, List<String>> createEntitySynonymReverseTable(){
+		Map<String, List<String>> rsMap = new HashMap<>();
+		for(String s : entitySynonymTable.keySet()){
+			String value = entitySynonymTable.get(s);	//欧洲 
+			List<String> list = new ArrayList<>();
+			if(rsMap.keySet().contains(value)){
+				list = rsMap.get(value);
+			} 
+			list.add(s);
+			rsMap.put(value, list);
+		}
+		return rsMap;
+	}
 
 	// create entity table Set
-	// ["甲型病毒性肝炎"，“甲肝”]
+	// [“甲肝”,"甲型病毒性肝炎"]
 	private static Map<String, String> createEntitySynonymTable() {
 		String fileName = Common.UserDir + "/knowledgedata/entitySynonym.txt";
 		System.out.println("path is " + fileName);
@@ -118,22 +148,34 @@ public class NLPProcess {
 				String line = "";
 				while ((line = dis.readLine()) != null) {
 					String[] wordList = CharUtil.trim(line).split("##");
-					if (wordList.length != 2) {
+					if (wordList.length < 2) {
 						System.err.println("wrong format in entitySynonym.txt");
 						continue;
 					}
-					String fullName = CharUtil.trim(wordList[0]);
-					String shortName = CharUtil.trim(wordList[1]);
-					// address the case 曼彻斯特联（曼联）
-					if (shortName.contains("（") && shortName.contains("）")) {
-						String thisSynonEntity = shortName;
-						String first = thisSynonEntity.substring(0, thisSynonEntity.indexOf("（"));
-						String second = thisSynonEntity.substring(thisSynonEntity.indexOf("（") + 1,
-								thisSynonEntity.indexOf("）"));
-						entitySyn.put(first.toLowerCase(), fullName.toLowerCase());
-						entitySyn.put(second.toLowerCase(), fullName.toLowerCase());
-					} else {
-						entitySyn.put(shortName.toLowerCase(), fullName.toLowerCase());
+					String dbName = CharUtil.trim(wordList[0]);
+					for(int i=1;i<wordList.length;i++){
+						String synName = CharUtil.trim(wordList[i]);
+						// address the case 曼彻斯特联（曼联）
+						if (synName.contains("（") && synName.contains("）")) {
+							String thisSynonEntity = synName;
+							String first = thisSynonEntity.substring(0, thisSynonEntity.indexOf("（"));
+							String second = thisSynonEntity.substring(thisSynonEntity.indexOf("（") + 1,
+									thisSynonEntity.indexOf("）"));
+							
+//							if(entitySyn.keySet().contains(first) || entitySyn.keySet().contains(second)){
+//								System.err.println("abnormal case 1: dbName="+dbName+", synNmae="+synName);
+//							}
+							
+							entitySyn.put(first.toLowerCase(), dbName.toLowerCase());
+							entitySyn.put(second.toLowerCase(), dbName.toLowerCase());
+						} else {
+							
+//							if(entitySyn.keySet().contains(synName)){
+//								System.err.println("abnormal case 2: synNmae="+synName+", dbName="+dbName+", ");
+//							}
+							
+							entitySyn.put(synName.toLowerCase(), dbName.toLowerCase());
+						}
 					}
 				}
 				dis.close();
@@ -142,7 +184,17 @@ public class NLPProcess {
 				return null;
 			}
 		}
-
+		
+		System.out.println("length of entitySyn: "+entitySyn.size());
+		
+//		int count = 0;
+//		for (Map.Entry<String, String> entry : entitySyn.entrySet()) {  
+//			count++;
+//		    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());  
+//		    if(count > 10)
+//		    	break;
+//		}  
+		
 		return entitySyn;
 	}
 
@@ -381,6 +433,15 @@ public class NLPProcess {
 	// input-output: 甲型病毒性肝炎-甲肝
 	// input-output: 姚明-“”，甲肝-""
 	public static String getEntitySynonymReverse(String str) {
+//		if (!Tool.isStrEmptyOrNull(str)) {
+//			if(!entitySynonymReverseTable.keySet().contains(str)){
+//				System.err.println("there is no synEntity:"+str);
+//				return "";
+//			}
+//			return entitySynonymReverseTable.get(str);
+//		}
+//		return "";
+		
 		if (!Tool.isStrEmptyOrNull(str) && entitySynonymTable.values().contains(str)) {
 			for (String s : entitySynonymTable.keySet()) {
 				if (entitySynonymTable.get(s).equals(str))
@@ -641,19 +702,33 @@ public class NLPProcess {
 				entityTreeSet.add(s);
 			}
 		}
+		
+		Map<String, String> refMap = new HashMap<>();
+		//entitySynonymTable：【甲肝，甲型病毒性肝炎】
 		for (String s : entitySynonymTable.keySet()) {
 			if (sentence.contains(s.toLowerCase())) {
-				entityTreeSet.add(entitySynonymTable.get(s));
+				entityTreeSet.add(s);
+				refMap.put(s, entitySynonymTable.get(s));
 			}
 		}
-
+		
+		System.out.println("simple matching entities before removal: " + entityTreeSet.toString());
 		entitySet = removeContainedElements(entityTreeSet);
 		
 		// remove the high frequent entities
 		entitySet = removeRemoveableEntity(entitySet);
-
-		System.out.println("the macthed entities are: " + entitySet.toString());
-		return entitySet;
+		
+		List<String> rsSet = new ArrayList<>();
+		for(String s : entitySet){
+			if(refMap.keySet().contains(s)){
+				rsSet.add(refMap.get(s));
+			} else {
+				rsSet.add(s);
+			}
+		}
+		
+		System.out.println("the macthed entities are: " + rsSet.toString());
+		return rsSet;
 	}
 
 	// return the set of entity which is contained in the input sentence by NLP

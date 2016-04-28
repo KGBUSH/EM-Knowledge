@@ -23,7 +23,7 @@ public class Tool {
 	public static CommonLogService logService = CommonLogServiceImpl.getInstance("Tool");
 
 	public static boolean isStrEmptyOrNull(final String str) {
-		if (str == null || str.trim().length() == 0)
+		if (str == null || CharUtil.trim(str).length() == 0)
 			return true;
 		return false;
 	}

@@ -1,6 +1,7 @@
 package com.emotibot.WebService;
 
 import com.emotibot.common.Common;
+import com.emotibot.util.Tool;
 
 public class AnswerBean {
 	private double score = 0;
@@ -9,6 +10,14 @@ public class AnswerBean {
 	private boolean isValid = false;
 	private String originalWord = ""; // the word in the sentence
 	private String comments = "";
+	
+	public AnswerBean returnAnswer(AnswerBean bean){
+		if(Tool.isStrEmptyOrNull(bean.getAnswer())){
+			System.out.println("answerBean.returnanswer: bean.answer is null or empty");
+			bean.setScore(0);
+		}
+		return bean;
+	}
 
 	public double getScore() {
 		return score;
