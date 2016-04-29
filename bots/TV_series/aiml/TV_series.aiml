@@ -228,6 +228,42 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 儿 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 里 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 儿 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="3"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 里 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="3"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="3"/>的拍摄地点在哪儿？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 公 司 ^ 发 行 ^ </pattern>
         <template>
             <star index="2"/>的发行公司是哪个？
@@ -1347,6 +1383,78 @@
         <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 又 ^ 译 ^ </pattern>
         <template>
             <star index="2"/>的其它译名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 啥 时 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 什 么 时 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 何 时 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 年 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ 啥 时 ^ </pattern>
+        <template>
+            <star index="3"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ 什 么 时 ^ </pattern>
+        <template>
+            <star index="3"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ 何 时 ^ </pattern>
+        <template>
+            <star index="3"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 拍 ^ ## * <type>entity</type><label>TV_series</label> ^ 哪 年 ^ </pattern>
+        <template>
+            <star index="3"/>的拍摄日期是什么时候？
         </template>
     </category>
 </aiml>

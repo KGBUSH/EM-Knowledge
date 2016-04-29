@@ -1520,7 +1520,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "冰糖湘莲有什么做的？";
+		String str = "谷歌的年营业额有多少？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");

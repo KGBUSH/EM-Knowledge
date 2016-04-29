@@ -29,6 +29,7 @@ import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
 import com.emotibot.util.Tool;
 import com.emotibot.util.CharUtil;
+import com.emotibot.util.IndexInStringComparator;
 import com.emotibot.util.StringLengthComparator;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.dictionary.CustomDictionary;
@@ -43,7 +44,7 @@ public class NLPProcess {
 	// entitySynonymTable:[甲肝，甲型病毒性肝炎]
 	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
 	// entitySynonymReverseTable:[山大，<山西大学，山东大学>]
-	 private static Map<String, List<String>> entitySynonymReverseTable = createEntitySynonymReverseTable();
+	private static Map<String, List<String>> entitySynonymReverseTable = createEntitySynonymReverseTable();
 	private static Set<String> highFeqWordTable = createHighFeqWordTable();
 	private static Set<String> removeableHighFeqWordTable = createRemoveableHighFeqWordTable();
 
@@ -59,7 +60,7 @@ public class NLPProcess {
 	public static Set<String> getHighFeqWordTable() {
 		return highFeqWordTable;
 	}
-	
+
 	// if str in high frequent word dictionary or not
 	public static boolean isInHighFreqDict(String str) {
 		if (!str.isEmpty() && highFeqWordTable.contains(str)) {
@@ -98,31 +99,31 @@ public class NLPProcess {
 	public static Map<String, String> getEntitySynonymTable() {
 		return entitySynonymTable;
 	}
-	
+
 	// input: 欧洲
 	// output: <欧罗巴,欧罗巴洲>
-	public static List<String> getSynonymnEntityList(String dbEntity){
+	public static List<String> getSynonymnEntityList(String dbEntity) {
 		List<String> list = new ArrayList<>();
 		if (!Tool.isStrEmptyOrNull(dbEntity)) {
 			list = entitySynonymReverseTable.get(dbEntity);
-			if(list == null || list.isEmpty()){
-				System.err.println("NLPProcess.getSynonymnEntityList"+"input="+dbEntity);
-				LogService.printLog("0", "NLPProcess.getSynonymnEntityList", "input="+dbEntity);
+			if (list == null || list.isEmpty()) {
+				System.err.println("NLPProcess.getSynonymnEntityList" + "input=" + dbEntity);
+				LogService.printLog("0", "NLPProcess.getSynonymnEntityList", "input=" + dbEntity);
 			}
 			return list;
 		}
 		return list;
 	}
-	
+
 	// [欧洲，<欧罗巴，欧罗巴洲>]
-	private static Map<String, List<String>> createEntitySynonymReverseTable(){
+	private static Map<String, List<String>> createEntitySynonymReverseTable() {
 		Map<String, List<String>> rsMap = new HashMap<>();
-		for(String s : entitySynonymTable.keySet()){
-			String value = entitySynonymTable.get(s);	//欧洲 
+		for (String s : entitySynonymTable.keySet()) {
+			String value = entitySynonymTable.get(s); // 欧洲
 			List<String> list = new ArrayList<>();
-			if(rsMap.keySet().contains(value)){
+			if (rsMap.keySet().contains(value)) {
 				list = rsMap.get(value);
-			} 
+			}
 			list.add(s);
 			rsMap.put(value, list);
 		}
@@ -153,7 +154,7 @@ public class NLPProcess {
 						continue;
 					}
 					String dbName = CharUtil.trim(wordList[0]);
-					for(int i=1;i<wordList.length;i++){
+					for (int i = 1; i < wordList.length; i++) {
 						String synName = CharUtil.trim(wordList[i]);
 						// address the case 曼彻斯特联（曼联）
 						if (synName.contains("（") && synName.contains("）")) {
@@ -161,19 +162,22 @@ public class NLPProcess {
 							String first = thisSynonEntity.substring(0, thisSynonEntity.indexOf("（"));
 							String second = thisSynonEntity.substring(thisSynonEntity.indexOf("（") + 1,
 									thisSynonEntity.indexOf("）"));
-							
-//							if(entitySyn.keySet().contains(first) || entitySyn.keySet().contains(second)){
-//								System.err.println("abnormal case 1: dbName="+dbName+", synNmae="+synName);
-//							}
-							
+
+							// if(entitySyn.keySet().contains(first) ||
+							// entitySyn.keySet().contains(second)){
+							// System.err.println("abnormal case 1:
+							// dbName="+dbName+", synNmae="+synName);
+							// }
+
 							entitySyn.put(first.toLowerCase(), dbName.toLowerCase());
 							entitySyn.put(second.toLowerCase(), dbName.toLowerCase());
 						} else {
-							
-//							if(entitySyn.keySet().contains(synName)){
-//								System.err.println("abnormal case 2: synNmae="+synName+", dbName="+dbName+", ");
-//							}
-							
+
+							// if(entitySyn.keySet().contains(synName)){
+							// System.err.println("abnormal case 2:
+							// synNmae="+synName+", dbName="+dbName+", ");
+							// }
+
 							entitySyn.put(synName.toLowerCase(), dbName.toLowerCase());
 						}
 					}
@@ -184,17 +188,18 @@ public class NLPProcess {
 				return null;
 			}
 		}
-		
-		System.out.println("length of entitySyn: "+entitySyn.size());
-		
-//		int count = 0;
-//		for (Map.Entry<String, String> entry : entitySyn.entrySet()) {  
-//			count++;
-//		    System.out.println("Key = " + entry.getKey() + ", Value = " + entry.getValue());  
-//		    if(count > 10)
-//		    	break;
-//		}  
-		
+
+		System.out.println("length of entitySyn: " + entitySyn.size());
+
+		// int count = 0;
+		// for (Map.Entry<String, String> entry : entitySyn.entrySet()) {
+		// count++;
+		// System.out.println("Key = " + entry.getKey() + ", Value = " +
+		// entry.getValue());
+		// if(count > 10)
+		// break;
+		// }
+
 		return entitySyn;
 	}
 
@@ -226,35 +231,36 @@ public class NLPProcess {
 			}
 		}
 
-		System.out.println("entitySet lengh = "+entitySet.size());
+		System.out.println("entitySet lengh = " + entitySet.size());
 		return entitySet;
 	}
 
-//	// createRemoveableHighFeqWordTable
-//	private static Set<String> createRemoveableHighFeqWordTable() {
-//		Set<String> setEntity = NLPProcess.getEntityTable();
-//		Set<String> setHighWord = NLPProcess.getHighFeqWordTable();
-//		Set<String> setRemovealbeHighFWord = new HashSet<>();
-//
-//		for (String s : setEntity) {
-//			if (setHighWord.contains(s)) {
-//				String tempLabel = DBProcess.getEntityLabel(s);
-//				if (tempLabel.endsWith("other")){
-//					setRemovealbeHighFWord.add(s);
-//				}
-//			}
-//		}
-//
-//		System.out.println("setRemovealbeHighFWord lengh = "+setRemovealbeHighFWord.size());
-//		return setRemovealbeHighFWord;
-//	}
+	// // createRemoveableHighFeqWordTable
+	// private static Set<String> createRemoveableHighFeqWordTable() {
+	// Set<String> setEntity = NLPProcess.getEntityTable();
+	// Set<String> setHighWord = NLPProcess.getHighFeqWordTable();
+	// Set<String> setRemovealbeHighFWord = new HashSet<>();
+	//
+	// for (String s : setEntity) {
+	// if (setHighWord.contains(s)) {
+	// String tempLabel = DBProcess.getEntityLabel(s);
+	// if (tempLabel.endsWith("other")){
+	// setRemovealbeHighFWord.add(s);
+	// }
+	// }
+	// }
+	//
+	// System.out.println("setRemovealbeHighFWord lengh =
+	// "+setRemovealbeHighFWord.size());
+	// return setRemovealbeHighFWord;
+	// }
 
 	// createHighFeqWordTable
 	private static Set<String> createRemoveableHighFeqWordTable() {
 		Set<String> wordSet = new HashSet<>();
 		String fileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent.txt";
 		System.out.println("path is " + fileName);
-		
+
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
 				BytesEncodingDetect s = new BytesEncodingDetect();
@@ -275,12 +281,11 @@ public class NLPProcess {
 				return null;
 			}
 		}
-		
-		System.out.println("createRemoveableHighFeqWordTable lengh = "+wordSet.size());
+
+		System.out.println("createRemoveableHighFeqWordTable lengh = " + wordSet.size());
 		return wordSet;
 	}
-	
-	
+
 	// createHighFeqWordTable
 	private static Set<String> createHighFeqWordTable() {
 		Set<String> wordSet = new HashSet<>();
@@ -308,7 +313,7 @@ public class NLPProcess {
 			}
 		}
 
-		System.out.println("createHighFeqWordTable lengh = "+wordSet.size());
+		System.out.println("createHighFeqWordTable lengh = " + wordSet.size());
 		return wordSet;
 	}
 
@@ -433,15 +438,15 @@ public class NLPProcess {
 	// input-output: 甲型病毒性肝炎-甲肝
 	// input-output: 姚明-“”，甲肝-""
 	public static String getEntitySynonymReverse(String str) {
-//		if (!Tool.isStrEmptyOrNull(str)) {
-//			if(!entitySynonymReverseTable.keySet().contains(str)){
-//				System.err.println("there is no synEntity:"+str);
-//				return "";
-//			}
-//			return entitySynonymReverseTable.get(str);
-//		}
-//		return "";
-		
+		// if (!Tool.isStrEmptyOrNull(str)) {
+		// if(!entitySynonymReverseTable.keySet().contains(str)){
+		// System.err.println("there is no synEntity:"+str);
+		// return "";
+		// }
+		// return entitySynonymReverseTable.get(str);
+		// }
+		// return "";
+
 		if (!Tool.isStrEmptyOrNull(str) && entitySynonymTable.values().contains(str)) {
 			for (String s : entitySynonymTable.keySet()) {
 				if (entitySynonymTable.get(s).equals(str))
@@ -548,23 +553,23 @@ public class NLPProcess {
 		}
 		return syn;
 	}
-	
+
 	// remove the removeable string in the set
-	public static Set<String> removeRemoveableEntity(Set<String> entitySet){
+	public static Set<String> removeRemoveableEntity(Set<String> entitySet) {
 		Set<String> rsSet = new HashSet<>();
-		for(String s : entitySet){
-			if(!isInRemoveableDict(s)){
+		for (String s : entitySet) {
+			if (!isInRemoveableDict(s)) {
 				rsSet.add(s);
 			}
 		}
 		return rsSet;
 	}
-	
+
 	// remove the removeable string in the set
-	public static List<String> removeRemoveableEntity(List<String> entitySet){
+	public static List<String> removeRemoveableEntity(List<String> entitySet) {
 		List<String> rsSet = new ArrayList<>();
-		for(String s : entitySet){
-			if(!isInRemoveableDict(s)){
+		for (String s : entitySet) {
+			if (!isInRemoveableDict(s)) {
 				rsSet.add(s);
 			}
 		}
@@ -579,7 +584,7 @@ public class NLPProcess {
 			return false;
 		}
 	}
-	
+
 	// if str in synonym dictionary or not
 	public static boolean isInSynonymDict(String str) {
 		if (!str.isEmpty() && synonymTable.containsKey(str)) {
@@ -702,33 +707,67 @@ public class NLPProcess {
 				entityTreeSet.add(s);
 			}
 		}
-		
+
 		Map<String, String> refMap = new HashMap<>();
-		//entitySynonymTable：【甲肝，甲型病毒性肝炎】
+		// entitySynonymTable：【甲肝，甲型病毒性肝炎】
 		for (String s : entitySynonymTable.keySet()) {
 			if (sentence.contains(s.toLowerCase())) {
 				entityTreeSet.add(s);
 				refMap.put(s, entitySynonymTable.get(s));
 			}
 		}
-		
+
 		System.out.println("simple matching entities before removal: " + entityTreeSet.toString());
 		entitySet = removeContainedElements(entityTreeSet);
-		
+
 		// remove the high frequent entities
 		entitySet = removeRemoveableEntity(entitySet);
-		
+		entitySet = sortByIndexOfSentence(sentence, entitySet);
+
 		List<String> rsSet = new ArrayList<>();
-		for(String s : entitySet){
-			if(refMap.keySet().contains(s)){
+		for (String s : entitySet) {
+			if (refMap.keySet().contains(s)) {
 				rsSet.add(refMap.get(s));
 			} else {
 				rsSet.add(s);
 			}
 		}
-		
+
 		System.out.println("the macthed entities are: " + rsSet.toString());
 		return rsSet;
+	}
+
+	// sort by the index of the string in the sentence
+	private static List<String> sortByIndexOfSentence(String sentence, List<String> set) {
+		System.out.println("input of the sort is set="+set);
+		TreeSet<String> refSet = new TreeSet<String>(new IndexInStringComparator(sentence));
+		for(String s : set){
+			refSet.add(s);
+		}
+		
+		set.clear();
+		for(String s : refSet){
+			set.add(s);
+		}
+		
+		System.out.println("output of the sort is set="+set);
+		return set;
+		
+//		String[] arr = new String[set.size()];
+		/*for (int i = 0; i < set.size(); i++) {
+			String element = set.get(i);
+			int index = sentence.indexOf(element);
+			if (index == -1) {
+				LogService.printLog("0", "NLPProcess.sortByIndexOfSentence", "s=" + sentence + ", set=" + set);
+				System.err.println("NLPProcess.sortByIndexOfSentence: s=" + sentence + ", set=" + set);
+			}
+			for (int j = i - 1; j >= 0; j--) {
+				String preStr = arr[j];
+				if()
+
+			}
+
+		}*/
 	}
 
 	// return the set of entity which is contained in the input sentence by NLP
