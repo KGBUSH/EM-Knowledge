@@ -383,8 +383,7 @@ public class TemplateGenerator {
 	public static void main(String[] args) {
 		TemplateGenerator tg = new TemplateGenerator();
 		tg.generateQuestionClassifierTemplate();
-		// tg.generateDomainTemplate();
-		// tg.generator();
+		 tg.generateDomainTemplate();
 	}
 
 }
