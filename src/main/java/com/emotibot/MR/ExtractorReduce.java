@@ -8,6 +8,7 @@ package com.emotibot.MR;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -63,6 +64,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 	public static String ip = "";
 	public static int port = 0;
 	public static String solrName ="";
+	public static HashMap<String,String> DuplicateDetectionMap = new HashMap<>();
 
 	@Override
 	public void setup(Context context) {
@@ -71,6 +73,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 
 		outputTableName = context.getConfiguration().get("destTable");
 		puttable = new ImmutableBytesWritable(Bytes.toBytes(outputTableName));
+		DuplicateDetectionMap = new HashMap<>();
 		///////
 		if (type.contains("Neo4j")) {
 		 DriverName = context.getConfiguration().get("DriverName");
@@ -101,12 +104,14 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 				if (type.contains("Neo4j")) {
 					String query = value.toString();
 					System.err.println("queryReduce=" + query);
-
                     if(query==null||query.trim().length()==0)
                     {
         				System.err.println("query==null||query==0");
         				continue;
                     }
+					String md5sql=DigestUtils.md5Hex(query);
+                    if(DuplicateDetectionMap.containsKey(md5sql)) continue;
+                    DuplicateDetectionMap.put(md5sql, "");
 					if (conn != null) {
 					}
 					else
