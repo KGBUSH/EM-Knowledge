@@ -256,12 +256,10 @@ public class BaikeExtractor extends Extractor {
         for(String key:info.getAttr_Values().keySet())
         {
     		System.err.println(key+"===2>>>"+info.getAttr_Values().get(key));
-
         }
         for(String key:info.getAttr().keySet())
         {
     		System.err.println(key+"===3>>>"+info.getAttr().get(key));
-
         }
 
 		System.err.println("getTongyici.........."+info.getTongyici());
