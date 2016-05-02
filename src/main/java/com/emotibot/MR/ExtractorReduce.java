@@ -102,16 +102,14 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 		try {
 				System.err.println("typeReduce=" + type+"  ");
 				if (type.contains("Neo4j")) {
-					String query = value.toString();
+					String query=value.toString();
 					System.err.println("queryReduce=" + query);
+
                     if(query==null||query.trim().length()==0)
                     {
         				System.err.println("query==null||query==0");
         				continue;
                     }
-					String md5sql=DigestUtils.md5Hex(query);
-                    if(DuplicateDetectionMap.containsKey(md5sql)) continue;
-                    DuplicateDetectionMap.put(md5sql, "");
 					if (conn != null) {
 					}
 					else
@@ -122,6 +120,13 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 					boolean result=false;
                     if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
                     {
+    					String[] arrAll = value.toString().split("###");
+    					if(arrAll.length!=2) continue;
+    					String md5sql=arrAll[0].trim();
+    					query=arrAll[1].trim();
+                        if(DuplicateDetectionMap.containsKey(md5sql)) continue;
+                        DuplicateDetectionMap.put(md5sql, "");
+
             			if(query.contains("return")) query = query.substring(0, query.lastIndexOf("return"));
             			query=query.replaceAll("result", "result"+list.size());
                         list.add(query);

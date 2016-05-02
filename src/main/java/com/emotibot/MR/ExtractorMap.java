@@ -205,7 +205,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					System.err.println("Weka:"+pageExtractInfo.getTags()+"###"+label+"###"+name+"###"+pmWord+"###"+url);
 					/////////
 					if (query == null || query.trim().length() == 0) return;
-					context.write(outputKey, new Text(query));
+					context.write(outputKey, new Text(pageExtractInfo.getParamMd5()+"###"+query));
 					}
 					if(NodeOrRelation.equals("2"))
 					{
