@@ -31,29 +31,23 @@ import net.sf.json.JSONObject;
  */
 //com.emotibot.weka.WekaWebserver
 public class WekaWebserver {
-	public static void main(String[] args) throws Exception {
-		// Create a basic jetty server object that will listen on port 8080.
-		// Note that if you set this to port 0 then a randomly available port
-		// will be assigned that you can either look in the logs for the port,
-		// or programmatically obtain it for use in test cases.
-		Server server = new Server(7000);
+   public static  WekaPrediction demo;
 
-		// The ServletHandler is a dead simple way to create a context handler
-		// that is backed by an instance of a Servlet.
-		// This handler then needs to be registered with the Server object.
+	public static void main(String[] args) throws Exception {
+	    PreProcess.ProduceArffNum("arff/wekaNew.txt");
+	   // demo.execute();
+	 	String classifier = "weka.classifiers.bayes.NaiveBayes";
+	    String dataset = "tagNew.arff";
+	    demo = new WekaPrediction();
+	    String[] options = new String[0];
+	    demo.setClassifier(classifier,options);
+	    demo.setTraining(dataset);
+	    demo.execute();
+
+		Server server = new Server(7000);
 		ServletHandler handler = new ServletHandler();
 		server.setHandler(handler);
-
-		// Passing in the class for the Servlet allows jetty to instantiate an
-		// instance of that Servlet and mount it on a given context path.
-
-		// IMPORTANT:
-		// This is a raw Servlet, not a Servlet that has been configured
-		// through a web.xml @WebServlet annotation, or anything similar.
-		// handler.addServletWithMapping(NlpServlet.class, "/web");
-		SimpleClassifier.Init();
-		SimpleClassifier.Train("Weka6000");
-		handler.addServletWithMapping(Weka.class, "/json");
+		handler.addServletWithMapping(Weka.class, "/tag");
 
 		// Start things up!
 		server.start();
@@ -62,6 +56,7 @@ public class WekaWebserver {
 		// wait until the server is done executing.
 		// See
 		// http://docs.oracle.com/javase/7/docs/api/java/lang/Thread.html#join()
+		System.err.println("Start!");
 		server.join();
 	}
 
@@ -96,7 +91,7 @@ public class WekaWebserver {
 			if (text != null) {
 				text = text.trim();
 				JSONObject result_obj = new JSONObject();
-				result_obj.put("result", SimpleClassifier.getLabels(text));
+				result_obj.put("result", demo.getClassifierTag(text));
 				out.println(result_obj);
 			}
 		}catch(Exception e)
