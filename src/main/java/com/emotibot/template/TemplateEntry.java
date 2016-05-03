@@ -101,7 +101,7 @@ public class TemplateEntry {
 		}
 
 		System.out.println("\t templateProcess: label=" + label);
-		String templateRS = getDomainTemplate(label).process(tempStr);
+		String templateRS = getDomainTemplate(label.toLowerCase()).process(tempStr);
 
 		// String templateRS = sentenceTemplate.process(tempStr);
 		if (templateRS.isEmpty()) {

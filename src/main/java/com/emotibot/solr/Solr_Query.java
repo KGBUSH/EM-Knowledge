@@ -49,7 +49,7 @@ public class Solr_Query {
 		}
 		buffer.append("KG_Attr_Value:").append("*").append(words.get(words.size()-1)).append("*^1");
 		}
-		System.err.println("query="+buffer.toString());
+		System.out.println("query="+buffer.toString());
 		return buffer.toString();
 	}
 	public List<String> getEntity() {
