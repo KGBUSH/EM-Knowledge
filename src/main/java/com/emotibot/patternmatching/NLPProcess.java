@@ -722,6 +722,7 @@ public class NLPProcess {
 
 		// remove the high frequent entities
 		entitySet = removeRemoveableEntity(entitySet);
+		System.out.println("simple matching entities after removal: " + entitySet.toString());
 		entitySet = sortByIndexOfSentence(sentence, entitySet);
 
 		List<String> rsSet = new ArrayList<>();
@@ -739,7 +740,7 @@ public class NLPProcess {
 
 	// sort by the index of the string in the sentence
 	private static List<String> sortByIndexOfSentence(String sentence, List<String> set) {
-		System.out.println("input of the sort is set="+set);
+//		System.out.println("input of the sort is set="+set);
 		TreeSet<String> refSet = new TreeSet<String>(new IndexInStringComparator(sentence));
 		for(String s : set){
 			refSet.add(s);
@@ -750,7 +751,7 @@ public class NLPProcess {
 			set.add(s);
 		}
 		
-		System.out.println("output of the sort is set="+set);
+//		System.out.println("output of the sort is set="+set);
 		return set;
 		
 //		String[] arr = new String[set.size()];

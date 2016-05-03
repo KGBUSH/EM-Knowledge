@@ -30,5 +30,6 @@ public interface CypherSQLParser {
 	public String getRelationshipInConvergePath(String labelA, String entityA, String labelB, String entityB);
 	public String getRelationshipInDivergentPath(String labelA, String entityA, String labelB, String entityB);
 	public String getLabelByEntity(String ent);
+	public String getLabelListByEntity(String ent);
 	
 }

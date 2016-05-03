@@ -43,7 +43,7 @@ public class TemplateEntry {
 	private static Map<String, TemplateProcessor> buildTemplateMap() {
 		Map<String, TemplateProcessor> map = new HashMap<>();
 
-		map.put("TV_series", TV_seriesTemplate);
+		map.put("tv_series", TV_seriesTemplate);
 		map.put("anime", animeTemplate);
 		map.put("catchword", catchwordTemplate);
 		map.put("college", collegeTemplate);
@@ -76,7 +76,7 @@ public class TemplateEntry {
 	// template process, change the exception cases
 	// input: entity and sentence, "姚明", "姚明多高"
 	// output: the sentence changed by template, "姚明身高多少"
-	public static String templateProcess(String entity, String sentence, String uniqueID) {
+	public static String templateProcess(String label, String entity, String sentence, String uniqueID) {
 		Debug.printDebug(uniqueID, 3, "knowledge", "entity=" + entity + ", setnence=" + sentence);
 		System.out.println("TEMPLATE: entity=" + entity + ", setnence=" + sentence);
 		if (sentence.lastIndexOf(entity) == -1 || sentence.equals(entity)) {
@@ -89,7 +89,6 @@ public class TemplateEntry {
 			return "";
 		}
 
-		String label = DBProcess.getEntityLabel(entity);
 		String tempStr = strArr[0];
 		for (int i = 1; i < strArr.length; i++) {
 			tempStr += "## " + entity + " <type>entity</type>" + "<label>" + label + "</label> ";
@@ -101,7 +100,7 @@ public class TemplateEntry {
 		}
 
 		System.out.println("\t templateProcess: label=" + label);
-		String templateRS = getDomainTemplate(label).process(tempStr);
+		String templateRS = getDomainTemplate(label.toLowerCase()).process(tempStr);
 
 		// String templateRS = sentenceTemplate.process(tempStr);
 		if (templateRS.isEmpty()) {

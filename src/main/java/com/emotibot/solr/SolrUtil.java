@@ -142,7 +142,7 @@ public class SolrUtil {
             String value = (String)doc.getFieldValue(Value);
             //System.err.println("value="+value);
             String name = (String)doc.getFieldValue(Name);
-            System.err.println("Name="+name);
+            System.out.println("Name="+name);
             //return name;
             result.add(name);
         }

@@ -114,7 +114,7 @@ public class EmotibotNeo4jConnection {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			while (rs.next()) {
+			if (rs.next()) {
 				bean.setResult(rs.getObject(Common.ResultObj).toString());
 			}
 			bean.setStatus(true);
