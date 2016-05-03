@@ -711,7 +711,7 @@ public class NLPProcess {
 		Map<String, String> refMap = new HashMap<>();
 		// entitySynonymTable：【甲肝，甲型病毒性肝炎】
 		for (String s : entitySynonymTable.keySet()) {
-			if (sentence.contains(s.toLowerCase())) {
+			if (!entityTreeSet.contains(s) && sentence.contains(s.toLowerCase())) {
 				entityTreeSet.add(s);
 				refMap.put(s, entitySynonymTable.get(s));
 			}
@@ -722,6 +722,7 @@ public class NLPProcess {
 
 		// remove the high frequent entities
 		entitySet = removeRemoveableEntity(entitySet);
+		System.out.println("simple matching entities after removal: " + entitySet.toString());
 		entitySet = sortByIndexOfSentence(sentence, entitySet);
 
 		List<String> rsSet = new ArrayList<>();
@@ -739,7 +740,7 @@ public class NLPProcess {
 
 	// sort by the index of the string in the sentence
 	private static List<String> sortByIndexOfSentence(String sentence, List<String> set) {
-		System.out.println("input of the sort is set="+set);
+//		System.out.println("input of the sort is set="+set);
 		TreeSet<String> refSet = new TreeSet<String>(new IndexInStringComparator(sentence));
 		for(String s : set){
 			refSet.add(s);
@@ -750,7 +751,7 @@ public class NLPProcess {
 			set.add(s);
 		}
 		
-		System.out.println("output of the sort is set="+set);
+//		System.out.println("output of the sort is set="+set);
 		return set;
 		
 //		String[] arr = new String[set.size()];
@@ -777,25 +778,43 @@ public class NLPProcess {
 	public static List<String> getEntityByNLP(List<Term> segPos) {
 		List<String> entitySet = new ArrayList<>();
 		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthComparator());
+		Map<String, String> refMap = new HashMap<>();
 
 		for (int i = 0; i < segPos.size(); i++) {
 			String segWord = segPos.get(i).word;
 			if (!NLPProcess.getEntityInDictinoary(segWord).isEmpty()) {
 				entityTreeSet.add(segWord);
 			} else if (!NLPProcess.getEntitySynonymNormal(segWord).isEmpty()) {
-				entityTreeSet.add(entitySynonymTable.get(segWord));
+//				entityTreeSet.add(entitySynonymTable.get(segWord));
+				System.out.println("syn in NLP: word="+segWord+", syn="+entitySynonymTable.get(segWord));
+				entityTreeSet.add(segWord);
+				refMap.put(segWord, entitySynonymTable.get(segWord));
+			}
+		}
+		
+		System.out.println("NLP entities before removal: " + entityTreeSet.toString());
+		entitySet = removeContainedElements(entityTreeSet);
+		// remove the high frequent entities
+		entitySet = removeRemoveableEntity(entitySet);
+		System.out.println("NLP entities after removal: " + entitySet.toString());
+
+		List<String> rsSet = new ArrayList<>();
+		for (String s : entitySet) {
+			if (refMap.keySet().contains(s)) {
+				rsSet.add(refMap.get(s));
+			} else {
+				rsSet.add(s);
 			}
 		}
 
-		// Iterator<String> it = entityTreeSet.iterator();
-		// while (it.hasNext()) {
-		// entitySet.add(it.next().toString());
-		// }
-
-		entitySet = removeContainedElements(entityTreeSet);
-		entitySet = removeRemoveableEntity(entitySet);
-		System.out.println("the result entities of NLP are: " + entitySet.toString());
-		return entitySet;
+		System.out.println("the NLP entities are: " + rsSet.toString());
+		return rsSet;
+		
+//		entitySet = removeContainedElements(entityTreeSet);
+//		entitySet = removeRemoveableEntity(entitySet);
+//		System.out.println("the result entities of NLP are: " + entitySet.toString());
+//		return entitySet;
+		
 	}
 
 	// remove the stopword in a string.

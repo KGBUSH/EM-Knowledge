@@ -47,7 +47,7 @@ public class DebugTest {
 	
 	public static void main(String [] args){
 		String debugLevel = "debug"; //bad_case, debugAll, debug
-		String date = "0503";
+		String date = "0504";
 		String reader = Common.UserDir + "/debug/cases/"+debugLevel+".txt";
 		String writer = Common.UserDir + "/debug/"+date+"/"+debugLevel+"_cases-"+date+"-01.txt";
 		NLPProcess nlpProcess = new NLPProcess();

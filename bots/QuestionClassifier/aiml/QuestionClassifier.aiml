@@ -720,6 +720,60 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type> 谁 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 谁 么 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 谁 呢 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 谁 阿 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 谁 啊 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 谁 啦 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 谁 哇 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 谁 呀 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 谁 吗 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type> 啥 意 思 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo

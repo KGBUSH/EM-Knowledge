@@ -76,7 +76,7 @@ public class TemplateEntry {
 	// template process, change the exception cases
 	// input: entity and sentence, "姚明", "姚明多高"
 	// output: the sentence changed by template, "姚明身高多少"
-	public static String templateProcess(String entity, String sentence, String uniqueID) {
+	public static String templateProcess(String label, String entity, String sentence, String uniqueID) {
 		Debug.printDebug(uniqueID, 3, "knowledge", "entity=" + entity + ", setnence=" + sentence);
 		System.out.println("TEMPLATE: entity=" + entity + ", setnence=" + sentence);
 		if (sentence.lastIndexOf(entity) == -1 || sentence.equals(entity)) {
@@ -89,7 +89,6 @@ public class TemplateEntry {
 			return "";
 		}
 
-		String label = DBProcess.getEntityLabel(entity);
 		String tempStr = strArr[0];
 		for (int i = 1; i < strArr.length; i++) {
 			tempStr += "## " + entity + " <type>entity</type>" + "<label>" + label + "</label> ";

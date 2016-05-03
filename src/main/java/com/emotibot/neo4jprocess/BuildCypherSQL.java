@@ -280,6 +280,18 @@ public class BuildCypherSQL implements CypherSQLParser {
 		System.out.println("query in getLabelByEntity is: " + query);
 		return query;
 	}
+	
+	@Override
+	public String getLabelListByEntity(String ent) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(ent)) {
+			System.err.println("CYPHER: name is null");
+			return query;
+		}
+		query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) with labels(e) as labels unwind labels as labelList return collect(labelList) as " + Common.ResultObj;
+		System.out.println("query in getLabelByEntity is: " + query);
+		return query;
+	}
 
 	public static void main(String[] args) {
 		BuildCypherSQL buildCypherSQL = new BuildCypherSQL();
