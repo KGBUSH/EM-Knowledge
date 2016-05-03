@@ -43,7 +43,7 @@ public class TemplateEntry {
 	private static Map<String, TemplateProcessor> buildTemplateMap() {
 		Map<String, TemplateProcessor> map = new HashMap<>();
 
-		map.put("TV_series", TV_seriesTemplate);
+		map.put("tv_series", TV_seriesTemplate);
 		map.put("anime", animeTemplate);
 		map.put("catchword", catchwordTemplate);
 		map.put("college", collegeTemplate);
