@@ -32,6 +32,7 @@ import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.MultiTableOutputFormat;
 import org.apache.hadoop.hbase.mapreduce.TableInputFormat;
+import org.apache.hadoop.hbase.mapreduce.TableMapper;
 import org.apache.hadoop.hbase.mapreduce.TableOutputFormat;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.Text;
@@ -52,7 +53,7 @@ import net.sf.json.JSON;
 import net.sf.json.JSONObject;
 import net.sf.json.JSONSerializer;
 
-public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, ImmutableBytesWritable, Text> {
+public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, ImmutableBytesWritable> {
 	public static String URL = "url";
 	public static String HTMLBODY = "html";
 	public static String WORDS="words";
@@ -150,6 +151,8 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 			}
 			System.err.println("url.size=" + url.length() + " html.size=" + html.length());
 			System.err.println("url=" + url);
+			ImmutableBytesWritable outputKey = new ImmutableBytesWritable();
+			ImmutableBytesWritable outputValue = new ImmutableBytesWritable();
 			if ((url != null && url.trim().length() > 0) && (html != null && html.trim().length() > 0)) {
 				if(url.indexOf("baike.baidu.com")==-1) return;
 				if (type.contains("Neo4j")) {
@@ -169,7 +172,7 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 						//if(NodeOrRelation.equals("1")||NodeOrRelation.equals("2")) return;
 					}
 
-					ImmutableBytesWritable outputKey = new ImmutableBytesWritable();
+
 					outputKey.set(Bytes.toBytes(getASCIISum(url, 3)));
 
 					if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
@@ -218,7 +221,8 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					System.err.println("Weka:"+pageExtractInfo.getTags()+"###"+label+"###"+name+"###"+pmWord+"###"+url);
 					/////////
 					if (query == null || query.trim().length() == 0) return;
-					context.write(outputKey, new Text(pageExtractInfo.getParamMd5()+"###"+query));
+					outputValue.set(Bytes.toBytes(pageExtractInfo.getParamMd5()+"###"+query));
+					context.write(outputKey, outputValue);
 					}
 					if(NodeOrRelation.equals("2"))
 					{
@@ -259,7 +263,10 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
     					                System.err.println(NodeOrRelation+" queryMap2=" + query2);
                                     }
 									//if (query !=null && query.trim().length()>0) context.write(outputKey, new Text(query));
-									if (query2 !=null && query2.trim().length()>0) context.write(outputKey, new Text(query2));
+									if (query2 !=null && query2.trim().length()>0){
+										outputValue.set(Bytes.toBytes(query2));
+										context.write(outputKey, outputValue);
+									}
 
 								}
 							}
@@ -276,9 +283,9 @@ public class ExtractorMap extends Mapper<ImmutableBytesWritable, Result, Immutab
 					buffer.append(pageInfo.getValueStr()).append(Seperator);
 					buffer.append(pageInfo.getAttrValueStr()).append(Seperator);
 					buffer.append(pageInfo.toSolrString());
-					ImmutableBytesWritable outputKey = new ImmutableBytesWritable();
 					outputKey.set(Bytes.toBytes(getASCIISum(url, 3)));
-					context.write(outputKey, new Text(buffer.toString()));
+					outputValue.set(Bytes.toBytes(buffer.toString()));
+					context.write(outputKey, outputValue);
 				}
 			}
 		} catch (Exception e) {

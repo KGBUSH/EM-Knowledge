@@ -5,6 +5,8 @@
  * Primary Owner: taoliu@emotibot.com.cn
  */
 package com.emotibot.MR;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import org.apache.commons.codec.digest.DigestUtils;
@@ -17,6 +19,7 @@ import org.apache.hadoop.hbase.client.Scan;
 import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.MultiTableOutputFormat;
 import org.apache.hadoop.hbase.mapreduce.TableInputFormat;
+import org.apache.hadoop.hbase.mapreduce.TableMapReduceUtil;
 import org.apache.hadoop.hbase.mapreduce.TableOutputFormat;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.Text;
@@ -52,9 +55,9 @@ public class ExtractorJob {
           String inputTableFile = args[0].trim();
           String destTableName=args[1].trim();
           String type=args[2].trim();
-          Scan scan = new Scan();
-          scan.setCaching(100);
-          scan.setCacheBlocks(false);
+         // Scan scan = new Scan();
+         // scan.setCaching(100);
+         // scan.setCacheBlocks(false);
          // conf.set(TableInputFormat.INPUT_TABLE, inputTableName);
           conf.set("destTable", destTableName);
           conf.set("type", type);
@@ -97,6 +100,18 @@ public class ExtractorJob {
           job.setJarByClass(ExtractorMap.class);
           job.setJobName("ExtractorJob");
          // System.exit(job.waitForCompletion(true) ? 0 : 1);
+          ////////
+			List<Scan> scanList = new ArrayList<Scan>();
+            for(String table:tables){
+	            Scan scan = new Scan();  
+	            scan.setCaching(5000);  
+	            scan.setCacheBlocks(false);  
+	            scan.setAttribute(Scan.SCAN_ATTRIBUTES_TABLE_NAME, table.getBytes());  
+	            scanList.add(scan);  
+            }
+          ///////////
+          TableMapReduceUtil.initTableMapperJob(scanList, ExtractorMap.class, ImmutableBytesWritable.class, ImmutableBytesWritable.class, job);
+          //TableMapReduceUtil.initTableReducerJob(table, reducer, job);
           while (true) {
 				if (job.waitForCompletion(true)) break;
 				Thread.sleep(10000);

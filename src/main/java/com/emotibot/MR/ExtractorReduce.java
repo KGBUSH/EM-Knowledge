@@ -24,6 +24,7 @@ import org.apache.hadoop.hbase.io.ImmutableBytesWritable;
 import org.apache.hadoop.hbase.mapreduce.MultiTableOutputFormat;
 import org.apache.hadoop.hbase.mapreduce.TableInputFormat;
 import org.apache.hadoop.hbase.mapreduce.TableOutputFormat;
+import org.apache.hadoop.hbase.mapreduce.TableReducer;
 import org.apache.hadoop.hbase.util.Bytes;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.io.Writable;
@@ -42,7 +43,7 @@ import com.emotibot.solr.SolrUtil;
 import com.emotibot.util.Neo4jResultBean;
 import com.emotibot.util.Tool;
 
-public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writable, Put> {
+public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, ImmutableBytesWritable, ImmutableBytesWritable> {
 	public static ImmutableBytesWritable puttable = new ImmutableBytesWritable();
 	public static String outputTableName = "";
 	public static String type = "";
@@ -93,16 +94,16 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 	}
 
 	@Override
-	protected void reduce(ImmutableBytesWritable key, Iterable<Text> values, Context context)
+	protected void reduce(ImmutableBytesWritable folder,Iterable<ImmutableBytesWritable> values, Context context) 
 			throws IOException, InterruptedException {
 
 			long solrDocnum=0;
 			List<String> list = new ArrayList<>();
-			for (Text value : values) {
+			for (ImmutableBytesWritable value : values) {
 		try {
 				System.err.println("typeReduce=" + type+"  ");
 				if (type.contains("Neo4j")) {
-					String query=value.toString();
+					String query=Bytes.toString(value.get());//value.toString();
 					System.err.println("queryReduce=" + query);
 
                     if(query==null||query.trim().length()==0)
@@ -154,7 +155,9 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 				}
 				if (type.contains("Solr")) {
                 	long t11 = System.currentTimeMillis();
-                  String line=value.toString();
+                 // String line=value.toString();
+					String line=Bytes.toString(value.get());//value.toString();
+
                   String[] arr = line.split(Seperator);
 				  System.err.println("arr.length="+arr.length);
 
