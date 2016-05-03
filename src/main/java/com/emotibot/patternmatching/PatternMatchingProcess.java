@@ -303,10 +303,7 @@ public class PatternMatchingProcess {
 				}
 			}
 
-			if (singleEntityAnswerBeanList.isEmpty()) {
-				System.err.println("get no answer after template processing");
-				return answerBean.returnAnswer(answerBean);
-			} else {
+			if (!singleEntityAnswerBeanList.isEmpty()) {
 				System.out.println("singleEntityAnswerBeanList: size = " + singleEntityAnswerBeanList.size());
 				AnswerBean tempBean = singleEntityAnswerBeanList.get(0);
 				System.out.println("first = " + tempBean);
@@ -1563,7 +1560,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "一吻定情的作者是谁";
+		String str = "处女座的象征物是什么?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");
