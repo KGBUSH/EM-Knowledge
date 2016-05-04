@@ -138,6 +138,11 @@
 	  <artifactId>debug-logger</artifactId>
 	  <version>1.0-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>redis.clients</groupId>
+      <artifactId>jedis</artifactId>
+      <version>2.5.2</version>
+    </dependency>
   </dependencies>
   <repositories>
     <repository>
