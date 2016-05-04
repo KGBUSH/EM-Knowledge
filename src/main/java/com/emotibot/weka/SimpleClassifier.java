@@ -129,7 +129,7 @@ public class SimpleClassifier {
 			all++;
 			if(label.equals(getLabels(tag))) r++;
 			else{
-			System.err.println(tag+"  "+label+"  "+getLabels(tag));
+			System.err.println(tag+"===>"+label+"###"+getLabels(tag));
 			}
 		}
 		System.err.println(100*(double)r/all);

@@ -126,6 +126,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 			getFileLine(f);
 		}
 		getWordLabel("/domain/label.txt");
+		getLabelByTrainWeka("/domain/weka.txt");
 	}
 
 	@Override
@@ -200,6 +201,14 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						if(WordLabelMap.containsKey(name)) label = WordLabelMap.get(name);
 	                    else label=Other;
 					}
+				    //
+                     /* if(label.equals(Other))
+                      {
+                    	  String tags=pageExtractInfo.getTags();
+                    	  label=this.getLabelByTags(tags);
+      					  System.err.println("labelWeka="+tags+"  "+label+"  "+url);
+                      }*/
+					//
 					System.err.println("label="+label);
 					System.err.println("LabelInfo:"+name+"###"+pmWord+"###"+label);
 					System.err.println("LabelInfoData:"+pmWord+"###"+label);
@@ -246,8 +255,16 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					{
 						HashMap<String,List<String>> attr_Values = pageExtractInfo.getAttr_Values();
 						BuildCypherSQL bcy = new BuildCypherSQL();
-						if(WordLabelMap.containsKey(name)) label = WordLabelMap.get(name);
-	                    else label=Other;
+						if(pmWord!=null&&pmWord.trim().length()>0)
+						{
+							if(WordLabelMap.containsKey(pmWord)) label = WordLabelMap.get(pmWord);
+		                    else label=Other;
+						}
+						else
+						{
+							if(WordLabelMap.containsKey(name)) label = WordLabelMap.get(name);
+		                    else label=Other;
+						}
 						System.err.println("label="+label);
 
 						if(attr_Values!=null&&attr_Values.size()>0)
@@ -262,6 +279,13 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 									if(WordLabelMap.containsKey(val)) 
 									{
 										label2=WordLabelMap.get(val);
+					                     /* if(label.equals(Other))
+					                      {
+					                    	  String tags=pageExtractInfo.getTags();
+					                    	  label=this.getLabelByTags(tags);
+					      					  System.err.println("labelWeka="+tags+"  "+label+"  "+url);
+					                      }*/
+
 									}
 									Entity b = new Entity(label2,val,"Name");
 									if(name.trim().equals(val.trim())){
