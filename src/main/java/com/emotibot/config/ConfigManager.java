@@ -135,4 +135,26 @@ public int getWebServerPort() {
 
 	return 0;
 }
+
+
+@Override
+public String getRedisIP() {
+	if(properties!=null&&properties.containsKey(ConfigKeyName.REDIS_IP))
+		return properties.getProperty(ConfigKeyName.REDIS_IP);
+	return null;
+}
+
+
+@Override
+public int getRedisPort() {
+	try{
+	if(properties!=null&&properties.containsKey(ConfigKeyName.REDIS_PORT))
+		return Integer.valueOf(properties.getProperty(ConfigKeyName.REDIS_PORT));
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+
+	return 0;
+}
 }

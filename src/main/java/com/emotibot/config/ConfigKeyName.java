@@ -30,7 +30,10 @@ public class ConfigKeyName {
 	//===========System.getProperty("user.dir") + "/"+"config/"+
 	public static String ConfigFileName=System.getProperty("user.dir") + "/"+"config/"+"KG.property";
 	public static String ImplicationConfigName=System.getProperty("user.dir") + "/"+"config/"+"implication.property";
-
+    
+	//=======Redis
+	public static final String REDIS_IP="redis.ip";
+	public static final String REDIS_PORT="redis.port";
 	public static void main(String args[])
 	{
 	}

@@ -26,5 +26,10 @@ public interface ConfigInterface {
     public int getIndexSolrServerPort();
     public String getIndexSolrServerSolrName();
     public int getWebServerPort();
+    
+	//public static final String REDIS_IP="redis.ip";
+	//public static final String REDIS_PORT="redis.port";
+    public String getRedisIP();
+    public int getRedisPort();
 
 }
