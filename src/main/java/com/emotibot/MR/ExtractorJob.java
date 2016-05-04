@@ -30,6 +30,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
 
+import com.emotibot.DB.RedisClient;
 import com.emotibot.common.Common;
 import com.emotibot.config.ConfigManager;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
@@ -72,6 +73,11 @@ public class ExtractorJob {
             conf.setInt("Port", cfg.getNeo4jServerPort());
             conf.set("User", cfg.getNeo4jUserName());
             conf.set("NodeOrRelation",args[3].trim());
+            conf.set("RedisIP",cfg.getRedisIP());
+            conf.setInt("RedisPort",cfg.getRedisPort());
+     	    RedisClient redis = new RedisClient(cfg.getRedisIP(),cfg.getRedisPort());
+    	    redis.Clear();
+
         }
         if(type.contains("Solr"))
         {
