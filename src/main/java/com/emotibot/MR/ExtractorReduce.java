@@ -8,6 +8,7 @@ package com.emotibot.MR;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Vector;
 
@@ -63,6 +64,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 	public static String ip = "";
 	public static int port = 0;
 	public static String solrName ="";
+	public static HashMap<String,String> DuplicateDetectionMap = new HashMap<>();
 
 	@Override
 	public void setup(Context context) {
@@ -71,6 +73,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 
 		outputTableName = context.getConfiguration().get("destTable");
 		puttable = new ImmutableBytesWritable(Bytes.toBytes(outputTableName));
+		DuplicateDetectionMap = new HashMap<>();
 		///////
 		if (type.contains("Neo4j")) {
 		 DriverName = context.getConfiguration().get("DriverName");
@@ -99,7 +102,7 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 		try {
 				System.err.println("typeReduce=" + type+"  ");
 				if (type.contains("Neo4j")) {
-					String query = value.toString();
+					String query=value.toString();
 					System.err.println("queryReduce=" + query);
 
                     if(query==null||query.trim().length()==0)
@@ -117,6 +120,13 @@ public class ExtractorReduce extends Reducer<ImmutableBytesWritable, Text, Writa
 					boolean result=false;
                     if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
                     {
+    					String[] arrAll = value.toString().split("###");
+    					if(arrAll.length!=2) continue;
+    					String md5sql=arrAll[0].trim();
+    					query=arrAll[1].trim();
+                        if(DuplicateDetectionMap.containsKey(md5sql)) continue;
+                        DuplicateDetectionMap.put(md5sql, "");
+
             			if(query.contains("return")) query = query.substring(0, query.lastIndexOf("return"));
             			query=query.replaceAll("result", "result"+list.size());
                         list.add(query);

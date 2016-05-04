@@ -48,11 +48,11 @@ public class TemplateGenerator {
 			out.write("<aiml version=\"1.0.1\" encoding=\"UTF-8\">\r\n");
 
 			BufferedReader in = new BufferedReader(new FileReader(inputFile));
-			String line = in.readLine();
-			while (line != null) {
-				line = CharUtil.trim(line).toLowerCase();
-				if (line.isEmpty()) {
-					line = in.readLine();
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				line = CharUtil.trim(line);
+				if (line.isEmpty() || line.startsWith("####")) {
+//					line = in.readLine();
 					continue;
 				}
 				System.out.println("line=" + line);
@@ -71,14 +71,22 @@ public class TemplateGenerator {
 				System.out.println("line after special character procedure===" + line);
 
 				if (!line.contains(";")) {
-					System.err.println("wrong format in Line=" + line);
+					System.err.println("wrong format 1 in Line=" + line);
 					continue;
 				}
+				
+				String templateLine = "";
+				if(line.contains("||")){
+					String [] tempLineArr = line.split("\\|\\|");
+					templateLine = tempLineArr[1];
+					line = tempLineArr[0];
+				}
+				System.out.println("\t seond Line process: line=" + line + ", templateLine=" + templateLine);
 
 				// get the first line and second line
 				String[] lineArr = line.split(";");
 				if (lineArr.length != 2) {
-					System.err.println("wrong format in Line=" + line + ", with number of ; is=" + lineArr.length);
+					System.err.println("wrong format 2 in Line=" + line + ", with number of ; is=" + lineArr.length);
 					continue;
 				}
 				String questionType = lineArr[0];
@@ -136,7 +144,8 @@ public class TemplateGenerator {
 				System.out.print("middlePatterList=" + middlePatterList);
 
 				// second line procedure
-				String secondLineStr = "IntroductionQuestion@:firstParamInfo";
+//				String secondLineStr = "IntroductionQuestion@:firstParamInfo";
+				String secondLineStr = templateLine;
 				for (String s : middlePatterList) {
 					out.write("    <category>\r\n");
 					// s = " " + s.substring(0, s.length() - 2);
@@ -149,7 +158,7 @@ public class TemplateGenerator {
 					out.write("        </template>\r\n");
 					out.write("    </category>\r\n");
 				}
-				line = in.readLine();
+//				line = in.readLine();
 			}
 
 			out.write("</aiml>\r\n");
@@ -170,11 +179,11 @@ public class TemplateGenerator {
 			out.write("<aiml version=\"1.0.1\" encoding=\"UTF-8\">\r\n");
 
 			BufferedReader in = new BufferedReader(new FileReader(inputFile));
-			String line = in.readLine();
-			while (line != null) {
-				line = line.trim();
-				if (line.isEmpty()) {
-					line = in.readLine();
+			String line = null;
+			while ((line = in.readLine()) != null) {
+				line = CharUtil.trim(line);
+				if (line.isEmpty() || line.startsWith("####")) {
+//					line = in.readLine();
 					continue;
 				}
 				System.out.println("line=" + line);
@@ -193,14 +202,14 @@ public class TemplateGenerator {
 				System.out.println("line after special character procedure===" + line);
 
 				if (!line.contains("#") || !line.contains(";")) {
-					System.err.println("wrong format in Line=" + line);
+					System.err.println("wrong format 3 in Line=" + line);
 					continue;
 				}
 
 				// get the first line and second line
 				String[] lineArr = line.split(";");
 				if (lineArr.length != 2) {
-					System.err.println("wrong format in Line=" + line + ", with number of ; is=" + lineArr.length);
+					System.err.println("wrong format 4 in Line=" + line + ", with number of ; is=" + lineArr.length);
 					continue;
 				}
 				String firstLine = lineArr[0];
@@ -210,7 +219,7 @@ public class TemplateGenerator {
 				// get the label and pattern
 				String[] firstArr = firstLine.split(",");
 				if (firstArr.length != 2) {
-					System.err.println("wrong format in Line=" + line + ", with number of , is=" + firstArr.length
+					System.err.println("wrong format 5 in Line=" + line + ", with number of , is=" + firstArr.length
 							+ ", firstLine=" + firstLine);
 					continue;
 				}
@@ -316,7 +325,7 @@ public class TemplateGenerator {
 						out.write("    </category>\r\n");
 					}
 				}
-				line = in.readLine();
+//				line = in.readLine();
 			}
 
 			out.write("</aiml>\r\n");
@@ -376,14 +385,14 @@ public class TemplateGenerator {
 
 	private void generateQuestionClassifierTemplate() {
 		String specFileName = Common.UserDir + "/knowledgedata/template/questionClassifier.txt";
-		String aimlFileName = Common.UserDir + "/bots/QuestionClassifier/aiml/test.aiml";
+		String aimlFileName = Common.UserDir + "/bots/QuestionClassifier/aiml/QuestionClassifier.aiml";
 		generateQuestionClassifierTemplate(specFileName, aimlFileName);
 	}
 
 	public static void main(String[] args) {
 		TemplateGenerator tg = new TemplateGenerator();
-//		tg.generateQuestionClassifierTemplate();
-		 tg.generateDomainTemplate();
+		tg.generateQuestionClassifierTemplate();
+//		 tg.generateDomainTemplate();
 	}
 
 }
