@@ -121,7 +121,7 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 					boolean result=false;
                     if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
                     {
-    					String[] arrAll = value.toString().split("###");
+    					String[] arrAll = query.split("###");
     					if(arrAll.length!=2) continue;
     					String md5sql=arrAll[0].trim();
     					query=arrAll[1].trim();
