@@ -30,12 +30,13 @@ public class SimpleClassifier {
 		DomainNames.put("major","");
 		DomainNames.put("movie","");
 		DomainNames.put("novel","");
+		DomainNames.put("pet","");
 		DomainNames.put("sports","");
-		DomainNames.put("sports_organization","");
 		DomainNames.put("tourism","");
-		DomainNames.put("varity_show","");
 		DomainNames.put("economy","");
 		DomainNames.put("medical_treatment","");
+		DomainNames.put("job","");
+		DomainNames.put("music","");
 		wordsDomainTime = new HashMap<>();
 	}
 	public static void Train(String fileName)
@@ -47,12 +48,12 @@ public class SimpleClassifier {
 			String[] arr = line.split("###");
 			String tags = arr[0].trim();
 			String domain = arr[1].trim();
-			System.err.println(tags+"=="+domain);
+			//System.err.println(tags+"=="+domain);
 			String[] subtags = tags.split(" ");
 			for(String tag:subtags)
 			{
 				tag=tag.trim();
-				System.err.println(tag+"==>");
+				//System.err.println(tag+"==>");
 				if(!DomainNames.containsKey(domain))
 				{
 					System.err.println("domain="+domain);
@@ -102,7 +103,8 @@ public class SimpleClassifier {
         for (Map.Entry<String, Long> mapping : list) {  
         	buffer.append("domain="+mapping.getKey() + " score=" + mapping.getValue()+" ; ");  
         	index++;
-        	if(index>=3) break;
+        	return mapping.getKey();
+        	//if(index>=3) break;
         } 
         if(list==null||list.size()==0)
         {
@@ -114,7 +116,22 @@ public class SimpleClassifier {
 	public static void main(String args[])
 	{
 		Init();
-		Train("Weka6000");
-		getLabels("体育赛事 体育");
+		Train("arff/wekaNew.txt");
+		Vector<String> lines = Tool.getFileLines("arff/wekaNew.txt");
+		int all=0;
+		int r=0;
+		for(String line:lines)
+		{
+			line=line.replace("Weka:", "");
+			String[] arr = line.split("###");
+			String tag=arr[0].trim();
+			String label = arr[1].trim();
+			all++;
+			if(label.equals(getLabels(tag))) r++;
+			else{
+			System.err.println(tag+"  "+label+"  "+getLabels(tag));
+			}
+		}
+		System.err.println(100*(double)r/all);
 	}
 }
