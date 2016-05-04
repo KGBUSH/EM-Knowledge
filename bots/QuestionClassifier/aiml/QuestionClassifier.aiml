@@ -2,55 +2,67 @@
     <category>
         <pattern> ^ 是 ^ 不 是 ^ </pattern>
         <template>
-        SelectiveQuestion@:是不是
+            SelectiveQuestion@:是不是
         </template>
     </category>
     <category>
         <pattern> ^ 是 ^ 吗 ^ </pattern>
         <template>
-        SelectiveQuestion@:是不是
+            SelectiveQuestion@:是不是
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 是 ^ 嘛 ^ </pattern>
+        <template>
+            SelectiveQuestion@:是不是
         </template>
     </category>
     <category>
         <pattern> ^ 有 ^ 没 有 ^ </pattern>
         <template>
-        SelectiveQuestion@:有没有
+            SelectiveQuestion@:有没有
         </template>
     </category>
     <category>
         <pattern> ^ 了 ^ 没 ^ 有 ^ </pattern>
         <template>
-        SelectiveQuestion@:有没有
+            SelectiveQuestion@:有没有
         </template>
     </category>
     <category>
         <pattern> ^ 对 不 对 </pattern>
         <template>
-        SelectiveQuestion@:对不对
+            SelectiveQuestion@:对不对
         </template>
     </category>
     <category>
         <pattern> ^ 对 吗 </pattern>
         <template>
-        SelectiveQuestion@:对不对
+            SelectiveQuestion@:对不对
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 对 嘛 </pattern>
+        <template>
+            SelectiveQuestion@:对不对
         </template>
     </category>
     <category>
         <pattern> ^ 会 不 会 ^ </pattern>
         <template>
-        SelectiveQuestion@:会不会
+            SelectiveQuestion@:会不会
         </template>
     </category>
     <category>
         <pattern> ^ 关 系 ^ </pattern>
         <template>
-        RelationshipQuestion@:1
+            RelationshipQuestion@:1
         </template>
     </category>
     <category>
         <pattern> ^ 联 系 ^ </pattern>
         <template>
-        RelationshipQuestion@:2
+            RelationshipQuestion@:2
         </template>
     </category>
     <category>
@@ -1927,6 +1939,66 @@
     </category>
     <category>
         <pattern> ^ 熟 悉 ## * <type>entity</type> 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 认 识 吗 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 知 道 吗 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 了 解 吗 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 听 说 过 吗 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 熟 悉 吗 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 认 识 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 知 道 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 了 解 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 听 说 过 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> ^ 熟 悉 嘛 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
         </template>
