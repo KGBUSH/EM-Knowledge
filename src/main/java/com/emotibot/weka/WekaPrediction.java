@@ -53,8 +53,8 @@ public class WekaPrediction {
 		  public void execute() throws Exception {
 		    Instances filtered = m_Training;
 		    m_Classifier.buildClassifier(filtered);
-		    //m_Evaluation = new Evaluation(filtered);
-		    //m_Evaluation.crossValidateModel(m_Classifier, filtered, 10,m_Training.getRandomNumberGenerator(1));
+		    m_Evaluation = new Evaluation(filtered);
+		    m_Evaluation.crossValidateModel(m_Classifier, filtered, 10,m_Training.getRandomNumberGenerator(1));
 		  }
 
 		  @Override
