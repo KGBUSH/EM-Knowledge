@@ -9,6 +9,7 @@ RelationshipQuestion;^&关系&^||RelationshipQuestion@:1
 RelationshipQuestion;^&联系&^||RelationshipQuestion@:2
 IntroductionQuestion;^&#&是什么&^||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&是谁/是啥/指什么&[意思/含义]&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗]||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;^&#&谁&[么/呢/阿/啊/啦/哇/呀/吗]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&[有]&啥/什么&意思/含义&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&[是]&做什么的/干嘛的/怎么样&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&谁是/什么是&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛]||IntroductionQuestion@:firstParamInfo
