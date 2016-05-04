@@ -97,7 +97,7 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 	protected void reduce(ImmutableBytesWritable folder,Iterable<ImmutableBytesWritable> values, Context context) 
 			throws IOException, InterruptedException {
 
-			long solrDocnum=0;
+		/*	long solrDocnum=0;
 			List<String> list = new ArrayList<>();
 			for (ImmutableBytesWritable value : values) {
 		try {
@@ -155,7 +155,6 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 				}
 				if (type.contains("Solr")) {
                 	long t11 = System.currentTimeMillis();
-                 // String line=value.toString();
 					String line=Bytes.toString(value.get());//value.toString();
 
                   String[] arr = line.split(Seperator);
@@ -210,7 +209,7 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
      					  list.clear();
 
                        }
-			}
+			}*/
 		
 	}
 	

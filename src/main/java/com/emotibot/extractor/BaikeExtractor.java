@@ -117,7 +117,8 @@ public class BaikeExtractor extends Extractor {
 		{
     		System.err.println("tag="+tagsBuffer.append(element.select("span[class=taglist]").text()));
 		}
-		pageInfo.setTags(tagsBuffer.toString().trim());
+		 pageInfo.setTags(tagsBuffer.toString().trim());
+         pageInfo.addAttr("tags", tagsBuffer.toString().trim());
         }
 		//////////////////
         //pics
