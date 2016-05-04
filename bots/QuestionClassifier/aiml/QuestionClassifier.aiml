@@ -2417,4 +2417,10 @@
             IntroductionQuestion@:firstParamInfo
         </template>
     </category>
+    <category>
+        <pattern> ^ 多 少 年 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
 </aiml>

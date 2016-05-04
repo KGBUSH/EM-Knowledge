@@ -37,6 +37,7 @@ public class PatternMatchingProcess {
 	final String introductionQuestionType = "IntroductionQuestion@:";
 	final String strictIntroductionQuestionType = "StrictIntroductionQuestion@:";
 	final String selectiveQuestionType = "SelectiveQuestion@:";
+	final String implicationQuestionType = "ImplicationQuestion@:";
 	// final String relationshipQuestionType = "RelationshipQuestion@:";
 
 	private String userSentence;
@@ -273,7 +274,6 @@ public class PatternMatchingProcess {
 
 			// iterate each label of entity, and get the answer with highest
 			// score
-
 			List<String> listLabel = DBProcess.getEntityLabelList(entity);
 			String oldSentence = sentence;
 			List<AnswerBean> singleEntityAnswerBeanList = new ArrayList<>();
@@ -298,6 +298,14 @@ public class PatternMatchingProcess {
 				AnswerBean tempBean = new AnswerBean();
 				tempBean = ReasoningProcess(tempSentence, iLabel, entity, tempBean);
 				System.out.println("\t ReasoningProcess answerBean = " + tempBean);
+
+				// add the implicationQuestion process here, for now only check the year computing
+				if (isKindofQuestion(userSentence, implicationQuestionType, "")) {
+					tempBean = implicationQuestionProcess(userSentence, entity, tempBean);
+//					answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(), 0));
+					System.out.println("Implication Qustion: tempBean is " + tempBean.toString());
+				}
+				
 				if (tempBean.isValid()) {
 					singleEntityAnswerBeanList.add(tempBean);
 				}
@@ -976,6 +984,18 @@ public class PatternMatchingProcess {
 		}
 		return rs;
 	}
+	
+	// implication question process
+	private AnswerBean implicationQuestionProcess(String sentence, String entity, AnswerBean answerBean) {
+		String strImplication = questionClassifier.processQuestionClassifier(sentence).replace(implicationQuestionType, "");
+		System.out.println("implicationQuestionProcess str = " + strImplication);
+		
+		if (!answerBean.getAnswer().isEmpty()) {
+			answerBean.setAnswer(ImplicationProcess.getImplicationAnswer(answerBean.getAnswer(), entity, strImplication));
+		} 
+		System.out.println("Implication Qustion: anwerBean is " + answerBean.toString());
+		return answerBean.returnAnswer(answerBean);
+	}
 
 	private AnswerBean selectiveQuestionProcess(String sentence, AnswerBean answerBean) {
 		String strSeletive = questionClassifier.processQuestionClassifier(sentence).replace(selectiveQuestionType, "");
@@ -1560,7 +1580,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "处女座的象征物是什么?";
+		String str = "牛顿去世多少年?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");

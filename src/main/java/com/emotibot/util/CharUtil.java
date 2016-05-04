@@ -1,5 +1,6 @@
 package com.emotibot.util;
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /*
@@ -67,8 +68,22 @@ public class CharUtil {
     	
     }
     
+    public static boolean isDateFormat(String str){
+    	Pattern p=Pattern.compile("\\d+年\\d+月\\d+日"); 
+//    	Pattern p=Pattern.compile("\\d+年\\d+"); 
+    	Matcher m=p.matcher(str); 
+    	return m.matches();
+    }
+    
     public static void main(String args[])
     {
-    	System.err.println(isEnglisgBigChar("A"));
+//    	System.err.println(isEnglisgBigChar("A"));
+    	
+    	String testDate = "1727年3月31日";
+//    	String testDate = "1727年2";
+    	
+    	System.out.println("is date:"+isDateFormat(testDate));
+    	
+    	
     }
 }

@@ -17,3 +17,4 @@ IntroductionQuestion;^&认识/知道/了解/听说过/熟悉&#&吗/嘛||Introduc
 IntroductionQuestion;^&#&^&认识/知道/了解/听说过/熟悉&吗/嘛||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;[请]&介绍/陈述&[一下/下]&#&[吧]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;什么&叫/叫做/是&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗]||IntroductionQuestion@:firstParamInfo
+ImplicationQuestion;^&多少年||ImplicationQuestion@:computeYear

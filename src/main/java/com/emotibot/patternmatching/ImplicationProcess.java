@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import com.emotibot.config.ConfigKeyName;
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 
 /*
@@ -40,7 +41,8 @@ public class ImplicationProcess {
 		return prop;
 	}
 
-	public static String getProperty(String prop) {
+	public static String getMethodName(String prop) {
+		System.out.println("Implication.getMethodName: prop="+prop);
 		String configProp = implicationWordTable.get(prop);
 		if (properties != null && properties.containsKey(configProp))
 			return properties.getProperty(configProp);
@@ -51,6 +53,7 @@ public class ImplicationProcess {
 	private static Map<String, String> createImplicationWordTable() {
 		Map<String, String> implicationWordSet = new HashMap<>();
 		implicationWordSet.put("年龄", "age"); // TBD: hard code for 4/15
+		implicationWordSet.put("computeYear", "computeYear"); // TBD: hard code for 4/15
 		return implicationWordSet;
 	}
 
@@ -73,7 +76,42 @@ public class ImplicationProcess {
 		return bean;
 	}
 	
-	public String getAgeByImplication(String sentence, String entity) {
+	// compute the number of year by the given date
+	public static String computeYears4Implication(String answer, String entity) {
+		System.out.println("computeYears4Implication: answer = "+answer);
+		if(Tool.isStrEmptyOrNull(answer) || !CharUtil.isDateFormat(answer)){
+			return answer;
+		}
+		
+		Calendar ca = Calendar.getInstance();
+		int currentYear = ca.get(Calendar.YEAR);
+		int targetYear = Integer.parseInt(answer.substring(0, answer.indexOf("年")));
+		int year = currentYear - targetYear;
+		System.out.println("currentYear="+currentYear+", targetYear="+targetYear+", age="+year);
+		
+		return Integer.toString(year)+"年";
+	}
+	
+//	// compute the number of year from someone death
+//	public static String getPassAwayYearByImplication(String sentence, String entity) {
+//		Calendar ca = Calendar.getInstance();
+//		int currentYear = ca.get(Calendar.YEAR);
+//		String deathInfo = DBProcess.getPropertyValue(entity, "逝世日期");
+//		if(Tool.isStrEmptyOrNull(deathInfo)){
+//			System.err.println("there is no birth info in entity:"+entity);
+//			return "";
+//		}
+//		
+//		deathInfo = deathInfo.substring(0, deathInfo.indexOf("年"));
+//		int deathYear = Integer.parseInt(deathInfo);
+//		int age = currentYear - deathYear;
+//		System.out.println("currentYear="+currentYear+", deathYear="+deathYear+", age="+age);
+//		
+//		return Integer.toString(age);
+//	}
+	
+	// compute the age
+	public static String getAgeByImplication(String sentence, String entity) {
 		Calendar ca = Calendar.getInstance();
 		int currentYear = ca.get(Calendar.YEAR);
 		String birthInfo = DBProcess.getPropertyValue(entity, "出生日期");
@@ -91,6 +129,7 @@ public class ImplicationProcess {
 	}
 
 	public static String getImplicationAnswer(String sentence, String entity, String prop) {
+		System.out.println("getImplicationAnswer: str="+sentence+", prop="+prop);
 		if (Tool.isStrEmptyOrNull(entity) || Tool.isStrEmptyOrNull(prop)) {
 			System.err.println("entity=" + entity + ", prop=" + prop);
 			return "";
@@ -106,7 +145,7 @@ public class ImplicationProcess {
 		}
 
 		try {
-			String methodName = getProperty(prop);
+			String methodName = getMethodName(prop);
 			System.out.println("prop="+prop+", methodName="+methodName+", entity="+entity);
 			Method method = demo.getMethod(methodName, String.class, String.class);
 			// int year = (int) method.invoke(demo.newInstance());
@@ -120,6 +159,9 @@ public class ImplicationProcess {
 
 	public static void main(String[] args) {
 		ImplicationProcess ip = new ImplicationProcess();
+		
+		String testStr = "1727年3月31日";
+		System.out.println(ip.computeYears4Implication(testStr,""));
 
 	}
 }
