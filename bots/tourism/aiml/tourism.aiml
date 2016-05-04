@@ -1284,12 +1284,6 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 有 什 么 ^ </pattern>
-        <template>
-            <star index="2"/>馆藏精品是什么？
-        </template>
-    </category>
-    <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 藏 着 什 么 ^ </pattern>
         <template>
             <star index="2"/>馆藏精品是什么？
