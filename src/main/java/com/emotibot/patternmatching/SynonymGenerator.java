@@ -14,12 +14,11 @@ public class SynonymGenerator {
 		char charCount = 'a';
 
 		try {
-			String tempFileName = Common.UserDir + "/knowledgedata/synonym/synonymRD.txt";
+			String tempFileName = Common.UserDir + "/knowledgedata/synonymTemp.txt";
 
-			FileWriter normalFile = new FileWriter(Common.UserDir + "/knowledgedata/synonymNoun.txt");
-			FileWriter newAddedFile = new FileWriter(tempFileName);
+			FileWriter normalFile = new FileWriter(Common.UserDir + "/knowledgedata/SynonymNoun.txt");
 			BufferedWriter out = new BufferedWriter(normalFile);
-			BufferedWriter outTemp = new BufferedWriter(newAddedFile);
+			BufferedWriter outTemp = new BufferedWriter(new FileWriter(tempFileName));
 
 			BufferedReader in = new BufferedReader(
 					new FileReader(Common.UserDir + "/knowledgedata/SynonymPM.txt"));
