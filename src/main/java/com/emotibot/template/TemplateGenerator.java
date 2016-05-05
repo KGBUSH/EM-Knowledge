@@ -246,11 +246,15 @@ public class TemplateGenerator {
 						if (part.contains("#")) {
 							// System.out.println("##### part = "+part);
 							// entity case
-							if (!part.equals("#"))
+							if (!part.equals("#") && !part.equals("#~"))
 								System.err.println("wrong format: part=" + part);
 							count++;
 							entityPos = count;
-							list.add(domain + "^ ");
+							if(!part.endsWith("~")){
+								list.add(domain + "^ ");
+							} else {
+								list.add(domain + " ");
+							}
 						} else if (part.contains("/")) {
 							// multiple possibility case
 							String[] strArr = part.split("/");
@@ -392,7 +396,7 @@ public class TemplateGenerator {
 	public static void main(String[] args) {
 		TemplateGenerator tg = new TemplateGenerator();
 		tg.generateQuestionClassifierTemplate();
-//		 tg.generateDomainTemplate();
+		 tg.generateDomainTemplate();
 	}
 
 }

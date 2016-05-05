@@ -162,19 +162,19 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 在 哪 儿 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label>  在 哪 儿 ^ </pattern>
         <template>
             <star index="2"/>的所属地区是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 在 哪 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label>  在 哪 ^ </pattern>
         <template>
             <star index="2"/>的所属地区是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>sports_organization</label> ^ 哪 里 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>sports_organization</label>  哪 里 ^ </pattern>
         <template>
             <star index="2"/>的所属地区是哪儿？
         </template>

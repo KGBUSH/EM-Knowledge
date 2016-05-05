@@ -3,7 +3,7 @@ sports_organization,^#^什么/哪/啥^俱乐部^;#的运动项目是什么？
 sports_organization,^#^什么/哪/啥^运动/项目^;#的运动项目是什么？
 sports_organization,^#^什么/哪^比赛/联赛/赛事^;#的角逐赛事是什么？
 sports_organization,^#^哪/什么^地区/地方/国^;#的所属地区是哪儿？
-sports_organization,^#^在哪儿/在哪/哪里^;#的所属地区是哪儿？
+sports_organization,^#~^在哪儿/在哪/哪里^;#的所属地区是哪儿？
 sports_organization,^#^啥时/何时/什么时/哪年^创建/创办/成立/建立/设立^;#的成立时间什么时候？
 sports_organization,^啥时/何时/什么时/哪年^创建/创办/成立/建立/设立^#^;#的成立时间什么时候？
 sports_organization,^#^多少人^;#的容纳人数是多少？
