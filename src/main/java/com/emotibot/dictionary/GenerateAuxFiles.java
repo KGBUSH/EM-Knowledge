@@ -40,27 +40,39 @@ public class GenerateAuxFiles {
 		try {
 			BufferedReader in = new BufferedReader(new FileReader(Common.UserDir + "/resources/DYC.txt"));
 			BufferedWriter out = new BufferedWriter(new FileWriter(Common.UserDir + "/resources/DYC_Info.txt"));
-			String line = in.readLine();
 
+			Set<String> refSet = new HashSet<>();
+			String line = null;
 			int i = 1;
-
-			while (line != null) {
+			while ((line = in.readLine()) != null) {
 				line = CharUtil.trim(line).toLowerCase();
 				if (line.isEmpty())
 					continue;
-				// System.out.println("line=" + line + ";");
+				if (CharUtil.isPuncuation(line)){
+					System.out.println("isPuncuation line=" + line + ";");
+					continue;
+				}
 
 				String entity = NLPProcess.getEntitySynonymNormal(line).toLowerCase();
-				if (entity.isEmpty())
+				if (entity.isEmpty()){
 					entity = line;
+				} else {
+					System.out.println("Synonym: line="+line+", entity="+entity);
+				}
+				
+				if(refSet.contains(entity)){
+					continue;
+				} else {
+					refSet.add(entity);
+				}
 
 				String queryCount = "match(n{Name:\"" + entity + "\"}) return n.ParamInfo as " + Common.ResultObj;
-
 				Neo4jResultBean bean = conn.executeCypherSQL(queryCount);
-				// System.out.println("in DBProcess, it return " +
-				// bean.getResult());
-				out.write(i++ + ": " + entity);
+				
+//				Neo4jResultBean bean = DBProcess.getEntityIntroductionInfo("", queryCount);
+				System.out.println("in DBProcess, it return " + bean.getResult());
 
+				out.write(i++ + ": " + entity);
 				if (!bean.getResult().isEmpty()) {
 					if (!line.equals(entity)) {
 						out.write(", (" + line + ")");
@@ -70,10 +82,8 @@ public class GenerateAuxFiles {
 					out.write(", [" + tempLabel + "] ---- " + bean.getResult() + "\n");
 				} else {
 					out.write(" @@@@ null" + "\n");
-					System.out.println("no entity in DB: " + entity);
+					System.err.println("no entity in DB: " + entity);
 				}
-
-				line = in.readLine();
 			}
 
 			in.close();
@@ -82,6 +92,7 @@ public class GenerateAuxFiles {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		conn.close();
 
 	}
 
@@ -259,10 +270,12 @@ public class GenerateAuxFiles {
 	}
 
 	public static void main(String[] args) {
-		generateSynonymnEntityFile();
+		 getEntityInfoInList();
+		 
+		
 		System.exit(0);
+//		generateSynonymnEntityFile();
 		// hotFixEntityLabel();
-		// getEntityInfoInList();
 	}
 
 }
