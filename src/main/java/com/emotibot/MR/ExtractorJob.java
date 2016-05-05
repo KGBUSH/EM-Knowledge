@@ -64,6 +64,8 @@ public class ExtractorJob {
           conf.set("type", type);
           conf.set("label", Common.PERSONLABEL);
         ConfigManager cfg = new ConfigManager();
+ 	    RedisClient redis = new RedisClient(cfg.getRedisIP(),cfg.getRedisPort());
+	    redis.Clear();
 
         if(type.contains("Neo4j"))
         {
@@ -75,9 +77,6 @@ public class ExtractorJob {
             conf.set("NodeOrRelation",args[3].trim());
             conf.set("RedisIP",cfg.getRedisIP());
             conf.setInt("RedisPort",cfg.getRedisPort());
-     	    RedisClient redis = new RedisClient(cfg.getRedisIP(),cfg.getRedisPort());
-    	    redis.Clear();
-
         }
         if(type.contains("Solr"))
         {
