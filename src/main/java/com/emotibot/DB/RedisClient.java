@@ -31,7 +31,7 @@ public class RedisClient {
         System.err.println(ip+"===>"+port);
     }
     
-    private void Clear()
+    public void Clear()
     {
     	jedis.flushDB();
     }
@@ -54,6 +54,10 @@ public class RedisClient {
 	   RedisClient redis = new RedisClient("192.168.1.73",6379);
 	   System.err.println(redis.existKey("1", "2"));
 	   System.err.println(redis.existKey("1", "2"));
+	   redis.Clear();
+	   System.err.println(redis.existKey("1", "2"));
+	   System.err.println(redis.existKey("1", "2"));
+
 
    }
 }

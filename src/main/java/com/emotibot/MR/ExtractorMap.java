@@ -43,6 +43,7 @@ import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
 import org.apache.hadoop.util.LineReader;
 
+import com.emotibot.DB.RedisClient;
 import com.emotibot.common.Common;
 import com.emotibot.extractor.BaikeExtractor;
 import com.emotibot.extractor.PageExtractInfo;
@@ -68,6 +69,10 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 
 	public static List<String> fileList = null;
     public static String NodeOrRelation="";
+    
+    public static String RedisIP="";
+    public static int RedisPort=0;
+    public static RedisClient redis=null;
 	/*
 	 * /domain/TV_series.txt /domain/anime.txt /domain/catchword.txt
 	 * /domain/college.txt /domain/computer_game.txt /domain/cosmetics.txt
@@ -86,11 +91,17 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	@Override
 	public void setup(Context context) {
 		type = context.getConfiguration().get("type");
-		if (type.contains("Neo4j"))  NodeOrRelation=context.getConfiguration().get("NodeOrRelation");
+		if (type.contains("Neo4j")) {
+			NodeOrRelation=context.getConfiguration().get("NodeOrRelation");
+            RedisIP=context.getConfiguration().get("RedisIP");;
+            RedisPort=context.getConfiguration().getInt("RedisPort", 0);;
+            redis = new RedisClient(RedisIP,RedisPort);
+		}
 		label = context.getConfiguration().get("label");
 		fileList = new ArrayList<String>();
+		
 		fileList.add("/domain/TV_series.txt");
-		fileList.add("/domain/anime.txt");
+	    fileList.add("/domain/anime.txt");
 		fileList.add("/domain/catchword.txt");
 		fileList.add("/domain/college.txt");
 		fileList.add("/domain/computer_game.txt");
@@ -103,11 +114,11 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		fileList.add("/domain/novel.txt");
 		fileList.add("/domain/pet.txt");
 		fileList.add("/domain/sports.txt");
-		fileList.add("/domain/sports_organization.txt");
 		fileList.add("/domain/tourism.txt");
-		fileList.add("/domain/varity_show.txt");
 		fileList.add("/domain/economy.txt");
 		fileList.add("/domain/medical_treatment.txt");
+		fileList.add("/domain/job.txt");
+	    fileList.add("/domain/music.txt");
 
 		WordLabelMap = new HashMap<>();
 		TagsLabelMap = new HashMap<>();
@@ -220,9 +231,16 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					}
 					System.err.println("Weka:"+pageExtractInfo.getTags()+"###"+label+"###"+name+"###"+pmWord+"###"+url);
 					/////////
-					if (query == null || query.trim().length() == 0) return;
-					outputValue.set(Bytes.toBytes(pageExtractInfo.getParamMd5()+"###"+query));
-					context.write(outputKey, outputValue);
+					 if (query == null || query.trim().length() == 0) return;
+					 String urlmd5=DigestUtils.md5Hex(url);
+					 String parammd5=pageExtractInfo.getParamMd5();
+					 boolean isexist=isExistHtml(urlmd5,parammd5);
+					 System.err.println(url+" isexist="+isexist);
+					 if(!isexist)
+					 {
+					   outputValue.set(Bytes.toBytes(pageExtractInfo.getParamMd5()+"###"+query));
+					   context.write(outputKey, outputValue);
+					 }
 					}
 					if(NodeOrRelation.equals("2"))
 					{
@@ -455,6 +473,14 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	       return outStream.toByteArray();
 	   }
 	   
+	   public boolean isExistHtml(String urlmd5,String parammd5)
+	   {
+		   if(redis==null)
+		   {
+	            redis = new RedisClient(RedisIP,RedisPort);
+		   }
+		   return redis.existKey(urlmd5, parammd5);
+	   }
 	   public static void main(String[] args)
 	   {
 		   //String tags
