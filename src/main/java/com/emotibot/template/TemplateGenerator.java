@@ -266,7 +266,7 @@ public class TemplateGenerator {
 							list.add(part + "^ ");
 						}
 
-						if (i == patternArr.length - 1 && !pattern.trim().endsWith("^")) {
+						if (i == patternArr.length - 1 && !CharUtil.trim(pattern).endsWith("^")) {
 							for (int j = 0; j < list.size(); j++) {
 								String tempS = list.get(j);
 								list.set(j, tempS.substring(0, tempS.length() - 2));

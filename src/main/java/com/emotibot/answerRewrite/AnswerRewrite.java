@@ -149,7 +149,7 @@ public class AnswerRewrite {
 		int id = (int) Math.round(Math.random() * (answerRewriteTableIntro.length - 1));
 		System.out.println("id=" + id);
 		String template = answerRewriteTableIntro[id];
-		rewrite = answer + "\r\n" + template;
+		rewrite = "["+answer+"],[" + template+"]";
 		return rewrite;
 	}
 
