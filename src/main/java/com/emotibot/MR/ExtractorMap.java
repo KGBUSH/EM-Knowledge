@@ -319,7 +319,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					BaikeExtractor baikeExtractor = new BaikeExtractor(html);
 					PageExtractInfo pageInfo = baikeExtractor.ProcessPage();
 					StringBuffer buffer = new StringBuffer();
-					buffer.append(pageInfo.getName()).append(Seperator);
+					buffer.append(pageInfo.getName()+""+pageInfo.getParamMd5()).append(Seperator);
 					buffer.append(pageInfo.getName()).append(Seperator);
 					buffer.append(pageInfo.getAttrStr()).append(Seperator);
 					buffer.append(pageInfo.getValueStr()).append(Seperator);
