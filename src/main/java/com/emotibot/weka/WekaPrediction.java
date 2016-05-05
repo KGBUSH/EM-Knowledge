@@ -53,8 +53,12 @@ public class WekaPrediction {
 		  public void execute() throws Exception {
 		    Instances filtered = m_Training;
 		    m_Classifier.buildClassifier(filtered);
-		    //m_Evaluation = new Evaluation(filtered);
-		    //m_Evaluation.crossValidateModel(m_Classifier, filtered, 10,m_Training.getRandomNumberGenerator(1));
+		    m_Evaluation = new Evaluation(filtered);
+		    m_Evaluation.crossValidateModel(m_Classifier, filtered, 10,m_Training.getRandomNumberGenerator(1));
+			   System.out.println(m_Evaluation.toSummaryString());//输出总结信息
+	 	       System.out.println(m_Evaluation.toClassDetailsString());//输出分类详细信息
+	           System.out.println(m_Evaluation.toMatrixString());//输出分类的混淆矩阵
+
 		  }
 
 		  @Override
@@ -174,12 +178,12 @@ public class WekaPrediction {
 			    demo.setTraining(dataset);
 			    demo.execute();
 			    System.err.println("classifier="+classifier);
-			 //   System.out.println(demo.toString());
+			    System.out.println(demo.toString());
 
 			    //String tags="人物";
                 //System.err.println("Tag="+ demo.getClassifierTag(tags));
 			    
-			    Vector<String> lines = Tool.getFileLines("tags");
+			    /*Vector<String> lines = Tool.getFileLines("tags");
 			    FileWriter f = new FileWriter("tags_result");
 			    for(String tag:lines)
 			    {
@@ -193,7 +197,7 @@ public class WekaPrediction {
 		                System.err.println("Tag000="+ tag+"===>"+e.getMessage());
 			    	}
 			    }
-			    f.close();
+			    f.close();*/
 			    System.err.println("End");
 			    
 		  }

@@ -13,6 +13,7 @@ public class TagCommon {
 	static
 	{
 		DomainNames = new HashMap<>();
+		
 		DomainNames.put("TV_series","");
 		DomainNames.put("anime","");
 		DomainNames.put("catchword","");
@@ -25,12 +26,14 @@ public class TagCommon {
 		DomainNames.put("major","");
 		DomainNames.put("movie","");
 		DomainNames.put("novel","");
+		DomainNames.put("pet","");
 		DomainNames.put("sports","");
-		DomainNames.put("sports_organization","");
 		DomainNames.put("tourism","");
-		DomainNames.put("varity_show","");
 		DomainNames.put("economy","");
 		DomainNames.put("medical_treatment","");
+		DomainNames.put("job","");
+		DomainNames.put("music","");
+
 	}
 
 

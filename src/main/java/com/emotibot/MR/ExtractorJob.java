@@ -90,8 +90,8 @@ public class ExtractorJob {
             conf.set("solrName", solrName);
         }
         Vector<String> tables = Tool.getFileLines(inputTableFile);
-        for(String inputTableName:tables){
-          conf.set(TableInputFormat.INPUT_TABLE, inputTableName);
+       // for(String inputTableName:tables){
+          //conf.set(TableInputFormat.INPUT_TABLE, inputTableName);
           Job job = new Job(conf);
           job.setPriority(JobPriority.HIGH);
           job.setInputFormatClass(TableInputFormat.class);
@@ -122,8 +122,8 @@ public class ExtractorJob {
 				if (job.waitForCompletion(true)) break;
 				Thread.sleep(10000);
 			}
-          System.err.println(inputTableName+"  "+"Finished!!!");
-        }
+          System.err.println("  "+"Finished!!!");
+       // }
         } catch (Exception e) {
           e.printStackTrace();
             System.out.println(e.toString());
