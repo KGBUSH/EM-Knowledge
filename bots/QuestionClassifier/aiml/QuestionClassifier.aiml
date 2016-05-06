@@ -720,6 +720,114 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type> 是 谁 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 啥 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 指 什 么 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 谁 意 思 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 啥 意 思 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 指 什 么 意 思 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 谁 含 义 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 啥 含 义 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 指 什 么 含 义 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 谁 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 啥 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 指 什 么 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 谁 意 思 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 啥 意 思 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 指 什 么 意 思 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 谁 含 义 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 啥 含 义 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 指 什 么 含 义 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type> 谁 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
@@ -1350,6 +1458,102 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type> 啥 意 思 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 有 啥 意 思 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 什 么 意 思 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 有 什 么 意 思 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 啥 含 义 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 有 啥 含 义 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 什 么 含 义 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 有 什 么 含 义 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 啥 意 思 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 有 啥 意 思 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 什 么 意 思 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 有 什 么 意 思 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 啥 含 义 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 有 啥 含 义 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 什 么 含 义 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 有 什 么 含 义 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type> 做 什 么 的 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
@@ -1782,6 +1986,78 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type> 做 什 么 的 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 做 什 么 的 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 干 嘛 的 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 干 嘛 的 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 怎 么 样 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 怎 么 样 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 做 什 么 的 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 做 什 么 的 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 干 嘛 的 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 干 嘛 的 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 怎 么 样 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 是 怎 么 样 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
         <pattern> ^ 谁 是 ## * <type>entity</type> </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
@@ -1933,6 +2209,18 @@
     </category>
     <category>
         <pattern> ^ 什 么 是 ## * <type>entity</type> 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 是 ## * <type>entity</type> 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 是 ## * <type>entity</type> 哈 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
         </template>
@@ -2418,7 +2706,661 @@
         </template>
     </category>
     <category>
+        <pattern> 什 么 叫 ## * <type>entity</type> 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 什 么 叫 做 ## * <type>entity</type> 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 什 么 是 ## * <type>entity</type> 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 什 么 叫 ## * <type>entity</type> 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 什 么 叫 做 ## * <type>entity</type> 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 什 么 是 ## * <type>entity</type> 哈 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
         <pattern> ^ 多 少 年 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 么 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 么 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 么 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 么 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 么 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 么 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 么 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 么 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 呢 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 呢 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 呢 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 呢 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 呢 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 呢 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 呢 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 呢 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 阿 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 阿 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 阿 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 阿 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 阿 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 阿 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 阿 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 阿 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 啊 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 啊 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 啊 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 啊 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 啊 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 啊 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 啊 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 啊 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 啦 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 啦 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 啦 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 啦 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 啦 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 啦 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 啦 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 啦 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 唉 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 唉 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 唉 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 唉 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 唉 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 唉 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 唉 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 唉 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 吧 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 吧 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 吧 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 吧 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 吧 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 吧 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 吧 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 吧 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 哇 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 哇 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 哇 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 哇 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 哇 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 哇 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 哇 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 哇 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 呀 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 呀 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 呀 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 呀 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 呀 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 呀 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 呀 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 呀 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 吗 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 吗 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 吗 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 吗 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 吗 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 吗 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 吗 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 吗 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 嘛 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 嘛 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 嘛 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 嘛 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 嘛 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 嘛 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 嘛 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 嘛 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 哈 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 哈 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 哈 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 哈 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 了 哈 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 了 哈 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 了 哈 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 了 哈 </pattern>
         <template>
             ImplicationQuestion@:computeYear
         </template>
