@@ -70,7 +70,12 @@ public class CharUtil {
     
     public static boolean isDateFormat(String str){
     	Pattern p=Pattern.compile("\\d+年\\d+月\\d+日"); 
-//    	Pattern p=Pattern.compile("\\d+年\\d+"); 
+    	Matcher m=p.matcher(str); 
+    	return m.matches();
+    }
+    
+    public static boolean isPuncuation(String str){
+    	Pattern p=Pattern.compile("[\\pP+~$`^=|<>～`$^+=|<>￥×]"); 
     	Matcher m=p.matcher(str); 
     	return m.matches();
     }
@@ -79,10 +84,10 @@ public class CharUtil {
     {
 //    	System.err.println(isEnglisgBigChar("A"));
     	
-    	String testDate = "1727年3月31日";
-//    	String testDate = "1727年2";
+//    	String testDate = "1727年3月31日";
+    	String testDate = "/";
     	
-    	System.out.println("is date:"+isDateFormat(testDate));
+    	System.out.println("is p:"+isPuncuation(testDate));
     	
     	
     }

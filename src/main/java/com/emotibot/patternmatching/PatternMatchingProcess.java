@@ -222,17 +222,19 @@ public class PatternMatchingProcess {
 		AnswerRewrite answerRewite = new AnswerRewrite();
 
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
-			String tempEntity = entitySet.get(0);
-			if (tempEntity.equals(sentence) || NLPProcess.getEntitySynonymReverse(tempEntity).equals(sentence)) {
-				String tempStrIntroduce = DBProcess.getPropertyValue(tempEntity,
-						Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
-				if (tempStrIntroduce.contains("。"))
-					tempStrIntroduce = tempStrIntroduce.substring(0, tempStrIntroduce.indexOf("。"));
-				answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(tempStrIntroduce));
-				answerBean.setScore(100);
-				System.out.println("PM.getAnswer 0.1: the returned anwer is " + answerBean.toString());
-				return answerBean.returnAnswer(answerBean);
+			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
+			if(DBProcess.getEntityLabel(entitySet.get(0)).equals("catchword")){
+				System.out.println("catchword Case, and abord， the returned anwer is " + answerBean.toString());
+				return answerBean;
 			}
+			
+			String tempStrIntroduce = DBProcess.getPropertyValue(entitySet.get(0), Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
+			if (tempStrIntroduce.contains("。"))
+				tempStrIntroduce = tempStrIntroduce.substring(0, tempStrIntroduce.indexOf("。"));
+			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(tempStrIntroduce));
+			answerBean.setScore(100);
+			System.out.println("PM.getAnswer 0.1: the returned anwer is " + answerBean.toString());
+			return answerBean.returnAnswer(answerBean);
 		}
 
 		if (isQuestion == false) {
@@ -299,13 +301,15 @@ public class PatternMatchingProcess {
 				tempBean = ReasoningProcess(tempSentence, iLabel, entity, tempBean);
 				System.out.println("\t ReasoningProcess answerBean = " + tempBean);
 
-				// add the implicationQuestion process here, for now only check the year computing
+				// add the implicationQuestion process here, for now only check
+				// the year computing
 				if (isKindofQuestion(userSentence, implicationQuestionType, "")) {
 					tempBean = implicationQuestionProcess(userSentence, entity, tempBean);
-//					answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(), 0));
+					// answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(),
+					// 0));
 					System.out.println("Implication Qustion: tempBean is " + tempBean.toString());
 				}
-				
+
 				if (tempBean.isValid()) {
 					singleEntityAnswerBeanList.add(tempBean);
 				}
@@ -814,8 +818,7 @@ public class PatternMatchingProcess {
 			System.out.println("PMP.ReasoningProcess: get ListBean not by StopWord = " + listPMBean);
 		}
 		if (listPMBean.isEmpty()) {
-			listPMBean = this.matchPropertyFromSentence(this.getCandidateSetbyNLP(candidateSet),
-					propMap);
+			listPMBean = this.matchPropertyFromSentence(this.getCandidateSetbyNLP(candidateSet), propMap);
 			System.out.println("PMP.ReasoningProcess: get ListBean by NLP = " + listPMBean);
 		}
 
@@ -894,10 +897,10 @@ public class PatternMatchingProcess {
 
 			if (furtherSeach == true) {
 				String newDBEntity = DBProcess.getEntityByRelationship(label, entity, prop);
-				String newLabel = label; //TBD, should change later
+				String newLabel = label; // TBD, should change later
 				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
-				return ReasoningProcess(sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity),
-						newLabel, newDBEntity, answerBean);
+				return ReasoningProcess(sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity), newLabel,
+						newDBEntity, answerBean);
 			} else {
 				answerBean.setAnswer(answer.substring(0, answer.length() - 1));
 				answerBean.setScore(score);
@@ -984,15 +987,17 @@ public class PatternMatchingProcess {
 		}
 		return rs;
 	}
-	
+
 	// implication question process
 	private AnswerBean implicationQuestionProcess(String sentence, String entity, AnswerBean answerBean) {
-		String strImplication = questionClassifier.processQuestionClassifier(sentence).replace(implicationQuestionType, "");
+		String strImplication = questionClassifier.processQuestionClassifier(sentence).replace(implicationQuestionType,
+				"");
 		System.out.println("implicationQuestionProcess str = " + strImplication);
-		
+
 		if (!answerBean.getAnswer().isEmpty()) {
-			answerBean.setAnswer(ImplicationProcess.getImplicationAnswer(answerBean.getAnswer(), entity, strImplication));
-		} 
+			answerBean
+					.setAnswer(ImplicationProcess.getImplicationAnswer(answerBean.getAnswer(), entity, strImplication));
+		}
 		System.out.println("Implication Qustion: anwerBean is " + answerBean.toString());
 		return answerBean.returnAnswer(answerBean);
 	}
@@ -1580,7 +1585,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "牛顿去世多少年?";
+		String str = "然并卵";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");
