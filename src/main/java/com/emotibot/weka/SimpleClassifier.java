@@ -1,5 +1,7 @@
 package com.emotibot.weka;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -103,8 +105,8 @@ public class SimpleClassifier {
         for (Map.Entry<String, Long> mapping : list) {  
         	buffer.append("domain="+mapping.getKey() + " score=" + mapping.getValue()+" ; ");  
         	index++;
-        	return mapping.getKey();
-        	//if(index>=3) break;
+        	//return mapping.getKey();
+        	if(index>=2) break;
         } 
         if(list==null||list.size()==0)
         {
@@ -113,11 +115,11 @@ public class SimpleClassifier {
 		return buffer.toString();
     }
     
-	public static void main(String args[])
+	public static void main(String args[]) throws IOException
 	{
 		Init();
-		Train("arff/wekaNew.txt");
-		Vector<String> lines = Tool.getFileLines("arff/wekaNew.txt");
+		Train("arff/w");
+		Vector<String> lines = Tool.getFileLines("arff/w");
 		int all=0;
 		int r=0;
 		for(String line:lines)
@@ -127,11 +129,31 @@ public class SimpleClassifier {
 			String tag=arr[0].trim();
 			String label = arr[1].trim();
 			all++;
-			if(label.equals(getLabels(tag))) r++;
+			if(getLabels(tag).contains(label)) r++;
 			else{
 			System.err.println(tag+"===>"+label+"###"+getLabels(tag));
 			}
 		}
 		System.err.println(100*(double)r/all);
+        List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(wordsDomainTime.entrySet());  
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {  
+            //降序排序  
+            @Override  
+            public int compare(Entry<String, Integer> o1, Entry<String, Integer> o2) {  
+                //return o1.getValue().compareTo(o2.getValue());  
+                return o2.getValue().compareTo(o1.getValue());  
+            }
+
+        }); 			    
+        FileWriter f = new FileWriter("num");
+
+
+		for(Map.Entry<String, Integer> mapping : list)
+		{
+			//System.err.println(mapping.getKey()+"==>"+mapping.getValue());
+			f.write(mapping.getKey()+"==>"+mapping.getValue()+"\r\n");
+
+		}
+       f.close();
 	}
 }

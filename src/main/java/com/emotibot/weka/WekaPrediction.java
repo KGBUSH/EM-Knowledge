@@ -199,6 +199,7 @@ public class WekaPrediction {
 			    }
 			    f.close();*/
 			    Vector<String> lines = Tool.getFileLines("arff/w");
+			    FileWriter f = new FileWriter("tags_result");
 			    for(String line:lines)
 			    {
 			    	try{
@@ -211,6 +212,7 @@ public class WekaPrediction {
                    if(!label.equals(predict)){
 	              //  System.err.println("Tag="+ tag+"===>"+demo.getClassifierTag(tag)+"\r\n");
 	                System.err.println(tag+"###"+label+"==>"+predict);
+	                f.write(tag+"###"+label+"==>"+predict+"\r\n");	                
 
                    }
 			    	}catch(Exception e)
@@ -218,6 +220,7 @@ public class WekaPrediction {
 			    		e.printStackTrace();
 			    	}
 			    }
+			    f.close();
 			    System.err.println("End");
 			    
 		  }
