@@ -71,6 +71,11 @@ public class SimpleClassifier {
                 }
 			}
 		}
+		/*String[] arr = line.split(" ");
+		for(String word:arr)
+		{
+			map.put(word, 1);
+		}*/
 		return map;
 
 	}
@@ -112,10 +117,10 @@ public class SimpleClassifier {
                 	int num=map.get(word);
                 	word=word+domain;
                 	System.err.println(word);
-                    if(!wordsDomainTime.containsKey(word)) wordsDomainTime.put(word, num);
+                    if(!wordsDomainTime.containsKey(word)) wordsDomainTime.put(word, 1);
                     else
                     {
-                    	wordsDomainTime.put(word, wordsDomainTime.get(word)+num);
+                    	wordsDomainTime.put(word, wordsDomainTime.get(word)+1);
                     }
 
                 }
@@ -163,7 +168,7 @@ public class SimpleClassifier {
         	buffer.append("###"+mapping.getKey());  
         	index++;
         	//return mapping.getKey();
-        	if(index>=2) break;
+        	if(index>=1) break;
         } 
         if(list==null||list.size()==0)
         {
