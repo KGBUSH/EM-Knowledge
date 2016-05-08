@@ -31,7 +31,7 @@ public class TagCommon {
 		DomainNames.put("tourism","");
 		DomainNames.put("economy","");
 		DomainNames.put("medical_treatment","");
-		DomainNames.put("job","");
+		//DomainNames.put("job","");
 		DomainNames.put("music","");
 
 	}

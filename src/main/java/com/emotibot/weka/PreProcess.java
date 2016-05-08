@@ -57,6 +57,7 @@ public class PreProcess {
 			line=line.replaceAll("Weka:", "");
 			if(line.contains("^M")) line=line.replaceAll("^M", "");
 			String[] arr = line.split("###");
+			System.err.println("line="+line);
 			String tags = arr[0].trim();
 			String domain = arr[1].trim();
 			for(String tag:tags.split(" "))
