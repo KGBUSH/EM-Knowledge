@@ -239,6 +239,9 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					  }
 					}
 					System.err.println("Weka:"+pageExtractInfo.getTags()+"###"+label+"###"+name+"###"+pmWord+"###"+url);
+					//getAttrValueStr
+					System.err.println("WekaNew:"+pageExtractInfo.getTags()+"###"+label+"###"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.getAttrValueStr()+"###"+pageExtractInfo.getFirstPara());
+
 					/////////
 					 if (query == null || query.trim().length() == 0) return;
 					 String urlmd5=DigestUtils.md5Hex(url);

@@ -167,7 +167,7 @@ public class WekaPrediction {
 		  
 		  public static void main(String args[]) throws Exception
 		  {
-			    PreProcess.ProduceArffNum("arff/w");
+			    PreProcess.ProduceArffNum("tmp");
 			    
 			    WekaPrediction demo;
 			    String classifier = "weka.classifiers.bayes.NaiveBayes";
@@ -198,7 +198,7 @@ public class WekaPrediction {
 			    	}
 			    }
 			    f.close();*/
-			    Vector<String> lines = Tool.getFileLines("arff/w");
+			    Vector<String> lines = Tool.getFileLines("tmp");
 			    FileWriter f = new FileWriter("tags_result");
 			    for(String line:lines)
 			    {

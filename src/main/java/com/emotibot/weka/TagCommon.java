@@ -22,7 +22,7 @@ public class TagCommon {
 		
 		DomainNames.put("TV_series","");
 		DomainNames.put("anime","");
-		DomainNames.put("catchword","");
+		//DomainNames.put("catchword","");
 		DomainNames.put("college","");
 		DomainNames.put("computer_game","");
 		DomainNames.put("cosmetics","");
