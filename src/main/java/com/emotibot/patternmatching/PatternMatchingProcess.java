@@ -897,7 +897,7 @@ public class PatternMatchingProcess {
 
 			if (furtherSeach == true) {
 				String newDBEntity = DBProcess.getEntityByRelationship(label, entity, prop);
-				String newLabel = label; // TBD, should change later
+				String newLabel = ""; // TBD, should change later
 				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
 				return ReasoningProcess(sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity), newLabel,
 						newDBEntity, answerBean);
@@ -1585,7 +1585,7 @@ public class PatternMatchingProcess {
 	public static void main(String[] args) {
 		NLPProcess nlpProcess = new NLPProcess();
 		NLPProcess.NLPProcessInit();
-		String str = "然并卵";
+		String str = "姚明太太的身高";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");

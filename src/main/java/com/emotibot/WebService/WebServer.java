@@ -192,7 +192,10 @@ public class WebServer {
 					result_obj.put("score", bean.getScore());
 					result_obj.put("topic", "");
 					result_obj.put("emotion", "");
-					result_obj.put("answer", bean.getAnswer());
+					// fix the bad case "加油", there is a encode issue here if without " "
+					result_obj.put("answer",bean.getAnswer()+" ");
+					
+//					System.out.println("getAnaswer="+bean.getAnswer());
 
 					if (questionType != null && questionType.equals("debug")) {
 						result_obj.put("debug", bean.getComments());
@@ -202,6 +205,7 @@ public class WebServer {
 					long t2 = System.currentTimeMillis();
 					result_obj.put("time", (t2 - t) + "ms");
 
+//					System.out.println("result_obj="+result_obj);
 					out.println(result_obj);
 				}
 			} catch (Exception e) {
