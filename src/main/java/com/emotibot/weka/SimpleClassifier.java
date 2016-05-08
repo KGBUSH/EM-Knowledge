@@ -160,7 +160,7 @@ public class SimpleClassifier {
         //buffer.append("tags="+tag"");
         int index=0;
         for (Map.Entry<String, Long> mapping : list) {  
-        	buffer.append("domain="+mapping.getKey() + " score=" + mapping.getValue()+" ; ");  
+        	buffer.append("###"+mapping.getKey());  
         	index++;
         	//return mapping.getKey();
         	if(index>=2) break;
@@ -179,6 +179,8 @@ public class SimpleClassifier {
 		Vector<String> lines = Tool.getFileLines("arff/w");
 		int all=0;
 		int r=0;
+        FileWriter f2 = new FileWriter("record");
+
 		for(String line:lines)
 		{
 			line=line.replace("Weka:", "");
@@ -188,9 +190,11 @@ public class SimpleClassifier {
 			all++;
 			if(getLabels(tag).contains(label)) r++;
 			else{
-			System.err.println(tag+"===>"+label+"###"+getLabels(tag));
+			System.err.println("Weka:"+tag+"###"+label+"###"+getLabels(tag));
+			f2.write("Weka:"+tag+"###"+label+"###"+getLabels(tag)+"\r\n");
 			}
 		}
+		f2.close();
 		System.err.println(100*(double)r/all);
         List<Map.Entry<String, Integer>> list = new ArrayList<Map.Entry<String, Integer>>(wordsDomainTime.entrySet());  
         Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {  
