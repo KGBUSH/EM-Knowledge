@@ -22,7 +22,7 @@ public class TagCommon {
 		
 		DomainNames.put("TV_series","");
 		DomainNames.put("anime","");
-		//DomainNames.put("catchword","");
+		DomainNames.put("catchword","");
 		DomainNames.put("college","");
 		DomainNames.put("computer_game","");
 		DomainNames.put("cosmetics","");
@@ -37,7 +37,7 @@ public class TagCommon {
 		DomainNames.put("tourism","");
 		DomainNames.put("economy","");
 		DomainNames.put("medical_treatment","");
-		//DomainNames.put("job","");
+		DomainNames.put("job","");
 		DomainNames.put("music","");
 		features=Tool.getFileLines("arff/feture");
 		for(String f:features)

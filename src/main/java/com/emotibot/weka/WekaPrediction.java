@@ -167,7 +167,7 @@ public class WekaPrediction {
 		  
 		  public static void main(String args[]) throws Exception
 		  {
-			    PreProcess.ProduceArffNum("tmp");
+			    PreProcess.ProduceArffNum("WekaNewWay3");
 			    
 			    WekaPrediction demo;
 			    String classifier = "weka.classifiers.bayes.NaiveBayes";
@@ -198,7 +198,7 @@ public class WekaPrediction {
 			    	}
 			    }
 			    f.close();*/
-			    Vector<String> lines = Tool.getFileLines("tmp");
+			    Vector<String> lines = Tool.getFileLines("WekaNewWay3");
 			    FileWriter f = new FileWriter("tags_result");
 			    for(String line:lines)
 			    {
@@ -208,11 +208,14 @@ public class WekaPrediction {
                    String[] arr = line.split("###");
                    String tag=arr[0].trim();
                    String label = arr[1].trim();
+                   String url = arr[4].trim();
+                   String str = arr[6].trim();
+
                    String predict =demo.getClassifierTag(tag);
                    if(!label.equals(predict)){
 	                System.err.println("Tag="+ tag+"===>"+demo.getClassifierTag(tag)+"\r\n");
 	               // System.err.println(tag+"###"+label+"==>"+predict);
-	                f.write(tag+"###"+label+"==>"+predict+"\r\n");	                
+	                f.write(tag+"###"+label+"==>"+predict+"###"+url+"###"+str+"\r\n");	                
 
                    }
 			    	}catch(Exception e)
