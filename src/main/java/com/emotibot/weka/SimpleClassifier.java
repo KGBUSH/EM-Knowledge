@@ -152,7 +152,6 @@ public class SimpleClassifier {
 		{
 			//System.err.println(mapping.getKey()+"==>"+mapping.getValue());
 			f.write(mapping.getKey()+"==>"+mapping.getValue()+"\r\n");
-
 		}
        f.close();
 	}
