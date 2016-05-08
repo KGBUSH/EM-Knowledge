@@ -220,7 +220,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					System.err.println(NodeOrRelation+" queryMap=" + query);
 					/////////TongyiciMap
 					////////duoyici
-					if(pageExtractInfo.getDuoyici().length()>0) System.err.println("Duoyici:"+pageExtractInfo.getDuoyici()+"###"+url);
+					if(pageExtractInfo.getDuoyici().length()>0) System.err.println("Duoyici:"+pageExtractInfo.getDuoyici()+"###"+pageExtractInfo.getTags()+"###"+url);
                      //					System.err.println("Tongyici1:"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.GetSynonym());
                     String tongyici="";
 					if(pageExtractInfo.getTongyici().trim().length()>0)

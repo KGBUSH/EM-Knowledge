@@ -167,7 +167,7 @@ public class WekaPrediction {
 		  
 		  public static void main(String args[]) throws Exception
 		  {
-			    PreProcess.ProduceArffNum("arff/w");
+			    PreProcess.ProduceArffNum("aa");
 			    
 			    WekaPrediction demo;
 			    String classifier = "weka.classifiers.bayes.NaiveBayes";
