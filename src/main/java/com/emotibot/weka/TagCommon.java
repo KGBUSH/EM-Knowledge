@@ -2,6 +2,9 @@ package com.emotibot.weka;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Vector;
+
+import com.emotibot.util.Tool;
 
 public class TagCommon {
 	
@@ -10,6 +13,9 @@ public class TagCommon {
 	public static Map<String,Integer> DomainNum = new HashMap<>();
     public static String CommonTarffStr="";
     public final static String other="other";
+	public static Vector<String> features = new Vector<>();
+	public static Map<String,Integer> featuresNum = new HashMap<>();
+
 	static
 	{
 		DomainNames = new HashMap<>();
@@ -33,7 +39,20 @@ public class TagCommon {
 		DomainNames.put("medical_treatment","");
 		//DomainNames.put("job","");
 		DomainNames.put("music","");
-
+		features=Tool.getFileLines("arff/feture");
+		for(String f:features)
+		{
+			String arr[]= f.split("==>");
+			featuresNum.put(arr[0].trim(), Integer.valueOf(arr[1].trim()));
+		}
+	}
+	
+	public static void main(String args[])
+	{
+		for(String key:DomainNames.keySet())
+		{
+			System.err.println("cat num | grep "+key+" | head -20 >> 1");
+		}
 	}
 
 

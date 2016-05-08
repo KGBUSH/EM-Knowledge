@@ -11,7 +11,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
 
+import com.emotibot.patternmatching.NLPProcess;
 import com.emotibot.util.Tool;
+import com.hankcs.hanlp.seg.common.Term;
 //com.emotibot.weka.SimpleClassifier
 public class SimpleClassifier {
 	public static Map<String,String> DomainNames;
@@ -41,6 +43,37 @@ public class SimpleClassifier {
 		DomainNames.put("music","");
 		wordsDomainTime = new HashMap<>();
 	}
+	public static Map<String,Integer> getWords(String line)
+	{
+		Map<String,Integer> map = new HashMap<String,Integer>();
+		if(Tool.isStrEmptyOrNull(line)) return map;
+		String[] arr = line.split(" ");
+		for(String word:arr)
+		{
+			if(Tool.isStrEmptyOrNull(word)) continue;
+			word=word.trim();
+			if(word.length()<=3){
+				if(!map.containsKey(word)) map.put(word, 1);
+				else{
+					map.put(word, map.get(word)+1);
+				}
+			}
+			else
+			{
+				List<Term> list=NLPProcess.getSegWord(word);
+                for(Term w:list)
+                {
+                	String ww=w.word.trim();
+    				if(!map.containsKey(ww)) map.put(ww, 1);
+    				else{
+    					map.put(ww, map.get(ww)+1);
+    				}
+                }
+			}
+		}
+		return map;
+
+	}
 	public static void Train(String fileName)
 	{
 		Vector<String> lines = Tool.getFileLines(fileName);
@@ -62,11 +95,29 @@ public class SimpleClassifier {
 					System.exit(0);
 				}
                 if(tag.trim().length()==0) continue;
+				/*List<Term> list=NLPProcess.getSegWord(tag);
+
+                for(Term t:list){
+                tag=t.word;
                 tag=tag+domain;
                 if(!wordsDomainTime.containsKey(tag)) wordsDomainTime.put(tag, 1);
                 else
                 {
                 	wordsDomainTime.put(tag, wordsDomainTime.get(tag)+1);
+                }
+                }*/
+                Map<String,Integer> map = getWords(tag);
+                for(String word:map.keySet())
+                {
+                	int num=map.get(word);
+                	word=word+domain;
+                	System.err.println(word);
+                    if(!wordsDomainTime.containsKey(word)) wordsDomainTime.put(word, num);
+                    else
+                    {
+                    	wordsDomainTime.put(word, wordsDomainTime.get(word)+num);
+                    }
+
                 }
 			}
 			
@@ -76,17 +127,23 @@ public class SimpleClassifier {
     {
     	StringBuffer buffer = new StringBuffer();
     	if(Tool.isStrEmptyOrNull(tags)) return OHTHER;
-		String[] subtags = tags.split(" ");
+        Map<String,Integer> submap = getWords(tags);
+
 		long sum=0;
 		 Map<String, Long>  map = new HashMap<>();
 
 		for(String key:DomainNames.keySet())
 		{
 			sum=0;
-			for(String tag:subtags)
+			for(String tag:submap.keySet())
 			{
 				tag=tag+key;
 				if(wordsDomainTime.containsKey(tag)) sum+=wordsDomainTime.get(tag);
+				if(TagCommon.featuresNum.containsKey(tag))
+				{
+					//System.err.println(tag+"===========>>>");
+					sum+=TagCommon.featuresNum.get(tag);
+				}
 			}
 			map.put(key, sum);
 		}
