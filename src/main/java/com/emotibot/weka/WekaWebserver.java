@@ -34,7 +34,7 @@ public class WekaWebserver {
    public static  WekaPrediction demo;
 
 	public static void main(String[] args) throws Exception {
-	    PreProcess.ProduceArffNum("arff/wekaNew.txt");
+	    PreProcess.ProduceArffNum("WekaNewWay8");
 	   // demo.execute();
 	 	String classifier = "weka.classifiers.bayes.NaiveBayes";
 	    String dataset = "tagNew.arff";
@@ -90,8 +90,10 @@ public class WekaWebserver {
 
 			if (text != null) {
 				text = text.trim();
+				String result=demo.getClassifierTag(text);
+				System.err.println(text+"==>"+result);
 				JSONObject result_obj = new JSONObject();
-				result_obj.put("result", demo.getClassifierTag(text));
+				result_obj.put("result", result);
 				out.println(result_obj);
 			}
 		}catch(Exception e)

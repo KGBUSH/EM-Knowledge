@@ -64,8 +64,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	public static String Other = "other";
 	public static String md5 = "urlkey";
 
-	public static HashMap<String, String> WordLabelMap = null;
-	public static HashMap<String, String> TagsLabelMap = null;
+	public static Map<String, String> URLLabelMap = null;
 
 	public static List<String> fileList = null;
     public static String NodeOrRelation="";
@@ -120,13 +119,10 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		fileList.add("/domain/job.txt");
 	    fileList.add("/domain/music.txt");
 
-		WordLabelMap = new HashMap<>();
-		TagsLabelMap = new HashMap<>();
-		for (String f : fileList) {
-			getFileLine(f);
-		}
-		getWordLabel("/domain/label.txt");
-		getLabelByTrainWeka("/domain/weka.txt");
+	    URLLabelMap = new HashMap<String,String>();
+
+		URLLabelMap=getWordLabel("/domain/URLLabelMap.txt");
+
 	}
 
 	@Override
@@ -167,48 +163,19 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 			ImmutableBytesWritable outputValue = new ImmutableBytesWritable();
 			if ((url != null && url.trim().length() > 0) && (html != null && html.trim().length() > 0)) {
 				if(url.indexOf("baike.baidu.com")==-1) return;
+				url=url.trim();
 				if (type.contains("Neo4j")) {
 					BaikeExtractor baikeExtractor = new BaikeExtractor(html);
 					PageExtractInfo pageExtractInfo = baikeExtractor.ProcessPage();
 					String name = pageExtractInfo.getName();
 					name=MyTrim(name);
 					boolean flag = name.equals(pmWord);
-					boolean name_flag =WordLabelMap.containsKey(name);
-					boolean pmname_flag = WordLabelMap.containsKey(pmWord);
-					//if(name_flag)  System.err.println("NAME="+name+"###"+WordLabelMap.get(name));
-					//if(pmname_flag) System.err.println("NAME="+pmWord+"###"+WordLabelMap.get(pmname_flag));
-					System.err.println("MM"+name+"KKKKK"+pmWord+"MM  "+flag+" "+name_flag+"  "+pmname_flag);
-					//if(name==null) return ;
-					if (name != null && !WordLabelMap.containsKey(name)) {
-						System.err.println("name is not contain in WordLabelMap " + name+"  "+pmWord+" "+url+" "+NodeOrRelation);
-						//if(NodeOrRelation.equals("1")||NodeOrRelation.equals("2")) return;
-					}
-
 
 					outputKey.set(Bytes.toBytes(getASCIISum(url, 3)));
 
 					if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
 					{
-					//if(WordLabelMap.containsKey(pmWord)) label = WordLabelMap.get(pmWord);
-                    //else label=Other;
-					if(pmWord!=null&&pmWord.trim().length()>0)
-					{
-						if(WordLabelMap.containsKey(pmWord)) label = WordLabelMap.get(pmWord);
-	                    else label=Other;
-					}
-					else
-					{
-						if(WordLabelMap.containsKey(name)) label = WordLabelMap.get(name);
-	                    else label=Other;
-					}
-				    //
-                     /* if(label.equals(Other))
-                      {
-                    	  String tags=pageExtractInfo.getTags();
-                    	  label=this.getLabelByTags(tags);
-      					  System.err.println("labelWeka="+tags+"  "+label+"  "+url);
-                      }*/
-					//
+                    label=this.getLabel(url, pageExtractInfo.getTags());
 					System.err.println("label="+label);
 					System.err.println("LabelInfo:"+name+"###"+pmWord+"###"+label);
 					System.err.println("LabelInfoData:"+pmWord+"###"+label);
@@ -258,16 +225,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					{
 						HashMap<String,List<String>> attr_Values = pageExtractInfo.getAttr_Values();
 						BuildCypherSQL bcy = new BuildCypherSQL();
-						if(pmWord!=null&&pmWord.trim().length()>0)
-						{
-							if(WordLabelMap.containsKey(pmWord)) label = WordLabelMap.get(pmWord);
-		                    else label=Other;
-						}
-						else
-						{
-							if(WordLabelMap.containsKey(name)) label = WordLabelMap.get(name);
-		                    else label=Other;
-						}
+	                    label=this.getLabel(url, pageExtractInfo.getTags());
 						System.err.println("label="+label);
 
 						if(attr_Values!=null&&attr_Values.size()>0)
@@ -279,9 +237,9 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 								{
 									Entity a = new Entity(label, name,"Name");
 									String label2=Other;
-									if(WordLabelMap.containsKey(val)) 
+									//if(WordLabelMap.containsKey(val)) 
 									{
-										label2=WordLabelMap.get(val);
+										//label2=WordLabelMap.get(val);
 					                     /* if(label.equals(Other))
 					                      {
 					                    	  String tags=pageExtractInfo.getTags();
@@ -339,6 +297,13 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		}
 		return;
 	}
+	
+	public String getLabel(String url,String tag)
+	{
+		if(URLLabelMap.containsKey(url)) return URLLabelMap.get(url);
+		if(tag==null||tag.trim().length()==0) return Other;
+		return getLabelByTags(tag);
+	}
     public  String MyTrim(String s){
     	String str = s.replace(String.valueOf((char) 160), " ").trim();
     	return str;
@@ -352,35 +317,9 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		}
 		return String.valueOf(sum % n);
 	}
-	  public void getFileLine(String fileName) {
-		    try {
-		      if (fileName == null || fileName.trim().length() == 0) {
-		        System.err.println("fileName==null||fileName.trim().length()==0");
-		        System.exit(0);
-		      }
-		      Configuration conf = new Configuration();
-		      FileSystem hdfs = FileSystem.get(conf);
-		      Path inPath = new Path(fileName);
-		      FSDataInputStream dis = hdfs.open(inPath);
-		      LineReader in = new LineReader(dis, conf);
-		      Text line = new Text();
-		      String lineStr = "";
-		      String label = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
-		      while (in.readLine(line) > 0) {
-		        // result.add(line.toString());
-		        lineStr = line.toString().trim().toLowerCase();
-		        if(lineStr==null||lineStr.length()==0) continue;
-		        System.err.println(lineStr + "MMMM" + label);
-		        WordLabelMap.put(lineStr, label);
-		      }
-		      dis.close();
-		      in.close();
-		    } catch (Exception e) {
-		      e.printStackTrace();
-		    }
 
-		  }	
-	public void getWordLabel(String fileName) {
+	public Map<String, String> getWordLabel(String fileName) {
+		Map<String, String> result  = new HashMap<String, String>();
 		try {
 			if (fileName == null || fileName.trim().length() == 0) {
 				System.err.println("fileName==null||fileName.trim().length()==0");
@@ -398,107 +337,83 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 				lineStr = line.toString().trim().toLowerCase();
 				String[] arr = lineStr.split("###");
 				System.err.println(lineStr + "MMMM2" + label);
-				if(arr!=null&&arr.length==2) WordLabelMap.put(arr[0].trim(), arr[1].trim());
+				if(arr!=null&&arr.length>=2)
+				{
+					result.put(arr[0].trim(), arr[1].trim());
+				}
 			}
 			dis.close();
 			in.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return result;
 
 	}
-	public void getLabelByTrainWeka(String fileName) {
-	    try {
-		      if (fileName == null || fileName.trim().length() == 0) {
-		        System.err.println("fileName==null||fileName.trim().length()==0");
-		        System.exit(0);
-		      }
-		      Configuration conf = new Configuration();
-		      FileSystem hdfs = FileSystem.get(conf);
-		      Path inPath = new Path(fileName);
-		      FSDataInputStream dis = hdfs.open(inPath);
-		      LineReader in = new LineReader(dis, conf);
-		      Text line = new Text();
-		      String lineStr = "";
-		      while (in.readLine(line) > 0) {
-		        if(lineStr==null||lineStr.length()==0) continue;
-		        lineStr=lineStr.replace("Weka:", "");
-		        System.err.println("lineStr="+lineStr);
-		        String[] arr = lineStr.split("###");
-		        System.err.println("arr="+arr[0].trim()+"  "+arr[1].trim());
-		        TagsLabelMap.put(arr[0].trim(), arr[1].trim());
-		      }
-		      dis.close();
-		      in.close();
-		    } catch (Exception e) {
-		      e.printStackTrace();
-		    }
-	}
-	
-	public String getLabelByTags(String tags)
-	{
-		if(tags==null||tags.trim().length()==0) return Other;
-		tags=tags.trim();
-		if(TagsLabelMap!=null&&TagsLabelMap.containsKey(tags)) return TagsLabelMap.get(tags);
-		else
-		{
-		      HttpURLConnection conn = null;
-		      try{
-		    	  String urlStr="http://127.0.0.1:7000/tag?t="+URLEncoder.encode(tags, "UTF-8");
-            	  System.err.println("urlStr tags="+tags+"   "+urlStr);
-		          URL url = new URL(urlStr);
-		          conn = (HttpURLConnection) url.openConnection();
-		          conn.setDoOutput(true);
-		          conn.setRequestMethod("GET");
-		          //conn.setRequestProperty("accept-charset", "UTF-8");
-		          int responseCode = conn.getResponseCode();
-		          /*if (responseCode != HttpURLConnection.HTTP_OK) {
-		                  throw new RuntimeException("Failed : HTTP error code : "
-		                      + conn.getResponseCode());
-		              } else {*/
-		                  InputStream stream = conn.getInputStream();
-		                  byte[] data = readInputStream(stream);
-		                  String content = new String(data,StandardCharsets.UTF_8);
-		                  if(content == null || content.trim().length() == 0)
-		                  {
-		                	  System.err.println("tags1="+tags+"  "+Other);
-		              		  return Other;
-		                  }
-		                  JSON jsonObject =  JSONSerializer.toJSON(content);
-		                  JSONObject json = (JSONObject)jsonObject;
-		                  String result = String.valueOf(json.getString("result"));
-		                  if(result == null || result.trim().length() == 0)
-		                  {
-		                	  System.err.println("tags2="+tags+"  "+Other);
-		              		  return Other;
-		                  }
-	                	  System.err.println("result="+result);
-	              		  return result;
-		             // }
-		      } catch (Exception e) {
-                    e.printStackTrace();
-		      }finally{
-		        if(conn != null){
-		           conn.disconnect();
-		        }
-		      }
-		}
-		return Other;
-	}
-	   private byte[] readInputStream(InputStream inStream) {
-	       ByteArrayOutputStream outStream = new ByteArrayOutputStream();
-	       byte[] buffer = new byte[1024];
-	       int len = 0;
-	       try {
-	           while ((len = inStream.read(buffer)) != -1) {
-	               outStream.write(buffer, 0, len);
-	           }
-	           inStream.close();
-	       } catch (Exception e) {
-	           e.printStackTrace();
-	       }
-	       return outStream.toByteArray();
-	   }
+
+///////////////////////////////////////////
+	  public String getLabelByTags(String tags)
+	  {
+	    if(tags==null||tags.trim().length()==0) return Other;
+	    tags=tags.trim();
+	          HttpURLConnection conn = null;
+	          try{
+	            String urlStr="http://127.0.0.1:7000/tag?t="+URLEncoder.encode(tags, "UTF-8");
+	                System.err.println("urlStr tags="+tags+"   "+urlStr);
+	              URL url = new URL(urlStr);
+	              conn = (HttpURLConnection) url.openConnection();
+	              conn.setDoOutput(true);
+	              conn.setRequestMethod("GET");
+	              //conn.setRequestProperty("accept-charset", "UTF-8");
+	              int responseCode = conn.getResponseCode();
+	              /*if (responseCode != HttpURLConnection.HTTP_OK) {
+	                      throw new RuntimeException("Failed : HTTP error code : "
+	                          + conn.getResponseCode());
+	                  } else {*/
+	                      InputStream stream = conn.getInputStream();
+	                      byte[] data = readInputStream(stream);
+	                      String content = new String(data,StandardCharsets.UTF_8);
+	                      if(content == null || content.trim().length() == 0)
+	                      {
+	                        System.err.println("tags1="+tags+"  "+Other);
+	                        return Other;
+	                      }
+	                      JSON jsonObject =  JSONSerializer.toJSON(content);
+	                      JSONObject json = (JSONObject)jsonObject;
+	                      String result = String.valueOf(json.getString("result"));
+	                      if(result == null || result.trim().length() == 0)
+	                      {
+	                        System.err.println("tags2="+tags+"  "+Other);
+	                        return Other;
+	                      }
+	                      System.err.println("result="+result);
+	                      return result;
+	                 // }
+	          } catch (Exception e) {
+	                    e.printStackTrace();
+	          }finally{
+	            if(conn != null){
+	               conn.disconnect();
+	            }
+	          }
+	    return Other;
+	  }
+	     private byte[] readInputStream(InputStream inStream) {
+	         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+	         byte[] buffer = new byte[1024];
+	         int len = 0;
+	         try {
+	             while ((len = inStream.read(buffer)) != -1) {
+	                 outStream.write(buffer, 0, len);
+	             }
+	             inStream.close();
+	         } catch (Exception e) {
+	             e.printStackTrace();
+	         }
+	         return outStream.toByteArray();
+	     }
+////////////////////////////////////////////
+
 	   
 	   public boolean isExistHtml(String urlmd5,String parammd5)
 	   {
