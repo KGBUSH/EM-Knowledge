@@ -15,6 +15,8 @@ import com.emotibot.util.Tool;
 
 import java.util.Map.Entry;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Classifier;
 import weka.classifiers.Evaluation;
@@ -125,11 +127,12 @@ public class WekaPrediction {
 		        } 
 
 				newLine+="}";
-				FileWriter tmp = new FileWriter("tmp.arff");
+				String file="tmp/"+DigestUtils.md5Hex(tags)+System.currentTimeMillis();
+				FileWriter tmp = new FileWriter(file);
 				tmp.write(TagCommon.CommonTarffStr+"\r\n");
 				tmp.write(newLine+"\r\n");
 				tmp.close();
-				Instances instances = new Instances(new BufferedReader(new FileReader("tmp.arff")));
+				Instances instances = new Instances(new BufferedReader(new FileReader(file)));
                 return instances;
 		  }
          public  String getClassifierTag(String tags) throws Exception

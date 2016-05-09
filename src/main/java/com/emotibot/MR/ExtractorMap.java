@@ -358,7 +358,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	    tags=tags.trim();
 	          HttpURLConnection conn = null;
 	          try{
-	            String urlStr="http://127.0.0.1:7000/tag?t="+URLEncoder.encode(tags, "UTF-8");
+	            String urlStr="http://192.168.1.81:7000/tag?t="+URLEncoder.encode(tags, "UTF-8");
 	                System.err.println("urlStr tags="+tags+"   "+urlStr);
 	              URL url = new URL(urlStr);
 	              conn = (HttpURLConnection) url.openConnection();
