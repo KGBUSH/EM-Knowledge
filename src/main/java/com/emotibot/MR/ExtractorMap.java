@@ -65,6 +65,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	public static String md5 = "urlkey";
 
 	public static Map<String, String> URLLabelMap = null;
+	public static Map<String, String> URLMD5LabelAllMap = null;
 
 	public static List<String> fileList = null;
     public static String NodeOrRelation="";
@@ -120,8 +121,9 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	    fileList.add("/domain/music.txt");
 
 	    URLLabelMap = new HashMap<String,String>();
-
+	    URLMD5LabelAllMap=new HashMap<String,String>();
 		URLLabelMap=getWordLabel("/domain/URLLabelMap.txt");
+		URLMD5LabelAllMap=getWordLabel("/domain/URLMD5LabelAllMap.txt");
 
 	}
 
@@ -237,17 +239,12 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 								{
 									Entity a = new Entity(label, name,"Name");
 									String label2=Other;
-									//if(WordLabelMap.containsKey(val)) 
-									{
-										//label2=WordLabelMap.get(val);
-					                     /* if(label.equals(Other))
-					                      {
-					                    	  String tags=pageExtractInfo.getTags();
-					                    	  label=this.getLabelByTags(tags);
-					      					  System.err.println("labelWeka="+tags+"  "+label+"  "+url);
-					                      }*/
+                                    String urlval=pageExtractInfo.getWordLink(val);
 
-									}
+                                    if(URLMD5LabelAllMap.containsKey(DigestUtils.md5Hex(urlval)))
+                                    {
+                                    	label2=URLMD5LabelAllMap.get(DigestUtils.md5Hex(urlval)).trim();
+                                    }
 									Entity b = new Entity(label2,val,"Name");
 									if(name.trim().equals(val.trim())){
 										System.err.println(name+"(equals)" +val);
@@ -258,7 +255,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					                System.err.println(NodeOrRelation+" queryMap=" + query);
 									Entity aa = new Entity(label, DigestUtils.md5Hex(url),md5);
 									//Entity b = new Entity(label2,val,"Name");
-                                    String urlval=pageExtractInfo.getWordLink(val);
                                     if(urlval!=null&&urlval.trim().length()>0)
                                     {
                                     	Entity bb = new Entity(label2,DigestUtils.md5Hex(urlval),md5);
@@ -302,7 +298,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	{
 		if(URLLabelMap.containsKey(url)) return URLLabelMap.get(url);
 		if(tag==null||tag.trim().length()==0) return Other;
-		return getLabelByTags(tag);
+		return getLabelByTags(url,tag);
 	}
     public  String MyTrim(String s){
     	String str = s.replace(String.valueOf((char) 160), " ").trim();
@@ -352,13 +348,13 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	}
 
 ///////////////////////////////////////////
-	  public String getLabelByTags(String tags)
+	  public String getLabelByTags(String url1,String tags)
 	  {
 	    if(tags==null||tags.trim().length()==0) return Other;
 	    tags=tags.trim();
 	          HttpURLConnection conn = null;
 	          try{
-	            String urlStr="http://192.168.1.81:7000/tag?t="+URLEncoder.encode(tags, "UTF-8");
+	            String urlStr="http://192.168.1.81:7000/tag?t="+URLEncoder.encode(tags, "UTF-8")+"&&md5="+DigestUtils.md5Hex(url1);
 	                System.err.println("urlStr tags="+tags+"   "+urlStr);
 	              URL url = new URL(urlStr);
 	              conn = (HttpURLConnection) url.openConnection();
@@ -426,7 +422,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	   public static void main(String[] args)
 	   {
 		   //String tags
-		   System.err.println(new ExtractorMap().getLabelByTags("农学类专业 本科专业"));
+		   //System.err.println(new ExtractorMap().getLabelByTags("农学类专业 本科专业"));
 	   }
 
 }
