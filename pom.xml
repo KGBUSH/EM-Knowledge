@@ -143,6 +143,11 @@
       <artifactId>jedis</artifactId>
       <version>2.5.2</version>
     </dependency>
+    <dependency>
+       <groupId>com.emotibot</groupId>
+       <artifactId>weka</artifactId>
+       <version>3.8.0</version>
+     </dependency>
   </dependencies>
   <repositories>
     <repository>
@@ -179,10 +184,11 @@
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.1</version>
         <configuration>
+          <defaultLibBundleDir>lib</defaultLibBundleDir>
           <source>1.7</source>
           <target>1.7</target>
           <compilerArguments>
-          <extdirs>lib/</extdirs>
+          <extdirs>${project.basedir}/lib</extdirs>
           </compilerArguments>
         </configuration>
       </plugin>
@@ -199,7 +205,7 @@
             </manifest>
           </archive>
           <includes>
-            <include>lib/*.jar</include>
+            <include>${project.basedir}/lib/weka.jar</include>
           </includes>
         </configuration>
         <executions>

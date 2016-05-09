@@ -24,6 +24,18 @@ import com.hankcs.hanlp.seg.common.Term;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import weka.classifiers.AbstractClassifier;
+import weka.classifiers.Classifier;
+import weka.classifiers.Evaluation;
+import weka.classifiers.functions.Logistic;
+import weka.core.Attribute;
+import weka.core.FastVector;
+import weka.core.OptionHandler;
+import weka.core.Utils;
+import weka.core.converters.ConverterUtils.DataSource;
+import weka.filters.Filter;
+import weka.core.Instance;
+import weka.core.Instances;
 
 /**
  * 
