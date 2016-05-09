@@ -99,11 +99,12 @@ public class WekaWebserver {
 			PrintWriter out = response.getWriter();
 			try{
 			String text = request.getParameter("t");
+			String md5 = request.getParameter("md5");
 
 			if (text != null) {
 				text = text.trim();
 				String result=demo.getClassifierTag(text);
-				System.err.println(text+"==>"+result);
+				System.err.println(md5+"==>"+text+"==>"+result);
 				JSONObject result_obj = new JSONObject();
 				result_obj.put("result", result);
 				out.println(result_obj);
