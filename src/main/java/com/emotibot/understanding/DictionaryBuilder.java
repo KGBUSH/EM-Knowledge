@@ -377,4 +377,44 @@ public class DictionaryBuilder {
 	public static void setEntitySynonymReverseTable(Map<String, List<String>> entitySynonymReverseTable) {
 		DictionaryBuilder.entitySynonymReverseTable = entitySynonymReverseTable;
 	}
+
+	public static Set<String> getStopWordTable() {
+		return stopWordTable;
+	}
+
+	public static void setStopWordTable(Set<String> stopWordTable) {
+		DictionaryBuilder.stopWordTable = stopWordTable;
+	}
+
+	public static Set<String> getEntityPMTable() {
+		return entityPMTable;
+	}
+
+	public static void setEntityPMTable(Set<String> entityPMTable) {
+		DictionaryBuilder.entityPMTable = entityPMTable;
+	}
+
+	public static HashMap<String, Set<String>> getSynonymTable() {
+		return synonymTable;
+	}
+
+	public static void setSynonymTable(HashMap<String, Set<String>> synonymTable) {
+		DictionaryBuilder.synonymTable = synonymTable;
+	}
+
+	public static HashMap<String, List<String>> getSynonymTableRef() {
+		return synonymTableRef;
+	}
+
+	public static void setSynonymTableRef(HashMap<String, List<String>> synonymTableRef) {
+		DictionaryBuilder.synonymTableRef = synonymTableRef;
+	}
+
+	public static Set<String> getRemoveableHighFeqWordTable() {
+		return removeableHighFeqWordTable;
+	}
+
+	public static void setRemoveableHighFeqWordTable(Set<String> removeableHighFeqWordTable) {
+		DictionaryBuilder.removeableHighFeqWordTable = removeableHighFeqWordTable;
+	}
 }

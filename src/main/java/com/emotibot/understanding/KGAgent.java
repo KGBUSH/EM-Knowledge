@@ -84,17 +84,17 @@ public class KGAgent {
 		} else if (questionScore >= 0.3) {
 			isQuestion = true;
 		}
-		userSentence = NLPProcess.removePunctuateMark(userSentence);
+		userSentence = NLPUtil.removePunctuateMark(userSentence);
 		nerBean.setSentence(userSentence);
 
 		System.out.println("userSentence=" + userSentence + ", isQuestion=" + isQuestion);
-		segPos = NLPProcess.getSegWord(userSentence);
+		segPos = NLPUtil.getSegWord(userSentence);
 		System.out.println("Constructor: segPos=" + segPos);
 		segWordWithoutStopWord = new ArrayList<>();
 		for (int i = 0; i < segPos.size(); i++) {
 			String segWord = CharUtil.trim(segPos.get(i).word);
 			System.out.println("segWord=" + segWord);
-			if (!NLPProcess.isStopWord(segWord)) {
+			if (!NLPUtil.isStopWord(segWord)) {
 				segWordWithoutStopWord.add(segWord);
 			}
 		}
@@ -400,7 +400,7 @@ public class KGAgent {
 			localAnswer += strIntroduce;
 			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(localAnswer));
 			answerBean.setScore(
-					QuestionClassifier.isKindofQuestion(NLPProcess.removePunctuateMark(userSentence), QuestionClassifier.introductionQuestionType, entity)
+					QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(userSentence), QuestionClassifier.introductionQuestionType, entity)
 							? 100 : 0);
 			if (isQuestion == false) {
 				answerBean.setScore(0);

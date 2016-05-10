@@ -88,7 +88,7 @@ public class EntityRecognizer {
 						simpleMatchEntity.size());
 
 				for (String s : tempList) {
-					if (NLPProcess.isEntityPM(s)) {
+					if (NLPUtil.isEntityPM(s)) {
 						rsEntity.add(s);
 						break;
 					}
@@ -228,21 +228,21 @@ public class EntityRecognizer {
 
 		for (int i = 0; i < segPos.size(); i++) {
 			String segWord = segPos.get(i).word;
-			if (!NLPProcess.getEntityInDictinoary(segWord).isEmpty()) {
+			if (!NLPUtil.getEntityInDictinoary(segWord).isEmpty()) {
 				entityTreeSet.add(segWord);
-			} else if (!NLPProcess.getEntitySynonymNormal(segWord).isEmpty()) {
+			} else if (!NLPUtil.getEntitySynonymNormal(segWord).isEmpty()) {
 				// entityTreeSet.add(entitySynonymTable.get(segWord));
 				System.out.println(
-						"syn in NLP: word=" + segWord + ", syn=" + NLPProcess.getEntitySynonymTable().get(segWord));
+						"syn in NLP: word=" + segWord + ", syn=" + DictionaryBuilder.getEntitySynonymTable().get(segWord));
 				entityTreeSet.add(segWord);
-				refMap.put(segWord, NLPProcess.getEntitySynonymTable().get(segWord));
+				refMap.put(segWord, DictionaryBuilder.getEntitySynonymTable().get(segWord));
 			}
 		}
 
 		System.out.println("NLP entities before removal: " + entityTreeSet.toString());
 		entitySet = removeContainedElements(entityTreeSet);
 		// remove the high frequent entities
-		entitySet = NLPProcess.removeRemoveableEntity(entitySet);
+		entitySet = NLPUtil.removeRemoveableEntity(entitySet);
 		System.out.println("NLP entities after removal: " + entitySet.toString());
 
 		List<String> rsSet = new ArrayList<>();
@@ -273,7 +273,7 @@ public class EntityRecognizer {
 		sentence = sentence.toLowerCase();
 		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthComparator());
 		List<String> entitySet = new ArrayList<>();
-		for (String s : NLPProcess.getEntityTable()) {
+		for (String s : DictionaryBuilder.getEntityTable()) {
 			if (sentence.contains(s.toLowerCase())) {
 				entityTreeSet.add(s);
 			}
@@ -281,10 +281,10 @@ public class EntityRecognizer {
 
 		Map<String, String> refMap = new HashMap<>();
 		// entitySynonymTable：【甲肝，甲型病毒性肝炎】
-		for (String s : NLPProcess.getEntitySynonymTable().keySet()) {
+		for (String s : DictionaryBuilder.getEntitySynonymTable().keySet()) {
 			if (!entityTreeSet.contains(s) && sentence.contains(s.toLowerCase())) {
 				entityTreeSet.add(s);
-				refMap.put(s, NLPProcess.getEntitySynonymTable().get(s));
+				refMap.put(s, DictionaryBuilder.getEntitySynonymTable().get(s));
 			}
 		}
 
@@ -292,7 +292,7 @@ public class EntityRecognizer {
 		entitySet = removeContainedElements(entityTreeSet);
 
 		// remove the high frequent entities
-		entitySet = NLPProcess.removeRemoveableEntity(entitySet);
+		entitySet = NLPUtil.removeRemoveableEntity(entitySet);
 		System.out.println("simple matching entities after removal: " + entitySet.toString());
 		entitySet = sortByIndexOfSentence(sentence, entitySet);
 
@@ -330,11 +330,6 @@ public class EntityRecognizer {
 
 		for (String s : segWord) {
 			obj.addWord(s);
-
-			// if (!NLPProcess.isInHighFreqDict(s)) {
-			// obj.addWord(s);
-			// }
-
 		}
 
 		rsEntitySet = solr.Search(obj);
@@ -383,8 +378,8 @@ public class EntityRecognizer {
 
 		System.out.println("changeEntitySynonym: entitySet=" + entitySet + ",sentence=" + sentence);
 		for (String entity : entitySet) {
-			if (NLPProcess.hasEntitySynonym(entity)) {
-				List<String> list = NLPProcess.getSynonymnEntityList(entity);
+			if (NLPUtil.hasEntitySynonym(entity)) {
+				List<String> list = NLPUtil.getSynonymnEntityList(entity);
 				System.out.println("entity=" + entity + ", synonymList=" + list);
 				String oldEntity = "";
 				for (String s : list) {
@@ -423,7 +418,7 @@ public class EntityRecognizer {
 		while (it.hasNext()) {
 			String tempEntity = it.next();
 
-			if (NLPProcess.isInRemoveableDict(tempEntity)) {
+			if (NLPUtil.isInRemoveableDict(tempEntity)) {
 				System.out.println("remove entity:" + tempEntity);
 				it.remove();
 			}

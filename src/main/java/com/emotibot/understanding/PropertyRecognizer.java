@@ -10,7 +10,6 @@ import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.patternmatching.DBProcess;
 import com.emotibot.patternmatching.ImplicationProcess;
-import com.emotibot.patternmatching.NLPProcess;
 import com.emotibot.patternmatching.PatternMatchingResultBean;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
@@ -250,13 +249,13 @@ public class PropertyRecognizer {
 		// NLPResult tnNode = NLPSevice.ProcessSentence(str,
 		// NLPFlag.SegPos.getValue());
 		// List<Term> segPos = tnNode.getWordPos();
-		List<Term> segPos = NLPProcess.getSegWord(str);
+		List<Term> segPos = NLPUtil.getSegWord(str);
 		rsSet.add("");
 		for (int i = 0; i < segPos.size(); i++) {
 			String iWord = segPos.get(i).word;
 			// System.out.println("current word is " + iWord);
 
-			Set<String> iSynSet = NLPProcess.getSynonymWordSet(iWord);
+			Set<String> iSynSet = NLPUtil.getSynonymWordSet(iWord);
 			if (!iSynSet.contains(iWord)) {
 				iSynSet.add(iWord);
 				refMap.put(iWord, iWord);
@@ -445,12 +444,12 @@ public class PropertyRecognizer {
 			// rsList.add(str);
 
 			String littleCandidate = "";
-			List<Term> segPos = NLPProcess.getSegWord(str);
+			List<Term> segPos = NLPUtil.getSegWord(str);
 			System.out.println("PMP.getCandidateSetbyStopWord: segPos=" + segPos);
 
 			for (int i = 0; i < segPos.size(); i++) {
 				String segWord = segPos.get(i).word;
-				if (!NLPProcess.isStopWord(segWord)) {
+				if (!NLPUtil.isStopWord(segWord)) {
 					// not stopword
 					littleCandidate += segWord;
 					// System.err.println("NotStopWord: segWord="+segWord+",
@@ -492,7 +491,7 @@ public class PropertyRecognizer {
 		}
 
 		for (String str : strList) {
-			List<Term> segPos = NLPProcess.getSegWord(str);
+			List<Term> segPos = NLPUtil.getSegWord(str);
 			for (int i = 0; i < segPos.size(); i++) {
 				String segWord = CharUtil.trim(segPos.get(i).word);
 				if (!segWord.isEmpty()) {
@@ -559,7 +558,7 @@ public class PropertyRecognizer {
 		List<String> rList = DBProcess.getRelationshipSet(label, ent);
 		for (String iRelation : rList) {
 			rsMap.put(iRelation, iRelation);
-			Set<String> setSyn = NLPProcess.getSynonymWordSet(iRelation);
+			Set<String> setSyn = NLPUtil.getSynonymWordSet(iRelation);
 			for (String iSyn : setSyn) {
 				rsMap.put(iSyn, iRelation);
 			}
@@ -584,7 +583,7 @@ public class PropertyRecognizer {
 		if (propList != null && !propList.isEmpty()) {
 			for (String iProp : propList) {
 				rsMap.put(iProp, iProp);
-				Set<String> setSyn = NLPProcess.getSynonymWordSet(iProp);
+				Set<String> setSyn = NLPUtil.getSynonymWordSet(iProp);
 				for (String iSyn : setSyn) {
 					rsMap.put(iSyn, iProp);
 				}
