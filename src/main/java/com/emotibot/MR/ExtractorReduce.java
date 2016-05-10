@@ -96,7 +96,7 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 	@Override
 	protected void reduce(ImmutableBytesWritable folder,Iterable<ImmutableBytesWritable> values, Context context) 
 			throws IOException, InterruptedException {
-/*
+
 			long solrDocnum=0;
 			List<String> list = new ArrayList<>();
 			for (ImmutableBytesWritable value : values) {
@@ -208,7 +208,7 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
      					  list.clear();
                        }
 			}
-		*/
+		
 	}
 	
 	public static String getRelationsSql(List<String> list)

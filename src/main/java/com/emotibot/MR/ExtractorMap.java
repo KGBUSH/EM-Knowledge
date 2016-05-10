@@ -122,9 +122,10 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 
 	    URLLabelMap = new HashMap<String,String>();
 	    URLMD5LabelAllMap=new HashMap<String,String>();
+        System.err.println("URLLabelMapSizeBB="+URLLabelMap.size()+"  URLMD5LabelAllMapSizeBB="+URLMD5LabelAllMap.size());
 		URLLabelMap=getWordLabel("/domain/URLLabelMap.txt");
 		URLMD5LabelAllMap=getWordLabel("/domain/URLMD5LabelAllMap.txt");
-
+        System.err.println("URLLabelMapSizeBB="+URLLabelMap.size()+"  URLMD5LabelAllMapSizeBB="+URLMD5LabelAllMap.size());
 	}
 
 	@Override
@@ -246,6 +247,10 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
                                     	label2=URLMD5LabelAllMap.get(urlvalmd5).trim();
                                     }
                                     System.err.println("urlval="+urlval+"urlvalmd5="+urlvalmd5+"label2="+label2);
+                                    System.err.println("URLLabelMapSize="+URLLabelMap.size()+"  URLMD5LabelAllMapSize="+URLMD5LabelAllMap.size());
+                            		//URLLabelMap=getWordLabel("/domain/URLLabelMap.txt");
+                            		//URLMD5LabelAllMap=getWordLabel("/domain/URLMD5LabelAllMap.txt");
+
 									Entity b = new Entity(label2,val,"Name");
 									if(name.trim().equals(val.trim())){
 										System.err.println(name+"(equals)" +val);
@@ -329,11 +334,13 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 			LineReader in = new LineReader(dis, conf);
 			Text line = new Text();
 			String lineStr = "";
+			System.err.println("BB"+fileName);
 			while (in.readLine(line) > 0) {
+				if(line==null) continue;
+				lineStr = line.toString().trim();
 				if(lineStr==null||lineStr.length()==0) continue;
-				lineStr = line.toString().trim().toLowerCase();
 				String[] arr = lineStr.split("###");
-				System.err.println(lineStr + "MMMM2" + label);
+				System.err.println(lineStr + "ZZZZZZ " + arr.length);
 				if(arr!=null&&arr.length>=2)
 				{
 					result.put(arr[0].trim(), arr[1].trim());
