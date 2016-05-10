@@ -239,12 +239,13 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 								{
 									Entity a = new Entity(label, name,"Name");
 									String label2=Other;
-                                    String urlval=pageExtractInfo.getWordLink(val);
-
-                                    if(URLMD5LabelAllMap.containsKey(DigestUtils.md5Hex(urlval)))
+                                    String urlval=pageExtractInfo.getWordLink(val).trim();
+                                    String urlvalmd5=DigestUtils.md5Hex(urlval);
+                                    if(URLMD5LabelAllMap.containsKey(urlvalmd5))
                                     {
-                                    	label2=URLMD5LabelAllMap.get(DigestUtils.md5Hex(urlval)).trim();
+                                    	label2=URLMD5LabelAllMap.get(urlvalmd5).trim();
                                     }
+                                    System.err.println("urlval="+urlval+"urlvalmd5="+urlvalmd5+"label2="+label2);
 									Entity b = new Entity(label2,val,"Name");
 									if(name.trim().equals(val.trim())){
 										System.err.println(name+"(equals)" +val);
