@@ -19,28 +19,33 @@ import com.hankcs.hanlp.seg.common.Term;
 
 public class KGAgent {
 
-	protected static String userSentence;
-	protected static List<Term> segPos;
-	protected static List<String> segWordWithoutStopWord;
-	protected static List<String> entitySet;
+	private String userSentence;
+	private List<Term> segPos;
+	private List<String> segWordWithoutStopWord;
+	private List<String> entitySet;
+	private String uniqueID = "";
+	
+	
 	private boolean isQuestion = false;
 	private long timeCounter = System.currentTimeMillis();
 	
-	protected static String uniqueID = "";
+	
+	private NERBean nerBean = new NERBean();
+	
 	protected static boolean debugFlag = false;
 	
-	private static PropertyRecognizer propertyRecognizer = new PropertyRecognizer();
-//	private static QuestionClassifier questionPlayer = new QuestionClassifier();
 
 	public KGAgent(CUBean cuBean) {
-		String text = cuBean.getText();
-		String questionType = cuBean.getQuestionType();
-		String requestScore = cuBean.getScore();
+		String text = CharUtil.trimAndlower(cuBean.getText());
+		String questionType = CharUtil.trimAndlower(cuBean.getQuestionType());
+		String requestScore = CharUtil.trimAndlower(cuBean.getScore());
 		double questionScore = 0;
 		uniqueID = cuBean.getUniqueID();
 		if (Tool.isStrEmptyOrNull(uniqueID)) {
 			uniqueID = "0";
 		}
+		nerBean.setOldSentence(text);
+		nerBean.setUniqueID(uniqueID);
 
 		// add for debug by PM
 		if (questionType != null && questionType.equals("debug")) {
@@ -79,6 +84,7 @@ public class KGAgent {
 			isQuestion = true;
 		}
 		userSentence = NLPProcess.removePunctuateMark(userSentence);
+		nerBean.setSentence(userSentence);
 
 		System.out.println("userSentence=" + userSentence + ", isQuestion=" + isQuestion);
 		segPos = NLPProcess.getSegWord(userSentence);
@@ -91,21 +97,26 @@ public class KGAgent {
 				segWordWithoutStopWord.add(segWord);
 			}
 		}
+		
+		nerBean.setSegPos(segPos);
+		nerBean.setSegWordWithoutStopWord(segWordWithoutStopWord);
+		
 		System.out.println("TIME 3 - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 		// change the follow method of getting entity, by the case:
 		// "玛丽和马克思的其他中文名叫什么"
 		// note:"和" is stop word
 		// entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
-		entitySet = EntityRecognizer.getEntity(userSentence.toLowerCase());
-		userSentence = EntityRecognizer.changeEntitySynonym(entitySet, userSentence);
-		EntityRecognizer.removeAbnormalEntity(entitySet);
+		
+		EntityRecognizer entityActor = new EntityRecognizer(nerBean);
+		nerBean = entityActor.updateNERBean();
 		System.out.println("TIME 4 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
-		System.out.println("Constructor: userSentence=" + userSentence);
-		System.out.println("Constructor: isQuestion=" + isQuestion);
-		System.out.println("Constructor: segPos=" + segPos);
-		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
-		System.out.println("Constructor: entitySet=" + entitySet);
+		System.out.println("KGAgent: bean=" + nerBean.toString());
+//		System.out.println("Constructor: userSentence=" + userSentence);
+//		System.out.println("Constructor: isQuestion=" + isQuestion);
+//		System.out.println("Constructor: segPos=" + segPos);
+//		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
+//		System.out.println("Constructor: entitySet=" + entitySet);
 
 	}
 	
@@ -115,7 +126,7 @@ public class KGAgent {
 	// output: the answer without answer rewriting, “226cm”
 	public AnswerBean getAnswer() {
 
-		String sentence = userSentence;
+		String sentence = nerBean.getSentence();
 		AnswerBean answerBean = new AnswerBean();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getAnswer: input is empty");
@@ -201,6 +212,7 @@ public class KGAgent {
 					continue;
 				}
 				AnswerBean tempBean = new AnswerBean();
+				PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
 				tempBean = propertyRecognizer.ReasoningProcess(tempSentence, iLabel, entity, tempBean);
 				System.out.println("\t ReasoningProcess answerBean = " + tempBean);
 
@@ -354,7 +366,7 @@ public class KGAgent {
 		System.out.println("\t into selective question, answerBean=" + answerBean);
 		// if it is the selective question
 		if (QuestionClassifier.isKindofQuestion(userSentence, QuestionClassifier.selectiveQuestionType, "")) {
-			answerBean = QuestionClassifier.selectiveQuestionProcess(userSentence, answerBean);
+			answerBean = QuestionClassifier.selectiveQuestionProcess(userSentence, answerBean, nerBean);
 			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(), 2));
 			System.out.println("RETURN of GETANSWER: Selective Qustion: anwerBean is " + answerBean.toString());
 			return answerBean.returnAnswer(answerBean);
@@ -373,7 +385,7 @@ public class KGAgent {
 			String localAnswer = "";
 			if (!userSentence.contains(entity)) {
 				System.out.println("userSentence=" + userSentence + "++++ entity=" + entity);
-				localAnswer = propertyRecognizer.matchPropertyValue(entity, segWordWithoutStopWord).replace("----####", "是" + entity + "的")
+				localAnswer = CommonUtil.matchPropertyValue(entity, segWordWithoutStopWord).replace("----####", "是" + entity + "的")
 						+ "。" + entity + "是";
 				// System.out.println("segWordWithoutStopWord="+segWordWithoutStopWord+",
 				// tempProp="+tempProp+", replacePro="+replaceProp);

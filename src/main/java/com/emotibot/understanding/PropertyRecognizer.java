@@ -8,7 +8,6 @@ import java.util.Set;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
-import com.emotibot.common.Common;
 import com.emotibot.patternmatching.DBProcess;
 import com.emotibot.patternmatching.ImplicationProcess;
 import com.emotibot.patternmatching.NLPProcess;
@@ -19,6 +18,11 @@ import com.hankcs.hanlp.seg.common.Term;
 
 public class PropertyRecognizer {
 
+	private NERBean nerBean = new NERBean();
+
+	public PropertyRecognizer(NERBean bean) {
+		nerBean = bean;
+	}
 
 	// Multi-level Reasoning Understanding
 	protected AnswerBean ReasoningProcess(String sentence, String label, String entity, AnswerBean answerBean) {
@@ -31,7 +35,7 @@ public class PropertyRecognizer {
 
 		if (!sentence.contains(entity)) {
 			System.err.println("Sentence does not contain entity");
-			Debug.printDebug(KGAgent.uniqueID, 2, "knowledge", "Sentence does not contain entity");
+			Debug.printDebug(nerBean.getUniqueID(), 2, "knowledge", "Sentence does not contain entity");
 			return answerBean.returnAnswer(answerBean);
 		}
 		String sentenceNoEntity = sentence.substring(0, sentence.indexOf(entity))
@@ -59,7 +63,7 @@ public class PropertyRecognizer {
 		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(candidateSetbyStopWord, propMap);
 
 		// add for introduction questions
-		if (listPMBean.isEmpty() && QuestionClassifier.isKindofQuestion(KGAgent.userSentence, QuestionClassifier.introductionQuestionType, "")) {
+		if (listPMBean.isEmpty() && QuestionClassifier.isKindofQuestion(nerBean.getSentence(), QuestionClassifier.introductionQuestionType, "")) {
 			System.out.println("\t EndOfRP introudction case @@ return case 0.0, answer=" + answerBean);
 			// does not match property, score decreases
 			answerBean.setScore(answerBean.getScore() / 2);
@@ -168,7 +172,7 @@ public class PropertyRecognizer {
 	// for the case of single entity in multiple level reasoning case
 	// input: the question sentence from users,"姚明的老婆的身高是多少"
 	// output: the valid property contained in the sentence
-	protected static List<PatternMatchingResultBean> matchPropertyFromSentence(List<String> candidateSet,
+	protected List<PatternMatchingResultBean> matchPropertyFromSentence(List<String> candidateSet,
 			Map<String, String> propMap) {
 		System.out.println("\t matchPropertyFromSentence candidateSet=" + candidateSet);
 
@@ -235,7 +239,7 @@ public class PropertyRecognizer {
 	// generate all the possibility candidates according to synonyms
 	// input: 这个标志多少
 	// output: [这个记号数量, 这个标志数量, 这个记号多少, 这个标志多少]
-	private static List<String> replaceSynonymProcess(String str, Map<String, String> refMap) {
+	private List<String> replaceSynonymProcess(String str, Map<String, String> refMap) {
 		// System.out.println("input of replaceSynonymProcess is " + str);
 		List<String> rsSet = new ArrayList<>();
 		if (str.isEmpty()) {
@@ -292,7 +296,7 @@ public class PropertyRecognizer {
 	// is hold the version without segPos
 	// input: （姚明）妻
 	// output: 叶莉
-	private static PatternMatchingResultBean recognizingProp(String candidate, Set<String> propSet, int originalScore) {
+	private PatternMatchingResultBean recognizingProp(String candidate, Set<String> propSet, int originalScore) {
 		System.out.println("init of recognizingProp: candidate=" + candidate);
 		// threshold to pass: if str contain a property in DB, pass
 		boolean isPass = false;
@@ -333,7 +337,7 @@ public class PropertyRecognizer {
 	
 
 	// test the similarity between target (strProperty) and ref (candidate)
-	private static boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
+	private boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
 			boolean isPass) {
 		// System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap +
 		// "\t"+"strProperty=" + strProperty
@@ -425,11 +429,11 @@ public class PropertyRecognizer {
 	// input: [你知道，的老婆的身高吗]（“你知道姚明的老婆的身高吗？”）
 	// output: [老婆，身高]
 	// if question does not contain ent, return null.
-	protected static List<String> getCandidateSetbyStopWord(List<String> strSet) {
+	protected List<String> getCandidateSetbyStopWord(List<String> strSet) {
 		List<String> rsList = new ArrayList<>();
 		if (strSet == null) {
 			System.err.println("PMP.getCandidateSet: input is empty");
-			Debug.printDebug(KGAgent.uniqueID, 2, "knowledge", "PMP.getCandidateSetbyStopWord: input is empty");
+			Debug.printDebug(nerBean.getUniqueID(), 2, "knowledge", "PMP.getCandidateSetbyStopWord: input is empty");
 		}
 
 		// System.err.println("PMP.getCandidateSetbyStopWord: input="+strSet);
@@ -479,11 +483,11 @@ public class PropertyRecognizer {
 	// input: “斗罗大陆属于哪种小说”
 	// output: [属于，哪种，小说]
 	// if question does not contain ent, return null.
-	protected static List<String> getCandidateSetbyNLP(List<String> strList) {
+	protected List<String> getCandidateSetbyNLP(List<String> strList) {
 		List<String> rsList = new ArrayList<>();
 		if (strList == null) {
 			System.err.println("PMP.getCandidateSetbyNLP: input is empty");
-			Debug.printDebug(KGAgent.uniqueID, 2, "knowledge", "null in getCandidateSetbyNLP");
+			Debug.printDebug(nerBean.getUniqueID(), 2, "knowledge", "null in getCandidateSetbyNLP");
 			return rsList;
 		}
 
@@ -497,14 +501,14 @@ public class PropertyRecognizer {
 			}
 		}
 		System.out.println("\t getCandidateSetbyNLP=" + rsList);
-		Debug.printDebug(KGAgent.uniqueID, 4, "knowledge", "\t getCandidateSetbyNLP=" + rsList);
+		Debug.printDebug(nerBean.getUniqueID(), 4, "knowledge", "\t getCandidateSetbyNLP=" + rsList);
 		return rsList;
 	}
 
-	protected static boolean hasPropertyInSentence(String sentence, String label, String entity) {
+	protected boolean hasPropertyInSentence(String sentence, String label, String entity) {
 		List<String> candidateSet = getCandidateSet(sentence, entity);
 		List<String> candidateSetbyStopWord = getCandidateSetbyStopWord(candidateSet);
-		Map<String, String> propMap = NERUtil.getPropertyNameSet(label, entity);
+		Map<String, String> propMap = getPropertyNameSet(label, entity);
 
 		if (matchPropertyFromSentence(candidateSetbyStopWord, propMap).isEmpty())
 			return false;
@@ -516,7 +520,7 @@ public class PropertyRecognizer {
 	// input: “你知道姚明的身高吗？”
 	// output: [“你知道”，“的身高吗”]
 	// if question does not contain ent, return null.
-	protected static List<String> getCandidateSet(String str, String ent) {
+	protected List<String> getCandidateSet(String str, String ent) {
 		List<String> listPart = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(str) || Tool.isStrEmptyOrNull(ent)) {
 			System.err.println("PMP.getCandidateSet: input is empty");
@@ -562,35 +566,6 @@ public class PropertyRecognizer {
 		}
 		System.out.println("all the relationhip of " + ent + "is: " + rsMap);
 		return rsMap;
-	}
-	
-
-	// to match a segword in sentence with some value of a entity.
-	protected String matchPropertyValue(String entity, List<String> segWord) {
-		String rs = "";
-		Map<String, Object> mapPropValue = DBProcess.getEntityPropValueMap("", entity);
-
-		// if a value contain a segword, then return the key which refer to the
-		// value
-		for (Object value : mapPropValue.values()) {
-			for (String s : segWord) {
-				if (value.toString().contains(s)) {
-					for (String key : mapPropValue.keySet()) {
-						if (value.equals(mapPropValue.get(key))) {
-							if (key.equals(Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME)) {
-								continue; // if the word comes from
-											// introduction, remove
-							}
-							System.out.println(
-									"\t matchPropertyValue: key=" + key + ", value=" + value + ", segword=" + s);
-							return s + "----####" + key;
-						}
-					}
-				}
-			}
-		}
-
-		return rs;
 	}
 	
 

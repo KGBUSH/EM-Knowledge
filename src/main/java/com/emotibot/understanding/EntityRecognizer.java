@@ -13,30 +13,46 @@ import com.emotibot.patternmatching.DBProcess;
 import com.emotibot.patternmatching.NLPProcess;
 import com.emotibot.solr.SolrUtil;
 import com.emotibot.solr.Solr_Query;
+import com.emotibot.util.IndexInStringComparator;
 import com.emotibot.util.StringLengthComparator;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.seg.common.Term;
 
 public class EntityRecognizer {
 
+	private NERBean nerBean = new NERBean();
+
+	public EntityRecognizer(NERBean bean) {
+		nerBean = bean;
+		nerBean.setEntitySet(getEntity());
+		removeAbnormalEntity();
+		nerBean.setSentence(changeEntitySynonym());
+		removeAbnormalEntity();
+	}
+
+	public NERBean updateNERBean() {
+		return nerBean;
+	}
+
 	// identify the entities in a sentence by SimpleMatching, NLP, Solr
-	public static List<String> getEntity(String sentence) {
+	public List<String> getEntity() {
+		String sentence = nerBean.getOldSentence();
 		System.out.println("PMP.getEntity: sentence=" + sentence);
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getEntity: input is empty");
 			return null;
 		}
 
-		System.out.println("segPos=" + KGAgent.segPos);
-		System.out.println("segWordWithoutStopWord=" + KGAgent.segWordWithoutStopWord);
+		System.out.println("segPos=" + nerBean.getSegPos());
+		System.out.println("segWordWithoutStopWord=" + nerBean.getSegWordWithoutStopWord());
 
 		List<String> rsEntity = new ArrayList<>();
 		List<String> simpleMatchEntity = getEntitySimpleMatch(sentence);
-		List<String> nlpEntity = getEntityByNLP(KGAgent.segPos);
+		List<String> nlpEntity = getEntityByNLP(nerBean.getSegPos());
 		System.out.println("\t simpleMatchingEntity=" + simpleMatchEntity + "\n\t nlpEntity=" + nlpEntity);
 
 		if (CommonUtil.isTwoListsEqual(simpleMatchEntity, nlpEntity)) {
-			List<String> solrEntity = getEntityBySolr(sentence, nlpEntity, KGAgent.segWordWithoutStopWord);
+			List<String> solrEntity = getEntityBySolr(sentence, nlpEntity, nerBean.getSegWordWithoutStopWord());
 			System.out.println("\t solrEntity with entity input=" + solrEntity);
 
 			if (simpleMatchEntity.isEmpty()) {
@@ -44,7 +60,7 @@ public class EntityRecognizer {
 					return rsEntity;
 
 				String strEntity = solrEntity.get(0);
-				if (!matchPropertyValue(strEntity, KGAgent.segWordWithoutStopWord).isEmpty()) {
+				if (!matchPropertyValue(strEntity, nerBean.getSegWordWithoutStopWord()).isEmpty()) {
 					rsEntity.add(strEntity);
 				}
 
@@ -97,7 +113,7 @@ public class EntityRecognizer {
 			}
 
 			if (nlpEntity.isEmpty()) {
-				List<String> solrEntity = getEntityBySolr(sentence, null, KGAgent.segWordWithoutStopWord);
+				List<String> solrEntity = getEntityBySolr(sentence, null, nerBean.getSegWordWithoutStopWord());
 				System.out.println("\t solrEntity without entity input=" + solrEntity);
 
 				if (simpleMatchEntity.size() == 1) {
@@ -105,7 +121,7 @@ public class EntityRecognizer {
 						rsEntity = simpleMatchEntity;
 						System.out.println("case: 2.7: rsEntity=" + rsEntity);
 						return rsEntity;
-					} else if (PropertyRecognizer.hasPropertyInSentence(sentence, "", simpleMatchEntity.get(0))) {
+					} else if (new PropertyRecognizer(nerBean).hasPropertyInSentence(sentence, "", simpleMatchEntity.get(0))) {
 						// case: 猫猫是什么科的？
 						rsEntity = simpleMatchEntity;
 						System.out.println("case: 3: rsEntity=" + rsEntity);
@@ -149,7 +165,7 @@ public class EntityRecognizer {
 				// nlp is not empty, return the intersection among the results
 				// by three methods
 				List<String> mergeEntity = CommonUtil.mergeTwoLists(simpleMatchEntity, nlpEntity);
-				List<String> solrEntity = getEntityBySolr(sentence, mergeEntity, KGAgent.segWordWithoutStopWord);
+				List<String> solrEntity = getEntityBySolr(sentence, mergeEntity, nerBean.getSegWordWithoutStopWord());
 				System.out.println("\t solrEntity with entity input=" + solrEntity + ",\n mergeEntity=" + mergeEntity);
 
 				if (simpleMatchEntity.size() == 1) {
@@ -205,7 +221,7 @@ public class EntityRecognizer {
 	// Method
 	// input: 姚明和叶莉的女儿是谁？
 	// output: [姚明，叶莉]
-	public static List<String> getEntityByNLP(List<Term> segPos) {
+	public List<String> getEntityByNLP(List<Term> segPos) {
 		List<String> entitySet = new ArrayList<>();
 		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthComparator());
 		Map<String, String> refMap = new HashMap<>();
@@ -224,7 +240,7 @@ public class EntityRecognizer {
 		}
 
 		System.out.println("NLP entities before removal: " + entityTreeSet.toString());
-		entitySet = NERUtil.removeContainedElements(entityTreeSet);
+		entitySet = removeContainedElements(entityTreeSet);
 		// remove the high frequent entities
 		entitySet = NLPProcess.removeRemoveableEntity(entitySet);
 		System.out.println("NLP entities after removal: " + entitySet.toString());
@@ -253,7 +269,7 @@ public class EntityRecognizer {
 	// TBD: improve the performance after 4/15
 	// input: 姚明和叶莉的女儿是谁？
 	// output: [姚明，叶莉]
-	public static List<String> getEntitySimpleMatch(String sentence) {
+	public List<String> getEntitySimpleMatch(String sentence) {
 		sentence = sentence.toLowerCase();
 		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthComparator());
 		List<String> entitySet = new ArrayList<>();
@@ -273,12 +289,12 @@ public class EntityRecognizer {
 		}
 
 		System.out.println("simple matching entities before removal: " + entityTreeSet.toString());
-		entitySet = NERUtil.removeContainedElements(entityTreeSet);
+		entitySet = removeContainedElements(entityTreeSet);
 
 		// remove the high frequent entities
 		entitySet = NLPProcess.removeRemoveableEntity(entitySet);
 		System.out.println("simple matching entities after removal: " + entitySet.toString());
-		entitySet = NERUtil.sortByIndexOfSentence(sentence, entitySet);
+		entitySet = sortByIndexOfSentence(sentence, entitySet);
 
 		List<String> rsSet = new ArrayList<>();
 		for (String s : entitySet) {
@@ -292,7 +308,6 @@ public class EntityRecognizer {
 		System.out.println("the macthed entities are: " + rsSet.toString());
 		return rsSet;
 	}
-	
 
 	// return the entity by Solr method
 	// input: the sentence from user, "姚明身高多少"
@@ -354,12 +369,18 @@ public class EntityRecognizer {
 
 		return rs;
 	}
-	
-
 
 	// if the sentnece contain a alias, change to wiki entity name
 	// input: “甲肝是什么” output: “甲型病毒性肝炎是什么”
-	protected static String changeEntitySynonym(List<String> entitySet, String sentence) {
+	protected String changeEntitySynonym() {
+		List<String> entitySet = nerBean.getEntitySet();
+		String sentence = nerBean.getOldSentence();
+		if (entitySet.isEmpty() || Tool.isStrEmptyOrNull(sentence)) {
+			LogService.printLog(nerBean.getUniqueID(), "NER.changeEntitySynonym", "invalid input");
+			System.err.println("NER.changeEntitySynonym: invalid input");
+			return "";
+		}
+
 		System.out.println("changeEntitySynonym: entitySet=" + entitySet + ",sentence=" + sentence);
 		for (String entity : entitySet) {
 			if (NLPProcess.hasEntitySynonym(entity)) {
@@ -373,7 +394,7 @@ public class EntityRecognizer {
 					}
 				}
 				if (oldEntity.isEmpty() || !sentence.contains(entity)) {
-					LogService.printLog(KGAgent.uniqueID, "PatternMatching.changeEntitySynonym", "entity=" + entity);
+					LogService.printLog(nerBean.getUniqueID(), "PatternMatching.changeEntitySynonym", "entity=" + entity);
 					System.err.println("PatternMatching.changeEntitySynonym: entity=" + entity);
 				}
 				// String oldEntity =
@@ -388,9 +409,15 @@ public class EntityRecognizer {
 		return sentence;
 	}
 
-
 	// remove stopword and other abnormal word in entity
-	protected static void removeAbnormalEntity(List<String> entitySet) {
+	protected void removeAbnormalEntity() {
+		List<String> entitySet = nerBean.getEntitySet();
+		if (entitySet.isEmpty()) {
+			LogService.printLog(nerBean.getUniqueID(), "NER.changeEntitySynonym", "invalid input");
+			System.err.println("NER.changeEntitySynonym: invalid input");
+			return;
+		}
+
 		Iterator<String> it = entitySet.iterator();
 		while (it.hasNext()) {
 			String tempEntity = it.next();
@@ -402,5 +429,53 @@ public class EntityRecognizer {
 		}
 	}
 	
-	
+	// remove the elements which are contained in other elements
+		// input: [面对面，名人面对面] output: [名人面对面]
+		public static List<String> removeContainedElements(TreeSet<String> tSet) {
+			TreeSet<String> tempSet = new TreeSet<String>(new StringLengthComparator());
+			List<String> rsSet = new ArrayList<>();
+
+			Iterator<String> it = tSet.iterator();
+			while (it.hasNext()) {
+				String element = it.next();
+				it.remove();
+				boolean isContained = false;
+				for (String s : tSet) {
+					if (s.contains(element)) {
+						isContained = true;
+						break;
+					}
+				}
+				if (isContained == false) {
+					tempSet.add(element);
+				}
+			}
+
+			String[] tempArr = tempSet.toArray(new String[0]);
+			// System.out.println("tempArr=" + tempArr);
+			for (int i = tempArr.length - 1; i >= 0; i--) {
+				rsSet.add(tempArr[i]);
+			}
+
+			// System.out.println("rsSet=" + rsSet);
+			return rsSet;
+		}
+
+	// sort by the index of the string in the sentence
+	protected List<String> sortByIndexOfSentence(String sentence, List<String> set) {
+		// System.out.println("input of the sort is set="+set);
+		TreeSet<String> refSet = new TreeSet<String>(new IndexInStringComparator(sentence));
+		for (String s : set) {
+			refSet.add(s);
+		}
+
+		set.clear();
+		for (String s : refSet) {
+			set.add(s);
+		}
+
+		// System.out.println("output of the sort is set="+set);
+		return set;
+	}
+
 }

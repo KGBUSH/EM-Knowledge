@@ -2,17 +2,25 @@ package com.emotibot.understanding;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
+import com.emotibot.log.LogService;
 import com.emotibot.patternmatching.ImplicationProcess;
 import com.emotibot.template.TemplateProcessor;
 import com.emotibot.util.Tool;
 
 public class QuestionClassifier {
-	private final static TemplateProcessor questionClassifier = new TemplateProcessor("QuestionClassifier");
 	
 	protected final static String introductionQuestionType = "IntroductionQuestion@:";
 	protected final static String strictIntroductionQuestionType = "StrictIntroductionQuestion@:";
 	protected final static String selectiveQuestionType = "SelectiveQuestion@:";
 	protected final static String implicationQuestionType = "ImplicationQuestion@:";
+	
+	private final static TemplateProcessor questionClassifier = new TemplateProcessor("QuestionClassifier");
+	
+//	private NERBean nerBean = new NERBean();
+//	
+//	public QuestionClassifier(NERBean bean) {
+//		nerBean = bean;
+//	}
 
 	// to test if the user want to get the introduction of the entity
 	// input: 姚明是谁？ 你喜欢姚明吗？
@@ -27,7 +35,7 @@ public class QuestionClassifier {
 		if (!entity.isEmpty()) {
 			if (!sentence.contains(entity)) {
 				System.err.println("isKindofQuestion: sentence has no entity, s = " + sentence + ", e=" + entity);
-				Debug.printDebug(KGAgent.uniqueID, 2, "KG", "isKindofQuestion: sentence has no entity");
+				LogService.printLog("", "isKindofQuestion", "sentence has no entity, s = " + sentence + ", e=" + entity);
 				return false;
 			}
 			String first = sentence.substring(0, sentence.indexOf(entity));
@@ -74,13 +82,13 @@ public class QuestionClassifier {
 	}
 	
 
-	protected static AnswerBean selectiveQuestionProcess(String sentence, AnswerBean answerBean) {
+	protected static AnswerBean selectiveQuestionProcess(String sentence, AnswerBean answerBean, NERBean nerBean) {
 		String strSeletive = questionClassifier.processQuestionClassifier(sentence).replace(selectiveQuestionType, "");
 		System.out.println("selectiveQuestionProcess str = " + strSeletive);
 
 		if (!answerBean.getAnswer().isEmpty()) {
 			// valide answer
-			answerBean.setAnswer(strSeletive.substring(0, 1) + "的, " + KGAgent.entitySet.get(0) + "的" + answerBean.getProperty()
+			answerBean.setAnswer(strSeletive.substring(0, 1) + "的, " + nerBean.getEntitySet().get(0) + "的" + answerBean.getProperty()
 					+ "是" + answerBean.getAnswer());
 		} else {
 			answerBean.setAnswer(strSeletive.substring(1));
