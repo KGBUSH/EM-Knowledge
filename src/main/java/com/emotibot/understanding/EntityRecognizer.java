@@ -9,8 +9,6 @@ import java.util.TreeSet;
 
 import com.emotibot.common.Common;
 import com.emotibot.log.LogService;
-import com.emotibot.patternmatching.DBProcess;
-import com.emotibot.patternmatching.NLPProcess;
 import com.emotibot.solr.SolrUtil;
 import com.emotibot.solr.Solr_Query;
 import com.emotibot.util.IndexInStringComparator;

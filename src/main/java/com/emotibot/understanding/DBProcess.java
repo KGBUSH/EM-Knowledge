@@ -1,4 +1,4 @@
-package com.emotibot.patternmatching;
+package com.emotibot.understanding;
 
 import java.util.ArrayList;
 import java.util.HashMap;

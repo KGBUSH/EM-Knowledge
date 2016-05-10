@@ -3,7 +3,6 @@ package com.emotibot.understanding;
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.log.LogService;
-import com.emotibot.patternmatching.ImplicationProcess;
 import com.emotibot.template.TemplateProcessor;
 import com.emotibot.util.Tool;
 

@@ -90,7 +90,18 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 
 	public static void main(String[] args) {
 
-		String sen = "## lady gaga  <type>entity</type><label>figure</label> 多重";
+		long timeCounter = System.currentTimeMillis();
+//		String sen = "## lady gaga  <type>entity</type><label>figure</label> 多重";
+		String sen = "刘 翔 退 役 刘 翔 多 久 刘  多 久 役 多 久 退 役 刘 多 久 役  多 久 对 ";
+		TemplateProcessor implicationTemplate = new TemplateProcessor("QuestionClassifier");
+		for(int i=0;i<20;i++){
+			sen = sen.substring(0, sen.length()-1);
+			System.out.println(implicationTemplate.processQuestionClassifier(sen));
+		}
+		System.out.println("TIME 1 - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+		System.exit(0);
+		
+		
 //		sen = "北京的行政代码是不是110000";
 		
 		TemplateProcessor temp = new TemplateProcessor("Knowledge");

@@ -22,6 +22,14 @@ public class NLPUtil {
 		return isSW;
 	}
 	
+	// is the string exists in Entity or Entity_Ref
+	public static boolean isEntity(String str) {
+		if (!getEntityInDictinoary(str).isEmpty() && !getEntitySynonymNormal(str).isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	// check whether the work in entityPM.txt
 	public static boolean isEntityPM(String str) {

@@ -2,17 +2,12 @@ package com.emotibot.understanding;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.common.Common;
-import com.emotibot.patternmatching.DBProcess;
-import com.emotibot.patternmatching.NLPProcess;
-import com.emotibot.patternmatching.PatternMatchingProcess;
 import com.emotibot.template.TemplateEntry;
-import com.emotibot.template.TemplateProcessor;
 import com.emotibot.util.CUBean;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
@@ -411,20 +406,22 @@ public class KGAgent {
 	}
 
 	public static void main(String[] args) {
-		NLPProcess nlpProcess = new NLPProcess();
-		NLPProcess.NLPProcessInit();
-		String str = "甲肝？";
+//		NLPProcess nlpProcess = new NLPProcess();
+//		NLPProcess.NLPProcessInit();
+		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
+		DictionaryBuilder.DictionaryBuilderInit();
+		String str = "刘翔退役多久了？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");
 		bean.setScore("50");
-		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
-		AnswerBean bean1 = mp.getAnswer();
+//		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
+//		AnswerBean bean1 = mp.getAnswer();
 		
 		KGAgent agent = new KGAgent(bean);
 		AnswerBean bean2 = agent.getAnswer();
 		
-		System.out.println("PM Method: "+ bean1);
+//		System.out.println("PM Method: "+ bean1);
 		System.out.println("KG Method: "+ bean2);
 
 	}

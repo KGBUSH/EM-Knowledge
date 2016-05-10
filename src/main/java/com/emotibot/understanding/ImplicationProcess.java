@@ -1,4 +1,4 @@
-package com.emotibot.patternmatching;
+package com.emotibot.understanding;
 
 import java.io.FileInputStream;
 import java.io.PrintWriter;
@@ -139,7 +139,7 @@ public class ImplicationProcess {
 
 		Class<?> demo = null;
 		try {
-			demo = Class.forName("com.emotibot.patternmatching.ImplicationProcess");
+			demo = Class.forName("com.emotibot.understanding.ImplicationProcess");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

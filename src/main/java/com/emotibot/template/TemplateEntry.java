@@ -11,7 +11,7 @@ import java.util.Map;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.common.Common;
-import com.emotibot.patternmatching.DBProcess;
+import com.emotibot.understanding.DBProcess;
 import com.emotibot.util.Tool;
 
 public class TemplateEntry {

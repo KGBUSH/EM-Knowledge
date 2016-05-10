@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.common.Common;
+import com.emotibot.understanding.DictionaryBuilder;
+import com.emotibot.understanding.KGAgent;
 import com.emotibot.util.CUBean;
 
 public class DebugTest {
@@ -27,7 +29,8 @@ public class DebugTest {
 				cuBean.setText(line);
 				cuBean.setQuestionType("question");
 				cuBean.setScore("50");
-				AnswerBean bean =new PatternMatchingProcess(cuBean).getAnswer();
+//				AnswerBean bean =new PatternMatchingProcess(cuBean).getAnswer();
+				AnswerBean bean =new KGAgent(cuBean).getAnswer();
 				System.out.println("input="+line+", answer bean="+bean);
 				System.out.println("bean="+bean+", score score ="+bean.getScore());
 				
@@ -46,12 +49,14 @@ public class DebugTest {
 	}
 	
 	public static void main(String [] args){
-		String debugLevel = "debug"; //bad_case, debugAll, debug
-		String date = "0504";
+		String debugLevel = "debugAll"; //bad_case, debugAll, debug
+		String date = "0510";
 		String reader = Common.UserDir + "/debug/cases/"+debugLevel+".txt";
-		String writer = Common.UserDir + "/debug/"+date+"/"+debugLevel+"_cases-"+date+"-01.txt";
-		NLPProcess nlpProcess = new NLPProcess();
-		NLPProcess.NLPProcessInit();
+		String writer = Common.UserDir + "/debug/"+date+"/"+debugLevel+"_cases-"+date+"-20.txt";
+//		NLPProcess nlpProcess = new NLPProcess();
+//		NLPProcess.NLPProcessInit();
+		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
+		DictionaryBuilder.DictionaryBuilderInit();
 		System.out.println("TIME 1 - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 		getFile(reader, writer);
 		System.out.println("TIME 2 - after get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));

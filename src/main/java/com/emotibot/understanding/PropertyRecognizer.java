@@ -8,9 +8,6 @@ import java.util.Set;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
-import com.emotibot.patternmatching.DBProcess;
-import com.emotibot.patternmatching.ImplicationProcess;
-import com.emotibot.patternmatching.PatternMatchingResultBean;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.seg.common.Term;

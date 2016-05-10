@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.emotibot.common.Common;
-import com.emotibot.patternmatching.DBProcess;
 
 public class CommonUtil {
 

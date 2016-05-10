@@ -12,7 +12,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.emotibot.WebService.AnalysisSent;
 import com.emotibot.common.BytesEncodingDetect;
 import com.emotibot.common.Common;
 import com.emotibot.util.Tool;
@@ -91,7 +90,7 @@ public class AnswerRewrite {
 	public String rewriteAnswer(String answer) {
 		// if answer is null or answer is introduction, then skip rewrite
 		if (Tool.isStrEmptyOrNull(answer) || answer.length() > 50 || Common.KG_DebugStatus) {
-			System.err.println("Debug STATUS = "+Common.KG_DebugStatus);
+			System.out.println("Debug STATUS = "+Common.KG_DebugStatus);
 			return answer;
 		}
 
@@ -113,7 +112,7 @@ public class AnswerRewrite {
 	public String rewriteAnswer(String answer, int QuestionType) {
 		// if answer is null or answer is introduction, then skip rewrite
 		if (Tool.isStrEmptyOrNull(answer) || answer.length() > 50 || Common.KG_DebugStatus) {
-			System.err.println("Debug STATUS = "+Common.KG_DebugStatus);
+			System.out.println("Debug STATUS = "+Common.KG_DebugStatus);
 			return answer;
 		}
 

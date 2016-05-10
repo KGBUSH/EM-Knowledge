@@ -29,6 +29,9 @@ import com.emotibot.nlp.NLPFlag;
 import com.emotibot.nlp.NLPResult;
 import com.emotibot.nlp.NLPSevice;
 import com.emotibot.nlpparser.SentenceTemplate;
+import com.emotibot.understanding.DBProcess;
+import com.emotibot.understanding.NLPUtil;
+import com.emotibot.understanding.PatternMatchingResultBean;
 import com.emotibot.util.Neo4jResultBean;
 import com.emotibot.util.StringLengthComparator;
 import com.emotibot.util.Tool;
@@ -71,16 +74,6 @@ public class SynonymProcessTest {
 		System.exit(0);
 		
 		
-		
-		String str = "霍比特人：五军之战";
-		System.out.println("is entity = "+NLPProcess.hasEntitySynonym(str));
-		
-		Map<String, String> tempMap =  NLPProcess.getEntitySynonymTable();
-		for(String s : tempMap.keySet()){
-			if(s.contains("五军之战")  || s.contains("霍比") || s.contains("甲")){
-				System.out.println("key="+s+", value="+tempMap.get(s));
-			}
-		}
 
 		System.exit(0);
 
@@ -300,7 +293,7 @@ public class SynonymProcessTest {
 			String iWord = segPos.get(i).word;
 			System.out.println("current word is " + iWord);
 
-			Set<String> iSynSet = NLPProcess.getSynonymWordSet(iWord);
+			Set<String> iSynSet = NLPUtil.getSynonymWordSet(iWord);
 			if (iSynSet.size() > 0) {
 				flag = true;
 				System.out.println("\t has syn: " + iSynSet);
@@ -460,7 +453,7 @@ public class SynonymProcessTest {
             while ((entity = reader.readLine()) != null) {
             	String label = DBProcess.getEntityLabel(entity);
             	if(Tool.isStrEmptyOrNull(label)){
-            		label = DBProcess.getEntityLabel(NLPProcess.getEntitySynonymNormal(entity));
+            		label = DBProcess.getEntityLabel(NLPUtil.getEntitySynonymNormal(entity));
             	}
             	out.write(entity+" "+label+"\r\n");
             }
