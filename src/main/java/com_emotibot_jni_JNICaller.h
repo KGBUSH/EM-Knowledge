@@ -10,9 +10,9 @@ extern "C" {
 /*
  * Class:     com_emotibot_jni_JNICaller
  * Method:    getMultiPatternMatching
- * Signature: (Ljava/lang/String;Ljava/lang/String;)[Ljava/lang/String;
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
  */
-JNIEXPORT jobjectArray JNICALL Java_com_emotibot_jni_JNICaller_getMultiPatternMatching
+JNIEXPORT jstring JNICALL Java_com_emotibot_jni_JNICaller_getMultiPatternMatching
   (JNIEnv *, jobject, jstring, jstring);
 
 #ifdef __cplusplus
