@@ -1,5 +1,5 @@
 package com.emotibot.understanding;
 
-public class IntentionClassifier {
+public class DictionaryBuilder {
 
 }
