@@ -10,6 +10,7 @@ import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.common.Common;
 import com.emotibot.patternmatching.DBProcess;
 import com.emotibot.patternmatching.NLPProcess;
+import com.emotibot.patternmatching.PatternMatchingProcess;
 import com.emotibot.template.TemplateEntry;
 import com.emotibot.template.TemplateProcessor;
 import com.emotibot.util.CUBean;
@@ -32,7 +33,7 @@ public class KGAgent {
 	
 	private NERBean nerBean = new NERBean();
 	
-	protected static boolean debugFlag = false;
+	protected boolean debugFlag = false;
 	
 
 	public KGAgent(CUBean cuBean) {
@@ -109,6 +110,8 @@ public class KGAgent {
 		
 		EntityRecognizer entityActor = new EntityRecognizer(nerBean);
 		nerBean = entityActor.updateNERBean();
+		entitySet = nerBean.getEntitySet();
+		userSentence = nerBean.getSentence();
 		System.out.println("TIME 4 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 		System.out.println("KGAgent: bean=" + nerBean.toString());
@@ -135,6 +138,7 @@ public class KGAgent {
 
 		AnswerRewrite answerRewite = new AnswerRewrite();
 
+		System.out.println("##### entitySet="+entitySet);
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
 			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
 			if(DBProcess.getEntityLabel(entitySet.get(0)).equals("catchword")){
@@ -406,6 +410,23 @@ public class KGAgent {
 		}
 	}
 
+	public static void main(String[] args) {
+		NLPProcess nlpProcess = new NLPProcess();
+		NLPProcess.NLPProcessInit();
+		String str = "甲肝？";
+		CUBean bean = new CUBean();
+		bean.setText(str);
+		bean.setQuestionType("question");
+		bean.setScore("50");
+		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
+		AnswerBean bean1 = mp.getAnswer();
+		
+		KGAgent agent = new KGAgent(bean);
+		AnswerBean bean2 = agent.getAnswer();
+		
+		System.out.println("PM Method: "+ bean1);
+		System.out.println("KG Method: "+ bean2);
 
+	}
 
 }

@@ -374,7 +374,7 @@ public class EntityRecognizer {
 	// input: “甲肝是什么” output: “甲型病毒性肝炎是什么”
 	protected String changeEntitySynonym() {
 		List<String> entitySet = nerBean.getEntitySet();
-		String sentence = nerBean.getOldSentence();
+		String sentence = nerBean.getSentence();
 		if (entitySet.isEmpty() || Tool.isStrEmptyOrNull(sentence)) {
 			LogService.printLog(nerBean.getUniqueID(), "NER.changeEntitySynonym", "invalid input");
 			System.err.println("NER.changeEntitySynonym: invalid input");
@@ -401,6 +401,7 @@ public class EntityRecognizer {
 				// NLPProcess.getEntitySynonymReverse(entity).toLowerCase();
 				if (!oldEntity.isEmpty()) {
 					sentence = sentence.toLowerCase().replace(oldEntity, entity);
+					nerBean.setSentence(sentence);
 				}
 				System.out.println("changeEntitySynonym change : s = " + entity + ", oldEntity=" + oldEntity
 						+ "; sentence=" + sentence);
