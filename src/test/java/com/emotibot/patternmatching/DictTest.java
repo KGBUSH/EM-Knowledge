@@ -8,14 +8,17 @@ import java.util.Set;
 
 import com.emotibot.common.Common;
 import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
+import com.emotibot.understanding.DBProcess;
+import com.emotibot.understanding.DictionaryBuilder;
+import com.emotibot.understanding.NLPUtil;
 import com.emotibot.util.CharUtil;
 import com.hankcs.hanlp.HanLP;
 
 public class DictTest {
 	
 	private static void getHighFreqWordInEntityList(){
-		Set<String> setHighWord = NLPProcess.getHighFeqWordTable();
-		Set<String> setEntity = NLPProcess.getEntityTable();
+		Set<String> setHighWord = DictionaryBuilder.getHighFeqWordTable();
+		Set<String> setEntity = DictionaryBuilder.getEntityTable();
 		
 		String outFileName = Common.UserDir + "/txt/temp/highFrequentEntity.txt";
 		
@@ -69,21 +72,22 @@ public class DictTest {
 	
 
 	public static void main(String [] args){
-		NLPProcess nlp = new NLPProcess();
-		NLPProcess.NLPProcessInit();
+//		NLPProcess nlp = new NLPProcess();
+//		NLPProcess.NLPProcessInit();
 		
-		
+		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
+		DictionaryBuilder.DictionaryBuilderInit();
 		testChar160();
 		
 		System.exit(0);
 		
 //		getHighFreqWordInEntityList();
 		
-		Set<String> entitySet = NLPProcess.getEntityTable();
+		Set<String> entitySet = DictionaryBuilder.getEntityTable();
 		
 		int i = 1;
 		for(String s : entitySet){
-			if(NLPProcess.isInSynonymDict(s)){
+			if(NLPUtil.isInSynonymDict(s)){
 				System.out.println(i+++": "+s);
 			}
 		}

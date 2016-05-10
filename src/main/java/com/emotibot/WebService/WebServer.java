@@ -24,8 +24,10 @@ import org.eclipse.jetty.servlet.ServletHandler;
 import com.emotibot.Debug.Debug;
 import com.emotibot.config.ConfigManager;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
-import com.emotibot.patternmatching.NLPProcess;
-import com.emotibot.patternmatching.PatternMatchingProcess;
+//import com.emotibot.patternmatching.NLPProcess;
+import com.emotibot.understanding.DictionaryBuilder;
+//import com.emotibot.patternmatching.PatternMatchingProcess;
+import com.emotibot.understanding.KGAgent;
 import com.emotibot.util.CUBean;
 import com.hankcs.hanlp.seg.common.Term;
 
@@ -42,9 +44,12 @@ public class WebServer {
 		// Note that if you set this to port 0 then a randomly available port
 		// will be assigned that you can either look in the logs for the port,
 		// or programmatically obtain it for use in test cases.
-		NLPProcess nlpProcess = new NLPProcess();
-		NLPProcess.NLPProcessInit();
+		
+//		NLPProcess nlpProcess = new NLPProcess();
+//		NLPProcess.NLPProcessInit();
 		System.out.println("init NLPProcess");
+		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
+		DictionaryBuilder.DictionaryBuilderInit();
 
 		int port = 9000;
 		ConfigManager cf = new ConfigManager();
@@ -181,7 +186,8 @@ public class WebServer {
 					cuBean.setScore(scoreStr);
 					cuBean.setUniqueID(uniqId);
 					System.out.println("@@@@@@@@@@@@@@@processing: cuBean=" + cuBean + "\n request=" + request);
-					AnswerBean bean = new PatternMatchingProcess(cuBean).getAnswer();
+//					AnswerBean bean = new PatternMatchingProcess(cuBean).getAnswer();
+					AnswerBean bean = new KGAgent(cuBean).getAnswer();
 					System.out.println("Webserver bean=" + bean);
 					JSONObject result_obj = new JSONObject();
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

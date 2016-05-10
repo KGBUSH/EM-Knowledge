@@ -17,8 +17,8 @@ import org.eclipse.jetty.servlet.ServletHandler;
 import com.emotibot.Debug.Debug;
 import com.emotibot.config.ConfigManager;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
-import com.emotibot.patternmatching.NLPProcess;
-import com.emotibot.patternmatching.PatternMatchingProcess;
+//import com.emotibot.patternmatching.NLPProcess;
+//import com.emotibot.patternmatching.PatternMatchingProcess;
 import com.emotibot.util.CUBean;
 import com.hankcs.hanlp.seg.common.Term;
 

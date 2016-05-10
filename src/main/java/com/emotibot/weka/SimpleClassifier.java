@@ -11,7 +11,8 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Vector;
 
-import com.emotibot.patternmatching.NLPProcess;
+import com.emotibot.understanding.NLPUtil;
+//import com.emotibot.patternmatching.NLPProcess;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.seg.common.Term;
 //com.emotibot.weka.SimpleClassifier
@@ -60,7 +61,7 @@ public class SimpleClassifier {
 			}
 			else
 			{
-				List<Term> list=NLPProcess.getSegWord(word);
+				List<Term> list=NLPUtil.getSegWord(word);
                 for(Term w:list)
                 {
                 	String ww=w.word.trim();

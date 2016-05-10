@@ -18,10 +18,12 @@ import com.emotibot.config.ConfigManager;
 import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
 import com.emotibot.neo4jprocess.Neo4jDBManager;
-import com.emotibot.patternmatching.DBProcess;
-import com.emotibot.patternmatching.NLPProcess;
+import com.emotibot.understanding.DBProcess;
+import com.emotibot.understanding.DictionaryBuilder;
+import com.emotibot.understanding.NLPUtil;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Neo4jResultBean;
+import com.emotibot.util.Tool;
 
 public class GenerateDictionaryFile {
 
@@ -87,7 +89,7 @@ public class GenerateDictionaryFile {
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
 
 			for (String s : tempSet) {
-				if (s.length() == 1 && !NLPProcess.isEntityPM(s)) {
+				if (s.length() == 1 && !NLPUtil.isEntityPM(s)) {
 					// remove in 5/31, may be added later
 					System.out.println(s);
 					continue;
@@ -147,7 +149,7 @@ public class GenerateDictionaryFile {
 		List<String> list = conn.getArrayListfromCollection(query);
 
 		for (String s : list) {
-			if (NLPProcess.isEntity(s)) {
+			if (NLPUtil.isEntity(s)) {
 				System.out.println(s);
 			}
 
@@ -183,7 +185,7 @@ public class GenerateDictionaryFile {
 			String missingFileName = Common.UserDir + "/knowledgedata/entity_missing.txt";
 			BufferedWriter outMissing = new BufferedWriter(new FileWriter(missingFileName));
 			for (String s : entitySet) {
-				if (NLPProcess.isEntity(s)) {
+				if (NLPUtil.isEntity(s)) {
 					outMissing.write(s + "\r\n");
 					// System.out.println(s);
 				}
@@ -205,7 +207,7 @@ public class GenerateDictionaryFile {
 			// true));
 			BufferedWriter writer = new BufferedWriter(new FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt"));
 
-			for (String s : NLPProcess.getEntitySynonymTable().values()) {
+			for (String s : DictionaryBuilder.getEntitySynonymTable().values()) {
 				writer.write(s + "\r\n");
 				if (s.length() == 1)
 					System.out.println(s);
@@ -359,8 +361,8 @@ public class GenerateDictionaryFile {
 			String outFileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent.txt";
 			BufferedWriter out = new BufferedWriter(new FileWriter(outFileName));
 
-			Set<String> setEntity = NLPProcess.getEntityTable();
-			Set<String> setHighWord = NLPProcess.getHighFeqWordTable();
+			Set<String> setEntity = DictionaryBuilder.getEntityTable();
+			Set<String> setHighWord = DictionaryBuilder.getHighFeqWordTable();
 
 			for (String s : setEntity) {
 				if (setHighWord.contains(s)) {
@@ -370,6 +372,21 @@ public class GenerateDictionaryFile {
 					}
 				}
 			}
+			
+			// fix the bad case "加油"，"爱你"
+			String inFileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent_Aux.txt";
+			BufferedReader in = new BufferedReader(new FileReader(inFileName));
+			String line = null;
+			while((line = in.readLine())!=null){
+				line = CharUtil.trim(line);
+				if(Tool.isStrEmptyOrNull(line)){
+					continue;
+				}
+				
+				out.write(line = "\r\n");
+			}
+			
+			in.close();
 			out.close();
 
 		} catch (Exception e) {
@@ -379,9 +396,12 @@ public class GenerateDictionaryFile {
 	}
 
 	public static void main(String[] args) {
-		NLPProcess nlp = new NLPProcess();
-		NLPProcess.NLPProcessInit();
+//		NLPProcess nlp = new NLPProcess();
+//		NLPProcess.NLPProcessInit();
 
+		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
+		DictionaryBuilder.DictionaryBuilderInit();
+		
 		generateRemoveableHighFrequentWordFile();
 
 		System.exit(0);

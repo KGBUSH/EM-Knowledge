@@ -68,6 +68,10 @@ public class CharUtil {
     	
     }
     
+    public static String trimAndlower(String s){
+    	return s.replace(String.valueOf((char) 160), " ").trim().toLowerCase();
+    }
+    
     public static boolean isDateFormat(String str){
     	Pattern p=Pattern.compile("\\d+年\\d+月\\d+日"); 
     	Matcher m=p.matcher(str); 

@@ -1,4 +1,4 @@
-package com.emotibot.patternmatching;
+package com.emotibot.dictionary;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

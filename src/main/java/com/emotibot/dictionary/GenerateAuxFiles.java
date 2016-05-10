@@ -14,8 +14,8 @@ import com.emotibot.config.ConfigManager;
 import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
 import com.emotibot.neo4jprocess.Neo4jDBManager;
-import com.emotibot.patternmatching.DBProcess;
-import com.emotibot.patternmatching.NLPProcess;
+import com.emotibot.understanding.DBProcess;
+import com.emotibot.understanding.NLPUtil;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Neo4jResultBean;
 
@@ -53,7 +53,7 @@ public class GenerateAuxFiles {
 					continue;
 				}
 
-				String entity = NLPProcess.getEntitySynonymNormal(line).toLowerCase();
+				String entity = NLPUtil.getEntitySynonymNormal(line).toLowerCase();
 				if (entity.isEmpty()){
 					entity = line;
 				} else {
@@ -66,25 +66,27 @@ public class GenerateAuxFiles {
 					refSet.add(entity);
 				}
 
-				String queryCount = "match(n{Name:\"" + entity + "\"}) return n.ParamInfo as " + Common.ResultObj;
-				Neo4jResultBean bean = conn.executeCypherSQL(queryCount);
-				
-//				Neo4jResultBean bean = DBProcess.getEntityIntroductionInfo("", queryCount);
-				System.out.println("in DBProcess, it return " + bean.getResult());
-
-				out.write(i++ + ": " + entity);
-				if (!bean.getResult().isEmpty()) {
-					if (!line.equals(entity)) {
-						out.write(", (" + line + ")");
-					}
-
-					String tempLabel = DBProcess.getEntityLabel(entity);
-					out.write(", [" + tempLabel + "] ---- " + bean.getResult() + "\n");
-				} else {
-					out.write(" @@@@ null" + "\n");
-					System.err.println("no entity in DB: " + entity);
-				}
+//				String queryCount = "match(n{Name:\"" + entity + "\"}) return n.ParamInfo as " + Common.ResultObj;
+//				Neo4jResultBean bean = conn.executeCypherSQL(queryCount);
+//				
+////				Neo4jResultBean bean = DBProcess.getEntityIntroductionInfo("", queryCount);
+//				System.out.println("in DBProcess, it return " + bean.getResult());
+//
+//				out.write(i++ + ": " + entity);
+//				if (!bean.getResult().isEmpty()) {
+//					if (!line.equals(entity)) {
+//						out.write(", (" + line + ")");
+//					}
+//
+//					String tempLabel = DBProcess.getEntityLabel(entity);
+//					out.write(", [" + tempLabel + "] ---- " + bean.getResult() + "\n");
+//				} else {
+//					out.write(" @@@@ null" + "\n");
+//					System.err.println("no entity in DB: " + entity);
+//				}
 			}
+			
+			System.out.println("size="+refSet.size());
 
 			in.close();
 			out.close();
