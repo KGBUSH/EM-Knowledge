@@ -218,6 +218,12 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 String parammd5=pageExtractInfo.getParamMd5();
 					 boolean isexist=isExistHtml(urlmd5,parammd5);
 					 System.err.println(url+" isexist="+isexist);
+					 boolean isexitname=isExistName(name);
+					 if(isexitname)
+					 {
+						 System.err.println("existname="+name+"  "+url);
+						 return ;
+					 }
 					 if(!isexist)
 					 {
 					   outputValue.set(Bytes.toBytes(pageExtractInfo.getParamMd5()+"###"+query));
@@ -427,10 +433,19 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		   }
 		   return redis.existKey(urlmd5, parammd5);
 	   }
+	   public boolean isExistName(String name)
+	   {
+		   if(redis==null)
+		   {
+	            redis = new RedisClient(RedisIP,RedisPort);
+		   }
+		   return redis.existKey(name);
+	   }
+
 	   public static void main(String[] args)
 	   {
 		   //String tags
-		   //System.err.println(new ExtractorMap().getLabelByTags("农学类专业 本科专业"));
+		   System.err.println(DigestUtils.md5Hex("农学类专业"));
 	   }
 
 }
