@@ -100,7 +100,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		label = context.getConfiguration().get("label");
 		fileList = new ArrayList<String>();
 		
-		fileList.add("/domain/TV_series.txt");
+		fileList.add("/domain/TV.txt");
 	    fileList.add("/domain/anime.txt");
 		fileList.add("/domain/catchword.txt");
 		fileList.add("/domain/college.txt");

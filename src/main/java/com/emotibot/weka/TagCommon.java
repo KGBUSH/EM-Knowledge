@@ -20,7 +20,7 @@ public class TagCommon {
 	{
 		DomainNames = new HashMap<>();
 		
-		DomainNames.put("TV_series","");
+		DomainNames.put("TV","");
 		DomainNames.put("anime","");
 		DomainNames.put("catchword","");
 		DomainNames.put("college","");
