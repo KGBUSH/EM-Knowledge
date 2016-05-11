@@ -23,7 +23,7 @@ public class SimpleClassifier {
 	public static void Init()
 	{
 		DomainNames = new HashMap<>();
-		DomainNames.put("TV","");
+		DomainNames.put("TV_series","");
 		DomainNames.put("anime","");
 		DomainNames.put("catchword","");
 		DomainNames.put("college","");
