@@ -32,16 +32,14 @@ public class KGAgent {
 	
 
 	public KGAgent(CUBean cuBean) {
-		String text = CharUtil.trimAndlower(cuBean.getText());
-		String questionType = CharUtil.trimAndlower(cuBean.getQuestionType());
-		String requestScore = CharUtil.trimAndlower(cuBean.getScore());
+		String text = cuBean.getText();
+		String questionType = cuBean.getQuestionType();
+		String requestScore = cuBean.getScore();
 		double questionScore = 0;
 		uniqueID = cuBean.getUniqueID();
 		if (Tool.isStrEmptyOrNull(uniqueID)) {
 			uniqueID = "0";
 		}
-		nerBean.setOldSentence(text);
-		nerBean.setUniqueID(uniqueID);
 
 		// add for debug by PM
 		if (questionType != null && questionType.equals("debug")) {
@@ -59,6 +57,10 @@ public class KGAgent {
 			Debug.printDebug(uniqueID, 2, "knowledge", "init, text is null");
 			text = "";
 		}
+		
+		nerBean.setOldSentence(CharUtil.trimAndlower(text));
+		nerBean.setUniqueID(uniqueID);
+		
 		userSentence = text.toLowerCase();
 
 		if (questionType == null || requestScore == null) {
@@ -410,7 +412,7 @@ public class KGAgent {
 //		NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "刘翔退役多久了？";
+		String str = "谢谢";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");

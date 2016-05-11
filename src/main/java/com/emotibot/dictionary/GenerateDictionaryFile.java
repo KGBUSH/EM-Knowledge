@@ -311,7 +311,7 @@ public class GenerateDictionaryFile {
 					new FileReader(Common.UserDir + "/knowledgedata/dictionary/highFrequentWord.txt"));
 			String line = in.readLine();
 
-			String outFileName = Common.UserDir + "/knowledgedata/dictionary/highFrequent1W.txt";
+			String outFileName = Common.UserDir + "/knowledgedata/dictionary/highFrequentWordPartOf.txt";
 			BufferedWriter out = new BufferedWriter(new FileWriter(outFileName));
 
 			Set<String> strSet = new HashSet<>();
@@ -360,6 +360,8 @@ public class GenerateDictionaryFile {
 
 			String outFileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent.txt";
 			BufferedWriter out = new BufferedWriter(new FileWriter(outFileName));
+			String outFileName2 = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequentAll.txt";
+			BufferedWriter out2 = new BufferedWriter(new FileWriter(outFileName2));
 
 			Set<String> setEntity = DictionaryBuilder.getEntityTable();
 			Set<String> setHighWord = DictionaryBuilder.getHighFeqWordTable();
@@ -370,6 +372,7 @@ public class GenerateDictionaryFile {
 					if (tempLabel.endsWith("other")) {
 						out.write(s + "\r\n");
 					}
+					out2.write(s + "\r\n");
 				}
 			}
 			
@@ -384,10 +387,12 @@ public class GenerateDictionaryFile {
 				}
 				
 				out.write(line = "\r\n");
+				out2.write(line = "\r\n");
 			}
 			
 			in.close();
 			out.close();
+			out2.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -399,6 +404,9 @@ public class GenerateDictionaryFile {
 //		NLPProcess nlp = new NLPProcess();
 //		NLPProcess.NLPProcessInit();
 
+//		generatehighFrequentWordFile();
+		
+		
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
 		

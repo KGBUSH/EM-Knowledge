@@ -233,7 +233,7 @@ public class DictionaryBuilder {
 				FileInputStream fis = new FileInputStream(fileName);
 				InputStreamReader read = new InputStreamReader(fis, fileCode);
 				BufferedReader dis = new BufferedReader(read);
-				String word = "";
+				String word = null;
 				while ((word = dis.readLine()) != null) {
 					// all entity in table are in low case
 					entitySet.add(CharUtil.trim(word).toLowerCase());
@@ -265,7 +265,7 @@ public class DictionaryBuilder {
 				FileInputStream fis = new FileInputStream(fileName);
 				InputStreamReader read = new InputStreamReader(fis, fileCode);
 				BufferedReader dis = new BufferedReader(read);
-				String word = "";
+				String word = null;
 				while ((word = dis.readLine()) != null) {
 					// all entity in table are in low case
 					wordSet.add(CharUtil.trim(word).toLowerCase());
@@ -284,7 +284,7 @@ public class DictionaryBuilder {
 	// createHighFeqWordTable
 	private static Set<String> createHighFeqWordTable() {
 		Set<String> wordSet = new HashSet<>();
-		String fileName = Common.UserDir + "/knowledgedata/dictionary/highFrequent1W.txt";
+		String fileName = Common.UserDir + "/knowledgedata/dictionary/highFrequentWordPartOf.txt";
 		System.out.println("path is " + fileName);
 
 		if (!Tool.isStrEmptyOrNull(fileName)) {
@@ -296,7 +296,7 @@ public class DictionaryBuilder {
 				FileInputStream fis = new FileInputStream(fileName);
 				InputStreamReader read = new InputStreamReader(fis, fileCode);
 				BufferedReader dis = new BufferedReader(read);
-				String word = "";
+				String word = null;
 				while ((word = dis.readLine()) != null) {
 					// all entity in table are in low case
 					wordSet.add(CharUtil.trim(word).toLowerCase());
@@ -327,7 +327,7 @@ public class DictionaryBuilder {
 				FileInputStream fis = new FileInputStream(fileName);
 				InputStreamReader read = new InputStreamReader(fis, fileCode);
 				BufferedReader dis = new BufferedReader(read);
-				String word = "";
+				String word = null;
 				while ((word = dis.readLine()) != null) {
 					// all entity in table are in low case
 					entitySet.add(CharUtil.trim(word).toLowerCase());
@@ -356,7 +356,7 @@ public class DictionaryBuilder {
 				FileInputStream fis = new FileInputStream(fileName);
 				InputStreamReader read = new InputStreamReader(fis, fileCode);
 				BufferedReader dis = new BufferedReader(read);
-				String word = "";
+				String word = null;
 				while ((word = dis.readLine()) != null) {
 					stopWordSet.add(CharUtil.trim(word));
 				}
