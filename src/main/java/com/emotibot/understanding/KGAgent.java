@@ -7,6 +7,7 @@ import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.common.Common;
+import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.template.TemplateEntry;
 import com.emotibot.util.CUBean;
 import com.emotibot.util.CharUtil;
@@ -138,8 +139,15 @@ public class KGAgent {
 		System.out.println("##### entitySet="+entitySet);
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
 			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
-			if(DBProcess.getEntityLabel(entitySet.get(0)).equals("catchword")){
+			String tempEntity = entitySet.get(0);
+			String tempLabel = DBProcess.getEntityLabel(tempEntity);
+			if(tempLabel.equals("catchword")){
 				System.out.println("catchword Case, and abord， the returned anwer is " + answerBean.toString());
+				return answerBean;
+			}
+			
+			if(NLPUtil.isInRemoveableAllDict(tempEntity) && NLPUtil.isInDomainBalckListDict(tempLabel)){
+				System.out.println("high frequent word in the blacklist domain case, and abord， the returned anwer is " + answerBean.toString());
 				return answerBean;
 			}
 			

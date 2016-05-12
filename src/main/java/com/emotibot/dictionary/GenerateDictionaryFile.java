@@ -19,7 +19,6 @@ import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
 import com.emotibot.neo4jprocess.Neo4jDBManager;
 import com.emotibot.understanding.DBProcess;
-import com.emotibot.understanding.DictionaryBuilder;
 import com.emotibot.understanding.NLPUtil;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Neo4jResultBean;
@@ -385,9 +384,10 @@ public class GenerateDictionaryFile {
 				if(Tool.isStrEmptyOrNull(line)){
 					continue;
 				}
+				System.out.println("Aux word: "+line);
 				
-				out.write(line = "\r\n");
-				out2.write(line = "\r\n");
+				out.write(line + "\r\n");
+				out2.write(line + "\r\n");
 			}
 			
 			in.close();
@@ -404,7 +404,7 @@ public class GenerateDictionaryFile {
 //		NLPProcess nlp = new NLPProcess();
 //		NLPProcess.NLPProcessInit();
 
-//		generatehighFrequentWordFile();
+		generatehighFrequentWordFile();
 		
 		
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();

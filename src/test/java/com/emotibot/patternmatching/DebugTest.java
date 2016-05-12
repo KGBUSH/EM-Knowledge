@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.common.Common;
-import com.emotibot.understanding.DictionaryBuilder;
+import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.understanding.KGAgent;
 import com.emotibot.util.CUBean;
 

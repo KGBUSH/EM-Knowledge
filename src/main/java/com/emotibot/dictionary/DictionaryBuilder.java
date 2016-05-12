@@ -1,4 +1,4 @@
-package com.emotibot.understanding;
+package com.emotibot.dictionary;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -29,7 +29,9 @@ public class DictionaryBuilder {
 	// entitySynonymReverseTable:[山大，<山西大学，山东大学>]
 	private static Map<String, List<String>> entitySynonymReverseTable = createEntitySynonymReverseTable();
 	private static Set<String> highFeqWordTable = createHighFeqWordTable();
-	private static Set<String> removeableHighFeqWordTable = createRemoveableHighFeqWordTable();
+	private static Set<String> removeableHighFeqWordOtherTable = createRemoveableHighFeqWordOtherTable();
+	private static Set<String> removeableHighFeqWordAllTable = createRemoveableHighFeqWordAllTable();
+	private static Set<String> domainBalckListTable = createDomainBalckListTable();
 	
 	public static void DictionaryBuilderInit() {
 		addCustomDictionaryInHanlp();
@@ -251,7 +253,7 @@ public class DictionaryBuilder {
 	}
 
 	// createHighFeqWordTable
-	private static Set<String> createRemoveableHighFeqWordTable() {
+	private static Set<String> createRemoveableHighFeqWordOtherTable() {
 		Set<String> wordSet = new HashSet<>();
 		String fileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent.txt";
 		System.out.println("path is " + fileName);
@@ -278,6 +280,68 @@ public class DictionaryBuilder {
 		}
 
 		System.out.println("createRemoveableHighFeqWordTable lengh = " + wordSet.size());
+		return wordSet;
+	}
+	
+	// createHighFeqWordAllTable
+	private static Set<String> createRemoveableHighFeqWordAllTable() {
+		Set<String> wordSet = new HashSet<>();
+		String fileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequentAll.txt";
+		System.out.println("path is " + fileName);
+		
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = null;
+				while ((word = dis.readLine()) != null) {
+					// all entity in table are in low case
+					wordSet.add(CharUtil.trim(word).toLowerCase());
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		System.out.println("createRemoveableHighFeqWordAllTable lengh = " + wordSet.size());
+		return wordSet;
+	}
+	
+	// createDomainBalckListTable
+	private static Set<String> createDomainBalckListTable() {
+		Set<String> wordSet = new HashSet<>();
+		String fileName = Common.UserDir + "/knowledgedata/domain/blacklist.txt";
+		System.out.println("path is " + fileName);
+		
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = null;
+				while ((word = dis.readLine()) != null) {
+					// all entity in table are in low case
+					wordSet.add(CharUtil.trim(word).toLowerCase());
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		System.out.println("createDomainBalckListTable lengh = " + wordSet.size());
 		return wordSet;
 	}
 
@@ -411,10 +475,26 @@ public class DictionaryBuilder {
 	}
 
 	public static Set<String> getRemoveableHighFeqWordTable() {
-		return removeableHighFeqWordTable;
+		return removeableHighFeqWordOtherTable;
 	}
 
 	public static void setRemoveableHighFeqWordTable(Set<String> removeableHighFeqWordTable) {
-		DictionaryBuilder.removeableHighFeqWordTable = removeableHighFeqWordTable;
+		DictionaryBuilder.removeableHighFeqWordOtherTable = removeableHighFeqWordTable;
+	}
+
+	public static Set<String> getRemoveableHighFeqWordAllTable() {
+		return removeableHighFeqWordAllTable;
+	}
+
+	public static void setRemoveableHighFeqWordAllTable(Set<String> removeableHighFeqWordAllTable) {
+		DictionaryBuilder.removeableHighFeqWordAllTable = removeableHighFeqWordAllTable;
+	}
+
+	public static Set<String> getDomainBalckListTable() {
+		return domainBalckListTable;
+	}
+
+	public static void setDomainBalckListTable(Set<String> domainBalckListTable) {
+		DictionaryBuilder.domainBalckListTable = domainBalckListTable;
 	}
 }

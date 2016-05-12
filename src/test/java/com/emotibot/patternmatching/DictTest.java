@@ -7,9 +7,9 @@ import java.io.FileWriter;
 import java.util.Set;
 
 import com.emotibot.common.Common;
+import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
 import com.emotibot.understanding.DBProcess;
-import com.emotibot.understanding.DictionaryBuilder;
 import com.emotibot.understanding.NLPUtil;
 import com.emotibot.util.CharUtil;
 import com.hankcs.hanlp.HanLP;

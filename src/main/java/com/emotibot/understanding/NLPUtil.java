@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.HanLP;
@@ -147,7 +148,7 @@ public class NLPUtil {
 	public static Set<String> removeRemoveableEntity(Set<String> entitySet) {
 		Set<String> rsSet = new HashSet<>();
 		for (String s : entitySet) {
-			if (!isInRemoveableDict(s)) {
+			if (!isInRemoveableOtherDict(s)) {
 				rsSet.add(s);
 			}
 		}
@@ -158,16 +159,34 @@ public class NLPUtil {
 	public static List<String> removeRemoveableEntity(List<String> entitySet) {
 		List<String> rsSet = new ArrayList<>();
 		for (String s : entitySet) {
-			if (!isInRemoveableDict(s)) {
+			if (!isInRemoveableOtherDict(s)) {
 				rsSet.add(s);
 			}
 		}
 		return rsSet;
 	}
 
-	// if str in synonym dictionary or not
-	public static boolean isInRemoveableDict(String str) {
+	// if str in remove Other dictionary or not
+	public static boolean isInRemoveableOtherDict(String str) {
 		if (!str.isEmpty() && DictionaryBuilder.getRemoveableHighFeqWordTable().contains(str)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// if str in remove All dictionary or not
+	public static boolean isInRemoveableAllDict(String str) {
+		if (!str.isEmpty() && DictionaryBuilder.getRemoveableHighFeqWordAllTable().contains(str)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// if str in domain balcklist or not
+	public static boolean isInDomainBalckListDict(String str) {
+		if (!str.isEmpty() && DictionaryBuilder.getDomainBalckListTable().contains(str)) {
 			return true;
 		} else {
 			return false;

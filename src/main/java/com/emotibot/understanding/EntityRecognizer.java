@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.TreeSet;
 
 import com.emotibot.common.Common;
+import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
 import com.emotibot.solr.SolrUtil;
 import com.emotibot.solr.Solr_Query;
@@ -416,7 +417,7 @@ public class EntityRecognizer {
 		while (it.hasNext()) {
 			String tempEntity = it.next();
 
-			if (NLPUtil.isInRemoveableDict(tempEntity)) {
+			if (NLPUtil.isInRemoveableOtherDict(tempEntity)) {
 				System.out.println("remove entity:" + tempEntity);
 				it.remove();
 			}
