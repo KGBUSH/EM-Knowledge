@@ -287,6 +287,17 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 				if (type.contains("Solr")) {
 					BaikeExtractor baikeExtractor = new BaikeExtractor(html);
 					PageExtractInfo pageInfo = baikeExtractor.ProcessPage();
+					 String urlmd5=DigestUtils.md5Hex(url);
+					 String parammd5=pageInfo.getParamMd5();
+					 String name = pageInfo.getName();
+					 name=MyTrim(name);
+					 boolean isexist=isExistHtml(urlmd5,parammd5);
+					 boolean isexitname=isExistName(name);
+					 if(isexist||isexitname)
+					 {
+							System.err.println("isexist||isexitname");
+							return;
+					 } 
 					StringBuffer buffer = new StringBuffer();
 					buffer.append(pageInfo.getName()+""+pageInfo.getParamMd5()).append(Seperator);
 					buffer.append(pageInfo.getName()).append(Seperator);
