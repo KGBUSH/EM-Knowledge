@@ -31,6 +31,7 @@ public class DictionaryBuilder {
 	private static Set<String> highFeqWordTable = createHighFeqWordTable();
 	private static Set<String> removeableHighFeqWordOtherTable = createRemoveableHighFeqWordOtherTable();
 	private static Set<String> removeableHighFeqWordAllTable = createRemoveableHighFeqWordAllTable();
+	private static Set<String> domainAllListTable = createDomainAllListTable();
 	private static Set<String> domainBalckListTable = createDomainBalckListTable();
 	
 	public static void DictionaryBuilderInit() {
@@ -344,6 +345,37 @@ public class DictionaryBuilder {
 		System.out.println("createDomainBalckListTable lengh = " + wordSet.size());
 		return wordSet;
 	}
+	
+	// createDomainAllListTable
+	private static Set<String> createDomainAllListTable() {
+		Set<String> wordSet = new HashSet<>();
+		String fileName = Common.UserDir + "/knowledgedata/domain/domainList.txt";
+		System.out.println("path is " + fileName);
+		
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = null;
+				while ((word = dis.readLine()) != null) {
+					// all entity in table are in low case
+					wordSet.add(CharUtil.trim(word).toLowerCase());
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		System.out.println("createDomainBalckListTable lengh = " + wordSet.size());
+		return wordSet;
+	}
 
 	// createHighFeqWordTable
 	private static Set<String> createHighFeqWordTable() {
@@ -496,5 +528,13 @@ public class DictionaryBuilder {
 
 	public static void setDomainBalckListTable(Set<String> domainBalckListTable) {
 		DictionaryBuilder.domainBalckListTable = domainBalckListTable;
+	}
+
+	public static Set<String> getDomainAllListTable() {
+		return domainAllListTable;
+	}
+
+	public static void setDomainAllListTable(Set<String> domainAllListTable) {
+		DictionaryBuilder.domainAllListTable = domainAllListTable;
 	}
 }
