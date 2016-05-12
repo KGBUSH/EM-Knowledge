@@ -87,6 +87,9 @@ public class ExtractorJob {
             conf.set("ip", ip);
             conf.setInt("port", port);
             conf.set("solrName", solrName);
+            conf.set("RedisIP",cfg.getRedisIP());
+            conf.setInt("RedisPort",cfg.getRedisPort());
+
         }
         Vector<String> tables = Tool.getFileLines(inputTableFile);
        // for(String inputTableName:tables){

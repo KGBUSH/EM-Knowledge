@@ -93,10 +93,12 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		type = context.getConfiguration().get("type");
 		if (type.contains("Neo4j")) {
 			NodeOrRelation=context.getConfiguration().get("NodeOrRelation");
-            RedisIP=context.getConfiguration().get("RedisIP");;
-            RedisPort=context.getConfiguration().getInt("RedisPort", 0);;
-            redis = new RedisClient(RedisIP,RedisPort);
 		}
+        RedisIP=context.getConfiguration().get("RedisIP");;
+        RedisPort=context.getConfiguration().getInt("RedisPort", 0);;
+
+        redis = new RedisClient(RedisIP,RedisPort);
+
 		label = context.getConfiguration().get("label");
 		fileList = new ArrayList<String>();
 		
