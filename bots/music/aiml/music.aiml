@@ -1,0 +1,86 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>music</label> ^ 什 么 时 ^ </pattern>
+        <template>
+            <star index="2"/>的发行时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>music</label> ^ 哪 年 ^ </pattern>
+        <template>
+            <star index="2"/>的发行时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>music</label> ^ 何 时 ^ </pattern>
+        <template>
+            <star index="2"/>的发行时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ ## * <type>entity</type><label>music</label> ^ </pattern>
+        <template>
+            <star index="3"/>的发行时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ ## * <type>entity</type><label>music</label> ^ </pattern>
+        <template>
+            <star index="3"/>的发行时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ ## * <type>entity</type><label>music</label> ^ </pattern>
+        <template>
+            <star index="3"/>的发行时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>music</label> ^ 谁 ^ 唱 ^ </pattern>
+        <template>
+            <star index="2"/>的歌曲原唱是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>music</label> ^ 哪 个 ^ 唱 ^ </pattern>
+        <template>
+            <star index="2"/>的歌曲原唱是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> 谁 ^ 唱 ^ ## * <type>entity</type><label>music</label> ^ </pattern>
+        <template>
+            <star index="3"/>的歌曲原唱是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> 哪 个 ^ 唱 ^ ## * <type>entity</type><label>music</label> ^ </pattern>
+        <template>
+            <star index="3"/>的歌曲原唱是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>music</label> ^ 翻 译 ^ </pattern>
+        <template>
+            <star index="2"/>的中文名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>music</label> ^ 译 ^ </pattern>
+        <template>
+            <star index="2"/>的中文名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 翻 译 ^ ## * <type>entity</type><label>music</label> ^ </pattern>
+        <template>
+            <star index="3"/>的中文名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 译 ^ ## * <type>entity</type><label>music</label> ^ </pattern>
+        <template>
+            <star index="3"/>的中文名称是什么？
+        </template>
+    </category>
+</aiml>

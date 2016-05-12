@@ -1,0 +1,224 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 英 文 ^ 怎 么 ^ 说 ^ </pattern>
+        <template>
+            <star index="2"/>的外文名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 英 文 ^ 咋 ^ 说 ^ </pattern>
+        <template>
+            <star index="2"/>的外文名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 英 文 ^ 怎 么 ^ 读 ^ </pattern>
+        <template>
+            <star index="2"/>的外文名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 英 文 ^ 咋 ^ 读 ^ </pattern>
+        <template>
+            <star index="2"/>的外文名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 英 文 ^ 怎 么 ^ 念 ^ </pattern>
+        <template>
+            <star index="2"/>的外文名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
+        <template>
+            <star index="2"/>的外文名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 考 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的考试科目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 考 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的考试科目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 考 哪 些 ^ </pattern>
+        <template>
+            <star index="2"/>的考试科目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 啥 时 ^ 考 试 ^ </pattern>
+        <template>
+            <star index="2"/>的考试时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 什 么 时 ^ 考 试 ^ </pattern>
+        <template>
+            <star index="2"/>的考试时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 何 时 ^ 考 试 ^ </pattern>
+        <template>
+            <star index="2"/>的考试时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 几 月 ^ 考 试 ^ </pattern>
+        <template>
+            <star index="2"/>的考试时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 怎 么 ^ 得 ^ ## * <type>entity</type><label>job</label> ^ </pattern>
+        <template>
+            <star index="4"/>的获得形式是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 怎 样 ^ 得 ^ ## * <type>entity</type><label>job</label> ^ </pattern>
+        <template>
+            <star index="4"/>的获得形式是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 如 何 ^ 得 ^ ## * <type>entity</type><label>job</label> ^ </pattern>
+        <template>
+            <star index="4"/>的获得形式是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 怎 么 ^ 得 ^ </pattern>
+        <template>
+            <star index="2"/>的获得形式是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 怎 样 ^ 得 ^ </pattern>
+        <template>
+            <star index="2"/>的获得形式是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 如 何 ^ 得 ^ </pattern>
+        <template>
+            <star index="2"/>的获得形式是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 几 种 ^ 考 试 ^ </pattern>
+        <template>
+            <star index="2"/>的考试形式是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 哪 些 ^ 考 试 ^ </pattern>
+        <template>
+            <star index="2"/>的考试形式是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 样 ^ 可 以 考 ^ ## * <type>entity</type><label>job</label> ^ </pattern>
+        <template>
+            <star index="4"/>的报考条件是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 样 ^ 能 考 ^ ## * <type>entity</type><label>job</label> ^ </pattern>
+        <template>
+            <star index="4"/>的报考条件是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 什 么 用 ^ </pattern>
+        <template>
+            <star index="2"/>的作用是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 啥 用 ^ </pattern>
+        <template>
+            <star index="2"/>的作用是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 多 久 ^ 考 ^ </pattern>
+        <template>
+            <star index="2"/>的考试周期多长时间？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 多 长 ^ 考 ^ </pattern>
+        <template>
+            <star index="2"/>的考试周期多长时间？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 几 年 ^ 考 ^ </pattern>
+        <template>
+            <star index="2"/>的考试周期多长时间？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 久 ^ 考 ^ ## * <type>entity</type><label>job</label> ^ </pattern>
+        <template>
+            <star index="4"/>的考试周期多长时间？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 ^ 考 ^ ## * <type>entity</type><label>job</label> ^ </pattern>
+        <template>
+            <star index="4"/>的考试周期多长时间？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 ^ 考 ^ ## * <type>entity</type><label>job</label> ^ </pattern>
+        <template>
+            <star index="4"/>的考试周期多长时间？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 挣 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的薪资行情是什么样？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 赚 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的薪资行情是什么样？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 做 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的工作内容是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 干 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的工作内容是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 做 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的工作内容是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>job</label> ^ 干 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的工作内容是什么？
+        </template>
+    </category>
+</aiml>
