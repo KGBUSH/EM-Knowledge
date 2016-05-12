@@ -49,14 +49,26 @@ public class RedisClient {
 	   if(isUrl||isParam) return true;
 	   return false;
    }
+   public boolean existKey(String name)
+   {
+	   if(name==null||name.trim().length()==0)
+	   {
+		    return false;
+	   }
+	   boolean isName=jedis.exists(name);
+	   jedis.sadd(name, "");
+	   if(isName) return true;
+	   return false;
+   }
+
    public static void main(String args[])
    {
 	   RedisClient redis = new RedisClient("192.168.1.73",6379);
-	   System.err.println(redis.existKey("1", "2"));
-	   System.err.println(redis.existKey("1", "2"));
+	   System.err.println(redis.existKey("1"));
+	   System.err.println(redis.existKey("1"));
 	   redis.Clear();
-	   System.err.println(redis.existKey("1", "2"));
-	   System.err.println(redis.existKey("1", "2"));
+	   System.err.println(redis.existKey("1"));
+	   System.err.println(redis.existKey("1"));
 
 
    }
