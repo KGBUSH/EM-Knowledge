@@ -342,75 +342,57 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 ^ 地 方 ^ </pattern>
+        <pattern> ^ 进 ^ ## * <type>entity</type><label>tourism</label> ^ 啥 时 ^ </pattern>
         <template>
-            <star index="2"/>的著名景点是什么？
+            <star index="3"/>开放时间是什么时候？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 ^ 地 方 ^ </pattern>
+        <pattern> ^ 参 观 ^ ## * <type>entity</type><label>tourism</label> ^ 啥 时 ^ </pattern>
         <template>
-            <star index="2"/>的著名景点是什么？
+            <star index="3"/>开放时间是什么时候？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 啥 ^ 地 方 ^ </pattern>
+        <pattern> ^ 游 ^ ## * <type>entity</type><label>tourism</label> ^ 啥 时 ^ </pattern>
         <template>
-            <star index="2"/>的著名景点是什么？
+            <star index="3"/>开放时间是什么时候？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 ^ 景 点 ^ </pattern>
+        <pattern> ^ 进 ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 时 ^ </pattern>
         <template>
-            <star index="2"/>的著名景点是什么？
+            <star index="3"/>开放时间是什么时候？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 ^ 景 点 ^ </pattern>
+        <pattern> ^ 参 观 ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 时 ^ </pattern>
         <template>
-            <star index="2"/>的著名景点是什么？
+            <star index="3"/>开放时间是什么时候？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 啥 ^ 景 点 ^ </pattern>
+        <pattern> ^ 游 ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 时 ^ </pattern>
         <template>
-            <star index="2"/>的著名景点是什么？
+            <star index="3"/>开放时间是什么时候？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 地 方 ^ 什 么 ^ </pattern>
+        <pattern> ^ 进 ^ ## * <type>entity</type><label>tourism</label> ^ 何 时 ^ </pattern>
         <template>
-            <star index="2"/>的著名景点是什么？
+            <star index="3"/>开放时间是什么时候？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 景 点 ^ 什 么 ^ </pattern>
+        <pattern> ^ 参 观 ^ ## * <type>entity</type><label>tourism</label> ^ 何 时 ^ </pattern>
         <template>
-            <star index="2"/>的著名景点是什么？
+            <star index="3"/>开放时间是什么时候？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 地 方 ^ 哪 ^ </pattern>
+        <pattern> ^ 游 ^ ## * <type>entity</type><label>tourism</label> ^ 何 时 ^ </pattern>
         <template>
-            <star index="2"/>的著名景点是什么？
-        </template>
-    </category>
-    <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 景 点 ^ 哪 ^ </pattern>
-        <template>
-            <star index="2"/>的著名景点是什么？
-        </template>
-    </category>
-    <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 ^ 好 玩 ^ </pattern>
-        <template>
-            <star index="2"/>的著名景点是什么？
-        </template>
-    </category>
-    <category>
-        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 有 什 么 ^ 好 玩 ^ </pattern>
-        <template>
-            <star index="2"/>的著名景点是什么？
+            <star index="3"/>开放时间是什么时候？
         </template>
     </category>
     <category>
@@ -573,6 +555,78 @@
         <pattern> ^ 游 ^ ## * <type>entity</type><label>tourism</label> ^ 多 久 ^ </pattern>
         <template>
             <star index="3"/>的游玩时间是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 啥 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 ^ 景 点 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 ^ 景 点 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 啥 ^ 景 点 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 地 方 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 景 点 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 地 方 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 景 点 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 ^ 好 玩 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 有 什 么 ^ 好 玩 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
         </template>
     </category>
     <category>
@@ -1287,6 +1341,126 @@
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 藏 着 什 么 ^ </pattern>
         <template>
             <star index="2"/>馆藏精品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 英 文 ^ </pattern>
+        <template>
+            <star index="2"/>的外文名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 英 语 ^ </pattern>
+        <template>
+            <star index="2"/>的外文名称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 种 ^ 动 物 ^ </pattern>
+        <template>
+            <star index="2"/>的动物种类是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 类 ^ 动 物 ^ </pattern>
+        <template>
+            <star index="2"/>的动物种类是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 种 ^ 植 物 ^ </pattern>
+        <template>
+            <star index="2"/>的植物种类是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 类 ^ 植 物 ^ </pattern>
+        <template>
+            <star index="2"/>的植物种类是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 得 ^ 什 么 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 获 ^ 什 么 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 得 ^ 哪 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 获 ^ 哪 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 得 ^ 什 么 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 获 ^ 什 么 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 得 ^ 哪 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 获 ^ 哪 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 ^ 特 产 ^ </pattern>
+        <template>
+            <star index="2"/>的地方特产有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 啥 ^ 特 产 ^ </pattern>
+        <template>
+            <star index="2"/>的地方特产有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 些 ^ 特 产 ^ </pattern>
+        <template>
+            <star index="2"/>的地方特产有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 ^ 特 色 ^ </pattern>
+        <template>
+            <star index="2"/>的地方特产有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 啥 ^ 特 色 ^ </pattern>
+        <template>
+            <star index="2"/>的地方特产有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 些 ^ 特 色 ^ </pattern>
+        <template>
+            <star index="2"/>的地方特产有什么？
         </template>
     </category>
 </aiml>

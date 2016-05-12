@@ -1,42 +1,48 @@
 <aiml version="1.0.1" encoding="UTF-8">
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 英 文 ^ 怎 么 ^ 说 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿college</label> ^ 英 文 ^ 怎 么 ^ 说 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 英 文 ^ 咋 ^ 说 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿college</label> ^ 英 文 ^ 咋 ^ 说 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 英 文 ^ 怎 么 ^ 读 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿college</label> ^ 英 文 ^ 怎 么 ^ 读 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 英 文 ^ 咋 ^ 读 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿college</label> ^ 英 文 ^ 咋 ^ 读 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 英 文 ^ 怎 么 ^ 念 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿college</label> ^ 英 文 ^ 怎 么 ^ 念 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>﻿college</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
         <template>
             <star index="2"/>的外文名是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 ^ 成 立 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 一 年 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 年 ^ 成 立 ^ </pattern>
         <template>
             <star index="2"/>的创办时间什么时候？
         </template>
@@ -60,7 +66,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 ^ 创 办 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 一 年 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 年 ^ 创 办 ^ </pattern>
         <template>
             <star index="2"/>的创办时间什么时候？
         </template>
@@ -84,7 +96,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 ^ 创 建 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 一 年 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 年 ^ 创 建 ^ </pattern>
         <template>
             <star index="2"/>的创办时间什么时候？
         </template>
@@ -108,7 +126,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 ^ 创 立 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 一 年 ^ 创 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 年 ^ 创 立 ^ </pattern>
         <template>
             <star index="2"/>的创办时间什么时候？
         </template>
@@ -132,7 +156,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 ^ 开 拓 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 一 年 ^ 开 拓 ^ </pattern>
+        <template>
+            <star index="2"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 年 ^ 开 拓 ^ </pattern>
         <template>
             <star index="2"/>的创办时间什么时候？
         </template>
@@ -156,7 +186,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 ^ 建 立 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 一 年 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 年 ^ 建 立 ^ </pattern>
         <template>
             <star index="2"/>的创办时间什么时候？
         </template>
@@ -180,7 +216,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 ^ 建 校 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 一 年 ^ 建 校 ^ </pattern>
+        <template>
+            <star index="2"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 年 ^ 建 校 ^ </pattern>
         <template>
             <star index="2"/>的创办时间什么时候？
         </template>
@@ -204,7 +246,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 成 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <pattern> ^ 哪 一 年 ^ 成 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 成 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
         <template>
             <star index="4"/>的创办时间什么时候？
         </template>
@@ -228,7 +276,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 创 办 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <pattern> ^ 哪 一 年 ^ 创 办 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 创 办 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
         <template>
             <star index="4"/>的创办时间什么时候？
         </template>
@@ -252,7 +306,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 创 建 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <pattern> ^ 哪 一 年 ^ 创 建 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 创 建 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
         <template>
             <star index="4"/>的创办时间什么时候？
         </template>
@@ -276,7 +336,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 创 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <pattern> ^ 哪 一 年 ^ 创 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 创 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
         <template>
             <star index="4"/>的创办时间什么时候？
         </template>
@@ -300,7 +366,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 开 拓 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <pattern> ^ 哪 一 年 ^ 开 拓 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 开 拓 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
         <template>
             <star index="4"/>的创办时间什么时候？
         </template>
@@ -324,7 +396,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 建 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <pattern> ^ 哪 一 年 ^ 建 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 建 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
         <template>
             <star index="4"/>的创办时间什么时候？
         </template>
@@ -348,7 +426,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 哪 ^ 建 校 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <pattern> ^ 哪 一 年 ^ 建 校 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创办时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 建 校 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
         <template>
             <star index="4"/>的创办时间什么时候？
         </template>
@@ -541,12 +625,6 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>college</label> ^ 在 哪 ^ </pattern>
-        <template>
-            <star index="2"/>的学校地址在哪？
-        </template>
-    </category>
-    <category>
-        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 是 哪 ^ </pattern>
         <template>
             <star index="2"/>的学校地址在哪？
         </template>
@@ -951,6 +1029,210 @@
         <pattern> ^ 谁 ^ 建 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
         <template>
             <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 多 少 名 ^ </pattern>
+        <template>
+            <star index="2"/>的大学排名怎么样？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 第 几 ^ </pattern>
+        <template>
+            <star index="2"/>的大学排名怎么样？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 什 么 位 置 ^ </pattern>
+        <template>
+            <star index="2"/>的大学排名怎么样？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 排 名 ^ </pattern>
+        <template>
+            <star index="2"/>的大学排名怎么样？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 创 建 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 创 建 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 创 建 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 创 办 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 创 办 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 创 办 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 成 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 成 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 成 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 建 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 建 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 建 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 设 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 设 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 设 立 ^ ## * <type>entity</type><label>college</label> ^ </pattern>
+        <template>
+            <star index="4"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 什 么 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 什 么 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 什 么 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 什 么 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 谁 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 哪 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>college</label> ^ 什 么 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的创始人是谁？
         </template>
     </category>
 </aiml>

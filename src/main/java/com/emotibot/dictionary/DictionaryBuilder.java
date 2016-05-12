@@ -364,6 +364,9 @@ public class DictionaryBuilder {
 				String word = null;
 				while ((word = dis.readLine()) != null) {
 					// all entity in table are in low case
+					if(word.startsWith("##")){
+						continue;
+					}
 					wordSet.add(CharUtil.trim(word).toLowerCase());
 				}
 				dis.close();

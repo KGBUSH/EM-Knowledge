@@ -388,7 +388,7 @@ public class EntityRecognizer {
 					}
 				}
 				if (oldEntity.isEmpty() || !sentence.contains(entity)) {
-					LogService.printLog(nerBean.getUniqueID(), "PatternMatching.changeEntitySynonym", "entity=" + entity);
+					LogService.printLog(nerBean.getUniqueID(), "PatternMatching.changeEntitySynonym", "entity=" + entity + "; bean="+nerBean);
 					System.err.println("PatternMatching.changeEntitySynonym: entity=" + entity);
 				}
 				// String oldEntity =

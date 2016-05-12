@@ -10,11 +10,12 @@ computer_game,^发行^#^哪/什么/啥/谁^;#的发行商是谁？
 computer_game,^发行^#^啥时/什么时/何时/哪年^;#的发行日期是什么时候？
 computer_game,^#^啥时/什么时/何时/哪年^发行^;#的发行日期是什么时候？
 computer_game,^啥时/什么时/何时^发行^#^;#的发行日期是什么时候？
-computer_game,^#^多少人/几人^;#的玩家人数是多少？
-computer_game,^多少人/几人^#^;#的玩家人数是多少？
+computer_game,^#^多少人/几人/几个人^;#的玩家人数是多少？
+computer_game,^多少人/几人/几个人^#^;#的玩家人数是多少？
 computer_game,^#^代言^;#的代言人是谁？
 computer_game,^代言^#^;#的代言人是谁？
 computer_game,^#^谁^制作/设计/策划^；#的制作人是谁？
 computer_game,^制作/设计/策划^#^谁^；#的制作人是谁？
 computer_game,^#^什么样^;#的游戏类型是什么？
 computer_game,^#^原版/老版/最初/初版/第一版^叫/名字^;#的原版名称叫什么？
+computer_game,^#^多大/多少^空间/内存^;#的游戏大小是多少？

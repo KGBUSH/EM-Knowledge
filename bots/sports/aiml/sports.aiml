@@ -1,5 +1,1673 @@
 <aiml version="1.0.1" encoding="UTF-8">
     <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 英 文 ^ 怎 么 ^ 说 ^ </pattern>
+        <template>
+            <star index="2"/>的外文队名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 英 文 ^ 咋 ^ 说 ^ </pattern>
+        <template>
+            <star index="2"/>的外文队名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 英 文 ^ 怎 么 ^ 读 ^ </pattern>
+        <template>
+            <star index="2"/>的外文队名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 英 文 ^ 咋 ^ 读 ^ </pattern>
+        <template>
+            <star index="2"/>的外文队名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 英 文 ^ 怎 么 ^ 念 ^ </pattern>
+        <template>
+            <star index="2"/>的外文队名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
+        <template>
+            <star index="2"/>的外文队名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 俱 乐 部 ^ </pattern>
+        <template>
+            <star index="2"/>的运动项目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 俱 乐 部 ^ </pattern>
+        <template>
+            <star index="2"/>的运动项目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 ^ 俱 乐 部 ^ </pattern>
+        <template>
+            <star index="2"/>的运动项目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 运 动 ^ </pattern>
+        <template>
+            <star index="2"/>的运动项目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 运 动 ^ </pattern>
+        <template>
+            <star index="2"/>的运动项目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 ^ 运 动 ^ </pattern>
+        <template>
+            <star index="2"/>的运动项目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 项 目 ^ </pattern>
+        <template>
+            <star index="2"/>的运动项目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 项 目 ^ </pattern>
+        <template>
+            <star index="2"/>的运动项目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 ^ 项 目 ^ </pattern>
+        <template>
+            <star index="2"/>的运动项目是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 联 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 联 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 ^ 联 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 赛 事 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 赛 事 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 ^ 赛 事 ^ </pattern>
+        <template>
+            <star index="2"/>的角逐赛事是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 地 区 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 地 区 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 国 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 国 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> 在 哪 儿 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> 在 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> 哪 里 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 时 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 何 时 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 时 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 年 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 时 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 何 时 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 时 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 年 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 时 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 何 时 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 时 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 年 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 时 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 何 时 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 时 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 年 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 时 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 何 时 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 时 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 年 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 创 建 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 创 建 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 创 建 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 创 建 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 创 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 创 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 创 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 创 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 成 立 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 成 立 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 成 立 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 成 立 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 建 立 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 建 立 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 建 立 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 建 立 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 设 立 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 设 立 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 设 立 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 设 立 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 隶 属 ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 归 ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 属 于 ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 隶 属 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 归 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 属 于 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 隶 属 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 归 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 属 于 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 掌 管 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 掌 管 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 负 责 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 负 责 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 主 管 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 主 管 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 管 理 控 制 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 管 理 控 制 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 操 纵 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 操 纵 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 职 掌 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 职 掌 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 掌 管 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 掌 管 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 负 责 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 负 责 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 主 管 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 主 管 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 管 理 控 制 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 管 理 控 制 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 操 纵 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 操 纵 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 职 掌 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 职 掌 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 出 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 出 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 有 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 有 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 著 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 著 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 知 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 知 名 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 熟 知 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 熟 知 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ ## * <type>entity</type><label>sports</label> ^ 出 名 ^ </pattern>
+        <template>
+            <star index="3"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ ## * <type>entity</type><label>sports</label> ^ 出 名 ^ </pattern>
+        <template>
+            <star index="3"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ ## * <type>entity</type><label>sports</label> ^ 有 名 ^ </pattern>
+        <template>
+            <star index="3"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ ## * <type>entity</type><label>sports</label> ^ 有 名 ^ </pattern>
+        <template>
+            <star index="3"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ ## * <type>entity</type><label>sports</label> ^ 著 名 ^ </pattern>
+        <template>
+            <star index="3"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ ## * <type>entity</type><label>sports</label> ^ 著 名 ^ </pattern>
+        <template>
+            <star index="3"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ ## * <type>entity</type><label>sports</label> ^ 知 名 ^ </pattern>
+        <template>
+            <star index="3"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ ## * <type>entity</type><label>sports</label> ^ 知 名 ^ </pattern>
+        <template>
+            <star index="3"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ ## * <type>entity</type><label>sports</label> ^ 熟 知 ^ </pattern>
+        <template>
+            <star index="3"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ ## * <type>entity</type><label>sports</label> ^ 熟 知 ^ </pattern>
+        <template>
+            <star index="3"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 出 名 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 出 名 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 有 名 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 有 名 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 著 名 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 著 名 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 知 名 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 知 名 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ 熟 知 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 熟 知 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 出 名 ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 有 名 ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 著 名 ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 知 名 ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 熟 知 ^ 谁 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 出 名 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 有 名 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 著 名 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 知 名 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 熟 知 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的知名人物是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 得 ^ 什 么 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 获 ^ 什 么 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 得 ^ 哪 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 获 ^ 哪 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 得 ^ 什 么 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 获 ^ 什 么 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 得 ^ 哪 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 获 ^ 哪 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 得 ^ 什 么 ^ 冠 军 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 获 ^ 什 么 ^ 冠 军 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 得 ^ 哪 ^ 冠 军 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 获 ^ 哪 ^ 冠 军 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 得 ^ 什 么 ^ 名 次 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 获 ^ 什 么 ^ 名 次 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 得 ^ 哪 ^ 名 次 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 获 ^ 哪 ^ 名 次 ^ </pattern>
+        <template>
+            <star index="2"/>主要荣誉有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 还 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的球队昵称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 还 ^ 称 呼 ^ </pattern>
+        <template>
+            <star index="2"/>的球队昵称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 还 ^ 叫 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的球队昵称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 还 ^ 称 呼 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的球队昵称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 队 服 ^ 样 子 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 球 衣 ^ 样 子 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 服 装 ^ 样 子 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 队 服 ^ 颜 色 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 球 衣 ^ 颜 色 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 服 装 ^ 颜 色 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 队 服 ^ 特 点 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 球 衣 ^ 特 点 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 服 装 ^ 特 点 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 队 服 ^ 不 同 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 球 衣 ^ 不 同 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 服 装 ^ 不 同 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 样 子 ^ 队 服 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 颜 色 ^ 队 服 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 样 子 ^ 球 衣 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 颜 色 ^ 球 衣 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 样 子 ^ 服 装 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 颜 色 ^ 服 装 ^ </pattern>
+        <template>
+            <star index="2"/>的球衣颜色是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 多 少 ^ 队 ^ </pattern>
+        <template>
+            <star index="2"/>的球队数量是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 几 ^ 队 ^ </pattern>
+        <template>
+            <star index="2"/>的球队数量是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 ^ 队 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的球队数量是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 ^ 队 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的球队数量是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 时 ^ 举 办 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 何 时 ^ 举 办 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 时 ^ 举 办 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 时 ^ 举 行 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 何 时 ^ 举 行 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 时 ^ 举 行 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 时 ^ 开 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 何 时 ^ 开 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 时 ^ 开 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 时 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 何 时 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 时 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 举 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 举 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 举 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 举 行 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 举 行 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 举 行 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 开 赛 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 开 赛 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 开 赛 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 比 赛 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 比 赛 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 比 赛 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 在 哪 儿 ^ 举 办 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 在 哪 ^ 举 办 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 里 ^ 举 办 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 在 哪 儿 ^ 举 行 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 在 哪 ^ 举 行 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 里 ^ 举 行 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 在 哪 儿 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 在 哪 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 里 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 在 哪 儿 ^ 举 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 在 哪 ^ 举 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 里 ^ 举 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 在 哪 儿 ^ 举 行 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 在 哪 ^ 举 行 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 里 ^ 举 行 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 在 哪 儿 ^ 比 赛 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 在 哪 ^ 比 赛 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 里 ^ 比 赛 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 地 区 ^ 举 办 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 地 区 ^ 举 办 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 地 方 ^ 举 办 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 地 方 ^ 举 办 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 国 ^ 举 办 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 国 ^ 举 办 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 地 区 ^ 举 行 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 地 区 ^ 举 行 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 地 方 ^ 举 行 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 地 方 ^ 举 行 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 国 ^ 举 行 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 国 ^ 举 行 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 地 区 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 地 区 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 地 方 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 地 方 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 国 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 国 ^ 比 赛 ^ </pattern>
+        <template>
+            <star index="2"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 地 区 ^ 举 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="5"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 地 区 ^ 举 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="5"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 地 方 ^ 举 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="5"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 地 方 ^ 举 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="5"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 国 ^ 举 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="5"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 国 ^ 举 办 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="5"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 地 区 ^ 举 行 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="5"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 地 区 ^ 举 行 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="5"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 地 方 ^ 举 行 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="5"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 地 方 ^ 举 行 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="5"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 ^ 国 ^ 举 行 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="5"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 国 ^ 举 行 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="5"/>的举办地点在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 首 届 ^ 啥 时 ^ </pattern>
+        <template>
+            <star index="2"/>的首届比赛什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 首 次 ^ 啥 时 ^ </pattern>
+        <template>
+            <star index="2"/>的首届比赛什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 第 一 次 ^ 啥 时 ^ </pattern>
+        <template>
+            <star index="2"/>的首届比赛什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 首 届 ^ 什 么 时 ^ </pattern>
+        <template>
+            <star index="2"/>的首届比赛什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 首 次 ^ 什 么 时 ^ </pattern>
+        <template>
+            <star index="2"/>的首届比赛什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 第 一 次 ^ 什 么 时 ^ </pattern>
+        <template>
+            <star index="2"/>的首届比赛什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 首 届 ^ 何 时 ^ </pattern>
+        <template>
+            <star index="2"/>的首届比赛什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 首 次 ^ 何 时 ^ </pattern>
+        <template>
+            <star index="2"/>的首届比赛什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 第 一 次 ^ 何 时 ^ </pattern>
+        <template>
+            <star index="2"/>的首届比赛什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 首 届 ^ 哪 年 ^ </pattern>
+        <template>
+            <star index="2"/>的首届比赛什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 首 次 ^ 哪 年 ^ </pattern>
+        <template>
+            <star index="2"/>的首届比赛什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 第 一 次 ^ 哪 年 ^ </pattern>
+        <template>
+            <star index="2"/>的首届比赛什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 主 办 ^ </pattern>
+        <template>
+            <star index="2"/>的主办方是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 个 ^ 主 办 ^ </pattern>
+        <template>
+            <star index="2"/>的主办方是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 组 织 ^ </pattern>
+        <template>
+            <star index="2"/>的主办方是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 个 ^ 组 织 ^ </pattern>
+        <template>
+            <star index="2"/>的主办方是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 多 少 人 ^ </pattern>
+        <template>
+            <star index="2"/>的人数是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 几 人 ^ </pattern>
+        <template>
+            <star index="2"/>的人数是多少？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 一 场 ^ 多 少 ^ </pattern>
         <template>
             <star index="2"/>的比赛时间是多少？
@@ -105,6 +1773,54 @@
         <pattern> ^ 还 ^ 称 呼 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
             <star index="4"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 用 ^ </pattern>
+        <template>
+            <star index="2"/>的作用是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 啥 用 ^ </pattern>
+        <template>
+            <star index="2"/>的作用是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 一 圈 ^ 多 少 米 ^ </pattern>
+        <template>
+            <star index="2"/>的跑道圈长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 每 圈 ^ 多 少 米 ^ </pattern>
+        <template>
+            <star index="2"/>的跑道圈长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 一 圈 ^ 几 米 ^ </pattern>
+        <template>
+            <star index="2"/>的跑道圈长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 每 圈 ^ 几 米 ^ </pattern>
+        <template>
+            <star index="2"/>的跑道圈长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 一 圈 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>的跑道圈长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 每 圈 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>的跑道圈长是多少？
         </template>
     </category>
 </aiml>

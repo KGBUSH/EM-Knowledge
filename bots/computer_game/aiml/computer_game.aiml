@@ -492,6 +492,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 几 个 人 ^ </pattern>
+        <template>
+            <star index="2"/>的玩家人数是多少？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 多 少 人 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
         <template>
             <star index="3"/>的玩家人数是多少？
@@ -499,6 +505,12 @@
     </category>
     <category>
         <pattern> ^ 几 人 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
+        <template>
+            <star index="3"/>的玩家人数是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 个 人 ^ ## * <type>entity</type><label>computer_game</label> ^ </pattern>
         <template>
             <star index="3"/>的玩家人数是多少？
         </template>
@@ -615,6 +627,30 @@
         <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 第 一 版 ^ 名 字 ^ </pattern>
         <template>
             <star index="2"/>的原版名称叫什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 多 大 ^ 空 间 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏大小是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 多 少 ^ 空 间 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏大小是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 多 大 ^ 内 存 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏大小是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>computer_game</label> ^ 多 少 ^ 内 存 ^ </pattern>
+        <template>
+            <star index="2"/>的游戏大小是多少？
         </template>
     </category>
 </aiml>

@@ -762,6 +762,78 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 得 ^ 奖 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>主要成就有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 获 ^ 奖 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>主要成就有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 得 ^ 荣 誉 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>主要成就有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 获 ^ 荣 誉 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>主要成就有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 得 ^ 成 就 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>主要成就有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 获 ^ 成 就 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>主要成就有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 得 ^ 奖 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>主要成就有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 获 ^ 奖 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>主要成就有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 得 ^ 荣 誉 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>主要成就有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 获 ^ 荣 誉 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>主要成就有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 得 ^ 成 就 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>主要成就有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 获 ^ 成 就 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>主要成就有什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 什 么 ^ 话 ^ </pattern>
         <template>
             <star index="2"/>的语言是什么？
@@ -1317,6 +1389,162 @@
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 什 么 ^ 朝 代 ^ </pattern>
         <template>
             <star index="2"/>的所处时代？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 来 自 ^ </pattern>
+        <template>
+            <star index="2"/>的身份是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 什 么 ^ 作 品 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 啥 ^ 作 品 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 部 ^ 作 品 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 个 ^ 作 品 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 什 么 ^ 漫 画 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 啥 ^ 漫 画 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 部 ^ 漫 画 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 个 ^ 漫 画 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 什 么 ^ 动 画 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 啥 ^ 动 画 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 部 ^ 动 画 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 个 ^ 动 画 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 什 么 ^ 动 漫 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 啥 ^ 动 漫 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 部 ^ 动 漫 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 个 ^ 动 漫 ^ </pattern>
+        <template>
+            <star index="2"/>的登场作品是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 喜 欢 ^ 吃 ^ </pattern>
+        <template>
+            <star index="2"/>的喜欢的食物是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 爱 ^ 吃 ^ </pattern>
+        <template>
+            <star index="2"/>的喜欢的食物是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 喜 爱 ^ 吃 ^ </pattern>
+        <template>
+            <star index="2"/>的喜欢的食物是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 不 喜 欢 ^ 吃 ^ </pattern>
+        <template>
+            <star index="2"/>的不喜欢的食物是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 讨 厌 ^ 吃 ^ </pattern>
+        <template>
+            <star index="2"/>的不喜欢的食物是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 厌 烦 ^ 吃 ^ </pattern>
+        <template>
+            <star index="2"/>的不喜欢的食物是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 啥 时 ^ 职 业 ^ </pattern>
+        <template>
+            <star index="2"/>的转入职业年份是哪年？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 何 时 ^ 职 业 ^ </pattern>
+        <template>
+            <star index="2"/>的转入职业年份是哪年？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 年 ^ 职 业 ^ </pattern>
+        <template>
+            <star index="2"/>的转入职业年份是哪年？
         </template>
     </category>
 </aiml>

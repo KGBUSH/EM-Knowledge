@@ -53,6 +53,7 @@ public class TemplateEntry {
 		TemplateProcessor [] templateArr = new TemplateProcessor [DictionaryBuilder.getDomainAllListTable().size()];
 		int i = 0;
 		for(String domainname : DictionaryBuilder.getDomainAllListTable()){
+//			System.out.println(domainname);
 			templateArr[i++] = new TemplateProcessor(domainname);
 		}
 		

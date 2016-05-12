@@ -420,7 +420,7 @@ public class KGAgent {
 //		NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "谢谢";
+		String str = "说说姚明吧";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question");

@@ -1,2 +1,374 @@
 <aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 啥 时 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 何 时 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 什 么 时 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 哪 年 ^ 创 建 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 啥 时 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 何 时 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 什 么 时 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 哪 年 ^ 创 办 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 啥 时 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 何 时 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 什 么 时 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 哪 年 ^ 成 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 啥 时 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 何 时 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 什 么 时 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 哪 年 ^ 建 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 啥 时 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 何 时 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 什 么 时 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 哪 年 ^ 设 立 ^ </pattern>
+        <template>
+            <star index="2"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 创 建 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 创 建 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 创 建 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 创 建 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 创 办 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 创 办 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 创 办 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 创 办 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 成 立 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 成 立 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 成 立 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 成 立 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 建 立 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 建 立 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 建 立 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 建 立 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 设 立 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 设 立 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 设 立 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 设 立 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的成立时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 什 么 ^ 类 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 哪 ^ 类 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 什 么 ^ 性 质 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 哪 ^ 性 质 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 类 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 性 质 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 类 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 性 质 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的公司性质是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 总 部 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的总部地点是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 总 公 司 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的总部地点是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 总 部 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的总部地点是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 总 公 司 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的总部地点是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 总 部 ^ 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的总部地点是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 总 公 司 ^ 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的总部地点是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 还 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 又 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 还 ^ 称 呼 ^ </pattern>
+        <template>
+            <star index="2"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>economy</label> ^ 又 ^ 称 呼 ^ </pattern>
+        <template>
+            <star index="2"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 还 ^ 叫 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 又 ^ 叫 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 还 ^ 称 呼 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 又 ^ 称 呼 ^ ## * <type>entity</type><label>economy</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别名是什么？
+        </template>
+    </category>
 </aiml>

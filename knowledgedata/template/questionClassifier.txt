@@ -12,9 +12,10 @@ IntroductionQuestion;^&#&是谁/是啥/指什么&[意思/含义]&[么/呢/阿/�
 IntroductionQuestion;^&#&谁&[么/呢/阿/啊/啦/哇/呀/吗]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&[有]&啥/什么&意思/含义&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&[是]&做什么的/干嘛的/怎么样&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;^&谁是/什么是&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;^&知不知道/谁是/什么是&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&认识/知道/了解/听说过/熟悉&#&吗/嘛||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&^&认识/知道/了解/听说过/熟悉&吗/嘛||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;[请]&介绍/陈述&[一下/下]&#&[吧]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;什么&叫/叫做/是&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;^&聊聊/说说&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
 ImplicationQuestion;^&多久/多长时间/几年/多少年&[了]&[么/呢/阿/啊/啦/唉/吧/哇/呀/吗/嘛/哈]||ImplicationQuestion@:computeYear

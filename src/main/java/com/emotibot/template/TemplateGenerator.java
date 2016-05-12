@@ -21,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 import com.emotibot.common.Common;
+import com.emotibot.log.LogService;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 
@@ -72,6 +73,7 @@ public class TemplateGenerator {
 
 				if (!line.contains(";")) {
 					System.err.println("wrong format 1 in Line=" + line);
+					LogService.printLog("", "TemplateGenerate", "wrong format 1 in Line=" + line);
 					continue;
 				}
 				
@@ -87,6 +89,7 @@ public class TemplateGenerator {
 				String[] lineArr = line.split(";");
 				if (lineArr.length != 2) {
 					System.err.println("wrong format 2 in Line=" + line + ", with number of ; is=" + lineArr.length);
+					LogService.printLog("", "TemplateGenerate", "wrong format 2 in Line=" + line + ", with number of ; is=" + lineArr.length);
 					continue;
 				}
 				String questionType = lineArr[0];
@@ -108,6 +111,7 @@ public class TemplateGenerator {
 					if (part.startsWith("[")) {
 						if (!part.endsWith("]")) {
 							System.err.println("wrong format [] in line=" + line);
+							LogService.printLog("", "TemplateGenerate", "wrong format [] in line=" + line);
 							continue;
 						}
 						part = part.substring(1, part.length() - 1);
@@ -117,8 +121,10 @@ public class TemplateGenerator {
 					if (part.contains("#")) {
 						// System.out.println("##### part = "+part);
 						// entity case
-						if (!part.equals("#"))
-							System.err.println("wrong format: part=" + part);
+						if (!part.equals("#")){
+							System.err.println("wrong format 001: part=" + part);
+							LogService.printLog("", "TemplateGenerate", "wrong format 001: part=" + part);							
+						}
 						list.add(domain);
 					} else if (part.contains("/")) {
 						// multiple possibility case
@@ -129,6 +135,7 @@ public class TemplateGenerator {
 					} else if (part.contains("^")) {
 						if (!part.equals("^")) {
 							System.err.println("wrong format of ^");
+							LogService.printLog("", "TemplateGenerate", "wrong format of ^");
 						}
 						list.add("^ ");
 					} else {
@@ -172,6 +179,7 @@ public class TemplateGenerator {
 	}
 
 	private void generateSingleDomainTemplate(String inputFile, String outputFile) {
+		System.out.println("generateSingleDomainTemplate: inputFile="+inputFile);
 
 		try {
 			FileWriter newFile = new FileWriter(outputFile);
@@ -203,6 +211,7 @@ public class TemplateGenerator {
 
 				if (!line.contains("#") || !line.contains(";")) {
 					System.err.println("wrong format 3 in Line=" + line);
+					LogService.printLog("", "TemplateGenerate", "wrong format 3 in Line=" + line);
 					continue;
 				}
 
@@ -210,6 +219,7 @@ public class TemplateGenerator {
 				String[] lineArr = line.split(";");
 				if (lineArr.length != 2) {
 					System.err.println("wrong format 4 in Line=" + line + ", with number of ; is=" + lineArr.length);
+					LogService.printLog("", "TemplateGenerate", "wrong format 4 in Line=" + line);
 					continue;
 				}
 				String firstLine = lineArr[0];
@@ -221,6 +231,7 @@ public class TemplateGenerator {
 				if (firstArr.length != 2) {
 					System.err.println("wrong format 5 in Line=" + line + ", with number of , is=" + firstArr.length
 							+ ", firstLine=" + firstLine);
+					LogService.printLog("", "TemplateGenerate", "wrong format 5 in Line=" + line);
 					continue;
 				}
 
@@ -246,14 +257,18 @@ public class TemplateGenerator {
 						if (part.contains("#")) {
 							// System.out.println("##### part = "+part);
 							// entity case
-							if (!part.equals("#") && !part.equals("#~"))
-								System.err.println("wrong format: part=" + part);
+							if (!part.equals("#") && !part.equals("#~")){
+								System.err.println("wrong format: part=" + part + "; inputfile="+inputFile);
+								LogService.printLog("", "TemplateGenerate"+ "; inputfile="+inputFile, "wrong format: part=" + part + "; line="+line);
+							}
 							count++;
 							entityPos = count;
 							if(!part.endsWith("~")){
 								list.add(domain + "^ ");
 							} else {
-								list.add(domain + " ");
+								// #~ imply that there is no ^ behind this
+								// case: sports,^#~^在哪儿/在哪/哪里^;#的所属地区是哪儿？
+								list.add(domain);
 							}
 						} else if (part.contains("/")) {
 							// multiple possibility case
@@ -283,7 +298,6 @@ public class TemplateGenerator {
 					// // System.out.println("##### part = "+part);
 					// // entity case
 					// if (!part.equals("#"))
-					// System.err.println("wrong format: part=" + part);
 					// count++;
 					// entityPos = count;
 					// list.add(domain + "^ ");
@@ -364,7 +378,7 @@ public class TemplateGenerator {
 	}
 
 	private void generateDomainTemplate() {
-		String listFileName = Common.UserDir + "/knowledgedata/domainList.txt";
+		String listFileName = Common.UserDir + "/knowledgedata/domain/domainList.txt";
 
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(listFileName));
@@ -396,7 +410,7 @@ public class TemplateGenerator {
 	public static void main(String[] args) {
 		TemplateGenerator tg = new TemplateGenerator();
 		tg.generateQuestionClassifierTemplate();
-//		 tg.generateDomainTemplate();
+//		tg.generateDomainTemplate();
 	}
 
 }

@@ -1,4 +1,4 @@
-TV_series
+##TV_series
 anime
 catchword
 college
@@ -13,6 +13,10 @@ medical_treatment
 movie
 novel
 sports
-sports_organization
+##sports_organization
 tourism
-varity_show
+##varity_show
+job
+music
+pet
+TV
