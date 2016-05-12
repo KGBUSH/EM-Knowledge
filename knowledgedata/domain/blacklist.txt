@@ -1,0 +1,6 @@
+tv_series
+movie
+novel
+music
+varity_show
+

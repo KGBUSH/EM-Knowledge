@@ -140,7 +140,7 @@ public class KGAgent {
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
 			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
 			String tempEntity = entitySet.get(0);
-			String tempLabel = DBProcess.getEntityLabel(tempEntity);
+			String tempLabel = DBProcess.getEntityLabel(tempEntity).toLowerCase();
 			if(tempLabel.equals("catchword")){
 				System.out.println("catchword Case, and abord， the returned anwer is " + answerBean.toString());
 				return answerBean;
