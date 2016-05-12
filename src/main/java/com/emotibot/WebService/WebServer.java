@@ -198,7 +198,7 @@ public class WebServer {
 					result_obj.put("topic", "");
 					result_obj.put("emotion", "");
 					// fix the bad case "加油", there is a encode issue here if without " "
-					result_obj.put("answer", "\""+bean.getAnswer()+"\"");
+					result_obj.put("answer", bean.getAnswer());
 					
 //					System.out.println("getAnaswer="+bean.getAnswer());
 
