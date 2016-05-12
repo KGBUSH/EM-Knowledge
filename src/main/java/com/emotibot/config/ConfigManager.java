@@ -41,6 +41,27 @@ public class ConfigManager implements ConfigInterface{
 
     }
 
+    
+    @Override
+    public String getTCPServerIp() {
+    	// TODO Auto-generated method stub
+    	if(properties!=null&&properties.containsKey(ConfigKeyName.TCP_SERVER_IP))
+    		return properties.getProperty(ConfigKeyName.TCP_SERVER_IP);
+    	return null;
+    }
+    
+    @Override
+    public int getTCPServerPort() {
+    	// TODO Auto-generated method stub
+    	try{
+    		if(properties!=null&&properties.containsKey(ConfigKeyName.TCP_SERVER_PORT))
+    			return Integer.valueOf(properties.getProperty(ConfigKeyName.TCP_SERVER_PORT));
+    	}catch(Exception e)
+    	{
+    		e.printStackTrace();
+    	}
+    	return 0;
+    }
 
 	@Override
 	public String getNeo4jServerIp() {
