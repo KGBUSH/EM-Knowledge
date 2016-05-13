@@ -7,11 +7,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
+import com.emotibot.TCP.TCPClient;
 import com.emotibot.common.Common;
 import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
 import com.emotibot.solr.SolrUtil;
 import com.emotibot.solr.Solr_Query;
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.IndexInStringComparator;
 import com.emotibot.util.StringLengthComparator;
 import com.emotibot.util.Tool;
@@ -263,6 +265,39 @@ public class EntityRecognizer {
 		// return entitySet;
 
 	}
+	
+	// get rs from multipattern matching method
+	private List<String> getMultiPatternMatching(String sentence){
+		List<String> rtList = new ArrayList<>();
+		TCPClient tcp = new TCPClient();
+		try {
+			String tcpRtn = tcp.Transmit(sentence);
+			tcpRtn = CharUtil.trimAndlower(tcpRtn);
+			String [] strArr = tcpRtn.split("&");
+			for(String s : strArr){
+				if (s.endsWith("=")){
+					s = s.substring(0, s.length()-1);
+				}
+				rtList.add(s);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.err.println("tcp is broken");
+			LogService.printLog("", "getMultipatternmatching for "+sentence, "tcp is broken");
+			
+			List<String> tmpList = new ArrayList<>();
+			for (String s : DictionaryBuilder.getEntityTable()) {
+				if (sentence.contains(s.toLowerCase())) {
+					tmpList.add(s);
+				}
+			}
+			rtList = tmpList;
+		}
+		
+		System.out.println("getMultiPatternMatching: rs="+rtList);
+		return rtList;
+	}
 
 	// return the set of entity which is contained in the input sentence
 	// TBD: improve the performance after 4/15
@@ -272,11 +307,16 @@ public class EntityRecognizer {
 		sentence = sentence.toLowerCase();
 		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthComparator());
 		List<String> entitySet = new ArrayList<>();
-		for (String s : DictionaryBuilder.getEntityTable()) {
-			if (sentence.contains(s.toLowerCase())) {
-				entityTreeSet.add(s);
-			}
+		
+		for(String s : getMultiPatternMatching(sentence)){
+			entityTreeSet.add(s);
 		}
+		
+//		for (String s : DictionaryBuilder.getEntityTable()) {
+//			if (sentence.contains(s.toLowerCase())) {
+//				entityTreeSet.add(s);
+//			}
+//		}
 
 		Map<String, String> refMap = new HashMap<>();
 		// entitySynonymTable：【甲肝，甲型病毒性肝炎】
@@ -471,6 +511,11 @@ public class EntityRecognizer {
 
 		// System.out.println("output of the sort is set="+set);
 		return set;
+	}
+	
+	public static void main(String [] args){
+		String str = "姚明和叶莉是什么关系";
+//		System.out.println(getMultiPatternMatching(str));
 	}
 
 }

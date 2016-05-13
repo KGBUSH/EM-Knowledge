@@ -16,10 +16,21 @@ import java.net.SocketAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+import com.emotibot.config.ConfigManager;
+
 //com.emotibot.TCP.TCPClient
 public class TCPClient {
 	private String ip = "";
 	private int port = 0;
+
+	// default: read config file
+	public TCPClient() {
+		ConfigManager cfg = new ConfigManager();
+		this.ip = cfg.getTCPServerIp();
+		this.port = cfg.getTCPServerPort();
+		System.out.println("ip="+ip+", port="+port);
+	}
+	
 
 	public TCPClient(String ip, int port) {
 		this.ip = ip;
@@ -46,9 +57,12 @@ public class TCPClient {
 		}
 		return result;
 	}
+	
 
 	public static void main(String args[]) throws Exception {
-		TCPClient tcp = new TCPClient("192.168.1.73", 16413);
-		tcp.Transmit("清华同方上海交大");
+		TCPClient tcp = new TCPClient();
+//		TCPClient tcp = new TCPClient("192.168.1.73", 16413);
+		
+		tcp.Transmit("姚明的老婆是谁");
 	}
 }
