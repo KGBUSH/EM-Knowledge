@@ -183,7 +183,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 
 					if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
 					{
-					if(NodeOrRelation.equals("1"))
+					/*if(NodeOrRelation.equals("1"))
 					{
 						if(name!=null&&name.trim().length()>0){
 						if(WordLabelMap.containsKey(name)){label=WordLabelMap.get(name);}
@@ -191,9 +191,13 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						if(pmWord!=null&&pmWord.trim().length()>0){
 						if(WordLabelMap.containsKey(pmWord)){label=WordLabelMap.get(pmWord);}
 						}
+					}*/
+					System.err.println("label0="+label);
+					if(label==null||label.trim().length()==0||label.contains(Other)) {
+						System.err.println("label1="+label);
+						label=this.getLabel(url, pageExtractInfo.getTags());
 					}
-					if(label==null||label.trim().length()==0||label.contains(Other)) label=this.getLabel(url, pageExtractInfo.getTags());
-					System.err.println("label="+label);
+					System.err.println("label2="+label);
 					System.err.println("LabelInfo:"+name+"###"+pmWord+"###"+label);
 					System.err.println("LabelInfoData:"+pmWord+"###"+label);
 					System.err.println("LabelInfoData:"+name+"###"+label);
@@ -250,13 +254,13 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						HashMap<String,List<String>> attr_Values = pageExtractInfo.getAttr_Values();
 						BuildCypherSQL bcy = new BuildCypherSQL();
 						
-						if(name!=null&&name.trim().length()>0){
+						/*if(name!=null&&name.trim().length()>0){
 						if(WordLabelMap.containsKey(name)){label=WordLabelMap.get(name);}
 						}
 						if(pmWord!=null&&pmWord.trim().length()>0){
 						if(WordLabelMap.containsKey(pmWord)){label=WordLabelMap.get(pmWord);}
-						}
-					   if(label==null||label.trim().length()==0||label.contains(Other)) label=this.getLabel(url, pageExtractInfo.getTags());
+						}*/
+					    if(label==null||label.trim().length()==0||label.contains(Other)) label=this.getLabel(url, pageExtractInfo.getTags());
 						System.err.println("label="+label);
 
 						if(attr_Values!=null&&attr_Values.size()>0)
@@ -270,20 +274,15 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 									String label2=Other;
                                     String urlval=pageExtractInfo.getWordLink(val).trim();
                                     String urlvalmd5=DigestUtils.md5Hex(urlval);
-                                    /*if(URLMD5LabelAllMap.containsKey(urlvalmd5))
-                                    {
-                                    	label2=URLMD5LabelAllMap.get(urlvalmd5).trim();
-                                    }*/
-            						if(val!=null&&val.trim().length()>0){
+            						/*if(val!=null&&val.trim().length()>0){
             							if(WordLabelMap.containsKey(val)){label2=WordLabelMap.get(val);}
             						}
-            						//		if(URLLabelMap.containsKey(url)) return URLLabelMap.get(url);
             						if(label2==null||label2.trim().length()==0||label2.contains(Other)){
             						if(URLLabelMap.containsKey(urlval))
                                     {
                                     	label2=URLLabelMap.get(urlval).trim();
                                     }
-            						}
+            						}*/
             						if(label2==null||label2.trim().length()==0||label2.contains(Other)){
             						if(URLMD5LabelAllMap.containsKey(urlvalmd5))
                                     {
