@@ -59,7 +59,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	public static String HTMLBODY = "html";
 	public static String WORDS="words";
 	public static String type = "";
-	public static String label = "";
 	public static String Seperator = "ACBDGFX";
 	public static String Other = "other";
 	public static String md5 = "urlkey";
@@ -99,7 +98,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 
         redis = new RedisClient(RedisIP,RedisPort);
 
-		label = context.getConfiguration().get("label");
 		fileList = new ArrayList<String>();
 		
 		fileList.add("/domain/TV_series.txt");
@@ -142,6 +140,8 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 			String url = "";
 			String html = "";
 			String pmWord="";
+			String label = "";
+
 			KeyValue[] kv = value.raw();
 			for (int i = 0; i < kv.length; i++) {
 				System.err.println("kv[i].getQualifier()=" + Bytes.toString(kv[i].getQualifier()));
