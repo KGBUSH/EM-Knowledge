@@ -277,11 +277,23 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
             						if(val!=null&&val.trim().length()>0){
             							if(WordLabelMap.containsKey(val)){label2=WordLabelMap.get(val);}
             						}
+            						//		if(URLLabelMap.containsKey(url)) return URLLabelMap.get(url);
+            						if(label2==null||label2.trim().length()==0||label2.contains(Other)){
+            						if(URLLabelMap.containsKey(urlval))
+                                    {
+                                    	label2=URLLabelMap.get(urlval).trim();
+                                    }
+            						}
+            						if(label2==null||label2.trim().length()==0||label2.contains(Other)){
             						if(URLMD5LabelAllMap.containsKey(urlvalmd5))
                                     {
                                     	label2=URLMD5LabelAllMap.get(urlvalmd5).trim();
                                     }
-            						   //if(label2==null||label2.trim().length()==0||label2.contains(Other)) label2=this.getLabel(url, pageExtractInfo.getTags());
+            						}
+            						if(label2==null||label2.trim().length()==0||label2.contains(Other))
+            						{
+            							label2=Other;
+            						}
 
                                     System.err.println("urlval="+urlval+"urlvalmd5="+urlvalmd5+"label2="+label2);
                                     System.err.println("URLLabelMapSize="+URLLabelMap.size()+"  URLMD5LabelAllMapSize="+URLMD5LabelAllMap.size());
@@ -304,7 +316,10 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
                                     	query2=bcy.InsertRelation(aa, bb, attr, null);	
     					                System.err.println(NodeOrRelation+" queryMap2=" + query2);
                                     }
-									//if (query !=null && query.trim().length()>0) context.write(outputKey, new Text(query));
+									if (query !=null && query.trim().length()>0){
+										outputValue.set(Bytes.toBytes(query));
+										context.write(outputKey, outputValue);
+									}
 									if (query2 !=null && query2.trim().length()>0){
 										outputValue.set(Bytes.toBytes(query2));
 										context.write(outputKey, outputValue);

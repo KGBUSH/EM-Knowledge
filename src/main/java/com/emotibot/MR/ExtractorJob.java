@@ -62,8 +62,8 @@ public class ExtractorJob {
          // conf.set(TableInputFormat.INPUT_TABLE, inputTableName);
           conf.set("destTable", destTableName);
           conf.set("type", type);
-          conf.set("label", Common.PERSONLABEL);
-        ConfigManager cfg = new ConfigManager();
+          conf.set("label", "");
+          ConfigManager cfg = new ConfigManager();
 
         if(type.contains("Neo4j"))
         {
