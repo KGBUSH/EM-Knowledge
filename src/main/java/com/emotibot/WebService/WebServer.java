@@ -51,8 +51,15 @@ public class WebServer {
 		DictionaryBuilder.DictionaryBuilderInit();
 
 		int port = 9000;
+		if(args.length>1)
+		{
+			System.out.println("Port args="+args[0].trim());
+			port=Integer.valueOf(args[0].trim());
+		}
+		else{
 		ConfigManager cf = new ConfigManager();
 		port = cf.getWebServerPort();
+		}
 		Server server = new Server(port);
 
 		// The ServletHandler is a dead simple way to create a context handler
