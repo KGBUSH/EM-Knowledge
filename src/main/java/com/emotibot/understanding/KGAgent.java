@@ -44,6 +44,7 @@ public class KGAgent {
 
 		// add for debug by PM
 		if (questionType != null && questionType.equals("debug")) {
+			System.out.println("DEBUG is TRUE");
 			debugFlag = true;
 		} else {
 			debugFlag = false;
@@ -79,8 +80,10 @@ public class KGAgent {
 
 		if (userSentence.endsWith("?") || userSentence.endsWith("？")) {
 			isQuestion = true;
+			nerBean.setQuestion(true);
 		} else if (questionScore >= 0.3) {
 			isQuestion = true;
+			nerBean.setQuestion(true);
 		}
 		userSentence = NLPUtil.removePunctuateMark(userSentence);
 		nerBean.setSentence(userSentence);
@@ -111,21 +114,25 @@ public class KGAgent {
 		entitySet = nerBean.getEntitySet();
 		userSentence = nerBean.getSentence();
 		System.out.println("TIME 4 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
-
 		System.out.println("KGAgent: bean=" + nerBean.toString());
-//		System.out.println("Constructor: userSentence=" + userSentence);
-//		System.out.println("Constructor: isQuestion=" + isQuestion);
-//		System.out.println("Constructor: segPos=" + segPos);
-//		System.out.println("Constructor: segWordWithoutStopWord=" + segWordWithoutStopWord);
-//		System.out.println("Constructor: entitySet=" + entitySet);
-
 	}
 	
-
+	public AnswerBean getAnswer() {
+		
+		AnswerBean answerBean = new AnswerBean();
+		IntentionClassifier intention = new IntentionClassifier(nerBean);
+		answerBean = intention.intentionProcess();
+		if(!answerBean.isValid()){
+			answerBean = answerProcess();
+		}
+		
+		return answerBean;
+	}
+	
 	// The entrance to understand the user query and get answer from Neo4j
 	// input: the question sentence from users,"姚明身高是多少"
 	// output: the answer without answer rewriting, “226cm”
-	public AnswerBean getAnswer() {
+	private AnswerBean answerProcess() {
 
 		String sentence = nerBean.getSentence();
 		AnswerBean answerBean = new AnswerBean();
@@ -137,49 +144,52 @@ public class KGAgent {
 		AnswerRewrite answerRewite = new AnswerRewrite();
 
 		System.out.println("##### entitySet="+entitySet);
-		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
-			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
-			String tempEntity = entitySet.get(0);
-			String tempLabel = DBProcess.getEntityLabel(tempEntity).toLowerCase();
-			if(tempLabel.equals("catchword")){
-				System.out.println("catchword Case, and abord， the returned anwer is " + answerBean.toString());
-				return answerBean;
-			}
-			
-			if(NLPUtil.isInRemoveableAllDict(tempEntity) && NLPUtil.isInDomainBalckListDict(tempLabel)){
-				System.out.println("high frequent word in the blacklist domain case, and abord， the returned anwer is " + answerBean.toString());
-				return answerBean;
-			}
-			
-			String tempStrIntroduce = DBProcess.getPropertyValue(entitySet.get(0), Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
-			if (tempStrIntroduce.contains("。"))
-				tempStrIntroduce = tempStrIntroduce.substring(0, tempStrIntroduce.indexOf("。"));
-			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(tempStrIntroduce));
-			answerBean.setScore(100);
-			System.out.println("PM.getAnswer 0.1: the returned anwer is " + answerBean.toString());
-			return answerBean.returnAnswer(answerBean);
-		}
+//		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
+//			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
+//			String tempEntity = entitySet.get(0);
+//			String tempLabel = DBProcess.getEntityLabel(tempEntity).toLowerCase();
+//			if(tempLabel.equals("catchword")){
+//				System.out.println("catchword Case, and abord， the returned anwer is " + answerBean.toString());
+//				return answerBean;
+//			}
+//			
+//			if(NLPUtil.isInRemoveableAllDict(tempEntity) && NLPUtil.isInDomainBalckListDict(tempLabel)){
+//				System.out.println("high frequent word in the blacklist domain case, and abord， the returned anwer is " + answerBean.toString());
+//				return answerBean;
+//			}
+//			
+//			String tempStrIntroduce = DBProcess.getPropertyValue(entitySet.get(0), Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
+//			if (tempStrIntroduce.contains("。"))
+//				tempStrIntroduce = tempStrIntroduce.substring(0, tempStrIntroduce.indexOf("。"));
+//			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(tempStrIntroduce));
+//			answerBean.setScore(100);
+//			System.out.println("PM.getAnswer 0.1: the returned anwer is " + answerBean.toString());
+//			return answerBean.returnAnswer(answerBean);
+//		}
 
 		if (isQuestion == false) {
 			Debug.printDebug(uniqueID, 4, "knowledge", "the input sentence is not a question");
 			return answerBean.returnAnswer(answerBean);
 		}
 
+//		System.out.println(x);
 		if (Common.KG_DebugStatus || debugFlag) {
 			String tempLabel = "";
 			if (!entitySet.isEmpty()) {
 				tempLabel = DBProcess.getEntityLabel(entitySet.get(0));
 			}
-			String debugInfo = "userSentence=" + userSentence + "; entitySet=" + entitySet + "; label=" + tempLabel;
+			String debugInfo = "DEBUG: userSentence=" + userSentence + "; entitySet=" + entitySet + "; label=" + tempLabel;
+			System.out.println(debugInfo);
+			
 			Debug.printDebug("123456", 1, "KG", debugInfo);
 			answerBean.setComments(debugInfo);
 		}
 
 		// 1. get the entity and Revise by template
-		if (entitySet.size() > 2) {
-			// check for 4/15 temporarily, may extent later
-			System.err.println("NOTES: PM.getAnswer: there are more than two entities");
-		}
+//		if (entitySet.size() > 2) {
+//			// check for 4/15 temporarily, may extent later
+//			System.err.println("NOTES: PM.getAnswer: there are more than two entities");
+//		}
 
 		// TBD: if the sentence does not contain the entity, go through the
 		// process of matching value of properties
@@ -193,6 +203,7 @@ public class KGAgent {
 		String entity = "";
 		// for single entity case
 		// if (entitySet.size() == 1) {
+		System.out.println("TEMP 1 answerBean="+answerBean.toString());
 		if (entitySet.size() == 1) {
 			entity = entitySet.get(0);
 			System.out.println("TIME 5 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
@@ -205,6 +216,7 @@ public class KGAgent {
 
 			for (String iLabel : listLabel) {
 				String tempSentence = TemplateEntry.templateProcess(iLabel, entity, sentence, uniqueID);
+				AnswerBean tempBean = new AnswerBean();
 
 				// print debug log
 				String debugInfo = "template process: ilabel:" + iLabel + " from:" + oldSentence + " to:"
@@ -212,7 +224,7 @@ public class KGAgent {
 				System.out.println(debugInfo);
 				if (Common.KG_DebugStatus || debugFlag) {
 					Debug.printDebug("123456", 1, "KG", debugInfo);
-					answerBean.setComments(debugInfo);
+					tempBean.setComments(debugInfo);
 				} else {
 					Debug.printDebug(uniqueID, 3, "KG", debugInfo);
 				}
@@ -220,7 +232,6 @@ public class KGAgent {
 				if (Tool.isStrEmptyOrNull(tempSentence)) {
 					continue;
 				}
-				AnswerBean tempBean = new AnswerBean();
 				PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
 				tempBean = propertyRecognizer.ReasoningProcess(tempSentence, iLabel, entity, tempBean);
 				System.out.println("\t ReasoningProcess answerBean = " + tempBean);
@@ -237,6 +248,8 @@ public class KGAgent {
 				if (tempBean.isValid()) {
 					singleEntityAnswerBeanList.add(tempBean);
 				}
+				
+				System.out.println("TEMP answerBean="+tempBean);
 			}
 
 			if (!singleEntityAnswerBeanList.isEmpty()) {
@@ -405,7 +418,7 @@ public class KGAgent {
 			localAnswer += strIntroduce;
 			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(localAnswer));
 			answerBean.setScore(
-					QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(userSentence), QuestionClassifier.introductionQuestionType, entity)
+					QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(userSentence), QuestionClassifier.introductionRequestType, entity)
 							? 100 : 0);
 			if (isQuestion == false) {
 				answerBean.setScore(0);
@@ -420,10 +433,11 @@ public class KGAgent {
 //		NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "说说姚明吧";
+		String str = "甲肝?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
-		bean.setQuestionType("question");
+//		bean.setQuestionType("question");
+		bean.setQuestionType("debug");
 		bean.setScore("50");
 //		PatternMatchingProcess mp = new PatternMatchingProcess(bean);
 //		AnswerBean bean1 = mp.getAnswer();

@@ -17,6 +17,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 import com.emotibot.config.ConfigManager;
+import com.emotibot.util.Tool;
 
 //com.emotibot.TCP.TCPClient
 public class TCPClient {
@@ -55,6 +56,10 @@ public class TCPClient {
 		{
 		  e.printStackTrace();
 		}
+		if (Tool.isStrEmptyOrNull(result)){
+			result = "";
+		}
+			
 		return result;
 	}
 	
@@ -63,6 +68,6 @@ public class TCPClient {
 		TCPClient tcp = new TCPClient();
 //		TCPClient tcp = new TCPClient("192.168.1.73", 16413);
 		
-		tcp.Transmit("姚明的老婆是谁");
+		tcp.Transmit("甲肝");
 	}
 }

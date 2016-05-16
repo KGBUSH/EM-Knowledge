@@ -47,6 +47,7 @@ public class AnswerBean {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(property).append("(").append(originalWord).append(") : [").append(score).append("] ")
 				.append(answer).append("; ");
+//		buffer.append(" | comment:").append(comments);
 		return buffer.toString();
 	}
 

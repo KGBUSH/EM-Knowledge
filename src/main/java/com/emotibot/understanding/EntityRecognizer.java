@@ -51,6 +51,7 @@ public class EntityRecognizer {
 		List<String> simpleMatchEntity = getEntitySimpleMatch(sentence);
 		List<String> nlpEntity = getEntityByNLP(nerBean.getSegPos());
 		System.out.println("\t simpleMatchingEntity=" + simpleMatchEntity + "\n\t nlpEntity=" + nlpEntity);
+		System.out.println("res = "+CommonUtil.isTwoListsEqual(simpleMatchEntity, nlpEntity));
 
 		if (CommonUtil.isTwoListsEqual(simpleMatchEntity, nlpEntity)) {
 			List<String> solrEntity = getEntityBySolr(sentence, nlpEntity, nerBean.getSegWordWithoutStopWord());
@@ -273,6 +274,10 @@ public class EntityRecognizer {
 		try {
 			String tcpRtn = tcp.Transmit(sentence);
 			tcpRtn = CharUtil.trimAndlower(tcpRtn);
+			if(Tool.isStrEmptyOrNull(tcpRtn)){
+				return rtList;
+			}
+			
 			String [] strArr = tcpRtn.split("&");
 			for(String s : strArr){
 				if (s.endsWith("=")){
@@ -309,6 +314,10 @@ public class EntityRecognizer {
 		List<String> entitySet = new ArrayList<>();
 		
 		for(String s : getMultiPatternMatching(sentence)){
+			// case: 反恐精英在哪儿玩儿 return an empty str
+			if(Tool.isStrEmptyOrNull(CharUtil.trim(s)))
+				continue;
+			System.out.println("multi-pattern: " + s);
 			entityTreeSet.add(s);
 		}
 		

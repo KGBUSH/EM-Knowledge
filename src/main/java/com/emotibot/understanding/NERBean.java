@@ -6,12 +6,13 @@ import com.hankcs.hanlp.seg.common.Term;
 
 public class NERBean {
 
-	private String oldSentence;
+	private String oldSentence;	// original sentence
 	private String sentence;
 	private List<Term> segPos;
 	private List<String> segWordWithoutStopWord;
 	private List<String> entitySet;
 	private String uniqueID = "";
+	private boolean isQuestion = false;
 
 	public String toString() {
 		return "NERBean:\n" + "uniqueID=" + uniqueID + ";\n userSentence=" + sentence + ";\n entitySet=" + entitySet
@@ -64,6 +65,14 @@ public class NERBean {
 
 	public void setOldSentence(String oldSentence) {
 		this.oldSentence = oldSentence;
+	}
+
+	public boolean isQuestion() {
+		return isQuestion;
+	}
+
+	public void setQuestion(boolean isQuestion) {
+		this.isQuestion = isQuestion;
 	}
 
 }

@@ -198,16 +198,17 @@ public class GenerateAuxFiles {
 		List<String> entitySet = new ArrayList<>();
 		try {
 
-			BufferedReader in = new BufferedReader(new FileReader(Common.UserDir + "/resources/liutao/word"));
+			BufferedReader in = new BufferedReader(new FileReader(Common.UserDir + "/resources/TongyiciLast.txt"));
 			String line = "";
 
 			// String outFileName = Common.UserDir +
 			// "/knowledgedata/entitySynonym.txt";
-			String outFileName = Common.UserDir + "/resources/liutao/entitySynonym.txt";
+			String outFileName = Common.UserDir + "/resources/entitySynonym.txt";
 			BufferedWriter out = new BufferedWriter(new FileWriter(outFileName));
 			BufferedWriter exceptionLog = new BufferedWriter(new FileWriter(Common.UserDir + "/log/exception.txt"));
 			
 			int count = 1;
+			Set<String> tmpEntitySet = new HashSet<>();
 
 			while ((line = in.readLine()) != null) {
 				line = line.replace(" ", " ");
@@ -252,6 +253,8 @@ public class GenerateAuxFiles {
 					}
 				}
 
+				tmpEntitySet.add(DBEntity);
+				
 				out.write(DBEntity + "##");
 				for (String s : synonymnEntitySet) {
 					if(!DBEntity.equals(s)){
@@ -264,19 +267,21 @@ public class GenerateAuxFiles {
 			in.close();
 			out.close();
 			exceptionLog.close();
+			System.out.println("size of entity = "+tmpEntitySet.size());
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
 
 	}
 
 	public static void main(String[] args) {
-		 getEntityInfoInList();
+//		 getEntityInfoInList();
 		 
+		generateSynonymnEntityFile();
 		
 		System.exit(0);
-//		generateSynonymnEntityFile();
 		// hotFixEntityLabel();
 	}
 

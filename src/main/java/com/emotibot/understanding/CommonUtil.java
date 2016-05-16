@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.emotibot.common.Common;
+import com.emotibot.util.Tool;
 
 public class CommonUtil {
 
@@ -23,17 +24,6 @@ public class CommonUtil {
 		return rsSet;
 	}
 
-	// to test if two list are equal
-	protected static boolean isTwoListsEqual(List<String> lhs, List<String> rhs) {
-		if (lhs.size() != rhs.size()) {
-			return false;
-		}
-		for (String s : lhs) {
-			if (!rhs.contains(s))
-				return false;
-		}
-		return true;
-	}
 
 	// to test if two list are equal
 	protected static List<String> mergeTwoLists(List<String> lhs, List<String> rhs) {
@@ -72,6 +62,35 @@ public class CommonUtil {
 		}
 	
 		return rs;
+	}
+	
+
+	// to test if two list are equal
+	protected static boolean isTwoListsEqual(List<String> lhs, List<String> rhs) {
+		System.out.println("llhs="+lhs+", rhs="+rhs);
+		System.out.println("ls="+lhs.size()+", rhs="+rhs.size());
+		if (lhs == null && rhs == null){
+			return true;
+		}
+		
+		if(lhs.isEmpty() && rhs.isEmpty()){
+			return true;
+		}
+
+		if (lhs.size() != rhs.size()) {
+			return false;
+		}
+		for (String s : lhs) {
+			if (!rhs.contains(s))
+				return false;
+		}
+		return true;
+	}
+	
+	public static void main(String [] args){
+		List<String> lhs = new ArrayList<>();
+		List<String> rhs = new ArrayList<>();
+		System.out.println("rs = "+isTwoListsEqual(lhs, rhs));
 	}
 
 }

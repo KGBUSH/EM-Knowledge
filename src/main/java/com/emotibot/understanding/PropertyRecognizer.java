@@ -59,7 +59,8 @@ public class PropertyRecognizer {
 		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(candidateSetbyStopWord, propMap);
 
 		// add for introduction questions
-		if (listPMBean.isEmpty() && QuestionClassifier.isKindofQuestion(nerBean.getSentence(), QuestionClassifier.introductionQuestionType, "")) {
+		if (listPMBean.isEmpty() && QuestionClassifier.isKindofQuestion(nerBean.getSentence(),
+				QuestionClassifier.introductionQuestionType, "")) {
 			System.out.println("\t EndOfRP introudction case @@ return case 0.0, answer=" + answerBean);
 			// does not match property, score decreases
 			answerBean.setScore(answerBean.getScore() / 2);
@@ -230,7 +231,6 @@ public class PropertyRecognizer {
 		System.out.println("PM.getSingleEntityNormalQ return bean is " + rsBean.toString());
 		return rsBean;
 	}
-	
 
 	// generate all the possibility candidates according to synonyms
 	// input: 这个标志多少
@@ -286,7 +286,6 @@ public class PropertyRecognizer {
 		// System.out.println("output of replaceSynonym: " + rsSet.toString());
 		return rsSet;
 	}
-	
 
 	// return the property with the highest score; return null if the threshold
 	// is hold the version without segPos
@@ -330,7 +329,6 @@ public class PropertyRecognizer {
 		System.out.println("in recognizingProp---finalScore is " + finalScore + ". rs is " + beanPM.toString());
 		return beanPM;
 	}
-	
 
 	// test the similarity between target (strProperty) and ref (candidate)
 	private boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
@@ -419,7 +417,6 @@ public class PropertyRecognizer {
 
 		return isPass;
 	}
-	
 
 	// get the candidiates by spliting the sentence accroding to the entity
 	// input: [你知道，的老婆的身高吗]（“你知道姚明的老婆的身高吗？”）
@@ -428,7 +425,7 @@ public class PropertyRecognizer {
 	protected List<String> getCandidateSetbyStopWord(List<String> strSet) {
 		List<String> rsList = new ArrayList<>();
 		if (strSet == null) {
-			System.err.println("PMP.getCandidateSet: input is empty");
+			System.err.println("PMP.getCandidateSetbyStopWord: input is empty");
 			Debug.printDebug(nerBean.getUniqueID(), 2, "knowledge", "PMP.getCandidateSetbyStopWord: input is empty");
 		}
 
@@ -472,7 +469,6 @@ public class PropertyRecognizer {
 		System.out.println("\t getCandidateSetbyEntityandStopWord is " + rsList.toString());
 		return rsList;
 	}
-	
 
 	// get the candidiates by spliting the sentence accroding to the entity and
 	// return the words after removing stop word
@@ -502,6 +498,7 @@ public class PropertyRecognizer {
 	}
 
 	protected boolean hasPropertyInSentence(String sentence, String label, String entity) {
+		System.out.println("hasPropertyInSentence: sentence="+sentence+", label="+label+", entity="+entity);
 		List<String> candidateSet = getCandidateSet(sentence, entity);
 		List<String> candidateSetbyStopWord = getCandidateSetbyStopWord(candidateSet);
 		Map<String, String> propMap = getPropertyNameSet(label, entity);
@@ -511,7 +508,7 @@ public class PropertyRecognizer {
 		else
 			return true;
 	}
-	
+
 	// get the candidiates by spliting the sentence accroding to the entity
 	// input: “你知道姚明的身高吗？”
 	// output: [“你知道”，“的身高吗”]
@@ -519,7 +516,7 @@ public class PropertyRecognizer {
 	protected List<String> getCandidateSet(String str, String ent) {
 		List<String> listPart = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(str) || Tool.isStrEmptyOrNull(ent)) {
-			System.err.println("PMP.getCandidateSet: input is empty");
+			System.err.println("PMP.getCandidateSet: input is empty: str = " + str + ", ent = " + ent);
 		}
 
 		while (str.lastIndexOf(ent) != -1) {
@@ -539,7 +536,6 @@ public class PropertyRecognizer {
 		System.out.println("\t getCandidateSet=" + listPart);
 		return listPart;
 	}
-
 
 	// get the relationship set in DB with synonym process
 	// return Map<synRelation, relationship>
@@ -563,7 +559,6 @@ public class PropertyRecognizer {
 		System.out.println("all the relationhip of " + ent + "is: " + rsMap);
 		return rsMap;
 	}
-	
 
 	// get the property set in DB with synonym process
 	// return Map<synProp, prop>
@@ -589,5 +584,5 @@ public class PropertyRecognizer {
 		// System.out.println("all the prop is: " + rsMap);
 		return rsMap;
 	}
-	
+
 }
