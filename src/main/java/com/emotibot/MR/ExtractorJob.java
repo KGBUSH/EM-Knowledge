@@ -64,8 +64,6 @@ public class ExtractorJob {
           conf.set("type", type);
           conf.set("label", Common.PERSONLABEL);
         ConfigManager cfg = new ConfigManager();
- 	    RedisClient redis = new RedisClient(cfg.getRedisIP(),cfg.getRedisPort());
-	    redis.Clear();
 
         if(type.contains("Neo4j"))
         {
