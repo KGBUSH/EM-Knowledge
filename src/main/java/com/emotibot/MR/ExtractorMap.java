@@ -249,7 +249,14 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					{
 						HashMap<String,List<String>> attr_Values = pageExtractInfo.getAttr_Values();
 						BuildCypherSQL bcy = new BuildCypherSQL();
-	                    label=this.getLabel(url, pageExtractInfo.getTags());
+						
+						if(name!=null&&name.trim().length()>0){
+						if(WordLabelMap.containsKey(name)){label=WordLabelMap.get(name);}
+						}
+						if(pmWord!=null&&pmWord.trim().length()>0){
+						if(WordLabelMap.containsKey(pmWord)){label=WordLabelMap.get(pmWord);}
+						}
+					   if(label==null||label.trim().length()==0||label.contains(Other)) label=this.getLabel(url, pageExtractInfo.getTags());
 						System.err.println("label="+label);
 
 						if(attr_Values!=null&&attr_Values.size()>0)
@@ -263,10 +270,19 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 									String label2=Other;
                                     String urlval=pageExtractInfo.getWordLink(val).trim();
                                     String urlvalmd5=DigestUtils.md5Hex(urlval);
-                                    if(URLMD5LabelAllMap.containsKey(urlvalmd5))
+                                    /*if(URLMD5LabelAllMap.containsKey(urlvalmd5))
+                                    {
+                                    	label2=URLMD5LabelAllMap.get(urlvalmd5).trim();
+                                    }*/
+            						if(val!=null&&val.trim().length()>0){
+            							if(WordLabelMap.containsKey(val)){label2=WordLabelMap.get(val);}
+            						}
+            						if(URLMD5LabelAllMap.containsKey(urlvalmd5))
                                     {
                                     	label2=URLMD5LabelAllMap.get(urlvalmd5).trim();
                                     }
+            						   //if(label2==null||label2.trim().length()==0||label2.contains(Other)) label2=this.getLabel(url, pageExtractInfo.getTags());
+
                                     System.err.println("urlval="+urlval+"urlvalmd5="+urlvalmd5+"label2="+label2);
                                     System.err.println("URLLabelMapSize="+URLLabelMap.size()+"  URLMD5LabelAllMapSize="+URLMD5LabelAllMap.size());
                             		//URLLabelMap=getWordLabel("/domain/URLLabelMap.txt");
