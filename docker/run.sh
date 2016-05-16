@@ -1,6 +1,6 @@
 #!/bin/bash
 REPO=docker-reg.emotibot.com.cn:55688
-CONTAINER=emotibotweb
+CONTAINER=knowlegegraph
 TAG=latest
 DOCKER_IMAGE=$REPO/$CONTAINER:$TAG
 
