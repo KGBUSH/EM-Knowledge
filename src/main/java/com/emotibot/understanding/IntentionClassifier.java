@@ -6,6 +6,7 @@ import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.common.Common;
+import com.emotibot.template.TemplateEntry;
 import com.emotibot.util.Tool;
 
 public class IntentionClassifier {
@@ -62,7 +63,9 @@ public class IntentionClassifier {
 		// move the process of introduction question to intention process
 		if (entitySet.size() == 1) {
 			String tempEntity = entitySet.get(0);
-			boolean isIntro = QuestionClassifier.isIntroductionRequest(NLPUtil.removePunctuateMark(sentence),
+			String iLabel = DBProcess.getEntityLabel(tempEntity);
+			String tempSentence = TemplateEntry.templateProcess(iLabel, tempEntity, sentence, uniqueID);
+			boolean isIntro = QuestionClassifier.isIntroductionRequest(NLPUtil.removePunctuateMark(tempSentence),
 					isQuestion, tempEntity);
 			if(isIntro){
 				String strIntroduce = DBProcess.getPropertyValue(tempEntity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);

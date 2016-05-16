@@ -52,7 +52,7 @@ public class DebugTest {
 		String debugLevel = "debugAll"; //bad_case, debugAll, debug
 		String date = "0516";
 		String reader = Common.UserDir + "/debug/cases/"+debugLevel+".txt";
-		String writer = Common.UserDir + "/debug/"+date+"/"+debugLevel+"_cases-"+date+"-0415-01.txt";
+		String writer = Common.UserDir + "/debug/"+date+"/"+debugLevel+"_cases-"+date+"-0415-02.txt";
 //		NLPProcess nlpProcess = new NLPProcess();
 //		NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();

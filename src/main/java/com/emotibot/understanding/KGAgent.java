@@ -418,7 +418,7 @@ public class KGAgent {
 			localAnswer += strIntroduce;
 			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(localAnswer));
 			answerBean.setScore(
-					QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(userSentence), QuestionClassifier.introductionRequestType, entity)
+					QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(userSentence), "Introduction", entity)
 							? 100 : 0);
 			if (isQuestion == false) {
 				answerBean.setScore(0);
@@ -433,7 +433,7 @@ public class KGAgent {
 //		NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "甲肝?";
+		String str = "布雷克·格里芬是做什么的?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 //		bean.setQuestionType("question");
