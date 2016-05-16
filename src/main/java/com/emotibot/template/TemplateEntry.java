@@ -17,7 +17,7 @@ import com.emotibot.understanding.DBProcess;
 import com.emotibot.util.Tool;
 
 public class TemplateEntry {
-	static TemplateProcessor sentenceTemplate = new TemplateProcessor("Knowledge");
+//	static TemplateProcessor sentenceTemplate = new TemplateProcessor("Knowledge");
 	static TemplateProcessor questionClassifier = new TemplateProcessor("QuestionClassifier");
 	// static TemplateProcessor = new TemplateProcessor("QuestionClassifier");
 

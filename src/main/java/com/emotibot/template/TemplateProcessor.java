@@ -104,10 +104,6 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 		
 //		sen = "北京的行政代码是不是110000";
 		
-		TemplateProcessor temp = new TemplateProcessor("Knowledge");
-		temp.process(sen);
-
-		
 		System.exit(0);
 		String str = sen;
 		TemplateProcessor introTemplate = new TemplateProcessor("QuestionClassifier");
