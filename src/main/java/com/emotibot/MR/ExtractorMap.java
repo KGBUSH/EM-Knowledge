@@ -66,7 +66,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 
 	public static Map<String, String> URLLabelMap = null;
 	public static Map<String, String> URLMD5LabelAllMap = null;
-
+	public static Map<String, String> WordLabelMap =null;
 	public static List<String> fileList = null;
     public static String NodeOrRelation="";
     
@@ -121,7 +121,10 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		fileList.add("/domain/medical_treatment.txt");
 		fileList.add("/domain/job.txt");
 	    fileList.add("/domain/music.txt");
-
+	    WordLabelMap = new HashMap<>();
+	    for (String f : fileList) {
+	      getFileLine(f);
+	    }
 	    URLLabelMap = new HashMap<String,String>();
 	    URLMD5LabelAllMap=new HashMap<String,String>();
         System.err.println("URLLabelMapSizeBB="+URLLabelMap.size()+"  URLMD5LabelAllMapSizeBB="+URLMD5LabelAllMap.size());
@@ -180,7 +183,16 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 
 					if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
 					{
-                    label=this.getLabel(url, pageExtractInfo.getTags());
+					if(NodeOrRelation.equals("1"))
+					{
+						if(name!=null&&name.trim().length()>0){
+						if(WordLabelMap.containsKey(name)){label=WordLabelMap.get(name);}
+						}
+						if(pmWord!=null&&pmWord.trim().length()>0){
+						if(WordLabelMap.containsKey(pmWord)){label=WordLabelMap.get(pmWord);}
+						}
+					}
+					if(label==null||label.trim().length()==0||label.contains(Other)) label=this.getLabel(url, pageExtractInfo.getTags());
 					System.err.println("label="+label);
 					System.err.println("LabelInfo:"+name+"###"+pmWord+"###"+label);
 					System.err.println("LabelInfoData:"+pmWord+"###"+label);
@@ -455,7 +467,33 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		   }
 		   return redis.existKey(name);
 	   }
+	   public void getFileLine(String fileName) {
+		    try {
+		      if (fileName == null || fileName.trim().length() == 0) {
+		        System.err.println("fileName==null||fileName.trim().length()==0");
+		        System.exit(0);
+		      }
+		      Configuration conf = new Configuration();
+		      FileSystem hdfs = FileSystem.get(conf);
+		      Path inPath = new Path(fileName);
+		      FSDataInputStream dis = hdfs.open(inPath);
+		      LineReader in = new LineReader(dis, conf);
+		      Text line = new Text();
+		      String lineStr = "";
+		      String label = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.lastIndexOf("."));
+		      while (in.readLine(line) > 0) {
+		        // result.add(line.toString());
+		        lineStr = line.toString().trim();
+		        System.err.println(lineStr + "MMMM" + label);
+		        WordLabelMap.put(lineStr, label);
+		      }
+		      dis.close();
+		      in.close();
+		    } catch (Exception e) {
+		      e.printStackTrace();
+		    }
 
+		  }
 	   public static void main(String[] args)
 	   {
 		   //String tags
