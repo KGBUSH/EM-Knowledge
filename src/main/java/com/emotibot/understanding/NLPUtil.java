@@ -184,6 +184,15 @@ public class NLPUtil {
 		}
 	}
 	
+	// if str in remove All dictionary or not
+	public static boolean isInHighFrequentDict(String str) {
+		if (!str.isEmpty() && DictionaryBuilder.getHighFeqWordTable().contains(str)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	// if str in domain balcklist or not
 	public static boolean isInDomainBalckListDict(String str) {
 		if (!str.isEmpty() && DictionaryBuilder.getDomainBalckListTable().contains(str)) {

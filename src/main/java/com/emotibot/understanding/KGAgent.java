@@ -219,14 +219,12 @@ public class KGAgent {
 				AnswerBean tempBean = new AnswerBean();
 
 				// print debug log
-				String debugInfo = "template process: ilabel:" + iLabel + " from:" + oldSentence + " to:"
-						+ tempSentence;
-				System.out.println(debugInfo);
 				if (Common.KG_DebugStatus || debugFlag) {
+					String debugInfo = answerBean.getComments()+"\n template process: ilabel:" + iLabel + " from:" + oldSentence + " to:"
+							+ tempSentence;
+					System.out.println(debugInfo);
 					Debug.printDebug("123456", 1, "KG", debugInfo);
 					tempBean.setComments(debugInfo);
-				} else {
-					Debug.printDebug(uniqueID, 3, "KG", debugInfo);
 				}
 
 				if (Tool.isStrEmptyOrNull(tempSentence)) {
@@ -433,7 +431,7 @@ public class KGAgent {
 //		NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "布雷克·格里芬是做什么的?";
+		String str = "一吻定情是哪个国家的？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 //		bean.setQuestionType("question");
@@ -447,6 +445,7 @@ public class KGAgent {
 		
 //		System.out.println("PM Method: "+ bean1);
 		System.out.println("KG Method: "+ bean2);
+		System.out.println("debug comments=" + bean2.getComments());
 
 	}
 
