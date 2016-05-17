@@ -38,13 +38,14 @@ public class IntentionClassifier {
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
 			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
 			String tempEntity = entitySet.get(0);
+			
 			String tempLabel = DBProcess.getEntityLabel(tempEntity).toLowerCase();
 			if (tempLabel.equals("catchword")) {
 				System.out.println("catchword Case, and abord， the returned anwer is " + answerBean.toString());
 				return answerBean;
 			}
 
-			if (NLPUtil.isInRemoveableAllDict(tempEntity) && NLPUtil.isInDomainBalckListDict(tempLabel)) {
+			if (NLPUtil.isInHighFrequentDict(tempEntity) || NLPUtil.isInDomainBalckListDict(tempLabel)) {
 				System.out.println("high frequent word in the blacklist domain case, and abord， the returned anwer is "
 						+ answerBean.toString());
 				return answerBean;
@@ -63,8 +64,15 @@ public class IntentionClassifier {
 		// move the process of introduction question to intention process
 		if (entitySet.size() == 1) {
 			String tempEntity = entitySet.get(0);
-			String iLabel = DBProcess.getEntityLabel(tempEntity);
-			String tempSentence = TemplateEntry.templateProcess(iLabel, tempEntity, sentence, uniqueID);
+			String tempLabel = DBProcess.getEntityLabel(tempEntity);
+			if (NLPUtil.isInHighFrequentDict(tempEntity)) {
+				System.out.println("high frequent word in the blacklist domain case, and abord， the returned anwer is "
+						+ answerBean.toString());
+				return answerBean;
+			}
+
+			
+			String tempSentence = TemplateEntry.templateProcess(tempLabel, tempEntity, sentence, uniqueID);
 			boolean isIntro = QuestionClassifier.isIntroductionRequest(NLPUtil.removePunctuateMark(tempSentence),
 					isQuestion, tempEntity);
 			if(isIntro){

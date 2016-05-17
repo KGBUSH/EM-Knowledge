@@ -51,7 +51,7 @@ public class EntityRecognizer {
 		List<String> simpleMatchEntity = getEntitySimpleMatch(sentence);
 		List<String> nlpEntity = getEntityByNLP(nerBean.getSegPos());
 		System.out.println("\t simpleMatchingEntity=" + simpleMatchEntity + "\n\t nlpEntity=" + nlpEntity);
-		System.out.println("res = "+CommonUtil.isTwoListsEqual(simpleMatchEntity, nlpEntity));
+		System.out.println("res = " + CommonUtil.isTwoListsEqual(simpleMatchEntity, nlpEntity));
 
 		if (CommonUtil.isTwoListsEqual(simpleMatchEntity, nlpEntity)) {
 			List<String> solrEntity = getEntityBySolr(sentence, nlpEntity, nerBean.getSegWordWithoutStopWord());
@@ -123,7 +123,8 @@ public class EntityRecognizer {
 						rsEntity = simpleMatchEntity;
 						System.out.println("case: 2.7: rsEntity=" + rsEntity);
 						return rsEntity;
-					} else if (new PropertyRecognizer(nerBean).hasPropertyInSentence(sentence, "", simpleMatchEntity.get(0))) {
+					} else if (new PropertyRecognizer(nerBean).hasPropertyInSentence(sentence, "",
+							simpleMatchEntity.get(0))) {
 						// case: 猫猫是什么科的？
 						rsEntity = simpleMatchEntity;
 						System.out.println("case: 3: rsEntity=" + rsEntity);
@@ -234,8 +235,8 @@ public class EntityRecognizer {
 				entityTreeSet.add(segWord);
 			} else if (!NLPUtil.getEntitySynonymNormal(segWord).isEmpty()) {
 				// entityTreeSet.add(entitySynonymTable.get(segWord));
-				System.out.println(
-						"syn in NLP: word=" + segWord + ", syn=" + DictionaryBuilder.getEntitySynonymTable().get(segWord));
+				System.out.println("syn in NLP: word=" + segWord + ", syn="
+						+ DictionaryBuilder.getEntitySynonymTable().get(segWord));
 				entityTreeSet.add(segWord);
 				refMap.put(segWord, DictionaryBuilder.getEntitySynonymTable().get(segWord));
 			}
@@ -266,31 +267,30 @@ public class EntityRecognizer {
 		// return entitySet;
 
 	}
-	
+
 	// get rs from multipattern matching method
-	private List<String> getMultiPatternMatching(String sentence){
+	private List<String> getMultiPatternMatching(String sentence) {
 		List<String> rtList = new ArrayList<>();
 		TCPClient tcp = new TCPClient();
 		try {
-			String tcpRtn = tcp.Transmit(sentence);
+			String tcpRtn = tcp.TransmitThrowException(sentence);
 			tcpRtn = CharUtil.trimAndlower(tcpRtn);
-			if(Tool.isStrEmptyOrNull(tcpRtn)){
-				return rtList;
-			}
-			
-			String [] strArr = tcpRtn.split("&");
-			for(String s : strArr){
-				if (s.endsWith("=")){
-					s = s.substring(0, s.length()-1);
+			if (!Tool.isStrEmptyOrNull(tcpRtn)) {
+				String[] strArr = tcpRtn.split("&");
+				for (String s : strArr) {
+					if (s.endsWith("=")) {
+						s = s.substring(0, s.length() - 1);
+					}
+					rtList.add(s);
 				}
-				rtList.add(s);
 			}
+			System.out.println("get from tcp");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.err.println("tcp is broken");
-			LogService.printLog("", "getMultipatternmatching for "+sentence, "tcp is broken");
-			
+			LogService.printLog("", "getMultipatternmatching for " + sentence, "tcp is broken");
+
 			List<String> tmpList = new ArrayList<>();
 			for (String s : DictionaryBuilder.getEntityTable()) {
 				if (sentence.contains(s.toLowerCase())) {
@@ -299,8 +299,8 @@ public class EntityRecognizer {
 			}
 			rtList = tmpList;
 		}
-		
-		System.out.println("getMultiPatternMatching: rs="+rtList);
+
+		System.out.println("getMultiPatternMatching: rs=" + rtList);
 		return rtList;
 	}
 
@@ -312,20 +312,20 @@ public class EntityRecognizer {
 		sentence = sentence.toLowerCase();
 		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthComparator());
 		List<String> entitySet = new ArrayList<>();
-		
-		for(String s : getMultiPatternMatching(sentence)){
+
+		for (String s : getMultiPatternMatching(sentence)) {
 			// case: 反恐精英在哪儿玩儿 return an empty str
-			if(Tool.isStrEmptyOrNull(CharUtil.trim(s)))
+			if (Tool.isStrEmptyOrNull(CharUtil.trim(s)))
 				continue;
 			System.out.println("multi-pattern: " + s);
 			entityTreeSet.add(s);
 		}
-		
-//		for (String s : DictionaryBuilder.getEntityTable()) {
-//			if (sentence.contains(s.toLowerCase())) {
-//				entityTreeSet.add(s);
-//			}
-//		}
+
+		// for (String s : DictionaryBuilder.getEntityTable()) {
+		// if (sentence.contains(s.toLowerCase())) {
+		// entityTreeSet.add(s);
+		// }
+		// }
 
 		Map<String, String> refMap = new HashMap<>();
 		// entitySynonymTable：【甲肝，甲型病毒性肝炎】
@@ -437,7 +437,8 @@ public class EntityRecognizer {
 					}
 				}
 				if (oldEntity.isEmpty() || !sentence.contains(entity)) {
-					LogService.printLog(nerBean.getUniqueID(), "PatternMatching.changeEntitySynonym", "entity=" + entity + "; bean="+nerBean);
+					LogService.printLog(nerBean.getUniqueID(), "PatternMatching.changeEntitySynonym",
+							"entity=" + entity + "; bean=" + nerBean);
 					System.err.println("PatternMatching.changeEntitySynonym: entity=" + entity);
 				}
 				// String oldEntity =
@@ -472,38 +473,38 @@ public class EntityRecognizer {
 			}
 		}
 	}
-	
+
 	// remove the elements which are contained in other elements
-		// input: [面对面，名人面对面] output: [名人面对面]
-		public static List<String> removeContainedElements(TreeSet<String> tSet) {
-			TreeSet<String> tempSet = new TreeSet<String>(new StringLengthComparator());
-			List<String> rsSet = new ArrayList<>();
+	// input: [面对面，名人面对面] output: [名人面对面]
+	public static List<String> removeContainedElements(TreeSet<String> tSet) {
+		TreeSet<String> tempSet = new TreeSet<String>(new StringLengthComparator());
+		List<String> rsSet = new ArrayList<>();
 
-			Iterator<String> it = tSet.iterator();
-			while (it.hasNext()) {
-				String element = it.next();
-				it.remove();
-				boolean isContained = false;
-				for (String s : tSet) {
-					if (s.contains(element)) {
-						isContained = true;
-						break;
-					}
-				}
-				if (isContained == false) {
-					tempSet.add(element);
+		Iterator<String> it = tSet.iterator();
+		while (it.hasNext()) {
+			String element = it.next();
+			it.remove();
+			boolean isContained = false;
+			for (String s : tSet) {
+				if (s.contains(element)) {
+					isContained = true;
+					break;
 				}
 			}
-
-			String[] tempArr = tempSet.toArray(new String[0]);
-			// System.out.println("tempArr=" + tempArr);
-			for (int i = tempArr.length - 1; i >= 0; i--) {
-				rsSet.add(tempArr[i]);
+			if (isContained == false) {
+				tempSet.add(element);
 			}
-
-			// System.out.println("rsSet=" + rsSet);
-			return rsSet;
 		}
+
+		String[] tempArr = tempSet.toArray(new String[0]);
+		// System.out.println("tempArr=" + tempArr);
+		for (int i = tempArr.length - 1; i >= 0; i--) {
+			rsSet.add(tempArr[i]);
+		}
+
+		// System.out.println("rsSet=" + rsSet);
+		return rsSet;
+	}
 
 	// sort by the index of the string in the sentence
 	protected List<String> sortByIndexOfSentence(String sentence, List<String> set) {
@@ -521,10 +522,10 @@ public class EntityRecognizer {
 		// System.out.println("output of the sort is set="+set);
 		return set;
 	}
-	
-	public static void main(String [] args){
+
+	public static void main(String[] args) {
 		String str = "姚明和叶莉是什么关系";
-//		System.out.println(getMultiPatternMatching(str));
+		// System.out.println(getMultiPatternMatching(str));
 	}
 
 }

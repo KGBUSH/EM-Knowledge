@@ -404,13 +404,17 @@ public class GenerateDictionaryFile {
 //		NLPProcess nlp = new NLPProcess();
 //		NLPProcess.NLPProcessInit();
 
-		generatehighFrequentWordFile();
 		
 		
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
 		
+//		generateEntity();
+		
+//		generatehighFrequentWordFile();
 		generateRemoveableHighFrequentWordFile();
+		
+		
 
 		System.exit(0);
 //		generatehighFrequentWordFile();

@@ -29,9 +29,8 @@ public class TCPClient {
 		ConfigManager cfg = new ConfigManager();
 		this.ip = cfg.getTCPServerIp();
 		this.port = cfg.getTCPServerPort();
-		System.out.println("ip="+ip+", port="+port);
+		System.out.println("ip=" + ip + ", port=" + port);
 	}
-	
 
 	public TCPClient(String ip, int port) {
 		this.ip = ip;
@@ -40,34 +39,52 @@ public class TCPClient {
 
 	public String Transmit(String reqMessage) throws Exception {
 		String result = "";
-		try{
+		try {
+			Socket socket = new Socket(ip, port);
+			BufferedReader sin = new BufferedReader(new InputStreamReader(System.in));
+			PrintWriter os = new PrintWriter(socket.getOutputStream());
+			BufferedReader is = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			os.println(reqMessage);
+			os.flush();
+			result = is.readLine();
+			os.close(); // 关闭Socket输出流
+			is.close(); // 关闭Socket输入流
+			socket.close(); // 关闭Socket
+			System.out.println("Server:" + result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		if (Tool.isStrEmptyOrNull(result)) {
+			result = "";
+		}
+
+		return result;
+	}
+
+	public String TransmitThrowException(String reqMessage) throws Exception {
+		String result = "";
 		Socket socket = new Socket(ip, port);
 		BufferedReader sin = new BufferedReader(new InputStreamReader(System.in));
 		PrintWriter os = new PrintWriter(socket.getOutputStream());
 		BufferedReader is = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-	    os.println(reqMessage);
+		os.println(reqMessage);
 		os.flush();
-		result=is.readLine();
+		result = is.readLine();
 		os.close(); // 关闭Socket输出流
 		is.close(); // 关闭Socket输入流
 		socket.close(); // 关闭Socket
 		System.out.println("Server:" + result);
-		}catch(Exception e)
-		{
-		  e.printStackTrace();
-		}
-		if (Tool.isStrEmptyOrNull(result)){
+		
+		if (Tool.isStrEmptyOrNull(result)) {
 			result = "";
 		}
-			
 		return result;
 	}
-	
 
 	public static void main(String args[]) throws Exception {
 		TCPClient tcp = new TCPClient();
-//		TCPClient tcp = new TCPClient("192.168.1.73", 16413);
-		
+		// TCPClient tcp = new TCPClient("192.168.1.73", 16413);
+
 		tcp.Transmit("甲肝");
 	}
 }
