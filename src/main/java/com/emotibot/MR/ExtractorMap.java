@@ -183,15 +183,17 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 
 					if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
 					{
-					/*if(NodeOrRelation.equals("1"))
+					String LabelTmp="";
+					if(NodeOrRelation.equals("1"))
 					{
 						if(name!=null&&name.trim().length()>0){
-						if(WordLabelMap.containsKey(name)){label=WordLabelMap.get(name);}
+						if(WordLabelMap.containsKey(name)){LabelTmp=WordLabelMap.get(name);}
 						}
 						if(pmWord!=null&&pmWord.trim().length()>0){
-						if(WordLabelMap.containsKey(pmWord)){label=WordLabelMap.get(pmWord);}
+						if(WordLabelMap.containsKey(pmWord)){LabelTmp=WordLabelMap.get(pmWord);}
 						}
-					}*/
+					}
+					System.err.println("LabelTmp="+url+"###"+LabelTmp+"###"+name+"###"+pmWord);
 					System.err.println("label0="+label);
 					if(label==null||label.trim().length()==0||label.contains(Other)) {
 						System.err.println("label1="+label);
@@ -271,7 +273,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 								for(String val:list)
 								{
 									Entity a = new Entity(label, name,"Name");
-									String label2=Other;
+									String label2="";
                                     String urlval=pageExtractInfo.getWordLink(val).trim();
                                     String urlvalmd5=DigestUtils.md5Hex(urlval);
             						/*if(val!=null&&val.trim().length()>0){
@@ -283,6 +285,12 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
                                     	label2=URLLabelMap.get(urlval).trim();
                                     }
             						}*/
+                                    if(label2==null||label2.trim().length()==0||label2.contains(Other)){
+                						if(URLLabelMap.containsKey(urlval))
+                                        {
+                                        	label2=URLLabelMap.get(urlval).trim();
+                                        }
+                						}
             						if(label2==null||label2.trim().length()==0||label2.contains(Other)){
             						if(URLMD5LabelAllMap.containsKey(urlvalmd5))
                                     {
