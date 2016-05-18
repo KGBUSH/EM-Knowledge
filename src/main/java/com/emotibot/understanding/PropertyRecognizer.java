@@ -8,6 +8,8 @@ import java.util.Set;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
+import com.emotibot.common.Common;
+import com.emotibot.template.TemplateEntry;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.seg.common.Term;
@@ -28,6 +30,17 @@ public class PropertyRecognizer {
 		// sentence=" + templateSentence + ", entity ="
 		// + entity + ", bean is " + answerBean.toString());
 		// to be checked later
+		String oldSentence = sentence;
+		sentence = TemplateEntry.templateProcess(label, entity, sentence, nerBean.getUniqueID());
+
+		// print debug log
+		if (nerBean.isDebug()) {
+			String debugInfo = answerBean.getComments() + "\n template process: ilabel:" + label + " from:"
+					+ oldSentence + " to:" + sentence;
+			System.out.println(debugInfo);
+			Debug.printDebug(nerBean.getUniqueID(), 3, "KG", debugInfo);
+			answerBean.setComments(debugInfo);
+		}
 
 		if (!sentence.contains(entity)) {
 			System.err.println("Sentence does not contain entity");
@@ -111,13 +124,14 @@ public class PropertyRecognizer {
 			if (relationMap.containsKey(prop)) {
 				// use the new answer as new entity
 				String newDBEntity = DBProcess.getEntityByRelationship(label, entity, prop);
+				String newLabel = DBProcess.getEntityLabel(newDBEntity);
 				String newSentence = sentenceNoEntity;
 				if (!Tool.isStrEmptyOrNull(oldWord)) {
 					newSentence = sentenceNoEntity.replace(oldWord, newDBEntity);
 				}
 				System.out.println("-----> case 1 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
 				System.out.println("prop:" + prop + ", new sentence:" + newSentence);
-				return ReasoningProcess(newSentence, label, newDBEntity, answerBean);
+				return ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean);
 			} else {
 				System.out.println("\t EndOfRP  @@ return case 1, answer=" + answerBean);
 				return answerBean.returnAnswer(answerBean);
@@ -151,7 +165,7 @@ public class PropertyRecognizer {
 
 			if (furtherSeach == true) {
 				String newDBEntity = DBProcess.getEntityByRelationship(label, entity, prop);
-				String newLabel = ""; // TBD, should change later
+				String newLabel = DBProcess.getEntityLabel(newDBEntity);
 				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
 				return ReasoningProcess(sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity), newLabel,
 						newDBEntity, answerBean);

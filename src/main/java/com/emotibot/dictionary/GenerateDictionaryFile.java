@@ -424,10 +424,10 @@ public class GenerateDictionaryFile {
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
 		
-//		generateEntity();
+		generateEntity();
 		
 //		generatehighFrequentWordFile();
-		generateRemoveableHighFrequentWordFile();
+//		generateRemoveableHighFrequentWordFile();
 		
 		
 

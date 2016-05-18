@@ -13,7 +13,6 @@ import com.hankcs.hanlp.seg.common.Term;
 
 public class NLPUtil {
 
-
 	public static boolean isStopWord(String str) {
 		boolean isSW = false;
 		if (!str.isEmpty() && DictionaryBuilder.getStopWordTable().contains(str)) {
@@ -22,7 +21,7 @@ public class NLPUtil {
 
 		return isSW;
 	}
-	
+
 	// is the string exists in Entity or Entity_Ref
 	public static boolean isEntity(String str) {
 		if (!getEntityInDictinoary(str).isEmpty() && !getEntitySynonymNormal(str).isEmpty()) {
@@ -40,7 +39,6 @@ public class NLPUtil {
 			return false;
 		}
 	}
-	
 
 	public static String getEntityInDictinoary(String str) {
 		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getEntityTable().contains(str)) {
@@ -102,8 +100,6 @@ public class NLPUtil {
 			return false;
 	}
 
-	
-
 	// return the segPos by Hanlp method
 	public static List<Term> getSegWord(String sentence) {
 		List<Term> segWord = new ArrayList<>();
@@ -113,7 +109,7 @@ public class NLPUtil {
 		segWord = HanLP.segment(sentence);
 		return segWord;
 	}
-	
+
 	// input: 欧洲
 	// output: <欧罗巴,欧罗巴洲>
 	public static List<String> getSynonymnEntityList(String dbEntity) {
@@ -128,7 +124,6 @@ public class NLPUtil {
 		}
 		return list;
 	}
-	
 
 	// remove the stopword in a string.
 	// input: "姚明是谁？"
@@ -142,7 +137,6 @@ public class NLPUtil {
 		}
 		return str;
 	}
-	
 
 	// remove the removeable string in the set
 	public static Set<String> removeRemoveableEntity(Set<String> entitySet) {
@@ -174,7 +168,7 @@ public class NLPUtil {
 			return false;
 		}
 	}
-	
+
 	// if str in remove All dictionary or not
 	public static boolean isInRemoveableAllDict(String str) {
 		if (!str.isEmpty() && DictionaryBuilder.getRemoveableHighFeqWordAllTable().contains(str)) {
@@ -183,10 +177,19 @@ public class NLPUtil {
 			return false;
 		}
 	}
-	
+
 	// if str in remove All dictionary or not
 	public static boolean isInHighFrequentDict(String str) {
 		if (!str.isEmpty() && DictionaryBuilder.getHighFeqWordTable().contains(str)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	// if str in domain balcklist or not
+	public static boolean isInDomainWhiteListDict(String str) {
+		if (!str.isEmpty() && DictionaryBuilder.getDomainWhiteListTable().contains(str)) {
 			return true;
 		} else {
 			return false;
@@ -239,11 +242,20 @@ public class NLPUtil {
 		return synWord;
 	}
 
-	public static void main(String [] args){
-		String s = "好久不见";
-		System.out.println(isInRemoveableAllDict(s));
-		System.out.println(isInRemoveableOtherDict(s));
-		System.out.println(isEntityPM(s));
+	public static void main(String[] args) {
+		String s = "妈妈咪呀！";
+		System.out.println(hasEntitySynonym(s));
+		System.out.println(DictionaryBuilder.getEntitySynonymTable().keySet().size());
+		for (String ss : DictionaryBuilder.getEntitySynonymTable().keySet()) {
+			if(ss.startsWith("妈妈")){
+				System.out.println("key="+ss+", value="+DictionaryBuilder.getEntitySynonymTable().get(ss));
+			}
+
+		}
+
+		// System.out.println(isInRemoveableOtherDict(s));
+		// System.out.println(isEntityPM(s));
+
 	}
-	
+
 }

@@ -40,12 +40,13 @@ public class IntentionClassifier {
 			String tempEntity = entitySet.get(0);
 
 			String tempLabel = DBProcess.getEntityLabel(tempEntity).toLowerCase();
-			if (tempLabel.equals("catchword")) {
+			// if (tempLabel.equals("catchword")) {
+			if (!NLPUtil.isInDomainWhiteListDict(tempLabel)) {
 				System.out.println("catchword Case, and abord， the returned anwer is " + answerBean.toString());
 				return answerBean;
 			}
 
-			if (NLPUtil.isInRemoveableAllDict(tempEntity) || NLPUtil.isInDomainBalckListDict(tempLabel)) {
+			if (NLPUtil.isInRemoveableAllDict(tempEntity)) {
 				System.out.println("high frequent word in the blacklist domain case, and abord， the returned anwer is "
 						+ answerBean.toString());
 				return answerBean;
@@ -60,7 +61,7 @@ public class IntentionClassifier {
 			System.out.println("intentionProcess intro 1: the returned anwer is " + answerBean.toString());
 			return answerBean.returnAnswer(answerBean);
 		}
-		
+
 		System.out.println("INTENTION, after Single Entity");
 
 		// move the process of introduction question to intention process
@@ -68,7 +69,7 @@ public class IntentionClassifier {
 			String tempEntity = entitySet.get(0);
 			String tempLabel = DBProcess.getEntityLabel(tempEntity);
 			String tempSentence = TemplateEntry.templateProcess(tempLabel, tempEntity, sentence, uniqueID);
-			
+
 			// print debug log
 			if (Common.KG_DebugStatus || nerBean.isDebug()) {
 				String tmpLabel = "";
@@ -82,7 +83,7 @@ public class IntentionClassifier {
 				System.out.println(debugInfo);
 				Debug.printDebug("123456", 1, "KG", debugInfo);
 			}
-			
+
 			if (NLPUtil.isInRemoveableAllDict(tempEntity)) {
 				System.out.println("high frequent word in the blacklist domain case, and abord， the returned anwer is "
 						+ answerBean.toString());

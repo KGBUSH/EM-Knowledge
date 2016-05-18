@@ -37,6 +37,7 @@ public class DictionaryBuilder {
 	private static Set<String> removeableHighFeqWordAllTable = createRemoveableHighFeqWordAllTable();
 	private static Set<String> domainAllListTable = createDomainAllListTable();
 	private static Set<String> domainBalckListTable = createDomainBalckListTable();
+	private static Set<String> domainWhiteListTable = createDomainWhiteListTable();
 	
 	public static void DictionaryBuilderInit() {
 		addCustomDictionaryInHanlp();
@@ -186,9 +187,10 @@ public class DictionaryBuilder {
 						System.err.println("wrong format in entitySynonym.txt");
 						continue;
 					}
+					
 					String dbName = CharUtil.trim(wordList[0]);
 					for (int i = 1; i < wordList.length; i++) {
-						String synName = CharUtil.trim(wordList[i]);
+						String synName = CharUtil.trimAndlower(wordList[i]);
 						// address the case 曼彻斯特联（曼联）
 						if (synName.contains("（") && synName.contains("）")) {
 							String thisSynonEntity = synName;
@@ -306,6 +308,37 @@ public class DictionaryBuilder {
 		}
 		
 		System.out.println("createRemoveableHighFeqWordAllTable lengh = " + wordSet.size());
+		return wordSet;
+	}
+	
+	// createDomainBalckListTable
+	private static Set<String> createDomainWhiteListTable() {
+		Set<String> wordSet = new HashSet<>();
+		String fileName = Common.UserDir + "/knowledgedata/domain/whitelist.txt";
+		System.out.println("path is " + fileName);
+		
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = null;
+				while ((word = dis.readLine()) != null) {
+					// all entity in table are in low case
+					wordSet.add(CharUtil.trim(word).toLowerCase());
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		System.out.println("createDomainBalckListTable lengh = " + wordSet.size());
 		return wordSet;
 	}
 	
@@ -533,5 +566,13 @@ public class DictionaryBuilder {
 
 	public static void setDomainAllListTable(Set<String> domainAllListTable) {
 		DictionaryBuilder.domainAllListTable = domainAllListTable;
+	}
+
+	public static Set<String> getDomainWhiteListTable() {
+		return domainWhiteListTable;
+	}
+
+	public static void setDomainWhiteListTable(Set<String> domainWhiteListTable) {
+		DictionaryBuilder.domainWhiteListTable = domainWhiteListTable;
 	}
 }

@@ -22,6 +22,10 @@ import com.hankcs.hanlp.seg.common.Term;
 public class EntityRecognizer {
 
 	private NERBean nerBean = new NERBean();
+	
+	private EntityRecognizer(){
+		// for test
+	}
 
 	public EntityRecognizer(NERBean bean) {
 		nerBean = bean;
@@ -334,10 +338,11 @@ public class EntityRecognizer {
 			if (!entityTreeSet.contains(s) && sentence.contains(s.toLowerCase())) {
 				entityTreeSet.add(s);
 				refMap.put(s, DictionaryBuilder.getEntitySynonymTable().get(s));
+				System.err.println("s="+s+", test="+DictionaryBuilder.getEntitySynonymTable().get(s));
 			}
 		}
 
-		System.out.println("simple matching entities before removal: " + entityTreeSet.toString());
+		System.out.println("simple matching entities before removal: " + entityTreeSet.toString() + ", refMap="+refMap);
 		entitySet = removeContainedElements(entityTreeSet);
 
 		// remove the high frequent entities
@@ -525,8 +530,14 @@ public class EntityRecognizer {
 	}
 
 	public static void main(String[] args) {
-		String str = "姚明和叶莉是什么关系";
+//		NERBean bean = new NERBean();
+		EntityRecognizer nr = new EntityRecognizer();
+		String str = "甲肝";
+//		String str = "妈妈咪呀";
 		// System.out.println(getMultiPatternMatching(str));
+		System.out.println(nr.getEntitySimpleMatch(str));
+		System.out.println("dcit="+DictionaryBuilder.getEntitySynonymTable().get(str));
+		
 	}
 
 }

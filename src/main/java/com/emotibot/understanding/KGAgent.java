@@ -118,6 +118,11 @@ public class KGAgent {
 	public AnswerBean getAnswer() {
 
 		AnswerBean answerBean = new AnswerBean();
+		if (Tool.isStrEmptyOrNull(nerBean.getOldSentence()) || CharUtil.isNumberFormat(nerBean.getOldSentence())) {
+			System.err.println("PMP.getAnswer: input is empty or is in wrong format");
+			return answerBean.returnAnswer(answerBean);
+		}
+		
 		IntentionClassifier intention = new IntentionClassifier(nerBean);
 		answerBean = intention.intentionProcess();
 		if (!answerBean.isValid()) {
@@ -133,10 +138,7 @@ public class KGAgent {
 	private AnswerBean answerProcess(AnswerBean answerBean) {
 
 		String sentence = nerBean.getSentence();
-		if (Tool.isStrEmptyOrNull(sentence)) {
-			System.err.println("PMP.getAnswer: input is empty");
-			return answerBean.returnAnswer(answerBean);
-		}
+		
 
 		AnswerRewrite answerRewite = new AnswerRewrite();
 
@@ -216,27 +218,28 @@ public class KGAgent {
 			// iterate each label of entity, and get the answer with highest
 			// score
 			List<String> listLabel = DBProcess.getEntityLabelList(entity);
-			String oldSentence = sentence;
+//			String oldSentence = sentence;
 			List<AnswerBean> singleEntityAnswerBeanList = new ArrayList<>();
 
 			for (String iLabel : listLabel) {
-				String tempSentence = TemplateEntry.templateProcess(iLabel, entity, sentence, uniqueID);
-				AnswerBean tempBean = new AnswerBean();
-
-				// print debug log
-				if (Common.KG_DebugStatus || debugFlag) {
-					String debugInfo = answerBean.getComments() + "\n template process: ilabel:" + iLabel + " from:"
-							+ oldSentence + " to:" + tempSentence;
-					System.out.println(debugInfo);
-					Debug.printDebug("123456", 1, "KG", debugInfo);
-					tempBean.setComments(debugInfo);
-				}
-
-				if (Tool.isStrEmptyOrNull(tempSentence)) {
+				if (Tool.isStrEmptyOrNull(sentence)) {
 					continue;
 				}
+				AnswerBean tempBean = new AnswerBean();
+				tempBean.setComments(answerBean.getComments());
+
+//				String tempSentence = TemplateEntry.templateProcess(iLabel, entity, sentence, uniqueID);
+				// print debug log
+//				if (Common.KG_DebugStatus || debugFlag) {
+//					String debugInfo = answerBean.getComments() + "\n template process: ilabel:" + iLabel + " from:"
+//							+ oldSentence + " to:" + tempSentence;
+//					System.out.println(debugInfo);
+//					Debug.printDebug("123456", 1, "KG", debugInfo);
+//					tempBean.setComments(debugInfo);
+//				}
+
 				PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
-				tempBean = propertyRecognizer.ReasoningProcess(tempSentence, iLabel, entity, tempBean);
+				tempBean = propertyRecognizer.ReasoningProcess(sentence, iLabel, entity, tempBean);
 				System.out.println("\t ReasoningProcess answerBean = " + tempBean);
 
 				// add the implicationQuestion process here, for now only check
@@ -437,7 +440,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "好久不见是何时发行的？";
+		String str = "肖申克救赎是什么？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		// bean.setQuestionType("question");

@@ -78,6 +78,12 @@ public class CharUtil {
     	return m.matches();
     }
     
+    public static boolean isNumberFormat(String str){
+    	Pattern p=Pattern.compile("[0-9]+"); 
+    	Matcher m=p.matcher(str); 
+    	return m.matches();
+    }
+    
     public static boolean isPuncuation(String str){
     	Pattern p=Pattern.compile("[\\pP+~$`^=|<>～`$^+=|<>￥×]"); 
     	Matcher m=p.matcher(str); 
@@ -89,9 +95,9 @@ public class CharUtil {
 //    	System.err.println(isEnglisgBigChar("A"));
     	
 //    	String testDate = "1727年3月31日";
-    	String testDate = "/";
+    	String testDate = "1834254363";
     	
-    	System.out.println("is p:"+isPuncuation(testDate));
+    	System.out.println("is p:"+isNumberFormat(testDate));
     	
     	
     }
