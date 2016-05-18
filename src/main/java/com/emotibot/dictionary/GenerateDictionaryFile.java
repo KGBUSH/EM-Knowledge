@@ -339,12 +339,23 @@ public class GenerateDictionaryFile {
 
 				line = in.readLine();
 			}
-
+			
 			for (String s : strSet) {
 				out.write(s + "\r\n");
 			}
 
+			BufferedReader removeIn = new BufferedReader(
+					new FileReader(Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent_Aux.txt"));
+			line = null;
+			while((line = removeIn.readLine())!=null){
+				line = CharUtil.trim(line).toLowerCase();
+				if(!Tool.isStrEmptyOrNull(line)){
+					out.write(line + "\r\n");
+				}
+			}
+			
 			in.close();
+			removeIn.close();
 			out.close();
 
 		} catch (Exception e) {
@@ -358,20 +369,24 @@ public class GenerateDictionaryFile {
 		try {
 
 			String outFileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent.txt";
-			BufferedWriter out = new BufferedWriter(new FileWriter(outFileName));
+			BufferedWriter outOther = new BufferedWriter(new FileWriter(outFileName));
 			String outFileName2 = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequentAll.txt";
-			BufferedWriter out2 = new BufferedWriter(new FileWriter(outFileName2));
+			BufferedWriter outAll = new BufferedWriter(new FileWriter(outFileName2));
 
 			Set<String> setEntity = DictionaryBuilder.getEntityTable();
 			Set<String> setHighWord = DictionaryBuilder.getHighFeqWordTable();
-
+			
 			for (String s : setEntity) {
 				if (setHighWord.contains(s)) {
-					String tempLabel = DBProcess.getEntityLabel(s);
-					if (tempLabel.endsWith("other")) {
-						out.write(s + "\r\n");
+					if(!NLPUtil.isEntityPM(s)){
+						outOther.write(s + "\r\n");
 					}
-					out2.write(s + "\r\n");
+					outAll.write(s + "\r\n");
+//					String tempLabel = DBProcess.getEntityLabel(s);
+//					if (tempLabel.endsWith("other")) {
+//						out.write(s + "\r\n");
+//					}
+//					out2.write(s + "\r\n");
 				}
 			}
 			
@@ -386,13 +401,13 @@ public class GenerateDictionaryFile {
 				}
 				System.out.println("Aux word: "+line);
 				
-				out.write(line + "\r\n");
-				out2.write(line + "\r\n");
+//				out.write(line + "\r\n");
+				outAll.write(line + "\r\n");
 			}
 			
 			in.close();
-			out.close();
-			out2.close();
+			outOther.close();
+			outAll.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();

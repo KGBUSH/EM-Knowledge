@@ -239,5 +239,11 @@ public class NLPUtil {
 		return synWord;
 	}
 
+	public static void main(String [] args){
+		String s = "好久不见";
+		System.out.println(isInRemoveableAllDict(s));
+		System.out.println(isInRemoveableOtherDict(s));
+		System.out.println(isEntityPM(s));
+	}
 	
 }

@@ -244,6 +244,7 @@ public class EntityRecognizer {
 
 		System.out.println("NLP entities before removal: " + entityTreeSet.toString());
 		entitySet = removeContainedElements(entityTreeSet);
+		
 		// remove the high frequent entities
 		entitySet = NLPUtil.removeRemoveableEntity(entitySet);
 		System.out.println("NLP entities after removal: " + entitySet.toString());

@@ -22,14 +22,18 @@ public class DictionaryBuilder {
 	private static HashMap<String, Set<String>> synonymTable = createSynonymTable();;
 	private static HashMap<String, List<String>> synonymTableRef = createSynonymTableRef();
 	private static Set<String> stopWordTable = createStopWordTable();
+	// entityPMTable: the first level entity list
 	private static Set<String> entityPMTable = createEntityPMTable();
 	private static Set<String> entityTable = createEntityTable();
 	// entitySynonymTable:[甲肝，甲型病毒性肝炎]
 	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
 	// entitySynonymReverseTable:[山大，<山西大学，山东大学>]
 	private static Map<String, List<String>> entitySynonymReverseTable = createEntitySynonymReverseTable();
+	// highFeqWordTable: the first 10000 high frequent word from NLP dictionary
 	private static Set<String> highFeqWordTable = createHighFeqWordTable();
+	// removeableHighFeqWordOtherTable: the removeable entity in secondary level 
 	private static Set<String> removeableHighFeqWordOtherTable = createRemoveableHighFeqWordOtherTable();
+	// removeableHighFeqWordAllTable: all the removeable entity
 	private static Set<String> removeableHighFeqWordAllTable = createRemoveableHighFeqWordAllTable();
 	private static Set<String> domainAllListTable = createDomainAllListTable();
 	private static Set<String> domainBalckListTable = createDomainBalckListTable();
@@ -55,14 +59,6 @@ public class DictionaryBuilder {
 		return highFeqWordTable;
 	}
 
-	// if str in high frequent word dictionary or not
-	public static boolean isInHighFreqDict(String str) {
-		if (!str.isEmpty() && highFeqWordTable.contains(str)) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 
 	public static Set<String> getEntityTable() {
 		return entityTable;
@@ -72,8 +68,6 @@ public class DictionaryBuilder {
 	public static Map<String, String> getEntitySynonymTable() {
 		return entitySynonymTable;
 	}
-	
-	
 	
 
 	// create synonym reference hash map table: Map<id, List of Synonym>
@@ -224,7 +218,7 @@ public class DictionaryBuilder {
 	// create entity table Set
 	private static Set<String> createEntityPMTable() {
 		Set<String> entitySet = new HashSet<>();
-		String fileName = Common.UserDir + "/knowledgedata/entity_ref_PM.txt";
+		String fileName = Common.UserDir + "/knowledgedata/entityPM.txt";
 		System.out.println("path is " + fileName);
 
 		if (!Tool.isStrEmptyOrNull(fileName)) {

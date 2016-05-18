@@ -45,7 +45,7 @@ public class IntentionClassifier {
 				return answerBean;
 			}
 
-			if (NLPUtil.isInHighFrequentDict(tempEntity) || NLPUtil.isInDomainBalckListDict(tempLabel)) {
+			if (NLPUtil.isInRemoveableAllDict(tempEntity) || NLPUtil.isInDomainBalckListDict(tempLabel)) {
 				System.out.println("high frequent word in the blacklist domain case, and abord， the returned anwer is "
 						+ answerBean.toString());
 				return answerBean;
@@ -60,18 +60,15 @@ public class IntentionClassifier {
 			System.out.println("intentionProcess intro 1: the returned anwer is " + answerBean.toString());
 			return answerBean.returnAnswer(answerBean);
 		}
+		
+		System.out.println("INTENTION, after Single Entity");
 
 		// move the process of introduction question to intention process
 		if (entitySet.size() == 1) {
 			String tempEntity = entitySet.get(0);
 			String tempLabel = DBProcess.getEntityLabel(tempEntity);
-			if (NLPUtil.isInHighFrequentDict(tempEntity)) {
-				System.out.println("high frequent word in the blacklist domain case, and abord， the returned anwer is "
-						+ answerBean.toString());
-				return answerBean;
-			}
-
 			String tempSentence = TemplateEntry.templateProcess(tempLabel, tempEntity, sentence, uniqueID);
+			
 			// print debug log
 			if (Common.KG_DebugStatus || nerBean.isDebug()) {
 				String tmpLabel = "";
@@ -84,6 +81,12 @@ public class IntentionClassifier {
 				answerBean.setComments(debugInfo);
 				System.out.println(debugInfo);
 				Debug.printDebug("123456", 1, "KG", debugInfo);
+			}
+			
+			if (NLPUtil.isInRemoveableAllDict(tempEntity)) {
+				System.out.println("high frequent word in the blacklist domain case, and abord， the returned anwer is "
+						+ answerBean.toString());
+				return answerBean;
 			}
 
 			boolean isIntro = QuestionClassifier.isIntroductionRequest(NLPUtil.removePunctuateMark(tempSentence),
