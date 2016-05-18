@@ -13,6 +13,7 @@ public class NERBean {
 	private List<String> entitySet;
 	private String uniqueID = "";
 	private boolean isQuestion = false;
+	private boolean isDebug = false;
 
 	public String toString() {
 		return "NERBean:\n" + "uniqueID=" + uniqueID + ";\n userSentence=" + sentence + ";\n entitySet=" + entitySet
@@ -73,6 +74,14 @@ public class NERBean {
 
 	public void setQuestion(boolean isQuestion) {
 		this.isQuestion = isQuestion;
+	}
+
+	public boolean isDebug() {
+		return isDebug;
+	}
+
+	public void setDebug(boolean isDebug) {
+		this.isDebug = isDebug;
 	}
 
 }

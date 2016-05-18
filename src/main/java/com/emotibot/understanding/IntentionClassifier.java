@@ -34,11 +34,11 @@ public class IntentionClassifier {
 
 		AnswerRewrite answerRewite = new AnswerRewrite();
 
-		System.out.println("##### sentence"+sentence+", entitySet=" + entitySet);
+		System.out.println("##### sentence" + sentence + ", entitySet=" + entitySet);
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
 			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
 			String tempEntity = entitySet.get(0);
-			
+
 			String tempLabel = DBProcess.getEntityLabel(tempEntity).toLowerCase();
 			if (tempLabel.equals("catchword")) {
 				System.out.println("catchword Case, and abord， the returned anwer is " + answerBean.toString());
@@ -71,11 +71,24 @@ public class IntentionClassifier {
 				return answerBean;
 			}
 
-			
 			String tempSentence = TemplateEntry.templateProcess(tempLabel, tempEntity, sentence, uniqueID);
+			// print debug log
+			if (Common.KG_DebugStatus || nerBean.isDebug()) {
+				String tmpLabel = "";
+				if (!entitySet.isEmpty()) {
+					tmpLabel = DBProcess.getEntityLabel(entitySet.get(0));
+				}
+				String debugInfo = "DEBUG: userSentence=" + sentence + "; entitySet=" + entitySet + "; label="
+						+ tmpLabel;
+				debugInfo += "; template change to:" + tempSentence;
+				answerBean.setComments(debugInfo);
+				System.out.println(debugInfo);
+				Debug.printDebug("123456", 1, "KG", debugInfo);
+			}
+
 			boolean isIntro = QuestionClassifier.isIntroductionRequest(NLPUtil.removePunctuateMark(tempSentence),
 					isQuestion, tempEntity);
-			if(isIntro){
+			if (isIntro) {
 				String strIntroduce = DBProcess.getPropertyValue(tempEntity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 				if (strIntroduce.contains("。"))
 					strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));

@@ -46,6 +46,7 @@ public class KGAgent {
 		if (questionType != null && questionType.equals("debug")) {
 			System.out.println("DEBUG is TRUE");
 			debugFlag = true;
+			nerBean.setDebug(true);
 		} else {
 			debugFlag = false;
 		}
@@ -123,7 +124,7 @@ public class KGAgent {
 		IntentionClassifier intention = new IntentionClassifier(nerBean);
 		answerBean = intention.intentionProcess();
 		if(!answerBean.isValid()){
-			answerBean = answerProcess();
+			answerBean = answerProcess(answerBean);
 		}
 		
 		return answerBean;
@@ -132,10 +133,9 @@ public class KGAgent {
 	// The entrance to understand the user query and get answer from Neo4j
 	// input: the question sentence from users,"姚明身高是多少"
 	// output: the answer without answer rewriting, “226cm”
-	private AnswerBean answerProcess() {
+	private AnswerBean answerProcess(AnswerBean answerBean) {
 
 		String sentence = nerBean.getSentence();
-		AnswerBean answerBean = new AnswerBean();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getAnswer: input is empty");
 			return answerBean.returnAnswer(answerBean);
@@ -173,17 +173,17 @@ public class KGAgent {
 		}
 
 //		System.out.println(x);
-		if (Common.KG_DebugStatus || debugFlag) {
-			String tempLabel = "";
-			if (!entitySet.isEmpty()) {
-				tempLabel = DBProcess.getEntityLabel(entitySet.get(0));
-			}
-			String debugInfo = "DEBUG: userSentence=" + userSentence + "; entitySet=" + entitySet + "; label=" + tempLabel;
-			System.out.println(debugInfo);
-			
-			Debug.printDebug("123456", 1, "KG", debugInfo);
-			answerBean.setComments(debugInfo);
-		}
+//		if (Common.KG_DebugStatus || debugFlag) {
+//			String tempLabel = "";
+//			if (!entitySet.isEmpty()) {
+//				tempLabel = DBProcess.getEntityLabel(entitySet.get(0));
+//			}
+//			String debugInfo = "DEBUG: userSentence=" + userSentence + "; entitySet=" + entitySet + "; label=" + tempLabel;
+//			System.out.println(debugInfo);
+//			
+//			Debug.printDebug("123456", 1, "KG", debugInfo);
+//			answerBean.setComments(debugInfo);
+//		}
 
 		// 1. get the entity and Revise by template
 //		if (entitySet.size() > 2) {
@@ -203,7 +203,7 @@ public class KGAgent {
 		String entity = "";
 		// for single entity case
 		// if (entitySet.size() == 1) {
-		System.out.println("TEMP 1 answerBean="+answerBean.toString());
+		System.out.println("TEMP 1 answerBean="+answerBean.toString()+", comments="+answerBean.getComments());
 		if (entitySet.size() == 1) {
 			entity = entitySet.get(0);
 			System.out.println("TIME 5 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
@@ -431,7 +431,7 @@ public class KGAgent {
 //		NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "一吻定情是哪个国家的？";
+		String str = "主演龙之谷的是谁？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 //		bean.setQuestionType("question");
