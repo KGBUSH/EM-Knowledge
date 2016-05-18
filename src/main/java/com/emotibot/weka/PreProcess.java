@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.Map.Entry;
 
+import com.emotibot.common.Common;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 
@@ -165,7 +166,7 @@ public class PreProcess {
 	}
 	public static void main(String args[]) throws IOException
 	{
-		ProduceArffNum("arff/wekaNew.txt");
+		ProduceArffNum(Common.WekaTrainFile);
 	}
 
 }

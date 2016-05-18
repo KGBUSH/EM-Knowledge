@@ -25,5 +25,9 @@ public class Common {
     public static boolean KG_DebugStatus = false;
 	////////////Page
     
+    /////////////Weka Train File
+    public static String WekaTrainFile=System.getProperty("user.dir")+"/arff/"+"WekaTrain";
+
+    
 
 }

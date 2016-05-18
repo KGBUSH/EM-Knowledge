@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import com.emotibot.common.Common;
 import com.emotibot.util.Tool;
 
 import java.util.Map.Entry;
@@ -170,7 +171,7 @@ public class WekaPrediction {
 		  
 		  public static void main(String args[]) throws Exception
 		  {
-			    PreProcess.ProduceArffNum("WekaNewWay8");
+			    PreProcess.ProduceArffNum(Common.WekaTrainFile);
 			    
 			    WekaPrediction demo;
 			    String classifier = "weka.classifiers.bayes.NaiveBayes";

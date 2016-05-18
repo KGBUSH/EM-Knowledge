@@ -15,6 +15,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
 
 import com.emotibot.Debug.Debug;
+import com.emotibot.common.Common;
 import com.emotibot.config.ConfigManager;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
 //import com.emotibot.patternmatching.NLPProcess;
@@ -46,7 +47,7 @@ public class WekaWebserver {
    public static  WekaPrediction demo;
 
 	public static void main(String[] args) throws Exception {
-	    PreProcess.ProduceArffNum("WekaNewWay8");
+	    PreProcess.ProduceArffNum(Common.WekaTrainFile);
 	   // demo.execute();
 	 	String classifier = "weka.classifiers.bayes.NaiveBayes";
 	    String dataset = "tagNew.arff";
