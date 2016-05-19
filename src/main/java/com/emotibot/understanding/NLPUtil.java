@@ -180,7 +180,7 @@ public class NLPUtil {
 
 	// if str in remove All dictionary or not
 	public static boolean isInHighFrequentDict(String str) {
-		if (!str.isEmpty() && DictionaryBuilder.getHighFeqWordTable().contains(str)) {
+		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getHighFeqWordTable().contains(str)) {
 			return true;
 		} else {
 			return false;

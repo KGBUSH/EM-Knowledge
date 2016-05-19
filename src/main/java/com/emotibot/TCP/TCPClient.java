@@ -82,9 +82,9 @@ public class TCPClient {
 	}
 
 	public static void main(String args[]) throws Exception {
-		TCPClient tcp = new TCPClient();
-		// TCPClient tcp = new TCPClient("192.168.1.73", 16413);
+//		TCPClient tcp = new TCPClient();
+		 TCPClient tcp = new TCPClient("192.168.1.4", 16413);
 
-		tcp.Transmit("甲肝");
+		tcp.Transmit("姚明");
 	}
 }
