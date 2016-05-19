@@ -1,6 +1,5 @@
 digital_product,^#^啥时/何时/什么时/哪年^创建/创办/成立/建立/设立^;#的成立时间什么时候？
 digital_product,^啥时/何时/什么时/哪年^创建/创办/成立/建立/设立^#^;#的成立时间什么时候？
-digital_product,^#^做什么^;#的经营范围有什么？
 digital_product,^#^什么/哪^类/性质^;#的公司性质是什么？
 digital_product,^#^类/性质^什么/哪^;#的公司性质是什么？
 digital_product,^#^掌管/执掌/负责/管理/主管^;#的总裁是谁？
@@ -10,9 +9,14 @@ digital_product,^谁/哪/什么^创建/创办/成立/建立/设立 ^#^;#的创�
 digital_product,^#^谁/哪/什么^创建/创办/成立/建立/设立^;#的创始人是谁
 digital_product,^#^经营^产品^;#的主要产品有什么？
 digital_product,^#^出售/销售/卖^啥/什么/哪^;#的主要产品有什么？
+digital_product,^#^啥/什么/哪^产品/商品/东西^;#的主要产品有什么？
 digital_product,^#^多少人/几人^;#的员工数是多少？
 digital_product,^#^总部/总公司^哪/什么/啥^;#的总部地点是哪儿？
 digital_product,^#^什么/哪^国家^;#的国别是什么？
 digital_product,^#^属/是^哪个/什么^公司^;#的所属公司是哪个？
 digital_product,^#^什么/哪^行业;#的所属行业是哪个？
 digital_product,^#^英文^怎么/咋^说/读/念^;#的英文名是什么？
+digital_product,^#^干嘛/干啥/什么^用^;#的作用是什么？
+digital_product,^#^还/又^叫/称呼^;#的别称是什么？
+digital_product,^还/又^叫/称呼^#^;#的别称是什么？
+digital_product,^#^多少钱/多贵^;#的价格是多少？

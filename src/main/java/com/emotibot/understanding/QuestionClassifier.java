@@ -57,6 +57,7 @@ public class QuestionClassifier {
 	// input: 姚明是谁？ 你喜欢姚明吗？
 	// output: 1 0
 	protected static boolean isKindofQuestion(String sentence, String questionType, String entity) {
+		System.out.println("isKindofQuestion: questionType="+questionType+", entity="+entity);
 		boolean rs = false;
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			return rs;

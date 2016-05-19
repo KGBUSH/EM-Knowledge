@@ -14,8 +14,8 @@ IntroductionQuestion;^&#&[是]&做什么的/干嘛的/怎么样&[么/呢/阿/啊
 IntroductionQuestion;^&知不知道/谁是/什么是/听说/听说过/哪位是&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&认识/知道/了解/听说过/熟悉&#&吗/嘛/么||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&^&认识/知道/了解/听说过/熟悉&吗/嘛/么||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;什么&叫/叫做/是&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;什么/啥&叫/叫做/是/称为&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
 ImplicationQuestion;^&多久/多长时间/几年/多少年&[了]&[么/呢/阿/啊/啦/唉/吧/哇/呀/吗/嘛/哈]||ImplicationQuestion@:computeYear
-IntroductionQuestion;^&聊聊/聊一下/说一说/说说/讲一下/告诉&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionSentence@:firstParamInfo
-IntroductionQuestion;[请/给]&介绍/陈述/聊/说/讲/告诉&[一下/下]&#&[吧]||IntroductionSentence@:firstParamInfo
+IntroductionQuestion;^&聊聊/聊一下/说一说/说说/讲一下/告诉/讲讲&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionSentence@:firstParamInfo
+IntroductionQuestion;[请/给]&介绍/陈述/聊/说/讲/告诉/查阅&[一下/下]&#&[吧]||IntroductionSentence@:firstParamInfo
 IntroductionQuestion;^&#&是什么&^||IntroductionRequest@:firstParamInfo
