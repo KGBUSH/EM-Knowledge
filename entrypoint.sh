@@ -24,6 +24,8 @@ echo "index.solr.server.solrname=$KG_SOLR_NAME" >> $kgfile
 echo "tcp.server.ip=$KG_TCP_IP" >> $kgfile
 echo "tcp.server.port=$KG_TCP_PORT" >> $kgfile
 
+
+${KG_PRO_DIR}/sentiment/NE_AhoCarosick & 
 # Start the service
 # java -cp target/WebController-0.1-jar-with-dependencies.jar  -Ddebug.conf=$EWEB_DEBUG_FILE com.emotibot.webController.WebController $EWEB_CU_ADDR $EWEB_RC_ADDR $EWEB_PORT
 java -cp KnowledgeGraph-0.0.1.jar -Ddebug.conf=$EWEB_DEBUG_FILE  com.emotibot.WebService.WebServer $EWEB_RS_KG_PORT
