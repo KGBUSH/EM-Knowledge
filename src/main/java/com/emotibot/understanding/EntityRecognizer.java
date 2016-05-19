@@ -338,7 +338,7 @@ public class EntityRecognizer {
 			if (!entityTreeSet.contains(s) && sentence.contains(s.toLowerCase())) {
 				entityTreeSet.add(s);
 				refMap.put(s, DictionaryBuilder.getEntitySynonymTable().get(s));
-				System.err.println("s="+s+", test="+DictionaryBuilder.getEntitySynonymTable().get(s));
+//				System.err.println("s="+s+", test="+DictionaryBuilder.getEntitySynonymTable().get(s));
 			}
 		}
 

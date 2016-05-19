@@ -48,6 +48,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>music</label> ^ 什 么 ^ 唱 ^ </pattern>
+        <template>
+            <star index="2"/>的歌曲原唱是谁？
+        </template>
+    </category>
+    <category>
         <pattern> 谁 ^ 唱 ^ ## * <type>entity</type><label>music</label> ^ </pattern>
         <template>
             <star index="3"/>的歌曲原唱是谁？
@@ -57,6 +63,18 @@
         <pattern> 哪 个 ^ 唱 ^ ## * <type>entity</type><label>music</label> ^ </pattern>
         <template>
             <star index="3"/>的歌曲原唱是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> 什 么 ^ 唱 ^ ## * <type>entity</type><label>music</label> ^ </pattern>
+        <template>
+            <star index="3"/>的歌曲原唱是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>music</label> ^ 谁 的 歌 ^ </pattern>
+        <template>
+            <star index="2"/>的歌曲原唱是谁？
         </template>
     </category>
     <category>

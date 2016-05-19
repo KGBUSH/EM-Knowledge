@@ -122,7 +122,7 @@ public class KGAgent {
 			System.err.println("PMP.getAnswer: input is empty or is in wrong format");
 			return answerBean.returnAnswer(answerBean);
 		}
-		
+
 		IntentionClassifier intention = new IntentionClassifier(nerBean);
 		answerBean = intention.intentionProcess();
 		if (!answerBean.isValid()) {
@@ -138,7 +138,6 @@ public class KGAgent {
 	private AnswerBean answerProcess(AnswerBean answerBean) {
 
 		String sentence = nerBean.getSentence();
-		
 
 		AnswerRewrite answerRewite = new AnswerRewrite();
 
@@ -218,7 +217,7 @@ public class KGAgent {
 			// iterate each label of entity, and get the answer with highest
 			// score
 			List<String> listLabel = DBProcess.getEntityLabelList(entity);
-//			String oldSentence = sentence;
+			// String oldSentence = sentence;
 			List<AnswerBean> singleEntityAnswerBeanList = new ArrayList<>();
 
 			for (String iLabel : listLabel) {
@@ -228,15 +227,17 @@ public class KGAgent {
 				AnswerBean tempBean = new AnswerBean();
 				tempBean.setComments(answerBean.getComments());
 
-//				String tempSentence = TemplateEntry.templateProcess(iLabel, entity, sentence, uniqueID);
+				// String tempSentence = TemplateEntry.templateProcess(iLabel,
+				// entity, sentence, uniqueID);
 				// print debug log
-//				if (Common.KG_DebugStatus || debugFlag) {
-//					String debugInfo = answerBean.getComments() + "\n template process: ilabel:" + iLabel + " from:"
-//							+ oldSentence + " to:" + tempSentence;
-//					System.out.println(debugInfo);
-//					Debug.printDebug("123456", 1, "KG", debugInfo);
-//					tempBean.setComments(debugInfo);
-//				}
+				// if (Common.KG_DebugStatus || debugFlag) {
+				// String debugInfo = answerBean.getComments() + "\n template
+				// process: ilabel:" + iLabel + " from:"
+				// + oldSentence + " to:" + tempSentence;
+				// System.out.println(debugInfo);
+				// Debug.printDebug("123456", 1, "KG", debugInfo);
+				// tempBean.setComments(debugInfo);
+				// }
 
 				PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
 				tempBean = propertyRecognizer.ReasoningProcess(sentence, iLabel, entity, tempBean);
@@ -412,21 +413,26 @@ public class KGAgent {
 			return answerBean.returnAnswer(answerBean);
 		} else {
 			// introduction case
-			String localAnswer = "";
-			if (!userSentence.contains(entity)) {
-				System.out.println("userSentence=" + userSentence + "++++ entity=" + entity);
-				localAnswer = CommonUtil.matchPropertyValue(entity, segWordWithoutStopWord).replace("----####",
-						"是" + entity + "的") + "。" + entity + "是";
-				// System.out.println("segWordWithoutStopWord="+segWordWithoutStopWord+",
-				// tempProp="+tempProp+", replacePro="+replaceProp);
-			}
 			String strIntroduce = DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 			if (strIntroduce.contains("。"))
 				strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
-			localAnswer += strIntroduce;
-			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(localAnswer));
-			answerBean.setScore(QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(userSentence),
-					"Introduction", entity) ? 100 : 0);
+			
+			if (!userSentence.contains(entity)) {
+				System.out.println("userSentence=" + userSentence + "++++ entity=" + entity);
+
+				String searchRS = CommonUtil.matchPropertyValue(entity, segWordWithoutStopWord);
+				String oldEntity = searchRS.substring(0, searchRS.indexOf("----####"));
+				strIntroduce = searchRS.replace("----####", "是" + entity + "的") + "。" + entity + "是" + strIntroduce;
+				answerBean.setScore(QuestionClassifier.isKindofQuestion(
+						NLPUtil.removePunctuateMark(userSentence.replace(oldEntity, entity)), "Introduction", entity)
+								? 50 : 0);
+				answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduce));
+			} else {
+				answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduce));
+				answerBean.setScore(QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(userSentence),
+						"Introduction", entity) ? 100 : 0);
+			}
+
 			if (isQuestion == false) {
 				answerBean.setScore(0);
 			}
@@ -440,7 +446,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "肖申克救赎是什么？";
+		String str = "Tomboy是什么？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		// bean.setQuestionType("question");

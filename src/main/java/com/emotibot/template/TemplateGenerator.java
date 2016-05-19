@@ -74,7 +74,8 @@ public class TemplateGenerator {
 				if (!line.contains(";")) {
 					System.err.println("wrong format 1 in Line=" + line);
 					LogService.printLog("", "TemplateGenerate", "wrong format 1 in Line=" + line);
-					continue;
+					return;
+//					continue;
 				}
 				
 				String templateLine = "";
@@ -90,7 +91,8 @@ public class TemplateGenerator {
 				if (lineArr.length != 2) {
 					System.err.println("wrong format 2 in Line=" + line + ", with number of ; is=" + lineArr.length);
 					LogService.printLog("", "TemplateGenerate", "wrong format 2 in Line=" + line + ", with number of ; is=" + lineArr.length);
-					continue;
+					return;
+//					continue;
 				}
 				String questionType = lineArr[0];
 				String ruleLine = lineArr[1];
@@ -112,7 +114,8 @@ public class TemplateGenerator {
 						if (!part.endsWith("]")) {
 							System.err.println("wrong format [] in line=" + line);
 							LogService.printLog("", "TemplateGenerate", "wrong format [] in line=" + line);
-							continue;
+							return;
+//							continue;
 						}
 						part = part.substring(1, part.length() - 1);
 						list.add("");
@@ -123,7 +126,8 @@ public class TemplateGenerator {
 						// entity case
 						if (!part.equals("#")){
 							System.err.println("wrong format 001: part=" + part);
-							LogService.printLog("", "TemplateGenerate", "wrong format 001: part=" + part);							
+							LogService.printLog("", "TemplateGenerate", "wrong format 001: part=" + part);
+							return;
 						}
 						list.add(domain);
 					} else if (part.contains("/")) {
@@ -136,6 +140,7 @@ public class TemplateGenerator {
 						if (!part.equals("^")) {
 							System.err.println("wrong format of ^");
 							LogService.printLog("", "TemplateGenerate", "wrong format of ^");
+							return;
 						}
 						list.add("^ ");
 					} else {
@@ -212,7 +217,8 @@ public class TemplateGenerator {
 				if (!line.contains("#") || !line.contains(";")) {
 					System.err.println("wrong format 3 in Line=" + line);
 					LogService.printLog("", "TemplateGenerate", "wrong format 3 in Line=" + line);
-					continue;
+					return;
+//					continue;
 				}
 
 				// get the first line and second line
@@ -220,7 +226,8 @@ public class TemplateGenerator {
 				if (lineArr.length != 2) {
 					System.err.println("wrong format 4 in Line=" + line + ", with number of ; is=" + lineArr.length);
 					LogService.printLog("", "TemplateGenerate", "wrong format 4 in Line=" + line);
-					continue;
+					return;
+//					continue;
 				}
 				String firstLine = lineArr[0];
 				String secondLine = lineArr[1];
@@ -232,7 +239,8 @@ public class TemplateGenerator {
 					System.err.println("wrong format 5 in Line=" + line + ", with number of , is=" + firstArr.length
 							+ ", firstLine=" + firstLine);
 					LogService.printLog("", "TemplateGenerate", "wrong format 5 in Line=" + line);
-					continue;
+					return;
+//					continue;
 				}
 
 				String[] domainList = firstArr[0].split("&");
@@ -260,6 +268,7 @@ public class TemplateGenerator {
 							if (!part.equals("#") && !part.equals("#~")){
 								System.err.println("wrong format: part=" + part + "; inputfile="+inputFile);
 								LogService.printLog("", "TemplateGenerate"+ "; inputfile="+inputFile, "wrong format: part=" + part + "; line="+line);
+								return;
 							}
 							count++;
 							entityPos = count;
@@ -409,8 +418,8 @@ public class TemplateGenerator {
 
 	public static void main(String[] args) {
 		TemplateGenerator tg = new TemplateGenerator();
-		tg.generateQuestionClassifierTemplate();
-//		tg.generateDomainTemplate();
+//		tg.generateQuestionClassifierTemplate();
+		tg.generateDomainTemplate();
 	}
 
 }

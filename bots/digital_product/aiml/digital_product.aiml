@@ -240,12 +240,6 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 做 什 么 ^ </pattern>
-        <template>
-            <star index="2"/>的经营范围有什么？
-        </template>
-    </category>
-    <category>
         <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 类 ^ </pattern>
         <template>
             <star index="2"/>的公司性质是什么？
@@ -600,6 +594,60 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 啥 ^ 产 品 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 产 品 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 产 品 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 啥 ^ 商 品 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 商 品 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 商 品 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 啥 ^ 东 西 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 东 西 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 哪 ^ 东 西 ^ </pattern>
+        <template>
+            <star index="2"/>的主要产品有什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 多 少 人 ^ </pattern>
         <template>
             <star index="2"/>的员工数是多少？
@@ -729,6 +777,84 @@
         <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 英 文 ^ 咋 ^ 念 ^ </pattern>
         <template>
             <star index="2"/>的英文名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 干 嘛 ^ 用 ^ </pattern>
+        <template>
+            <star index="2"/>的作用是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 干 啥 ^ 用 ^ </pattern>
+        <template>
+            <star index="2"/>的作用是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 什 么 ^ 用 ^ </pattern>
+        <template>
+            <star index="2"/>的作用是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 还 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的别称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 又 ^ 叫 ^ </pattern>
+        <template>
+            <star index="2"/>的别称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 还 ^ 称 呼 ^ </pattern>
+        <template>
+            <star index="2"/>的别称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 又 ^ 称 呼 ^ </pattern>
+        <template>
+            <star index="2"/>的别称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 还 ^ 叫 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 又 ^ 叫 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 还 ^ 称 呼 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 又 ^ 称 呼 ^ ## * <type>entity</type><label>digital_product</label> ^ </pattern>
+        <template>
+            <star index="4"/>的别称是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 多 少 钱 ^ </pattern>
+        <template>
+            <star index="2"/>的价格是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>digital_product</label> ^ 多 贵 ^ </pattern>
+        <template>
+            <star index="2"/>的价格是多少？
         </template>
     </category>
 </aiml>

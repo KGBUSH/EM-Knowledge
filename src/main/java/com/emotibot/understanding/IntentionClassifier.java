@@ -38,7 +38,8 @@ public class IntentionClassifier {
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
 			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
 			String tempEntity = entitySet.get(0);
-
+			
+			System.out.println("INTENTION 1");
 			String tempLabel = DBProcess.getEntityLabel(tempEntity).toLowerCase();
 			// if (tempLabel.equals("catchword")) {
 			if (!NLPUtil.isInDomainWhiteListDict(tempLabel)) {
@@ -62,7 +63,7 @@ public class IntentionClassifier {
 			return answerBean.returnAnswer(answerBean);
 		}
 
-		System.out.println("INTENTION, after Single Entity");
+		System.out.println("INTENTION 2, after Single Entity");
 
 		// move the process of introduction question to intention process
 		if (entitySet.size() == 1) {
@@ -102,6 +103,7 @@ public class IntentionClassifier {
 				return answerBean.returnAnswer(answerBean);
 			}
 		}
+		System.out.println("INTENTION 3");
 
 		return answerBean;
 	}

@@ -180,6 +180,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 城 市 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 什 么 ^ 城 市 ^ </pattern>
+        <template>
+            <star index="2"/>的所属地区是哪儿？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> 在 哪 儿 ^ </pattern>
         <template>
             <star index="2"/>的所属地区是哪儿？
@@ -494,145 +506,151 @@
     <category>
         <pattern> ^ 谁 ^ 掌 管 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
-            <star index="4"/>的拥有者是谁
+            <star index="4"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ 哪 ^ 掌 管 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
-            <star index="4"/>的拥有者是谁
+            <star index="4"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ 谁 ^ 负 责 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
-            <star index="4"/>的拥有者是谁
+            <star index="4"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ 哪 ^ 负 责 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
-            <star index="4"/>的拥有者是谁
+            <star index="4"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ 谁 ^ 主 管 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
-            <star index="4"/>的拥有者是谁
+            <star index="4"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ 哪 ^ 主 管 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
-            <star index="4"/>的拥有者是谁
+            <star index="4"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ 谁 ^ 管 理 控 制 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
-            <star index="4"/>的拥有者是谁
+            <star index="4"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ 哪 ^ 管 理 控 制 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
-            <star index="4"/>的拥有者是谁
+            <star index="4"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ 谁 ^ 操 纵 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
-            <star index="4"/>的拥有者是谁
+            <star index="4"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ 哪 ^ 操 纵 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
-            <star index="4"/>的拥有者是谁
+            <star index="4"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ 谁 ^ 职 掌 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
-            <star index="4"/>的拥有者是谁
+            <star index="4"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ 哪 ^ 职 掌 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
         <template>
-            <star index="4"/>的拥有者是谁
+            <star index="4"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 掌 管 ^ </pattern>
         <template>
-            <star index="2"/>的拥有者是谁
+            <star index="2"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 掌 管 ^ </pattern>
         <template>
-            <star index="2"/>的拥有者是谁
+            <star index="2"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 负 责 ^ </pattern>
         <template>
-            <star index="2"/>的拥有者是谁
+            <star index="2"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 负 责 ^ </pattern>
         <template>
-            <star index="2"/>的拥有者是谁
+            <star index="2"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 主 管 ^ </pattern>
         <template>
-            <star index="2"/>的拥有者是谁
+            <star index="2"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 主 管 ^ </pattern>
         <template>
-            <star index="2"/>的拥有者是谁
+            <star index="2"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 管 理 控 制 ^ </pattern>
         <template>
-            <star index="2"/>的拥有者是谁
+            <star index="2"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 管 理 控 制 ^ </pattern>
         <template>
-            <star index="2"/>的拥有者是谁
+            <star index="2"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 操 纵 ^ </pattern>
         <template>
-            <star index="2"/>的拥有者是谁
+            <star index="2"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 操 纵 ^ </pattern>
         <template>
-            <star index="2"/>的拥有者是谁
+            <star index="2"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 谁 ^ 职 掌 ^ </pattern>
         <template>
-            <star index="2"/>的拥有者是谁
+            <star index="2"/>的拥有者是谁？
         </template>
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 哪 ^ 职 掌 ^ </pattern>
         <template>
-            <star index="2"/>的拥有者是谁
+            <star index="2"/>的拥有者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 是 谁 的 ^ </pattern>
+        <template>
+            <star index="2"/>的拥有者是谁？
         </template>
     </category>
     <category>
@@ -1272,6 +1290,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 多 少 年 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 几 年 ^ </pattern>
+        <template>
+            <star index="2"/>的举办时间是什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 在 哪 儿 ^ 举 办 ^ </pattern>
         <template>
             <star index="2"/>的举办地点在哪儿？
@@ -1821,6 +1851,78 @@
         <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 每 圈 ^ 多 长 ^ </pattern>
         <template>
             <star index="2"/>的跑道圈长是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 参 赛 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的参赛队伍是多少个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 参 加 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的参赛队伍是多少个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 参 赛 ^ 几 个 ^ </pattern>
+        <template>
+            <star index="2"/>的参赛队伍是多少个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>sports</label> ^ 参 加 ^ 几 个 ^ </pattern>
+        <template>
+            <star index="2"/>的参赛队伍是多少个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 参 赛 ^ ## * <type>entity</type><label>sports</label> ^ 多 少 ^ </pattern>
+        <template>
+            <star index="3"/>的参赛队伍是多少个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 参 加 ^ ## * <type>entity</type><label>sports</label> ^ 多 少 ^ </pattern>
+        <template>
+            <star index="3"/>的参赛队伍是多少个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 参 赛 ^ ## * <type>entity</type><label>sports</label> ^ 几 个 ^ </pattern>
+        <template>
+            <star index="3"/>的参赛队伍是多少个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 参 加 ^ ## * <type>entity</type><label>sports</label> ^ 几 个 ^ </pattern>
+        <template>
+            <star index="3"/>的参赛队伍是多少个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 ^ 参 赛 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的参赛队伍是多少个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 个 ^ 参 赛 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的参赛队伍是多少个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 ^ 参 加 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的参赛队伍是多少个？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 个 ^ 参 加 ^ ## * <type>entity</type><label>sports</label> ^ </pattern>
+        <template>
+            <star index="4"/>的参赛队伍是多少个？
         </template>
     </category>
 </aiml>

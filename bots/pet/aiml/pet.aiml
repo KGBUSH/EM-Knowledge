@@ -138,6 +138,30 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 哪 里 有 ^ ## * <type>entity</type><label>pet</label> ^ </pattern>
+        <template>
+            <star index="3"/>的地域分布在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 儿 有 ~^ ## * <type>entity</type><label>pet</label> ^ </pattern>
+        <template>
+            <star index="3"/>的地域分布在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>pet</label> ^ 分 布 ^ 在 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的地域分布在哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>pet</label> ^ 生 活 ^ 在 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的地域分布在哪儿？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>pet</label> ^ 水 温 ^ </pattern>
         <template>
             <star index="2"/>的适合水温是多少？

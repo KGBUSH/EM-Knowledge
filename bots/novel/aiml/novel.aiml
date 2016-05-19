@@ -708,6 +708,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 谁 的 书 ^ </pattern>
+        <template>
+            <star index="2"/>的作者是谁?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 谁 的 作 品 ^ </pattern>
+        <template>
+            <star index="2"/>的作者是谁?
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>novel</label> ^ 啥 时 ^ 出 版 ^ </pattern>
         <template>
             <star index="2"/>的出版日期什么时候？

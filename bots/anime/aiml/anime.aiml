@@ -1290,6 +1290,42 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 在 哪 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 在 哪 里 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 在 哪 儿 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 在 哪 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 在 哪 里 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 在 哪 儿 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的连载杂志是哪本？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 啥 时 ^ 连 载 ^ </pattern>
         <template>
             <star index="2"/>的连载期间什么时候？
@@ -1303,6 +1339,18 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 何 时 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 年 ^ 连 载 ^ </pattern>
+        <template>
+            <star index="2"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 一 年 ^ 连 载 ^ </pattern>
         <template>
             <star index="2"/>的连载期间什么时候？
         </template>
@@ -1326,6 +1374,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 年 ^ 刊 登 ^ </pattern>
+        <template>
+            <star index="2"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>anime</label> ^ 哪 一 年 ^ 刊 登 ^ </pattern>
+        <template>
+            <star index="2"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 啥 时 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
         <template>
             <star index="4"/>的连载期间什么时候？
@@ -1344,6 +1404,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 哪 年 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 一 年 ^ 连 载 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 啥 时 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
         <template>
             <star index="4"/>的连载期间什么时候？
@@ -1357,6 +1429,18 @@
     </category>
     <category>
         <pattern> ^ 何 时 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
+        <template>
+            <star index="4"/>的连载期间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 一 年 ^ 刊 登 ^ ## * <type>entity</type><label>anime</label> ^ </pattern>
         <template>
             <star index="4"/>的连载期间什么时候？
         </template>
