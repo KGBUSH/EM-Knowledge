@@ -14,32 +14,67 @@ import java.util.Set;
 import com.emotibot.common.BytesEncodingDetect;
 import com.emotibot.common.Common;
 import com.emotibot.log.LogService;
+import com.emotibot.understanding.NLPUtil;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.dictionary.CustomDictionary;
 
 public class DictionaryBuilder {
-	private static HashMap<String, Set<String>> synonymTable = createSynonymTable();;
-	private static HashMap<String, List<String>> synonymTableRef = createSynonymTableRef();
-	private static Set<String> stopWordTable = createStopWordTable();
-	// entityPMTable: the first level entity list
-	private static Set<String> entityPMTable = createEntityPMTable();
-	private static Set<String> entityTable = createEntityTable();
-	// entitySynonymTable:[甲肝，甲型病毒性肝炎]
-	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
-	// entitySynonymReverseTable:[山大，<山西大学，山东大学>]
-	private static Map<String, List<String>> entitySynonymReverseTable = createEntitySynonymReverseTable();
-	// highFeqWordTable: the first 10000 high frequent word from NLP dictionary
-	private static Set<String> highFeqWordTable = createHighFeqWordTable();
-	// removeableHighFeqWordOtherTable: the removeable entity in secondary level 
-	private static Set<String> removeableHighFeqWordOtherTable = createRemoveableHighFeqWordOtherTable();
-	// removeableHighFeqWordAllTable: all the removeable entity
-	private static Set<String> removeableHighFeqWordAllTable = createRemoveableHighFeqWordAllTable();
-	private static Set<String> domainAllListTable = createDomainAllListTable();
-	private static Set<String> domainBalckListTable = createDomainBalckListTable();
-	private static Set<String> domainWhiteListTable = createDomainWhiteListTable();
+//	private static HashMap<String, Set<String>> synonymTable = createSynonymTable();
+//	private static HashMap<String, List<String>> synonymTableRef = createSynonymTableRef();
+//	private static Set<String> stopWordTable = createStopWordTable();
+//	// entityPMTable: the first level entity list
+//	private static Set<String> entityPMTable = createEntityPMTable();
+//	private static Set<String> entityTable = createEntityTable();
+//	// entitySynonymTable:[甲肝，甲型病毒性肝炎]
+//	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
+//	// entitySynonymReverseTable:[山大，<山西大学，山东大学>]
+//	private static Map<String, List<String>> entitySynonymReverseTable = createEntitySynonymReverseTable();
+//	// highFeqWordTable: the first 10000 high frequent word from NLP dictionary
+//	private static Set<String> highFeqWordTable = createHighFeqWordTable();
+//	// removeableHighFeqWordOtherTable: the removeable entity in secondary level
+//	private static Set<String> removeableHighFeqWordOtherTable = createRemoveableHighFeqWordOtherTable();
+//	// removeableHighFeqWordAllTable: all the removeable entity
+//	private static Set<String> removeableHighFeqWordAllTable = createRemoveableHighFeqWordAllTable();
+//	private static Set<String> domainAllListTable = createDomainAllListTable();
+//	private static Set<String> domainBalckListTable = createDomainBalckListTable();
+//	private static Set<String> domainWhiteListTable = createDomainWhiteListTable();
 	
+	private static HashMap<String, Set<String>> synonymTable ;
+    private static HashMap<String, List<String>> synonymTableRef ;
+    private static Set<String> stopWordTable ;
+    // entityPMTable: the first level entity list
+    private static Set<String> entityPMTable ;
+    private static Set<String> entityTable ;
+    // entitySynonymTable:[甲肝，甲型病毒性肝炎]
+    private static Map<String, String> entitySynonymTable ;
+    // entitySynonymReverseTable:[山大，<山西大学，山东大学>]
+    private static Map<String, List<String>> entitySynonymReverseTable ;
+    // highFeqWordTable: the first 10000 high frequent word from NLP dictionary
+    private static Set<String> highFeqWordTable ;
+    // removeableHighFeqWordOtherTable: the removeable entity in secondary level
+    private static Set<String> removeableHighFeqWordOtherTable ;
+    // removeableHighFeqWordAllTable: all the removeable entity
+    private static Set<String> removeableHighFeqWordAllTable ;
+    private static Set<String> domainAllListTable ;
+    private static Set<String> domainBalckListTable ;
+    private static Set<String> domainWhiteListTable ;
+
 	public static void DictionaryBuilderInit() {
+		highFeqWordTable = createHighFeqWordTable();
+		synonymTable = createSynonymTable();
+		synonymTableRef = createSynonymTableRef();
+		stopWordTable = createStopWordTable();
+		entityPMTable = createEntityPMTable();
+		entityTable = createEntityTable();
+		entitySynonymTable = createEntitySynonymTable();
+		entitySynonymReverseTable = createEntitySynonymReverseTable();
+		highFeqWordTable = createHighFeqWordTable();
+		removeableHighFeqWordOtherTable = createRemoveableHighFeqWordOtherTable();
+		removeableHighFeqWordAllTable = createRemoveableHighFeqWordAllTable();
+		domainAllListTable = createDomainAllListTable();
+		domainBalckListTable = createDomainBalckListTable();
+		domainWhiteListTable = createDomainWhiteListTable();
 		addCustomDictionaryInHanlp();
 	}
 
@@ -54,25 +89,22 @@ public class DictionaryBuilder {
 			CustomDictionary.add(s);
 		}
 	}
-	
 
 	public static Set<String> getHighFeqWordTable() {
 		return highFeqWordTable;
 	}
 
-
 	public static Set<String> getEntityTable() {
 		return entityTable;
 	}
 
-
 	public static Map<String, String> getEntitySynonymTable() {
 		return entitySynonymTable;
 	}
-	
 
 	// create synonym reference hash map table: Map<id, List of Synonym>
 	private static HashMap<String, List<String>> createSynonymTableRef() {
+		System.err.println("init of createSynonymTableRef");
 		HashMap<String, List<String>> syn = new HashMap<>();
 		String fileName = Common.UserDir + "/knowledgedata/SynonymNoun.txt";
 		if (!Tool.isStrEmptyOrNull(fileName)) {
@@ -151,6 +183,7 @@ public class DictionaryBuilder {
 
 	// [欧洲，<欧罗巴，欧罗巴洲>]
 	private static Map<String, List<String>> createEntitySynonymReverseTable() {
+		System.err.println("init of createEntitySynonymReverseTable");
 		Map<String, List<String>> rsMap = new HashMap<>();
 		for (String s : entitySynonymTable.keySet()) {
 			String value = entitySynonymTable.get(s); // 欧洲
@@ -167,6 +200,7 @@ public class DictionaryBuilder {
 	// create entity table Set
 	// [“甲肝”,"甲型病毒性肝炎"]
 	private static Map<String, String> createEntitySynonymTable() {
+		System.err.println("init of createEntitySynonymTable");
 		String fileName = Common.UserDir + "/knowledgedata/entitySynonym.txt";
 		System.out.println("path is " + fileName);
 		Map<String, String> entitySyn = new HashMap<>();
@@ -187,7 +221,7 @@ public class DictionaryBuilder {
 						System.err.println("wrong format in entitySynonym.txt");
 						continue;
 					}
-					
+
 					String dbName = CharUtil.trim(wordList[0]);
 					for (int i = 1; i < wordList.length; i++) {
 						String synName = CharUtil.trimAndlower(wordList[i]);
@@ -198,10 +232,17 @@ public class DictionaryBuilder {
 							String second = thisSynonEntity.substring(thisSynonEntity.indexOf("（") + 1,
 									thisSynonEntity.indexOf("）"));
 
-							entitySyn.put(first.toLowerCase(), dbName.toLowerCase());
-							entitySyn.put(second.toLowerCase(), dbName.toLowerCase());
+							// entitySyn.put(first.toLowerCase(),
+							// dbName.toLowerCase());
+							// entitySyn.put(second.toLowerCase(),
+							// dbName.toLowerCase());
+
+							buildEntitySynonymMap(entitySyn, first.toLowerCase(), dbName.toLowerCase());
+							buildEntitySynonymMap(entitySyn, second.toLowerCase(), dbName.toLowerCase());
 						} else {
-							entitySyn.put(synName.toLowerCase(), dbName.toLowerCase());
+							// entitySyn.put(synName.toLowerCase(),
+							// dbName.toLowerCase());
+							buildEntitySynonymMap(entitySyn, synName.toLowerCase(), dbName.toLowerCase());
 						}
 					}
 				}
@@ -217,8 +258,23 @@ public class DictionaryBuilder {
 		return entitySyn;
 	}
 
+	private static void buildEntitySynonymMap(Map<String, String> map, String key, String value) {
+		if (Tool.isStrEmptyOrNull(key)) {
+			System.err.println("buildEntitySynonymMap: wrong format");
+			return;
+		}
+		// System.out.println("key="+key);
+		if (key.length() == 1 && NLPUtil.isInHighFrequentDict(key)) {
+			System.out.println("ignored entity synonym is "+key);
+			return;
+		} else {
+			map.put(key, value);
+		}
+	}
+
 	// create entity table Set
 	private static Set<String> createEntityPMTable() {
+		System.err.println("init of createEntityPMTable");
 		Set<String> entitySet = new HashSet<>();
 		String fileName = Common.UserDir + "/knowledgedata/entityPM.txt";
 		System.out.println("path is " + fileName);
@@ -251,6 +307,7 @@ public class DictionaryBuilder {
 
 	// createHighFeqWordTable
 	private static Set<String> createRemoveableHighFeqWordOtherTable() {
+		System.err.println("init of createRemoveableHighFeqWordOtherTable");
 		Set<String> wordSet = new HashSet<>();
 		String fileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent.txt";
 		System.out.println("path is " + fileName);
@@ -279,13 +336,14 @@ public class DictionaryBuilder {
 		System.out.println("createRemoveableHighFeqWordTable lengh = " + wordSet.size());
 		return wordSet;
 	}
-	
+
 	// createHighFeqWordAllTable
 	private static Set<String> createRemoveableHighFeqWordAllTable() {
+		System.err.println("init of createRemoveableHighFeqWordAllTable");
 		Set<String> wordSet = new HashSet<>();
 		String fileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequentAll.txt";
 		System.out.println("path is " + fileName);
-		
+
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
 				BytesEncodingDetect s = new BytesEncodingDetect();
@@ -306,17 +364,18 @@ public class DictionaryBuilder {
 				return null;
 			}
 		}
-		
+
 		System.out.println("createRemoveableHighFeqWordAllTable lengh = " + wordSet.size());
 		return wordSet;
 	}
-	
+
 	// createDomainBalckListTable
 	private static Set<String> createDomainWhiteListTable() {
+		System.err.println("init of createDomainWhiteListTable");
 		Set<String> wordSet = new HashSet<>();
 		String fileName = Common.UserDir + "/knowledgedata/domain/whitelist.txt";
 		System.out.println("path is " + fileName);
-		
+
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
 				BytesEncodingDetect s = new BytesEncodingDetect();
@@ -337,17 +396,18 @@ public class DictionaryBuilder {
 				return null;
 			}
 		}
-		
+
 		System.out.println("createDomainBalckListTable lengh = " + wordSet.size());
 		return wordSet;
 	}
-	
+
 	// createDomainBalckListTable
 	private static Set<String> createDomainBalckListTable() {
+		System.err.println("init of createDomainBalckListTable");
 		Set<String> wordSet = new HashSet<>();
 		String fileName = Common.UserDir + "/knowledgedata/domain/blacklist.txt";
 		System.out.println("path is " + fileName);
-		
+
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
 				BytesEncodingDetect s = new BytesEncodingDetect();
@@ -368,17 +428,18 @@ public class DictionaryBuilder {
 				return null;
 			}
 		}
-		
+
 		System.out.println("createDomainBalckListTable lengh = " + wordSet.size());
 		return wordSet;
 	}
-	
+
 	// createDomainAllListTable
 	private static Set<String> createDomainAllListTable() {
+		System.err.println("init of createDomainAllListTable");
 		Set<String> wordSet = new HashSet<>();
 		String fileName = Common.UserDir + "/knowledgedata/domain/domainList.txt";
 		System.out.println("path is " + fileName);
-		
+
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
 				BytesEncodingDetect s = new BytesEncodingDetect();
@@ -391,7 +452,7 @@ public class DictionaryBuilder {
 				String word = null;
 				while ((word = dis.readLine()) != null) {
 					// all entity in table are in low case
-					if(word.startsWith("##")){
+					if (word.startsWith("##")) {
 						continue;
 					}
 					wordSet.add(CharUtil.trim(word).toLowerCase());
@@ -402,13 +463,14 @@ public class DictionaryBuilder {
 				return null;
 			}
 		}
-		
+
 		System.out.println("createDomainBalckListTable lengh = " + wordSet.size());
 		return wordSet;
 	}
 
 	// createHighFeqWordTable
 	private static Set<String> createHighFeqWordTable() {
+		System.err.println("createHighFeqWordTable init");
 		Set<String> wordSet = new HashSet<>();
 		String fileName = Common.UserDir + "/knowledgedata/dictionary/highFrequentWordPartOf.txt";
 		System.out.println("path is " + fileName);
@@ -434,7 +496,7 @@ public class DictionaryBuilder {
 			}
 		}
 
-		System.out.println("createHighFeqWordTable lengh = " + wordSet.size());
+		System.err.println("createHighFeqWordTable lengh = " + wordSet.size());
 		return wordSet;
 	}
 

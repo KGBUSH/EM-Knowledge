@@ -446,7 +446,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "刘翔现在和谁谈恋爱？";
+		String str = "柯基有多高？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		// bean.setQuestionType("question");
