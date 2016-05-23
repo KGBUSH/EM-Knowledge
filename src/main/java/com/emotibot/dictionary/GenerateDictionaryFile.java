@@ -426,7 +426,7 @@ public class GenerateDictionaryFile {
 		
 //		generateEntity();
 		
-//		generatehighFrequentWordFile();
+		generatehighFrequentWordFile();
 //		generateRemoveableHighFrequentWordFile();
 		
 		

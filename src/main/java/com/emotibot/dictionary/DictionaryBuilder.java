@@ -20,45 +20,56 @@ import com.emotibot.util.Tool;
 import com.hankcs.hanlp.dictionary.CustomDictionary;
 
 public class DictionaryBuilder {
-//	private static HashMap<String, Set<String>> synonymTable = createSynonymTable();
-//	private static HashMap<String, List<String>> synonymTableRef = createSynonymTableRef();
-//	private static Set<String> stopWordTable = createStopWordTable();
-//	// entityPMTable: the first level entity list
-//	private static Set<String> entityPMTable = createEntityPMTable();
-//	private static Set<String> entityTable = createEntityTable();
-//	// entitySynonymTable:[甲肝，甲型病毒性肝炎]
-//	private static Map<String, String> entitySynonymTable = createEntitySynonymTable();
-//	// entitySynonymReverseTable:[山大，<山西大学，山东大学>]
-//	private static Map<String, List<String>> entitySynonymReverseTable = createEntitySynonymReverseTable();
-//	// highFeqWordTable: the first 10000 high frequent word from NLP dictionary
-//	private static Set<String> highFeqWordTable = createHighFeqWordTable();
-//	// removeableHighFeqWordOtherTable: the removeable entity in secondary level
-//	private static Set<String> removeableHighFeqWordOtherTable = createRemoveableHighFeqWordOtherTable();
-//	// removeableHighFeqWordAllTable: all the removeable entity
-//	private static Set<String> removeableHighFeqWordAllTable = createRemoveableHighFeqWordAllTable();
-//	private static Set<String> domainAllListTable = createDomainAllListTable();
-//	private static Set<String> domainBalckListTable = createDomainBalckListTable();
-//	private static Set<String> domainWhiteListTable = createDomainWhiteListTable();
-	
-	private static HashMap<String, Set<String>> synonymTable ;
-    private static HashMap<String, List<String>> synonymTableRef ;
-    private static Set<String> stopWordTable ;
-    // entityPMTable: the first level entity list
-    private static Set<String> entityPMTable ;
-    private static Set<String> entityTable ;
-    // entitySynonymTable:[甲肝，甲型病毒性肝炎]
-    private static Map<String, String> entitySynonymTable ;
-    // entitySynonymReverseTable:[山大，<山西大学，山东大学>]
-    private static Map<String, List<String>> entitySynonymReverseTable ;
-    // highFeqWordTable: the first 10000 high frequent word from NLP dictionary
-    private static Set<String> highFeqWordTable ;
-    // removeableHighFeqWordOtherTable: the removeable entity in secondary level
-    private static Set<String> removeableHighFeqWordOtherTable ;
-    // removeableHighFeqWordAllTable: all the removeable entity
-    private static Set<String> removeableHighFeqWordAllTable ;
-    private static Set<String> domainAllListTable ;
-    private static Set<String> domainBalckListTable ;
-    private static Set<String> domainWhiteListTable ;
+	// private static HashMap<String, Set<String>> synonymTable =
+	// createSynonymTable();
+	// private static HashMap<String, List<String>> synonymTableRef =
+	// createSynonymTableRef();
+	// private static Set<String> stopWordTable = createStopWordTable();
+	// // entityPMTable: the first level entity list
+	// private static Set<String> entityPMTable = createEntityPMTable();
+	// private static Set<String> entityTable = createEntityTable();
+	// // entitySynonymTable:[甲肝，甲型病毒性肝炎]
+	// private static Map<String, String> entitySynonymTable =
+	// createEntitySynonymTable();
+	// // entitySynonymReverseTable:[山大，<山西大学，山东大学>]
+	// private static Map<String, List<String>> entitySynonymReverseTable =
+	// createEntitySynonymReverseTable();
+	// // highFeqWordTable: the first 10000 high frequent word from NLP
+	// dictionary
+	// private static Set<String> highFeqWordTable = createHighFeqWordTable();
+	// // removeableHighFeqWordOtherTable: the removeable entity in secondary
+	// level
+	// private static Set<String> removeableHighFeqWordOtherTable =
+	// createRemoveableHighFeqWordOtherTable();
+	// // removeableHighFeqWordAllTable: all the removeable entity
+	// private static Set<String> removeableHighFeqWordAllTable =
+	// createRemoveableHighFeqWordAllTable();
+	// private static Set<String> domainAllListTable =
+	// createDomainAllListTable();
+	// private static Set<String> domainBalckListTable =
+	// createDomainBalckListTable();
+	// private static Set<String> domainWhiteListTable =
+	// createDomainWhiteListTable();
+
+	private static HashMap<String, Set<String>> synonymTable;
+	private static HashMap<String, List<String>> synonymTableRef;
+	private static Set<String> stopWordTable;
+	// entityPMTable: the first level entity list
+	private static Set<String> entityPMTable;
+	private static Set<String> entityTable;
+	// entitySynonymTable:[甲肝，甲型病毒性肝炎]
+	private static Map<String, String> entitySynonymTable;
+	// entitySynonymReverseTable:[山大，<山西大学，山东大学>]
+	private static Map<String, List<String>> entitySynonymReverseTable;
+	// highFeqWordTable: the first 10000 high frequent word from NLP dictionary
+	private static Set<String> highFeqWordTable;
+	// removeableHighFeqWordOtherTable: the removeable entity in secondary level
+	private static Set<String> removeableHighFeqWordOtherTable;
+	// removeableHighFeqWordAllTable: all the removeable entity
+	private static Set<String> removeableHighFeqWordAllTable;
+	private static Set<String> domainAllListTable;
+	private static Set<String> domainBalckListTable;
+	private static Set<String> domainWhiteListTable;
 
 	public static void DictionaryBuilderInit() {
 		highFeqWordTable = createHighFeqWordTable();
@@ -264,8 +275,8 @@ public class DictionaryBuilder {
 			return;
 		}
 		// System.out.println("key="+key);
-		if (key.length() == 1 && NLPUtil.isInHighFrequentDict(key)) {
-			System.out.println("ignored entity synonym is "+key);
+		if (key.length() <= 2 && NLPUtil.isInHighFrequentDict(key)) {
+			System.out.println("ignored entity synonym is " + key + ", value=" + value);
 			return;
 		} else {
 			map.put(key, value);

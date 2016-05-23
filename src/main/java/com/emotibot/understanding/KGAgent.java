@@ -421,6 +421,10 @@ public class KGAgent {
 				System.out.println("userSentence=" + userSentence + "++++ entity=" + entity);
 
 				String searchRS = CommonUtil.matchPropertyValue(entity, segWordWithoutStopWord);
+				System.out.println("searchRS="+searchRS);
+				if(Tool.isStrEmptyOrNull(searchRS)){
+					return answerBean.returnAnswer(answerBean);
+				}
 				String oldEntity = searchRS.substring(0, searchRS.indexOf("----####"));
 				strIntroduce = searchRS.replace("----####", "是" + entity + "的") + "。" + entity + "是" + strIntroduce;
 				answerBean.setScore(QuestionClassifier.isKindofQuestion(
@@ -446,7 +450,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "柯基有多高？";
+		String str = "你好";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		// bean.setQuestionType("question");

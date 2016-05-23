@@ -38,7 +38,7 @@ public class IntentionClassifier {
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
 			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
 			String tempEntity = entitySet.get(0);
-			
+
 			System.out.println("INTENTION 1");
 			String tempLabel = DBProcess.getEntityLabel(tempEntity).toLowerCase();
 			// if (tempLabel.equals("catchword")) {
@@ -47,9 +47,11 @@ public class IntentionClassifier {
 				return answerBean;
 			}
 
-			if (NLPUtil.isInRemoveableAllDict(tempEntity)) {
-				System.out.println("high frequent word in the blacklist domain case, and abord， the returned anwer is "
-						+ answerBean.toString());
+			// if (NLPUtil.isInRemoveableAllDict(tempEntity)) {
+			if (NLPUtil.isInHighFrequentDict(tempEntity)) {
+				System.out.println(
+						"high frequent word not in the whitelist domain case, and abord， the returned anwer is "
+								+ answerBean.toString());
 				return answerBean;
 			}
 
