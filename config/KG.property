@@ -7,5 +7,5 @@ index.solr.server.ip=192.168.1.4
 index.solr.server.port=8080
 index.solr.server.solrname=kg
 webserver.port=9999
-tcp.server.ip = 192.168.1.4
+tcp.server.ip = 192.168.1.73
 tcp.server.port = 16413

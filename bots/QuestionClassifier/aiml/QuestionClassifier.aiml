@@ -2838,6 +2838,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 认 不 认 识 ## * <type>entity</type> 吗 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 熟 不 熟 悉 ## * <type>entity</type> 吗 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
         <pattern> ^ 认 识 ## * <type>entity</type> 嘛 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
@@ -2868,6 +2880,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 认 不 认 识 ## * <type>entity</type> 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 熟 不 熟 悉 ## * <type>entity</type> 嘛 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
         <pattern> ^ 认 识 ## * <type>entity</type> 么 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
@@ -2893,6 +2917,18 @@
     </category>
     <category>
         <pattern> ^ 熟 悉 ## * <type>entity</type> 么 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 认 不 认 识 ## * <type>entity</type> 么 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 熟 不 熟 悉 ## * <type>entity</type> 么 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
         </template>

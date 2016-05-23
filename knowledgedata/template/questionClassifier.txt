@@ -12,7 +12,7 @@ IntroductionQuestion;^&#&谁&[么/呢/阿/啊/啦/哇/呀/吗]||IntroductionQues
 IntroductionQuestion;^&#&[有]&啥/什么&意思/含义&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&[是]&做什么的/干嘛的/怎么样&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&知不知道/谁是/什么是/听说/听说过/哪位是&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;^&认识/知道/了解/听说过/熟悉&#&吗/嘛/么||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;^&认识/知道/了解/听说过/熟悉/认不认识/熟不熟悉&#&吗/嘛/么||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&^&认识/知道/了解/听说过/熟悉&吗/嘛/么||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;什么/啥&叫/叫做/是/称为&#&[么/呢/阿/啊/啦/唉/吧/了/哇/呀/吗/嘛/哈]||IntroductionQuestion@:firstParamInfo
 ImplicationQuestion;^&多久/多长时间/几年/多少年&[了]&[么/呢/阿/啊/啦/唉/吧/哇/呀/吗/嘛/哈]||ImplicationQuestion@:computeYear

@@ -1932,6 +1932,24 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>TV</label> ^ 播 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的播出状态是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV</label> ^ 演 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的播出状态是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>TV</label> ^ 放 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的播出状态是什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>TV</label> ^ 第 几 季 ^ </pattern>
         <template>
             <star index="2"/>播出状态是什么？

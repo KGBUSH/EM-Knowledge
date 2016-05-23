@@ -24,6 +24,24 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>major</label> ^ 干 嘛 </pattern>
+        <template>
+            <star index="2"/>的就业方向是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>major</label> ^ 干 什 么 </pattern>
+        <template>
+            <star index="2"/>的就业方向是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>major</label> ^ 做 什 么 </pattern>
+        <template>
+            <star index="2"/>的就业方向是什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>major</label> ^ 研 究 ^ </pattern>
         <template>
             <star index="2"/>的研究对象是什么？
@@ -78,6 +96,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>major</label> ^ 读 ^ 几 年 ^ </pattern>
+        <template>
+            <star index="2"/>的修业年限是多少？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>major</label> ^ 学 ^ 多 少 ^ </pattern>
         <template>
             <star index="2"/>的修业年限是多少？
@@ -85,6 +109,12 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>major</label> ^ 修 ^ 多 少 ^ </pattern>
+        <template>
+            <star index="2"/>的修业年限是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>major</label> ^ 读 ^ 多 少 ^ </pattern>
         <template>
             <star index="2"/>的修业年限是多少？
         </template>
@@ -102,6 +132,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>major</label> ^ 读 ^ 多 久 ^ </pattern>
+        <template>
+            <star index="2"/>的修业年限是多少？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>major</label> ^ 学 ^ 多 长 ^ </pattern>
         <template>
             <star index="2"/>的修业年限是多少？
@@ -109,6 +145,12 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>major</label> ^ 修 ^ 多 长 ^ </pattern>
+        <template>
+            <star index="2"/>的修业年限是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>major</label> ^ 读 ^ 多 长 ^ </pattern>
         <template>
             <star index="2"/>的修业年限是多少？
         </template>

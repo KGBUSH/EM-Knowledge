@@ -707,4 +707,16 @@
             <star index="4"/>的别名是什么？
         </template>
     </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 治 ^ 什 么 ^ 病 ^ </pattern>
+        <template>
+            <star index="2"/>主治什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 治 ^ 哪 些 ^ 病 ^ </pattern>
+        <template>
+            <star index="2"/>主治什么？
+        </template>
+    </category>
 </aiml>
