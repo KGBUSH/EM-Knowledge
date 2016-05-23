@@ -80,9 +80,11 @@ public class ImplicationProcess {
 	public static String computeYears4Implication(String answer, String entity) {
 		System.out.println("computeYears4Implication: answer = "+answer);
 		if(Tool.isStrEmptyOrNull(answer) || !CharUtil.isDateFormat(answer)){
+			System.out.println("wrong format in computeYears4Implication");
 			return answer;
 		}
 		
+		answer = CharUtil.getDateFormat(answer);
 		Calendar ca = Calendar.getInstance();
 		int currentYear = ca.get(Calendar.YEAR);
 		int targetYear = Integer.parseInt(answer.substring(0, answer.indexOf("年")));

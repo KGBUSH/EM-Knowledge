@@ -73,31 +73,46 @@ public class CharUtil {
     }
     
     public static boolean isDateFormat(String str){
+    	str = CharUtil.trimAndlower(str);
     	Pattern p=Pattern.compile("\\d+年\\d+月\\d+日"); 
     	Matcher m=p.matcher(str); 
-    	return m.matches();
+    	return m.find();
     }
     
     public static boolean isNumberFormat(String str){
+    	str = CharUtil.trimAndlower(str);
     	Pattern p=Pattern.compile("[0-9]+"); 
     	Matcher m=p.matcher(str); 
     	return m.matches();
     }
     
     public static boolean isPuncuation(String str){
+    	str = CharUtil.trimAndlower(str);
     	Pattern p=Pattern.compile("[\\pP+~$`^=|<>～`$^+=|<>￥×]"); 
     	Matcher m=p.matcher(str); 
     	return m.matches();
+    }
+    
+    public static String getDateFormat(String str){
+    	str = CharUtil.trimAndlower(str);
+    	Pattern p=Pattern.compile("\\d+年\\d+月\\d+日"); 
+    	Matcher m=p.matcher(str); 
+    	if(!m.find()){
+    		return str;
+    	} else {
+    		return str.substring(m.start(), m.end());
+    	}
     }
     
     public static void main(String args[])
     {
 //    	System.err.println(isEnglisgBigChar("A"));
     	
-//    	String testDate = "1727年3月31日";
-    	String testDate = "1834254363";
+//    	String testDate = "约1763年2月12日（乾隆壬午除夕）";
+    	String testDate = "1763年02月02日";
+//    	String testDate = "1834254363";
     	
-    	System.out.println("is p:"+isNumberFormat(testDate));
+    	System.out.println("is p:"+getDateFormat(testDate));
     	
     	
     }

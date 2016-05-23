@@ -450,7 +450,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "你好";
+		String str = "刘翔退役多久了？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		// bean.setQuestionType("question");
