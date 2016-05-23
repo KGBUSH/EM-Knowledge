@@ -128,6 +128,7 @@ public class PropertyRecognizer {
 				String newSentence = sentenceNoEntity;
 				if (!Tool.isStrEmptyOrNull(oldWord)) {
 					newSentence = sentenceNoEntity.replace(oldWord, newDBEntity);
+					newSentence = removeStopWordInSentence(newSentence);
 				}
 				System.out.println("-----> case 1 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
 				System.out.println("prop:" + prop + ", new sentence:" + newSentence);
@@ -167,8 +168,9 @@ public class PropertyRecognizer {
 				String newDBEntity = DBProcess.getEntityByRelationship(label, entity, prop);
 				String newLabel = DBProcess.getEntityLabel(newDBEntity);
 				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
-				return ReasoningProcess(sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity), newLabel,
-						newDBEntity, answerBean);
+				String newSentence = sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity);
+				newSentence = removeStopWordInSentence(newSentence);
+				return ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean);
 			} else {
 				answerBean.setAnswer(answer.substring(0, answer.length() - 1));
 				answerBean.setScore(score);
@@ -484,6 +486,30 @@ public class PropertyRecognizer {
 		return rsList;
 	}
 
+	// get the sentence by removing the stopword
+	// input: “河南是哪儿？”
+	// output: 河南
+	protected String removeStopWordInSentence(String sentence) {
+		if (Tool.isStrEmptyOrNull(sentence)) {
+			System.out.println("removeStopWordInSentence: sentence is empty");
+			return "";
+		}
+
+		sentence = CharUtil.trimAndlower(sentence);
+		List<Term> segPos = NLPUtil.getSegWord(sentence);
+		System.out.println("removeStopWordInSentence: segPos=" + segPos);
+		String strRS = "";
+		for (int i = 0; i < segPos.size(); i++) {
+			String segWord = segPos.get(i).word;
+			if (!NLPUtil.isStopWord(segWord)) {
+				strRS += segWord;
+			}
+		}
+
+		System.out.println("\t removeStopWordInSentence is " + strRS);
+		return strRS;
+	}
+
 	// get the candidiates by spliting the sentence accroding to the entity and
 	// return the words after removing stop word
 	// input: “斗罗大陆属于哪种小说”
@@ -512,7 +538,7 @@ public class PropertyRecognizer {
 	}
 
 	protected boolean hasPropertyInSentence(String sentence, String label, String entity) {
-		System.out.println("hasPropertyInSentence: sentence="+sentence+", label="+label+", entity="+entity);
+		System.out.println("hasPropertyInSentence: sentence=" + sentence + ", label=" + label + ", entity=" + entity);
 		List<String> candidateSet = getCandidateSet(sentence, entity);
 		List<String> candidateSetbyStopWord = getCandidateSetbyStopWord(candidateSet);
 		Map<String, String> propMap = getPropertyNameSet(label, entity);
