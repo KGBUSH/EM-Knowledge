@@ -17,8 +17,8 @@ wget "http://docker-reg.emotibot.com.cn:50000/modules/knowledge_graph/weka.jar" 
 wget "http://docker-reg.emotibot.com.cn:50000/libs/debug-logger-1.0-SNAPSHOT.jar" -O ./build/debug-logger-1.0-SNAPSHOT.jar 
 wget http://docker-reg.emotibot.com.cn:50000/modules/knowledge_graph/Hanlp.tar.gz -O Hanlp.tar.gz
 tar -zxvf Hanlp.tar.gz
+cp -r Hanlp/data .
 # Build docker
 cmd="docker build --no-cache -t $DOCKER_IMAGE -f $DIR/Dockerfile $BUILDROOT"
 echo $cmd
 eval $cmd
-
