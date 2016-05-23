@@ -68,7 +68,7 @@ public class KGAgent {
 			System.err.println("question or score is null");
 			questionType = "";
 			requestScore = "";
-		} else if (questionType.equals("question")) {
+		} else if (questionType.startsWith("question")) {
 			try {
 				questionScore = Double.parseDouble(requestScore);
 			} catch (Exception e) {
@@ -450,7 +450,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "刘翔退役多久了？";
+		String str = "藿香正气水适用什么症状";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		// bean.setQuestionType("question");
