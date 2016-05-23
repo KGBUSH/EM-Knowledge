@@ -242,8 +242,8 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 boolean isexitname=isExistName(name);
 					 if(isexitname)
 					 {
-						 System.err.println("existname="+name+"  "+url);
-						 return ;
+						 //System.err.println("existname="+name+"  "+url);
+						 //return ;
 					 }
 					 if(!isexist)
 					 {
@@ -345,8 +345,8 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 String name = pageInfo.getName();
 					 name=MyTrim(name);
 					 boolean isexist=isExistHtml(urlmd5,parammd5);
-					 boolean isexitname=isExistName(name);
-					 if(isexist||isexitname)
+					// boolean isexitname=isExistName(name);
+					 if(isexist)//||isexitname)
 					 {
 							System.err.println("isexist||isexitname");
 							return;
