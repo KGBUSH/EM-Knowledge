@@ -275,7 +275,7 @@ public class DictionaryBuilder {
 			return;
 		}
 		// System.out.println("key="+key);
-		if (key.length() <= 2 && NLPUtil.isInHighFrequentDict(key)) {
+		if (key.length() <= 1 && NLPUtil.isInHighFrequentDict(key)) {
 			System.out.println("ignored entity synonym is " + key + ", value=" + value);
 			return;
 		} else {

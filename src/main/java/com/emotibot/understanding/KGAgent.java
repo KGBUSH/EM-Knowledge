@@ -76,6 +76,9 @@ public class KGAgent {
 			}
 		}
 
+		// System.out.println("questionType="+questionType+",
+		// questionScore="+questionScore);
+
 		if (userSentence.endsWith("?") || userSentence.endsWith("？")) {
 			isQuestion = true;
 			nerBean.setQuestion(true);
@@ -125,6 +128,7 @@ public class KGAgent {
 
 		IntentionClassifier intention = new IntentionClassifier(nerBean);
 		answerBean = intention.intentionProcess();
+		System.out.println("bean after intention = " + answerBean);
 		if (!answerBean.isValid()) {
 			answerBean = answerProcess(answerBean);
 		}
@@ -175,6 +179,7 @@ public class KGAgent {
 
 		if (isQuestion == false) {
 			Debug.printDebug(uniqueID, 4, "knowledge", "the input sentence is not a question");
+			System.out.println("the input sentence is not a question");
 			return answerBean.returnAnswer(answerBean);
 		}
 
@@ -217,6 +222,7 @@ public class KGAgent {
 			// iterate each label of entity, and get the answer with highest
 			// score
 			List<String> listLabel = DBProcess.getEntityLabelList(entity);
+			System.out.println("listLabel = " + listLabel);
 			// String oldSentence = sentence;
 			List<AnswerBean> singleEntityAnswerBeanList = new ArrayList<>();
 
@@ -259,6 +265,33 @@ public class KGAgent {
 				System.out.println("TEMP answerBean=" + tempBean);
 			}
 
+			// for entity Synonym case
+			if (singleEntityAnswerBeanList.isEmpty()) {
+				if (DictionaryBuilder.getEntitySynonymTable().containsKey(entity)) {
+					String entitySynonym = DictionaryBuilder.getEntitySynonymTable().get(entity);
+					String entitySynonymLabel = DBProcess.getEntityLabel(entitySynonym);
+					String entitySynonymSentence = sentence.toLowerCase().replace(entity, entitySynonym);;
+					
+					AnswerBean tempBean = new AnswerBean();
+					tempBean.setComments(answerBean.getComments());
+					PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
+					tempBean = propertyRecognizer.ReasoningProcess(entitySynonymSentence, entitySynonymLabel, entitySynonym,
+							tempBean);
+					
+					if (QuestionClassifier.isKindofQuestion(entitySynonymSentence, QuestionClassifier.implicationQuestionType,
+							"")) {
+						tempBean = QuestionClassifier.implicationQuestionProcess(userSentence, entitySynonym, tempBean);
+						System.out.println("Implication Qustion: tempBean is " + tempBean.toString());
+					}
+					System.out.println("\t ReasoningProcess answerBean for entity synonym = " + tempBean);
+
+					if (tempBean.isValid()) {
+						singleEntityAnswerBeanList.add(tempBean);
+						System.out.println("TEMP answerBean for entity Synonym = " + tempBean);
+					}
+				}
+			}
+
 			if (!singleEntityAnswerBeanList.isEmpty()) {
 				System.out.println("singleEntityAnswerBeanList: size = " + singleEntityAnswerBeanList.size());
 				AnswerBean tempBean = singleEntityAnswerBeanList.get(0);
@@ -273,6 +306,7 @@ public class KGAgent {
 			}
 
 			System.out.println("\t Single Entity answerBean = " + answerBean);
+
 			System.out.println("TIME 6 - Single Entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 		} else if (QuestionClassifier.isRelationshipQuestion(userSentence)) {
@@ -416,13 +450,13 @@ public class KGAgent {
 			String strIntroduce = DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 			if (strIntroduce.contains("。"))
 				strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
-			
+
 			if (!userSentence.contains(entity)) {
 				System.out.println("userSentence=" + userSentence + "++++ entity=" + entity);
 
 				String searchRS = CommonUtil.matchPropertyValue(entity, segWordWithoutStopWord);
-				System.out.println("searchRS="+searchRS);
-				if(Tool.isStrEmptyOrNull(searchRS)){
+				System.out.println("searchRS=" + searchRS);
+				if (Tool.isStrEmptyOrNull(searchRS)) {
 					return answerBean.returnAnswer(answerBean);
 				}
 				String oldEntity = searchRS.substring(0, searchRS.indexOf("----####"));
@@ -450,11 +484,11 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "藿香正气水适用什么症状";
+		String str = "皇马队长？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
-		// bean.setQuestionType("question");
-		bean.setQuestionType("debug");
+		bean.setQuestionType("question-info");
+		// bean.setQuestionType("debug");
 		bean.setScore("50");
 		// PatternMatchingProcess mp = new PatternMatchingProcess(bean);
 		// AnswerBean bean1 = mp.getAnswer();
