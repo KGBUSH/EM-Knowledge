@@ -54,14 +54,24 @@ public class WekaPrediction {
 	  }
 
 		  public void execute() throws Exception {
-		    Instances filtered = m_Training;
+		   Instances filtered = m_Training;
 		    m_Classifier.buildClassifier(filtered);
 		    m_Evaluation = new Evaluation(filtered);
 		    m_Evaluation.crossValidateModel(m_Classifier, filtered, 10,m_Training.getRandomNumberGenerator(1));
-			   System.out.println(m_Evaluation.toSummaryString());//输出总结信息
-	 	       System.out.println(m_Evaluation.toClassDetailsString());//输出分类详细信息
-	           System.out.println(m_Evaluation.toMatrixString());//输出分类的混淆矩阵
-
+			System.out.println(m_Evaluation.toSummaryString());
+	 	    System.out.println(m_Evaluation.toClassDetailsString());
+	        System.out.println(m_Evaluation.toMatrixString());
+	           
+	      /*     int split = (int) (m_Training.numInstances() * 0.8);
+	           Instances traindata = new Instances(m_Training, 0, split);
+	           Instances testdata = new Instances(m_Training, split, m_Training.numInstances() - split);
+	           m_Classifier.buildClassifier(traindata);
+	           Evaluation evaluation = new Evaluation(m_Training);
+	           evaluation.crossValidateModel(m_Classifier, testdata,10,m_Training.getRandomNumberGenerator(1));
+	           System.out.println(evaluation.toSummaryString());//输出总结信息
+	 	       System.out.println(evaluation.toClassDetailsString());//输出分类详细信息
+	           System.out.println(evaluation.toMatrixString());
+	           */
 		  }
 
 		  @Override
