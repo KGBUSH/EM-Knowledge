@@ -219,7 +219,7 @@ public class GenerateAuxFiles {
 				line = line.replace("  ", " ");
 				line = line.replace("  ", " ");
 				
-				System.out.println(count++);
+//				System.out.println(count++);
 
 				String[] strArr = line.split("###");
 				if (strArr.length <= 1) {
@@ -235,7 +235,12 @@ public class GenerateAuxFiles {
 					if (s.endsWith("tiletags")) {
 						DBEntity = s.substring(0, s.lastIndexOf("tiletags"));
 					} else {
-						synonymnEntitySet.add(s);
+						// temporarily, remove the words of length 1
+						if(s.length()==1){
+							System.out.println("ignore: "+s +" in line:"+line);
+						} else {
+							synonymnEntitySet.add(s);
+						}
 					}
 				}
 
