@@ -648,4 +648,8 @@ public class DictionaryBuilder {
 	public static void setDomainWhiteListTable(Set<String> domainWhiteListTable) {
 		DictionaryBuilder.domainWhiteListTable = domainWhiteListTable;
 	}
+
+	public static void main(String[] a) {
+		DictionaryBuilder.DictionaryBuilderInit();
+	}
 }

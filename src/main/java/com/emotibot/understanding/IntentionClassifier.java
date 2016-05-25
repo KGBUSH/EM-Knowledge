@@ -36,6 +36,11 @@ public class IntentionClassifier {
 
 		System.out.println("##### sentence" + sentence + ", entitySet=" + entitySet);
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
+			// synonym case that is a high frequent word, do not answer this kind of entity
+			if(!sentence.equals(nerBean.getOldSentence()) && NLPUtil.isInHighFrequentDict(nerBean.getOldSentence())){
+				return answerBean.returnAnswer(answerBean);
+			}
+			
 			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
 			String tempEntity = entitySet.get(0);
 
