@@ -24,6 +24,7 @@ import org.eclipse.jetty.servlet.ServletHandler;
 import com.emotibot.Debug.Debug;
 import com.emotibot.config.ConfigManager;
 import com.emotibot.dictionary.DictionaryBuilder;
+import com.emotibot.log.LogService;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
 //import com.emotibot.patternmatching.PatternMatchingProcess;
 import com.emotibot.understanding.KGAgent;
@@ -183,6 +184,7 @@ public class WebServer {
 				String scoreStr = request.getParameter("score");
 				String uniqId = request.getParameter("uniqId");
 				Debug.printDebug(uniqId, 3, "knowledge", "knowedge doService request=" + request.toString());
+				LogService.printLog("00", "webservice", text+"###"+scoreStr);
 				if (text != null) {
 					text = text.trim();
 					long t = System.currentTimeMillis();

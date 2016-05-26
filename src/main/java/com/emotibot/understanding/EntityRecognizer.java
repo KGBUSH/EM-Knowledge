@@ -432,7 +432,7 @@ public class EntityRecognizer {
 
 		System.out.println("changeEntitySynonym: entitySet=" + entitySet + ",sentence=" + sentence);
 		for (String entity : entitySet) {
-			if (NLPUtil.hasEntitySynonym(entity)) {
+			if (!sentence.contains(entity) && NLPUtil.hasEntitySynonym(entity)) {
 				List<String> list = NLPUtil.getSynonymnEntityList(entity);
 				System.out.println("entity=" + entity + ", synonymList=" + list);
 				String oldEntity = "";
@@ -449,6 +449,7 @@ public class EntityRecognizer {
 				}
 				// String oldEntity =
 				// NLPProcess.getEntitySynonymReverse(entity).toLowerCase();
+				System.out.println("oldEntity = "+oldEntity);
 				if (!oldEntity.isEmpty()) {
 					sentence = sentence.toLowerCase().replace(oldEntity, entity);
 					nerBean.setSentence(sentence);
