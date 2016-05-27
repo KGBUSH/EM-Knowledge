@@ -69,7 +69,7 @@ public class ImplicationProcess {
 		for(String s : implicationWordTable.keySet()){
 			if(str.contains(s)){
 				bean.setAnswer(s);
-				bean.setScore(100);
+				bean.setScore(500);
 			}
 				
 		}

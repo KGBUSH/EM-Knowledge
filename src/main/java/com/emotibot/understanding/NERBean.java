@@ -14,6 +14,7 @@ public class NERBean {
 	private String uniqueID = "";
 	private boolean isQuestion = false;
 	private boolean isDebug = false;
+	private double questionScore = 0;
 
 	public String toString() {
 		return "NERBean:\n" + "uniqueID=" + uniqueID + ";\n userSentence=" + sentence + ";\n entitySet=" + entitySet
@@ -82,6 +83,14 @@ public class NERBean {
 
 	public void setDebug(boolean isDebug) {
 		this.isDebug = isDebug;
+	}
+
+	public double getQuestionScore() {
+		return questionScore;
+	}
+
+	public void setQuestionScore(double questionScore) {
+		this.questionScore = questionScore;
 	}
 
 }
