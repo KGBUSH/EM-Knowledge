@@ -7,6 +7,7 @@ package com.emotibot.neo4jprocess;
  * Primary Owner: quanzu@emotibot.com.cn
  */
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import java.util.Map;
 import java.util.Properties;
 import org.neo4j.jdbc.Driver;
 import org.neo4j.jdbc.Neo4jConnection;
+import org.neo4j.jdbc.Neo4jStatement;
 
 import com.emotibot.common.Common;
 import com.emotibot.util.Entity;
@@ -127,7 +129,26 @@ public class EmotibotNeo4jConnection {
 		}
 		return bean;
 	}
-
+    // NOt support ny neo4j
+	public boolean executeCypherSQLBatch(List<String> sqls) throws SQLException
+	{
+		Statement stmt =null;
+		try
+		{
+			stmt = conn.createStatement();
+			for(String sql:sqls)
+			{
+				if(sql!=null&&sql.trim().length()>0) stmt.addBatch(sql);
+			}
+			stmt.executeBatch();
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+			if(stmt!=null) stmt.close();
+			return false;
+		}
+		return true;
+	}
 	// get result Set
 	public List<List<String>> getListSet(String query, List<String> propertySet) {
 		List<List<String>> listSet = new ArrayList<>();
