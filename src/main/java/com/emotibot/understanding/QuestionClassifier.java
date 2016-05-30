@@ -10,7 +10,8 @@ public class QuestionClassifier {
 
 	protected final static String introductionQuestionType = "IntroductionQuestion@:";
 	protected final static String introductionSentenceType = "IntroductionSentence@:";
-	// introductionRequestType is used to test an introduction after the property recognize
+	// introductionRequestType is used to test an introduction after the
+	// property recognize
 	protected final static String introductionRequestType = "IntroductionRequest@:";
 	protected final static String strictIntroductionQuestionType = "StrictIntroductionQuestion@:";
 	protected final static String selectiveQuestionType = "SelectiveQuestion@:";
@@ -27,29 +28,27 @@ public class QuestionClassifier {
 	// to test if it is a introduction request
 	// input: 姚明是谁？ 你喜欢姚明吗？
 	// output: 1 0
-	protected static boolean isIntroductionRequest(String sentence, boolean isQuestion, String entity) {
+	protected static boolean isIntroductionRequest(String sentence, String entity) {
 		boolean rs = false;
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			return rs;
 		}
 
 		String template = getQuestionTemplateRS(sentence, entity);
-		if(template.isEmpty()){
+		if (template.isEmpty()) {
 			System.out.println("template=" + template + "~~~~ NOT introduction");
 			rs = false;
 		} else {
-			if (template.startsWith(QuestionClassifier.introductionQuestionType) && isQuestion) {
+			if (template.startsWith(QuestionClassifier.introductionQuestionType)
+					|| template.startsWith(QuestionClassifier.introductionSentenceType)) {
 				rs = true;
-				System.out.println(template+" IS " + QuestionClassifier.introductionQuestionType);
-			} else if (template.startsWith(QuestionClassifier.introductionSentenceType)) {
-				rs = true;
-				System.out.println(template+" IS " + QuestionClassifier.introductionSentenceType);
+				System.out.println(template + " IS " + QuestionClassifier.introductionQuestionType);
 			} else {
 				System.out.println("template=" + template + "~~~~ NOT introduction ?????");
 				rs = false;
 			}
 		}
-		
+
 		return rs;
 	}
 
@@ -57,7 +56,7 @@ public class QuestionClassifier {
 	// input: 姚明是谁？ 你喜欢姚明吗？
 	// output: 1 0
 	protected static boolean isKindofQuestion(String sentence, String questionType, String entity) {
-		System.out.println("isKindofQuestion: questionType="+questionType+", entity="+entity);
+		System.out.println("isKindofQuestion: questionType=" + questionType + ", entity=" + entity);
 		boolean rs = false;
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			return rs;

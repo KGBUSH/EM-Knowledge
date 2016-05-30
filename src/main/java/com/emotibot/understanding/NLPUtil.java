@@ -186,6 +186,15 @@ public class NLPUtil {
 			return false;
 		}
 	}
+	
+	// if str in daily used dictionary or not
+	public static boolean isInDailyUsedWordDict(String str) {
+		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getDailyUsedWordTable().contains(str)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	// if str in domain balcklist or not
 	public static boolean isInDomainWhiteListDict(String str) {
