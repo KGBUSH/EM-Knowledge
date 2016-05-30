@@ -35,7 +35,7 @@ public class dataprocess {
 
 	public static void main(String args[]) throws IOException
 	{
-		String path="T";
+		String path="tall";
 		Vector<String> lines= Tool.getFileLines(path);
 		Map<String,Map<String,String>> md5Words = new HashMap<>();
 		for(String line:lines)
@@ -105,7 +105,7 @@ public class dataprocess {
 			}
 
 		}
-		FileWriter f  = new FileWriter("TongyiciLast");
+		FileWriter f  = new FileWriter("TongyiciPM");
 		for(String key:md5Words.keySet())
 		{
 			if(md5Words.get(key).size()>1)
