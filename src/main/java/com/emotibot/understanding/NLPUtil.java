@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.common.Term;

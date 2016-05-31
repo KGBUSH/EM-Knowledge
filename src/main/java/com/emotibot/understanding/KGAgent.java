@@ -142,7 +142,7 @@ public class KGAgent {
 		System.out.println("pre score==="+score);
 		// if it is not a question, then lower the score of the answer
 		// since if there is another answer from other module, the answer from KG with lower score will not be selected
-		if(nerBean.getQuestionScore() < 10){
+		if(nerBean.getQuestionScore() < 5){
 			score = 0;
 		}
 		
@@ -437,10 +437,12 @@ public class KGAgent {
 				answerBean.setScore(QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(userSentence),
 						"Introduction", entity) ? 100 : 0);
 			}
-
-//			if (isQuestion == false) {
-//				answerBean.setScore(0);
-//			}
+			
+			// to avoid the case of "是什么" in a statement 
+			if(nerBean.getQuestionScore() < 20){
+				answerBean.setScore(0);
+			}
+			
 			System.out.println("PM.getAnswer 7: the returned anwer is " + answerBean.toString());
 			return answerBean.returnAnswer(answerBean);
 		}
