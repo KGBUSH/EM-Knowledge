@@ -61,7 +61,7 @@ public class AnswerBean {
 
 	public boolean isValid() {
 		if(answer.isEmpty() || score == 0){
-			return false;
+			return isValid;
 		} else {
 			return true;
 		}
@@ -77,6 +77,10 @@ public class AnswerBean {
 
 	public void setOriginalWord(String originalWord) {
 		this.originalWord = originalWord;
+	}
+
+	public void setValid(boolean isValid) {
+		this.isValid = isValid;
 	}
 
 }

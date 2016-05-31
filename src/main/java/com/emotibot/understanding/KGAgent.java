@@ -129,23 +129,26 @@ public class KGAgent {
 
 		IntentionClassifier intention = new IntentionClassifier(nerBean);
 		answerBean = intention.intentionProcess();
-		System.out.println("bean after intention = " + answerBean);
-		if (!answerBean.isValid()) {
+
+		if (answerBean.isValid()) {
+			// if answerBean is valid, which means intention generates it, return this answer
+			System.out.println("bean retuned by intention = " + answerBean);
+			return answerBean;
+		} else {
 			answerBean = answerProcess(answerBean);
 		}
 		
 		double score = answerBean.getScore();
-		System.out.println("score==="+score);
+		System.out.println("pre score==="+score);
 		// if it is not a question, then lower the score of the answer
 		// since if there is another answer from other module, the answer from KG with lower score will not be selected
-		if(nerBean.getQuestionScore()==0){
-			score = score / 10;
-		} else if (nerBean.getQuestionScore() < 20) {
-			score = score / 4;
+		if(nerBean.getQuestionScore() < 10){
+			score = 0;
 		}
 		
 		score = (score > 100) ? 100 : score;
 		answerBean.setScore(score);
+		System.out.println("bean retuned by normal process = " + answerBean);
 
 		return answerBean;
 	}
@@ -407,7 +410,7 @@ public class KGAgent {
 			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer()));
 			System.out.println("PM.getAnswer 5: the returned anwer is " + answerBean.toString());
 			return answerBean.returnAnswer(answerBean);
-		} else if (NLPUtil.isInRemoveableAllDict(entity)) {
+		} else if (NLPUtil.isInRemoveableAllDict(entity) || NLPUtil.isInDailyUsedWordDict(entity)) {
 			return answerBean.returnAnswer(answerBean);
 		} else {
 			// introduction case
@@ -448,7 +451,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "姚明几岁？";
+		String str = "北京的行政代码是110000，对不对";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

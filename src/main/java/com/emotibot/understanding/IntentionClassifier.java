@@ -36,27 +36,32 @@ public class IntentionClassifier {
 
 		System.out.println("##### sentence" + sentence + ", entitySet=" + entitySet);
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
-			// synonym case that is a high frequent word, do not answer this kind of entity
-			if(!sentence.equals(nerBean.getOldSentence()) && NLPUtil.isInHighFrequentDict(nerBean.getOldSentence())){
+			// synonym case that is a high frequent word, do not answer this
+			// kind of entity
+			if (!sentence.equals(nerBean.getOldSentence()) && NLPUtil.isInHighFrequentDict(nerBean.getOldSentence())) {
+				answerBean.setValid(true);	// set valid then the answer will be returned
 				return answerBean.returnAnswer(answerBean);
 			}
-			
+
 			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
 			String tempEntity = entitySet.get(0);
 
 			System.out.println("INTENTION 1");
 			String tempLabel = DBProcess.getEntityLabel(tempEntity).toLowerCase();
 			// if (tempLabel.equals("catchword")) {
-			if (!NLPUtil.isInDomainWhiteListDict(tempLabel)) {
+			// if (!NLPUtil.isInDomainWhiteListDict(tempLabel)) {
+			if (NLPUtil.isInDomainBalckListDict(tempLabel)) {
 				System.out.println("catchword Case, and abord， the returned anwer is " + answerBean.toString());
+				answerBean.setValid(true);	// set valid then the answer will be returned
 				return answerBean;
 			}
 
 			// if (NLPUtil.isInRemoveableAllDict(tempEntity)) {
-			if (NLPUtil.isInHighFrequentDict(tempEntity)) {
+			if (NLPUtil.isInHighFrequentDict(tempEntity) || NLPUtil.isInDailyUsedWordDict(tempEntity)) {
 				System.out.println(
 						"high frequent word not in the whitelist domain case, and abord， the returned anwer is "
 								+ answerBean.toString());
+				answerBean.setValid(true);	// set valid then the answer will be returned
 				return answerBean;
 			}
 
@@ -65,7 +70,13 @@ public class IntentionClassifier {
 			if (tempStrIntroduce.contains("。"))
 				tempStrIntroduce = tempStrIntroduce.substring(0, tempStrIntroduce.indexOf("。"));
 			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(tempStrIntroduce));
-			answerBean.setScore(100);
+			if (NLPUtil.isInDomainWhiteListDict(tempLabel)) {
+				answerBean.setScore(100);
+			} else {
+				// change the score after the decision of the topic for solo entity
+				answerBean.setScore(0);
+				answerBean.setValid(true);	// set valid then the answer will be returned
+			}
 			System.out.println("intentionProcess intro 1: the returned anwer is " + answerBean.toString());
 			return answerBean.returnAnswer(answerBean);
 		}
@@ -92,14 +103,14 @@ public class IntentionClassifier {
 				Debug.printDebug("123456", 1, "KG", debugInfo);
 			}
 
-			if (NLPUtil.isInRemoveableAllDict(tempEntity)) {
+			if (NLPUtil.isInRemoveableAllDict(tempEntity) || NLPUtil.isInDailyUsedWordDict(tempEntity)) {
 				System.out.println("high frequent word in the blacklist domain case, and abord， the returned anwer is "
 						+ answerBean.toString());
 				return answerBean;
 			}
 
 			boolean isIntro = QuestionClassifier.isIntroductionRequest(NLPUtil.removePunctuateMark(tempSentence),
-					isQuestion, tempEntity);
+					tempEntity);
 			if (isIntro) {
 				String strIntroduce = DBProcess.getPropertyValue(tempEntity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 				if (strIntroduce.contains("。"))

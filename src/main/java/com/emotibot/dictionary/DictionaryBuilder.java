@@ -63,6 +63,8 @@ public class DictionaryBuilder {
 	private static Map<String, List<String>> entitySynonymReverseTable;
 	// highFeqWordTable: the first 10000 high frequent word from NLP dictionary
 	private static Set<String> highFeqWordTable;
+	// dailyUsedWordTable: the word daily used
+	private static Set<String> dailyUsedWordTable;
 	// removeableHighFeqWordOtherTable: the removeable entity in secondary level
 	private static Set<String> removeableHighFeqWordOtherTable;
 	// removeableHighFeqWordAllTable: all the removeable entity
@@ -80,7 +82,7 @@ public class DictionaryBuilder {
 		entityTable = createEntityTable();
 		entitySynonymTable = createEntitySynonymTable();
 		entitySynonymReverseTable = createEntitySynonymReverseTable();
-		highFeqWordTable = createHighFeqWordTable();
+		setDailyUsedWordTable(createDailyUsedWordTable());
 		removeableHighFeqWordOtherTable = createRemoveableHighFeqWordOtherTable();
 		removeableHighFeqWordAllTable = createRemoveableHighFeqWordAllTable();
 		domainAllListTable = createDomainAllListTable();
@@ -510,6 +512,38 @@ public class DictionaryBuilder {
 		System.err.println("createHighFeqWordTable lengh = " + wordSet.size());
 		return wordSet;
 	}
+	
+	// createHighFeqWordTable
+	private static Set<String> createDailyUsedWordTable() {
+		System.err.println("createHighFeqWordTable init");
+		Set<String> wordSet = new HashSet<>();
+		String fileName = Common.UserDir + "/knowledgedata/dictionary/dailyUsedWord.txt";
+		System.out.println("path is " + fileName);
+		
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = null;
+				while ((word = dis.readLine()) != null) {
+					// all entity in table are in low case
+					wordSet.add(CharUtil.trim(word).toLowerCase());
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		System.err.println("createDailyUsedWordTable lengh = " + wordSet.size());
+		return wordSet;
+	}
 
 	// create entity table Set
 	private static Set<String> createEntityTable() {
@@ -651,5 +685,13 @@ public class DictionaryBuilder {
 
 	public static void main(String[] a) {
 		DictionaryBuilder.DictionaryBuilderInit();
+	}
+
+	public static Set<String> getDailyUsedWordTable() {
+		return dailyUsedWordTable;
+	}
+
+	public static void setDailyUsedWordTable(Set<String> dailyUsedWordTable) {
+		DictionaryBuilder.dailyUsedWordTable = dailyUsedWordTable;
 	}
 }
