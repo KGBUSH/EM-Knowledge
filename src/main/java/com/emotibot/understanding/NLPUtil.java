@@ -138,6 +138,88 @@ public class NLPUtil {
 		return str;
 	}
 
+	// remove the mood word in the last character in a sentence, if the
+	// character is a mood word
+	private static String removeMoodWordInLast(String str) {
+		if (Tool.isStrEmptyOrNull(str)) {
+			return str;
+		}
+
+		String rtnStr = CharUtil.trimAndlower(str);
+		String lastC = str.charAt(str.length() - 1) + "";
+		if (DictionaryBuilder.getMoodWordTable().contains(lastC)) {
+			rtnStr = str.substring(0, str.length() - 1);
+		}
+		
+		System.out.println("str="+str+", char="+lastC+", rtn="+rtnStr);
+
+		return rtnStr;
+	}
+
+	public static String removeMoodWordB(String str) {
+		if (Tool.isStrEmptyOrNull(str)) {
+			return str;
+		}
+
+		String rtnStr = CharUtil.trimAndlower(str);
+		// assumption: there are at most two mood words in a sentence
+		rtnStr = removeMoodWordInLast(rtnStr);
+		rtnStr = removeMoodWordInLast(rtnStr);
+
+		return rtnStr;
+	}
+
+	public static String removeMoodWord(String str) {
+		String rtnA = removeMoodWordA(str);
+		String rtnB = removeMoodWordB(str);
+
+		if (rtnA.equals(rtnB)) {
+			return rtnA;
+		} else {
+			System.err.print("rtA=" + rtnA + ", rtB=" + rtnB);
+			return rtnA;
+		}
+
+	}
+
+	// remove the moodword in a sentence
+	// input: "姚明在家吗" "姚明在家了吗"
+	// output: "姚明在家"
+	public static String removeMoodWordA(String str) {
+		String tempStr = "";
+		System.out.println("removeMoodWord() input string is : " + str);
+		if (Tool.isStrEmptyOrNull(str)) {
+			return tempStr;
+		}
+		// 当一个句子的的长度大于等于2时，才有可能有2个语气词的情况
+		if (str.length() >= 2) {
+			String endLastTwo = str.substring(str.length() - 2,
+					str.length() - 1);
+			String endLastOne = str.substring(str.length() - 1, str.length());
+			if (DictionaryBuilder.getMoodWordTable().contains(endLastOne)
+					&& !DictionaryBuilder.getMoodWordTable().contains(
+							endLastTwo)) {
+				tempStr = str.substring(0, str.length() - 1);
+			} else if (DictionaryBuilder.getMoodWordTable()
+					.contains(endLastTwo)) {
+				tempStr = str.substring(0, str.length() - 2);
+				if (DictionaryBuilder.getMoodWordTable().contains(endLastOne)) {
+					System.err.print("removeMoodWord: w");
+				}
+			} else {
+				tempStr = str;
+			}
+		} else {
+			String endLastOne = str.substring(str.length() - 1, str.length());
+			if (DictionaryBuilder.getMoodWordTable().contains(endLastOne))
+				tempStr = str.substring(0, str.length() - 1);
+			else
+				tempStr = str;
+		}
+		System.out.println("removeMoodWord() output string is : " + tempStr);
+		return tempStr;
+	}
+
 	// remove the removeable string in the set
 	public static Set<String> removeRemoveableEntity(Set<String> entitySet) {
 		Set<String> rsSet = new HashSet<>();
