@@ -44,6 +44,7 @@ public class KGAgent {
 			System.out.println("DEBUG is TRUE");
 			debugFlag = true;
 			nerBean.setDebug(true);
+			questionScore = 100;
 		} else {
 			debugFlag = false;
 		}
@@ -453,7 +454,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "北京的行政代码是110000，对不对";
+		String str = "泰山高度？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");
