@@ -154,13 +154,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 				}
 				if ((WORDS).equals(Bytes.toString(kv[i].getQualifier()))) {
 					pmWord = Bytes.toString(kv[i].getValue());
-					//System.err.println("SSS="+pmWord+"###");
-					//System.err.println("SSS2="+pmWord.trim()+"###");
 					pmWord=URLDecoder.decode(pmWord.trim()).trim();
-					//System.err.println("SSS3="+URLDecoder.decode(pmWord).trim()+"###");
-					//MyTrim
-					//System.err.println("SSS4="+pmWord.trim()+"###");
-					//System.err.println("SSS5="+MyTrim(pmWord)+"###");
 					pmWord=MyTrim(pmWord);
 				}
 
