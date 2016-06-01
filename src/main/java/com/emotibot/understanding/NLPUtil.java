@@ -141,52 +141,75 @@ public class NLPUtil {
 
 	// remove the mood word in the last character in a sentence, if the
 	// character is a mood word
-	private static String removeMoodWordInLast(String str) {
+	private static String removeMoodWordInLast(String entity, String str) {
 		if (Tool.isStrEmptyOrNull(str)) {
+			return str;
+		}
+		
+		if(!Tool.isStrEmptyOrNull(entity) && str.endsWith(entity)){
 			return str;
 		}
 
 		String rtnStr = CharUtil.trimAndlower(str);
-		String lastC = str.charAt(str.length() - 1) + "";
-		if (DictionaryBuilder.getMoodWordTable().contains(lastC)) {
+		
+		if(isEndWithMood(str)){
 			rtnStr = str.substring(0, str.length() - 1);
 		}
 		
-		System.out.println("str="+str+", char="+lastC+", rtn="+rtnStr);
+//		String lastC = str.charAt(str.length() - 1) + "";
+//		if (DictionaryBuilder.getMoodWordTable().contains(lastC)) {
+//			rtnStr = str.substring(0, str.length() - 1);
+//		}
+		
+		System.out.println("str="+str+", rtn="+rtnStr);
 
 		return rtnStr;
 	}
 
-	public static String removeMoodWordB(String str) {
+	public static String removeMoodWordB(String entity, String str) {
 		if (Tool.isStrEmptyOrNull(str)) {
 			return str;
 		}
 
 		String rtnStr = CharUtil.trimAndlower(str);
 		// assumption: there are at most two mood words in a sentence
-		rtnStr = removeMoodWordInLast(rtnStr);
-		rtnStr = removeMoodWordInLast(rtnStr);
+		rtnStr = removeMoodWordInLast(entity, rtnStr);
+		rtnStr = removeMoodWordInLast(entity, rtnStr);
 
 		return rtnStr;
 	}
-
-	public static String removeMoodWord(String str) {
-		String rtnA = removeMoodWordA(str);
-		String rtnB = removeMoodWordB(str);
-
+	
+	public static String removeMoodWord(String entity, String str) {
+		
+		String rtnA = removeMoodWordA(entity, str);
+		String rtnB = removeMoodWordB(entity, str);
+		
 		if (rtnA.equals(rtnB)) {
 			return rtnA;
 		} else {
 			System.err.print("rtA=" + rtnA + ", rtB=" + rtnB);
 			return rtnA;
 		}
-
+	}
+	
+	// if a word ends with a mood character
+	private static boolean isEndWithMood(String word){
+		if (Tool.isStrEmptyOrNull(word)) {
+			return false;
+		}
+		
+		String lastC = word.charAt(word.length() - 1) + "";
+		if (DictionaryBuilder.getMoodWordTable().contains(lastC)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	// remove the moodword in a sentence
 	// input: "姚明在家吗" "姚明在家了吗"
 	// output: "姚明在家"
-	public static String removeMoodWordA(String str) {
+	public static String removeMoodWordA(String entity, String str) {
 		String tempStr = "";
 		System.out.println("removeMoodWord() input string is : " + str);
 		if (Tool.isStrEmptyOrNull(str)) {
