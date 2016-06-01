@@ -161,7 +161,7 @@ public class NLPUtil {
 //			rtnStr = str.substring(0, str.length() - 1);
 //		}
 		
-		System.out.println("str="+str+", rtn="+rtnStr);
+//		System.out.println("str="+str+", rtn="+rtnStr);
 
 		return rtnStr;
 	}
@@ -210,36 +210,60 @@ public class NLPUtil {
 	// input: "姚明在家吗" "姚明在家了吗"
 	// output: "姚明在家"
 	public static String removeMoodWordA(String entity, String str) {
-		String tempStr = "";
+		String tempStr = str;
 		System.out.println("removeMoodWord() input string is : " + str);
 		if (Tool.isStrEmptyOrNull(str)) {
-			return tempStr;
+			return "";
 		}
-		// 当一个句子的的长度大于等于2时，才有可能有2个语气词的情况
-		if (str.length() >= 2) {
-			String endLastTwo = str.substring(str.length() - 2,
-					str.length() - 1);
-			String endLastOne = str.substring(str.length() - 1, str.length());
-			if (DictionaryBuilder.getMoodWordTable().contains(endLastOne)
-					&& !DictionaryBuilder.getMoodWordTable().contains(
-							endLastTwo)) {
-				tempStr = str.substring(0, str.length() - 1);
-			} else if (DictionaryBuilder.getMoodWordTable()
-					.contains(endLastTwo)) {
-				tempStr = str.substring(0, str.length() - 2);
-				if (DictionaryBuilder.getMoodWordTable().contains(endLastOne)) {
-					System.err.print("removeMoodWord: w");
-				}
-			} else {
-				tempStr = str;
+		
+		if(!Tool.isStrEmptyOrNull(entity) && str.endsWith(entity)){
+			return str;
+		}
+		
+		if(str.length() == 1){
+			if(DictionaryBuilder.getMoodWordTable().contains(str)){
+				return "";
+			}else{
+				return tempStr;
 			}
-		} else {
-			String endLastOne = str.substring(str.length() - 1, str.length());
-			if (DictionaryBuilder.getMoodWordTable().contains(endLastOne))
-				tempStr = str.substring(0, str.length() - 1);
-			else
-				tempStr = str;
 		}
+		
+		for(int i = str.length()-1; i >= 1; i-- ){
+			String charAtLocal = str.charAt(i)+"";
+			System.out.println(charAtLocal);
+			if(!DictionaryBuilder.getMoodWordTable().contains(charAtLocal))
+				break;
+		
+			if(!Tool.isStrEmptyOrNull(entity)&&tempStr.endsWith(entity)){
+				break;
+			}
+			System.out.println(i);
+			tempStr = tempStr.substring(0,  i);
+			
+		}
+		
+		
+		// 当一个句子的的长度大于等于2时，才有可能有2个语气词的情况
+//		if (str.length() >= 2) {
+//			String endLastTwo = str.substring(str.length() - 2,
+//					str.length() - 1);
+//			String endLastOne = str.substring(str.length() - 1, str.length());
+//			if (DictionaryBuilder.getMoodWordTable().contains(endLastOne)) {
+//				if(DictionaryBuilder.getMoodWordTable().contains(endLastTwo) && !entity.contains(endLastTwo)){
+//					tempStr = str.substring(0, str.length() - 2);
+//				}else{
+//					tempStr = str.substring(0, str.length() - 1);
+//				}
+//			}else{
+//				tempStr = str;
+//			}
+//		} else {
+//			String endLastOne = str.substring(str.length() - 1, str.length());
+//			if (DictionaryBuilder.getMoodWordTable().contains(endLastOne))
+//				tempStr = str.substring(0, str.length() - 1);
+//			else
+//				tempStr = str;
+//		}
 		System.out.println("removeMoodWord() output string is : " + tempStr);
 		return tempStr;
 	}
@@ -358,15 +382,18 @@ public class NLPUtil {
 	}
 
 	public static void main(String[] args) {
-		String s = "妈妈咪呀！";
-		System.out.println(hasEntitySynonym(s));
-		System.out.println(DictionaryBuilder.getEntitySynonymTable().keySet().size());
-		for (String ss : DictionaryBuilder.getEntitySynonymTable().keySet()) {
-			if(ss.startsWith("妈妈")){
-				System.out.println("key="+ss+", value="+DictionaryBuilder.getEntitySynonymTable().get(ss));
-			}
-
-		}
+		DictionaryBuilder.DictionaryBuilderInit();
+		String s = "妈妈咪呀是什么呢";
+		String entity = "妈妈咪呀";
+		System.out.println(removeMoodWord(entity,s));
+//		System.out.println(hasEntitySynonym(s));
+//		System.out.println(DictionaryBuilder.getEntitySynonymTable().keySet().size());
+//		for (String ss : DictionaryBuilder.getEntitySynonymTable().keySet()) {
+//			if(ss.startsWith("妈妈")){
+//				System.out.println("key="+ss+", value="+DictionaryBuilder.getEntitySynonymTable().get(ss));
+//			}
+//
+//		}
 
 		// System.out.println(isInRemoveableOtherDict(s));
 		// System.out.println(isEntityPM(s));
