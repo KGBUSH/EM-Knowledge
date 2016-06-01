@@ -14,6 +14,7 @@ import com.emotibot.common.Common;
 import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
 import com.emotibot.understanding.DBProcess;
+import com.emotibot.understanding.NLPUtil;
 import com.emotibot.util.Tool;
 
 public class TemplateEntry {
@@ -109,6 +110,8 @@ public class TemplateEntry {
 			return sentence;
 		}
 
+		// remove the possible mood word
+		sentence = NLPUtil.removeMoodWord(entity, sentence);
 		String[] strArr = sentence.split(entity);
 		if (strArr.length == 0) {
 			return "";

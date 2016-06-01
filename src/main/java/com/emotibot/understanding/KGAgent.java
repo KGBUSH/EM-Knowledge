@@ -44,6 +44,7 @@ public class KGAgent {
 			System.out.println("DEBUG is TRUE");
 			debugFlag = true;
 			nerBean.setDebug(true);
+			questionScore = 100;
 		} else {
 			debugFlag = false;
 		}
@@ -142,7 +143,7 @@ public class KGAgent {
 		System.out.println("pre score==="+score);
 		// if it is not a question, then lower the score of the answer
 		// since if there is another answer from other module, the answer from KG with lower score will not be selected
-		if(nerBean.getQuestionScore() < 10){
+		if(nerBean.getQuestionScore() < 5){
 			score = 0;
 		}
 		
@@ -437,10 +438,12 @@ public class KGAgent {
 				answerBean.setScore(QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(userSentence),
 						"Introduction", entity) ? 100 : 0);
 			}
-
-//			if (isQuestion == false) {
-//				answerBean.setScore(0);
-//			}
+			
+			// to avoid the case of "是什么" in a statement 
+			if(nerBean.getQuestionScore() < 20){
+				answerBean.setScore(0);
+			}
+			
 			System.out.println("PM.getAnswer 7: the returned anwer is " + answerBean.toString());
 			return answerBean.returnAnswer(answerBean);
 		}
@@ -451,7 +454,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "北京的行政代码是110000，对不对";
+		String str = "泰山高度？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

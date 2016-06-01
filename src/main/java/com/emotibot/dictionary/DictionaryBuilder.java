@@ -72,6 +72,10 @@ public class DictionaryBuilder {
 	private static Set<String> domainAllListTable;
 	private static Set<String> domainBalckListTable;
 	private static Set<String> domainWhiteListTable;
+	// moodWordTable :[啊，呢，吧]
+	private static Set<String> moodWordTable;
+	// moodWordExceptionTable :[是什么]
+	private static Set<String> moodWordExceptionTable;
 
 	public static void DictionaryBuilderInit() {
 		highFeqWordTable = createHighFeqWordTable();
@@ -88,6 +92,8 @@ public class DictionaryBuilder {
 		domainAllListTable = createDomainAllListTable();
 		domainBalckListTable = createDomainBalckListTable();
 		domainWhiteListTable = createDomainWhiteListTable();
+		moodWordTable = createMoodWordTable();
+		setMoodWordExceptionTable(createMoodWordExceptionTable());
 		addCustomDictionaryInHanlp();
 	}
 
@@ -186,6 +192,7 @@ public class DictionaryBuilder {
 						}
 					}
 				}
+				dis.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 				return null;
@@ -602,6 +609,58 @@ public class DictionaryBuilder {
 		}
 		return stopWordSet;
 	}
+	
+	// create moodword table Set
+	private static Set<String> createMoodWordTable() {
+		Set<String> moodWordSet = new HashSet<String>();
+		String fileName = Common.UserDir + "/knowledgedata/dictionary/moodWords.txt";
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = null;
+				while ((word = dis.readLine()) != null) {
+					moodWordSet.add(CharUtil.trimAndlower(word));
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return moodWordSet;
+	}
+	
+	// create moodword table Set
+	private static Set<String> createMoodWordExceptionTable() {
+		Set<String> moodWordExceptionSet = new HashSet<String>();
+		String fileName = Common.UserDir + "/knowledgedata/dictionary/moodExceptionWords.txt";
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = null;
+				while ((word = dis.readLine()) != null) {
+					moodWordExceptionSet.add(CharUtil.trimAndlower(word));
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return moodWordExceptionSet;
+	}
 
 	public static Map<String, List<String>> getEntitySynonymReverseTable() {
 		return entitySynonymReverseTable;
@@ -693,5 +752,21 @@ public class DictionaryBuilder {
 
 	public static void setDailyUsedWordTable(Set<String> dailyUsedWordTable) {
 		DictionaryBuilder.dailyUsedWordTable = dailyUsedWordTable;
+	}
+
+	public static Set<String> getMoodWordTable() {
+		return moodWordTable;
+	}
+
+	public static void setMoodWordTable(Set<String> moodWordTable) {
+		DictionaryBuilder.moodWordTable = moodWordTable;
+	}
+
+	public static Set<String> getMoodWordExceptionTable() {
+		return moodWordExceptionTable;
+	}
+
+	public static void setMoodWordExceptionTable(Set<String> moodWordExceptionTable) {
+		DictionaryBuilder.moodWordExceptionTable = moodWordExceptionTable;
 	}
 }

@@ -1,3 +1,4 @@
 figure
 movie
 tv
+novel

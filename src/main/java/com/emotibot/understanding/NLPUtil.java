@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.common.Term;
@@ -138,6 +139,168 @@ public class NLPUtil {
 		return str;
 	}
 
+	// remove the mood word in the last character in a sentence, if the
+	// character is a mood word
+	private static String removeMoodWordInLast(String entity, String str) {
+		if (Tool.isStrEmptyOrNull(str)) {
+			return str;
+		}
+		
+		if(!Tool.isStrEmptyOrNull(entity) && str.endsWith(entity)){
+			return str;
+		}
+
+		String rtnStr = CharUtil.trimAndlower(str);
+		
+		if(isEndWithValidMood(str)){
+			rtnStr = str.substring(0, str.length() - 1);
+		}
+		
+//		String lastC = str.charAt(str.length() - 1) + "";
+//		if (DictionaryBuilder.getMoodWordTable().contains(lastC)) {
+//			rtnStr = str.substring(0, str.length() - 1);
+//		}
+		
+//		System.out.println("str="+str+", rtn="+rtnStr);
+
+		return rtnStr;
+	}
+
+	public static String removeMoodWordB(String entity, String str) {
+		if (Tool.isStrEmptyOrNull(str)) {
+			return str;
+		}
+
+		String rtnStr = CharUtil.trimAndlower(str);
+		
+		String revisedStr = removeMoodWordInLast(entity, rtnStr);
+		while (!revisedStr.equals(rtnStr)){
+			rtnStr = revisedStr;
+			revisedStr = removeMoodWordInLast(entity, rtnStr);
+		}
+		
+//		// assumption: there are at most two mood words in a sentence
+//		rtnStr = removeMoodWordInLast(entity, rtnStr);
+//		rtnStr = removeMoodWordInLast(entity, rtnStr);
+
+		return rtnStr;
+	}
+	
+	public static String removeMoodWord(String entity, String str) {
+		
+		String rtnA = removeMoodWordA(entity, str);
+		String rtnB = removeMoodWordB(entity, str);
+		
+		if (rtnA.equals(rtnB)) {
+			return rtnA;
+		} else {
+			System.err.print("rtA=" + rtnA + ", rtB=" + rtnB);
+			return rtnA;
+		}
+	}
+	
+	// if a word ends with a mood character
+	private static boolean isEndWithValidMood(String word){
+		if (Tool.isStrEmptyOrNull(word)) {
+			return false;
+		}
+		
+		String lastC = word.charAt(word.length() - 1) + "";
+		if (DictionaryBuilder.getMoodWordTable().contains(lastC)) {
+			if(isEndWithExceptionMoodWord(word)){
+				// case: 姚明是什么， 么 is a mood word, 是什么 is a exceptional mood word
+				return false;
+			} else {
+				return true;
+			}
+		} else {
+			return false;
+		}
+	}
+	
+	// if a word ends with a exceptional mood word
+	private static boolean isEndWithExceptionMoodWord(String word){
+		if (Tool.isStrEmptyOrNull(word)) {
+			return false;
+		}
+		
+		for(String s : DictionaryBuilder.getMoodWordExceptionTable()){
+			if(word.endsWith(s)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+
+	// remove the moodword in a sentence
+	// input: "姚明在家吗" "姚明在家了吗"
+	// output: "姚明在家"
+	public static String removeMoodWordA(String entity, String str) {
+		String tempStr = str;
+		System.out.println("removeMoodWord() input string is : " + str);
+		if (Tool.isStrEmptyOrNull(str)) {
+			return "";
+		}
+		
+		if(!Tool.isStrEmptyOrNull(entity) && str.endsWith(entity)){
+			return str;
+		}
+		
+		if(str.length() == 1){
+			if(DictionaryBuilder.getMoodWordTable().contains(str)){
+				return "";
+			}else{
+				return tempStr;
+			}
+		}
+		
+		for(int i = str.length()-1; i >= 1; i-- ){
+			String charAtLocal = str.charAt(i)+"";
+			System.out.println(charAtLocal);
+			if(!DictionaryBuilder.getMoodWordTable().contains(charAtLocal))
+				break;
+		
+			if(!Tool.isStrEmptyOrNull(entity)&&tempStr.endsWith(entity)){
+				break;
+			}
+			
+			if(isEndWithExceptionMoodWord(tempStr)){
+				break;
+			}
+			
+			System.out.println(i);
+			tempStr = tempStr.substring(0,  i);
+			
+		}
+		
+		
+		// 当一个句子的的长度大于等于2时，才有可能有2个语气词的情况
+//		if (str.length() >= 2) {
+//			String endLastTwo = str.substring(str.length() - 2,
+//					str.length() - 1);
+//			String endLastOne = str.substring(str.length() - 1, str.length());
+//			if (DictionaryBuilder.getMoodWordTable().contains(endLastOne)) {
+//				if(DictionaryBuilder.getMoodWordTable().contains(endLastTwo) && !entity.contains(endLastTwo)){
+//					tempStr = str.substring(0, str.length() - 2);
+//				}else{
+//					tempStr = str.substring(0, str.length() - 1);
+//				}
+//			}else{
+//				tempStr = str;
+//			}
+//		} else {
+//			String endLastOne = str.substring(str.length() - 1, str.length());
+//			if (DictionaryBuilder.getMoodWordTable().contains(endLastOne))
+//				tempStr = str.substring(0, str.length() - 1);
+//			else
+//				tempStr = str;
+//		}
+		System.out.println("removeMoodWord() output string is : " + tempStr);
+		return tempStr;
+	}
+
 	// remove the removeable string in the set
 	public static Set<String> removeRemoveableEntity(Set<String> entitySet) {
 		Set<String> rsSet = new HashSet<>();
@@ -252,15 +415,18 @@ public class NLPUtil {
 	}
 
 	public static void main(String[] args) {
-		String s = "妈妈咪呀！";
-		System.out.println(hasEntitySynonym(s));
-		System.out.println(DictionaryBuilder.getEntitySynonymTable().keySet().size());
-		for (String ss : DictionaryBuilder.getEntitySynonymTable().keySet()) {
-			if(ss.startsWith("妈妈")){
-				System.out.println("key="+ss+", value="+DictionaryBuilder.getEntitySynonymTable().get(ss));
-			}
-
-		}
+		DictionaryBuilder.DictionaryBuilderInit();
+		String s = "什么是妈妈咪呀呢呢";
+		String entity = "妈妈咪呀";
+		System.out.println(removeMoodWord(entity,s));
+//		System.out.println(hasEntitySynonym(s));
+//		System.out.println(DictionaryBuilder.getEntitySynonymTable().keySet().size());
+//		for (String ss : DictionaryBuilder.getEntitySynonymTable().keySet()) {
+//			if(ss.startsWith("妈妈")){
+//				System.out.println("key="+ss+", value="+DictionaryBuilder.getEntitySynonymTable().get(ss));
+//			}
+//
+//		}
 
 		// System.out.println(isInRemoveableOtherDict(s));
 		// System.out.println(isEntityPM(s));
