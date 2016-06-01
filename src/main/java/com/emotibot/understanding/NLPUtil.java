@@ -152,7 +152,7 @@ public class NLPUtil {
 
 		String rtnStr = CharUtil.trimAndlower(str);
 		
-		if(isEndWithMood(str)){
+		if(isEndWithValidMood(str)){
 			rtnStr = str.substring(0, str.length() - 1);
 		}
 		
@@ -172,9 +172,16 @@ public class NLPUtil {
 		}
 
 		String rtnStr = CharUtil.trimAndlower(str);
-		// assumption: there are at most two mood words in a sentence
-		rtnStr = removeMoodWordInLast(entity, rtnStr);
-		rtnStr = removeMoodWordInLast(entity, rtnStr);
+		
+		String revisedStr = removeMoodWordInLast(entity, rtnStr);
+		while (!revisedStr.equals(rtnStr)){
+			rtnStr = revisedStr;
+			revisedStr = removeMoodWordInLast(entity, rtnStr);
+		}
+		
+//		// assumption: there are at most two mood words in a sentence
+//		rtnStr = removeMoodWordInLast(entity, rtnStr);
+//		rtnStr = removeMoodWordInLast(entity, rtnStr);
 
 		return rtnStr;
 	}
@@ -193,18 +200,39 @@ public class NLPUtil {
 	}
 	
 	// if a word ends with a mood character
-	private static boolean isEndWithMood(String word){
+	private static boolean isEndWithValidMood(String word){
 		if (Tool.isStrEmptyOrNull(word)) {
 			return false;
 		}
 		
 		String lastC = word.charAt(word.length() - 1) + "";
 		if (DictionaryBuilder.getMoodWordTable().contains(lastC)) {
-			return true;
+			if(isEndWithExceptionMoodWord(word)){
+				// case: 姚明是什么， 么 is a mood word, 是什么 is a exceptional mood word
+				return false;
+			} else {
+				return true;
+			}
 		} else {
 			return false;
 		}
 	}
+	
+	// if a word ends with a exceptional mood word
+	private static boolean isEndWithExceptionMoodWord(String word){
+		if (Tool.isStrEmptyOrNull(word)) {
+			return false;
+		}
+		
+		for(String s : DictionaryBuilder.getMoodWordExceptionTable()){
+			if(word.endsWith(s)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 
 	// remove the moodword in a sentence
 	// input: "姚明在家吗" "姚明在家了吗"
@@ -237,6 +265,11 @@ public class NLPUtil {
 			if(!Tool.isStrEmptyOrNull(entity)&&tempStr.endsWith(entity)){
 				break;
 			}
+			
+			if(isEndWithExceptionMoodWord(tempStr)){
+				break;
+			}
+			
 			System.out.println(i);
 			tempStr = tempStr.substring(0,  i);
 			
@@ -383,7 +416,7 @@ public class NLPUtil {
 
 	public static void main(String[] args) {
 		DictionaryBuilder.DictionaryBuilderInit();
-		String s = "妈妈咪呀是什么呢";
+		String s = "什么是妈妈咪呀呢呢";
 		String entity = "妈妈咪呀";
 		System.out.println(removeMoodWord(entity,s));
 //		System.out.println(hasEntitySynonym(s));
