@@ -172,9 +172,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					String name = pageExtractInfo.getName();
 					name=MyTrim(name);
 					boolean flag = name.equals(pmWord);
-
 					outputKey.set(Bytes.toBytes(getASCIISum(url, 3)));
-
 					if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
 					{
 					String LabelTmp="";
@@ -188,6 +186,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						}
 					}
 					System.err.println("LabelTmp="+url+"###"+LabelTmp+"###"+name+"###"+pmWord);
+					label=LabelTmp;
 					System.err.println("label0="+label);
 					if(label==null||label.trim().length()==0||label.contains(Other)) {
 						System.err.println("label1="+label);
