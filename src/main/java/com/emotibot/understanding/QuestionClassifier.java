@@ -4,6 +4,7 @@ import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.log.LogService;
 import com.emotibot.template.TemplateProcessor;
+import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
 
 public class QuestionClassifier {
@@ -104,7 +105,12 @@ public class QuestionClassifier {
 			String first = sentence.substring(0, sentence.indexOf(entity));
 			String second = sentence.substring(sentence.indexOf(entity) + entity.length(), sentence.length());
 			System.out.println("isKindof: first=" + first + ", entity=" + entity + ", second=" + second);
-			sentence = first + " ## " + entity + "<type>entity</type> " + second;
+			String lastC = entity.charAt(entity.length() - 1) + "";
+			if(CharUtil.isChinese(lastC)){
+				sentence = first + " ## " + entity + "<type>entity</type> " + second;
+			} else {
+				sentence = first + " ## " + entity + " <type>entity</type> " + second;
+			}
 			template = questionClassifier.process(sentence);
 		} else {
 			template = questionClassifier.processQuestionClassifier(sentence);

@@ -2,6 +2,8 @@ package com.emotibot.understanding;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -252,7 +254,7 @@ public class PropertyRecognizer {
 	// input: 这个标志多少
 	// output: [这个记号数量, 这个标志数量, 这个记号多少, 这个标志多少]
 	private List<String> replaceSynonymProcess(String str, Map<String, String> refMap) {
-		// System.out.println("input of replaceSynonymProcess is " + str);
+		 System.out.println("input of replaceSynonymProcess is " + str);
 		List<String> rsSet = new ArrayList<>();
 		if (str.isEmpty()) {
 			System.out.println("output of replaceSynonymProcess is " + rsSet);
@@ -263,11 +265,23 @@ public class PropertyRecognizer {
 		// NLPFlag.SegPos.getValue());
 		// List<Term> segPos = tnNode.getWordPos();
 		List<Term> segPos = NLPUtil.getSegWord(str);
-		rsSet.add("");
-		for (int i = 0; i < segPos.size(); i++) {
+		List<String> wordList = new ArrayList<>();
+		
+//		wordList.add(str);	// for fixing bug "泰山多高"
+		for(int i = 0; i < segPos.size(); i++){
 			String iWord = segPos.get(i).word;
+			wordList.add(iWord);
+		}
+		
+		rsSet.add("");
+		
+		
+//		for (int i = 0; i < segPos.size(); i++) {
+//			String iWord = segPos.get(i).word;
+			
+		for (int i = 0; i < wordList.size(); i++) {
+			String iWord = wordList.get(i);
 			// System.out.println("current word is " + iWord);
-
 			Set<String> iSynSet = NLPUtil.getSynonymWordSet(iWord);
 			if (!iSynSet.contains(iWord)) {
 				iSynSet.add(iWord);
@@ -299,7 +313,7 @@ public class PropertyRecognizer {
 			}
 		}
 
-		// System.out.println("output of replaceSynonym: " + rsSet.toString());
+		 System.out.println("output of replaceSynonym: " + rsSet.toString());
 		return rsSet;
 	}
 

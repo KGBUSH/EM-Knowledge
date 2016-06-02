@@ -184,7 +184,7 @@ public class WebServer {
 				String scoreStr = request.getParameter("score");
 				String uniqId = request.getParameter("uniqId");
 				Debug.printDebug(uniqId, 3, "knowledge", "knowedge doService request=" + request.toString());
-				LogService.printLog("00", "webservice", text+"###"+scoreStr);
+//				LogService.printLog("00", "webservice", text+"###"+scoreStr);
 				if (text != null) {
 					text = text.trim();
 					long t = System.currentTimeMillis();

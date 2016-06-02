@@ -87,7 +87,7 @@ public class IntentionClassifier {
 		if (entitySet.size() == 1) {
 			String tempEntity = entitySet.get(0);
 			String tempLabel = DBProcess.getEntityLabel(tempEntity);
-			String tempSentence = TemplateEntry.templateProcess(tempLabel, tempEntity, sentence, uniqueID);
+//			String tempSentence = TemplateEntry.templateProcess(tempLabel, tempEntity, sentence, uniqueID);
 
 			// print debug log
 			if (Common.KG_DebugStatus || nerBean.isDebug()) {
@@ -97,6 +97,8 @@ public class IntentionClassifier {
 				}
 				String debugInfo = "DEBUG: userSentence=" + sentence + "; entitySet=" + entitySet + "; label="
 						+ tmpLabel;
+				
+				String tempSentence = TemplateEntry.templateProcess(tempLabel, tempEntity, sentence, uniqueID);
 				debugInfo += "; template change to:" + tempSentence;
 				answerBean.setComments(debugInfo);
 				System.out.println(debugInfo);
@@ -108,8 +110,8 @@ public class IntentionClassifier {
 						+ answerBean.toString());
 				return answerBean;
 			}
-
-			boolean isIntro = QuestionClassifier.isIntroductionRequest(NLPUtil.removePunctuateMark(tempSentence),
+			
+			boolean isIntro = QuestionClassifier.isIntroductionRequest(NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)),
 					tempEntity);
 			if (isIntro) {
 				String strIntroduce = DBProcess.getPropertyValue(tempEntity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);

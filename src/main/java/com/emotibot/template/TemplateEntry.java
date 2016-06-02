@@ -110,8 +110,9 @@ public class TemplateEntry {
 			return sentence;
 		}
 
-		// remove the possible mood word
-		sentence = NLPUtil.removeMoodWord(entity, sentence);
+		// TBC: remove the possible mood word
+//		sentence = NLPUtil.removeMoodWord(entity, sentence);
+		
 		String[] strArr = sentence.split(entity);
 		if (strArr.length == 0) {
 			return "";

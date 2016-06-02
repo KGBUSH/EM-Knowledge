@@ -92,7 +92,7 @@ public class TemplateProcessor extends AbstractAIMLEngine {
 
 		long timeCounter = System.currentTimeMillis();
 //		String sen = "## lady gaga  <type>entity</type><label>figure</label> 多重";
-		String sen = "##  <type>entity</type> 是 谁"; 
+		String sen = "## another<type>entity</type> 是 什 么 动"; 
 //		String sen = "说  说  ## 姚 明 <type>entity</type>"; 
 //		String sen = "说 说 ## 姚 明 <type>entity</type><label>figure</label>"; 
 //		String sen = "刘 翔 退 役 刘 翔 多 久 刘  多 久 役 多 久 退 役 刘 多 久 役  多 久 对 ";
