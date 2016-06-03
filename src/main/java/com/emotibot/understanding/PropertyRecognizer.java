@@ -147,6 +147,8 @@ public class PropertyRecognizer {
 			boolean furtherSeach = false;
 			String prop = "";
 
+			listPMBean = removeDuplicatedAnswerBean(listPMBean);
+			
 			for (PatternMatchingResultBean b : listPMBean) {
 				String queryAnswer = DBProcess.getPropertyValue(label, entity, b.getAnswer());
 				if (relationMap.containsKey(b.getAnswer())) {
@@ -181,6 +183,27 @@ public class PropertyRecognizer {
 				return answerBean.returnAnswer(answerBean);
 			}
 		}
+	}
+	
+	//去掉PatternMatchingResultBean list 里面针对多个相同的property 重复回答的 PatternMatchingResultBean
+	private List<PatternMatchingResultBean> removeDuplicatedAnswerBean(List<PatternMatchingResultBean> patternMatchingResultBeans){
+		List<PatternMatchingResultBean> listBeans = patternMatchingResultBeans;
+		System.out.println(listBeans.size());
+		Set<String> answerSet = new HashSet<String>();
+		Iterator<PatternMatchingResultBean> iterator = listBeans.iterator();
+		
+		while (iterator.hasNext()) {
+			PatternMatchingResultBean tempBean  = iterator.next();
+			String tempProperty = tempBean.getAnswer();
+			if(answerSet.contains(tempProperty)){
+				iterator.remove();
+			}else {
+				answerSet.add(tempProperty);
+			}
+			
+		}
+		System.out.println(listBeans.size());
+		return listBeans;
 	}
 
 	// Get the answer by the pattern matching method
