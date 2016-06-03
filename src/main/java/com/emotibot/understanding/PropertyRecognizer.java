@@ -11,6 +11,7 @@ import java.util.Set;
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.common.Common;
+import com.emotibot.log.LogService;
 import com.emotibot.template.TemplateEntry;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
@@ -105,7 +106,7 @@ public class PropertyRecognizer {
 		} else if (listPMBean.size() == 1) {
 			String prop = listPMBean.get(0).getAnswer();
 			String answer = "";
-			System.out.println("\t\t\t#### before Implication ");
+			System.out.println("\t\t\t#### before Implication: prop = " +prop);
 			if (ImplicationProcess.isImplicationWord(prop)) {
 				System.out.print("\t\t\t#### Implication ");
 				answer = ImplicationProcess.getImplicationAnswer(sentence, entity, prop);
@@ -254,57 +255,44 @@ public class PropertyRecognizer {
 	// input: 这个标志多少
 	// output: [这个记号数量, 这个标志数量, 这个记号多少, 这个标志多少]
 	private List<String> replaceSynonymProcess(String str, Map<String, String> refMap) {
-		 System.out.println("input of replaceSynonymProcess is " + str);
+//		 System.out.println("input of replaceSynonymProcess is " + str);
 		List<String> rsSet = new ArrayList<>();
 		if (str.isEmpty()) {
 			System.out.println("output of replaceSynonymProcess is " + rsSet);
 			return rsSet;
 		}
 
-		// NLPResult tnNode = NLPSevice.ProcessSentence(str,
-		// NLPFlag.SegPos.getValue());
-		// List<Term> segPos = tnNode.getWordPos();
 		List<Term> segPos = NLPUtil.getSegWord(str);
-		List<String> wordList = new ArrayList<>();
-		
-//		wordList.add(str);	// for fixing bug "泰山多高"
-		for(int i = 0; i < segPos.size(); i++){
-			String iWord = segPos.get(i).word;
-			wordList.add(iWord);
-		}
-		
 		rsSet.add("");
 		
-		
-//		for (int i = 0; i < segPos.size(); i++) {
-//			String iWord = segPos.get(i).word;
-			
-		for (int i = 0; i < wordList.size(); i++) {
-			String iWord = wordList.get(i);
-			// System.out.println("current word is " + iWord);
+		for (int i = 0; i < segPos.size(); i++) {
+			String iWord = segPos.get(i).word;
 			Set<String> iSynSet = NLPUtil.getSynonymWordSet(iWord);
+//			System.out.println(" NLP iSynSet: " + iSynSet);
+			
 			if (!iSynSet.contains(iWord)) {
 				iSynSet.add(iWord);
 				refMap.put(iWord, iWord);
 			}
+			
 			if (iSynSet.size() > 0) {
-				// System.out.println(iWord + " has syn: " + iSynSet);
+//				 System.out.println(iWord + " has syn: " + iSynSet);
 				// combine each of the synonyms to generate mutliple candidates
 				List<String> newRS = new ArrayList<>();
 				for (String iSyn : iSynSet) {
 					refMap.put(iSyn, iWord);
-					// System.out.println("\t iSyn is " + iSyn);
+					 System.out.println("\t iSyn is " + iSyn);
 					List<String> tmpRS = new ArrayList<>();
 					tmpRS.addAll(rsSet);
 					for (int j = 0; j < tmpRS.size(); j++) {
 						tmpRS.set(j, tmpRS.get(j) + iSyn);
 					}
 					newRS.addAll(tmpRS);
-					// System.out.println("\t tempRS is: " + tmpRS + "; newRS is
-					// " + newRS);
+					 System.out.println("\t tempRS is: " + tmpRS + "; newRS is " + newRS);
 				}
 				rsSet = newRS;
-				// System.out.println("after syn is: " + newRS);
+//				 System.out.println("current word is " + iWord);
+//				 System.out.println("after syn is: " + newRS);
 			} else {
 				System.err.println("PMP.replaceSynonym: No syn: " + iWord);
 				for (int j = 0; j < rsSet.size(); j++) {
@@ -312,8 +300,17 @@ public class PropertyRecognizer {
 				}
 			}
 		}
+		
+//		System.out.println("replaceSynonymProcess.segPos="+segPos);
+		if(segPos.size() > 1){
+//			System.out.println("replaceSynonymProcess.rsSet="+rsSet);
+			Set<String> iSynSet = NLPUtil.getSynonymWordSet(str);
+			for(String s : iSynSet){
+				rsSet.add(s);
+			}
+		}
 
-		 System.out.println("output of replaceSynonym: " + rsSet.toString());
+//		 System.out.println("output of replaceSynonym: " + rsSet.toString());
 		return rsSet;
 	}
 
@@ -322,7 +319,7 @@ public class PropertyRecognizer {
 	// input: （姚明）妻
 	// output: 叶莉
 	private PatternMatchingResultBean recognizingProp(String candidate, Set<String> propSet, int originalScore) {
-		System.out.println("init of recognizingProp: candidate=" + candidate);
+		System.out.println("init of recognizingProp: candidate=" + candidate + ", originalScore="+originalScore);
 		// threshold to pass: if str contain a property in DB, pass
 		boolean isPass = false;
 		HashMap<String, Integer> rsMap = new HashMap<String, Integer>();
@@ -336,7 +333,9 @@ public class PropertyRecognizer {
 
 		for (String strProperty : propSet) {
 			isPass = SinglePatternMatching(rsMap, strProperty, candidate, isPass);
+//			System.out.print("strProperty="+strProperty);
 		}
+//		System.out.println("isPass="+isPass);
 
 		int finalScore = Integer.MIN_VALUE;
 		for (String s : propSet) {
@@ -363,11 +362,17 @@ public class PropertyRecognizer {
 	// test the similarity between target (strProperty) and ref (candidate)
 	private boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
 			boolean isPass) {
-		// System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap +
-		// "\t"+"strProperty=" + strProperty
-		// + ", candidate=" + candidate);
+//		System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap + "\t" + "strProperty=" + strProperty
+//				+ ", candidate=" + candidate);
 
 		// case of length == 1
+		
+		if(Tool.isStrEmptyOrNull(strProperty) || Tool.isStrEmptyOrNull(candidate)){
+			System.err.println("wrong format in SinglePatternMatching: strProperty="+strProperty+", candidate"+candidate);
+			LogService.printLog("", "SinglePatternMatching", "wrong format in SinglePatternMatching: strProperty="+strProperty+", candidate"+candidate);
+			return isPass;
+		}
+		
 		if (strProperty.length() == 1 || candidate.length() == 1) {
 			if (strProperty.equals(candidate)) {
 				rsMap.put(strProperty, 5);
@@ -431,8 +436,10 @@ public class PropertyRecognizer {
 				right2left--;
 			}
 		}
-		// System.out.println("right is " + right2left + " isPass is " +
-		// isPass);
+		
+//		 System.out.println("strProperty=" + strProperty
+//					+ ", candidate=" + candidate+"right is " + right2left + " isPass is " +
+//		 isPass);
 
 		// if (left2right != right2left)
 		// System.err.println(
@@ -626,17 +633,48 @@ public class PropertyRecognizer {
 		}
 
 		List<String> propList = DBProcess.getPropertyNameSet(label, ent);
+//		System.out.println("getPropertyNameSet.propList="+propList);
 		if (propList != null && !propList.isEmpty()) {
 			for (String iProp : propList) {
 				rsMap.put(iProp, iProp);
-				Set<String> setSyn = NLPUtil.getSynonymWordSet(iProp);
+//				Set<String> setSyn = NLPUtil.getSynonymWordSet(iProp);
+				Set<String> setSyn = getSynonymSetOfProperty(iProp);
 				for (String iSyn : setSyn) {
 					rsMap.put(iSyn, iProp);
 				}
 			}
 		}
-		// System.out.println("all the prop is: " + rsMap);
+//		 System.out.println("all the prop is: " + rsMap);
 		return rsMap;
+	}
+	
+	// function: get the synonym word set of a property
+	// method: get the synonym from syn table based on the segments of the property
+	// input: a property name, e.g.: 海拔高度
+	// output: the synonym word set of this property, e.g.: 海拔身高, (since 身高 is synonym of 海拔)
+	private Set<String> getSynonymSetOfProperty(String prop){
+//		System.out.println("\n start getSynonymSetOfProperty: prop="+prop);
+		Set<String> rtnSynSet = new HashSet<>();
+		if(Tool.isStrEmptyOrNull(prop)){
+			return rtnSynSet;
+		}
+		
+		// 1. get the synonym set of the whole property
+		Set<String> setSyn = NLPUtil.getSynonymWordSet(prop);
+		for(String s : setSyn){
+			rtnSynSet.add(s);
+		}
+		
+		// 2. split the property into segments, get the syn set for each segments, and then combine them together
+		Map<String, String> refPropMap = new HashMap<>();
+		List<String> synList = replaceSynonymProcess(prop, refPropMap);
+		System.out.println("synList="+synList);
+		for(String s : synList){
+			rtnSynSet.add(s);
+		}
+		
+//		System.out.println("end getSynonymSetOfProperty: rtnSynSet="+rtnSynSet+"\n");
+		return rtnSynSet;
 	}
 
 }
