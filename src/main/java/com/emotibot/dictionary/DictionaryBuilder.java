@@ -10,12 +10,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.emotibot.common.BytesEncodingDetect;
 import com.emotibot.common.Common;
 import com.emotibot.log.LogService;
 import com.emotibot.understanding.NLPUtil;
 import com.emotibot.util.CharUtil;
+import com.emotibot.util.StringLengthComparator;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.dictionary.CustomDictionary;
 
@@ -95,6 +97,9 @@ public class DictionaryBuilder {
 		moodWordTable = createMoodWordTable();
 		setMoodWordExceptionTable(createMoodWordExceptionTable());
 		addCustomDictionaryInHanlp();
+		
+	
+		
 	}
 
 	private static void addCustomDictionaryInHanlp() {
@@ -122,6 +127,7 @@ public class DictionaryBuilder {
 	}
 
 	// create synonym reference hash map table: Map<id, List of Synonym>
+	// format: ["海拔",<海拔，标高>]
 	private static HashMap<String, List<String>> createSynonymTableRef() {
 		System.err.println("init of createSynonymTableRef");
 		HashMap<String, List<String>> syn = new HashMap<>();
@@ -144,7 +150,10 @@ public class DictionaryBuilder {
 						List<String> setElementSyn = new ArrayList<>();
 
 						for (int j = 1; j < words.length; j++) {
-							setElementSyn.add(words[j].toLowerCase());
+							String tmpS = CharUtil.trimAndlower(words[j]);
+							if(!Tool.isStrEmptyOrNull(tmpS)){
+								setElementSyn.add(words[j].toLowerCase());
+							}
 						}
 						syn.put(id, setElementSyn);
 					}
@@ -159,9 +168,10 @@ public class DictionaryBuilder {
 	}
 
 	// create synonym hash map table Map<words, id>
+	// format: ["海拔",<Dn01A09, Za10052>]
 	private static HashMap<String, Set<String>> createSynonymTable() {
 		System.err.println("init of synonymtable");
-		HashMap<String, Set<String>> syn = new HashMap<>();
+		HashMap<String, Set<String>> synMap = new HashMap<>();
 		String fileName = Common.UserDir + "/knowledgedata/SynonymNoun.txt";
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
@@ -182,13 +192,13 @@ public class DictionaryBuilder {
 						// System.out.println("id=" + id);
 						for (int j = 1; j < words.length; j++) {
 							Set<String> ss = null;
-							if (syn.containsKey(words[j])) {
-								ss = syn.get(words[j]);
+							if (synMap.containsKey(words[j])) {
+								ss = synMap.get(words[j]);
 							} else {
 								ss = new HashSet<String>();
 							}
 							ss.add(id);
-							syn.put(words[j].toLowerCase(), ss);
+							synMap.put(words[j].toLowerCase(), ss);
 						}
 					}
 				}
@@ -198,7 +208,7 @@ public class DictionaryBuilder {
 				return null;
 			}
 		}
-		return syn;
+		return synMap;
 	}
 
 	// [欧洲，<欧罗巴，欧罗巴洲>]

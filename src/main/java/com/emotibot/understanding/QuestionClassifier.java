@@ -126,8 +126,11 @@ public class QuestionClassifier {
 		System.out.println("implicationQuestionProcess str = " + strImplication);
 
 		if (!answerBean.getAnswer().isEmpty()) {
-			answerBean
-					.setAnswer(ImplicationProcess.getImplicationAnswer(answerBean.getAnswer(), entity, strImplication));
+			String implicationAnswer = ImplicationProcess.getImplicationAnswer(answerBean.getAnswer(), entity, strImplication);
+			if(!implicationAnswer.equals(answerBean.getAnswer())){
+				answerBean.setAnswer(implicationAnswer);
+				answerBean.setScore(500);
+			}
 		}
 		System.out.println("Implication Qustion: anwerBean is " + answerBean.toString());
 		return answerBean.returnAnswer(answerBean);

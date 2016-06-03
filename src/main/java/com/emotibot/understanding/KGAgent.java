@@ -219,8 +219,8 @@ public class KGAgent {
 
 				// add the implicationQuestion process here, for now only check
 				// the year computing
-				if (QuestionClassifier.isKindofQuestion(userSentence, QuestionClassifier.implicationQuestionType, "")) {
-					tempBean = QuestionClassifier.implicationQuestionProcess(userSentence, entity, tempBean);
+				if (QuestionClassifier.isKindofQuestion(NLPUtil.removeMoodWord(entity, userSentence), QuestionClassifier.implicationQuestionType, "")) {
+					tempBean = QuestionClassifier.implicationQuestionProcess(NLPUtil.removeMoodWord(entity, userSentence), entity, tempBean);
 					// answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(),
 					// 0));
 					System.out.println("Implication Qustion: tempBean is " + tempBean.toString());
@@ -454,7 +454,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "妈妈咪呀？";
+		String str = "主演龙之谷的是谁？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

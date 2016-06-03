@@ -228,12 +228,6 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 知 不 知 道 ## * <type>entity</type> </pattern>
-        <template>
-            IntroductionQuestion@:firstParamInfo
-        </template>
-    </category>
-    <category>
         <pattern> ^ 谁 是 ## * <type>entity</type> </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
@@ -246,19 +240,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 听 说 ## * <type>entity</type> </pattern>
-        <template>
-            IntroductionQuestion@:firstParamInfo
-        </template>
-    </category>
-    <category>
-        <pattern> ^ 听 说 过 ## * <type>entity</type> </pattern>
-        <template>
-            IntroductionQuestion@:firstParamInfo
-        </template>
-    </category>
-    <category>
         <pattern> ^ 哪 位 是 ## * <type>entity</type> </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 人 是 ## * <type>entity</type> </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
         </template>
@@ -306,31 +294,73 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type> ^ 认 识 </pattern>
+        <pattern> ^ 了 不 了 解 ## * <type>entity</type> </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type> ^ 知 道 </pattern>
+        <pattern> ^ 知 不 知 道 ## * <type>entity</type> </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type> ^ 了 解 </pattern>
+        <pattern> ^ ## * <type>entity</type> 认 识 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type> ^ 听 说 过 </pattern>
+        <pattern> ^ ## * <type>entity</type> 你 认 识 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type> ^ 熟 悉 </pattern>
+        <pattern> ^ ## * <type>entity</type> 知 道 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 你 知 道 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 了 解 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 你 了 解 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 听 说 过 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 你 听 说 过 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 熟 悉 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type> 你 熟 悉 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
         </template>
@@ -409,6 +439,12 @@
     </category>
     <category>
         <pattern> ^ 聊 聊 ## * <type>entity</type> </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 聊 下 ## * <type>entity</type> </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>

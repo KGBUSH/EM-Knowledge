@@ -403,7 +403,7 @@ public class NLPUtil {
 
 			for (String s : synSet) {
 				if (!DictionaryBuilder.getSynonymTableRef().containsKey(s))
-					System.out.println("@@@@@@@@@@ conflict in Synonym Table");
+					System.err.println("@@@@@@@@@@ conflict in Synonym Table");
 				synWord.add(DictionaryBuilder.getSynonymTableRef().get(s).get(0));
 			}
 		}
