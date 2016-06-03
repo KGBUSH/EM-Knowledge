@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
@@ -148,6 +150,8 @@ public class PropertyRecognizer {
 			boolean furtherSeach = false;
 			String prop = "";
 
+			listPMBean = removeDuplicatedAnswerBean(listPMBean);
+			
 			for (PatternMatchingResultBean b : listPMBean) {
 				String queryAnswer = DBProcess.getPropertyValue(label, entity, b.getAnswer());
 				if (relationMap.containsKey(b.getAnswer())) {
@@ -171,7 +175,10 @@ public class PropertyRecognizer {
 				String newDBEntity = DBProcess.getEntityByRelationship(label, entity, prop);
 				String newLabel = DBProcess.getEntityLabel(newDBEntity);
 				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
-				String newSentence = sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity);
+				Pattern pattern = Pattern.compile(answerBean.getOriginalWord());
+				Matcher sentenceNoEntityWithPattern = pattern.matcher(sentenceNoEntity);
+				String newSentence = sentenceNoEntityWithPattern.replaceFirst(newDBEntity);
+//				String newSentence = sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity);
 				newSentence = removeStopWordInSentence(newSentence);
 				return ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean);
 			} else {
@@ -182,6 +189,27 @@ public class PropertyRecognizer {
 				return answerBean.returnAnswer(answerBean);
 			}
 		}
+	}
+	
+	//去掉PatternMatchingResultBean list 里面针对多个相同的property 重复回答的 PatternMatchingResultBean
+	private List<PatternMatchingResultBean> removeDuplicatedAnswerBean(List<PatternMatchingResultBean> patternMatchingResultBeans){
+		List<PatternMatchingResultBean> listBeans = patternMatchingResultBeans;
+		System.out.println(listBeans.size());
+		Set<String> answerSet = new HashSet<String>();
+		Iterator<PatternMatchingResultBean> iterator = listBeans.iterator();
+		
+		while (iterator.hasNext()) {
+			PatternMatchingResultBean tempBean  = iterator.next();
+			String tempProperty = tempBean.getAnswer();
+			if(answerSet.contains(tempProperty)){
+				iterator.remove();
+			}else {
+				answerSet.add(tempProperty);
+			}
+			
+		}
+		System.out.println(listBeans.size());
+		return listBeans;
 	}
 
 	// Get the answer by the pattern matching method
