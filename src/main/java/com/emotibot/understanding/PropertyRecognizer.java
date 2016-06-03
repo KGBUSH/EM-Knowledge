@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
@@ -172,7 +174,10 @@ public class PropertyRecognizer {
 				String newDBEntity = DBProcess.getEntityByRelationship(label, entity, prop);
 				String newLabel = DBProcess.getEntityLabel(newDBEntity);
 				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
-				String newSentence = sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity);
+				Pattern pattern = Pattern.compile(answerBean.getOriginalWord());
+				Matcher sentenceNoEntityWithPattern = pattern.matcher(sentenceNoEntity);
+				String newSentence = sentenceNoEntityWithPattern.replaceFirst(newDBEntity);
+//				String newSentence = sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity);
 				newSentence = removeStopWordInSentence(newSentence);
 				return ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean);
 			} else {
