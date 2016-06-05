@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import org.apache.http.impl.client.SystemDefaultHttpClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.HttpSolrClient;
@@ -43,7 +44,8 @@ public class SolrUtil {
 			String ip=cf.getIndexSolrServerIp();
 			int port = cf.getIndexSolrServerPort();
 			String solrName=cf.getIndexSolrServerSolrName();
-			server = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName);
+			SystemDefaultHttpClient httpClient = new SystemDefaultHttpClient();
+			server = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName,httpClient);
 			server.setConnectionTimeout(10 * 1000);
 			server.setFollowRedirects(false);
 			server.setAllowCompression(true);
@@ -53,7 +55,8 @@ public class SolrUtil {
 
 	public SolrUtil(String ip,int port,String solrName) {
 		if (server == null) {
-			server = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName);
+			SystemDefaultHttpClient httpClient = new SystemDefaultHttpClient();
+			server = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName,httpClient);
 			server.setConnectionTimeout(10 * 1000);
 			server.setFollowRedirects(false);
 			server.setAllowCompression(true);
@@ -150,7 +153,7 @@ public class SolrUtil {
     }
 	public static void main(String args[]) throws SolrServerException, IOException, InterruptedException {
 		SolrUtil solr = new SolrUtil();
-    	/*Vector<String> files = new Vector<String>();
+    	Vector<String> files = new Vector<String>();
 		 files.add("/Users/Elaine/Documents/workspace/html/yaomin");
 		 files.add("/Users/Elaine/Documents/workspace/html/yaoxinlei");
 		 files.add("/Users/Elaine/Documents/workspace/html/caiyilin");
@@ -162,7 +165,7 @@ public class SolrUtil {
 		 PageExtractInfo pageInfo = ex.ProcessPage();
 		 solr.addDoc(pageInfo);
 		 String name = pageInfo.getName();
-		 for(int j=0;j<10000;j++)
+		 for(int j=0;j<100;j++)
 		 {
 			 pageInfo.setName(name+j);
 			 solr.addDoc(pageInfo);
@@ -175,17 +178,17 @@ public class SolrUtil {
 	    	long t2=System.currentTimeMillis();
 			System.err.println("time="+(t2-t1));
            Thread.sleep(10*1000);
-		 }*/
-		Solr_Query obj = new Solr_Query();
-		obj.setFindEntity(true);
+		 }
+		//Solr_Query obj = new Solr_Query();
+		//obj.setFindEntity(true);
 		//obj.addEntity("姚明");
-		obj.addEntity("地藏");
+		//obj.addEntity("地藏");
 
 		//obj.addWord("姚明");
 		//obj.addWord("丈夫");
 		//obj.addWord("忉利天");
 
-		solr.Search(obj);
+		//solr.Search(obj);
 		return;
 	}
 

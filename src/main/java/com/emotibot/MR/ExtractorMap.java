@@ -249,12 +249,12 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						HashMap<String,List<String>> attr_Values = pageExtractInfo.getAttr_Values();
 						BuildCypherSQL bcy = new BuildCypherSQL();
 						
-						/*if(name!=null&&name.trim().length()>0){
+						if(name!=null&&name.trim().length()>0){
 						if(WordLabelMap.containsKey(name)){label=WordLabelMap.get(name);}
 						}
 						if(pmWord!=null&&pmWord.trim().length()>0){
 						if(WordLabelMap.containsKey(pmWord)){label=WordLabelMap.get(pmWord);}
-						}*/
+						}
 					    if(label==null||label.trim().length()==0||label.contains(Other)) label=this.getLabel(url, pageExtractInfo.getTags());
 						System.err.println("label="+label);
 

@@ -32,6 +32,7 @@ import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
+import org.apache.http.impl.client.SystemDefaultHttpClient;
 import org.apache.solr.common.SolrInputDocument;
 
 import com.emotibot.config.ConfigManager;
@@ -250,6 +251,9 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 			buffer.append(bufferMatch.toString());
 			buffer.append(bufferMerge.toString());
 		}
+		System.err.println("bufferMatch.toString()="+bufferMatch.toString());
+		System.err.println("bufferMerge.toString()="+bufferMerge.toString());
+		System.err.println("buffer.toString()="+buffer.toString());
 		return buffer.toString();
 	}
 	public static void main(String args[])
