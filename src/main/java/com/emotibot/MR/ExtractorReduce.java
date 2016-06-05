@@ -33,16 +33,19 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.Reducer.Context;
 import org.apache.http.impl.client.SystemDefaultHttpClient;
-import org.apache.solr.common.SolrInputDocument;
 
 import com.emotibot.config.ConfigManager;
 import com.emotibot.extractor.PageExtractInfo;
 import com.emotibot.neo4jprocess.EmotibotNeo4jConnection;
 import com.emotibot.neo4jprocess.Neo4jConfigBean;
 import com.emotibot.neo4jprocess.Neo4jDBManager;
-import com.emotibot.solr.SolrUtil;
 import com.emotibot.util.Neo4jResultBean;
 import com.emotibot.util.Tool;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.impl.HttpClientUtil;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
+import org.apache.solr.common.SolrInputDocument;
 
 public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, ImmutableBytesWritable, ImmutableBytesWritable> {
 	public static ImmutableBytesWritable puttable = new ImmutableBytesWritable();
@@ -55,7 +58,8 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 	public static final String Value = "KG_Value";
 	public static final String AttrValue = "KG_Attr_Value";
 	public static final String Info = "KG_Info";
-    public static SolrUtil solr = null;
+   // public static SolrUtil solr = null;
+	public HttpSolrClient solr =null;
     public static  String DriverName = "";
     public static  String Ip = "";
     public static String Password = "";
@@ -90,7 +94,12 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 			ip = context.getConfiguration().get("ip");
 			port = context.getConfiguration().getInt("port", 0);
 			solrName = context.getConfiguration().get("solrName");
-		    solr = new SolrUtil(ip,port,solrName);
+			SystemDefaultHttpClient httpClient = new SystemDefaultHttpClient();
+			solr = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName,httpClient);
+			//solr.setConnectionTimeout(10 * 1000);
+			//solr.setFollowRedirects(false);
+			//solr.setAllowCompression(true);
+			//solr.setMaxRetries(10);
 		}
 	}
 
@@ -156,9 +165,8 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 				if (type.contains("Solr")) {
                 	long t11 = System.currentTimeMillis();
 					String line=Bytes.toString(value.get());//value.toString();
-
-                  String[] arr = line.split(Seperator);
-				  System.err.println("arr.length="+arr.length);
+                    String[] arr = line.split(Seperator);
+				    System.err.println("arr.length="+arr.length);
 
                    if(arr!=null&&arr.length==6)
                    {
@@ -169,13 +177,13 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
         			doc.addField(Value, arr[3].trim());
         			doc.addField(AttrValue, arr[4].trim());
         			doc.addField(Info, arr[5].trim());
-                    solr.addDoc(doc);
+                    solr.add(doc);
                     solrDocnum++;
 					System.err.println("solrDocnum="+solrDocnum);
                     if(solrDocnum%1000==0) {
                     	solrDocnum=solrDocnum%1000;
                     	long t1 = System.currentTimeMillis();
-                    	solr.Commit();
+                    	solr.commit();
                     	long t2=System.currentTimeMillis();
     					System.err.println("time="+(t2-t1));
 
@@ -190,7 +198,14 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 			}
 
 			}
-			if(solrDocnum>0) solr.Commit();
+			if(solrDocnum>0) {
+				try{
+				solr.commit();
+				}catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+			}
 			if(list.size()>0)
 			{
                        if(NodeOrRelation.equals("1")||NodeOrRelation.equals("3"))
