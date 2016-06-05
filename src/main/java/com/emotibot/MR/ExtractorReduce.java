@@ -66,7 +66,7 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 	public static int port = 0;
 	public static String solrName ="";
 	public static HashMap<String,String> DuplicateDetectionMap = new HashMap<>();
-    public  static int BatchNum=1;
+    public  static int BatchNum=100;
 	@Override
 	public void setup(Context context) {
 		type = context.getConfiguration().get("type");

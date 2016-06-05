@@ -13,7 +13,7 @@ import java.util.Vector;
 
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
-import org.apache.solr.client.solrj.impl.HttpSolrServer;
+import org.apache.solr.client.solrj.impl.HttpSolrClient;
 import org.apache.solr.client.solrj.response.QueryResponse;
 import org.apache.solr.common.SolrDocument;
 import org.apache.solr.common.SolrDocumentList;
@@ -29,7 +29,7 @@ import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.common.Term;
 
 public class SolrUtil {
-	private HttpSolrServer server = null;
+	private HttpSolrClient server = null;
 	public static final String Name = "KG_Name";
 	public static final String Attr = "KG_Attr";
 	public static final String Value = "KG_Value";
@@ -43,7 +43,7 @@ public class SolrUtil {
 			String ip=cf.getIndexSolrServerIp();
 			int port = cf.getIndexSolrServerPort();
 			String solrName=cf.getIndexSolrServerSolrName();
-			server = new HttpSolrServer("http://"+ip+":"+port+"/solr/"+solrName);
+			server = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName);
 			server.setConnectionTimeout(10 * 1000);
 			server.setFollowRedirects(false);
 			server.setAllowCompression(true);
@@ -53,11 +53,7 @@ public class SolrUtil {
 
 	public SolrUtil(String ip,int port,String solrName) {
 		if (server == null) {
-			//ConfigManager cf = new ConfigManager();
-			//String ip=cf.getIndexSolrServerIp();
-			//int port = cf.getIndexSolrServerPort();
-			//String solrName=cf.getIndexSolrServerSolrName();
-			server = new HttpSolrServer("http://"+ip+":"+port+"/solr/"+solrName);
+			server = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName);
 			server.setConnectionTimeout(10 * 1000);
 			server.setFollowRedirects(false);
 			server.setAllowCompression(true);
@@ -153,7 +149,7 @@ public class SolrUtil {
     	return result;
     }
 	public static void main(String args[]) throws SolrServerException, IOException, InterruptedException {
-		//SolrUtil solr = new SolrUtil();
+		SolrUtil solr = new SolrUtil();
     	/*Vector<String> files = new Vector<String>();
 		 files.add("/Users/Elaine/Documents/workspace/html/yaomin");
 		 files.add("/Users/Elaine/Documents/workspace/html/yaoxinlei");
@@ -183,13 +179,13 @@ public class SolrUtil {
 		Solr_Query obj = new Solr_Query();
 		obj.setFindEntity(true);
 		//obj.addEntity("姚明");
-		//obj.addEntity("叶莉");
+		obj.addEntity("地藏");
 
 		//obj.addWord("姚明");
 		//obj.addWord("丈夫");
-		obj.addWord("熊猫明");
+		//obj.addWord("忉利天");
 
-		//solr.Search(obj);
+		solr.Search(obj);
 		return;
 	}
 
