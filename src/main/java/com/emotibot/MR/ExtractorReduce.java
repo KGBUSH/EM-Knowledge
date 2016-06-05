@@ -51,7 +51,7 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 	public static ImmutableBytesWritable puttable = new ImmutableBytesWritable();
 	public static String outputTableName = "";
 	public static String type = "";
-	public static EmotibotNeo4jConnection conn = null;
+	public  EmotibotNeo4jConnection conn = null;
     public static String Seperator="ACBDGFX";
 	public static final String Name = "KG_Name";
 	public static final String Attr = "KG_Attr";
@@ -72,6 +72,8 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 	public static String solrName ="";
 	public static HashMap<String,String> DuplicateDetectionMap = new HashMap<>();
     public  static int BatchNum=100;
+    public  static int BatchNumRelation=1;
+
 	@Override
 	public void setup(Context context) {
 		type = context.getConfiguration().get("type");
@@ -152,7 +154,7 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
                     {
             			if(query.contains("return")) query = query.substring(0, query.lastIndexOf("return"));
                         list.add(query);
-                        if(list.size()>(BatchNum-1))
+                        if(list.size()>(BatchNumRelation-1))
                         {
                           String queryBtch=getRelationsSql(list);
                     	  result=conn.updateQuery(queryBtch);
