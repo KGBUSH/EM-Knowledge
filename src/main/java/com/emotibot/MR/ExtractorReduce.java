@@ -72,7 +72,7 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 	public static String solrName ="";
 	public static HashMap<String,String> DuplicateDetectionMap = new HashMap<>();
     public  static int BatchNum=100;
-    public  static int BatchNumRelation=1;
+    public  static int BatchNumRelation=3;
 
 	@Override
 	public void setup(Context context) {
@@ -245,9 +245,9 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
                 {
                 	if(k!=null&&k.trim().length()>0)
                 	{
-        				k=k.trim();
-
-    				System.err.println("k="+k);
+        			  k=k.trim();
+    				  System.err.println("k="+k);
+    				  if(k.contains("^M")) k=k.replaceAll("^M", "");
     				  if(k.contains("[")&&k.contains("]"))
     				  {
     					bufferMerge.append("merge").append(k).append("\r\n");
@@ -258,7 +258,6 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
     				  }
                 	}
                 }
-				//System.err.println("sql="+sql);
 				index++;
 			}
 			buffer.append(bufferMatch.toString());
