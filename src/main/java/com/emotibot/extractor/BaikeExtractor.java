@@ -2,6 +2,8 @@ package com.emotibot.extractor;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.jsoup.Jsoup;
@@ -146,7 +148,15 @@ public class BaikeExtractor extends Extractor {
 		pageInfo.setPic(BigPicUrl);
 		System.err.println(title+"###"+isBig+" BigPicUrl="+BigPicUrl);
 		if(BigPicUrl!=null&&BigPicUrl.trim().length() >0)  pageInfo.addAttr(Common.KG_NODE_Pic, BigPicUrl);
-
+///////////////////////////////////////////
+		 Pattern pattern = Pattern.compile("<a target=_blank href=\"(/[view|subview][^<>\"]{1,100}?htm)\">([^<>\"]{1,10})</a>");
+	      Matcher match = pattern.matcher(html);
+	      while (match.find()) 
+	      {
+	    	  String suburl=match.group(1).trim();
+	    	  if(!suburl.startsWith("http://")) suburl="http://baike.baidu.com"+suburl;
+    		  System.err.println(suburl+"===>>>"+match.group(2).trim());
+	      }
 ///////////////////////////sentence MaoText
 		Elements para = doc.select("div.para");
 		Map<String,String> MaoTextUrlMap = new HashMap<String,String>();
