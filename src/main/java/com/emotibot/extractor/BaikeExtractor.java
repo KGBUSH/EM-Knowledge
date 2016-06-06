@@ -155,7 +155,7 @@ public class BaikeExtractor extends Extractor {
 	      {
 	    	  String suburl=match.group(1).trim();
 	    	  if(!suburl.startsWith("http://")) suburl="http://baike.baidu.com"+suburl;
-    		  System.err.println(suburl+"===>>>"+match.group(2).trim());
+    		  System.err.println(suburl+"===2>>>"+match.group(2).trim());
 	      }
 ///////////////////////////sentence MaoText
 		Elements para = doc.select("div.para");
