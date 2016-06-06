@@ -2,7 +2,6 @@
 阿昌族	a1'chang1'zu2	50849
 阿斗	a1'dou3	42632
 阿飞	a1'fei1	48603
-阿富汗	a1'fu4'han4	3461
 阿訇	a1'hong1	34432
 阿拉伯数字	a1'la1'bo2'shu4'zi4	35937
 阿拉伯语	a1'la1'bo2'yu3	30476
@@ -48,7 +47,6 @@
 唉声叹气	ai1'sheng1'tan4'qi4	24870
 唉呀	ai1'ya1	25872
 埃	ai1	6336
-埃及	ai1'ji2	3121
 挨	ai1	4736
 挨边儿	ai1'bian1'er2	53583
 挨次	ai1'ci4	40951
@@ -85,7 +83,6 @@
 爱称	ai4'cheng1	46662
 爱答不理	ai4'da1'bu4'li3	52602
 爱戴	ai4'dai4	11712
-爱尔兰	ai4'er3'lan2	6977
 爱抚	ai4'fu3	19330
 爱国	ai4'guo2	2338
 爱国主义	ai4'guo2'zhu3'yi4	3990
@@ -345,9 +342,7 @@
 奥	ao4	6567
 奥秘	ao4'mi4	11108
 澳	ao4	3929
-澳大利亚	ao4'da4'li4'ya4	3084
 澳抗	ao4'kang4	53106
-澳门	ao4'men2	2475
 澳洲	ao4'zhou1	13402
 懊悔	ao4'hui3	14668
 懊恼	ao4'nao3	17125
@@ -390,7 +385,6 @@
 巴不得	ba1'bu'de	14770
 巴豆	ba1'dou4	46089
 巴儿狗	ba1'er'gou3	55088
-巴基斯坦	ba1'ji1'si1'tan3	3475
 巴结	ba1'jie	15138
 巴黎	ba1'li2	2625
 巴山蜀水	ba1'shan1'shu3'shui3	47592
@@ -2994,7 +2988,6 @@
 不打自招	bu4'da3'zi4'zhao1	41651
 不大离	bu4'da4'li2	53614
 不待	bu4'dai4	12282
-不丹	bu4'dan1	22664
 不单	bu4'dan1	13213
 不但	bu4'dan4	999
 不当	bu4'dang4	12375
@@ -4549,8 +4542,6 @@
 朝暮	chao2'mu4	43348
 朝圣	chao2'sheng4	28085
 朝廷	chao2'ting2	5640
-朝鲜	chao2'xian1	1841
-朝鲜族	chao2'xian3'zu2	17631
 朝向	chao2'xiang4	22665
 朝阳花	chao2'yang2'hua1	55601
 朝野	chao2'ye3	13871
@@ -8412,7 +8403,6 @@
 德昂族	de2'ang2'zu2	44369
 德才兼备	de2'cai2'jian1'bei4	13019
 德高望重	de2'gao1'wang4'zhong4	20003
-德国	de2'guo2	1039
 德行	de2'xing	20853
 德语	de2'yu3	20495
 德育	de2'yu4	6456
@@ -10465,8 +10455,6 @@
 讹诈	e2'zha4	29097
 俄	e2	1942
 俄而	e2'er2	25617
-俄罗斯	e2'luo2'si1	1763
-俄罗斯族	e2'luo2'si1'zu2	46160
 俄文	e2'wen2	23217
 俄延	e2'yan2	54225
 俄语	e2'yu3	16885
@@ -10935,7 +10923,6 @@
 法度	fa3'du4	29195
 法官	fa3'guan1	2954
 法规	fa3'gui1	1843
-法国	fa3'guo2	893
 法号	fa3'hao4	43401
 法会	fa3'hui4	39270
 法纪	fa3'ji4	15282
@@ -11746,7 +11733,6 @@
 肥壮	fei2'zhuang4	34170
 腓骨	fei2'gu3	54242
 菲薄	fei3'bo2	36281
-菲律宾	fei3'lv4'bin1	5199
 匪	fei3	7029
 匪帮	fei3'bang1	40556
 匪巢	fei3'chao2	54769
@@ -15729,7 +15715,6 @@
 哈尼族	ha1'ni2'zu2	31986
 哈气	ha1'qi4	45293
 哈欠	ha1'qian	18819
-哈萨克斯坦	ha1'sa4'ke4'si1'tan3	7103
 哈萨克族	ha1'sa4'ke4'zu2	25480
 哈腰	ha1'yao1	40142
 蛤蟆	ha2'ma	20767
@@ -15997,7 +15982,6 @@
 寒腿	han2'tui3	55252
 寒颤	han2'zhan4	33395
 韩	han2	2317
-韩国	han2'guo2	2245
 罕见	han3'jian4	6353
 罕闻	han3'wen2	44690
 罕有	han3'you3	30922
@@ -16606,7 +16590,6 @@
 核准	he2'zhun3	8475
 核资	he2'zi1	36468
 核子	he2'zi3	27456
-荷兰	he2'lan2	4384
 荷	he2	14191
 荷包	he2'bao1	21355
 荷包蛋	he2'bao1'dan4	36143
@@ -19062,7 +19045,6 @@
 及至	ji2'zhi4	10438
 吉	ji2	3729
 吉卜赛人	ji2'bu3'sai4'ren2	40583
-吉尔吉斯斯坦	ji2'er3'ji2'si1'si1'tan3	11527
 吉剧	ji2'ju4	55284
 吉利	ji2'li4	9342
 吉林	ji2'lin2	4561
@@ -19542,7 +19524,6 @@
 加盟	jia1'meng2	8786
 加密	jia1'mi4	22057
 加冕	jia1'mian3	33402
-加拿大	jia1'na2'da4	2905
 加权	jia1'quan2	26455
 加热	jia1're4	9163
 加入	jia1'ru4	1192
@@ -19986,7 +19967,6 @@
 拣择	jian3'ze2	53282
 俭朴	jian3'pu3	24282
 俭省	jian3'sheng3	41034
-柬埔寨	jian3'bu4'zhai4	5749
 茧	jian3	13307
 茧丝	jian3'si1	48382
 茧子	jian3'zi3	29216
@@ -24650,7 +24630,6 @@
 老土	lao3'tu3	52327
 老外	lao3'wai4	17021
 老翁	lao3'weng1	23594
-老挝	lao3'wo1	5421
 老窝	lao3'wo1	49860
 老先生	lao3'xian1'sheng1	8853
 老乡	lao3'xiang1	7675
@@ -26851,7 +26830,6 @@
 马口铁	ma3'kou3'tie3	46241
 马裤	ma3'ku4	41987
 马拉松	ma3'la1'song1	14162
-马来西亚	ma3'lai2'xi1'ya4	5919
 马兰	ma3'lan2	20868
 马力	ma3'li4	18722
 马列	ma3'lie4	16153
@@ -27429,7 +27407,6 @@
 美发	mei3'fa4	23235
 美感	mei3'gan3	10339
 美工	mei3'gong1	36679
-美国	mei3'guo2	213
 美好	mei3'hao3	1836
 美猴儿王	mei3'hou2'er2'wang2	55774
 美化	mei3'hua4	6460
@@ -27591,7 +27568,6 @@
 蒙师	meng2'shi1	48067
 蒙	meng2	18092
 蒙蔽	meng2'bi4	18723
-蒙古	meng2'gu3	3801
 蒙汗药	meng2'han4'yao4	48427
 蒙哄	meng2'hong3	53346
 蒙混	meng2'hun4	41747
@@ -27625,8 +27601,6 @@
 猛醒	meng3'xing3	31646
 猛增	meng3'zeng1	12767
 猛子	meng3'zi3	34978
-蒙古族	meng3'gu3'zu2	12227
-蒙古包	meng3'gu3'bao1	25143
 锰	meng3	16017
 懵懂	meng3'dong3	25357
 蠓虫	meng3'chong2	48428
@@ -27634,7 +27608,6 @@
 孟	meng4	4871
 孟春	meng4'chun1	48798
 孟冬	meng4'dong1	51072
-孟加拉	meng4'jia1'la1	28854
 孟浪	meng4'lang4	36845
 孟秋	meng4'qiu1	50273
 梦	meng4	1207
@@ -28906,7 +28879,6 @@
 南朝	nan2'chao2	20515
 南方	nan2'fang1	2144
 南房	nan2'fang2	44771
-南非	nan2'fei1	3855
 南瓜	nan2'gua1	14813
 南国	nan2'guo2	16791
 南海	nan2'hai3	8041
@@ -29126,7 +29098,6 @@
 内乱	nei4'luan4	18369
 内贸	nei4'mao4	37394
 内蒙	nei4'meng2	24453
-内蒙古	nei4'meng2'gu3	3720
 内幕	nei4'mu4	17358
 内迁	nei4'qian1	41753
 内亲	nei4'qin1	54888
@@ -29209,7 +29180,6 @@
 呢绒	ni2'rong2	35255
 呢子	ni2'zi	36683
 尼姑庵	ni2'gu1'an1	34669
-尼泊尔	ni2'bo2'er3	7862
 尼姑	ni2'gu1	14702
 尼古丁	ni2'gu3'ding1	38934
 尼龙	ni2'long2	22500
@@ -33945,7 +33915,6 @@
 日	ri4	131
 日班	ri4'ban1	47463
 日报	ri4'bao4	3296
-日本	ri4'ben3	173
 日薄西山	ri4'bo2'xi1'shan1	46871
 日产	ri4'chan3	12162
 日常	ri4'chang2	3047
@@ -39060,7 +39029,6 @@
 塔	ta3	3279
 塔吊	ta3'diao4	35108
 塔顶	ta3'ding3	33572
-塔吉克斯坦	ta3'ji2'ke4'si1'tan3	11233
 塔吉克族	ta3'ji2'ke4'zu2	37245
 塔林	ta3'lin2	35882
 塔楼	ta3'lou2	31674
@@ -39116,7 +39084,6 @@
 台上	tai2'shang4	4874
 台式	tai2'shi4	23612
 台属	tai2'shu3	41565
-台湾	tai2'wan1	851
 台下	tai2'xia4	7315
 台柱	tai2'zhu4	38759
 台柱子	tai2'zhu4'zi	41794
@@ -39190,7 +39157,6 @@
 钛合金	tai4'he2'jin1	45107
 泰	tai4	3700
 泰斗	tai4'dou3	24400
-泰国	tai4'guo2	3105
 泰然	tai4'ran2	29355
 泰然处之	tai4'ran2'chu3'zhi1	41795
 泰然自若	tai4'ran2'zi4'ruo4	37075
@@ -43346,7 +43312,6 @@
 吸引	xi1'yin3	1392
 吸引力	xi1'yin3'li4	5758
 希冀	xi1'ji4	17796
-希腊	xi1'la4	4410
 希求	xi1'qiu2	39000
 希图	xi1'tu2	33830
 希望	xi1'wang4	209
@@ -44478,7 +44443,6 @@
 香饵	xiang1'er3	45142
 香粉	xiang1'fen3	34706
 香干儿	xiang1'gan1'er2	54540
-香港	xiang1'gang3	531
 香菇	xiang1'gu1	20034
 香瓜	xiang1'gua1	33586
 香花	xiang1'hua1	31348
@@ -45518,7 +45482,6 @@
 新闻纸	xin1'wen2'zhi3	29902
 新颖	xin1'ying3	7519
 新学	xin1'xue2	28779
-新西兰	xin1'xi1'lan2	7574
 新媳妇儿	xin1'xi2'fu'er	55514
 新约	xin1'yue1	37447
 新禧	xin1'xi3	52503
@@ -45541,7 +45504,6 @@
 新婚燕尔	xin1'hun1'yan4'er3	44857
 新纪元	xin1'ji4'yuan2	18634
 新贵	xin1'gui4	37097
-新加坡	xin1'jia1'po1	3759
 新建	xin1'jian4	3694
 新陈代谢	xin1'chen2'dai4'xie4	17183
 新欢	xin1'huan1	40912
@@ -48979,7 +48941,6 @@
 意想	yi4'xiang3	36751
 意	yi4	1386
 意表	yi4'biao3	44039
-意大利	yi4'da4'li4	2351
 意会	yi4'hui4	29694
 意见	yi4'jian4	359
 意见簿	yi4'jian4'bu4	45161
@@ -49369,10 +49330,6 @@
 印把子	yin4'ba4'zi	47563
 印本	yin4'ben3	33710
 印第安人	yin4'di4'an1'ren2	17470
-印度	yin4'du4	1383
-印度教	yin4'du4'jiao4	27901
-印度尼西亚	yin4'du4'ni2'xi1'ya4	8729
-印度洋	yin4'du4'yang2	10250
 印儿	yin4'er2	41845
 印发	yin4'fa1	8595
 印花	yin4'hua1	16412
@@ -49382,7 +49339,6 @@
 印件	yin4'jian4	45167
 印鉴	yin4'jian4	36568
 印刻	yin4'ke4	50034
-印尼	yin4'ni2	4286
 印泥	yin4'ni2	47249
 印染	yin4'ran3	20294
 印色	yin4'se	55033
@@ -49417,7 +49373,6 @@
 英才	ying1'cai2	16354
 英尺	ying1'chi3	21407
 英寸	ying1'cun4	13389
-英国	ying1'guo2	723
 英豪	ying1'hao2	32330
 英魂	ying1'hun2	38019
 英杰	ying1'jie2	35452
@@ -51178,7 +51133,6 @@
 越境	yue4'jing4	26653
 越剧	yue4'ju4	18076
 越来越	yue4'lai2'yue4	577
-越南	yue4'nan2	3118
 越权	yue4'quan2	17960
 越是	yue4'shi4	5446
 越位	yue4'wei4	19268

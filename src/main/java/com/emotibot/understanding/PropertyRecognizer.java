@@ -665,8 +665,8 @@ public class PropertyRecognizer {
 		if (propList != null && !propList.isEmpty()) {
 			for (String iProp : propList) {
 				rsMap.put(iProp, iProp);
-//				Set<String> setSyn = NLPUtil.getSynonymWordSet(iProp);
-				Set<String> setSyn = getSynonymSetOfProperty(iProp);
+				Set<String> setSyn = NLPUtil.getSynonymWordSet(iProp);
+//				Set<String> setSyn = getSynonymSetOfProperty(iProp);
 				for (String iSyn : setSyn) {
 					rsMap.put(iSyn, iProp);
 				}
