@@ -98,10 +98,6 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 			solrName = context.getConfiguration().get("solrName");
 			SystemDefaultHttpClient httpClient = new SystemDefaultHttpClient();
 			solr = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName,httpClient);
-			//solr.setConnectionTimeout(10 * 1000);
-			//solr.setFollowRedirects(false);
-			//solr.setAllowCompression(true);
-			//solr.setMaxRetries(10);
 		}
 	}
 
