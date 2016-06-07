@@ -190,6 +190,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					System.err.println("LabelTmp="+url+"###"+LabelTmp+"###"+name+"###"+pmWord);
 					label=LabelTmp;
 					System.err.println("label0="+label);
+					//String a=this.getLabel(url, pageExtractInfo.getTags());/////////////////
 					if(label==null||label.trim().length()==0||label.contains(Other)) {
 						System.err.println("label1="+label);
 						label=this.getLabel(url, pageExtractInfo.getTags());
