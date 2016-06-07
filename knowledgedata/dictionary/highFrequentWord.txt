@@ -118,9 +118,7 @@
 安眠	an1'mian2	32861
 安分守己	an1'fen4'shou3'ji3	30358
 安眠药	an1'mian2'yao4	21184
-安康	an1'kang1	12674
 安民告示	an1'min2'gao4'shi4	45797
-安宁	an1'ning2	6724
 安排	an1'pai2	613
 安	an1	1651
 安步当车	an1'bu4'dang4'che1	53104
@@ -155,7 +153,6 @@
 安全套	an1'quan2'tao4	23630
 安全系数	an1'quan2'xi4'shu4	29177
 安然	an1'ran2	11659
-安如磐石	an1'ru2'pan2'shi2	55849
 安如泰山	an1'ru2'tai4'shan1	55083
 安设	an1'she4	42847
 安身	an1'shen1	27022
@@ -637,7 +634,6 @@
 白夜	bai2'ye4	39456
 白衣天使	bai2'yi1'tian1'shi3	18385
 白蚁	bai2'yi3	21995
-白银	bai2'yin2	15383
 白玉	bai2'yu4	27433
 白玉兰	bai2'yu4'lan2	34008
 白云	bai2'yun2	7092
@@ -1532,10 +1528,6 @@
 北风	bei3'feng1	7641
 北国	bei3'guo2	16752
 北疆	bei3'jiang1	33223
-北京	bei3'jing1	141
-北京时间	bei3'jing1'shi2'jian1	11444
-北京鸭	bei3'jing1'ya1	44908
-北京猿人	bei3'jing1'yuan2'ren2	35778
 北麓	bei3'lu4	29607
 北美洲	bei3'mei3'zhou1	22042
 北面	bei3'mian4	16783
@@ -4237,7 +4229,6 @@
 长存	chang2'cun2	24820
 长虫	chang2'chong	37855
 长处	chang2'chu	10590
-长春	chang2'chun1	4346
 长	Chang2	1368
 长辞	chang2'ci2	35326
 长程	chang2'cheng2	26510
@@ -4296,7 +4287,6 @@
 长驱直入	chang2'qu1'zhi2'ru4	29932
 长裙	chang2'qun2	20606
 长绒棉	chang2'rong2'mian2	46398
-长沙	chang2'sha1	3552
 长衫	chang2'shan1	13532
 长舌妇	chang2'she2'fu4	47619
 长蛇阵	chang2'she2'zhen4	45518
@@ -4326,7 +4316,6 @@
 长远	chang2'yuan3	3059
 长斋	chang2'zhai1	49024
 长征	chang2'zheng1	5490
-长治久安	chang2'zhi4'jiu3'an1	9221
 长足	chang2'zu2	7730
 肠	chang2	8098
 肠道	chang2'dao4	22979
@@ -4543,9 +4532,7 @@
 朝圣	chao2'sheng4	28085
 朝廷	chao2'ting2	5640
 朝向	chao2'xiang4	22665
-朝阳花	chao2'yang2'hua1	55601
 朝野	chao2'ye3	13871
-朝阳	chao2'yang2	10802
 嘲讽	chao2'feng3	15479
 嘲弄	chao2'nong4	15242
 嘲笑	chao2'xiao4	8327
@@ -4869,7 +4856,6 @@
 瞠目结舌	cheng1'mu4'jie2'she2	24622
 瞠目	cheng1'mu4	29299
 丞相	cheng2'xiang4	9324
-成都	cheng2'dou1	2571
 成规	cheng2'gui1	41417
 成约	cheng2'yue1	49029
 成	cheng2	93
@@ -7205,7 +7191,6 @@
 大惊失色	da4'jing1'shi1'se4	24270
 大礼服	da4'li3'fu2	49046
 大快人心	da4'kuai4'ren2'xin1	37683
-大理石	da4'li3'shi2	13801
 大礼堂	da4'li3'tang2	19361
 大力	da4'li4	1270
 大立柜	da4'li4'gui4	45228
@@ -7504,8 +7489,6 @@
 大田作物	da4'tian2'zuo4'wu4	46415
 大厅	da4'ting1	3373
 大庭广众	da4'ting2'guang3'zhong4	26441
-大同	da4'tong2	8715
-大同小异	da4'tong2'xiao3'yi4	22981
 大头	da4'tou2	10994
 大头菜	da4'tou2'cai4	43855
 大头鱼	da4'tou2'yu2	40981
@@ -8444,7 +8427,6 @@
 灯市	deng1'shi4	36275
 灯饰	deng1'shi4	26519
 灯丝	deng1'si1	34454
-灯塔	deng1'ta3	19948
 登	deng1	1810
 登岸	deng1'an4	23987
 登报	deng1'bao4	26035
@@ -8770,7 +8752,6 @@
 地脚	di4'jiao3	52197
 地窖	di4'jiao4	18528
 地界	di4'jie4	20116
-地久天长	di4'jiu3'tian1'chang2	40546
 地块儿	di4'kuai4'er	20687
 地矿	di4'kuang4	31497
 地牢	di4'lao2	43142
@@ -9536,8 +9517,6 @@
 东倒西歪	dong1'dao3'xi1'wai1	25616
 东道国	dong1'dao4'guo2	21572
 东道主	dong1'dao4'zhu3	8697
-东方	dong1'fang1	2198
-东方人	dong1'fang1'ren2	25883
 东非	dong1'fei1	22925
 东风	dong1'feng1	6087
 东宫	dong1'gong1	16843
@@ -12552,7 +12531,6 @@
 福运	fu2'yun4	53727
 福祉	fu2'zhi3	14344
 福至心灵	fu2'zhi4'xin1'ling2	44964
-福州	fu2'zhou1	4351
 福如东海	fu2'ru2'dong1'hai3	50948
 福寿	fu2'shou4	34619
 蜉蝣	fu2'you2	44123
@@ -15184,7 +15162,6 @@
 光棍儿	guang1'gun4'er	15124
 光面	guang1'mian4	46460
 光明	guang1'ming2	3190
-光合作用	guang1'he2'zuo4'yong4	14205
 光华	guang1'hua2	17114
 光明磊落	guang1'ming2'lei3'luo4	20438
 光滑	guang1'hua2	11051
@@ -15382,7 +15359,6 @@
 贵人	gui4'ren2	16033
 贵体	gui4'ti3	49440
 贵姓	gui4'xing4	23694
-贵阳	gui4'yang2	6238
 贵恙	gui4'yang4	53756
 贵州	gui4'zhou1	3771
 贵族	gui4'zu2	6439
@@ -15704,14 +15680,12 @@
 过境	guo4'jing4	13329
 过客	guo4'ke4	26611
 过快	guo4'kuai4	12973
-哈尔滨	ha1'er3'bin1	3035
 哈	ha1	3038
 哈哈镜	ha1'ha1'jing4	53246
 哈哈	ha1'ha	5664
 哈喇子	ha1'la2'zi	53247
 哈喇	ha1'la	46463
 哈雷彗星	ha1'lei2'hui4'xing1	46760
-哈密瓜	ha1'mi4'gua1	32123
 哈尼族	ha1'ni2'zu2	31986
 哈气	ha1'qi4	45293
 哈欠	ha1'qian	18819
@@ -15780,7 +15754,6 @@
 海景	hai3'jing3	39095
 海军	hai3'jun1	3170
 海军陆战队	hai3'jun1'lu4'zhan4'dui4	18242
-海口	hai3'kou3	6537
 海寇	hai3'kou4	45574
 海枯石烂	hai3'ku1'shi2'lan4	45575
 海况	hai3'kuang4	49102
@@ -15923,7 +15896,6 @@
 含血喷人	han2'xue4'pen1'ren2	50977
 含糊	han2'hu	8744
 含糊其词	han2'hu'qi2'ci2	43891
-邯郸学步	han2'dan1'xue2'bu4	50585
 函复	han2'fu4	52251
 函告	han2'gao4	39701
 函购	han2'gou4	55677
@@ -16078,7 +16050,6 @@
 夯土	hang1'tu3	53250
 杭	hang2	12841
 杭育	hang2'yo1	46762
-杭州	hang2'zhou1	2549
 绗	hang2	54797
 航船	hang2'chuan2	20811
 航路	hang2'lu4	19163
@@ -16352,7 +16323,6 @@
 合二为一	he2'er4'wei2'yi1	37543
 合法	he2'fa3	2127
 合法化	he2'fa3'hua4	24766
-合肥	he2'fei2	5627
 合缝	he2'feng4	42201
 合该	he2'gai1	51828
 合格	he2'ge2	2749
@@ -16417,10 +16387,6 @@
 合子	he2'zi	40145
 合纵连横	he2'zong4'lian2'heng2	44417
 合奏	he2'zou4	25627
-合作	he2'zuo4	724
-合作化	he2'zuo4'hua4	21580
-合作社	he2'zuo4'she4	5773
-合作医疗	he2'zuo4'yi1'liao2	7540
 何止	he2'zhi3	18820
 何谓	he2'wei4	21227
 何须	he2'xu1	31745
@@ -17150,7 +17116,6 @@
 呼喊	hu1'han3	9959
 呼号	hu1'hao2	27371
 呼号	hu1'hao4	29954
-呼和浩特	hu1'he2'hao4'te4	7471
 呼唤	hu1'huan4	4507
 呼叫	hu1'jiao4	12663
 呼救	hu1'jiu4	23372
@@ -19047,7 +19012,6 @@
 吉卜赛人	ji2'bu3'sai4'ren2	40583
 吉剧	ji2'ju4	55284
 吉利	ji2'li4	9342
-吉林	ji2'lin2	4561
 吉隆坡	ji2'long2'po1	15318
 吉普	ji2'pu3	25084
 吉普车	ji2'pu3'che1	13086
@@ -19422,7 +19386,6 @@
 既往	ji4'wang3	25023
 既往不咎	ji4'wang3'bu4'jiu4	41953
 济	ji4	3639
-济南	ji4'nan2	3453
 济贫	ji4'pin2	31749
 济世	ji4'shi4	31856
 济事	ji4'shi4	30817
@@ -19863,7 +19826,6 @@
 坚忍	jian1'ren3	30402
 坚韧	jian1'ren4	14309
 坚韧不拔	jian1'ren4'bu4'ba2	18430
-坚如磐石	jian1'ru2'pan2'shi2	33131
 坚实	jian1'shi2	4030
 坚守	jian1'shou3	7447
 坚挺	jian1'ting3	24172
@@ -20276,7 +20238,6 @@
 江面	jiang1'mian4	14493
 江南	jiang1'nan2	3041
 江畔	jiang1'pan4	38284
-江山	jiang1'shan1	7014
 江水	jiang1'shui3	10357
 江苏	jiang1'su1	2421
 江天	jiang1'tian1	43910
@@ -23821,7 +23782,6 @@
 酷似	ku4'si4	19192
 酷肖	ku4'xiao4	52811
 酷刑	ku4'xing2	23275
-夸海口	kua1'hai3'kou3	51879
 夸	kua1	7755
 夸大	kua1'da4	10413
 夸大其词	kua1'da4'qi2'ci2	38298
@@ -24092,7 +24052,6 @@
 昆	kun1	27509
 昆虫	kun1'chong2	9239
 昆剧	kun1'ju4	27863
-昆明	kun1'ming2	3717
 昆腔	kun1'qiang1	50629
 昆曲	kun1'qu3	10823
 鲲鹏	kun1'peng2	43920
@@ -24181,7 +24140,6 @@
 拉皮条	la1'pi2'tiao2	43216
 拉票	la1'piao4	37923
 拉纤	la1'qian4	37194
-拉萨	la1'sa4	5676
 拉山头	la1'shan1'tou2	53827
 拉屎	la1'shi3	38917
 拉手	la1'shou	32141
@@ -24245,7 +24203,6 @@
 来料	lai2'liao4	35535
 来临	lai2'lin2	5844
 来	lai2	23
-来宾	lai2'bin1	10140
 来不得	lai2'bu'de	28548
 来不及	lai2'bu'ji2	6068
 来潮	lai2'chao2	40401
@@ -24289,7 +24246,6 @@
 兰草	lan2'cao3	35680
 兰花	lan2'hua1	12754
 兰花指	lan2'hua1'zhi3	51046
-兰州	lan2'zhou1	4661
 拦	lan2	6020
 拦挡	lan2'dang3	42730
 拦河坝	lan2'he2'ba4	49153
@@ -24589,7 +24545,6 @@
 老伴儿	lao3'ban4'er2	23936
 老半天	lao3'ban4'tian1	42242
 老鸨	lao3'bao3	36322
-老北京	lao3'bei3'jing1	27386
 老辈	lao3'bei4	30616
 老本儿	lao3'ben3'er2	33139
 老本行	lao3'ben3'hang2	54358
@@ -26195,7 +26150,6 @@
 龙宫	long2'gong1	36170
 龙骨	long2'gu3	34971
 龙虎斗	long2'hu3'dou3	45937
-龙井茶	long2'jing3'cha2	27541
 龙卷风	long2'juan3'feng1	25981
 龙门阵	long2'men2'zhen4	42738
 龙袍	long2'pao2	32402
@@ -26573,7 +26527,6 @@
 裸体	luo3'ti3	15432
 裸眼	luo3'yan3	53851
 瘰疬	luo3'li4	53340
-洛阳纸贵	luo4'yang2'zhi3'gui4	48418
 络	luo4	11230
 络腮胡	luo4'sai1'hu2	54381
 络腮胡子	luo4'sai1'hu2'zi	25489
@@ -28875,7 +28828,6 @@
 南北朝	nan2'bei3'chao2	19633
 南边	nan2'bian	13331
 南部	nan2'bu4	3095
-南昌	nan2'chang1	5590
 南朝	nan2'chao2	20515
 南方	nan2'fang1	2144
 南房	nan2'fang2	44771
@@ -28885,12 +28837,10 @@
 南货	nan2'huo4	43944
 南极	nan2'ji2	7405
 南极洲	nan2'ji2'zhou1	27133
-南京	nan2'jing1	1317
 南柯一梦	nan2'ke1'yi1'meng4	48448
 南来北往	nan2'lai2'bei3'wang3	32657
 南麓	nan2'lu4	24964
 南美洲	nan2'mei3'zhou1	16039
-南宁	nan2'ning2	5794
 南欧	nan2'ou1	33658
 南腔北调	nan2'qiang1'bei3'diao4	34073
 南拳	nan2'quan2	44183
@@ -30021,7 +29971,6 @@
 盘账	pan2'zhang4	55940
 盘子	pan2'zi3	10185
 盘坐	pan2'zuo4	40189
-磐石	pan2'shi2	31771
 蹒跚	pan2'shan1	16874
 蟠龙	pan2'long2	31423
 蟠桃	pan2'tao2	31885
@@ -33936,7 +33885,6 @@
 日间	ri4'jian1	24013
 日见	ri4'jian4	21731
 日渐	ri4'jian4	7154
-日久天长	ri4'jiu3'tian1'chang2	36866
 日均	ri4'jun1	14881
 日理万机	ri4'li3'wan4'ji1	35412
 日历	ri4'li4	19637
@@ -33971,7 +33919,6 @@
 日月如梭	ri4'yue4'ru2'suo1	48477
 日晕	ri4'yun4	54453
 日杂	ri4'za2	44799
-日照	ri4'zhao4	16827
 日臻	ri4'zhen1	23710
 日臻完美	ri4'zhen1'wan2'mei3	54454
 日志	ri4'zhi4	30637
@@ -34262,7 +34209,6 @@
 入股	ru4'gu3	10523
 入骨	ru4'gu3	38543
 入关	ru4'guan1	14164
-入海口	ru4'hai3'kou3	26477
 入户	ru4'hu4	8052
 入画	ru4'hua4	32165
 入伙	ru4'huo3	35712
@@ -34473,7 +34419,6 @@
 三棱镜	san1'leng2'jing4	53919
 三皇五帝	san1'huang2'wu3'di4	42526
 三联单	san1'lian2'dan1	54923
-三明治	san1'ming2'zhi4	39773
 三角债	san1'jiao3'zhai4	32295
 三令五申	san1'ling4'wu3'shen1	22421
 三六九等	san1'liu4'jiu3'deng3	43009
@@ -35228,7 +35173,6 @@
 上脸	shang4'lian3	29983
 上轨道	shang4'gui3'dao4	45091
 上山	shang4'shan1	6435
-上海	shang4'hai3	251
 上好	shang4'hao3	24790
 上梁	shang4'liang2	27230
 上溯	shang4'su4	26416
@@ -35844,7 +35788,6 @@
 什么	shen2'me	94
 什么的	shen2'me'de	6344
 什么样	shen2'me'yang4	2762
-沈阳	shen3'yang2	3194
 审	shen3	4964
 审查	shen3'cha2	2710
 审察	shen3'cha2	44218
@@ -36466,7 +36409,6 @@
 石灰	shi2'hui1	13676
 石灰石	shi2'hui1'shi2	32805
 石级	shi2'ji2	32041
-石家庄	shi2'jia1'zhuang1	5570
 石匠	shi2'jiang	23000
 石臼	shi2'jiu4	40003
 石刻	shi2'ke4	15938
@@ -36486,7 +36428,6 @@
 石器时代	shi2'qi4'shi2'dai4	28213
 石桥	shi2'qiao2	15744
 石蕊	shi2'rui3	39369
-石狮	shi2'shi1	18909
 石锁	shi2'suo3	47182
 石炭酸	shi2'tan4'suan1	51983
 石头	shi2'tou	2587
@@ -36789,7 +36730,6 @@
 世俗	shi4'su2	9430
 世态	shi4'tai4	27643
 世态炎凉	shi4'tai4'yan2'liang2	41323
-世外桃源	shi4'wai4'tao2'yuan2	23883
 世袭	shi4'xi2	19682
 世系	shi4'xi4	34378
 世兄	shi4'xiong1	41551
@@ -38483,7 +38423,6 @@
 巳时	si4'shi2	43272
 四个现代化	si4'ge4'xian4'dai4'hua4	17460
 四溅	si4'jian4	29258
-四平八稳	si4'ping2'ba1'wen3	36372
 四书五经	si4'shu1'wu3'jing1	38358
 四	si4	100
 四边	si4'bian1	30971
@@ -39064,7 +39003,6 @@
 胎衣	tai1'yi1	52954
 台	tai2	405
 台胞	tai2'bao1	13794
-台北	tai2'bei3	6186
 台布	tai2'bu4	34386
 台步	tai2'bu4	38758
 台秤	tai2'cheng4	55826
@@ -39146,7 +39084,6 @@
 太阳灶	tai4'yang2'zao4	51153
 太爷	tai4'ye2	23455
 太阴	tai4'yin1	44522
-太原	tai4'yuan2	4447
 太子	tai4'zi3	4655
 太子参	tai4'zi3'can1	52957
 态	tai4	5323
@@ -39855,8 +39792,6 @@
 天兵天将	tian1'bing1'tian1'jiang4	42792
 天才	tian1'cai2	6631
 天差地远	tian1'cha1'di4'yuan3	53437
-天长地久	tian1'chang2'di4'jiu3	35427
-天长日久	tian1'chang2'ri4'jiu3	31216
 天车	tian1'che1	48893
 天窗	tian1'chuang1	23615
 天敌	tian1'di2	16722
@@ -39894,7 +39829,6 @@
 天机	tian1'ji1	26077
 天际	tian1'ji4	16566
 天价	tian1'jia4	28493
-天津	tian1'jin1	1124
 天经地义	tian1'jing1'di4'yi4	18597
 天井	tian1'jing3	12950
 天空	tian1'kong1	2938
@@ -42676,7 +42610,6 @@
 斡旋	wo4'xuan2	13093
 龌龊	wo4'chuo4	23671
 乌合之众	wu1'he2'zhi1'zhong4	33181
-乌鲁木齐	wu1'lu3'mu4'qi2	5546
 乌	wu1	3309
 乌龟	wu1'gui1	14883
 乌黑	wu1'hei1	13388
@@ -43084,7 +43017,6 @@
 武功	wu3'gong1	18673
 武工队	wu3'gong1'dui4	42315
 武官	wu3'guan1	16896
-武汉	wu3'han4	2134
 武将	wu3'jiang4	20105
 武警	wu3'jing3	3638
 武库	wu3'ku4	38379
@@ -43230,7 +43162,6 @@
 西夏	xi1'xia4	13959
 西元	xi1'yuan2	51607
 西	xi1	662
-西安	xi1'an1	2518
 西半球	xi1'ban4'qiu2	32695
 西北	xi1'bei3	2387
 西边	xi1'bian1	10368
@@ -43260,7 +43191,6 @@
 西门	xi1'men2	20747
 西面	xi1'mian4	18517
 西南	xi1'nan2	3408
-西宁	xi1'ning2	7196
 西皮	xi1'pi2	36379
 西晒	xi1'shai4	52028
 西施	xi1'shi1	21646
@@ -49158,7 +49088,6 @@
 淫欲	yin2'yu4	44289
 银行	yin2'hang2	921
 银根	yin2'gen1	31240
-银川	yin2'chuan1	6166
 银河	yin2'he2	15111
 银河系	yin2'he2'xi4	23400
 银红	yin2'hong2	54591
@@ -50429,7 +50358,6 @@
 榆木疙瘩	yu2'mu4'ge1'da	52558
 榆	yu2	19544
 榆钱	yu2'qian2	42603
-榆树	yu2'shu4	16413
 榆叶梅	yu2'ye4'mei2	50806
 瑜伽	yu2'jia1	40064
 瑜珈	yu2'jia1	40064
@@ -52100,7 +52028,6 @@
 樟木	zhang1'mu4	36084
 樟脑	zhang1'nao3	37657
 樟脑丸	zhang1'nao3'wan2	50817
-樟树	zhang1'shu4	20384
 蟑螂	zhang1'lang2	22195
 长脸	zhang3'lian3	35309
 长门	zhang3'men2	42834
@@ -52202,7 +52129,6 @@
 朝思暮想	zhao1'si1'mu4'xiang3	34423
 朝夕	zhao1'xi1	20560
 朝霞	zhao1'xia2	21988
-朝阳	zhao1'yang2	7139
 招安	zhao1'an1	30879
 招办	zhao1'ban4	48975
 招标	zhao1'biao1	3675
@@ -52931,7 +52857,6 @@
 郑	zheng4	3634
 郑重	zheng4'zhong4	6377
 郑重其事	zheng4'zhong4'qi2'shi4	21555
-郑州	zheng4'zhou1	4150
 政	zheng4	2654
 政变	zheng4'bian4	10575
 政策	zheng4'ce4	492
@@ -53225,8 +53150,6 @@
 直筒子	zhi2'tong3'zi3	52118
 直系	zhi2'xi4	25938
 直系亲属	zhi2'xi4'qin1'shu3	31128
-直辖	zhi2'xia2	22610
-直辖市	zhi2'xia2'shi4	3770
 直销	zhi2'xiao1	20462
 直性子	zhi2'xing4'zi3	51240
 直言	zhi2'yan2	12353
@@ -53713,7 +53636,6 @@
 中外	zhong1'wai4	2829
 中外合资	zhong1'wai4'he2'zi1	11873
 中晚期	zhong1'wan3'qi1	48592
-中卫	zhong1'wei4	25114
 中尉	zhong1'wei4	21506
 中文	zhong1'wen2	3048
 中文信息处理	zhong1'wen2'xin4'xi1'chu3'li3	50834
@@ -53950,7 +53872,6 @@
 重量级	zhong4'liang4'ji2	21464
 重判	zhong4'pan4	42620
 重炮	zhong4'pao4	38618
-重庆	zhong4'qing4	1799
 重拳	zhong4'quan2	35159
 重伤	zhong4'shang1	9818
 重赏	zhong4'shang3	23567
@@ -55933,7 +55854,6 @@
 坐化	zuo4'hua4	46087
 坐机关	zuo4'ji1'guan1	51698
 坐监	zuo4'jian1	37841
-坐江山	zuo4'jiang1'shan1	46659
 坐井观天	zuo4'jing3'guan1'tian1	46660
 坐蜡	zuo4'la4	51256
 坐牢	zuo4'lao2	17991
