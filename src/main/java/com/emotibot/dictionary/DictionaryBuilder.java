@@ -80,6 +80,8 @@ public class DictionaryBuilder {
 	private static Set<String> moodWordExceptionTable;
 
 	public static void DictionaryBuilderInit() {
+		moodWordTable = createMoodWordTable();
+		setMoodWordExceptionTable(createMoodWordExceptionTable());
 		highFeqWordTable = createHighFeqWordTable();
 		synonymTable = createSynonymTable();
 		synonymTableRef = createSynonymTableRef();
@@ -94,8 +96,6 @@ public class DictionaryBuilder {
 		domainAllListTable = createDomainAllListTable();
 		domainBalckListTable = createDomainBalckListTable();
 		domainWhiteListTable = createDomainWhiteListTable();
-		moodWordTable = createMoodWordTable();
-		setMoodWordExceptionTable(createMoodWordExceptionTable());
 		addCustomDictionaryInHanlp();
 		
 	
@@ -550,6 +550,8 @@ public class DictionaryBuilder {
 				while ((word = dis.readLine()) != null) {
 					// all entity in table are in low case
 					wordSet.add(CharUtil.trim(word).toLowerCase());
+					// fix the bad case of "你是谁"
+					wordSet.add(CharUtil.trimAndlower(NLPUtil.removeMoodWord("", word)));
 				}
 				dis.close();
 			} catch (Exception e) {

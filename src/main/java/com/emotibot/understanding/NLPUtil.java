@@ -194,7 +194,7 @@ public class NLPUtil {
 		if (rtnA.equals(rtnB)) {
 			return rtnA;
 		} else {
-			System.err.print("rtA=" + rtnA + ", rtB=" + rtnB);
+			System.err.println("entity="+entity+", str="+str+", rtA=" + rtnA + ", rtB=" + rtnB);
 			return rtnA;
 		}
 	}
@@ -239,7 +239,7 @@ public class NLPUtil {
 	// output: "姚明在家"
 	public static String removeMoodWordA(String entity, String str) {
 		String tempStr = str;
-		System.out.println("removeMoodWord() input string is : " + str);
+//		System.out.println("removeMoodWord() input string is : " + str);
 		if (Tool.isStrEmptyOrNull(str)) {
 			return "";
 		}
@@ -256,9 +256,9 @@ public class NLPUtil {
 			}
 		}
 		
-		for(int i = str.length()-1; i >= 1; i-- ){
+		for(int i = str.length()-1; i >= 0; i-- ){
 			String charAtLocal = str.charAt(i)+"";
-			System.out.println(charAtLocal);
+//			System.out.println(charAtLocal);
 			if(!DictionaryBuilder.getMoodWordTable().contains(charAtLocal))
 				break;
 		
@@ -270,7 +270,7 @@ public class NLPUtil {
 				break;
 			}
 			
-			System.out.println(i);
+//			System.out.println(i);
 			tempStr = tempStr.substring(0,  i);
 			
 		}
@@ -297,7 +297,7 @@ public class NLPUtil {
 //			else
 //				tempStr = str;
 //		}
-		System.out.println("removeMoodWord() output string is : " + tempStr);
+//		System.out.println("removeMoodWord() output string is : " + tempStr);
 		return tempStr;
 	}
 
@@ -416,8 +416,8 @@ public class NLPUtil {
 
 	public static void main(String[] args) {
 		DictionaryBuilder.DictionaryBuilderInit();
-		String s = "什么是妈妈咪呀呢呢";
-		String entity = "妈妈咪呀";
+		String s = "拜拜了";
+		String entity = "";
 		System.out.println(removeMoodWord(entity,s));
 //		System.out.println(hasEntitySynonym(s));
 //		System.out.println(DictionaryBuilder.getEntitySynonymTable().keySet().size());
