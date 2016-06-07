@@ -373,7 +373,7 @@ public class GenerateDictionaryFile {
 		// NLPProcess nlp = new NLPProcess();
 		// NLPProcess.NLPProcessInit();
 
-		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
+//		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
 
 //		generateEntity();
