@@ -56,7 +56,9 @@ import net.sf.json.JSONSerializer;
 
 public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, ImmutableBytesWritable> {
 	public static String URL = "url";
-	public static String HTMLBODY = "html";
+	public static String HTMLBODY = "html_body";
+	public static String HTML = "html";
+
 	public static String WORDS="words";
 	public static String type = "";
 	public static String Seperator = "ACBDGFX";
@@ -149,7 +151,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					url = Bytes.toString(kv[i].getValue());
 					System.err.println("url=" + url);
 				}
-				if ((HTMLBODY).equals(Bytes.toString(kv[i].getQualifier()))) {
+				if ((HTMLBODY).equals(Bytes.toString(kv[i].getQualifier()))||(HTML).equals(Bytes.toString(kv[i].getQualifier()))) {
 					html = Bytes.toString(kv[i].getValue());
 				}
 				if ((WORDS).equals(Bytes.toString(kv[i].getQualifier()))) {
