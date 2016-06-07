@@ -407,7 +407,7 @@ public class DictionaryBuilder {
 	private static Set<String> createRemoveableMauallyCollectedWordTable() {
 		System.err.println("init of createRemoveableMauallyCollectedWordTable");
 		Set<String> wordSet = new HashSet<>();
-		String fileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent_Aux.txt";
+		String fileName = Common.UserDir + "/knowledgedata/dictionary/removeableMannuallyCollected.txt";
 		System.out.println("path is " + fileName);
 		
 		if (!Tool.isStrEmptyOrNull(fileName)) {

@@ -7,7 +7,7 @@ SelectiveQuestion;^&对&吗/嘛||SelectiveQuestion@:对不对
 SelectiveQuestion;^&会不会&^||SelectiveQuestion@:会不会
 RelationshipQuestion;^&关系&^||RelationshipQuestion@:1
 RelationshipQuestion;^&联系&^||RelationshipQuestion@:2
-IntroductionQuestion;^&#&是谁/是啥/指什么/是什么&[意思/含义]||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;[知不知道/可知道/请问/那么]&#&是谁/是啥/指什么/是什么&[意思/含义]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&谁||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&[有]&啥/什么&意思/含义||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&[是]&做什么的/干嘛的/怎么样||IntroductionQuestion@:firstParamInfo

@@ -239,6 +239,10 @@ public class GenerateAuxFiles {
 						// temporarily, remove the words of length 1
 						if(s.length()==1){
 							System.out.println("ignore: "+s +" in line:"+line);
+						} else if (CharUtil.isDateFormat(s)) {
+							System.out.println("Date format -- ignore: "+s +" in line:"+line);
+						} else if (CharUtil.isNumberFormat(s)) {
+							System.out.println("Number format -- ignore: "+s +" in line:"+line);
 						} else {
 							synonymnEntitySet.add(s);
 						}
@@ -265,6 +269,8 @@ public class GenerateAuxFiles {
 					System.out.println("not Entity: "+DBEntity);
 					continue;
 				}
+				
+				
 				
 
 				tmpEntitySet.add(DBEntity);
