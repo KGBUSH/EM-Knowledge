@@ -65,92 +65,6 @@ public class GenerateDictionaryFile {
 		}
 	}
 
-	public static void generateEntity() {
-		EmotibotNeo4jConnection conn = getDBConnection();
-
-		String query = "match(n) with n return collect(n.Name) as result";
-		List<String> list = conn.getArrayListfromCollection(query);
-
-		Set<String> tempSet = new HashSet<>();
-
-		for (String s : list) {
-			tempSet.add(s);
-		}
-		// for (String s : NLPProcess.getEntitySynonymTable().keySet()) {
-		// tempSet.add(s);
-		// }
-		// for (String s : NLPProcess.getEntitySynonymTable().values()) {
-		// tempSet.add(s);
-		// }
-
-		try {
-			String tempFileName = Common.UserDir + "/knowledgedata/entity.txt";
-			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
-
-			for (String s : tempSet) {
-				// if (s.length() == 1 && !NLPUtil.isEntityPM(s)) {
-				if (s.length() == 1) {
-					// remove in 5/31, may be added later
-					System.out.println(s);
-					continue;
-				}
-				out.write(s + "\r\n");
-			}
-			out.close();
-
-			// tempFileName = Common.UserDir + "/knowledgedata/entityH.txt";
-			// BufferedWriter outH = new BufferedWriter(new
-			// FileWriter(tempFileName));
-			//
-			// for (String s : tempSet) {
-			// outH.write(s + " n" + " 2" + "\r\n");
-			// }
-			// outH.close();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		System.out.println("entity generation done");
-
-	}
-	
-	// generate entity and label
-	public static void generateEntityAndLabel() {
-		EmotibotNeo4jConnection conn = getDBConnection();
-		
-//		String query = "match(n) with n with n.Name as name, labels(n) as l unwind l as domain return collect(name+\"###\"+domain) as result";
-		String query = "match(n) with n with n.Name as name, labels(n) as l unwind l as domain return collect(name+\"###\"+domain) as result";
-		List<String> list = conn.getArrayListfromCollection(query);
-		
-//		System.out.println("list="+list);
-		
-		Set<String> tempSet = new HashSet<>();
-		
-		for (String s : list) {
-			tempSet.add(s);
-		}
-		
-		try {
-//			String tempFileName = Common.UserDir + "/knowledgedata/KnowledgeEntityWithLabel.txt";
-			String tempFileName = Common.UserDir + "/knowledgedata/entityTest.txt";
-			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
-			
-			for (String s : tempSet) {
-				if (s.length() == 1) {
-					System.out.println(s);
-					continue;
-				}
-				out.write(s + "\r\n");
-			}
-			out.close();
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		System.out.println("entity and label generation done");
-		
-	}
 
 	public static void generateFirstLevelEntity() {
 		EmotibotNeo4jConnection conn = getDBConnection();
@@ -407,6 +321,7 @@ public class GenerateDictionaryFile {
 	public static void generateRemoveableHighFrequentWordFile() {
 		List<String> entitySet = new ArrayList<>();
 		try {
+
 			String outFileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent.txt";
 			BufferedWriter outOther = new BufferedWriter(new FileWriter(outFileName));
 			String outFileName2 = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequentAll.txt";

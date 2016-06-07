@@ -12,7 +12,6 @@ medical_treatment
 movie
 novel
 sports
-##sports_organization
 tourism
 job
 music
