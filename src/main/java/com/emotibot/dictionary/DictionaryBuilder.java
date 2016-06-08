@@ -71,6 +71,8 @@ public class DictionaryBuilder {
 	private static Set<String> removeableHighFeqWordOtherTable;
 	// removeableHighFeqWordAllTable: all the removeable entity
 	private static Set<String> removeableHighFeqWordAllTable;
+	// removeableMauallyCollectedWordTable: all the removeable entity
+	private static Set<String> removeableMauallyCollectedWordTable;
 	// the high frequent words which are reserved, not be deleted
 	private static Set<String> reservedHighFeqWordTable;
 	private static Set<String> domainAllListTable;
@@ -96,6 +98,7 @@ public class DictionaryBuilder {
 		setDailyUsedWordTable(createDailyUsedWordTable());
 		removeableHighFeqWordOtherTable = createRemoveableHighFeqWordOtherTable();
 		removeableHighFeqWordAllTable = createRemoveableHighFeqWordAllTable();
+		removeableMauallyCollectedWordTable = createRemoveableMauallyCollectedWordTable();
 		domainAllListTable = createDomainAllListTable();
 		domainBalckListTable = createDomainBalckListTable();
 		domainWhiteListTable = createDomainWhiteListTable();
@@ -397,6 +400,38 @@ public class DictionaryBuilder {
 		}
 
 		System.out.println("createReservedHighFeqWordTable lengh = " + wordSet.size());
+		return wordSet;
+	}
+	
+	// createRemoveableMauallyCollectedWordTable
+	private static Set<String> createRemoveableMauallyCollectedWordTable() {
+		System.err.println("init of createRemoveableMauallyCollectedWordTable");
+		Set<String> wordSet = new HashSet<>();
+		String fileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent_Aux.txt";
+		System.out.println("path is " + fileName);
+		
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = null;
+				while ((word = dis.readLine()) != null) {
+					// all entity in table are in low case
+					wordSet.add(CharUtil.trim(word).toLowerCase());
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		System.out.println("createRemoveableMauallyCollectedWordTable lengh = " + wordSet.size());
 		return wordSet;
 	}
 	
@@ -828,5 +863,13 @@ public class DictionaryBuilder {
 
 	public static void setReservedHighFeqWordTable(Set<String> reservedHighFeqWordTable) {
 		DictionaryBuilder.reservedHighFeqWordTable = reservedHighFeqWordTable;
+	}
+
+	public static Set<String> getRemoveableMauallyCollectedWordTable() {
+		return removeableMauallyCollectedWordTable;
+	}
+
+	public static void setRemoveableMauallyCollectedWordTable(Set<String> removeableMauallyCollectedWordTable) {
+		DictionaryBuilder.removeableMauallyCollectedWordTable = removeableMauallyCollectedWordTable;
 	}
 }

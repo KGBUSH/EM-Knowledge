@@ -342,6 +342,15 @@ public class NLPUtil {
 	}
 	
 	// if str in remove All dictionary or not
+	public static boolean isInRemoveableMauallyCollectedDict(String str) {
+		if (!str.isEmpty() && DictionaryBuilder.getRemoveableMauallyCollectedWordTable().contains(str)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// if str in remove All dictionary or not
 	public static boolean isInRemoveableAllDict(String str) {
 		if (!str.isEmpty() && DictionaryBuilder.getRemoveableHighFeqWordAllTable().contains(str)) {
 			return true;

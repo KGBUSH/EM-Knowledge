@@ -405,7 +405,7 @@ public class KGAgent {
 
 		if (!answerBean.getAnswer().isEmpty()) {
 			// for the highfrequent case
-			if (NLPUtil.isInRemoveableAllDict(entity)) {
+			if (NLPUtil.isInRemoveableMauallyCollectedDict(entity)) {
 				answerBean.setScore(0);
 			}
 			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer()));
@@ -454,7 +454,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "你基友是谁？";
+		String str = "长城是什么时候建造的？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");
