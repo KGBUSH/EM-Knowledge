@@ -25,7 +25,7 @@ public class NLPUtil {
 
 	// is the string exists in Entity or Entity_Ref
 	public static boolean isEntity(String str) {
-		if (!getEntityInDictinoary(str).isEmpty() && !getEntitySynonymNormal(str).isEmpty()) {
+		if (!getEntityInDictinoary(str).isEmpty() || !getEntitySynonymNormal(str).isEmpty()) {
 			return true;
 		} else {
 			return false;
@@ -332,6 +332,15 @@ public class NLPUtil {
 		}
 	}
 
+	// if str in remove All dictionary or not
+	public static boolean isInReservedHighFeqWordDict(String str) {
+		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getReservedHighFeqWordTable().contains(str)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	// if str in remove All dictionary or not
 	public static boolean isInRemoveableAllDict(String str) {
 		if (!str.isEmpty() && DictionaryBuilder.getRemoveableHighFeqWordAllTable().contains(str)) {

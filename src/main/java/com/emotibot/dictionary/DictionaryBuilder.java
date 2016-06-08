@@ -71,6 +71,8 @@ public class DictionaryBuilder {
 	private static Set<String> removeableHighFeqWordOtherTable;
 	// removeableHighFeqWordAllTable: all the removeable entity
 	private static Set<String> removeableHighFeqWordAllTable;
+	// the high frequent words which are reserved, not be deleted
+	private static Set<String> reservedHighFeqWordTable;
 	private static Set<String> domainAllListTable;
 	private static Set<String> domainBalckListTable;
 	private static Set<String> domainWhiteListTable;
@@ -82,6 +84,7 @@ public class DictionaryBuilder {
 	public static void DictionaryBuilderInit() {
 		moodWordTable = createMoodWordTable();
 		setMoodWordExceptionTable(createMoodWordExceptionTable());
+		setReservedHighFeqWordTable(createReservedHighFeqWordTable());
 		highFeqWordTable = createHighFeqWordTable();
 		synonymTable = createSynonymTable();
 		synonymTableRef = createSynonymTableRef();
@@ -97,8 +100,6 @@ public class DictionaryBuilder {
 		domainBalckListTable = createDomainBalckListTable();
 		domainWhiteListTable = createDomainWhiteListTable();
 		addCustomDictionaryInHanlp();
-		
-	
 		
 	}
 
@@ -367,11 +368,11 @@ public class DictionaryBuilder {
 		return wordSet;
 	}
 
-	// createHighFeqWordAllTable
-	private static Set<String> createRemoveableHighFeqWordAllTable() {
-		System.err.println("init of createRemoveableHighFeqWordAllTable");
+	// createReservedHighFeqWordTable
+	private static Set<String> createReservedHighFeqWordTable() {
+		System.err.println("init of createReservedHighFeqWordTable");
 		Set<String> wordSet = new HashSet<>();
-		String fileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequentAll.txt";
+		String fileName = Common.UserDir + "/knowledgedata/dictionary/reservedHighFeqWord.txt";
 		System.out.println("path is " + fileName);
 
 		if (!Tool.isStrEmptyOrNull(fileName)) {
@@ -395,6 +396,38 @@ public class DictionaryBuilder {
 			}
 		}
 
+		System.out.println("createReservedHighFeqWordTable lengh = " + wordSet.size());
+		return wordSet;
+	}
+	
+	// createHighFeqWordAllTable
+	private static Set<String> createRemoveableHighFeqWordAllTable() {
+		System.err.println("init of createRemoveableHighFeqWordAllTable");
+		Set<String> wordSet = new HashSet<>();
+		String fileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequentAll.txt";
+		System.out.println("path is " + fileName);
+		
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = null;
+				while ((word = dis.readLine()) != null) {
+					// all entity in table are in low case
+					wordSet.add(CharUtil.trim(word).toLowerCase());
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
 		System.out.println("createRemoveableHighFeqWordAllTable lengh = " + wordSet.size());
 		return wordSet;
 	}
@@ -549,9 +582,16 @@ public class DictionaryBuilder {
 				String word = null;
 				while ((word = dis.readLine()) != null) {
 					// all entity in table are in low case
-					wordSet.add(CharUtil.trim(word).toLowerCase());
+					word = CharUtil.trim(word).toLowerCase();
+					if(NLPUtil.isEntity(word) && !NLPUtil.isInReservedHighFeqWordDict(word)){
+						wordSet.add(word);
+					}
+					
 					// fix the bad case of "你是谁"
-					wordSet.add(CharUtil.trimAndlower(NLPUtil.removeMoodWord("", word)));
+					word = CharUtil.trimAndlower(NLPUtil.removeMoodWord("", word));
+					if(NLPUtil.isEntity(word) && !NLPUtil.isInReservedHighFeqWordDict(word)){
+						wordSet.add(word);
+					}
 				}
 				dis.close();
 			} catch (Exception e) {
@@ -780,5 +820,13 @@ public class DictionaryBuilder {
 
 	public static void setMoodWordExceptionTable(Set<String> moodWordExceptionTable) {
 		DictionaryBuilder.moodWordExceptionTable = moodWordExceptionTable;
+	}
+
+	public static Set<String> getReservedHighFeqWordTable() {
+		return reservedHighFeqWordTable;
+	}
+
+	public static void setReservedHighFeqWordTable(Set<String> reservedHighFeqWordTable) {
+		DictionaryBuilder.reservedHighFeqWordTable = reservedHighFeqWordTable;
 	}
 }

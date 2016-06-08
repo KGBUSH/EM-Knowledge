@@ -285,10 +285,15 @@ public class GenerateDictionaryFile {
 					line = in.readLine();
 					continue;
 				}
+				
 
 				int fq = Integer.parseInt(strArr[2]);
 				if (fq <= 10000) {
-					strSet.add(strArr[0]);
+					if(NLPUtil.isInReservedHighFeqWordDict(strArr[0])){
+						System.out.println("reserved and not added: "+strArr[0]);
+					} else {
+						strSet.add(strArr[0]);
+					}
 				}
 
 				line = in.readLine();

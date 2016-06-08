@@ -208,6 +208,7 @@ public class GenerateAuxFiles {
 			BufferedWriter exceptionLog = new BufferedWriter(new FileWriter(Common.UserDir + "/log/exception.txt"));
 			
 			int count = 1;
+			int countMissing  = 0;
 			Set<String> tmpEntitySet = new HashSet<>();
 
 			while ((line = in.readLine()) != null) {
@@ -257,6 +258,14 @@ public class GenerateAuxFiles {
 						continue;
 					}
 				}
+				
+				
+				if(NLPUtil.getEntityInDictinoary(DBEntity).isEmpty()){
+					countMissing++;
+					System.out.println("not Entity: "+DBEntity);
+					continue;
+				}
+				
 
 				tmpEntitySet.add(DBEntity);
 				
@@ -272,7 +281,7 @@ public class GenerateAuxFiles {
 			in.close();
 			out.close();
 			exceptionLog.close();
-			System.out.println("size of entity = "+tmpEntitySet.size());
+			System.out.println("size of entity = "+tmpEntitySet.size() + ", missing = "+countMissing);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -283,7 +292,8 @@ public class GenerateAuxFiles {
 
 	public static void main(String[] args) {
 //		 getEntityInfoInList();
-		 
+		DictionaryBuilder.DictionaryBuilderInit();
+		
 		generateSynonymnEntityFile();
 		
 		System.exit(0);

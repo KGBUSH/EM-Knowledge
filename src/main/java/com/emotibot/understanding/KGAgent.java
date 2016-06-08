@@ -404,10 +404,10 @@ public class KGAgent {
 		}
 
 		if (!answerBean.getAnswer().isEmpty()) {
-			// normal case
-//			if (isQuestion == false) {
-//				answerBean.setScore(0);
-//			}
+			// for the highfrequent case
+			if (NLPUtil.isInRemoveableAllDict(entity)) {
+				answerBean.setScore(0);
+			}
 			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer()));
 			System.out.println("PM.getAnswer 5: the returned anwer is " + answerBean.toString());
 			return answerBean.returnAnswer(answerBean);
@@ -454,7 +454,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "主演龙之谷的是谁？";
+		String str = "你基友是谁？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");
