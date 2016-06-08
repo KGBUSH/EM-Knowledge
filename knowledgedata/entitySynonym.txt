@@ -4845,7 +4845,7 @@ nba2k##nba 2k##
 沈阳故宫##故宫##
 奥诺雷·德·巴尔扎克##巴尔扎克##
 healing camp##healing camp500人##
-罗尼·奥沙利文##奥沙利文##火箭##
+罗尼·奥沙利文##奥沙利文##
 雅榕##小叶榕##
 fategrand order##fate/grand order##
 约翰·传奇##john legend##
