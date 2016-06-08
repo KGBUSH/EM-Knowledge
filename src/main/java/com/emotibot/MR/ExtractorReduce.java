@@ -72,7 +72,7 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 	public static String solrName ="";
 	public static HashMap<String,String> DuplicateDetectionMap = new HashMap<>();
     public  static int BatchNum=100;
-    public  static int BatchNumRelation=3;
+    public  static int BatchNumRelation=100;
 
 	@Override
 	public void setup(Context context) {
