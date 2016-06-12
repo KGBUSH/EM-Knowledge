@@ -243,6 +243,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 }
 					 if(!isexist)
 					 {
+					   System.err.println("QUERY="+query);
 					   outputValue.set(Bytes.toBytes(pageExtractInfo.getParamMd5()+"###"+query));
 					   context.write(outputKey, outputValue);
 					 }
@@ -320,10 +321,12 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
     					                System.err.println(NodeOrRelation+" queryMap2=" + query2);
                                     }
 									if (query !=null && query.trim().length()>0){
+										   System.err.println("QUERY="+query);
 										outputValue.set(Bytes.toBytes(query));
 										context.write(outputKey, outputValue);
 									}
 									if (query2 !=null && query2.trim().length()>0){
+										   System.err.println("QUERY="+query2);
 										outputValue.set(Bytes.toBytes(query2));
 										context.write(outputKey, outputValue);
 									}

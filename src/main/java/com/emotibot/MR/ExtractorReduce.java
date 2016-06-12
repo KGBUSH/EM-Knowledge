@@ -71,8 +71,8 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 	public static int port = 0;
 	public static String solrName ="";
 	public static HashMap<String,String> DuplicateDetectionMap = new HashMap<>();
-    public  static int BatchNum=100;
-    public  static int BatchNumRelation=100;
+    public  static int BatchNum=1;
+    public  static int BatchNumRelation=1;
 
 	@Override
 	public void setup(Context context) {
@@ -105,7 +105,7 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
 	protected void reduce(ImmutableBytesWritable folder,Iterable<ImmutableBytesWritable> values, Context context) 
 			throws IOException, InterruptedException {
 			long solrDocnum=0;
-			List<String> list = new ArrayList<>();
+/*			List<String> list = new ArrayList<>();
 			for (ImmutableBytesWritable value : values) {
 		try {
 				System.err.println("typeReduce=" + type+"  ");
@@ -221,7 +221,7 @@ public class ExtractorReduce extends TableReducer<ImmutableBytesWritable, Immuta
      					  list.clear();
                        }
 			}
-			
+		*/	
 	}
 	
 	public static String getRelationsSql(List<String> list)
