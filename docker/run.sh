@@ -35,6 +35,7 @@ cmd="docker run -d --name $CONTAINER \
  -e KG_SOLR_NAME=$KG_SOLR_NAME \
  -e KG_TCP_IP=$KG_TCP_IP \
  -e KG_TCP_PORT=$KG_TCP_PORT \
+ -v /etc/localtime:/etc/localtime \
  -p $KG_RS_KG_PORT:$KG_RS_KG_PORT \
     $DOCKER_IMAGE \
 "
