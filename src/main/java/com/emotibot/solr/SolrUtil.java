@@ -46,10 +46,10 @@ public class SolrUtil {
 			String solrName=cf.getIndexSolrServerSolrName();
 			SystemDefaultHttpClient httpClient = new SystemDefaultHttpClient();
 			server = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName,httpClient);
-			server.setConnectionTimeout(10 * 1000);
+			/*server.setConnectionTimeout(10 * 1000);
 			server.setFollowRedirects(false);
 			server.setAllowCompression(true);
-			server.setMaxRetries(10);
+			server.setMaxRetries(10);*/
 		}
 	}
 
@@ -57,10 +57,10 @@ public class SolrUtil {
 		if (server == null) {
 			SystemDefaultHttpClient httpClient = new SystemDefaultHttpClient();
 			server = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName,httpClient);
-			server.setConnectionTimeout(10 * 1000);
+			/*server.setConnectionTimeout(10 * 1000);
 			server.setFollowRedirects(false);
 			server.setAllowCompression(true);
-			server.setMaxRetries(10);
+			server.setMaxRetries(10);*/
 		}
 	}
 
@@ -134,16 +134,23 @@ public class SolrUtil {
         QueryResponse response=server.query(solrQuery);
         SolrDocumentList docList = response.getResults();
         for (SolrDocument doc : docList) {
-            String info = (String)doc.getFieldValue(Info);
+            //String info = (String)doc.getFieldValue(Info);
             //System.err.println("info="+info);
-            String attr = (String)doc.getFieldValue(Attr);
+            //String attr = (String)doc.getFieldValue(Attr);
             //System.err.println("attr="+attr);
-            String value = (String)doc.getFieldValue(Value);
+           // String value = (String)doc.getFieldValue(Value);
             //System.err.println("value="+value);
-            String name = (String)doc.getFieldValue(Name);
-            System.out.println("Name="+name);
+            String name = doc.getFieldValue(Name).toString();
+            if(name!=null&&name.trim().length()>0)
+            {
+            	name=name.replace("[", "");
+            	name=name.replace("]", "");
+            }
+            System.out.println(""+name);
             //return name;
+            if(name!=null&&name.trim().length()>0){
             result.add(name);
+            }
         }
     	}catch(Exception e)
     	{
@@ -152,7 +159,7 @@ public class SolrUtil {
     	return result;
     }
 	public static void main(String args[]) throws SolrServerException, IOException, InterruptedException {
-		SolrUtil solr = new SolrUtil();
+		/*SolrUtil solr = new SolrUtil();
     	Vector<String> files = new Vector<String>();
 		 files.add("/Users/Elaine/Documents/workspace/html/yaomin");
 		 files.add("/Users/Elaine/Documents/workspace/html/yaoxinlei");
@@ -178,17 +185,17 @@ public class SolrUtil {
 	    	long t2=System.currentTimeMillis();
 			System.err.println("time="+(t2-t1));
            Thread.sleep(10*1000);
-		 }
-		//Solr_Query obj = new Solr_Query();
-		//obj.setFindEntity(true);
+		 }*/
+		Solr_Query obj = new Solr_Query();
+		obj.setFindEntity(true);
 		//obj.addEntity("姚明");
-		//obj.addEntity("地藏");
+		obj.addEntity("菩萨");
 
 		//obj.addWord("姚明");
-		//obj.addWord("丈夫");
-		//obj.addWord("忉利天");
-
-		//solr.Search(obj);
+		obj.addWord("丈夫");
+		obj.addWord("忉利天");
+		SolrUtil solr = new SolrUtil();
+		solr.Search(obj);
 		return;
 	}
 
