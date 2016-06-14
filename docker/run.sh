@@ -4,8 +4,20 @@ CONTAINER=knowlegegraph
 TAG=latest
 DOCKER_IMAGE=$REPO/$CONTAINER:$TAG
 
-# Get env from env file
-source local.env
+# Load the env file
+source $1
+if [ $? -ne 0 ]; then
+  if [ "$#" -eq 0 ];then
+    echo "Usage: $0 <envfile>"
+    echo "e.g., $0 dev.env"
+  else
+    echo "Erorr, can't open envfile: $1"
+  fi
+  exit 1
+else
+  echo "# Using envfile: $1"
+fi
+
 #docker run -it $DOCKER_IMAGE /bin/bash
 docker rm -f -v $CONTAINER
 cmd="docker run -d --name $CONTAINER \
