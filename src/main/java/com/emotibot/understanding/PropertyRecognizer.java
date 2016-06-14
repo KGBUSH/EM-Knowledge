@@ -366,13 +366,46 @@ public class PropertyRecognizer {
 //		System.out.println("isPass="+isPass);
 
 		int finalScore = Integer.MIN_VALUE;
+		
+		//对得分相同的property进行处理
+		List<String> sameValuePropetyList = new ArrayList<String>();
 		for (String s : propSet) {
-			if (rsMap.get(s) > finalScore) {
-				finalScore = rsMap.get(s);
-				beanPM.setAnswer(s);
-				beanPM.setScore(finalScore);
+			if(rsMap.get(s) < 0){
+				continue;
 			}
+			if (rsMap.get(s) > finalScore) {
+				sameValuePropetyList.clear();
+				sameValuePropetyList.add(s);
+				finalScore = rsMap.get(s);
+				continue;
+			}
+			if(rsMap.get(s) == finalScore){
+				sameValuePropetyList.add(s);
+			}
+			
 		}
+		
+		
+		
+		if(sameValuePropetyList.size() > 0){
+			String result = getBestAnswerFromCandidate(sameValuePropetyList, candidate);
+			beanPM.setAnswer(result);
+			beanPM.setScore(rsMap.get(result));
+		}else {
+			beanPM.setAnswer("");
+			beanPM.setScore(-5);
+		}
+		
+//		int score = Integer.MIN_VALUE;
+//		Set<String> entrySet = rsFinalMap.keySet();
+//		for(String s:entrySet){
+//			if (rsFinalMap.get(s) > score){
+//				score = rsFinalMap.get(s);
+//				beanPM.setAnswer(s);
+//				beanPM.setScore(rsMap.get(s));
+//			}
+//		}
+		
 		if (isPass == false && beanPM.getScore() < 0) {
 			beanPM.set2NotValid();
 		} else {
@@ -387,6 +420,56 @@ public class PropertyRecognizer {
 		return beanPM;
 	}
 
+	//对topN 个答案进行帅选。
+	 private String getBestAnswerFromCandidate(List<String> topN, String candidate){
+		String finalResult = "";
+		HashMap<String, Integer> rsFinalMap = new HashMap<String, Integer>();
+		List<String> listCandidate = new ArrayList<>();
+		//迭代topN 
+		Iterator<String> iterator = topN.iterator();
+		while (iterator.hasNext()) {
+			//tempPro = topN 里的元素
+			String tempCandidate = candidate;
+			String tempPro = (String) iterator.next();
+			int rightToLeft = 0;
+			if(!tempPro.isEmpty()){
+				if(tempPro.endsWith(tempCandidate)||tempCandidate.endsWith(tempPro)){
+					rsFinalMap.put(tempPro, 5);
+					listCandidate.add(tempPro);
+				}else {
+					for(int i = tempPro.length()-1; i >= 0; i--){
+						if(tempCandidate.isEmpty()){
+							break;
+						}
+						if(!tempCandidate.isEmpty()&&tempCandidate.lastIndexOf(tempPro.charAt(i)) == tempCandidate.length()-1){
+							rightToLeft++;
+							tempCandidate = tempCandidate.substring(0, tempCandidate.length()-1);
+						}else {
+							rightToLeft--;
+						}
+					}
+					//将结果放入rsMap
+					rsFinalMap.put(tempPro, rightToLeft);
+					listCandidate.add(tempPro);
+				}
+			}
+		}
+		
+		int score = Integer.MIN_VALUE;
+//		Set<String> entrySet = rsFinalMap.keySet();
+		for(String s:listCandidate){
+			if (rsFinalMap.get(s) > score){
+				score = rsFinalMap.get(s);
+				finalResult = "";
+				finalResult+=s;
+			}
+		}
+		
+		return finalResult;
+	 }
+	  		
+	 			
+	
 	// test the similarity between target (strProperty) and ref (candidate)
 	private boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
 			boolean isPass) {
