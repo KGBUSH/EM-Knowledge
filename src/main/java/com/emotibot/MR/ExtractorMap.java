@@ -64,10 +64,13 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	public static String Seperator = "ACBDGFX";
 	public static String Other = "other";
 	public static String md5 = "urlkey";
+	public static String paramMd5 = "key";
 
 	public static Map<String, String> URLLabelMap = null;
 	public static Map<String, String> URLMD5LabelAllMap = null;
 	public static Map<String, String> WordLabelMap =null;
+	public static Map<String, String> UrlKeyParamKeyMap =null;
+
 	public static List<String> fileList = null;
     public static String NodeOrRelation="";
     
@@ -127,9 +130,12 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	    }
 	    URLLabelMap = new HashMap<String,String>();
 	    URLMD5LabelAllMap=new HashMap<String,String>();
+	    UrlKeyParamKeyMap= new HashMap<String,String>();
         System.err.println("URLLabelMapSizeBB="+URLLabelMap.size()+"  URLMD5LabelAllMapSizeBB="+URLMD5LabelAllMap.size());
 		URLLabelMap=getWordLabel("/domain/URLLabelMap.txt");
 		URLMD5LabelAllMap=getWordLabel("/domain/URLMD5LabelAllMap.txt");
+		UrlKeyParamKeyMap=getWordLabel("/domain/UrlKeyParamKeyMap.txt");
+
         System.err.println("URLLabelMapSizeBB="+URLLabelMap.size()+"  URLMD5LabelAllMapSizeBB="+URLMD5LabelAllMap.size());
 	}
 
@@ -187,6 +193,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						if(WordLabelMap.containsKey(pmWord)){LabelTmp=WordLabelMap.get(pmWord);}
 						}
 					}
+					System.err.println("UrlKey_ParamKey="+DigestUtils.md5Hex(url)+"###"+pageExtractInfo.getParamMd5());
 					System.err.println("LabelTmp="+url+"###"+LabelTmp+"###"+name+"###"+pmWord);
 					label=LabelTmp;
 					System.err.println("label0="+label);
@@ -316,17 +323,20 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 									//Entity b = new Entity(label2,val,"Name");
                                     if(urlval!=null&&urlval.trim().length()>0)
                                     {
-                                    	Entity bb = new Entity(label2,DigestUtils.md5Hex(urlval),md5);
+                                    	String subUrlKey=DigestUtils.md5Hex(urlval);
+                                    	if(UrlKeyParamKeyMap.containsKey(subUrlKey)){
+                                    	Entity bb = new Entity(label2,UrlKeyParamKeyMap.get(subUrlKey),paramMd5);
                                     	query2=bcy.InsertRelation(aa, bb, attr, null);	
+                                    	}
     					                System.err.println(NodeOrRelation+" queryMap2=" + query2);
                                     }
 									if (query !=null && query.trim().length()>0){
-										   System.err.println("QUERY="+query);
+										System.err.println("QUERY="+query);
 										outputValue.set(Bytes.toBytes(query));
 										context.write(outputKey, outputValue);
 									}
 									if (query2 !=null && query2.trim().length()>0){
-										   System.err.println("QUERY="+query2);
+										System.err.println("QUERY="+query2);
 										outputValue.set(Bytes.toBytes(query2));
 										context.write(outputKey, outputValue);
 									}
