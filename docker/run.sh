@@ -4,8 +4,20 @@ CONTAINER=knowlegegraph
 TAG=latest
 DOCKER_IMAGE=$REPO/$CONTAINER:$TAG
 
-# Get env from env file
-source local.env
+# Load the env file
+source $1
+if [ $? -ne 0 ]; then
+  if [ "$#" -eq 0 ];then
+    echo "Usage: $0 <envfile>"
+    echo "e.g., $0 dev.env"
+  else
+    echo "Erorr, can't open envfile: $1"
+  fi
+  exit 1
+else
+  echo "# Using envfile: $1"
+fi
+
 #docker run -it $DOCKER_IMAGE /bin/bash
 docker rm -f -v $CONTAINER
 cmd="docker run -d --name $CONTAINER \
@@ -23,6 +35,7 @@ cmd="docker run -d --name $CONTAINER \
  -e KG_SOLR_NAME=$KG_SOLR_NAME \
  -e KG_TCP_IP=$KG_TCP_IP \
  -e KG_TCP_PORT=$KG_TCP_PORT \
+ -v /etc/localtime:/etc/localtime \
  -p $KG_RS_KG_PORT:$KG_RS_KG_PORT \
     $DOCKER_IMAGE \
 "
