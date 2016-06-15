@@ -366,11 +366,41 @@ public class PropertyRecognizer {
 //		System.out.println("isPass="+isPass);
 
 		int finalScore = Integer.MIN_VALUE;
+		
+		//对得分相同的property进行处理
+		List<String> sameValuePropetyList = new ArrayList<String>();
 		for (String s : propSet) {
+			if(rsMap.get(s) < 0){
+				continue;
+			}
 			if (rsMap.get(s) > finalScore) {
+				sameValuePropetyList.clear();
+				sameValuePropetyList.add(s);
 				finalScore = rsMap.get(s);
+				continue;
+			}
+			if(rsMap.get(s) == finalScore){
+				sameValuePropetyList.add(s);
+			}
+			
+		}
+		
+		HashMap<String, Integer> rsFinalMap = new HashMap<String, Integer>();
+		
+		if(sameValuePropetyList.size() > 0){
+			getBestAnswerFromCandidate(rsFinalMap, sameValuePropetyList, candidate);
+		}else {
+			beanPM.setAnswer("");
+			beanPM.setScore(-5);
+		}
+		
+		int score = Integer.MIN_VALUE;
+		Set<String> entrySet = rsFinalMap.keySet();
+		for(String s:entrySet){
+			if (rsFinalMap.get(s) > score){
+				score = rsFinalMap.get(s);
 				beanPM.setAnswer(s);
-				beanPM.setScore(finalScore);
+				beanPM.setScore(rsMap.get(s));
 			}
 		}
 		if (isPass == false && beanPM.getScore() < 0) {
@@ -387,6 +417,40 @@ public class PropertyRecognizer {
 		return beanPM;
 	}
 
+	//对topN 个答案进行帅选。
+	 private void getBestAnswerFromCandidate(HashMap<String,Integer> rsMap,List<String> topN, String candidate){
+		//迭代topN 
+		Iterator<String> iterator = topN.iterator();
+		while (iterator.hasNext()) {
+			//tempPro = topN 里的元素
+			String tempPro = (String) iterator.next();
+			int rightToLeft = 0;
+			if(!tempPro.isEmpty()){
+				if(tempPro.endsWith(candidate)||candidate.endsWith(tempPro)){
+					rsMap.put(tempPro, 5);
+				}else {
+					for(int i = tempPro.length()-1; i >= 0; i--){
+						if(candidate.isEmpty()){
+							break;
+						}
+						if(!candidate.isEmpty()&&candidate.lastIndexOf(tempPro.charAt(i)) == candidate.length()-1){
+							rightToLeft++;
+							candidate = candidate.substring(0, candidate.length()-1);
+						}else {
+							rightToLeft--;
+						}
+					}
+					//将结果放入rsMap
+					rsMap.put(tempPro, rightToLeft);
+				}
+			}
+			
+		}
+		 
+	 }
+	  		
+	 			
+	
 	// test the similarity between target (strProperty) and ref (candidate)
 	private boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
 			boolean isPass) {
