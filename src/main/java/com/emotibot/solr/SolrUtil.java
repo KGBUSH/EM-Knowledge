@@ -46,10 +46,10 @@ public class SolrUtil {
 			String solrName=cf.getIndexSolrServerSolrName();
 			SystemDefaultHttpClient httpClient = new SystemDefaultHttpClient();
 			server = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName,httpClient);
-			/*server.setConnectionTimeout(10 * 1000);
+			server.setConnectionTimeout(10 * 1000);
 			server.setFollowRedirects(false);
 			server.setAllowCompression(true);
-			server.setMaxRetries(10);*/
+			server.setMaxRetries(10);
 		}
 	}
 
@@ -57,10 +57,10 @@ public class SolrUtil {
 		if (server == null) {
 			SystemDefaultHttpClient httpClient = new SystemDefaultHttpClient();
 			server = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName,httpClient);
-			/*server.setConnectionTimeout(10 * 1000);
+			server.setConnectionTimeout(10 * 1000);
 			server.setFollowRedirects(false);
 			server.setAllowCompression(true);
-			server.setMaxRetries(10);*/
+			server.setMaxRetries(10);
 		}
 	}
 
@@ -195,7 +195,11 @@ public class SolrUtil {
 		obj.addWord("丈夫");
 		obj.addWord("忉利天");
 		SolrUtil solr = new SolrUtil();
+    	long t1=System.currentTimeMillis();
 		solr.Search(obj);
+    	long t2=System.currentTimeMillis();
+		System.err.println("time="+(t2-t1));
+
 		return;
 	}
 

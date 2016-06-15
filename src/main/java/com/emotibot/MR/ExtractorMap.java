@@ -100,11 +100,8 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		}
         RedisIP=context.getConfiguration().get("RedisIP");;
         RedisPort=context.getConfiguration().getInt("RedisPort", 0);;
-
         redis = new RedisClient(RedisIP,RedisPort);
-
 		fileList = new ArrayList<String>();
-		
 		fileList.add("/domain/TV_series.txt");
 	    fileList.add("/domain/anime.txt");
 		fileList.add("/domain/catchword.txt");
@@ -138,7 +135,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		URLLabelMap=getWordLabel("/domain/URLLabelMap.txt");
 		URLMD5LabelAllMap=getWordLabel("/domain/URLMD5LabelAllMap.txt");
 		UrlKeyParamKeyMap=getWordLabel("/domain/UrlKeyParamKeyMap.txt");
-
         System.err.println("URLLabelMapSizeBB="+URLLabelMap.size()+"  URLMD5LabelAllMapSizeBB="+URLMD5LabelAllMap.size());
 	}
 
