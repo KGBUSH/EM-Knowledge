@@ -59,7 +59,8 @@ public class KGAgent {
 			text = "";
 		}
 
-		nerBean.setOldSentence(CharUtil.trimAndlower(text));
+//		nerBean.setOldSentence(CharUtil.trimAndlower(text));	// fix the bad case "你好。"
+		
 		nerBean.setUniqueID(uniqueID);
 
 		userSentence = text.toLowerCase();
@@ -90,6 +91,7 @@ public class KGAgent {
 		}
 		userSentence = NLPUtil.removePunctuateMark(userSentence);
 		nerBean.setSentence(userSentence);
+		nerBean.setOldSentence(userSentence);	// fix the bad case "你好。"
 
 		System.out.println("userSentence=" + userSentence + ", isQuestion=" + isQuestion);
 		segPos = NLPUtil.getSegWord(userSentence);
@@ -454,7 +456,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "长城是什么时候建造的？";
+		String str = "你好。";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");
