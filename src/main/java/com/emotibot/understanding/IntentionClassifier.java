@@ -34,11 +34,16 @@ public class IntentionClassifier {
 
 		AnswerRewrite answerRewite = new AnswerRewrite();
 
-		System.out.println("##### sentence" + sentence + ", entitySet=" + entitySet);
+		System.out.println("##### sentence" + sentence + ", entitySet=" + entitySet + ", getOldSentence()="+nerBean.getOldSentence());
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
 			// synonym case that is a high frequent word, do not answer this
 			// kind of entity
 			if (!sentence.equals(nerBean.getOldSentence()) && NLPUtil.isInHighFrequentDict(nerBean.getOldSentence())) {
+				answerBean.setValid(true);	// set valid then the answer will be returned
+				return answerBean.returnAnswer(answerBean);
+			}
+			
+			if (NLPUtil.isInHighFrequentDict(sentence)) {
 				answerBean.setValid(true);	// set valid then the answer will be returned
 				return answerBean.returnAnswer(answerBean);
 			}
