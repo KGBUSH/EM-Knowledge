@@ -204,39 +204,32 @@ public class KGAgent {
 				if (Tool.isStrEmptyOrNull(sentence)) {
 					continue;
 				}
-				AnswerBean tempBean = new AnswerBean();
-				tempBean.setComments(answerBean.getComments());
+				
+				// since there maybe more than one record in a label with the same name
+				List<String> listKey = DBProcess.getKeyListbyEntity(entity, iLabel);
+				for(String iKey : listKey){
+					AnswerBean tempBean = new AnswerBean();
+					tempBean.setComments(answerBean.getComments());
 
-				// String tempSentence = TemplateEntry.templateProcess(iLabel,
-				// entity, sentence, uniqueID);
-				// print debug log
-				// if (Common.KG_DebugStatus || debugFlag) {
-				// String debugInfo = answerBean.getComments() + "\n template
-				// process: ilabel:" + iLabel + " from:"
-				// + oldSentence + " to:" + tempSentence;
-				// System.out.println(debugInfo);
-				// Debug.printDebug("123456", 1, "KG", debugInfo);
-				// tempBean.setComments(debugInfo);
-				// }
+					PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
+					tempBean = propertyRecognizer.ReasoningProcess(sentence, iLabel, entity, tempBean, iKey);
+					System.out.println("\t ReasoningProcess answerBean = " + tempBean);
 
-				PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
-				tempBean = propertyRecognizer.ReasoningProcess(sentence, iLabel, entity, tempBean);
-				System.out.println("\t ReasoningProcess answerBean = " + tempBean);
+					// add the implicationQuestion process here, for now only check
+					// the year computing
+					if (QuestionClassifier.isKindofQuestion(NLPUtil.removeMoodWord(entity, userSentence), QuestionClassifier.implicationQuestionType, "")) {
+						tempBean = QuestionClassifier.implicationQuestionProcess(NLPUtil.removeMoodWord(entity, userSentence), entity, tempBean);
+						// answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(),
+						// 0));
+						System.out.println("Implication Qustion: tempBean is " + tempBean.toString());
+					}
 
-				// add the implicationQuestion process here, for now only check
-				// the year computing
-				if (QuestionClassifier.isKindofQuestion(NLPUtil.removeMoodWord(entity, userSentence), QuestionClassifier.implicationQuestionType, "")) {
-					tempBean = QuestionClassifier.implicationQuestionProcess(NLPUtil.removeMoodWord(entity, userSentence), entity, tempBean);
-					// answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(),
-					// 0));
-					System.out.println("Implication Qustion: tempBean is " + tempBean.toString());
+					if (tempBean.isValid()) {
+						singleEntityAnswerBeanList.add(tempBean);
+					}
+
+					System.out.println("TEMP answerBean=" + tempBean);
 				}
-
-				if (tempBean.isValid()) {
-					singleEntityAnswerBeanList.add(tempBean);
-				}
-
-				System.out.println("TEMP answerBean=" + tempBean);
 			}
 
 			// for entity Synonym case
@@ -250,7 +243,7 @@ public class KGAgent {
 					tempBean.setComments(answerBean.getComments());
 					PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
 					tempBean = propertyRecognizer.ReasoningProcess(entitySynonymSentence, entitySynonymLabel, entitySynonym,
-							tempBean);
+							tempBean, "");
 					
 					if (QuestionClassifier.isKindofQuestion(entitySynonymSentence, QuestionClassifier.implicationQuestionType,
 							"")) {
@@ -400,9 +393,9 @@ public class KGAgent {
 		System.out
 				.println("TIME 9 - before answer rewrite >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
-		System.out.println("\t into selective question, answerBean=" + answerBean);
 		// if it is the selective question
 		if (QuestionClassifier.isKindofQuestion(userSentence, QuestionClassifier.selectiveQuestionType, "")) {
+			System.out.println("\t into selective question, answerBean=" + answerBean);
 			answerBean = QuestionClassifier.selectiveQuestionProcess(userSentence, answerBean, nerBean);
 			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(), 2));
 			System.out.println("RETURN of GETANSWER: Selective Qustion: anwerBean is " + answerBean.toString());
@@ -460,7 +453,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "？";
+		String str = "亲爱的的导演是谁？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

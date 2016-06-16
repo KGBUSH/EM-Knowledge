@@ -198,7 +198,7 @@ public class GenerateAuxFiles {
 		List<String> entitySet = new ArrayList<>();
 		try {
 
-			BufferedReader in = new BufferedReader(new FileReader(Common.UserDir + "/resources/TongyiciLast.txt"));
+			BufferedReader in = new BufferedReader(new FileReader(Common.UserDir + "/resources/Tongyici.txt"));
 			String line = "";
 
 			// String outFileName = Common.UserDir +

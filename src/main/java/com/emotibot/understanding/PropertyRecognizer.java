@@ -28,7 +28,7 @@ public class PropertyRecognizer {
 	}
 
 	// Multi-level Reasoning Understanding
-	protected AnswerBean ReasoningProcess(String sentence, String label, String entity, AnswerBean answerBean) {
+	protected AnswerBean ReasoningProcess(String sentence, String label, String entity, AnswerBean answerBean, String entityKey) {
 		System.out.println(
 				"PMP.ReasoningProcess INIT: sentence=" + sentence + ", entity =" + entity + ", bean is " + answerBean);
 		// Debug.printDebug(uniqueID, 3, "knowledge", "PMP.ReasoningProcess:
@@ -56,7 +56,7 @@ public class PropertyRecognizer {
 				+ sentence.substring(sentence.indexOf(entity) + entity.length());
 		System.out.println("\t new sentence is::::" + sentenceNoEntity);
 
-		Map<String, String> relationMap = this.getRelationshipSet(label, entity);
+		Map<String, String> relationMap = this.getRelationshipSet(label, entity, entityKey);
 		System.out.println("\t relationMap = " + relationMap);
 
 		// split the sentence by the entities to get candidates
@@ -67,7 +67,7 @@ public class PropertyRecognizer {
 		System.out.println("PMP.ReasoningProcess: candidateSetbyStopWord = " + candidateSetbyStopWord);
 
 		// get all the property of the entity
-		Map<String, String> propMap = this.getPropertyNameSet(label, entity);
+		Map<String, String> propMap = this.getPropertyNameSet(label, entity, entityKey);
 		System.out.println("PMP.ReasoningProcess: propMap = " + propMap);
 
 		// get the matched properties by pattern matching method
@@ -127,17 +127,20 @@ public class PropertyRecognizer {
 			System.out.println("\t answer = " + answerBean);
 
 			if (relationMap.containsKey(prop)) {
-				// use the new answer as new entity
-				String newDBEntity = DBProcess.getEntityByRelationship(label, entity, prop);
+				// use the new answer as new entity, get the entity as a whole
+				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, prop, entityKey);
+				String newDBEntity = (String) tmpMap.get(Common.KGNODE_NAMEATRR);
 				String newLabel = DBProcess.getEntityLabel(newDBEntity);
+				String newEntityKey = (String) tmpMap.get("key");
 				String newSentence = sentenceNoEntity;
 				if (!Tool.isStrEmptyOrNull(oldWord)) {
 					newSentence = sentenceNoEntity.replace(oldWord, newDBEntity);
 					newSentence = removeStopWordInSentence(newSentence);
 				}
+				
 				System.out.println("-----> case 1 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
-				System.out.println("prop:" + prop + ", new sentence:" + newSentence);
-				return ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean);
+				System.out.println("prop:" + prop + ", new sentence:" + newSentence + ", newDBEntity="+newDBEntity+", newLabel="+newLabel+", newEntityKey="+newEntityKey);
+				return ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean, newEntityKey);
 			} else {
 				System.out.println("\t EndOfRP  @@ return case 1, answer=" + answerBean);
 				return answerBean.returnAnswer(answerBean);
@@ -172,15 +175,19 @@ public class PropertyRecognizer {
 			}
 
 			if (furtherSeach == true) {
-				String newDBEntity = DBProcess.getEntityByRelationship(label, entity, prop);
+				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, prop, entityKey);
+				String newDBEntity = (String) tmpMap.get(Common.KGNODE_NAMEATRR);
 				String newLabel = DBProcess.getEntityLabel(newDBEntity);
-				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
+				String newEntityKey = (String) tmpMap.get("key");
 				Pattern pattern = Pattern.compile(answerBean.getOriginalWord());
 				Matcher sentenceNoEntityWithPattern = pattern.matcher(sentenceNoEntity);
 				String newSentence = sentenceNoEntityWithPattern.replaceFirst(newDBEntity);
 //				String newSentence = sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity);
 				newSentence = removeStopWordInSentence(newSentence);
-				return ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean);
+				
+				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
+				System.out.println("prop:" + prop + ", new sentence:" + newSentence + ", newDBEntity="+newDBEntity+", newLabel="+newLabel+", newEntityKey="+newEntityKey);
+				return ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean, newEntityKey);
 			} else {
 				answerBean.setAnswer(answer.substring(0, answer.length() - 1));
 				answerBean.setScore(score);
@@ -673,7 +680,7 @@ public class PropertyRecognizer {
 		System.out.println("hasPropertyInSentence: sentence=" + sentence + ", label=" + label + ", entity=" + entity);
 		List<String> candidateSet = getCandidateSet(sentence, entity);
 		List<String> candidateSetbyStopWord = getCandidateSetbyStopWord(candidateSet);
-		Map<String, String> propMap = getPropertyNameSet(label, entity);
+		Map<String, String> propMap = getPropertyNameSet(label, entity, "");
 
 		if (matchPropertyFromSentence(candidateSetbyStopWord, propMap).isEmpty())
 			return false;
@@ -720,14 +727,14 @@ public class PropertyRecognizer {
 	// return Map<synRelation, relationship>
 	// input: 姚明
 	// output: [<位置,位置>, <妻,老婆>, ...]
-	protected Map<String, String> getRelationshipSet(String label, String ent) {
+	protected Map<String, String> getRelationshipSet(String label, String ent, String entityKey) {
 		Map<String, String> rsMap = new HashMap<>();
 		if (Tool.isStrEmptyOrNull(ent)) {
 			System.err.println("PMP.getRelationshipSet: input is empty");
 			return rsMap;
 		}
 
-		List<String> rList = DBProcess.getRelationshipSet(label, ent);
+		List<String> rList = DBProcess.getRelationshipSet(label, ent, entityKey);
 		for (String iRelation : rList) {
 			rsMap.put(iRelation, iRelation);
 			Set<String> setSyn = NLPUtil.getSynonymWordSet(iRelation);
@@ -743,14 +750,14 @@ public class PropertyRecognizer {
 	// return Map<synProp, prop>
 	// input: 姚明
 	// output: [<老婆,老婆>, <妻,老婆>, ...]
-	private Map<String, String> getPropertyNameSet(String label, String ent) {
+	private Map<String, String> getPropertyNameSet(String label, String ent, String key) {
 		Map<String, String> rsMap = new HashMap<>();
 		if (Tool.isStrEmptyOrNull(ent)) {
 			System.err.println("PMP.getPropertyNameSet: input is empty");
 			return rsMap;
 		}
 
-		List<String> propList = DBProcess.getPropertyNameSet(label, ent);
+		List<String> propList = DBProcess.getPropertyNameSet(label, ent, key);
 //		System.out.println("getPropertyNameSet.propList="+propList);
 		if (propList != null && !propList.isEmpty()) {
 			for (String iProp : propList) {

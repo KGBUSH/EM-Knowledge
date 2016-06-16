@@ -68,55 +68,34 @@ public class DBProcess {
 	}
 
 	// get the property name set of an entity
-	public static List<String> getPropertyNameSet(String label, String entity) {
+	public static List<String> getPropertyNameSet(String label, String entity, String key) {
 		List<String> propSet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(entity)) {
 			System.err.println("DBProcess.getPropertyNameSet: input is empty");
 			return propSet;
 		}
-		String query = buildCypherSQLObj.getPropNamebyEntityName(label, entity);
+		key = (Tool.isStrEmptyOrNull(key)) ? "" : key;
+		label = (Tool.isStrEmptyOrNull(label)) ? "" : label;
+		
+		String query = buildCypherSQLObj.getPropNamebyEntityName(label, entity, key);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		propSet = conn.getArrayListfromCollection(query);
 		freeDBConnection(conn);
 		System.out.println("in DBProcess, prop name is " + propSet);
 		return propSet;
-	}
-
-	public static List<String> getPropertyNameSet(String entity) {
-		List<String> propSet = new ArrayList<>();
-		if (Tool.isStrEmptyOrNull(entity)) {
-			System.err.println("DBProcess.getPropertyNameSet: input is empty");
-			return propSet;
-		}
-		String query = buildCypherSQLObj.getPropNamebyEntityName("", entity);
-		EmotibotNeo4jConnection conn = getDBConnection();
-		propSet = conn.getArrayListfromCollection(query);
-		freeDBConnection(conn);
-		System.out.println("in DBProcess, prop name is " + propSet);
-		return propSet;
-	}
-
-	public static List<String> getRelationshipSet(String entity) {
-		List<String> relationshipSet = new ArrayList<>();
-		if (Tool.isStrEmptyOrNull(entity)) {
-			System.err.println("DBProcess.getRelationshipSet: input is empty");
-			return relationshipSet;
-		}
-		String query = buildCypherSQLObj.getRelationshipByEntityName("", entity);
-		EmotibotNeo4jConnection conn = getDBConnection();
-		relationshipSet = conn.getArrayListfromCollection(query);
-		freeDBConnection(conn);
-		System.out.println("in DBProcess, prop name is " + relationshipSet);
-		return relationshipSet;
 	}
 	
-	public static List<String> getRelationshipSet(String label, String entity) {
+	// get relation set of a entity
+	public static List<String> getRelationshipSet(String label, String entity, String key) {
 		List<String> relationshipSet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(entity)) {
 			System.err.println("DBProcess.getRelationshipSet: input is empty");
 			return relationshipSet;
 		}
-		String query = buildCypherSQLObj.getRelationshipByEntityName(label, entity);
+		key = (Tool.isStrEmptyOrNull(key)) ? "" : key;
+		label = (Tool.isStrEmptyOrNull(label)) ? "" : label;
+		
+		String query = buildCypherSQLObj.getRelationshipByEntityName(label, entity, key);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		relationshipSet = conn.getArrayListfromCollection(query);
 		freeDBConnection(conn);
@@ -186,18 +165,19 @@ public class DBProcess {
 	}
 
 	// if there are multiple answers, return the first one.
-	public static String getEntityByRelationship(String label, String entity, String relationship) {
+	public static Map<String, Object> getEntityByRelationship(String label, String entity, String relationship, String key) {
+		Map<String, Object> entityMap = new HashMap<>();
 		if (Tool.isStrEmptyOrNull(entity) || Tool.isStrEmptyOrNull(relationship)) {
 			System.err.println("DBProcess.getEntityByRelationship: input is empty");
-			return "";
+			return entityMap;
 		}
-		Neo4jResultBean bean = null;
-		String query = buildCypherSQLObj.getEntityByRelationship(label, entity, relationship);
+		String query = buildCypherSQLObj.getEntityByRelationship(label, entity, relationship, key);
 		EmotibotNeo4jConnection conn = getDBConnection();
-		bean = conn.executeCypherSQL(query);
+//		bean = conn.executeCypherSQL(query);
+		entityMap = conn.getEntityMap(query);
 		freeDBConnection(conn);
-		System.out.println("in DBProcess, it return " + bean.getResult());
-		return bean.getResult();
+		System.out.println("in DBProcess:getEntityByRelationship, it return " + entityMap);
+		return entityMap;
 	}
 
 	public static String getPropertyValue(String label, String ent, String prop) {
@@ -210,7 +190,7 @@ public class DBProcess {
 		EmotibotNeo4jConnection conn = getDBConnection();
 		bean = conn.executeCypherSQL(query);
 		freeDBConnection(conn);
-		System.out.println("in DBProcess, it return " + bean.getResult());
+		System.out.println("in DBProcess:getPropertyValue, it return " + bean.getResult());
 		return bean.getResult();
 	}
 
@@ -259,6 +239,26 @@ public class DBProcess {
 		list = conn.getArrayListfromCollection(query);
 		freeDBConnection(conn);
 		System.out.println("in DBProcess, getEntityLabelList " + list);
+		if(list == null || list.isEmpty()){
+			System.err.println("there is no node in DB");
+			return new ArrayList<>();
+		} else {
+			return list;
+		}
+	}
+	
+	// return the list of label of the input entity
+	public static List<String> getKeyListbyEntity(String ent, String label) {
+		List<String> list = new ArrayList<>();
+		if (Tool.isStrEmptyOrNull(ent)) {
+			System.err.println("DBProcess.getEntityLabel: input is empty");
+			return list;
+		}
+		String query = buildCypherSQLObj.getKeyListByEntity(ent, label);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		list = conn.getArrayListfromCollection(query);
+		freeDBConnection(conn);
+		System.out.println("in DBProcess, getKeyListbyEntity " + list);
 		if(list == null || list.isEmpty()){
 			System.err.println("there is no node in DB");
 			return new ArrayList<>();

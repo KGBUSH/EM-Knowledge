@@ -49,10 +49,10 @@ public class DebugTest {
 	}
 	
 	public static void main(String [] args){
-		String debugLevel = "0523All"; //bad_case, debugAll, debug, 0531testcase, 0531DebugPart, 0518Regression, 0523All
-		String date = "0608";
+		String debugLevel = "0523All"; //bad_case, debugAll, debug, 0531testcase, 0531DebugPart, 0518Regression, 0523All, 0630TestCase
+		String date = "0616";
 		String reader = Common.UserDir + "/debug/cases/"+debugLevel+".txt";
-		String writer = Common.UserDir + "/debug/"+date+"/"+debugLevel+"_cases-"+date+"-03.txt";
+		String writer = Common.UserDir + "/debug/"+date+"/"+debugLevel+"_cases-"+date+"-05.txt";
 //		NLPProcess nlpProcess = new NLPProcess();
 //		NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();

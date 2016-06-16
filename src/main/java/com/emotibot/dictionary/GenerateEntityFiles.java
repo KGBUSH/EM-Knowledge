@@ -24,6 +24,7 @@ public class GenerateEntityFiles {
 
 	public static void main(String args[]) throws Exception {
 
+//		DictionaryBuilder.DictionaryBuilderInit();
 		generateEntity();
 		// generateEntityAndLabel();
 
@@ -64,6 +65,12 @@ public class GenerateEntityFiles {
 					out.write(line + "\r\n");
 				}
 			}
+
+//			// add entity Synonym
+//			for(String s : DictionaryBuilder.getEntitySynonymTable().keySet()){
+//				out.write(s + "\r\n");
+//			}
+			
 			entityRawReader.close();
 			entityExceptionReader.close();
 			out.close();
@@ -73,6 +80,7 @@ public class GenerateEntityFiles {
 		}
 	}
 
+	// generate the entity name list from DB
 	public static void generateEntity() {
 		EmotibotNeo4jConnection conn = getDBConnection();
 
@@ -162,6 +170,7 @@ public class GenerateEntityFiles {
 
 	}
 
+	// removing the characters also existing in the template rules
 	private static void checkTemplate() {
 		String listFileName = Common.UserDir + "/knowledgedata/domain/domainList.txt";
 
@@ -171,11 +180,6 @@ public class GenerateEntityFiles {
 			int i = 0;
 			while ((domain = reader.readLine()) != null) {
 				String specFileName = Common.UserDir + "/knowledgedata/template/templateSpec/" + domain + ".txt";
-				String aimlFileName = Common.UserDir + "/bots/" + domain + "/aiml/" + domain + ".aiml";
-
-				// System.out.println(
-				// "domain=" + domain + ",\n specFileName=" + specFileName +
-				// ";\n aimlFileName=" + aimlFileName);
 				checkSingleTemplate(specFileName);
 			}
 

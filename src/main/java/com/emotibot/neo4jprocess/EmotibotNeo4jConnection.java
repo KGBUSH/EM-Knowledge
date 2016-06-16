@@ -116,12 +116,22 @@ public class EmotibotNeo4jConnection {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
-			if (rs.next()) {
+			
+			while (rs.next()) {
+				if(rs.getObject(Common.ResultObj) == null){
+					System.out.println("executeCypherSQL: rs.getresult was null");
+					continue;
+				}
 				bean.setResult(rs.getObject(Common.ResultObj).toString());
+				break;
 			}
+			
+//			if (rs.next()) {
+//				bean.setResult(rs.getObject(Common.ResultObj).toString());
+//			}
 			bean.setStatus(true);
 		} catch (Exception e) {
-			System.err.println("exception in NEO4J.executeCypherSQL");
+			System.err.println("exception in NEO4J.executeCypherSQL, query="+query);
 			e.printStackTrace();
 			bean.setStatus(false);
 			bean.setException(e.getMessage());
@@ -175,15 +185,24 @@ public class EmotibotNeo4jConnection {
 	}
 
 	// get Entity only
+	@SuppressWarnings("unchecked")
 	public Map<String, Object> getEntityMap(String query) {
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(query);
 			
 			Map<String, Object> mapEntity = new HashMap<>();
-			if (rs.next()) {
+			while (rs.next()) {
+				if(rs.getObject(Common.ResultObj) == null){
+					System.out.println("getEntityMap, rs is null");
+					continue;
+				}
 				mapEntity = (Map<String, Object>) rs.getObject(Common.ResultObj);
+				break;
 			}
+//			if (rs.next()) {
+//				mapEntity = (Map<String, Object>) rs.getObject(Common.ResultObj);
+//			}
 			
 			// System.out.println("object mpa is ="+mapEntity);
 			return mapEntity;
