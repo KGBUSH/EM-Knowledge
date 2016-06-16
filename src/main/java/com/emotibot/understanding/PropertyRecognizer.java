@@ -690,6 +690,13 @@ public class PropertyRecognizer {
 		if (Tool.isStrEmptyOrNull(str) || Tool.isStrEmptyOrNull(ent)) {
 			System.err.println("PMP.getCandidateSet: input is empty: str = " + str + ", ent = " + ent);
 		}
+		
+		if(!str.contains(ent)){
+			String entSyn = NLPUtil.getEntitySynonymReverse(ent);
+			if(str.contains(entSyn)){
+				ent = entSyn;
+			}
+		}
 
 		while (str.lastIndexOf(ent) != -1) {
 			String s = CharUtil.trim(str.substring(str.lastIndexOf(ent) + ent.length()));

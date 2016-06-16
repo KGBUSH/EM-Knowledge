@@ -92,6 +92,10 @@ public class KGAgent {
 		userSentence = NLPUtil.removePunctuateMark(userSentence);
 		nerBean.setSentence(userSentence);
 		nerBean.setOldSentence(userSentence);	// fix the bad case "你好。"
+		
+		if(userSentence.isEmpty()){
+			return;
+		}
 
 		System.out.println("userSentence=" + userSentence + ", isQuestion=" + isQuestion);
 		segPos = NLPUtil.getSegWord(userSentence);
@@ -456,7 +460,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "你好。";
+		String str = "？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

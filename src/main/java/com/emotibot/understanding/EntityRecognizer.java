@@ -333,6 +333,14 @@ public class EntityRecognizer {
 		// }
 
 		Map<String, String> refMap = new HashMap<>();
+		
+//		// for entity synonym case
+//		for(String s : entityTreeSet){
+//			if(!NLPUtil.getEntitySynonymNormal(s).isEmpty()){
+//				refMap.put(s, DictionaryBuilder.getEntitySynonymTable().get(s));
+//			}
+//		}
+		
 		// entitySynonymTable：【甲肝，甲型病毒性肝炎】
 		for (String s : DictionaryBuilder.getEntitySynonymTable().keySet()) {
 			if (!entityTreeSet.contains(s) && sentence.contains(s.toLowerCase())) {
