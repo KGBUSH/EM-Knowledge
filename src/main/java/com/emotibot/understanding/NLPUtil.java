@@ -431,7 +431,31 @@ public class NLPUtil {
 
 		return synWord;
 	}
+	
+	public static List<String> getLabelListByEntity(String str){
+		List<String> labelList = new ArrayList<String>();
+		if (!Tool.isStrEmptyOrNull(str)&&DictionaryBuilder.getEntityWithLabelTable().containsKey(str)) {
+			labelList = DictionaryBuilder.getEntityWithLabelTable().get(str);
+		}
+		if(labelList.size() == 0){
+			System.err.println("NLPUtil中的getLabelListByEntity()对应的entity "+ str+" 的label没有找到！");
+		}
+		return labelList;
+	}
 
+	public static String getLabelByEntity(String str){
+		String label = "";
+		List<String> labelList = new ArrayList<String>();
+		if (!Tool.isStrEmptyOrNull(str)&&DictionaryBuilder.getEntityWithLabelTable().containsKey(str)) {
+			labelList = DictionaryBuilder.getEntityWithLabelTable().get(str);
+		}
+		if(labelList.size() != 0){
+			label = labelList.get(0);
+		}
+		System.out.println("NLPUtil中的getLabelByEntity()--------->"+label);
+		return label;
+	}
+	
 	public static void main(String[] args) {
 		DictionaryBuilder.DictionaryBuilderInit();
 		String s = "拜拜了";

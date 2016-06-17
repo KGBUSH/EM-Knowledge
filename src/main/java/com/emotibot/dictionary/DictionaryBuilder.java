@@ -80,8 +80,9 @@ public class DictionaryBuilder {
 	private static Set<String> domainWhiteListTable;
 	// moodWordTable :[啊，呢，吧]
 	private static Set<String> moodWordTable;
-	// moodWordExceptionTable :[是什么]
-	private static Set<String> moodWordExceptionTable;
+	
+	//entityLabelTable:<女医·明妃传,<other,tv>>
+	private static Map<String, List<String>> entityWithLabelTable;
 
 	public static void DictionaryBuilderInit() {
 		moodWordTable = createMoodWordTable();
@@ -102,6 +103,7 @@ public class DictionaryBuilder {
 		domainAllListTable = createDomainAllListTable();
 		domainBalckListTable = createDomainBalckListTable();
 		domainWhiteListTable = createDomainWhiteListTable();
+		entityWithLabelTable = createEntityWithLabelTable();
 		addCustomDictionaryInHanlp();
 		
 	}
@@ -722,8 +724,8 @@ public class DictionaryBuilder {
 		}
 		return moodWordSet;
 	}
-	
-	// create moodword table Set
+
+	// create entitywithlabel table 
 	private static Set<String> createMoodWordExceptionTable() {
 		Set<String> moodWordExceptionSet = new HashSet<String>();
 		String fileName = Common.UserDir + "/knowledgedata/dictionary/moodExceptionWords.txt";
@@ -747,6 +749,41 @@ public class DictionaryBuilder {
 			}
 		}
 		return moodWordExceptionSet;
+	}
+	
+		// create entitywithlabel table 
+	private static Map<String, List<String>> createEntityWithLabelTable(){
+		Map<String, List<String>> entityLabel = new HashMap<String, List<String>>();
+		String fileName = Common.UserDir + "/knowledgedata/entitywithlabel.txt";
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = null;
+				while ((word = dis.readLine()) != null) {
+					String[] tempWord = word.split("###");
+					List<String> tempLabel = null;
+					if(entityLabel.containsKey(tempWord[0])){
+						tempLabel = entityLabel.get(tempWord[0]);
+					}else{
+						tempLabel = new ArrayList<String>();
+					}
+					tempLabel.add(tempWord[1]);
+					entityLabel.put(tempWord[0], tempLabel);
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		return entityLabel;
 	}
 
 	public static Map<String, List<String>> getEntitySynonymReverseTable() {
@@ -849,24 +886,13 @@ public class DictionaryBuilder {
 		DictionaryBuilder.moodWordTable = moodWordTable;
 	}
 
-	public static Set<String> getMoodWordExceptionTable() {
-		return moodWordExceptionTable;
+	public static Map<String, List<String>> getEntityWithLabelTable() {
+		return entityWithLabelTable;
 	}
 
-	public static void setMoodWordExceptionTable(Set<String> moodWordExceptionTable) {
-		DictionaryBuilder.moodWordExceptionTable = moodWordExceptionTable;
-	}
-
-	public static Set<String> getReservedHighFeqWordTable() {
-		return reservedHighFeqWordTable;
-	}
-
-	public static void setReservedHighFeqWordTable(Set<String> reservedHighFeqWordTable) {
-		DictionaryBuilder.reservedHighFeqWordTable = reservedHighFeqWordTable;
-	}
-
-	public static Set<String> getRemoveableMauallyCollectedWordTable() {
-		return removeableMauallyCollectedWordTable;
+	public static void setEntityWithLabelTable(
+			Map<String, List<String>> entityWithLabelTable) {
+		DictionaryBuilder.entityWithLabelTable = entityWithLabelTable;
 	}
 
 	public static void setRemoveableMauallyCollectedWordTable(Set<String> removeableMauallyCollectedWordTable) {
