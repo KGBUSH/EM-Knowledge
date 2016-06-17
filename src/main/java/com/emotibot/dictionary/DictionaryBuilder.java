@@ -80,7 +80,8 @@ public class DictionaryBuilder {
 	private static Set<String> domainWhiteListTable;
 	// moodWordTable :[啊，呢，吧]
 	private static Set<String> moodWordTable;
-	
+	// moodWordExceptionTable :[是什么]
+	private static Set<String> moodWordExceptionTable;
 	//entityLabelTable:<女医·明妃传,<other,tv>>
 	private static Map<String, List<String>> entityWithLabelTable;
 
@@ -725,7 +726,7 @@ public class DictionaryBuilder {
 		return moodWordSet;
 	}
 
-	// create entitywithlabel table 
+	// create moodword table Set
 	private static Set<String> createMoodWordExceptionTable() {
 		Set<String> moodWordExceptionSet = new HashSet<String>();
 		String fileName = Common.UserDir + "/knowledgedata/dictionary/moodExceptionWords.txt";
@@ -884,6 +885,26 @@ public class DictionaryBuilder {
 
 	public static void setMoodWordTable(Set<String> moodWordTable) {
 		DictionaryBuilder.moodWordTable = moodWordTable;
+	}
+	
+	public static Set<String> getMoodWordExceptionTable() {
+		return moodWordExceptionTable;
+	}
+
+	public static void setMoodWordExceptionTable(Set<String> moodWordExceptionTable) {
+		DictionaryBuilder.moodWordExceptionTable = moodWordExceptionTable;
+	}
+
+	public static Set<String> getReservedHighFeqWordTable() {
+		return reservedHighFeqWordTable;
+	}
+
+	public static void setReservedHighFeqWordTable(Set<String> reservedHighFeqWordTable) {
+		DictionaryBuilder.reservedHighFeqWordTable = reservedHighFeqWordTable;
+	}
+
+	public static Set<String> getRemoveableMauallyCollectedWordTable() {
+		return removeableMauallyCollectedWordTable;
 	}
 
 	public static Map<String, List<String>> getEntityWithLabelTable() {
