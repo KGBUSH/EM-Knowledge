@@ -70,8 +70,9 @@ public class IntentionClassifier {
 				return answerBean;
 			}
 
-			String tempStrIntroduce = DBProcess.getPropertyValue(entitySet.get(0),
-					Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
+//			String tempStrIntroduce = DBProcess.getPropertyValue(entitySet.get(0),
+//					Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
+			String tempStrIntroduce = DBProcess.getEntityIntroduction(entitySet.get(0));
 			if (tempStrIntroduce.contains("。"))
 				tempStrIntroduce = tempStrIntroduce.substring(0, tempStrIntroduce.indexOf("。"));
 			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(tempStrIntroduce));
@@ -119,7 +120,8 @@ public class IntentionClassifier {
 			boolean isIntro = QuestionClassifier.isIntroductionRequest(NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)),
 					tempEntity);
 			if (isIntro) {
-				String strIntroduce = DBProcess.getPropertyValue(tempEntity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
+//				String strIntroduce = DBProcess.getPropertyValue(tempEntity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
+				String strIntroduce = DBProcess.getEntityIntroduction(tempEntity);
 				if (strIntroduce.contains("。"))
 					strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
 				answerBean.setScore(100);

@@ -130,6 +130,25 @@ public class BuildCypherSQL implements CypherSQLParser {
 		System.out.println("CYPHER in FindEnitityAttr is: " + query);
 		return query;
 	}
+	
+	@Override
+	public String Find1stLevelEntityAttr(String label, String name, String attr) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(name)) {
+			System.err.println("CYPHER: name is null");
+			return query;
+		}
+		
+		if (label.isEmpty()) {
+			query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + name + "\"}) where e.type=\"1\" return e." + attr + " as "
+					+ Common.ResultObj;
+		} else {
+			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + name + "\"}) where e.type=\"1\" return e." + attr + " as "
+					+ Common.ResultObj;
+		}
+		System.out.println("CYPHER in FindEnitityAttr is: " + query);
+		return query;
+	}
 
 	@Override
 	public String getEntityByRelationship(String label, String entity, String relation, String key) {
