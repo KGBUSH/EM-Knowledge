@@ -304,7 +304,7 @@ public class GenerateDictionaryFile {
 			}
 
 			BufferedReader removeIn = new BufferedReader(
-					new FileReader(Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent_Aux.txt"));
+					new FileReader(Common.UserDir + "/knowledgedata/dictionary/removeableMannuallyCollected.txt"));
 			line = null;
 			while ((line = removeIn.readLine()) != null) {
 				line = CharUtil.trim(line).toLowerCase();
@@ -350,7 +350,7 @@ public class GenerateDictionaryFile {
 			}
 
 			// fix the bad case "加油"，"爱你"
-			String inFileName = Common.UserDir + "/knowledgedata/dictionary/removeableHighFrequent_Aux.txt";
+			String inFileName = Common.UserDir + "/knowledgedata/dictionary/removeableMannuallyCollected.txt";
 			BufferedReader in = new BufferedReader(new FileReader(inFileName));
 			String line = null;
 			while ((line = in.readLine()) != null) {

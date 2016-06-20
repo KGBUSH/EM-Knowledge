@@ -24,7 +24,7 @@ public class GenerateEntityFiles {
 
 	public static void main(String args[]) throws Exception {
 
-//		DictionaryBuilder.DictionaryBuilderInit();
+		DictionaryBuilder.DictionaryBuilderInit();
 		generateEntity();
 		// generateEntityAndLabel();
 
@@ -244,37 +244,53 @@ public class GenerateEntityFiles {
 	// get rs from multipattern matching method
 	private static List<String> getMultiPatternMatching(String sentence) {
 		List<String> rtList = new ArrayList<>();
-		TCPClient tcp = new TCPClient();
-		try {
-			String tcpRtn = tcp.TransmitThrowException(sentence);
-			tcpRtn = CharUtil.trimAndlower(tcpRtn);
-			if (!Tool.isStrEmptyOrNull(tcpRtn)) {
-				String[] strArr = tcpRtn.split("&");
-				for (String s : strArr) {
-					if (s.endsWith("=")) {
-						s = s.substring(0, s.length() - 1);
-					}
-					rtList.add(s);
-				}
-			}
-			System.out.println("get from tcp");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.err.println("tcp is broken");
-			LogService.printLog("", "getMultipatternmatching for " + sentence, "tcp is broken");
-
-			List<String> tmpList = new ArrayList<>();
-			for (String s : DictionaryBuilder.getEntityTable()) {
-				if (sentence.contains(s.toLowerCase())) {
-					tmpList.add(s);
-				}
-			}
-			rtList = tmpList;
+		
+		if(Tool.isStrEmptyOrNull(sentence)){
+			return rtList;
 		}
-
-		System.out.println("getMultiPatternMatching: rs=" + rtList);
+		
+		List<String> tmpList = new ArrayList<>();
+		for (String s : DictionaryBuilder.getEntityTable()) {
+			if (sentence.contains(s.toLowerCase())) {
+				tmpList.add(s);
+			}
+		}
+		rtList = tmpList;
 		return rtList;
+		
+		
+//		List<String> rtList = new ArrayList<>();
+//		TCPClient tcp = new TCPClient();
+//		try {
+//			String tcpRtn = tcp.TransmitThrowException(sentence);
+//			tcpRtn = CharUtil.trimAndlower(tcpRtn);
+//			if (!Tool.isStrEmptyOrNull(tcpRtn)) {
+//				String[] strArr = tcpRtn.split("&");
+//				for (String s : strArr) {
+//					if (s.endsWith("=")) {
+//						s = s.substring(0, s.length() - 1);
+//					}
+//					rtList.add(s);
+//				}
+//			}
+//			System.out.println("get from tcp");
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.err.println("tcp is broken");
+//			LogService.printLog("", "getMultipatternmatching for " + sentence, "tcp is broken");
+//
+//			List<String> tmpList = new ArrayList<>();
+//			for (String s : DictionaryBuilder.getEntityTable()) {
+//				if (sentence.contains(s.toLowerCase())) {
+//					tmpList.add(s);
+//				}
+//			}
+//			rtList = tmpList;
+//		}
+//
+//		System.out.println("getMultiPatternMatching: rs=" + rtList);
+//		return rtList;
 	}
 
 	public static EmotibotNeo4jConnection getDBConnection() {
