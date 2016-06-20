@@ -109,6 +109,7 @@ public class DictionaryBuilder {
 		
 	}
 
+	// add all the words in entitySynonymn into the Hanlp data
 	private static void addCustomDictionaryInHanlp() {
 		for (String s : entityTable) {
 			CustomDictionary.add(s);
@@ -117,7 +118,7 @@ public class DictionaryBuilder {
 			CustomDictionary.add(s);
 		}
 		for (String s : entitySynonymTable.values()) {
-			CustomDictionary.add(s);
+				CustomDictionary.add(s);
 		}
 	}
 
@@ -260,27 +261,32 @@ public class DictionaryBuilder {
 					}
 
 					String dbName = CharUtil.trim(wordList[0]);
+					// if there is no entry for this entity, create one
+					
 					for (int i = 1; i < wordList.length; i++) {
 						String synName = CharUtil.trimAndlower(wordList[i]);
-						// address the case 曼彻斯特联（曼联）
-						if (synName.contains("（") && synName.contains("）")) {
-							String thisSynonEntity = synName;
-							String first = thisSynonEntity.substring(0, thisSynonEntity.indexOf("（"));
-							String second = thisSynonEntity.substring(thisSynonEntity.indexOf("（") + 1,
-									thisSynonEntity.indexOf("）"));
-
-							// entitySyn.put(first.toLowerCase(),
-							// dbName.toLowerCase());
-							// entitySyn.put(second.toLowerCase(),
-							// dbName.toLowerCase());
-
-							buildEntitySynonymMap(entitySyn, first.toLowerCase(), dbName.toLowerCase());
-							buildEntitySynonymMap(entitySyn, second.toLowerCase(), dbName.toLowerCase());
-						} else {
-							// entitySyn.put(synName.toLowerCase(),
-							// dbName.toLowerCase());
-							buildEntitySynonymMap(entitySyn, synName.toLowerCase(), dbName.toLowerCase());
-						}
+						buildEntitySynonymMap(entitySyn, synName.toLowerCase(), dbName.toLowerCase());
+						
+						// suggested by Yinhao Lu, there are more case which should not be addressed as follow logic
+//						// address the case 曼彻斯特联（曼联）
+//						if (synName.contains("（") && synName.contains("）")) {
+//							String thisSynonEntity = synName;
+//							String first = thisSynonEntity.substring(0, thisSynonEntity.indexOf("（"));
+//							String second = thisSynonEntity.substring(thisSynonEntity.indexOf("（") + 1,
+//									thisSynonEntity.indexOf("）"));
+//
+//							// entitySyn.put(first.toLowerCase(),
+//							// dbName.toLowerCase());
+//							// entitySyn.put(second.toLowerCase(),
+//							// dbName.toLowerCase());
+//
+//							buildEntitySynonymMap(entitySyn, first.toLowerCase(), dbName.toLowerCase());
+//							buildEntitySynonymMap(entitySyn, second.toLowerCase(), dbName.toLowerCase());
+//						} else {
+//							// entitySyn.put(synName.toLowerCase(),
+//							// dbName.toLowerCase());
+//							buildEntitySynonymMap(entitySyn, synName.toLowerCase(), dbName.toLowerCase());
+//						}
 					}
 				}
 				dis.close();
@@ -295,6 +301,7 @@ public class DictionaryBuilder {
 		return entitySyn;
 	}
 
+	// add an element into the set of the map
 	private static void buildEntitySynonymMap(Map<String, String> map, String key, String value) {
 		if (Tool.isStrEmptyOrNull(key)) {
 			System.err.println("buildEntitySynonymMap: wrong format");
@@ -305,6 +312,7 @@ public class DictionaryBuilder {
 			System.out.println("ignored entity synonym is " + key + ", value=" + value);
 			return;
 		} else {
+			// if the corresponding set does not contain value, add it to the set
 			map.put(key, value);
 		}
 	}
@@ -867,10 +875,6 @@ public class DictionaryBuilder {
 		DictionaryBuilder.domainWhiteListTable = domainWhiteListTable;
 	}
 
-	public static void main(String[] a) {
-		DictionaryBuilder.DictionaryBuilderInit();
-	}
-
 	public static Set<String> getDailyUsedWordTable() {
 		return dailyUsedWordTable;
 	}
@@ -919,4 +923,16 @@ public class DictionaryBuilder {
 	public static void setRemoveableMauallyCollectedWordTable(Set<String> removeableMauallyCollectedWordTable) {
 		DictionaryBuilder.removeableMauallyCollectedWordTable = removeableMauallyCollectedWordTable;
 	}
+	
+	public static void main(String[] a) {
+		DictionaryBuilder.DictionaryBuilderInit();
+		
+		String testStr = "马刺队";
+		
+		System.out.println("rs = "+getEntitySynonymTable().get(testStr));
+		
+	}
+	
+	
+	
 }

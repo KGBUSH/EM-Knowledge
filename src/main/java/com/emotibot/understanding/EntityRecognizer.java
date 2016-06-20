@@ -441,7 +441,7 @@ public class EntityRecognizer {
 		System.out.println("changeEntitySynonym: entitySet=" + entitySet + ",sentence=" + sentence);
 		for (String entity : entitySet) {
 			if (!sentence.contains(entity) && NLPUtil.hasEntitySynonym(entity)) {
-				List<String> list = NLPUtil.getSynonymnEntityList(entity);
+				TreeSet<String> list = NLPUtil.getSynonymnEntityList(entity);
 				System.out.println("entity=" + entity + ", synonymList=" + list);
 				String oldEntity = "";
 				for (String s : list) {

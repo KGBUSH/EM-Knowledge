@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
 import com.emotibot.util.CharUtil;
+import com.emotibot.util.StringLengthComparator;
+import com.emotibot.util.StringLengthDecComparator;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.common.Term;
@@ -113,7 +116,9 @@ public class NLPUtil {
 
 	// input: 欧洲
 	// output: <欧罗巴,欧罗巴洲>
-	public static List<String> getSynonymnEntityList(String dbEntity) {
+	// if there are more than one elements, return them in the order of decreasing length of the word
+	public static TreeSet<String> getSynonymnEntityList(String dbEntity) {
+		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthDecComparator());
 		List<String> list = new ArrayList<>();
 		if (!Tool.isStrEmptyOrNull(dbEntity)) {
 			list = DictionaryBuilder.getEntitySynonymReverseTable().get(dbEntity);
@@ -121,9 +126,12 @@ public class NLPUtil {
 				System.err.println("NLPProcess.getSynonymnEntityList" + "input=" + dbEntity);
 				LogService.printLog("0", "NLPProcess.getSynonymnEntityList", "input=" + dbEntity);
 			}
-			return list;
+			for(String s : list){
+				entityTreeSet.add(s);
+			}
+			return entityTreeSet;
 		}
-		return list;
+		return entityTreeSet;
 	}
 
 	// remove the stopword in a string.
