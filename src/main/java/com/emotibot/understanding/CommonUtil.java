@@ -39,7 +39,7 @@ public class CommonUtil {
 	// to match a segword in sentence with some value of a entity.
 	protected static String matchPropertyValue(String entity, List<String> segWord) {
 		String rs = "";
-		Map<String, Object> mapPropValue = DBProcess.getEntityPropValueMap("", entity);
+		Map<String, Object> mapPropValue = DBProcess.getEntityPropValueMap(NLPUtil.getLabelByEntity(entity), entity);
 	
 		// if a value contain a segword, then return the key which refer to the
 		// value

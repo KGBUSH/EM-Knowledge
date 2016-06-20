@@ -451,9 +451,10 @@ public class SynonymProcessTest {
 		
             
             while ((entity = reader.readLine()) != null) {
-            	String label = DBProcess.getEntityLabel(entity);
+//            	String label = DBProcess.getEntityLabel(entity);
+            	String label = NLPUtil.getLabelByEntity(entity);
             	if(Tool.isStrEmptyOrNull(label)){
-            		label = DBProcess.getEntityLabel(NLPUtil.getEntitySynonymNormal(entity));
+            		label = NLPUtil.getLabelByEntity(NLPUtil.getEntitySynonymNormal(entity));
             	}
             	out.write(entity+" "+label+"\r\n");
             }

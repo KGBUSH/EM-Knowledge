@@ -160,7 +160,7 @@ public class GenerateAuxFiles {
 					continue;
 				}
 
-				String tempLabel = DBProcess.getEntityLabel(dbEntity);
+				String tempLabel = NLPUtil.getLabelByEntity(dbEntity);
 				if (!tempLabel.equals("other")) {
 					System.err.println("label not match: line=" + line + ", dbLabel=" + tempLabel);
 					if (tempLabel.isEmpty()) {

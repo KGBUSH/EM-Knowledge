@@ -52,7 +52,7 @@ public class IntentionClassifier {
 			String tempEntity = entitySet.get(0);
 
 			System.out.println("INTENTION 1");
-			String tempLabel = DBProcess.getEntityLabel(tempEntity).toLowerCase();
+			String tempLabel = NLPUtil.getLabelByEntity(tempEntity).toLowerCase();
 			// if (tempLabel.equals("catchword")) {
 			// if (!NLPUtil.isInDomainWhiteListDict(tempLabel)) {
 			if (NLPUtil.isInDomainBalckListDict(tempLabel)) {
@@ -92,14 +92,14 @@ public class IntentionClassifier {
 		// move the process of introduction question to intention process
 		if (entitySet.size() == 1) {
 			String tempEntity = entitySet.get(0);
-			String tempLabel = DBProcess.getEntityLabel(tempEntity);
+			String tempLabel = NLPUtil.getLabelByEntity(tempEntity);
 //			String tempSentence = TemplateEntry.templateProcess(tempLabel, tempEntity, sentence, uniqueID);
 
 			// print debug log
 			if (Common.KG_DebugStatus || nerBean.isDebug()) {
 				String tmpLabel = "";
 				if (!entitySet.isEmpty()) {
-					tmpLabel = DBProcess.getEntityLabel(entitySet.get(0));
+					tmpLabel = NLPUtil.getLabelByEntity(entitySet.get(0));
 				}
 				String debugInfo = "DEBUG: userSentence=" + sentence + "; entitySet=" + entitySet + "; label="
 						+ tmpLabel;

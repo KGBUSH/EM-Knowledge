@@ -431,10 +431,11 @@ public class NLPUtil {
 
 		return synWord;
 	}
-	
+
+	// return the list of label of the input entity via the dictionary generated based on the offline txt file
 	public static List<String> getLabelListByEntity(String str){
 		List<String> labelList = new ArrayList<String>();
-		if (!Tool.isStrEmptyOrNull(str)&&DictionaryBuilder.getEntityWithLabelTable().containsKey(str)) {
+		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getEntityWithLabelTable().containsKey(str)) {
 			labelList = DictionaryBuilder.getEntityWithLabelTable().get(str);
 		}
 		if(labelList.size() == 0){
@@ -443,10 +444,11 @@ public class NLPUtil {
 		return labelList;
 	}
 
+	// return the label of the input entity via the dictionary generated based on the offline txt file
 	public static String getLabelByEntity(String str){
 		String label = "";
 		List<String> labelList = new ArrayList<String>();
-		if (!Tool.isStrEmptyOrNull(str)&&DictionaryBuilder.getEntityWithLabelTable().containsKey(str)) {
+		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getEntityWithLabelTable().containsKey(str)) {
 			labelList = DictionaryBuilder.getEntityWithLabelTable().get(str);
 		}
 		if(labelList.size() != 0){

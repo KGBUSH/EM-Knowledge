@@ -69,6 +69,9 @@ public class DBProcess {
 
 	// get the property name set of an entity
 	public static List<String> getPropertyNameSet(String label, String entity, String key) {
+		if(Tool.isStrEmptyOrNull(label)){
+			System.err.println("label is empty");
+		}
 		List<String> propSet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(entity)) {
 			System.err.println("DBProcess.getPropertyNameSet: input is empty");
@@ -87,6 +90,9 @@ public class DBProcess {
 	
 	// get relation set of a entity
 	public static List<String> getRelationshipSet(String label, String entity, String key) {
+		if(Tool.isStrEmptyOrNull(label)){
+			System.err.println("label is empty");
+		}
 		List<String> relationshipSet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(entity)) {
 			System.err.println("DBProcess.getRelationshipSet: input is empty");
@@ -106,6 +112,9 @@ public class DBProcess {
 	// get the relationship set in the path from A to B
 	public static List<String> getRelationshipTypeInStraightPath(String labelA, String entityA, String labelB,
 			String entityB, int step) {
+		if(Tool.isStrEmptyOrNull(labelA) || Tool.isStrEmptyOrNull(labelB)){
+			System.err.println("label is empty");
+		}
 		List<String> relationshipSet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)) {
 			System.err.println("DBProcess.getRelationshipTypeInPath: input is empty");
@@ -123,6 +132,9 @@ public class DBProcess {
 	// and B
 	public static List<List<String>> getRelationshipTypeInConvergePath(String labelA, String entityA, String labelB,
 			String entityB) {
+		if(Tool.isStrEmptyOrNull(labelA) || Tool.isStrEmptyOrNull(labelB)){
+			System.err.println("label is empty");
+		}
 		List<List<String>> rsSet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)) {
 			System.err.println("DBProcess.getRelationshipTypeInPath: input is empty");
@@ -146,6 +158,9 @@ public class DBProcess {
 	// and B
 	public static List<List<String>> getRelationshipTypeInDivergentPath(String labelA, String entityA, String labelB,
 			String entityB) {
+		if(Tool.isStrEmptyOrNull(labelA) || Tool.isStrEmptyOrNull(labelB)){
+			System.err.println("label is empty");
+		}
 		List<List<String>> rsSet = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(entityA) || Tool.isStrEmptyOrNull(entityB)) {
 			System.err.println("DBProcess.getRelationshipTypeInPath: input is empty");
@@ -166,6 +181,9 @@ public class DBProcess {
 
 	// if there are multiple answers, return the first one.
 	public static Map<String, Object> getEntityByRelationship(String label, String entity, String relationship, String key) {
+		if(Tool.isStrEmptyOrNull(label)){
+			System.err.println("label is empty");
+		}
 		Map<String, Object> entityMap = new HashMap<>();
 		if (Tool.isStrEmptyOrNull(entity) || Tool.isStrEmptyOrNull(relationship)) {
 			System.err.println("DBProcess.getEntityByRelationship: input is empty");
@@ -181,6 +199,9 @@ public class DBProcess {
 	}
 
 	public static String getPropertyValue(String label, String ent, String prop) {
+		if(Tool.isStrEmptyOrNull(label)){
+			System.err.println("label is empty");
+		}
 		if (Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(prop)) {
 			System.err.println("DBProcess.getPropertyValue: input is empty");
 			return "";
@@ -195,6 +216,7 @@ public class DBProcess {
 	}
 
 	public static String getPropertyValue(String ent, String prop) {
+		System.err.println("label is empty");
 		if (Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(prop)) {
 			System.err.println("DBProcess.getPropertyValue: input is empty");
 			return "";
@@ -216,12 +238,12 @@ public class DBProcess {
 		}
 		
 		Neo4jResultBean bean = null;
-		String query = buildCypherSQLObj.Find1stLevelEntityAttr("", ent, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
+		String query = buildCypherSQLObj.Find1stLevelEntityAttr(NLPUtil.getLabelByEntity(ent), ent, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		bean = conn.executeCypherSQL(query);
 		
 		if(bean == null || bean.getResult().isEmpty()){
-			query = buildCypherSQLObj.FindEntityAttr("", ent, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
+			query = buildCypherSQLObj.FindEntityAttr(NLPUtil.getLabelByEntity(ent), ent, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 			bean = conn.executeCypherSQL(query);
 			System.out.println("in DBProcess.getEntityIntroduction, get the second level entity " + bean.getResult());
 		} else {
@@ -234,6 +256,7 @@ public class DBProcess {
 
 	// get the label of an entity, if there are more than one label, return the first one
 	public static String getEntityLabel(String ent) {
+		System.err.println("label is empty");
 		if (Tool.isStrEmptyOrNull(ent)) {
 			System.err.println("DBProcess.getEntityLabel: input is empty");
 			return "";
@@ -253,6 +276,7 @@ public class DBProcess {
 	
 	// return the list of label of the input entity
 	public static List<String> getEntityLabelList(String ent) {
+		System.err.println("label is empty");
 		List<String> list = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(ent)) {
 			System.err.println("DBProcess.getEntityLabel: input is empty");

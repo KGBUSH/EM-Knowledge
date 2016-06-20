@@ -127,7 +127,7 @@ public class EntityRecognizer {
 						rsEntity = simpleMatchEntity;
 						System.out.println("case: 2.7: rsEntity=" + rsEntity);
 						return rsEntity;
-					} else if (new PropertyRecognizer(nerBean).hasPropertyInSentence(sentence, "",
+					} else if (new PropertyRecognizer(nerBean).hasPropertyInSentence(sentence, NLPUtil.getLabelByEntity(simpleMatchEntity.get(0)),
 							simpleMatchEntity.get(0))) {
 						// case: 猫猫是什么科的？
 						rsEntity = simpleMatchEntity;
@@ -402,7 +402,7 @@ public class EntityRecognizer {
 	// to match a segword in sentence with some value of a entity.
 	protected static String matchPropertyValue(String entity, List<String> segWord) {
 		String rs = "";
-		Map<String, Object> mapPropValue = DBProcess.getEntityPropValueMap("", entity);
+		Map<String, Object> mapPropValue = DBProcess.getEntityPropValueMap(NLPUtil.getLabelByEntity(entity), entity);
 
 		// if a value contain a segword, then return the key which refer to the
 		// value

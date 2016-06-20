@@ -26,7 +26,7 @@ public class DictTest {
 			BufferedWriter out = new BufferedWriter(new FileWriter(outFileName));
 			for(String s: setEntity){
 				if(setHighWord.contains(s)){
-					String tempLabel = DBProcess.getEntityLabel(s);
+					String tempLabel = NLPUtil.getLabelByEntity(s);
 					System.out.println(s +":  "+tempLabel);
 					out.write(s +":  "+tempLabel + "\r\n");
 				}

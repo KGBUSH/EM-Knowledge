@@ -277,8 +277,8 @@ public class KGAgent {
 			System.out.println("TIME 6 - Single Entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 		} else if (QuestionClassifier.isRelationshipQuestion(userSentence)) {
-			List<String> relationDirectNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("",
-					entitySet.get(0), "", entitySet.get(1), 1);
+			List<String> relationDirectNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath(NLPUtil.getLabelByEntity(entitySet.get(0)),
+					entitySet.get(0), NLPUtil.getLabelByEntity(entitySet.get(1)), entitySet.get(1), 1);
 			System.out
 					.println("TIME 8 - get relationships >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
@@ -293,8 +293,8 @@ public class KGAgent {
 			}
 
 			if (answerRelation.isEmpty()) {
-				List<String> relationDirectReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath("",
-						entitySet.get(1), "", entitySet.get(0), 1);
+				List<String> relationDirectReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath(NLPUtil.getLabelByEntity(entitySet.get(1)),
+						entitySet.get(1), NLPUtil.getLabelByEntity(entitySet.get(0)), entitySet.get(0), 1);
 				if (!relationDirectReverseWayPathSet.isEmpty()) {
 					System.out.println("relationReverseWayPathSet=" + relationDirectReverseWayPathSet);
 					String directReverseWayRelation = entitySet.get(0) + "是" + entitySet.get(1);
@@ -307,8 +307,8 @@ public class KGAgent {
 			}
 
 			if (answerRelation.isEmpty()) {
-				List<String> relationNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath("",
-						entitySet.get(0), "", entitySet.get(1), 2);
+				List<String> relationNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath(NLPUtil.getLabelByEntity(entitySet.get(0)),
+						entitySet.get(0), NLPUtil.getLabelByEntity(entitySet.get(1)), entitySet.get(1), 2);
 				if (!relationNormalWayPathSet.isEmpty()) {
 					System.out.println("relationNormalWayPathSet=" + relationNormalWayPathSet);
 					String normalWayRelation = entitySet.get(1) + "是" + entitySet.get(0);
@@ -321,8 +321,8 @@ public class KGAgent {
 			}
 
 			if (answerRelation.isEmpty()) {
-				List<String> relationReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath("",
-						entitySet.get(1), "", entitySet.get(0), 2);
+				List<String> relationReverseWayPathSet = DBProcess.getRelationshipTypeInStraightPath(NLPUtil.getLabelByEntity(entitySet.get(1)),
+						entitySet.get(1), NLPUtil.getLabelByEntity(entitySet.get(0)), entitySet.get(0), 2);
 				if (!relationReverseWayPathSet.isEmpty()) {
 					System.out.println("relationReverseWayPathSet=" + relationReverseWayPathSet);
 					String reverseWayRelation = entitySet.get(0) + "是" + entitySet.get(1);
@@ -338,8 +338,8 @@ public class KGAgent {
 			}
 
 			if (answerRelation.isEmpty()) {
-				List<List<String>> relationConvergePathSet = DBProcess.getRelationshipTypeInConvergePath("",
-						entitySet.get(0), "", entitySet.get(1));
+				List<List<String>> relationConvergePathSet = DBProcess.getRelationshipTypeInConvergePath(NLPUtil.getLabelByEntity(entitySet.get(0)),
+						entitySet.get(0), NLPUtil.getLabelByEntity(entitySet.get(1)), entitySet.get(1));
 				if (!relationConvergePathSet.isEmpty()) {
 					System.out.println("relationConvergePathSet=" + relationConvergePathSet);
 					String convergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "的";
@@ -358,8 +358,8 @@ public class KGAgent {
 			}
 
 			if (answerRelation.isEmpty()) {
-				List<List<String>> relationDivergePathSet = DBProcess.getRelationshipTypeInDivergentPath("",
-						entitySet.get(0), "", entitySet.get(1));
+				List<List<String>> relationDivergePathSet = DBProcess.getRelationshipTypeInDivergentPath(NLPUtil.getLabelByEntity(entitySet.get(0)),
+						entitySet.get(0), NLPUtil.getLabelByEntity(entitySet.get(1)), entitySet.get(1));
 				if (!relationDivergePathSet.isEmpty()) {
 					System.out.println("relationDivergePathSet=" + relationDivergePathSet);
 					String divergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "都是";
@@ -454,7 +454,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "孙俪是谁";
+		String str = "威少获得过什么奖项";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

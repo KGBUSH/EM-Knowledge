@@ -33,7 +33,7 @@ public class BuildCypherSQL implements CypherSQLParser {
 		if (label.isEmpty()) {
 			query = "match (e{" + Common.KGNODE_NAMEATRR + ":\"" + entity + "\"}) return e as " + Common.ResultObj;
 		} else {
-			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":" + entity + "}) return e as "
+			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + entity + "\"}) return e as "
 					+ Common.ResultObj;
 		}
 

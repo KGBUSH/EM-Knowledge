@@ -2,19 +2,34 @@
 
 package com.emotibot.understanding;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.emotibot.dictionary.DictionaryBuilder;
 
 public class KGAgentTest {
 
 	public static void main(String [] args){
 		
-		DictionaryBuilder.DictionaryBuilderInit();
+		Set<String> set = new HashSet<>();
+		set.add("a");
+		set.add("a");
+		set.add("b");
 		
-		for(String s : DictionaryBuilder.getEntityTable()){
-			if(NLPUtil.isInDailyUsedWordDict(s)){
-				System.out.println(s);
-			}
+		for(String s : set){
+			System.out.println(s);
 		}
+		
+		
+		
+		
+//		DictionaryBuilder.DictionaryBuilderInit();
+//		
+//		for(String s : DictionaryBuilder.getEntityTable()){
+//			if(NLPUtil.isInDailyUsedWordDict(s)){
+//				System.out.println(s);
+//			}
+//		}
 		
 		
 //		StaticTest t1 = new StaticTest("t1");
