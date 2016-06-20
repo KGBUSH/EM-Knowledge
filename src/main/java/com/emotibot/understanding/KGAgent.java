@@ -195,7 +195,7 @@ public class KGAgent {
 		if (entitySet.size() == 1) {
 			// iterate each label of entity, and get the answer with highest
 			// score
-			List<String> listLabel = DBProcess.getEntityLabelList(entity);
+			List<String> listLabel = NLPUtil.getLabelListByEntity(entity);
 			System.out.println("listLabel = " + listLabel);
 			// String oldSentence = sentence;
 			List<AnswerBean> singleEntityAnswerBeanList = new ArrayList<>();
@@ -236,7 +236,7 @@ public class KGAgent {
 			if (singleEntityAnswerBeanList.isEmpty()) {
 				if (DictionaryBuilder.getEntitySynonymTable().containsKey(entity)) {
 					String entitySynonym = DictionaryBuilder.getEntitySynonymTable().get(entity);
-					String entitySynonymLabel = DBProcess.getEntityLabel(entitySynonym);
+					String entitySynonymLabel = NLPUtil.getLabelByEntity(entitySynonym);
 					String entitySynonymSentence = sentence.toLowerCase().replace(entity, entitySynonym);;
 					
 					AnswerBean tempBean = new AnswerBean();

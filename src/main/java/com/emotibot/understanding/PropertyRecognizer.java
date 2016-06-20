@@ -130,7 +130,7 @@ public class PropertyRecognizer {
 				// use the new answer as new entity, get the entity as a whole
 				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, prop, entityKey);
 				String newDBEntity = (String) tmpMap.get(Common.KGNODE_NAMEATRR);
-				String newLabel = DBProcess.getEntityLabel(newDBEntity);
+				String newLabel = NLPUtil.getLabelByEntity(newDBEntity);
 				String newEntityKey = (String) tmpMap.get("key");
 				String newSentence = sentenceNoEntity;
 				if (!Tool.isStrEmptyOrNull(oldWord)) {
@@ -177,7 +177,7 @@ public class PropertyRecognizer {
 			if (furtherSeach == true) {
 				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, prop, entityKey);
 				String newDBEntity = (String) tmpMap.get(Common.KGNODE_NAMEATRR);
-				String newLabel = DBProcess.getEntityLabel(newDBEntity);
+				String newLabel = NLPUtil.getLabelByEntity(newDBEntity);
 				String newEntityKey = (String) tmpMap.get("key");
 				Pattern pattern = Pattern.compile(answerBean.getOriginalWord());
 				Matcher sentenceNoEntityWithPattern = pattern.matcher(sentenceNoEntity);
