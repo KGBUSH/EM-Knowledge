@@ -24,7 +24,7 @@
 // For socket defines
 #define QLEN                     32
 #define BUF_LEN                  1024
-#define PORT                     "16413"
+#define PORT                     "16412"
 
 #define SUCCESS                  0
 #define ERR_BASE                 0
