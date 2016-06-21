@@ -16,6 +16,7 @@ public class Common {
 
 	public final static String PERSONLABEL="Person";
 	public final static String KGNODE_NAMEATRR="Name";
+	public final static String KGNODE_TYPE="type";
     //sql返回变量的变量名
 	public static String ResultObj="result";
 	public static String RelationType="relationType";
