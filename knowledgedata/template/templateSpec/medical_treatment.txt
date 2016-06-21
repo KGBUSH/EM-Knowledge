@@ -15,12 +15,17 @@ medical_treatment,^#^常见/发生^人/群体^;#的多发群体是什么？
 medical_treatment,^#^禁忌/注意^;#主要用药禁忌有什么？
 medical_treatment,^什么/哪/啥^病/症^适合/适用^#^;#主要适用症有哪些？
 medical_treatment,^#^适合/适用^什么/哪/啥^病/症^;#主要适用症有哪些？
+medical_treatment,^#^治^什么病/啥病/哪些病^;#主要适用症有哪些？
 medical_treatment,^#^运动员^;运动员慎用吗？
 medical_treatment,^运动员^#^;运动员慎用吗？
 medical_treatment,^#^怎么/如何/咋^吃/用^;#的用法用量是什么？
 medical_treatment,^怎么/如何/咋^吃/用^#^;#的用法用量是什么？
 medical_treatment,^#^什么/啥/哪^地方/部位^;#的常见发病部位是哪儿？
 medical_treatment,^#^哪儿/哪/哪里;#的常见发病部位是哪儿？
+medical_treatment,^#^哪儿/哪/哪里^发病/出现;#的常见发病部位是哪儿？
 medical_treatment,^#^还/又^叫/称呼^;#的别名是什么？
 medical_treatment,^还/又^叫/称呼^#^;#的别名是什么？
 medical_treatment,^#^治^什么/哪些^病^;#主治什么？
+medical_treatment,^#^干/做/有&什么/啥/嘛^;#的用途分类是什么？
+medical_treatment,^#^什么/哪些/啥^不适/不舒服/不良^;#的不良反应有什么？
+

@@ -522,6 +522,24 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 治 ^ 什 么 病 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 治 ^ 啥 病 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 治 ^ 哪 些 病 ^ </pattern>
+        <template>
+            <star index="2"/>主要适用症有哪些？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 运 动 员 ^ </pattern>
         <template>
             运动员慎用吗？
@@ -660,6 +678,42 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 儿 ^ 发 病 </pattern>
+        <template>
+            <star index="2"/>的常见发病部位是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 ^ 发 病 </pattern>
+        <template>
+            <star index="2"/>的常见发病部位是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 里 ^ 发 病 </pattern>
+        <template>
+            <star index="2"/>的常见发病部位是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 儿 ^ 出 现 </pattern>
+        <template>
+            <star index="2"/>的常见发病部位是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 ^ 出 现 </pattern>
+        <template>
+            <star index="2"/>的常见发病部位是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 里 ^ 出 现 </pattern>
+        <template>
+            <star index="2"/>的常见发病部位是哪儿？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 还 ^ 叫 ^ </pattern>
         <template>
             <star index="2"/>的别名是什么？
@@ -717,6 +771,90 @@
         <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 治 ^ 哪 些 ^ 病 ^ </pattern>
         <template>
             <star index="2"/>主治什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 干 ^ </pattern>
+        <template>
+            <star index="2"/>的用途分类是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 做 ^ </pattern>
+        <template>
+            <star index="2"/>的用途分类是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 有 &什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的用途分类是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的用途分类是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 嘛 ^ </pattern>
+        <template>
+            <star index="2"/>的用途分类是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 ^ 不 适 ^ </pattern>
+        <template>
+            <star index="2"/>的不良反应有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 些 ^ 不 适 ^ </pattern>
+        <template>
+            <star index="2"/>的不良反应有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 啥 ^ 不 适 ^ </pattern>
+        <template>
+            <star index="2"/>的不良反应有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 ^ 不 舒 服 ^ </pattern>
+        <template>
+            <star index="2"/>的不良反应有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 些 ^ 不 舒 服 ^ </pattern>
+        <template>
+            <star index="2"/>的不良反应有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 啥 ^ 不 舒 服 ^ </pattern>
+        <template>
+            <star index="2"/>的不良反应有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 ^ 不 良 ^ </pattern>
+        <template>
+            <star index="2"/>的不良反应有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 哪 些 ^ 不 良 ^ </pattern>
+        <template>
+            <star index="2"/>的不良反应有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 啥 ^ 不 良 ^ </pattern>
+        <template>
+            <star index="2"/>的不良反应有什么？
         </template>
     </category>
 </aiml>

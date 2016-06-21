@@ -612,6 +612,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 有 哪 些 ^ 好 玩 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 哪 个 ^ 季 节 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
             <star index="4"/>的游玩季节是什么时候？
@@ -691,6 +697,18 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 又 ^ 称 呼 ^ </pattern>
+        <template>
+            <star index="2"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 还 ^ 称 作 ^ </pattern>
+        <template>
+            <star index="2"/>的别名是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 又 ^ 称 作 ^ </pattern>
         <template>
             <star index="2"/>的别名是什么？
         </template>
@@ -1443,6 +1461,18 @@
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 些 ^ 特 色 ^ </pattern>
         <template>
             <star index="2"/>的地方特产有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 多 高 ^ </pattern>
+        <template>
+            <star index="2"/>的海拔高度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 几 米 ^ </pattern>
+        <template>
+            <star index="2"/>的海拔高度是多少？
         </template>
     </category>
 </aiml>
