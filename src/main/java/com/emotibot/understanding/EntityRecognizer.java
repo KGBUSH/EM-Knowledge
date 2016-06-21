@@ -53,7 +53,7 @@ public class EntityRecognizer {
 
 		List<String> rsEntity = new ArrayList<>();
 		List<String> simpleMatchEntity = getEntitySimpleMatch(sentence);
-		List<String> nlpEntity = getEntityByNLP(nerBean.getSegPos());
+		List<String> nlpEntity = getEntityByNLP(nerBean.getSegPos(), sentence);
 		System.out.println("\t simpleMatchingEntity=" + simpleMatchEntity + "\n\t nlpEntity=" + nlpEntity);
 		System.out.println("res = " + CommonUtil.isTwoListsEqual(simpleMatchEntity, nlpEntity));
 
@@ -228,7 +228,7 @@ public class EntityRecognizer {
 	// Method
 	// input: 姚明和叶莉的女儿是谁？
 	// output: [姚明，叶莉]
-	public List<String> getEntityByNLP(List<Term> segPos) {
+	public List<String> getEntityByNLP(List<Term> segPos, String sentence) {
 		List<String> entitySet = new ArrayList<>();
 		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthComparator());
 		Map<String, String> refMap = new HashMap<>();
@@ -252,6 +252,8 @@ public class EntityRecognizer {
 		// remove the high frequent entities
 		entitySet = NLPUtil.removeRemoveableEntity(entitySet);
 		System.out.println("NLP entities after removal: " + entitySet.toString());
+		
+		entitySet = sortByIndexOfSentence(sentence, entitySet);
 
 		List<String> rsSet = new ArrayList<>();
 		for (String s : entitySet) {

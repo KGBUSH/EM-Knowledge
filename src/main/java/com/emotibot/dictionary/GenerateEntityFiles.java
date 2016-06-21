@@ -25,8 +25,12 @@ public class GenerateEntityFiles {
 	public static void main(String args[]) throws Exception {
 
 		DictionaryBuilder.DictionaryBuilderInit();
+		
+		// generate entity with label
 		generateEntityAndLabel();
-
+		
+		// generate entity list in first level
+//		generateEntityPMFile();
 		
 //		generateEntity();
 //		String tempFileName = Common.UserDir + "/knowledgedata/entityException.txt";
@@ -136,16 +140,16 @@ public class GenerateEntityFiles {
 
 		// String query = "match(n) with n with n.Name as name, labels(n) as l
 		// unwind l as domain return collect(name+\"###\"+domain) as result";
-		String query = "match(n) with n with n.Name as name, labels(n) as l order by n.type unwind l as domain return collect(name+\"###\"+domain) as result";
+		String query = "match(n) with n.Name as name, labels(n) as l order by n.type unwind l as domain return collect(distinct name+\"###\"+domain) as result";
 		List<String> list = conn.getArrayListfromCollection(query);
 
 		// System.out.println("list="+list);
 
-		Set<String> tempSet = new HashSet<>();
-
-		for (String s : list) {
-			tempSet.add(s);
-		}
+//		Set<String> tempSet = new HashSet<>();
+//
+//		for (String s : list) {
+//			tempSet.add(s);
+//		}
 
 		try {
 			// String tempFileName = Common.UserDir +
@@ -153,7 +157,7 @@ public class GenerateEntityFiles {
 			String tempFileName = Common.UserDir + "/knowledgedata/entitywithlabel.txt";
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
 
-			for (String s : tempSet) {
+			for (String s : list) {
 				if (s.length() == 1) {
 					System.out.println(s);
 					continue;
@@ -167,6 +171,48 @@ public class GenerateEntityFiles {
 		}
 
 		System.out.println("entity and label generation done");
+
+	}
+	
+
+	// generate the entity list entity_ref_PM.txt from domain directory,
+	// and check with entity.txt which is used as the entity dictionary.
+	public static void generateEntityPMFile() {
+		EmotibotNeo4jConnection conn = getDBConnection();
+
+		String query = "match(n) where n.type=\"1\" with distinct n.Name as name return collect(name) as result";
+		List<String> list = conn.getArrayListfromCollection(query);
+
+//		Set<String> tempSet = new HashSet<>();
+//
+//		for (String s : list) {
+//			tempSet.add(s);
+//		}
+		
+		try {
+			// BufferedWriter writer = new BufferedWriter(new
+			// FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt",
+			// true));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(Common.UserDir + "/knowledgedata/entityPM.txt"));
+
+			for(String s : list){
+				s = CharUtil.trimAndlower(s);
+				writer.write(s + "\r\n");
+				if (s.length() == 1)
+					System.out.println(s);
+			}
+			
+//			for (String s : DictionaryBuilder.getEntitySynonymTable().values()) {
+//				writer.write(s + "\r\n");
+//				if (s.length() == 1)
+//					System.out.println(s);
+//			}
+
+			writer.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

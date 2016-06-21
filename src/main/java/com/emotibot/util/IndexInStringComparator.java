@@ -1,6 +1,7 @@
 package com.emotibot.util;
 
 import java.util.Comparator;
+import java.util.TreeSet;
 
 public class IndexInStringComparator implements Comparator{
 	private String sentence = "";
@@ -27,5 +28,18 @@ public class IndexInStringComparator implements Comparator{
         
         return num;
     }
+	
+	public static void main(String [] args){
+		String sen = "dddaaaaaaddddd";
+		TreeSet<String> tempSet = new TreeSet<String>(new IndexInStringComparator(sen));
+		tempSet.add("ddd");
+		tempSet.add("a");
+		tempSet.add("aa");
+		
+		for(String s : tempSet){
+			System.out.println(s);
+		}
+		
+	}
     
 }

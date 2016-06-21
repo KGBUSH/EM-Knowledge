@@ -1,6 +1,7 @@
 package com.emotibot.util;
 
 import java.util.Comparator;
+import java.util.TreeSet;
 
 public class StringLengthComparator implements Comparator{
 
@@ -17,5 +18,18 @@ public class StringLengthComparator implements Comparator{
         
         return num;
     }
+	
+	
+	public static void main(String [] args){
+		TreeSet<String> tempSet = new TreeSet<String>(new StringLengthComparator());
+		tempSet.add("ddd");
+		tempSet.add("a");
+		tempSet.add("aa");
+		
+		for(String s : tempSet){
+			System.out.println(s);
+		}
+		
+	}
     
 }
