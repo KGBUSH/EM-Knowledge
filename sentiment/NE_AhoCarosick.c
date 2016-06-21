@@ -1,5 +1,5 @@
 // Read POSITIVE and NEGATIVE files to do sentiment judge
-// 
+//
 // #001  20160412    Created by Phantom
 
 #include <stdio.h>
@@ -16,8 +16,8 @@
 #define INPUT_TEXT_FILE          "text.txt"
 
 #define ASCII_MAX                256
-#define PATTERN_LEN_MAX          256 
-#define PATTERN_COUNT_MAX        60000
+#define PATTERN_LEN_MAX          256
+#define PATTERN_COUNT_MAX        300000
 #define FILE_LEN_MAX             1000
 #define NE_LEN_MAX               5
 
@@ -164,7 +164,7 @@ int BuildTree(char szInput[][PATTERN_LEN_MAX], int nNum, struct node *pRoot)
       {
          if (szTemp[j] == '\0')
             break;
-         
+
          ////////////////////////
          // 3.1. if exist => move down
          ////////////////////////
@@ -240,7 +240,7 @@ int BuildFailureLink(struct node *ptr, struct node *pRoot)
             break;
 
          ////////////////////////
-         // 2.3. ptr2=root, try to find szTemp 
+         // 2.3. ptr2=root, try to find szTemp
          ////////////////////////
          ptr2 = pRoot;
          for (i=0;i<PATTERN_LEN_MAX;i++)
@@ -370,7 +370,7 @@ int main(int argc, char* argv[])
    char s[PATTERN_LEN_MAX];
    char szText[FILE_LEN_MAX];
    FILE *fp=NULL;
-   
+
    // For Socket declare
    int nRetCode = 0;
    int msock, ssock;
@@ -390,7 +390,7 @@ int main(int argc, char* argv[])
 
    //////////////////////////
    // Build Tree
-   ////////////////////////// 
+   //////////////////////////
    if ((fp = fopen(INPUT_DICT_FILE,"r")) != NULL)
    {
       i = 0;
@@ -429,7 +429,7 @@ int main(int argc, char* argv[])
    ////////////////////////
    msock = passiveTCP(service, QLEN);
    //printf("\nSocket %d created successfully",msock);
-   while (1) 
+   while (1)
    {
       alen = sizeof(fsin);
       ////////////////////////
