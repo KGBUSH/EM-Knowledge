@@ -299,7 +299,7 @@ public class DBProcess {
 	public static List<String> getKeyListbyEntity(String ent, String label) {
 		List<String> list = new ArrayList<>();
 		if (Tool.isStrEmptyOrNull(ent)) {
-			System.err.println("DBProcess.getEntityLabel: input is empty");
+			System.err.println("DBProcess.getEntityKeyList: input is empty");
 			return list;
 		}
 		String query = buildCypherSQLObj.getKeyListByEntity(ent, label);

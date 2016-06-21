@@ -55,7 +55,7 @@ public class BuildCypherSQL implements CypherSQLParser {
 		if (Tool.isStrEmptyOrNull(Label) || Tool.isStrEmptyOrNull(name) || (attr == null || attr.size() == 0)) {
 			System.err.println("InsertEntityNode has invalid input");
 		} else {
-			query = "create (" + Common.ResultObj  + ":"+Label+"{" + Common.KG_NODE_FIRST_PARAM_MD5 + ":\"" + name
+			query = "create (" + Common.ResultObj + ":" + Label + "{" + Common.KG_NODE_FIRST_PARAM_MD5 + ":\"" + name
 					+ "\"}) set ";
 			for (String key : attr.keySet()) {
 				query += Common.ResultObj + "." + key + "=\"" + attr.get(key) + "\",";
@@ -130,7 +130,7 @@ public class BuildCypherSQL implements CypherSQLParser {
 		System.out.println("CYPHER in FindEnitityAttr is: " + query);
 		return query;
 	}
-	
+
 	@Override
 	public String Find1stLevelEntityAttr(String label, String name, String attr) {
 		String query = "";
@@ -138,13 +138,13 @@ public class BuildCypherSQL implements CypherSQLParser {
 			System.err.println("CYPHER: name is null");
 			return query;
 		}
-		
+
 		if (label.isEmpty()) {
-			query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + name + "\"}) where e.type=\"1\" return e." + attr + " as "
-					+ Common.ResultObj;
+			query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + name + "\"}) where e.type=\"1\" return e." + attr
+					+ " as " + Common.ResultObj;
 		} else {
-			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + name + "\"}) where e.type=\"1\" return e." + attr + " as "
-					+ Common.ResultObj;
+			query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + name
+					+ "\"}) where e.type=\"1\" return e." + attr + " as " + Common.ResultObj;
 		}
 		System.out.println("CYPHER in FindEnitityAttr is: " + query);
 		return query;
@@ -159,21 +159,21 @@ public class BuildCypherSQL implements CypherSQLParser {
 		}
 
 		if (label.isEmpty()) {
-			if(Tool.isStrEmptyOrNull(key)){
+			if (Tool.isStrEmptyOrNull(key)) {
 				query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + entity + "\"})-[r:" + relation
 						+ "]-(m) return m as " + Common.ResultObj;
 			} else {
-				query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + entity +"\", key:\"" + key + "\"})-[r:" + relation
-						+ "]-(m) return m as " + Common.ResultObj;
+				query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + entity + "\", key:\"" + key + "\"})-[r:"
+						+ relation + "]-(m) return m as " + Common.ResultObj;
 
 			}
 		} else {
-			if(Tool.isStrEmptyOrNull(key)){
+			if (Tool.isStrEmptyOrNull(key)) {
 				query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + entity + "\"})-[r:" + relation
 						+ "]-(m) return m as " + Common.ResultObj;
 			} else {
-				query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + entity + "\", key:\"" + key + "\"})-[r:" + relation
-						+ "]-(m) return m as " + Common.ResultObj;
+				query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + entity + "\", key:\"" + key
+						+ "\"})-[r:" + relation + "]-(m) return m as " + Common.ResultObj;
 			}
 		}
 		System.out.println("CYPHER of getEntityByRelationship: " + query);
@@ -189,19 +189,19 @@ public class BuildCypherSQL implements CypherSQLParser {
 		}
 
 		if (label.isEmpty()) {
-			if(Tool.isStrEmptyOrNull(key)){
+			if (Tool.isStrEmptyOrNull(key)) {
 				query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent
 						+ "\"})-[r]->() return collect(distinct type(r)) as " + Common.ResultObj;
 			} else {
-				query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent +"\", key:\"" + key
+				query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\", key:\"" + key
 						+ "\"})-[r]->() return collect(distinct type(r)) as " + Common.ResultObj;
 			}
 		} else {
-			if(Tool.isStrEmptyOrNull(key)){
+			if (Tool.isStrEmptyOrNull(key)) {
 				query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent
 						+ "\"})-[r]->() return collect(distinct type(r)) as " + Common.ResultObj;
 			} else {
-				query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent +"\", key:\"" + key
+				query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\", key:\"" + key
 						+ "\"})-[r]->() return collect(distinct type(r)) as " + Common.ResultObj;
 			}
 		}
@@ -302,18 +302,20 @@ public class BuildCypherSQL implements CypherSQLParser {
 		}
 
 		if (label.isEmpty()) {
-			if(Tool.isStrEmptyOrNull(key)){
-				query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) return keys(e) as " + Common.ResultObj;
+			if (Tool.isStrEmptyOrNull(key)) {
+				query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) return keys(e) as "
+						+ Common.ResultObj;
 			} else {
-				query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\", key:\"" + key + "\"}) return keys(e) as " + Common.ResultObj;
+				query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\", key:\"" + key
+						+ "\"}) return keys(e) as " + Common.ResultObj;
 			}
 		} else {
-			if(Tool.isStrEmptyOrNull(key)){
+			if (Tool.isStrEmptyOrNull(key)) {
 				query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) return keys(e) as "
 						+ Common.ResultObj;
 			} else {
-				query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\", key:\"" + key + "\"}) return keys(e) as "
-						+ Common.ResultObj;
+				query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\", key:\"" + key
+						+ "\"}) return keys(e) as " + Common.ResultObj;
 			}
 		}
 		System.out.println("query in getPropNamebyEntityName is: " + query);
@@ -331,7 +333,7 @@ public class BuildCypherSQL implements CypherSQLParser {
 		System.out.println("query in getLabelByEntity is: " + query);
 		return query;
 	}
-	
+
 	@Override
 	public String getLabelListByEntity(String ent) {
 		String query = "";
@@ -339,11 +341,13 @@ public class BuildCypherSQL implements CypherSQLParser {
 			System.err.println("CYPHER: name is null");
 			return query;
 		}
-		query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) with labels(e) as labels unwind labels as labelList return collect(labelList) as " + Common.ResultObj;
+		query = "match (e {" + Common.KGNODE_NAMEATRR + ":\"" + ent
+				+ "\"}) with labels(e) as labels unwind labels as labelList return collect(labelList) as "
+				+ Common.ResultObj;
 		System.out.println("query in getLabelByEntity is: " + query);
 		return query;
 	}
-	
+
 	@Override
 	public String getKeyListByEntity(String ent, String label) {
 		String query = "";
@@ -351,11 +355,13 @@ public class BuildCypherSQL implements CypherSQLParser {
 			System.err.println("CYPHER: name is null");
 			return query;
 		}
-		if(Tool.isStrEmptyOrNull(label)){
+		if (Tool.isStrEmptyOrNull(label)) {
 			System.out.println("getKeyListByEntity: label is empty");
-			query = "match (n {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) return collect(n.key) as " + Common.ResultObj;
-		} else{
-			query = "match (n:"+label+" {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) return collect(n.key) as " + Common.ResultObj;
+			query = "match (n {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) with n order by n." + Common.KGNODE_TYPE
+					+ " return collect(n.key) as " + Common.ResultObj;
+		} else {
+			query = "match (n:" + label + " {" + Common.KGNODE_NAMEATRR + ":\"" + ent + "\"}) with n order by n."
+					+ Common.KGNODE_TYPE + " return collect(n.key) as " + Common.ResultObj;
 		}
 		System.out.println("query in getKeyListByEntity is: " + query);
 		return query;

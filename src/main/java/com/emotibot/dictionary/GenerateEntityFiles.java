@@ -25,14 +25,14 @@ public class GenerateEntityFiles {
 	public static void main(String args[]) throws Exception {
 
 		DictionaryBuilder.DictionaryBuilderInit();
-		generateEntity();
-		// generateEntityAndLabel();
+		generateEntityAndLabel();
 
-		String tempFileName = Common.UserDir + "/knowledgedata/entityException.txt";
-		(new File(tempFileName)).delete();
-
-		checkTemplate();
-		modifyEntity();
+		
+//		generateEntity();
+//		String tempFileName = Common.UserDir + "/knowledgedata/entityException.txt";
+//		(new File(tempFileName)).delete();
+//		checkTemplate();
+//		modifyEntity();
 	}
 
 	private static void modifyEntity() {
@@ -136,7 +136,7 @@ public class GenerateEntityFiles {
 
 		// String query = "match(n) with n with n.Name as name, labels(n) as l
 		// unwind l as domain return collect(name+\"###\"+domain) as result";
-		String query = "match(n) with n with n.Name as name, labels(n) as l unwind l as domain return collect(name+\"###\"+domain) as result";
+		String query = "match(n) with n with n.Name as name, labels(n) as l order by n.type unwind l as domain return collect(name+\"###\"+domain) as result";
 		List<String> list = conn.getArrayListfromCollection(query);
 
 		// System.out.println("list="+list);
