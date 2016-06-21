@@ -26,5 +26,6 @@ medical_treatment,^#^哪儿/哪/哪里^发病/出现;#的常见发病部位是�
 medical_treatment,^#^还/又^叫/称呼^;#的别名是什么？
 medical_treatment,^还/又^叫/称呼^#^;#的别名是什么？
 medical_treatment,^#^治^什么/哪些^病^;#主治什么？
-medical_treatment,^#^干/做/有^什么/啥/嘛^;#的用途分类是什么？
+medical_treatment,^#^干什么/干嘛/做什么/干啥/做啥^;#的用途分类是什么？
+medical_treatment,^#^什么用/啥用^;#的用途分类是什么？
 medical_treatment,^#^什么/哪些/啥^不适/不舒服/不良^;#的不良反应有什么？

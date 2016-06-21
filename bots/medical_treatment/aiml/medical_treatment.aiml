@@ -774,55 +774,43 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 干 ^ 什 么 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 干 什 么 ^ </pattern>
         <template>
             <star index="2"/>的用途分类是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 做 ^ 什 么 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 干 嘛 ^ </pattern>
         <template>
             <star index="2"/>的用途分类是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 有 ^ 什 么 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 做 什 么 ^ </pattern>
         <template>
             <star index="2"/>的用途分类是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 干 ^ 啥 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 干 啥 ^ </pattern>
         <template>
             <star index="2"/>的用途分类是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 做 ^ 啥 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 做 啥 ^ </pattern>
         <template>
             <star index="2"/>的用途分类是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 有 ^ 啥 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 什 么 用 ^ </pattern>
         <template>
             <star index="2"/>的用途分类是什么？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 干 ^ 嘛 ^ </pattern>
-        <template>
-            <star index="2"/>的用途分类是什么？
-        </template>
-    </category>
-    <category>
-        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 做 ^ 嘛 ^ </pattern>
-        <template>
-            <star index="2"/>的用途分类是什么？
-        </template>
-    </category>
-    <category>
-        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 有 ^ 嘛 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>medical_treatment</label> ^ 啥 用 ^ </pattern>
         <template>
             <star index="2"/>的用途分类是什么？
         </template>
