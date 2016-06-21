@@ -150,7 +150,7 @@ public class GenerateEntityFiles {
 		try {
 			// String tempFileName = Common.UserDir +
 			// "/knowledgedata/KnowledgeEntityWithLabel.txt";
-			String tempFileName = Common.UserDir + "/knowledgedata/entityTest.txt";
+			String tempFileName = Common.UserDir + "/knowledgedata/entitywithlabel.txt";
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
 
 			for (String s : tempSet) {
