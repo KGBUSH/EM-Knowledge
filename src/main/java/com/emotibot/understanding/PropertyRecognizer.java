@@ -524,9 +524,12 @@ public class PropertyRecognizer {
 		// compare each char, if match, socre++, else score--
 		String tmpProp = strProperty.toLowerCase();
 		int left2right = 0;
+		int countTimesLeft = 0;
+		int countTimesRight = 0;
 		for (int i = 0; i < candidate.length(); i++) {
 			if (tmpProp.indexOf(candidate.charAt(i)) == 0) {
 				left2right++;
+				countTimesLeft++;
 				tmpProp = tmpProp.substring(1);
 			} else {
 
@@ -549,6 +552,7 @@ public class PropertyRecognizer {
 			// System.out.println(tmpProp + " " + str.charAt(i));
 			if (!tmpProp.isEmpty() && tmpProp.lastIndexOf(candidate.charAt(i)) == tmpProp.length() - 1) {
 				right2left++;
+				countTimesRight++;
 				tmpProp = tmpProp.substring(0, tmpProp.length() - 1);
 			} else {
 				right2left--;
@@ -565,9 +569,18 @@ public class PropertyRecognizer {
 		// + ", right=" + right2left);
 
 		if (left2right > right2left) {
-			rsMap.put(strProperty, left2right);
+			// fix bad case 次总冠军 －－ 总冠军数目  将匹配上的字符个数 >=3与得分 >= 2 的情况提升到5分 
+			if(countTimesLeft >= 3 && left2right >= 2){
+				rsMap.put(strProperty, 5);
+			}else {
+				rsMap.put(strProperty, left2right);
+			}
 		} else {
-			rsMap.put(strProperty, right2left);
+			if(countTimesRight >=3 && right2left >= 2){
+				rsMap.put(strProperty, 5);
+			}else {
+				rsMap.put(strProperty, right2left);
+			}
 		}
 
 		return isPass;
