@@ -50,6 +50,9 @@ public class IntentionClassifier {
 
 			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
 			String tempEntity = entitySet.get(0);
+			if(NLPUtil.isASynonymEntity(tempEntity)){
+				tempEntity = NLPUtil.getEntitySynonymNormal(tempEntity).get(0);
+			}
 
 			System.out.println("INTENTION 1");
 			String tempLabel = NLPUtil.getLabelByEntity(tempEntity).toLowerCase();
@@ -92,6 +95,9 @@ public class IntentionClassifier {
 		// move the process of introduction question to intention process
 		if (entitySet.size() == 1) {
 			String tempEntity = entitySet.get(0);
+			if(NLPUtil.isASynonymEntity(tempEntity)){
+				tempEntity = NLPUtil.getEntitySynonymNormal(tempEntity).get(0);
+			}
 			String tempLabel = NLPUtil.getLabelByEntity(tempEntity);
 //			String tempSentence = TemplateEntry.templateProcess(tempLabel, tempEntity, sentence, uniqueID);
 

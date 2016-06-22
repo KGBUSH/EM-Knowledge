@@ -454,7 +454,8 @@ public class SynonymProcessTest {
 //            	String label = DBProcess.getEntityLabel(entity);
             	String label = NLPUtil.getLabelByEntity(entity);
             	if(Tool.isStrEmptyOrNull(label)){
-            		label = NLPUtil.getLabelByEntity(NLPUtil.getEntitySynonymNormal(entity));
+            		// since the entitySyonymn change
+//            		label = NLPUtil.getLabelByEntity(NLPUtil.getEntitySynonymNormal(entity));
             	}
             	out.write(entity+" "+label+"\r\n");
             }

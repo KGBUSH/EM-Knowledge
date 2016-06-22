@@ -31,7 +31,7 @@ public class EntityRecognizer {
 		nerBean = bean;
 		nerBean.setEntitySet(getEntity());
 		removeAbnormalEntity();
-		nerBean.setSentence(changeEntitySynonym());
+//		nerBean.setSentence(changeEntitySynonym());
 		removeAbnormalEntity();
 	}
 
@@ -93,9 +93,19 @@ public class EntityRecognizer {
 //				List<String> tempList = CommonUtil.getIntersectionOfTwoLists(simpleMatchEntity, solrEntity,
 //						simpleMatchEntity.size());
 
+				// if the entity is of level 1, return it
 				for (String s : simpleMatchEntity) {
-					if (NLPUtil.isEntityPM(s)) {
+					if(NLPUtil.isASynonymEntity(s)){
+						for(String tempEntity : NLPUtil.getEntitySynonymNormal(s)){
+							if (NLPUtil.isEntityPM(tempEntity)) {
+								rsEntity.add(s);
+								break;
+							}
+						}
+					} else if (NLPUtil.isEntityPM(s)) {
 						rsEntity.add(s);
+					}
+					if(!rsEntity.isEmpty()){
 						break;
 					}
 				}
@@ -231,7 +241,7 @@ public class EntityRecognizer {
 	public List<String> getEntityByNLP(List<Term> segPos, String sentence) {
 		List<String> entitySet = new ArrayList<>();
 		TreeSet<String> entityTreeSet = new TreeSet<String>(new StringLengthComparator());
-		Map<String, String> refMap = new HashMap<>();
+//		Map<String, String> refMap = new HashMap<>();
 
 		for (int i = 0; i < segPos.size(); i++) {
 			String segWord = segPos.get(i).word;
@@ -242,7 +252,7 @@ public class EntityRecognizer {
 				System.out.println("syn in NLP: word=" + segWord + ", syn="
 						+ DictionaryBuilder.getEntitySynonymTable().get(segWord));
 				entityTreeSet.add(segWord);
-				refMap.put(segWord, DictionaryBuilder.getEntitySynonymTable().get(segWord));
+//				refMap.put(segWord, DictionaryBuilder.getEntitySynonymTable().get(segWord));
 			}
 		}
 
@@ -257,11 +267,11 @@ public class EntityRecognizer {
 
 		List<String> rsSet = new ArrayList<>();
 		for (String s : entitySet) {
-			if (refMap.keySet().contains(s)) {
-				rsSet.add(refMap.get(s));
-			} else {
+//			if (refMap.keySet().contains(s)) {
+//				rsSet.add(refMap.get(s));
+//			} else {
 				rsSet.add(s);
-			}
+//			}
 		}
 
 		System.out.println("the NLP entities are: " + rsSet.toString());
@@ -334,7 +344,7 @@ public class EntityRecognizer {
 		// }
 		// }
 
-		Map<String, String> refMap = new HashMap<>();
+//		Map<String, String> refMap = new HashMap<>();
 		
 //		// for entity synonym case
 //		for(String s : entityTreeSet){
@@ -347,12 +357,12 @@ public class EntityRecognizer {
 		for (String s : DictionaryBuilder.getEntitySynonymTable().keySet()) {
 			if (!entityTreeSet.contains(s) && sentence.contains(s.toLowerCase())) {
 				entityTreeSet.add(s);
-				refMap.put(s, DictionaryBuilder.getEntitySynonymTable().get(s));
+//				refMap.put(s, DictionaryBuilder.getEntitySynonymTable().get(s));
 //				System.err.println("s="+s+", test="+DictionaryBuilder.getEntitySynonymTable().get(s));
 			}
 		}
 
-		System.out.println("simple matching entities before removal: " + entityTreeSet.toString() + ", refMap="+refMap);
+		System.out.println("simple matching entities before removal: " + entityTreeSet.toString());
 		entitySet = removeContainedElements(entityTreeSet);
 
 		// remove the high frequent entities
@@ -362,11 +372,11 @@ public class EntityRecognizer {
 
 		List<String> rsSet = new ArrayList<>();
 		for (String s : entitySet) {
-			if (refMap.keySet().contains(s)) {
-				rsSet.add(refMap.get(s));
-			} else {
+//			if (refMap.keySet().contains(s)) {
+//				rsSet.add(refMap.get(s));
+//			} else {
 				rsSet.add(s);
-			}
+//			}
 		}
 
 		System.out.println("the macthed entities are: " + rsSet.toString());
@@ -442,7 +452,7 @@ public class EntityRecognizer {
 
 		System.out.println("changeEntitySynonym: entitySet=" + entitySet + ",sentence=" + sentence);
 		for (String entity : entitySet) {
-			if (!sentence.contains(entity) && NLPUtil.hasEntitySynonym(entity)) {
+			if (!sentence.contains(entity) && NLPUtil.isDBEntityHasSynonym(entity)) {
 				TreeSet<String> list = NLPUtil.getSynonymnEntityList(entity);
 				System.out.println("entity=" + entity + ", synonymList=" + list);
 				String oldEntity = "";

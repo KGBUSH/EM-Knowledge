@@ -55,11 +55,12 @@ public class NLPUtil {
 	// check the entity synonym
 	// input-output: 甲肝-甲型病毒性肝炎
 	// input-output: 姚明-“”
-	public static String getEntitySynonymNormal(String str) {
+	// input-output: 九寨沟 - <九寨沟县，九寨沟国家风景区>
+	public static List<String> getEntitySynonymNormal(String str) {
 		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getEntitySynonymTable().keySet().contains(str))
 			return DictionaryBuilder.getEntitySynonymTable().get(str);
 		else
-			return "";
+			return new ArrayList<>();
 	}
 
 	// check the entity synonym
@@ -75,7 +76,8 @@ public class NLPUtil {
 		// }
 		// return "";
 
-		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getEntitySynonymTable().values().contains(str)) {
+//		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getEntitySynonymTable().values().contains(str)) {
+		if(isDBEntityHasSynonym(str)) {
 			for (String s : DictionaryBuilder.getEntitySynonymTable().keySet()) {
 				if (DictionaryBuilder.getEntitySynonymTable().get(s).equals(str))
 					return s;
@@ -88,8 +90,8 @@ public class NLPUtil {
 
 	// check the entity has a synonym
 	// input-output: 甲型病毒性肝炎-true
-	public static boolean hasEntitySynonym(String str) {
-		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getEntitySynonymTable().values().contains(str))
+	public static boolean isDBEntityHasSynonym(String str) {
+		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getEntitySynonymReverseTable().keySet().contains(str))
 			return true;
 		else
 			return false;
@@ -97,7 +99,7 @@ public class NLPUtil {
 
 	// check whether the word is a synonym of an entity
 	// input-output: 甲肝-true
-	public static boolean isEntitySynonym(String str) {
+	public static boolean isASynonymEntity(String str) {
 		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getEntitySynonymTable().keySet().contains(str))
 			return true;
 		else
@@ -471,6 +473,9 @@ public class NLPUtil {
 		String s = "拜拜了";
 		String entity = "";
 		System.out.println(removeMoodWord(entity,s));
+		s = "九寨沟";
+		System.out.println(isASynonymEntity(s));
+		
 //		System.out.println(hasEntitySynonym(s));
 //		System.out.println(DictionaryBuilder.getEntitySynonymTable().keySet().size());
 //		for (String ss : DictionaryBuilder.getEntitySynonymTable().keySet()) {

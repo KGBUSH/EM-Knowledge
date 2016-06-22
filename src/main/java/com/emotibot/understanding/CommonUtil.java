@@ -66,9 +66,9 @@ public class CommonUtil {
 	
 
 	// to test if two list are equal
-	protected static boolean isTwoListsEqual(List<String> lhs, List<String> rhs) {
-		System.out.println("llhs="+lhs+", rhs="+rhs);
-		System.out.println("ls="+lhs.size()+", rhs="+rhs.size());
+	public static boolean isTwoListsEqual(List<String> lhs, List<String> rhs) {
+//		System.out.println("llhs="+lhs+", rhs="+rhs);
+//		System.out.println("ls="+lhs.size()+", rhs="+rhs.size());
 		if (lhs == null && rhs == null){
 			return true;
 		}
@@ -78,11 +78,14 @@ public class CommonUtil {
 		}
 
 		if (lhs.size() != rhs.size()) {
+			System.out.println("lhs="+lhs+", rhs="+rhs);
 			return false;
 		}
 		for (String s : lhs) {
-			if (!rhs.contains(s))
+			if (!rhs.contains(s)){
+				System.out.println("lhs="+lhs+", rhs="+rhs+", s="+s);
 				return false;
+			}
 		}
 		return true;
 	}

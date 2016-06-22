@@ -16,6 +16,7 @@ import java.util.TreeSet;
 import com.emotibot.common.BytesEncodingDetect;
 import com.emotibot.common.Common;
 import com.emotibot.log.LogService;
+import com.emotibot.understanding.CommonUtil;
 import com.emotibot.understanding.NLPUtil;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.StringLengthComparator;
@@ -226,7 +227,6 @@ public class DictionaryBuilder {
 
 	// [欧洲，<欧罗巴，欧罗巴洲>] 合并下面两个方法
 	private static Map<String, List<String>> createEntitySynonymReverseTable(){
-		Map<String, List<String>> rsMap = new HashMap<String, List<String>>();
 		Map<String, List<String>> rsMap1 = createEntitySynonymReverseTable_One();
 		Map<String, List<String>> rsMap2 = createEntitySynonymReverseTable_Two();
 		
@@ -234,19 +234,19 @@ public class DictionaryBuilder {
 			if(!rsMap2.keySet().contains(str1)){
 				System.out.println("wrong format 1: s1="+str1);
 			} else {
-				if(!Tool.compareTwoList(rsMap1.get(str1),rsMap2.get(str1))){
-					System.out.println("wrong format 2");
+				if(!CommonUtil.isTwoListsEqual(rsMap1.get(str1),rsMap2.get(str1))){
+					System.out.println("wrong format 2 = " + str1);
 				}
 			}
 		}
+		return rsMap1;
 		
-		if(rsMap1.equals(rsMap2)){
-			rsMap = rsMap1;
-		}else {
-			System.err.print("createEntitySynonymReverseTable()方法中两个方法生成的数据表不一样");
-		}
-		
-		return rsMap;
+//		if(rsMap1.equals(rsMap2)){
+//			rsMap = rsMap1;
+//		}else {
+//			System.err.print("createEntitySynonymReverseTable()方法中两个方法生成的数据表不一样");
+//		}
+//		
 	}
 	
 	// [欧洲，<欧罗巴，欧罗巴洲>] 从entitySynonymTable 中获取
@@ -260,7 +260,9 @@ public class DictionaryBuilder {
 				String string = (String) iterator.next();
 				// if contained, update the list, otherwise, create a new one
 				if (rsMap.keySet().contains(string)) {
-					rsMap.get(string).add(s);
+					if(!rsMap.get(string).contains(s)){
+						rsMap.get(string).add(s);
+					}
 				} else {
 					List<String> list = new ArrayList<>();
 					list.add(s);
@@ -298,12 +300,21 @@ public class DictionaryBuilder {
 
 						String dbName = CharUtil.trim(wordList[0]);
 						
-						List<String> list = new ArrayList<String>();
-						for (int i = 1; i < wordList.length; i++) {
-							String synName = CharUtil.trimAndlower(wordList[i]);
-							list.add(synName);
+						if(entitySyn.containsKey(dbName)){
+							for (int i = 1; i < wordList.length; i++) {
+								String synName = CharUtil.trimAndlower(wordList[i]);
+								if(!entitySyn.get(dbName).contains(synName)){
+									entitySyn.get(dbName).add(synName);
+								}
+							}
+						} else {
+							List<String> list = new ArrayList<String>();
+							for (int i = 1; i < wordList.length; i++) {
+								String synName = CharUtil.trimAndlower(wordList[i]);
+								list.add(synName);
+							}
+							entitySyn.put(dbName, list);
 						}
-						entitySyn.put(dbName, list);
 					}
 					dis.close();
 				} catch (Exception e) {
@@ -398,7 +409,9 @@ public class DictionaryBuilder {
 		} else {
 			// if the corresponding set does not contain value, add it to the set
 			if(map.containsKey(key)){
-			    map.get(key).add(value);
+				if(!map.get(key).contains(value)){
+					map.get(key).add(value);
+				}
 			}else {
 				List<String> list = new ArrayList<String>();
 				list.add(value);
@@ -1020,6 +1033,8 @@ public class DictionaryBuilder {
 		
 		String testStr = "马刺队";
 		
+		System.out.println("rs = "+getEntitySynonymTable().get(testStr));
+		testStr = "九寨沟";
 		System.out.println("rs = "+getEntitySynonymTable().get(testStr));
 		
 	}

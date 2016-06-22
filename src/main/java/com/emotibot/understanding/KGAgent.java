@@ -1,7 +1,9 @@
 package com.emotibot.understanding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
@@ -191,73 +193,108 @@ public class KGAgent {
 		// for single entity case
 		// if (entitySet.size() == 1) {
 		System.out.println("TEMP 1 answerBean=" + answerBean.toString() + ", comments=" + answerBean.getComments());
-		System.out.println("TIME 5 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
+		System.out.println("TIME 5 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter) +", entity="+entity);
 		if (entitySet.size() == 1) {
+			
+			// map<entity, labelList> 
+			Map<String, List<String>> entityProcessMap = new HashMap<>();
+			if(!NLPUtil.getLabelByEntity(entity).isEmpty()){
+				List<String> tempListLabel = NLPUtil.getLabelListByEntity(entity);
+				entityProcessMap.put(entity, tempListLabel);
+			}
+			if(NLPUtil.isASynonymEntity(entity)){
+				List<String> tempSynonymList = NLPUtil.getEntitySynonymNormal(entity);
+				System.out.println("tempSynonymList = " + tempSynonymList);
+				
+				for(String tempS : tempSynonymList){
+					List<String> tempListLabel = NLPUtil.getLabelListByEntity(tempS);
+					entityProcessMap.put(tempS, tempListLabel);
+				}
+			}
+			
 			// iterate each label of entity, and get the answer with highest
 			// score
-			List<String> listLabel = NLPUtil.getLabelListByEntity(entity);
-			System.out.println("listLabel = " + listLabel);
+//			List<String> listLabel = NLPUtil.getLabelListByEntity(entity);
+//			System.out.println("listLabel = " + listLabel);
+			
 			// String oldSentence = sentence;
 			List<AnswerBean> singleEntityAnswerBeanList = new ArrayList<>();
-
-			for (String iLabel : listLabel) {
-				if (Tool.isStrEmptyOrNull(sentence)) {
-					continue;
+			
+			
+			System.out.println("entity Map Process: sentence = " + sentence + ", entityProcessMap="+entityProcessMap);
+			for(String eachEntity : entityProcessMap.keySet()){
+				List<String> listLabel = entityProcessMap.get(eachEntity);
+				System.out.println("listLabel = " + listLabel);
+				if(!eachEntity.equals(entity)){
+					sentence = sentence.toLowerCase().replace(entity, eachEntity);
+					userSentence = sentence;
+					System.out.println("synonym entity case, change the sentence to " + sentence);
+					entity = eachEntity;
 				}
 				
-				// since there maybe more than one record in a label with the same name
-				List<String> listKey = DBProcess.getKeyListbyEntity(entity, iLabel);
-				for(String iKey : listKey){
-					AnswerBean tempBean = new AnswerBean();
-					tempBean.setComments(answerBean.getComments());
-
-					PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
-					tempBean = propertyRecognizer.ReasoningProcess(sentence, iLabel, entity, tempBean, iKey);
-					System.out.println("\t ReasoningProcess answerBean = " + tempBean);
-
-					// add the implicationQuestion process here, for now only check
-					// the year computing
-					if (QuestionClassifier.isKindofQuestion(NLPUtil.removeMoodWord(entity, userSentence), QuestionClassifier.implicationQuestionType, "")) {
-						tempBean = QuestionClassifier.implicationQuestionProcess(NLPUtil.removeMoodWord(entity, userSentence), entity, tempBean);
-						// answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(),
-						// 0));
-						System.out.println("Implication Qustion: tempBean is " + tempBean.toString());
+				for (String iLabel : listLabel) {
+					if (Tool.isStrEmptyOrNull(sentence)) {
+						continue;
 					}
-
-					if (tempBean.isValid()) {
-						singleEntityAnswerBeanList.add(tempBean);
-					}
-
-					System.out.println("TEMP answerBean=" + tempBean);
-				}
-			}
-
-			// for entity Synonym case
-			if (singleEntityAnswerBeanList.isEmpty()) {
-				if (DictionaryBuilder.getEntitySynonymTable().containsKey(entity)) {
-					String entitySynonym = DictionaryBuilder.getEntitySynonymTable().get(entity);
-					String entitySynonymLabel = NLPUtil.getLabelByEntity(entitySynonym);
-					String entitySynonymSentence = sentence.toLowerCase().replace(entity, entitySynonym);;
 					
-					AnswerBean tempBean = new AnswerBean();
-					tempBean.setComments(answerBean.getComments());
-					PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
-					tempBean = propertyRecognizer.ReasoningProcess(entitySynonymSentence, entitySynonymLabel, entitySynonym,
-							tempBean, "");
-					
-					if (QuestionClassifier.isKindofQuestion(entitySynonymSentence, QuestionClassifier.implicationQuestionType,
-							"")) {
-						tempBean = QuestionClassifier.implicationQuestionProcess(userSentence, entitySynonym, tempBean);
-						System.out.println("Implication Qustion: tempBean is " + tempBean.toString());
-					}
-					System.out.println("\t ReasoningProcess answerBean for entity synonym = " + tempBean);
+					// since there maybe more than one record in a label with the same name
+					List<String> listKey = DBProcess.getKeyListbyEntity(entity, iLabel);
+					for(String iKey : listKey){
+						AnswerBean tempBean = new AnswerBean();
+						tempBean.setComments(answerBean.getComments());
 
-					if (tempBean.isValid()) {
-						singleEntityAnswerBeanList.add(tempBean);
-						System.out.println("TEMP answerBean for entity Synonym = " + tempBean);
+						PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
+						tempBean = propertyRecognizer.ReasoningProcess(sentence, iLabel, entity, tempBean, iKey);
+						System.out.println("\t ReasoningProcess answerBean = " + tempBean);
+
+						// add the implicationQuestion process here, for now only check
+						// the year computing
+						if (QuestionClassifier.isKindofQuestion(NLPUtil.removeMoodWord(entity, userSentence), QuestionClassifier.implicationQuestionType, "")) {
+							tempBean = QuestionClassifier.implicationQuestionProcess(NLPUtil.removeMoodWord(entity, userSentence), entity, tempBean);
+							// answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(),
+							// 0));
+							System.out.println("Implication Qustion: tempBean is " + tempBean.toString());
+						}
+
+						if (tempBean.isValid()) {
+							singleEntityAnswerBeanList.add(tempBean);
+						}
+
+						System.out.println("TEMP answerBean=" + tempBean);
 					}
 				}
+				
 			}
+			
+
+			
+
+//			// for entity Synonym case
+//			if (singleEntityAnswerBeanList.isEmpty()) {
+//				if (DictionaryBuilder.getEntitySynonymTable().containsKey(entity)) {
+//					String entitySynonym = DictionaryBuilder.getEntitySynonymTable().get(entity);
+//					String entitySynonymLabel = NLPUtil.getLabelByEntity(entitySynonym);
+//					String entitySynonymSentence = sentence.toLowerCase().replace(entity, entitySynonym);;
+//					
+//					AnswerBean tempBean = new AnswerBean();
+//					tempBean.setComments(answerBean.getComments());
+//					PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
+//					tempBean = propertyRecognizer.ReasoningProcess(entitySynonymSentence, entitySynonymLabel, entitySynonym,
+//							tempBean, "");
+//					
+//					if (QuestionClassifier.isKindofQuestion(entitySynonymSentence, QuestionClassifier.implicationQuestionType,
+//							"")) {
+//						tempBean = QuestionClassifier.implicationQuestionProcess(userSentence, entitySynonym, tempBean);
+//						System.out.println("Implication Qustion: tempBean is " + tempBean.toString());
+//					}
+//					System.out.println("\t ReasoningProcess answerBean for entity synonym = " + tempBean);
+//
+//					if (tempBean.isValid()) {
+//						singleEntityAnswerBeanList.add(tempBean);
+//						System.out.println("TEMP answerBean for entity Synonym = " + tempBean);
+//					}
+//				}
+//			}
 
 			if (!singleEntityAnswerBeanList.isEmpty()) {
 				System.out.println("singleEntityAnswerBeanList: size = " + singleEntityAnswerBeanList.size());
@@ -458,7 +495,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "告诉我林徽因的一些事？";
+		String str = "东京铁塔玩儿多长时间合适？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

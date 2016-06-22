@@ -53,7 +53,12 @@ public class GenerateAuxFiles {
 					continue;
 				}
 
-				String entity = NLPUtil.getEntitySynonymNormal(line).toLowerCase();
+				
+//				String entity = NLPUtil.getEntitySynonymNormal(line).toLowerCase();
+				// modify this since the chagne for enetitySynonymn
+				System.err.println("note here");
+				String entity = "";
+				
 				if (entity.isEmpty()){
 					entity = line;
 				} else {
