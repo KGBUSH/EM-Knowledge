@@ -559,9 +559,8 @@ public class PropertyRecognizer {
 			}
 		}
 		
-//		 System.out.println("strProperty=" + strProperty
-//					+ ", candidate=" + candidate+"right is " + right2left + " isPass is " +
-//		 isPass);
+//		System.out.println("strProperty=" + strProperty + ", candidate=" + candidate + "left is " + left2right + "right is " + right2left
+//				+ " isPass is " + isPass);
 
 		// if (left2right != right2left)
 		// System.err.println(

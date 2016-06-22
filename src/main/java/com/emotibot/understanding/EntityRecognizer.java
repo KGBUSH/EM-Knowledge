@@ -90,10 +90,10 @@ public class EntityRecognizer {
 				// rsEntity.add(simpleMatchEntity.get(0));
 				// change simple match set as source for fixing case:
 				// "百变小樱是哪种动漫" and "姚明的老婆的身高是多少"
-				List<String> tempList = CommonUtil.getIntersectionOfTwoLists(simpleMatchEntity, solrEntity,
-						simpleMatchEntity.size());
+//				List<String> tempList = CommonUtil.getIntersectionOfTwoLists(simpleMatchEntity, solrEntity,
+//						simpleMatchEntity.size());
 
-				for (String s : tempList) {
+				for (String s : simpleMatchEntity) {
 					if (NLPUtil.isEntityPM(s)) {
 						rsEntity.add(s);
 						break;

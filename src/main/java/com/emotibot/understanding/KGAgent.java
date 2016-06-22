@@ -402,7 +402,7 @@ public class KGAgent {
 			return answerBean.returnAnswer(answerBean);
 		}
 
-		if (!answerBean.getAnswer().isEmpty()) {
+		if (!answerBean.getAnswer().isEmpty() && answerBean.getScore()>=80) {
 			// for the highfrequent case
 			if (NLPUtil.isInRemoveableMauallyCollectedDict(entity)) {
 				answerBean.setScore(0);
@@ -434,9 +434,12 @@ public class KGAgent {
 								? 50 : 0);
 				answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduce));
 			} else {
-				answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduce));
 				answerBean.setScore(QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(userSentence),
-						"Introduction", entity) ? 100 : 0);
+						"Introduction", entity) ? 100 : answerBean.getScore());
+				// otherwise, it already has an answer from property recognization
+				if(answerBean.getScore() == 100 || answerBean.getScore() == 0){
+					answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduce));
+				}
 			}
 			
 			// to avoid the case of "是什么" in a statement 
@@ -454,7 +457,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "威少获得过什么奖项";
+		String str = "川贝雪梨膏治什么病的？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");
