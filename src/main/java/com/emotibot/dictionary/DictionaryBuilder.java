@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -60,7 +61,7 @@ public class DictionaryBuilder {
 	private static Set<String> entityPMTable;
 	private static Set<String> entityTable;
 	// entitySynonymTable:[甲肝，甲型病毒性肝炎]
-	private static Map<String, String> entitySynonymTable;
+	private static Map<String, List<String>> entitySynonymTable;
 	// entitySynonymReverseTable:[山大，<山西大学，山东大学>]
 	private static Map<String, List<String>> entitySynonymReverseTable;
 	// highFeqWordTable: the first 10000 high frequent word from NLP dictionary
@@ -117,8 +118,12 @@ public class DictionaryBuilder {
 		for (String s : entitySynonymTable.keySet()) {
 			CustomDictionary.add(s);
 		}
-		for (String s : entitySynonymTable.values()) {
-				CustomDictionary.add(s);
+		for (List<String> s : entitySynonymTable.values()) {
+			Iterator<String> iterator = s.iterator();
+			while (iterator.hasNext()) {
+				String string = (String) iterator.next();
+				CustomDictionary.add(string);
+			}	
 		}
 	}
 
@@ -130,7 +135,7 @@ public class DictionaryBuilder {
 		return entityTable;
 	}
 
-	public static Map<String, String> getEntitySynonymTable() {
+	public static Map<String, List<String>> getEntitySynonymTable() {
 		return entitySynonymTable;
 	}
 
@@ -219,29 +224,94 @@ public class DictionaryBuilder {
 		return synMap;
 	}
 
-	// [欧洲，<欧罗巴，欧罗巴洲>]
-	private static Map<String, List<String>> createEntitySynonymReverseTable() {
+	// [欧洲，<欧罗巴，欧罗巴洲>] 合并下面两个方法
+	private static Map<String, List<String>> createEntitySynonymReverseTable(){
+		Map<String, List<String>> rsMap = new HashMap<String, List<String>>();
+		Map<String, List<String>> rsMap1 = createEntitySynonymReverseTable_One();
+		Map<String, List<String>> rsMap2 = createEntitySynonymReverseTable_Two();
+		if(rsMap1.equals(rsMap2)){
+			rsMap = rsMap1;
+		}else {
+			System.err.print("createEntitySynonymReverseTable()方法中两个方法生成的数据表不一样");
+		}
+		return rsMap;
+	}
+	
+	// [欧洲，<欧罗巴，欧罗巴洲>] 从entitySynonymTable 中获取
+	private static Map<String, List<String>> createEntitySynonymReverseTable_One() {
 		System.err.println("init of createEntitySynonymReverseTable");
 		Map<String, List<String>> rsMap = new HashMap<>();
 		for (String s : entitySynonymTable.keySet()) {
-			String value = entitySynonymTable.get(s); // 欧洲
-			List<String> list = new ArrayList<>();
-			if (rsMap.keySet().contains(value)) {
-				list = rsMap.get(value);
+			List<String> value = entitySynonymTable.get(s); // 欧洲
+			Iterator<String> iterator = value.iterator();
+			while (iterator.hasNext()) {
+				String string = (String) iterator.next();
+				List<String> list = new ArrayList<>();
+				if (rsMap.keySet().contains(string)) {
+					list = rsMap.get(string);
+				}
+				list.add(s);
+				rsMap.put(string, list);
 			}
-			list.add(s);
-			rsMap.put(value, list);
+						
 		}
 		return rsMap;
 	}
 
+	
+	// [欧洲，<欧罗巴，欧罗巴洲>] 直接从文件中读取 
+		private static Map<String, List<String>> createEntitySynonymReverseTable_Two() {
+			System.err.println("init of createEntitySynonymReverseTable");
+			String fileName = Common.UserDir + "/knowledgedata/entitySynonym.txt";
+			System.out.println("path is " + fileName);
+			Map<String, List<String>> entitySyn = new HashMap<>();
+
+			if (!Tool.isStrEmptyOrNull(fileName)) {
+				try {
+					BytesEncodingDetect s = new BytesEncodingDetect();
+					String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+					if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+						fileCode = "GB2312";
+					FileInputStream fis = new FileInputStream(fileName);
+					InputStreamReader read = new InputStreamReader(fis, fileCode);
+					BufferedReader dis = new BufferedReader(read);
+					String line = "";
+					while ((line = dis.readLine()) != null) {
+						String[] wordList = CharUtil.trim(line).split("##");
+						if (wordList.length < 2) {
+							System.err.println("wrong format in entitySynonym.txt");
+							continue;
+						}
+
+						String dbName = CharUtil.trim(wordList[0]);
+						
+						List<String> list = new ArrayList<String>();
+						for (int i = 1; i < wordList.length; i++) {
+							String synName = CharUtil.trimAndlower(wordList[i]);
+							list.add(synName);
+						}
+						entitySyn.put(dbName, list);
+					}
+					dis.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+
+			System.out.println("length of entitySyn: " + entitySyn.size());
+
+			return entitySyn;
+		}
+	
+	
 	// create entity table Set
-	// [“甲肝”,"甲型病毒性肝炎"]
-	private static Map<String, String> createEntitySynonymTable() {
+	// [“甲肝”,<"甲型病毒性肝炎">]
+	private static Map<String, List<String>> createEntitySynonymTable() {
 		System.err.println("init of createEntitySynonymTable");
 		String fileName = Common.UserDir + "/knowledgedata/entitySynonym.txt";
 		System.out.println("path is " + fileName);
-		Map<String, String> entitySyn = new HashMap<>();
+		Map<String, List<String>> entitySyn = new HashMap<>();
 
 		if (!Tool.isStrEmptyOrNull(fileName)) {
 			try {
@@ -302,7 +372,8 @@ public class DictionaryBuilder {
 	}
 
 	// add an element into the set of the map
-	private static void buildEntitySynonymMap(Map<String, String> map, String key, String value) {
+	private static void buildEntitySynonymMap(Map<String, List<String>> map, String key, String value) {
+		
 		if (Tool.isStrEmptyOrNull(key)) {
 			System.err.println("buildEntitySynonymMap: wrong format");
 			return;
@@ -313,7 +384,14 @@ public class DictionaryBuilder {
 			return;
 		} else {
 			// if the corresponding set does not contain value, add it to the set
-			map.put(key, value);
+			if(map.containsKey(key)){
+			    map.get(key).add(value);
+			}else {
+				List<String> list = new ArrayList<String>();
+				list.add(value);
+				map.put(key, list);
+			}
+			
 		}
 	}
 
