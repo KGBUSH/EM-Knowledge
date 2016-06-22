@@ -474,8 +474,6 @@ public class PropertyRecognizer {
 		
 		return finalResult;
 	 }
-	  		
-	 			
 	
 	// test the similarity between target (strProperty) and ref (candidate)
 	private boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
@@ -580,6 +578,14 @@ public class PropertyRecognizer {
 			}else {
 				rsMap.put(strProperty, right2left);
 			}
+		}
+		
+		if(left2right == 0 && right2left == 0){
+			rsMap.put(strProperty, 5);
+		}
+		
+		if(left2right >= 0 && right2left >= 0 && rsMap.get(strProperty)!=5){
+			LogService.printLog("", "SinglePatternMatching", "strProperty="+strProperty+", candidate="+candidate+", left="+left2right+", right="+right2left);
 		}
 
 		return isPass;

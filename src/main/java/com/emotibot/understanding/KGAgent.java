@@ -411,6 +411,7 @@ public class KGAgent {
 			System.out.println("PM.getAnswer 5: the returned anwer is " + answerBean.toString());
 			return answerBean.returnAnswer(answerBean);
 		} else if (NLPUtil.isInRemoveableAllDict(entity) || NLPUtil.isInDailyUsedWordDict(entity)) {
+			System.out.println("PM.getAnswer 5.1: in Removeable Case");
 			return answerBean.returnAnswer(answerBean);
 		} else {
 			// introduction case
@@ -457,7 +458,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "川贝雪梨膏治什么病的？";
+		String str = "告诉我林徽因的一些事？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

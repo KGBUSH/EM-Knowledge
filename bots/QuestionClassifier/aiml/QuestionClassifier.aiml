@@ -1368,379 +1368,379 @@
         </template>
     </category>
     <category>
-        <pattern> 介 绍 ## * <type>entity</type> ^ </pattern>
+        <pattern> 介 绍 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 介 绍 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 介 绍 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 介 绍 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 介 绍 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 陈 述 ## * <type>entity</type> ^ </pattern>
+        <pattern> 陈 述 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 陈 述 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 陈 述 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 陈 述 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 陈 述 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 聊 ## * <type>entity</type> ^ </pattern>
+        <pattern> 聊 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 聊 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 聊 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 聊 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 聊 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 说 ## * <type>entity</type> ^ </pattern>
+        <pattern> 说 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 说 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 说 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 说 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 说 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 讲 ## * <type>entity</type> ^ </pattern>
+        <pattern> 讲 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 讲 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 讲 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 讲 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 讲 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 告 诉 ## * <type>entity</type> ^ </pattern>
+        <pattern> 告 诉 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 告 诉 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 告 诉 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 告 诉 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 告 诉 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 查 阅 ## * <type>entity</type> ^ </pattern>
+        <pattern> 查 阅 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 查 阅 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 查 阅 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 查 阅 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 查 阅 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 介 绍 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 介 绍 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 介 绍 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 介 绍 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 介 绍 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 介 绍 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 陈 述 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 陈 述 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 陈 述 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 陈 述 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 陈 述 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 陈 述 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 聊 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 聊 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 聊 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 聊 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 聊 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 聊 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 说 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 说 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 说 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 说 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 说 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 说 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 讲 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 讲 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 讲 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 讲 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 讲 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 讲 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 告 诉 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 告 诉 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 告 诉 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 告 诉 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 告 诉 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 告 诉 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 查 阅 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 查 阅 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 查 阅 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 查 阅 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 查 阅 一 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 查 阅 一 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 介 绍 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 介 绍 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 介 绍 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 介 绍 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 介 绍 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 介 绍 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 陈 述 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 陈 述 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 陈 述 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 陈 述 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 陈 述 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 陈 述 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 聊 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 聊 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 聊 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 聊 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 聊 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 聊 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 说 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 说 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 说 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 说 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 说 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 说 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 讲 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 讲 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 讲 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 讲 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 讲 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 讲 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 告 诉 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 告 诉 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 告 诉 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 告 诉 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 告 诉 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 告 诉 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 查 阅 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 查 阅 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 请 查 阅 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 请 查 阅 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> 给 查 阅 下 ## * <type>entity</type> ^ </pattern>
+        <pattern> 给 查 阅 下 ^ ## * <type>entity</type> ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
