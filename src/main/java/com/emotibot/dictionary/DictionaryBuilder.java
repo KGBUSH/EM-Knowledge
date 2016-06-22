@@ -229,11 +229,23 @@ public class DictionaryBuilder {
 		Map<String, List<String>> rsMap = new HashMap<String, List<String>>();
 		Map<String, List<String>> rsMap1 = createEntitySynonymReverseTable_One();
 		Map<String, List<String>> rsMap2 = createEntitySynonymReverseTable_Two();
+		
+		for(String str1 : rsMap1.keySet()){
+			if(!rsMap2.keySet().contains(str1)){
+				System.out.println("wrong format 1: s1="+str1);
+			} else {
+				if(!Tool.compareTwoList(rsMap1.get(str1),rsMap2.get(str1))){
+					System.out.println("wrong format 2");
+				}
+			}
+		}
+		
 		if(rsMap1.equals(rsMap2)){
 			rsMap = rsMap1;
 		}else {
 			System.err.print("createEntitySynonymReverseTable()方法中两个方法生成的数据表不一样");
 		}
+		
 		return rsMap;
 	}
 	
@@ -246,14 +258,15 @@ public class DictionaryBuilder {
 			Iterator<String> iterator = value.iterator();
 			while (iterator.hasNext()) {
 				String string = (String) iterator.next();
-				List<String> list = new ArrayList<>();
+				// if contained, update the list, otherwise, create a new one
 				if (rsMap.keySet().contains(string)) {
-					list = rsMap.get(string);
+					rsMap.get(string).add(s);
+				} else {
+					List<String> list = new ArrayList<>();
+					list.add(s);
+					rsMap.put(string, list);
 				}
-				list.add(s);
-				rsMap.put(string, list);
 			}
-						
 		}
 		return rsMap;
 	}

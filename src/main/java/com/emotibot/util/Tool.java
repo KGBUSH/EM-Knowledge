@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
@@ -203,6 +204,26 @@ public class Tool {
 			}
 		}
 		return arr[index];
+	}
+
+	// still lack of the check for the duplicate elements
+	public static boolean compareTwoList(List<String> lhs, List<String> rhs){
+		if (lhs == null || rhs == null){
+			return false;
+		}
+		if (lhs.isEmpty() && rhs.isEmpty()){
+			return true;
+		}
+		if(lhs.size()!=rhs.size()){
+			return false;
+		}
+		for(String s : lhs){
+			if(!rhs.contains(s)){
+				return false;
+			}
+		}
+		
+		return true;
 	}
 
 }
