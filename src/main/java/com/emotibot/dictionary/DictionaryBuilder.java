@@ -84,11 +84,14 @@ public class DictionaryBuilder {
 	private static Set<String> moodWordTable;
 	// moodWordExceptionTable :[是什么]
 	private static Set<String> moodWordExceptionTable;
+	// prefixWordRecogniseTable :[你喜欢]
+	private static Set<String> prefixWordRecogniseTable;
 	// entityLabelTable:<女医·明妃传,<other,tv>>
 	private static Map<String, List<String>> entityWithLabelTable;
 
 	public static void DictionaryBuilderInit() {
 		moodWordTable = createMoodWordTable();
+		prefixWordRecogniseTable = createPrefixWordRecogniseTable();
 		setMoodWordExceptionTable(createMoodWordExceptionTable());
 		setReservedHighFeqWordTable(createReservedHighFeqWordTable());
 		highFeqWordTable = createHighFeqWordTable();
@@ -881,6 +884,32 @@ public class DictionaryBuilder {
 		}
 		return moodWordSet;
 	}
+	
+	// create prefixWordRecognise Table Set
+		private static Set<String> createPrefixWordRecogniseTable() {
+			Set<String> prefixWordSet = new HashSet<String>();
+			String fileName = Common.UserDir + "/knowledgedata/dictionary/prefixWordRecognised.txt";
+			if (!Tool.isStrEmptyOrNull(fileName)) {
+				try {
+					BytesEncodingDetect s = new BytesEncodingDetect();
+					String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+					if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+						fileCode = "GB2312";
+					FileInputStream fis = new FileInputStream(fileName);
+					InputStreamReader read = new InputStreamReader(fis, fileCode);
+					BufferedReader dis = new BufferedReader(read);
+					String word = null;
+					while ((word = dis.readLine()) != null) {
+						prefixWordSet.add(CharUtil.trimAndlower(word));
+					}
+					dis.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+			return prefixWordSet;
+		}
 
 	// create moodword table Set
 	private static Set<String> createMoodWordExceptionTable() {
@@ -1069,6 +1098,15 @@ public class DictionaryBuilder {
 
 	public static void setRemoveableMauallyCollectedWordTable(Set<String> removeableMauallyCollectedWordTable) {
 		DictionaryBuilder.removeableMauallyCollectedWordTable = removeableMauallyCollectedWordTable;
+	}
+
+	public static Set<String> getPrefixWordRecogniseTable() {
+		return prefixWordRecogniseTable;
+	}
+
+	public static void setPrefixWordRecogniseTable(
+			Set<String> prefixWordRecogniseTable) {
+		DictionaryBuilder.prefixWordRecogniseTable = prefixWordRecogniseTable;
 	}
 
 	public static void main(String[] a) {

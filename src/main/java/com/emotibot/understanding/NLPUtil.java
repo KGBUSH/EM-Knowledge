@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.netlib.util.booleanW;
+
 import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
 import com.emotibot.util.CharUtil;
@@ -252,6 +254,19 @@ public class NLPUtil {
 		return false;
 	}
 	
+	// if a sentence begin with “你喜欢”
+	public static boolean isContainsSpecicalPrefixWord(String sentence) {
+		if (Tool.isStrEmptyOrNull(sentence)) {
+			return false;
+		}
+		for(String s : DictionaryBuilder.getPrefixWordRecogniseTable()){
+			if(sentence.startsWith(s)){
+				return true;
+			}
+		}
+		
+		return false;
+	}
 
 	// remove the moodword in a sentence
 	// input: "姚明在家吗" "姚明在家了吗"
