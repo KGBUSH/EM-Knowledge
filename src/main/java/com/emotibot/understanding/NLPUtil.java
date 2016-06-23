@@ -255,7 +255,7 @@ public class NLPUtil {
 	}
 	
 	// if a sentence begin with “你喜欢”
-	public static boolean isContainsSpecicalPrefixWord(String sentence) {
+	public static boolean isStartWithSpecialPrefixWord(String sentence) {
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			return false;
 		}
