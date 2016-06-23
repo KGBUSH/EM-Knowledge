@@ -97,12 +97,12 @@ public class EntityRecognizer {
 				for (String s : simpleMatchEntity) {
 					if(NLPUtil.isASynonymEntity(s)){
 						for(String tempEntity : NLPUtil.getEntitySynonymNormal(s)){
-							if (NLPUtil.isEntityPM(tempEntity)) {
+							if (NLPUtil.isFirstLevelEntity(tempEntity)) {
 								rsEntity.add(s);
 								break;
 							}
 						}
-					} else if (NLPUtil.isEntityPM(s)) {
+					} else if (NLPUtil.isFirstLevelEntity(s)) {
 						rsEntity.add(s);
 					}
 					if(!rsEntity.isEmpty()){
@@ -291,6 +291,8 @@ public class EntityRecognizer {
 		TCPClient tcp = new TCPClient();
 		try {
 			String tcpRtn = tcp.TransmitThrowException(sentence);
+			
+			System.out.println("get from tcp are "+tcpRtn);
 			tcpRtn = CharUtil.trimAndlower(tcpRtn);
 			if (!Tool.isStrEmptyOrNull(tcpRtn)) {
 				String[] strArr = tcpRtn.split("&");
@@ -353,14 +355,15 @@ public class EntityRecognizer {
 //			}
 //		}
 		
-		// entitySynonymTable：【甲肝，甲型病毒性肝炎】
-		for (String s : DictionaryBuilder.getEntitySynonymTable().keySet()) {
-			if (!entityTreeSet.contains(s) && sentence.contains(s.toLowerCase())) {
-				entityTreeSet.add(s);
-//				refMap.put(s, DictionaryBuilder.getEntitySynonymTable().get(s));
-//				System.err.println("s="+s+", test="+DictionaryBuilder.getEntitySynonymTable().get(s));
-			}
-		}
+		// remove this section as getting the synonym entity by multipattern matching
+//		// entitySynonymTable：【甲肝，甲型病毒性肝炎】
+//		for (String s : DictionaryBuilder.getEntitySynonymTable().keySet()) {
+//			if (!entityTreeSet.contains(s) && sentence.contains(s.toLowerCase())) {
+//				entityTreeSet.add(s);
+////				refMap.put(s, DictionaryBuilder.getEntitySynonymTable().get(s));
+////				System.err.println("s="+s+", test="+DictionaryBuilder.getEntitySynonymTable().get(s));
+//			}
+//		}
 
 		System.out.println("simple matching entities before removal: " + entityTreeSet.toString());
 		entitySet = removeContainedElements(entityTreeSet);

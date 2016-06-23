@@ -52,6 +52,7 @@ public class IntentionClassifier {
 			String tempEntity = entitySet.get(0);
 			if(NLPUtil.isASynonymEntity(tempEntity)){
 				tempEntity = NLPUtil.getEntitySynonymNormal(tempEntity).get(0);
+				System.out.println("synonym case: syn is "+entitySet.get(0)+", and real entity is "+tempEntity);
 			}
 
 			System.out.println("INTENTION 1");
@@ -75,7 +76,7 @@ public class IntentionClassifier {
 
 //			String tempStrIntroduce = DBProcess.getPropertyValue(entitySet.get(0),
 //					Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
-			String tempStrIntroduce = DBProcess.getEntityIntroduction(entitySet.get(0));
+			String tempStrIntroduce = DBProcess.getEntityIntroduction(tempEntity);
 			if (tempStrIntroduce.contains("。"))
 				tempStrIntroduce = tempStrIntroduce.substring(0, tempStrIntroduce.indexOf("。"));
 			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(tempStrIntroduce));

@@ -315,7 +315,7 @@ public class GenerateDictionaryFile {
 
 			for (String s : setEntity) {
 				if (setHighWord.contains(s)) {
-					if (!NLPUtil.isEntityPM(s)) {
+					if (!NLPUtil.isFirstLevelEntity(s)) {
 						outOther.write(s + "\r\n");
 					}
 					outAll.write(s + "\r\n");

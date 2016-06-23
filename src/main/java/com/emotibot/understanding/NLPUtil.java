@@ -34,9 +34,18 @@ public class NLPUtil {
 			return false;
 		}
 	}
+	
+	// is the string exists in Entity, without checking entity synonym 
+	public static boolean isDBEntity(String str) {
+		if (!getEntityInDictinoary(str).isEmpty()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	// check whether the work in entityPM.txt
-	public static boolean isEntityPM(String str) {
+	public static boolean isFirstLevelEntity(String str) {
 		if (!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getEntityPMTable().contains(str)) {
 			return true;
 		} else {

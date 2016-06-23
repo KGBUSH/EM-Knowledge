@@ -136,6 +136,11 @@ public class KGAgent {
 			return answerBean.returnAnswer(answerBean);
 		}
 
+		// Preprocess: removing the senetence begin with words like "你喜欢"
+		
+		
+		
+		// Intention Process
 		IntentionClassifier intention = new IntentionClassifier(nerBean);
 		answerBean = intention.intentionProcess();
 
@@ -167,10 +172,7 @@ public class KGAgent {
 	// output: the answer without answer rewriting, “226cm”
 	private AnswerBean answerProcess(AnswerBean answerBean) {
 
-		String sentence = nerBean.getSentence();
-
 		AnswerRewrite answerRewite = new AnswerRewrite();
-
 		System.out.println("##### entitySet=" + entitySet);
 
 //		if (isQuestion == false) {
@@ -220,17 +222,16 @@ public class KGAgent {
 			// String oldSentence = sentence;
 			List<AnswerBean> singleEntityAnswerBeanList = new ArrayList<>();
 			
-			
-			System.out.println("entity Map Process: sentence = " + sentence + ", entityProcessMap="+entityProcessMap);
+			System.out.println("entity Map Process: entityProcessMap="+entityProcessMap);
 			for(String eachEntity : entityProcessMap.keySet()){
 				List<String> listLabel = entityProcessMap.get(eachEntity);
+				String sentence = nerBean.getSentence();
 				System.out.println("listLabel = " + listLabel);
 				if(!eachEntity.equals(entity)){
-					sentence = sentence.toLowerCase().replace(entity, eachEntity);
-					userSentence = sentence;
+					sentence = nerBean.getSentence().toLowerCase().replace(entity, eachEntity);
 					System.out.println("synonym entity case, change the sentence to " + sentence);
-					entity = eachEntity;
 				}
+				System.out.println("entityProcess: sentence is "+sentence);
 				
 				for (String iLabel : listLabel) {
 					if (Tool.isStrEmptyOrNull(sentence)) {
@@ -238,19 +239,19 @@ public class KGAgent {
 					}
 					
 					// since there maybe more than one record in a label with the same name
-					List<String> listKey = DBProcess.getKeyListbyEntity(entity, iLabel);
+					List<String> listKey = DBProcess.getKeyListbyEntity(eachEntity, iLabel);
 					for(String iKey : listKey){
 						AnswerBean tempBean = new AnswerBean();
 						tempBean.setComments(answerBean.getComments());
 
 						PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
-						tempBean = propertyRecognizer.ReasoningProcess(sentence, iLabel, entity, tempBean, iKey);
+						tempBean = propertyRecognizer.ReasoningProcess(sentence, iLabel, eachEntity, tempBean, iKey);
 						System.out.println("\t ReasoningProcess answerBean = " + tempBean);
 
 						// add the implicationQuestion process here, for now only check
 						// the year computing
-						if (QuestionClassifier.isKindofQuestion(NLPUtil.removeMoodWord(entity, userSentence), QuestionClassifier.implicationQuestionType, "")) {
-							tempBean = QuestionClassifier.implicationQuestionProcess(NLPUtil.removeMoodWord(entity, userSentence), entity, tempBean);
+						if (QuestionClassifier.isKindofQuestion(NLPUtil.removeMoodWord(eachEntity, sentence), QuestionClassifier.implicationQuestionType, "")) {
+							tempBean = QuestionClassifier.implicationQuestionProcess(NLPUtil.removeMoodWord(eachEntity, sentence), eachEntity, tempBean);
 							// answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(),
 							// 0));
 							System.out.println("Implication Qustion: tempBean is " + tempBean.toString());
@@ -453,27 +454,38 @@ public class KGAgent {
 		} else {
 			// introduction case
 //			String strIntroduce = DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
-			String strIntroduce = DBProcess.getEntityIntroduction(entity);
+			
+			String sentence = nerBean.getSentence();
+			String tempEntity = entity;
+			if(!NLPUtil.isDBEntity(entity) && NLPUtil.isASynonymEntity(entity)){
+				tempEntity = NLPUtil.getEntitySynonymNormal(entity).get(0);
+				sentence = nerBean.getSentence().toLowerCase().replace(entity, tempEntity);
+				System.out.println("Introduction synonym entity case, change the sentence to " + sentence + " with entity " + tempEntity);
+			} else {
+				System.out.println("Introduction normal entity case, change the sentence to " + sentence + " with entity " + tempEntity);
+			}
+			
+			String strIntroduce = DBProcess.getEntityIntroduction(tempEntity);
 			if (strIntroduce.contains("。"))
 				strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
 
-			if (!userSentence.contains(entity)) {
-				System.out.println("userSentence=" + userSentence + "++++ entity=" + entity);
+			if (!sentence.contains(tempEntity)) {
+				System.out.println("userSentence=" + sentence + "++++ tempEntity=" + tempEntity);
 
-				String searchRS = CommonUtil.matchPropertyValue(entity, segWordWithoutStopWord);
+				String searchRS = CommonUtil.matchPropertyValue(tempEntity, segWordWithoutStopWord);
 				System.out.println("searchRS=" + searchRS);
 				if (Tool.isStrEmptyOrNull(searchRS)) {
 					return answerBean.returnAnswer(answerBean);
 				}
 				String oldEntity = searchRS.substring(0, searchRS.indexOf("----####"));
-				strIntroduce = searchRS.replace("----####", "是" + entity + "的") + "。" + entity + "是" + strIntroduce;
+				strIntroduce = searchRS.replace("----####", "是" + tempEntity + "的") + "。" + tempEntity + "是" + strIntroduce;
 				answerBean.setScore(QuestionClassifier.isKindofQuestion(
-						NLPUtil.removePunctuateMark(userSentence.replace(oldEntity, entity)), "Introduction", entity)
+						NLPUtil.removePunctuateMark(sentence.replace(oldEntity, tempEntity)), "Introduction", tempEntity)
 								? 50 : 0);
 				answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduce));
 			} else {
-				answerBean.setScore(QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(userSentence),
-						"Introduction", entity) ? 100 : answerBean.getScore());
+				answerBean.setScore(QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(sentence),
+						"Introduction", tempEntity) ? 100 : answerBean.getScore());
 				// otherwise, it already has an answer from property recognization
 				if(answerBean.getScore() == 100 || answerBean.getScore() == 0){
 					answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduce));
@@ -495,7 +507,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "东京铁塔玩儿多长时间合适？";
+		String str = "金毛是什么";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

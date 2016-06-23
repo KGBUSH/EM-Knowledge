@@ -5,6 +5,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -26,17 +28,51 @@ public class GenerateEntityFiles {
 
 		DictionaryBuilder.DictionaryBuilderInit();
 		
+		// generate entity.txt file
+		generateEntity();
+		String tempFileName = Common.UserDir + "/knowledgedata/entityException.txt";
+		File fp = new File(tempFileName);
+		if(fp.exists()){
+			fp.delete();
+		} 
+		fp.createNewFile();
+//		(new File(tempFileName)).delete();
+		checkTemplate();
+		modifyEntity();
+		
 		// generate entity with label
 		generateEntityAndLabel();
 		
 		// generate entity list in first level
-//		generateEntityPMFile();
+		generateEntityPMFile();
 		
-//		generateEntity();
-//		String tempFileName = Common.UserDir + "/knowledgedata/entityException.txt";
-//		(new File(tempFileName)).delete();
-//		checkTemplate();
-//		modifyEntity();
+		// generate entity.txt for multi-pattern matching
+		generateEntity4MultiPatternMatching();
+	}
+	
+	private static void generateEntity4MultiPatternMatching(){
+		File sourceFile = new File(Common.UserDir + "/knowledgedata/entity.txt");
+		File destFile = new File(Common.UserDir + "/sentiment/entity.txt");
+		
+		try {
+			if(destFile.exists()){
+				destFile.delete();
+			}
+			Files.copy(sourceFile.toPath(), destFile.toPath());
+			
+			String tempFileName = Common.UserDir + "/sentiment/entity.txt";
+			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName, true));
+			for(String s : DictionaryBuilder.getEntitySynonymTable().keySet()){
+				out.write(s + "\r\n");
+			}
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("generateEntity4MultiPatternMatching done");
+		
 	}
 
 	private static void modifyEntity() {
@@ -82,6 +118,8 @@ public class GenerateEntityFiles {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		System.out.println("modifyEntity done");
 	}
 
 	// generate the entity name list from DB
