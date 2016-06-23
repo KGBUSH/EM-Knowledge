@@ -618,6 +618,48 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 儿 ^ 好 玩 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 有 什 么 ^ 不 能 错 过 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 有 哪 些 ^ 不 能 错 过 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 儿 ^ 不 能 错 过 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 有 什 么 ^ 值 得 一 看 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 有 哪 些 ^ 值 得 一 看 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 儿 ^ 值 得 一 看 ^ </pattern>
+        <template>
+            <star index="2"/>的著名景点是什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 哪 个 ^ 季 节 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
             <star index="4"/>的游玩季节是什么时候？
@@ -1086,6 +1128,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 几 A级 ^ </pattern>
+        <template>
+            <star index="2"/>景点级别是什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 哪 个 ^ 建 造 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
             <star index="4"/>建造时间什么时候？
@@ -1171,6 +1219,66 @@
     </category>
     <category>
         <pattern> ^ 什 么 ^ 造 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
+        <template>
+            <star index="4"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 ^ 修 建 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
+        <template>
+            <star index="4"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 修 建 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
+        <template>
+            <star index="4"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 修 建 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
+        <template>
+            <star index="4"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 修 建 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
+        <template>
+            <star index="4"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 修 建 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
+        <template>
+            <star index="4"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 ^ 建 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
+        <template>
+            <star index="4"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 啥 时 ^ 建 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
+        <template>
+            <star index="4"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 时 ^ 建 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
+        <template>
+            <star index="4"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 何 时 ^ 建 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
+        <template>
+            <star index="4"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 什 么 ^ 建 ^ ## * <type>entity</type><label>tourism</label> ^ </pattern>
         <template>
             <star index="4"/>建造时间什么时候？
         </template>
@@ -1266,6 +1374,66 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 个 ^ 修 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 啥 时 ^ 修 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 时 ^ 修 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 何 时 ^ 修 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 ^ 修 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 个 ^ 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 啥 时 ^ 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 时 ^ 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 何 时 ^ 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 什 么 ^ 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造时间什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 谁 ^ 建 造 ^ </pattern>
         <template>
             <star index="2"/>建造者是谁？
@@ -1302,6 +1470,30 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 谁 ^ 修 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 个 ^ 修 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 谁 ^ 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 哪 个 ^ 建 ^ </pattern>
+        <template>
+            <star index="2"/>建造者是谁？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 建 造 ^ ## * <type>entity</type><label>tourism</label> ^ 谁 ^ </pattern>
         <template>
             <star index="3"/>建造者是谁？
@@ -1320,6 +1512,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 修 建 ^ ## * <type>entity</type><label>tourism</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>建造者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 建 ^ ## * <type>entity</type><label>tourism</label> ^ 谁 ^ </pattern>
+        <template>
+            <star index="3"/>建造者是谁？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 建 造 ^ ## * <type>entity</type><label>tourism</label> ^ 哪 个 ^ </pattern>
         <template>
             <star index="3"/>建造者是谁？
@@ -1333,6 +1537,18 @@
     </category>
     <category>
         <pattern> ^ 造 ^ ## * <type>entity</type><label>tourism</label> ^ 哪 个 ^ </pattern>
+        <template>
+            <star index="3"/>建造者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 修 建 ^ ## * <type>entity</type><label>tourism</label> ^ 哪 个 ^ </pattern>
+        <template>
+            <star index="3"/>建造者是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 建 ^ ## * <type>entity</type><label>tourism</label> ^ 哪 个 ^ </pattern>
         <template>
             <star index="3"/>建造者是谁？
         </template>
@@ -1473,6 +1689,30 @@
         <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 几 米 ^ </pattern>
         <template>
             <star index="2"/>的海拔高度是多少？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 免 费 ^ </pattern>
+        <template>
+            <star index="2"/>的门票价格是多少?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 收 费 ^ </pattern>
+        <template>
+            <star index="2"/>的门票价格是多少?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 花 钱 ^ </pattern>
+        <template>
+            <star index="2"/>的门票价格是多少?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>tourism</label> ^ 要 钱 ^ </pattern>
+        <template>
+            <star index="2"/>的门票价格是多少?
         </template>
     </category>
 </aiml>

@@ -137,8 +137,10 @@ public class KGAgent {
 		}
 
 		// Preprocess: removing the senetence begin with words like "你喜欢"
-		
-		
+		if(NLPUtil.isStartWithSpecialPrefixWord(userSentence)){
+			System.out.println("preprocess return = " + answerBean);
+			return answerBean;
+		}
 		
 		// Intention Process
 		IntentionClassifier intention = new IntentionClassifier(nerBean);
@@ -507,7 +509,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "绫波丽都有哪些外号";
+		String str = "孙俪和邓超什么关系";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

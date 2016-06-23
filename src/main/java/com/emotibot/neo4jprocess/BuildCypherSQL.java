@@ -226,11 +226,11 @@ public class BuildCypherSQL implements CypherSQLParser {
 		}
 
 		if (labelB.isEmpty()) {
-			query += "({" + Common.KGNODE_NAMEATRR + ":\"" + entityB + "\"}) UNWIND r as x return collect(type(x)) as "
+			query += "({" + Common.KGNODE_NAMEATRR + ":\"" + entityB + "\"}) with r limit 1 UNWIND r as x return collect(type(x)) as "
 					+ Common.ResultObj;
 		} else {
 			query += "(:" + labelB + "{" + Common.KGNODE_NAMEATRR + ":\"" + entityB
-					+ "\"}) UNWIND r as x return collect(type(x)) as " + Common.ResultObj;
+					+ "\"}) with r limit 1 UNWIND r as x return collect(type(x)) as " + Common.ResultObj;
 		}
 
 		System.out.println("CYPHER of getRelationshipInPath: " + query);

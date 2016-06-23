@@ -7,7 +7,9 @@ medical_treatment,^为什么/为啥/怎么^#^;#的常见病因有什么？
 medical_treatment,^#^为什么/为啥/怎么^;#的常见病因有什么？
 medical_treatment,^#^原因/情况^;#的常见病因有什么？
 medical_treatment,^原因/情况^#^;#的常见病因有什么？
-medical_treatment,^#^怎样/什么感觉/怎么样^;#的常见症状有什么？
+medical_treatment,^#^怎样/什么感觉/怎么样/什么表现^;#的常见症状有什么？
+medical_treatment,^#^表现/感觉^什么/啥/咋样^;#的常见症状有什么？
+medical_treatment,^#^导致/发生^什么/哪些^;#的常见症状有什么？
 medical_treatment,^#^怎么/怎样^传播/传染^;#的传播途径是什么？
 medical_treatment,^什么/哪/谁^生/感染/得/患^#^;#的多发群体是什么？
 medical_treatment,^#^什么/哪/谁^生/感染/得/患^;#的多发群体是什么？
@@ -20,6 +22,8 @@ medical_treatment,^运动员^#^;运动员慎用吗？
 medical_treatment,^#^怎么/如何/咋^吃/用^;#的用法用量是什么？
 medical_treatment,^怎么/如何/咋^吃/用^#^;#的用法用量是什么？
 medical_treatment,^#^什么/啥/哪^地方/部位^;#的常见发病部位是哪儿？
+medical_treatment,^哪儿/哪/哪里^生/感染/得/患^#^;#的常见发病部位是哪儿？
+medical_treatment,^#^哪儿/哪/哪里^生/感染/得/患^;#的常见发病部位是哪儿？
 medical_treatment,^#^哪儿/哪/哪里;#的常见发病部位是哪儿？
 medical_treatment,^#^哪儿/哪/哪里^发病/出现;#的常见发病部位是哪儿？
 medical_treatment,^#^还/又^叫/称呼^;#的别名是什么？
