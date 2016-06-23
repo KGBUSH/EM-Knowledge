@@ -229,7 +229,7 @@ public class KGAgent {
 				System.out.println("listLabel = " + listLabel);
 				if(!eachEntity.equals(entity)){
 					sentence = nerBean.getSentence().toLowerCase().replace(entity, eachEntity);
-					System.out.println("synonym entity case, change the sentence to " + sentence);
+					System.out.println("entityProcess: synonym entity case, change the sentence to " + sentence);
 				}
 				System.out.println("entityProcess: sentence is "+sentence);
 				
@@ -507,7 +507,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "金毛是什么";
+		String str = "故宫的开放时间";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

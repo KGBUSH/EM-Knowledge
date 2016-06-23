@@ -350,6 +350,7 @@ public class GenerateDictionaryFile {
 			e.printStackTrace();
 		}
 
+		System.out.println("generateRemoveableHighFrequentWordFile done");
 	}
 
 	public static void main(String[] args) {

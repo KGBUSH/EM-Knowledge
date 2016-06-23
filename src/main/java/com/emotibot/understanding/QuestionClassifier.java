@@ -30,6 +30,7 @@ public class QuestionClassifier {
 	// input: 姚明是谁？ 你喜欢姚明吗？
 	// output: 1 0
 	protected static boolean isIntroductionRequest(String sentence, String entity) {
+		System.out.println("isIntroductionRequest sentence"+sentence+", entity"+entity);
 		boolean rs = false;
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			return rs;
