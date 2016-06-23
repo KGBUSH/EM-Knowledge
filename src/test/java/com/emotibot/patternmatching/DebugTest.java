@@ -53,10 +53,10 @@ public class DebugTest {
 		String debugLevel = "0523All"; 
 		//bad_case, debugAll, debug, 0531testcase, 0531DebugPart, 0518Regression, 0523All, 
 		// 0630TestCase, 0630TestAll
-		String date = "0622";
+		String date = "0623";
 		String tempFileName = Common.UserDir + "/debug/"+date;
 		String reader = Common.UserDir + "/debug/cases/"+debugLevel+".txt";
-		String writer = Common.UserDir + "/debug/"+date+"/"+debugLevel+"_cases-"+date+"-21.txt";
+		String writer = Common.UserDir + "/debug/"+date+"/"+debugLevel+"_cases-"+date+"-102.txt";
 		
 		File fp = new File(tempFileName);
 		if(!fp.exists()){

@@ -87,6 +87,11 @@ public class EntityRecognizer {
 				System.out.println("case: 2: rsEntity=" + rsEntity);
 				return rsEntity;
 			} else {
+				
+				rsEntity.add(simpleMatchEntity.get(0));
+				System.out.println("case: 2.5: rsEntity=" + rsEntity);
+				return rsEntity;
+				
 				// rsEntity.add(simpleMatchEntity.get(0));
 				// change simple match set as source for fixing case:
 				// "百变小樱是哪种动漫" and "姚明的老婆的身高是多少"
@@ -94,38 +99,49 @@ public class EntityRecognizer {
 //						simpleMatchEntity.size());
 
 				// if the entity is of level 1, return it
-				for (String s : simpleMatchEntity) {
-					if(NLPUtil.isASynonymEntity(s)){
-						for(String tempEntity : NLPUtil.getEntitySynonymNormal(s)){
-							if (NLPUtil.isFirstLevelEntity(tempEntity)) {
-								rsEntity.add(s);
-								break;
-							}
-						}
-					} else if (NLPUtil.isFirstLevelEntity(s)) {
-						rsEntity.add(s);
-					}
-					if(!rsEntity.isEmpty()){
-						break;
-					}
-				}
-				if (rsEntity.isEmpty()) {
-					// bug fixing for the case of "黄金矿工哪年发行"
-					rsEntity.add(simpleMatchEntity.get(0));
-					// rsEntity.add(getSimilarEntityFromTwoLists(solrEntity,
-					// simpleMatchEntity));
-					System.err.println("case check in case 2.5=" + rsEntity);
-					// Debug.printDebug(uniqueID, 2, "knowledge", "case check in
-					// case 2.5=" + rsEntity);
-				}
-				System.out.println("case: 2.5: rsEntity=" + rsEntity);
-				return rsEntity;
+//				for (String s : simpleMatchEntity) {
+//					if(NLPUtil.isASynonymEntity(s)){
+//						for(String tempEntity : NLPUtil.getEntitySynonymNormal(s)){
+//							if (NLPUtil.isFirstLevelEntity(tempEntity)) {
+//								rsEntity.add(s);
+//								break;
+//							}
+//						}
+//					} else if (NLPUtil.isFirstLevelEntity(s)) {
+//						rsEntity.add(s);
+//					}
+//					if(!rsEntity.isEmpty()){
+//						break;
+//					}
+//				}
+//				
+//				
+//				
+//				if (rsEntity.isEmpty()) {
+//					// bug fixing for the case of "黄金矿工哪年发行"
+//					rsEntity.add(simpleMatchEntity.get(0));
+//					// rsEntity.add(getSimilarEntityFromTwoLists(solrEntity,
+//					// simpleMatchEntity));
+//					System.err.println("case check in case 2.5=" + rsEntity);
+//					// Debug.printDebug(uniqueID, 2, "knowledge", "case check in
+//					// case 2.5=" + rsEntity);
+//				}
+//				System.out.println("case: 2.5: rsEntity=" + rsEntity);
+//				return rsEntity;
 			}
 		} else {
 			// simeple Matching Entity != nlpEntity
 			if (!nlpEntity.isEmpty() && simpleMatchEntity.isEmpty()) {
 				System.err.println("simple Matching is empty but nlp is not");
 				return nlpEntity;
+			}
+			
+			if(!simpleMatchEntity.isEmpty() && !nlpEntity.isEmpty()){
+				if ((simpleMatchEntity.size()==1 || nlpEntity.size() == 1) && simpleMatchEntity.get(0).equals(nlpEntity.get(0))) {
+					rsEntity.add(simpleMatchEntity.get(0));
+					System.out.println("case: 2.6: rsEntity=" + rsEntity);
+					return rsEntity;
+				}
 			}
 
 			if (nlpEntity.isEmpty()) {

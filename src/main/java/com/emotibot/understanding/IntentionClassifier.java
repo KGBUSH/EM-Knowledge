@@ -50,7 +50,7 @@ public class IntentionClassifier {
 
 			System.out.println("Single Entity Case: entity=" + entitySet.get(0));
 			String tempEntity = entitySet.get(0);
-			if(NLPUtil.isASynonymEntity(tempEntity)){
+			if(!NLPUtil.isDBEntity(tempEntity) && NLPUtil.isASynonymEntity(tempEntity)){
 				tempEntity = NLPUtil.getEntitySynonymNormal(tempEntity).get(0);
 				System.out.println("synonym case: syn is "+entitySet.get(0)+", and real entity is "+tempEntity);
 			}
@@ -96,7 +96,7 @@ public class IntentionClassifier {
 		// move the process of introduction question to intention process
 		if (entitySet.size() == 1) {
 			String tempEntity = entitySet.get(0);
-			if(NLPUtil.isASynonymEntity(tempEntity)){
+			if(!NLPUtil.isDBEntity(tempEntity) && NLPUtil.isASynonymEntity(tempEntity)){
 				tempEntity = NLPUtil.getEntitySynonymNormal(tempEntity).get(0);
 				sentence = sentence.toLowerCase().replace(entitySet.get(0), tempEntity);
 				System.out.println("Intentinon 2: Synonym case tempEntity = "+tempEntity);
