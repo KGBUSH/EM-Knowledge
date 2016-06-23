@@ -12,7 +12,7 @@ IntroductionQuestion;^&#&谁||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&[有]&啥/什么&意思/含义||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&[是]&做什么的/干嘛的/怎么样||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&谁是/什么是/哪位是/哪个人是&#||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;^&认识/知道/了解/听说过/听过/熟悉/认不认识/熟不熟悉/了不了解/知不知道&#&[是啥/是什么/是谁]||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;^&看过/读过/认识/知道/了解/听说过/听过/熟悉/认不认识/熟不熟悉/了不了解/知不知道&#&[是啥/是什么/是谁]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&[你]&认识/知道/了解/听说过/听过/熟悉||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;[你知道/你了解/知道/了解]&什么/啥&叫/叫做/是/称为/被称为&#||IntroductionQuestion@:firstParamInfo
 ImplicationQuestion;^&多久/多长时间/几年/多少年||ImplicationQuestion@:computeYear
