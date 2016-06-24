@@ -225,7 +225,7 @@ public class EntityRecognizer {
 							System.out.println("case: 7.5: rsEntity=" + rsEntity);
 							return rsEntity;
 						} else {
-							rsEntity = CommonUtil.getIntersectionOfTwoLists(solrEntity, mergeEntity, 2);
+							rsEntity = CommonUtil.getIntersectionOfTwoLists(mergeEntity, solrEntity, 2);
 							System.out.println("case: 8: rsEntity=" + rsEntity);
 							return rsEntity;
 						}
@@ -235,7 +235,7 @@ public class EntityRecognizer {
 							System.out.println("case: 8.5: rsEntity=" + rsEntity);
 							return rsEntity;
 						} else {
-							rsEntity = CommonUtil.getIntersectionOfTwoLists(solrEntity, mergeEntity, 1);
+							rsEntity = CommonUtil.getIntersectionOfTwoLists(mergeEntity, solrEntity, 1);
 							if (rsEntity.isEmpty()) {
 								System.out.println("rsEntity is empty");
 								rsEntity.add(simpleMatchEntity.get(0));

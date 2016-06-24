@@ -28,9 +28,9 @@ public class CommonUtil {
 	// to test if two list are equal
 	protected static List<String> mergeTwoLists(List<String> lhs, List<String> rhs) {
 		List<String> rsList = new ArrayList<>();
-		rsList.addAll(rhs);
-		for (String s : lhs) {
-			if (!rhs.contains(s))
+		rsList.addAll(lhs);
+		for (String s : rhs) {
+			if (!lhs.contains(s))
 				rsList.add(s);
 		}
 		return rsList;
