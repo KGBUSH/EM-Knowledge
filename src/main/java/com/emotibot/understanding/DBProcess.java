@@ -198,6 +198,8 @@ public class DBProcess {
 		return entityMap;
 	}
 
+	// use public static String getPropertyValue(String label, String ent, String prop, String key)
+	@Deprecated
 	public static String getPropertyValue(String label, String ent, String prop) {
 		if(Tool.isStrEmptyOrNull(label)){
 			System.err.println("label is empty");
@@ -214,7 +216,26 @@ public class DBProcess {
 		System.out.println("in DBProcess:getPropertyValue, it return " + bean.getResult());
 		return bean.getResult();
 	}
+	
+	public static String getPropertyValue(String label, String ent, String prop, String key) {
+		if(Tool.isStrEmptyOrNull(label)){
+			System.err.println("label is empty");
+		}
+		if (Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(prop)) {
+			System.err.println("DBProcess.getPropertyValue: input is empty");
+			return "";
+		}
+		Neo4jResultBean bean = null;
+		String query = buildCypherSQLObj.FindEntityAttr(label, ent, prop, key);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		bean = conn.executeCypherSQL(query);
+		freeDBConnection(conn);
+		System.out.println("in DBProcess:getPropertyValue, it return " + bean.getResult());
+		return bean.getResult();
+	}
 
+	// use public static String getPropertyValue(String label, String ent, String prop, String key)
+	@Deprecated
 	public static String getPropertyValue(String ent, String prop) {
 		System.err.println("label is empty");
 		if (Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(prop)) {

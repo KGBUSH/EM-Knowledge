@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import com.emotibot.common.Common;
 import com.emotibot.config.ConfigKeyName;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
@@ -77,7 +78,7 @@ public class ImplicationProcess {
 	}
 	
 	// compute the number of year by the given date
-	public static String computeYears4Implication(String answer, String entity) {
+	public static String computeYears4Implication(String answer, String entity, String key) {
 		System.out.println("computeYears4Implication: answer = "+answer);
 		if(Tool.isStrEmptyOrNull(answer) || !CharUtil.isDateFormat(answer)){
 			System.out.println("wrong format in computeYears4Implication");
@@ -113,10 +114,14 @@ public class ImplicationProcess {
 //	}
 	
 	// compute the age
-	public static String getAgeByImplication(String sentence, String entity) {
+	public static String getAgeByImplication(String sentence, String entity, String key) {
 		Calendar ca = Calendar.getInstance();
 		int currentYear = ca.get(Calendar.YEAR);
-		String birthInfo = DBProcess.getPropertyValue(entity, "出生日期");
+		String label = NLPUtil.getLabelByEntity(entity);
+		if(!label.equals(Common.KGDOMAIN_FIGURE)){
+			return "";
+		}
+		String birthInfo = DBProcess.getPropertyValue(label, entity, "出生日期", key);
 		if(Tool.isStrEmptyOrNull(birthInfo)){
 			System.err.println("there is no birth info in entity:"+entity);
 			return "";
@@ -130,7 +135,7 @@ public class ImplicationProcess {
 		return Integer.toString(age);
 	}
 
-	public static String getImplicationAnswer(String sentence, String entity, String prop) {
+	public static String getImplicationAnswer(String sentence, String entity, String prop, String key) {
 		System.out.println("getImplicationAnswer: str="+sentence+", prop="+prop);
 		if (Tool.isStrEmptyOrNull(entity) || Tool.isStrEmptyOrNull(prop)) {
 			System.err.println("entity=" + entity + ", prop=" + prop);
@@ -149,9 +154,9 @@ public class ImplicationProcess {
 		try {
 			String methodName = getMethodName(prop);
 			System.out.println("prop="+prop+", methodName="+methodName+", entity="+entity);
-			Method method = demo.getMethod(methodName, String.class, String.class);
+			Method method = demo.getMethod(methodName, String.class, String.class, String.class);
 			// int year = (int) method.invoke(demo.newInstance());
-			rs = (String) method.invoke(demo.newInstance(), sentence, entity);
+			rs = (String) method.invoke(demo.newInstance(), sentence, entity, key);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -163,7 +168,7 @@ public class ImplicationProcess {
 		ImplicationProcess ip = new ImplicationProcess();
 		
 		String testStr = "1727年3月31日";
-		System.out.println(ip.computeYears4Implication(testStr,""));
+		System.out.println(ip.computeYears4Implication(testStr,"", ""));
 
 	}
 }

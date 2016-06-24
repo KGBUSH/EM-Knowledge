@@ -23,6 +23,7 @@ public interface CypherSQLParser {
 	public String getEntity(String label, String entity); 
 	public String FindEntityInfo(String Label, String name);
 	public String FindEntityAttr(String Label, String name, String attr);
+	public String FindEntityAttr(String label, String name, String attr, String key);
 	public String Find1stLevelEntityAttr(String Label, String name, String attr);
 	public String getPropNamebyEntityName(String label, String ent, String key);
 	public String getRelationshipByEntityName(String label, String ent, String key);

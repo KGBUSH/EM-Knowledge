@@ -120,14 +120,15 @@ public class QuestionClassifier {
 		return template;
 	}
 
-	// implication question process
+	// implication question process: 
+	// case: 刘翔退役多少年, answerBean = "2015年"
 	protected static AnswerBean implicationQuestionProcess(String sentence, String entity, AnswerBean answerBean) {
 		String strImplication = questionClassifier.processQuestionClassifier(sentence).replace(implicationQuestionType,
 				"");
 		System.out.println("implicationQuestionProcess str = " + strImplication);
 
 		if (!answerBean.getAnswer().isEmpty()) {
-			String implicationAnswer = ImplicationProcess.getImplicationAnswer(answerBean.getAnswer(), entity, strImplication);
+			String implicationAnswer = ImplicationProcess.getImplicationAnswer(answerBean.getAnswer(), entity, strImplication, "");
 			if(!implicationAnswer.equals(answerBean.getAnswer())){
 				answerBean.setAnswer(implicationAnswer);
 				answerBean.setScore(500);

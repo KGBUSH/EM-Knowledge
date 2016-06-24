@@ -111,12 +111,12 @@ public class PropertyRecognizer {
 			System.out.println("\t\t\t#### before Implication: prop = " +prop);
 			if (ImplicationProcess.isImplicationWord(prop)) {
 				System.out.print("\t\t\t#### Implication ");
-				answer = ImplicationProcess.getImplicationAnswer(sentence, entity, prop);
+				answer = ImplicationProcess.getImplicationAnswer(sentence, entity, prop, entityKey);
 				if (Tool.isStrEmptyOrNull(answer))
 					listPMBean.get(0).setScore(0);
 				System.out.println("answer = " + answer);
 			} else {
-				answer = DBProcess.getPropertyValue(label, entity, prop);
+				answer = DBProcess.getPropertyValue(label, entity, prop, entityKey);
 			}
 			answerBean.setAnswer(answer);
 			answerBean.setProperty(prop);
@@ -156,7 +156,7 @@ public class PropertyRecognizer {
 			listPMBean = removeDuplicatedAnswerBean(listPMBean);
 			
 			for (PatternMatchingResultBean b : listPMBean) {
-				String queryAnswer = DBProcess.getPropertyValue(label, entity, b.getAnswer());
+				String queryAnswer = DBProcess.getPropertyValue(label, entity, b.getAnswer(), entityKey);
 				if (relationMap.containsKey(b.getAnswer())) {
 					furtherSeach = true;
 					prop = b.getAnswer();
