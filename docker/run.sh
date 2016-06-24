@@ -37,6 +37,7 @@ cmd="docker run -d --name $CONTAINER \
  -e KG_TCP_PORT=$KG_TCP_PORT \
  -v /etc/localtime:/etc/localtime \
  -p $KG_RS_KG_PORT:$KG_RS_KG_PORT \
+ -p $KG_TCP_PORT:$KG_TCP_PORT \
     $DOCKER_IMAGE \
 "
 
