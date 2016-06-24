@@ -1,2 +1,38 @@
 <aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>catchword</label> ^ 源 于 ^ </pattern>
+        <template>
+            <star index="2"/>的是由是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>catchword</label> ^ 源 自 ^ </pattern>
+        <template>
+            <star index="2"/>的是由是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>catchword</label> ^ 来 源 ^ </pattern>
+        <template>
+            <star index="2"/>的是由是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>catchword</label> ^ 怎 么 来 ^ </pattern>
+        <template>
+            <star index="2"/>的出处是什么?
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>catchword</label> ^ 啥 ^ 意 思 ^ </pattern>
+        <template>
+            <star index="2"/>的解释是什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>catchword</label> ^ 什 么 ^ 意 思 ^ </pattern>
+        <template>
+            <star index="2"/>的解释是什么？
+        </template>
+    </category>
 </aiml>

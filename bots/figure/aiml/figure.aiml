@@ -102,6 +102,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 儿 的 人 ^ </pattern>
+        <template>
+            <star index="2"/>的出生地是哪儿？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 儿 生 ^ </pattern>
         <template>
             <star index="2"/>的出生地是哪儿？
@@ -600,6 +606,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 书 ^ 什 么 ^ </pattern>
+        <template>
+            <star index="2"/>的代表作品有什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 节 目 ^ 什 么 ^ </pattern>
         <template>
             <star index="2"/>的代表作品有什么？
@@ -648,6 +660,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 书 ^ 哪 ^ </pattern>
+        <template>
+            <star index="2"/>的代表作品有什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 节 目 ^ 哪 ^ </pattern>
         <template>
             <star index="2"/>的代表作品有什么？
@@ -691,6 +709,12 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 小 说 ^ 啥 ^ </pattern>
+        <template>
+            <star index="2"/>的代表作品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 书 ^ 啥 ^ </pattern>
         <template>
             <star index="2"/>的代表作品有什么？
         </template>
@@ -847,6 +871,24 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 啥 ^ 歌 ^ </pattern>
+        <template>
+            <star index="2"/>的代表作品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 什 么 ^ 书 ^ </pattern>
+        <template>
+            <star index="2"/>的代表作品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 ^ 书 ^ </pattern>
+        <template>
+            <star index="2"/>的代表作品有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 啥 ^ 书 ^ </pattern>
         <template>
             <star index="2"/>的代表作品有什么？
         </template>
@@ -1746,6 +1788,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 谁 ^ 好 上 ^ </pattern>
+        <template>
+            <star index="2"/>的恋人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>figure</label> ^ 哪 个 ^ 好 上 ^ </pattern>
+        <template>
+            <star index="2"/>的恋人是谁？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 谁 ^ ## * <type>entity</type><label>figure</label> ^ 恋 爱 ^ </pattern>
         <template>
             <star index="3"/>的恋人是谁？
@@ -1777,6 +1831,18 @@
     </category>
     <category>
         <pattern> ^ 哪 个 ^ ## * <type>entity</type><label>figure</label> ^ 相 恋 ^ </pattern>
+        <template>
+            <star index="3"/>的恋人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 谁 ^ ## * <type>entity</type><label>figure</label> ^ 好 上 ^ </pattern>
+        <template>
+            <star index="3"/>的恋人是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 个 ^ ## * <type>entity</type><label>figure</label> ^ 好 上 ^ </pattern>
         <template>
             <star index="3"/>的恋人是谁？
         </template>

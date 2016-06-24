@@ -90,13 +90,13 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 哪 个 ^ 国 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 哪 个 ^ 国 家 ^ </pattern>
         <template>
             <star index="2"/>的制片地区是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 什 么 ^ 国 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 什 么 ^ 国 家 ^ </pattern>
         <template>
             <star index="2"/>的制片地区是哪儿？
         </template>
@@ -486,6 +486,42 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 什 么 ^ 角 色 ^ </pattern>
+        <template>
+            <star index="2"/>的主演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 啥 ^ 角 色 ^ </pattern>
+        <template>
+            <star index="2"/>的主演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 哪 些 ^ 角 色 ^ </pattern>
+        <template>
+            <star index="2"/>的主演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 什 么 ^ 角 儿 ^ </pattern>
+        <template>
+            <star index="2"/>的主演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 啥 ^ 角 儿 ^ </pattern>
+        <template>
+            <star index="2"/>的主演是谁？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 哪 些 ^ 角 儿 ^ </pattern>
+        <template>
+            <star index="2"/>的主演是谁？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 放 ^ 多 长 ^ </pattern>
         <template>
             <star index="2"/>的片长是多少？
@@ -690,6 +726,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 得 ^ 啥 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 获 ^ 啥 ^ 奖 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 得 ^ 什 么 ^ 荣 誉 ^ </pattern>
         <template>
             <star index="2"/>主要奖项有什么？
@@ -714,6 +762,18 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 得 ^ 啥 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 获 ^ 啥 ^ 荣 誉 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 得 ^ 什 么 ^ 成 就 ^ </pattern>
         <template>
             <star index="2"/>主要奖项有什么？
@@ -733,6 +793,18 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 获 ^ 哪 ^ 成 就 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 得 ^ 啥 ^ 成 就 ^ </pattern>
+        <template>
+            <star index="2"/>主要奖项有什么？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 获 ^ 啥 ^ 成 就 ^ </pattern>
         <template>
             <star index="2"/>主要奖项有什么？
         </template>
