@@ -196,6 +196,15 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					System.err.println("LabelTmp="+url+"###"+LabelTmp+"###"+name+"###"+pmWord);
 					label=LabelTmp;
 					System.err.println("label0="+label);
+					//String a=this.getLabel(url, pageExtractInfo.getTags());/////////////////
+					if(label==null||label.trim().length()==0||label.contains(Other)) {
+						System.err.println("label1="+label);
+						label=this.getLabel(url, pageExtractInfo.getTags());
+					}
+					System.err.println("label2="+label);
+					System.err.println("LabelInfo:"+name+"###"+pmWord+"###"+label);
+					System.err.println("LabelInfoData:"+pmWord+"###"+label);
+					System.err.println("LabelInfoData:"+name+"###"+label);
 					///
 					String attrs=pageExtractInfo.getAttrStr();
 					String[] attrsArr=attrs.split(" ");
@@ -207,15 +216,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						}
 					}
 					////
-					//String a=this.getLabel(url, pageExtractInfo.getTags());/////////////////
-					if(label==null||label.trim().length()==0||label.contains(Other)) {
-						System.err.println("label1="+label);
-						label=this.getLabel(url, pageExtractInfo.getTags());
-					}
-					System.err.println("label2="+label);
-					System.err.println("LabelInfo:"+name+"###"+pmWord+"###"+label);
-					System.err.println("LabelInfoData:"+pmWord+"###"+label);
-					System.err.println("LabelInfoData:"+name+"###"+label);
 
 					BuildCypherSQL bcy = new BuildCypherSQL();
 					pageExtractInfo.addAttr(md5, DigestUtils.md5Hex(url));
