@@ -196,6 +196,17 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					System.err.println("LabelTmp="+url+"###"+LabelTmp+"###"+name+"###"+pmWord);
 					label=LabelTmp;
 					System.err.println("label0="+label);
+					///
+					String attrs=pageExtractInfo.getAttrStr();
+					String[] attrsArr=attrs.split(" ");
+					for(String attr:attrsArr)
+					{
+						if(attr!=null&&attr.trim().length()>0)
+						{
+							System.err.println("ATTR="+label+"_"+attr);
+						}
+					}
+					////
 					//String a=this.getLabel(url, pageExtractInfo.getTags());/////////////////
 					if(label==null||label.trim().length()==0||label.contains(Other)) {
 						System.err.println("label1="+label);
@@ -212,6 +223,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					System.err.println(NodeOrRelation+" queryMap=" + query);
 					/////////TongyiciMap
 					////////duoyici
+					System.err.println("SparkInfo:"+name+"###"+label+"###"+pageExtractInfo.getTags()+"###"+pageExtractInfo.getFirstPara()+"###"+pageExtractInfo.getParamMd5()+"###"+url);
 					if(pageExtractInfo.getDuoyici().length()>0) System.err.println("Duoyici:"+pageExtractInfo.getDuoyici()+"###"+pageExtractInfo.getTags()+"###"+url);
                      //					System.err.println("Tongyici1:"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.GetSynonym());
                     String tongyici="";

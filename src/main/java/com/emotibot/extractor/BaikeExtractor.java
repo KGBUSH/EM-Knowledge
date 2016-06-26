@@ -276,6 +276,7 @@ public class BaikeExtractor extends Extractor {
 		System.err.println("getTongyici.........."+info.getTongyici());
 		System.err.println("isDuoyici.........."+info.getDuoyici());
 		System.err.println("pic.........."+info.getPic());
+		System.err.println(info.getAttrStr());
 
 	}
 }
