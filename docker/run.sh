@@ -1,7 +1,7 @@
 #!/bin/bash
 REPO=docker-reg.emotibot.com.cn:55688
 CONTAINER=knowlegegraph
-TAG=latest
+TAG=$(git rev-parse --short HEAD)
 DOCKER_IMAGE=$REPO/$CONTAINER:$TAG
 
 # Load the env file

@@ -3,7 +3,7 @@ REPO=docker-reg.emotibot.com.cn:55688
 CONTAINER=knowlegegraph
 # FIXME: should use some tag other than latest
 #TAG=20160504
-TAG=latest
+TAG=$(git rev-parse --short HEAD)
 DOCKER_IMAGE=$REPO/$CONTAINER:$TAG
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
