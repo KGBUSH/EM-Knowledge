@@ -26,7 +26,6 @@ public class GenerateEntityFiles {
 
 	public static void main(String args[]) throws Exception {
 
-		DictionaryBuilder.DictionaryBuilderInit();
 		
 		// generate entity.txt file
 		generateEntity();
@@ -37,6 +36,7 @@ public class GenerateEntityFiles {
 		} 
 		fp.createNewFile();
 //		(new File(tempFileName)).delete();
+		
 		checkTemplate();
 		modifyEntity();
 		
@@ -76,7 +76,7 @@ public class GenerateEntityFiles {
 	}
 
 	private static void modifyEntity() {
-		String entityRawFileName = Common.UserDir + "/knowledgedata/entityRaw.txt";
+		String entityRawFileName = Common.UserDir + "/knowledgedata/entity.txt";
 		String entityExceptionFileName = Common.UserDir + "/knowledgedata/entityException.txt";
 
 		try {
@@ -91,9 +91,7 @@ public class GenerateEntityFiles {
 				entityExceptionSet.add(line);
 			}
 
-			String tempFileName = Common.UserDir + "/knowledgedata/entity.txt";
-			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
-			
+			List<String> tempEntitySet = new ArrayList<>();
 			BufferedReader entityRawReader = new BufferedReader(new FileReader(entityRawFileName));
 			line = null;
 			while ((line = entityRawReader.readLine()) != null) {
@@ -102,18 +100,26 @@ public class GenerateEntityFiles {
 					continue;
 				}
 				if(!entityExceptionSet.contains(line)){
-					out.write(line + "\r\n");
+					tempEntitySet.add(line);
 				}
 			}
+			entityRawReader.close();
+			entityExceptionReader.close();
+
+			// generate new entity files
+			String tempFileName = Common.UserDir + "/knowledgedata/entity.txt";
+			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
+			
+			for(String s : tempEntitySet){
+				out.write(s + "\r\n");
+			}
+			out.close();
 
 //			// add entity Synonym
 //			for(String s : DictionaryBuilder.getEntitySynonymTable().keySet()){
 //				out.write(s + "\r\n");
 //			}
 			
-			entityRawReader.close();
-			entityExceptionReader.close();
-			out.close();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -142,7 +148,8 @@ public class GenerateEntityFiles {
 		// }
 
 		try {
-			String tempFileName = Common.UserDir + "/knowledgedata/entityRaw.txt";
+//			String tempFileName = Common.UserDir + "/knowledgedata/entityRaw.txt";
+			String tempFileName = Common.UserDir + "/knowledgedata/entity.txt";
 			BufferedWriter out = new BufferedWriter(new FileWriter(tempFileName));
 
 			for (String s : tempSet) {
@@ -256,6 +263,8 @@ public class GenerateEntityFiles {
 
 	// removing the characters also existing in the template rules
 	private static void checkTemplate() {
+		// generate the new entity dictionary 
+		DictionaryBuilder.DictionaryBuilderInit();
 		String listFileName = Common.UserDir + "/knowledgedata/domain/domainList.txt";
 
 		try {
