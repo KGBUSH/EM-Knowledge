@@ -15,7 +15,8 @@ import com.emotibot.util.CharUtil;
 
 public class GeneratePMRefFiles {
 
-	private static void getEntityInfoInList() {
+	@Deprecated
+	public static void getEntityInfoInList() {
 		try {
 			BufferedReader entityURL = new BufferedReader(new FileReader(Common.UserDir + "/txt/temp/target_url_all_entity"));
 			BufferedReader entityAll = new BufferedReader(new FileReader(Common.UserDir + "/txt/temp/duo2"));

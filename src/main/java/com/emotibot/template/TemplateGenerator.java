@@ -41,7 +41,7 @@ public class TemplateGenerator {
 	// + outputFile);
 	// }
 
-	private void generateQuestionClassifierTemplate(String inputFile, String outputFile) {
+	private static void generateQuestionClassifierTemplate(String inputFile, String outputFile) {
 
 		try {
 			FileWriter newFile = new FileWriter(outputFile);
@@ -183,7 +183,7 @@ public class TemplateGenerator {
 
 	}
 
-	private void generateSingleDomainTemplate(String inputFile, String outputFile) {
+	private static void generateSingleDomainTemplate(String inputFile, String outputFile) {
 		System.out.println("generateSingleDomainTemplate: inputFile="+inputFile);
 
 		try {
@@ -365,7 +365,7 @@ public class TemplateGenerator {
 
 	}
 
-	private List<String> writePattern(List<List<String>> patternList, List<String> lineList) {
+	private static List<String> writePattern(List<List<String>> patternList, List<String> lineList) {
 		System.out.println("\t patternList=" + patternList + "; lineList=" + lineList);
 		if (patternList == null || patternList.isEmpty()) {
 			return lineList;
@@ -386,7 +386,7 @@ public class TemplateGenerator {
 		return writePattern(patternList, returnList);
 	}
 
-	private void generateDomainTemplate() {
+	public static void generateDomainTemplate() {
 		String listFileName = Common.UserDir + "/knowledgedata/domain/domainList.txt";
 
 		try {
@@ -410,7 +410,7 @@ public class TemplateGenerator {
 
 	}
 
-	private void generateQuestionClassifierTemplate() {
+	public static void generateQuestionClassifierTemplate() {
 		String specFileName = Common.UserDir + "/knowledgedata/template/questionClassifier.txt";
 		String aimlFileName = Common.UserDir + "/bots/QuestionClassifier/aiml/QuestionClassifier.aiml";
 		generateQuestionClassifierTemplate(specFileName, aimlFileName);

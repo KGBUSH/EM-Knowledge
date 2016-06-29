@@ -40,17 +40,17 @@ public class GenerateEntityFiles {
 		checkTemplate();
 		modifyEntity();
 		
-		// generate entity with label
-		generateEntityAndLabel();
-		
-		// generate entity list in first level
-		generateEntityPMFile();
-		
-		// generate entity.txt for multi-pattern matching
-		generateEntity4MultiPatternMatching();
+//		// generate entity with label
+//		generateEntityAndLabel();
+//		
+//		// generate entity list in first level
+//		generateEntityPMFile();
+//		
+//		// generate entity.txt for multi-pattern matching
+//		generateEntity4MultiPatternMatching();
 	}
 	
-	private static void generateEntity4MultiPatternMatching(){
+	public static void generateEntity4MultiPatternMatching(){
 		File sourceFile = new File(Common.UserDir + "/knowledgedata/entity.txt");
 		File destFile = new File(Common.UserDir + "/sentiment/entity.txt");
 		
@@ -75,7 +75,7 @@ public class GenerateEntityFiles {
 		
 	}
 
-	private static void modifyEntity() {
+	public static void modifyEntity() {
 		String entityRawFileName = Common.UserDir + "/knowledgedata/entity.txt";
 		String entityExceptionFileName = Common.UserDir + "/knowledgedata/entityException.txt";
 
@@ -262,7 +262,7 @@ public class GenerateEntityFiles {
 	}
 
 	// removing the characters also existing in the template rules
-	private static void checkTemplate() {
+	public static void checkTemplate() {
 		// generate the new entity dictionary 
 		DictionaryBuilder.DictionaryBuilderInit();
 		String listFileName = Common.UserDir + "/knowledgedata/domain/domainList.txt";
