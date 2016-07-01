@@ -9,6 +9,7 @@ package com.emotibot.template;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -19,6 +20,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import org.netlib.util.booleanW;
 
 import com.emotibot.common.Common;
 import com.emotibot.log.LogService;
@@ -41,9 +44,12 @@ public class TemplateGenerator {
 	// + outputFile);
 	// }
 
-	private static void generateQuestionClassifierTemplate(String inputFile, String outputFile) {
+	private boolean isByDomain = false;
+	
+	private static void generateQuestionClassifierTemplate(String inputFile, String outputFile,boolean isByDomain) {
 
 		try {
+			
 			FileWriter newFile = new FileWriter(outputFile);
 			BufferedWriter out = new BufferedWriter(newFile);
 			out.write("<aiml version=\"1.0.1\" encoding=\"UTF-8\">\r\n");
@@ -101,7 +107,12 @@ public class TemplateGenerator {
 				// List<String> patternList = new ArrayList<>();
 				// patternList.add("");
 
-				String domain = "## * <type>entity</type> ";
+				String domain = "";
+				if(isByDomain){
+					domain = "## * <type>entity</type><label>" + questionType + "</label> ";
+				}else{
+					domain = "## * <type>entity</type> ";
+				}
 
 				// get each component
 				String[] patternArr = ruleLine.split("&");
@@ -410,16 +421,51 @@ public class TemplateGenerator {
 
 	}
 
+	public static void generateIntroductionTemplateByDomain(){
+//		String listFileName = Common.UserDir + "/knowledgedata/domain/domainList.txt";
+//
+//		try {
+//			BufferedReader reader = new BufferedReader(new FileReader(listFileName));
+//			String domain = null;
+//			int i = 0;
+//			while ((domain = reader.readLine()) != null) {
+				String domain = "figure";
+				String name = domain+"_introduction";
+				String specFileName = Common.UserDir + "/knowledgedata/template/templateSpec/" + domain+"_introduction" + ".txt";
+				String aimlDir1 = Common.UserDir + "/bots/" + name+ "/aiml/";
+				String aimlDir2 = Common.UserDir + "/bots/" + name+ "/aimlif/";
+				String aimlFileName = aimlDir1 + name + ".aiml";
+				File fsFile = new File(aimlDir1);
+				File fsFile2 = new File(aimlDir2);
+				if(!fsFile.exists()){
+					fsFile.mkdirs();
+				}
+				if(!fsFile2.exists()){
+					fsFile2.mkdirs();
+				}
+				System.out.println(
+						"domain=" + domain + ",\n specFileName=" + specFileName + ";\n aimlFileName=" + aimlFileName);
+				generateQuestionClassifierTemplate(specFileName, aimlFileName, true);
+//			}
+//
+//			reader.close();
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+	}
 	public static void generateQuestionClassifierTemplate() {
 		String specFileName = Common.UserDir + "/knowledgedata/template/questionClassifier.txt";
 		String aimlFileName = Common.UserDir + "/bots/QuestionClassifier/aiml/QuestionClassifier.aiml";
-		generateQuestionClassifierTemplate(specFileName, aimlFileName);
+		
+		generateQuestionClassifierTemplate(specFileName, aimlFileName, true);
 	}
 
 	public static void main(String[] args) {
-		TemplateGenerator tg = new TemplateGenerator();
-		tg.generateQuestionClassifierTemplate();
-//		tg.generateDomainTemplate();
+//		TemplateGenerator tg = new TemplateGenerator();
+//		tg.generateQuestionClassifierTemplate();
+//		generateDomainTemplate();
+		generateIntroductionTemplateByDomain();
 	}
 
 }

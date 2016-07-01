@@ -21,7 +21,7 @@ public class TemplateEntry {
 //	static TemplateProcessor sentenceTemplate = new TemplateProcessor("Knowledge");
 	static TemplateProcessor questionClassifier = new TemplateProcessor("QuestionClassifier");
 	// static TemplateProcessor = new TemplateProcessor("QuestionClassifier");
-
+	static TemplateProcessor figure_introductionTemplate = new TemplateProcessor("figure_introduction");
 //	static TemplateProcessor TV_seriesTemplate = new TemplateProcessor("TV_series");
 //	static TemplateProcessor animeTemplate = new TemplateProcessor("anime");
 //	static TemplateProcessor catchwordTemplate = new TemplateProcessor("catchword");
@@ -42,7 +42,9 @@ public class TemplateEntry {
 //	static TemplateProcessor varity_showTemplate = new TemplateProcessor("varity_show");
 	
 	static TemplateProcessor [] staticTemplateArr = createTemplateArrary();
+	static TemplateProcessor [] staticTemplateByDomain = createTemplateByDomain();
 	static Map<String, TemplateProcessor> templateMap = buildTemplateMap();
+	static Map<String, TemplateProcessor> templateByIntroductonMap = buildTemplateByDomainMap();
 	
 	private static TemplateProcessor [] createTemplateArrary(){
 		if(DictionaryBuilder.getDomainAllListTable().isEmpty()){
@@ -59,6 +61,24 @@ public class TemplateEntry {
 		}
 		
 		return templateArr;
+	}
+	
+	private static TemplateProcessor [] createTemplateByDomain(){
+		if(DictionaryBuilder.getDomainAllListTable().isEmpty()){
+			System.err.println("domain list is empty");
+			LogService.printLog("", "TemplateEntry", "domain List is empty");
+			return null;
+		}
+		
+		TemplateProcessor [] templateDomain = new TemplateProcessor [DictionaryBuilder.getDomainAllListTable().size()];
+		int i = 0;
+		for(String domainname : DictionaryBuilder.getDomainAllListTable()){
+//			System.out.println(domainname);
+			String name = domainname+"_introduction";
+			templateDomain[i++] = new TemplateProcessor(name);
+		}
+		
+		return templateDomain;
 	}
 	
 	private static Map<String, TemplateProcessor> buildTemplateMap() {
@@ -90,8 +110,19 @@ public class TemplateEntry {
 
 		return map;
 	}
+	
+	private static Map<String, TemplateProcessor> buildTemplateByDomainMap() {
+		Map<String, TemplateProcessor> map = new HashMap<>();
+		
+		int i = 0;
+		for(String domainname : DictionaryBuilder.getDomainAllListTable()){
+			String name = domainname+"_introduction";
+			map.put(name, staticTemplateByDomain[i++]);
+		}
+		return map;
+	}
 
-	private static TemplateProcessor getDomainTemplate(String domain) {
+	public static TemplateProcessor getDomainTemplate(String domain) {
 		if (Tool.isStrEmptyOrNull(domain) || !templateMap.keySet().contains(domain)) {
 			System.err.println("wrong input, domain=" + domain);
 			return new TemplateProcessor("");
@@ -99,6 +130,14 @@ public class TemplateEntry {
 		return templateMap.get(domain);
 	}
 
+	public static TemplateProcessor getDomainTemplateByIntroduction(String domain) {
+		if (Tool.isStrEmptyOrNull(domain) || !templateByIntroductonMap.keySet().contains(domain)) {
+			System.err.println("wrong input, domain=" + domain);
+			return new TemplateProcessor("");
+		}
+		return templateByIntroductonMap.get(domain);
+	}
+	
 	// template process, change the exception cases
 	// input: entity and sentence, "姚明", "姚明多高"
 	// output: the sentence changed by template, "姚明身高多少"
@@ -141,7 +180,7 @@ public class TemplateEntry {
 	}
 
 	private static void generateTemplateName() {
-		String tempFileName = Common.UserDir + "/knowledgedata/domain/list";
+		String tempFileName = Common.UserDir + "/knowledgedata/domain/domainList.txt";
 
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(tempFileName));
@@ -162,7 +201,11 @@ public class TemplateEntry {
 	}
 
 	public static void main(String[] args) {
-		// generateTemplateName();
+		System.out.println("99999");
+		String string = "姚明身高";
+		String string2 = "姚明";
+		System.out.println(getDomainTemplate("movie").toString());
+//		generateTemplateName();
 
 	}
 
