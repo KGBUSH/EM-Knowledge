@@ -66,6 +66,30 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 多 久 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 长 时 间 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 几 年 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 多 少 年 </pattern>
+        <template>
+            ImplicationQuestion@:computeYear
+        </template>
+    </category>
+    <category>
         <pattern> ## * <type>entity</type> 是 何 人 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
@@ -1389,30 +1413,6 @@
         <pattern> 了 解 啥 被 称 为 ## * <type>entity</type> </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
-        </template>
-    </category>
-    <category>
-        <pattern> ^ 多 久 </pattern>
-        <template>
-            ImplicationQuestion@:computeYear
-        </template>
-    </category>
-    <category>
-        <pattern> ^ 多 长 时 间 </pattern>
-        <template>
-            ImplicationQuestion@:computeYear
-        </template>
-    </category>
-    <category>
-        <pattern> ^ 几 年 </pattern>
-        <template>
-            ImplicationQuestion@:computeYear
-        </template>
-    </category>
-    <category>
-        <pattern> ^ 多 少 年 </pattern>
-        <template>
-            ImplicationQuestion@:computeYear
         </template>
     </category>
     <category>
