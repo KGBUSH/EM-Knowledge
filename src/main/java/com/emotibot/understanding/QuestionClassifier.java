@@ -174,10 +174,19 @@ public class QuestionClassifier {
 				}
 				
 			}
-			 
-			template = TemplateEntry.getDomainTemplateByIntroduction(name).process(sentence);
+			if(isByLabel){
+				template = TemplateEntry.getDomainTemplateByIntroduction(name).process(sentence);
+			}else {
+				template = questionClassifier.process(sentence);
+			}
+			
 		} else {
-			template = TemplateEntry.getDomainTemplateByIntroduction(name).processQuestionClassifier(sentence);
+			if (isByLabel) {
+				template = TemplateEntry.getDomainTemplateByIntroduction(name).processQuestionClassifier(sentence);
+			}else {
+				template = questionClassifier.processQuestionClassifier(sentence);
+			}
+			
 		}
 
 		return template;
