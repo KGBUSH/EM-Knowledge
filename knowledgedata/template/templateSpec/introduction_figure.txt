@@ -1,0 +1,1 @@
+figure;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲&#&[这人/这个人]&[是啥/是什么/是谁]||IntroductionSentence@:firstParamInfo
