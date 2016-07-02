@@ -28,15 +28,17 @@ public class PropertyRecognizer {
 	}
 
 	// Multi-level Reasoning Understanding
-	protected AnswerBean ReasoningProcess(String sentence, String label, String entity, AnswerBean answerBean, String entityKey) {
-		System.out.println(
-				"PMP.ReasoningProcess INIT: sentence=" + sentence + ", entity =" + entity + ", bean is " + answerBean);
+	protected AnswerBean ReasoningProcess(String sentence, String label, String entity, AnswerBean answerBean,
+			String entityKey, boolean isTemplate) {
+		System.out.println("PMP.ReasoningProcess INIT: sentence=" + sentence + ", label=" + label + ", entity ="
+				+ entity + ", bean is " + answerBean);
 		// Debug.printDebug(uniqueID, 3, "knowledge", "PMP.ReasoningProcess:
 		// sentence=" + templateSentence + ", entity ="
 		// + entity + ", bean is " + answerBean.toString());
 		// to be checked later
 		String oldSentence = sentence;
-		sentence = TemplateEntry.templateProcess(label, entity, sentence, nerBean.getUniqueID());
+		// sentence = TemplateEntry.templateProcess(label, entity, sentence,
+		// nerBean.getUniqueID());
 
 		// print debug log
 		if (nerBean.isDebug()) {
@@ -77,8 +79,8 @@ public class PropertyRecognizer {
 		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(candidateSetbyStopWord, propMap);
 
 		// add for introduction questions
-		if (listPMBean.isEmpty() && QuestionClassifier.isKindofQuestion(nerBean.getSentence(),
-				QuestionClassifier.introductionQuestionType, "")) {
+		if (listPMBean.isEmpty()
+				&& QuestionClassifier.isKindofQuestion(sentence, QuestionClassifier.introductionQuestionType, "")) {
 			System.out.println("\t EndOfRP introudction case @@ return case 0.0, answer=" + answerBean);
 			// does not match property, score decreases
 			answerBean.setScore(answerBean.getScore() / 2);
@@ -97,25 +99,36 @@ public class PropertyRecognizer {
 		PatternMatchingResultBean implicationBean = ImplicationProcess.checkImplicationWord(sentence);
 		if (implicationBean.isValid())
 			listPMBean.add(implicationBean);
+		listPMBean = removeDuplicatedAnswerBean(listPMBean); // remove duplicate
 		System.out.println("\t listPMBean=" + listPMBean);
 
 		if (listPMBean.isEmpty()) {
 			System.out.println("\t EndOfRP @@ return case 0, answer=" + answerBean);
+
+			String templateSentence = TemplateEntry.templateProcess(label, entity, sentence, nerBean.getUniqueID());
+			if (!isTemplate && !sentence.equals(templateSentence)) {
+				System.out.println("teamplate case: return case 0");
+				return ReasoningProcess(templateSentence, label, entity, answerBean, entityKey, true);
+			}
+
 			// does not match property, score decreases
 			// remove for the case: “姚明的初中在哪里”
 			// answerBean.setScore(answerBean.getScore() / 2);
 			return answerBean.returnAnswer(answerBean);
 		} else if (listPMBean.size() == 1) {
 			String prop = listPMBean.get(0).getAnswer();
+			String originalPropName = listPMBean.get(0).getOrignalWord();
 			String answer = "";
-			System.out.println("\t\t\t#### before Implication: prop = " +prop);
+			System.out.println("\t\t\t#### before Implication: prop = " + prop);
 			if (ImplicationProcess.isImplicationWord(prop)) {
 				System.out.print("\t\t\t#### Implication ");
 				answer = ImplicationProcess.getImplicationAnswer(sentence, entity, prop, entityKey);
-				if (Tool.isStrEmptyOrNull(answer))
-					listPMBean.get(0).setScore(0);
+				// if (Tool.isStrEmptyOrNull(answer))
+				// listPMBean.get(0).setScore(0);
 				System.out.println("answer = " + answer);
-			} else {
+			}
+
+			if (answer.isEmpty()) {
 				answer = DBProcess.getPropertyValue(label, entity, prop, entityKey);
 			}
 			answerBean.setAnswer(answer);
@@ -126,26 +139,59 @@ public class PropertyRecognizer {
 			answerBean.setOriginalWord(oldWord);
 			System.out.println("\t answer = " + answerBean);
 
-			if (relationMap.containsKey(prop)) {
+			// to test whether there is a corresponding property
+			boolean furtherSeach = false;
+			if (NLPUtil.isInSynonymDict(prop)) {
+				for (String s : NLPUtil.getSynonymWordSet(prop)) {
+					if (relationMap.containsKey(s)) {
+						furtherSeach = true;
+						break;
+					}
+				}
+			} else {
+				furtherSeach = relationMap.containsKey(prop);
+			}
+			System.out.println("In Case 1 furtherSeach = " + furtherSeach);
+
+			if (!isTemplate && furtherSeach) {
 				// use the new answer as new entity, get the entity as a whole
-				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, relationMap.get(prop), entityKey);
+				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, relationMap.get(prop),
+						entityKey);
+				System.out.println("tmpMap=" + tmpMap);
 				String newDBEntity = (String) tmpMap.get(Common.KGNODE_NAMEATRR);
 				String newLabel = NLPUtil.getLabelByEntity(newDBEntity);
 				String newEntityKey = (String) tmpMap.get("key");
 				String newSentence = sentenceNoEntity;
-				System.out.println("nextEntity=" + newDBEntity + "; oldWord=" + oldWord+", sentenceNoEntity="+sentenceNoEntity);
+				System.out.println("nextEntity=" + newDBEntity + "; oldWord=" + oldWord + ", sentenceNoEntity="
+						+ sentenceNoEntity);
 				if (!Tool.isStrEmptyOrNull(oldWord)) {
-					newSentence = sentenceNoEntity.replace(oldWord, newDBEntity);
-					newSentence = removeStopWordInSentence(newSentence);
+					newSentence = sentenceNoEntity.replaceFirst(oldWord, newDBEntity);
+					// newSentence = removeStopWordInSentence(newSentence);
 				}
-				
+
 				System.out.println("-----> case 1 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
-				System.out.println("prop:" + prop + ", new sentence:" + newSentence + ", newDBEntity="+newDBEntity+", newLabel="+newLabel+", newEntityKey="+newEntityKey);
-				return ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean, newEntityKey);
-			} else {
-				System.out.println("\t EndOfRP  @@ return case 1, answer=" + answerBean);
-				return answerBean.returnAnswer(answerBean);
+				System.out.println("prop:" + prop + ", new sentence:" + newSentence + ", newDBEntity=" + newDBEntity
+						+ ", newLabel=" + newLabel + ", newEntityKey=" + newEntityKey);
+
+				AnswerBean tmpAnswerBean = ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean,
+						newEntityKey, false);
+				if (!answerBean.equals(tmpAnswerBean)) {
+					return tmpAnswerBean;
+				}
+
+				// return ReasoningProcess(newSentence, newLabel, newDBEntity,
+				// answerBean, newEntityKey, false);
 			}
+
+			String templateSentence = TemplateEntry.templateProcess(label, entity, sentence, nerBean.getUniqueID());
+			if (!isTemplate && !sentence.equals(templateSentence)) {
+				System.out.println("teamplate case: return case 1");
+				return ReasoningProcess(templateSentence, label, entity, answerBean, entityKey, true);
+			}
+
+			System.out.println("\t EndOfRP  @@ return case 1, answer=" + answerBean);
+			return answerBean.returnAnswer(answerBean);
+
 		} else {
 			// in the case of multiple props, find a way out
 			String answer = "";
@@ -154,13 +200,26 @@ public class PropertyRecognizer {
 			boolean furtherSeach = false;
 			String prop = "";
 
-			listPMBean = removeDuplicatedAnswerBean(listPMBean);
-			
+			System.out.println("multi prop case: listPMBean = " + listPMBean);
 			for (PatternMatchingResultBean b : listPMBean) {
 				String queryAnswer = DBProcess.getPropertyValue(label, entity, b.getAnswer(), entityKey);
-				if (relationMap.containsKey(b.getAnswer())) {
-					furtherSeach = true;
-					prop = b.getAnswer();
+				prop = b.getAnswer();
+
+				// to test whether there is a corresponding property
+				if (NLPUtil.isInSynonymDict(prop)) {
+					for (String s : NLPUtil.getSynonymWordSet(prop)) {
+						if (relationMap.containsKey(s)) {
+							furtherSeach = true;
+							break;
+						}
+					}
+				} else {
+					furtherSeach = relationMap.containsKey(prop);
+				}
+				System.out.println("b = " + b + ", futher serach = " + furtherSeach);
+
+				if (furtherSeach) {
+					System.out.println("case 2 furtherSeach = " + furtherSeach + " b = " + b);
 					answerBean.setAnswer(queryAnswer);
 					answerBean.setProperty(b.getAnswer());
 					// answerBean.setValid(true);
@@ -174,49 +233,90 @@ public class PropertyRecognizer {
 					System.out.print(" * " + b.getScore() + "/100 ");
 				}
 			}
+			
+			if(!answer.isEmpty()){
+				answerBean.setAnswer(answer.substring(0, answer.length() - 1));
+				answerBean.setScore(score);
+			}
 
-			if (furtherSeach == true) {
-				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, relationMap.get(prop), entityKey);
+			if (!isTemplate && furtherSeach == true) {
+				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, relationMap.get(prop),
+						entityKey);
 				String newDBEntity = (String) tmpMap.get(Common.KGNODE_NAMEATRR);
 				String newLabel = NLPUtil.getLabelByEntity(newDBEntity);
 				String newEntityKey = (String) tmpMap.get("key");
 				Pattern pattern = Pattern.compile(answerBean.getOriginalWord());
 				Matcher sentenceNoEntityWithPattern = pattern.matcher(sentenceNoEntity);
 				String newSentence = sentenceNoEntityWithPattern.replaceFirst(newDBEntity);
-//				String newSentence = sentenceNoEntity.replace(answerBean.getOriginalWord(), newDBEntity);
-				newSentence = removeStopWordInSentence(newSentence);
-				
+				// String newSentence =
+				// sentenceNoEntity.replace(answerBean.getOriginalWord(),
+				// newDBEntity);
+				// newSentence = removeStopWordInSentence(newSentence);
+
 				System.out.println("-----> case 2 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
-				System.out.println("prop:" + prop + ", new sentence:" + newSentence + ", newDBEntity="+newDBEntity+", newLabel="+newLabel+", newEntityKey="+newEntityKey);
-				return ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean, newEntityKey);
-			} else {
-				answerBean.setAnswer(answer.substring(0, answer.length() - 1));
-				answerBean.setScore(score);
-				// answerBean.setValid(true);
-				System.out.println("\t EndOfRP  @@ return case 2, answer = " + answerBean);
-				return answerBean.returnAnswer(answerBean);
+				System.out.println("prop:" + prop + ", new sentence:" + newSentence + ", newDBEntity=" + newDBEntity
+						+ ", newLabel=" + newLabel + ", newEntityKey=" + newEntityKey);
+				// return ReasoningProcess(newSentence, newLabel, newDBEntity,
+				// answerBean, newEntityKey, false);
+
+				AnswerBean tmpAnswerBean = ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean,
+						newEntityKey, false);
+				if (!answerBean.equals(tmpAnswerBean)) {
+					return tmpAnswerBean;
+				}
+
 			}
+
+			// answerBean.setValid(true);
+			System.out.println("\t EndOfRP  @@ return case 2, answer = " + answerBean);
+
+			String templateSentence = TemplateEntry.templateProcess(label, entity, sentence, nerBean.getUniqueID());
+			if (!isTemplate && !sentence.equals(templateSentence)) {
+				System.out.println("teamplate case: return case 2");
+				return ReasoningProcess(templateSentence, label, entity, answerBean, entityKey, true);
+			}
+
+			return answerBean.returnAnswer(answerBean);
+
 		}
+
+		// sentence = TemplateEntry.templateProcess(label, entity, sentence,
+		// nerBean.getUniqueID());
+
 	}
-	
-	//去掉PatternMatchingResultBean list 里面针对多个相同的property 重复回答的 PatternMatchingResultBean
-	private List<PatternMatchingResultBean> removeDuplicatedAnswerBean(List<PatternMatchingResultBean> patternMatchingResultBeans){
+
+	// 去掉PatternMatchingResultBean list 里面针对多个相同的property 重复回答的
+	// PatternMatchingResultBean
+	private List<PatternMatchingResultBean> removeDuplicatedAnswerBean(
+			List<PatternMatchingResultBean> patternMatchingResultBeans) {
 		List<PatternMatchingResultBean> listBeans = patternMatchingResultBeans;
 		System.out.println(listBeans.size());
 		Set<String> answerSet = new HashSet<String>();
 		Iterator<PatternMatchingResultBean> iterator = listBeans.iterator();
-		
+
 		while (iterator.hasNext()) {
-			PatternMatchingResultBean tempBean  = iterator.next();
+			PatternMatchingResultBean tempBean = iterator.next();
 			String tempProperty = tempBean.getAnswer();
-			if(answerSet.contains(tempProperty)){
-				iterator.remove();
-			}else {
-				answerSet.add(tempProperty);
+			boolean isRemoved = false;
+			for (String s : NLPUtil.getSynonymWordSet(tempProperty)) {
+				if (answerSet.contains(s)) {
+					iterator.remove();
+					isRemoved = true;
+					break;
+				}
 			}
-			
+
+			if (!isRemoved) {
+				// System.out.println("tempProperty="+tempProperty);
+				answerSet.add(tempProperty);
+				for (String s : NLPUtil.getSynonymWordSet(tempProperty)) {
+					// System.out.println("s="+s);
+					answerSet.add(s);
+				}
+			}
+
 		}
-		System.out.println(listBeans.size());
+		System.out.println("removeDuplicatedAnswerBean, listBeans=" + listBeans);
 		return listBeans;
 	}
 
@@ -272,8 +372,11 @@ public class PropertyRecognizer {
 				PatternMatchingResultBean localrsBean = new PatternMatchingResultBean();
 				localrsBean.setAnswer(propMap.get(localPropName));
 				localrsBean.setScore(localFinalScore);
-				String orignalWord = Tool.isStrEmptyOrNull(refPropMap.get(localPropName)) ? localPropName
-						: refPropMap.get(localPropName);
+				// String orignalWord =
+				// Tool.isStrEmptyOrNull(refPropMap.get(localPropName)) ?
+				// localPropName
+				// : refPropMap.get(localPropName);
+				String orignalWord = candidate;
 				localrsBean.setOrignalWord(orignalWord);
 				System.out.println("\t\t localPropName=" + localPropName + ", propMapName=" + localrsBean.getAnswer()
 						+ ", originalName=" + localrsBean.getOrignalWord());
@@ -291,7 +394,7 @@ public class PropertyRecognizer {
 	// input: 这个标志多少
 	// output: [这个记号数量, 这个标志数量, 这个记号多少, 这个标志多少]
 	private List<String> replaceSynonymProcess(String str, Map<String, String> refMap) {
-//		 System.out.println("input of replaceSynonymProcess is " + str);
+		// System.out.println("input of replaceSynonymProcess is " + str);
 		List<String> rsSet = new ArrayList<>();
 		if (str.isEmpty()) {
 			System.out.println("output of replaceSynonymProcess is " + rsSet);
@@ -300,35 +403,36 @@ public class PropertyRecognizer {
 
 		List<Term> segPos = NLPUtil.getSegWord(str);
 		rsSet.add("");
-		
+
 		for (int i = 0; i < segPos.size(); i++) {
 			String iWord = segPos.get(i).word;
 			Set<String> iSynSet = NLPUtil.getSynonymWordSet(iWord);
-//			System.out.println(" NLP iSynSet: " + iSynSet);
-			
+			// System.out.println(" NLP iSynSet: " + iSynSet);
+
 			if (!iSynSet.contains(iWord)) {
 				iSynSet.add(iWord);
 				refMap.put(iWord, iWord);
 			}
-			
+
 			if (iSynSet.size() > 0) {
-//				 System.out.println(iWord + " has syn: " + iSynSet);
+				// System.out.println(iWord + " has syn: " + iSynSet);
 				// combine each of the synonyms to generate mutliple candidates
 				List<String> newRS = new ArrayList<>();
 				for (String iSyn : iSynSet) {
 					refMap.put(iSyn, iWord);
-					 System.out.println("\t iSyn is " + iSyn);
+					System.out.println("\t iSyn is " + iSyn);
 					List<String> tmpRS = new ArrayList<>();
 					tmpRS.addAll(rsSet);
 					for (int j = 0; j < tmpRS.size(); j++) {
 						tmpRS.set(j, tmpRS.get(j) + iSyn);
 					}
 					newRS.addAll(tmpRS);
-					 System.out.println("\t tempRS is: " + tmpRS + "; newRS is " + newRS);
+					// System.out.println("\t tempRS is: " + tmpRS + "; newRS is
+					// " + newRS);
 				}
 				rsSet = newRS;
-//				 System.out.println("current word is " + iWord);
-//				 System.out.println("after syn is: " + newRS);
+				// System.out.println("current word is " + iWord);
+				// System.out.println("after syn is: " + newRS);
 			} else {
 				System.err.println("PMP.replaceSynonym: No syn: " + iWord);
 				for (int j = 0; j < rsSet.size(); j++) {
@@ -336,17 +440,17 @@ public class PropertyRecognizer {
 				}
 			}
 		}
-		
-//		System.out.println("replaceSynonymProcess.segPos="+segPos);
-		if(segPos.size() > 1){
-//			System.out.println("replaceSynonymProcess.rsSet="+rsSet);
+
+		// System.out.println("replaceSynonymProcess.segPos="+segPos);
+		if (segPos.size() > 1) {
+			// System.out.println("replaceSynonymProcess.rsSet="+rsSet);
 			Set<String> iSynSet = NLPUtil.getSynonymWordSet(str);
-			for(String s : iSynSet){
+			for (String s : iSynSet) {
 				rsSet.add(s);
 			}
 		}
 
-//		 System.out.println("output of replaceSynonym: " + rsSet.toString());
+		// System.out.println("output of replaceSynonym: " + rsSet.toString());
 		return rsSet;
 	}
 
@@ -355,7 +459,7 @@ public class PropertyRecognizer {
 	// input: （姚明）妻
 	// output: 叶莉
 	private PatternMatchingResultBean recognizingProp(String candidate, Set<String> propSet, int originalScore) {
-		System.out.println("init of recognizingProp: candidate=" + candidate + ", originalScore="+originalScore);
+		System.out.println("init of recognizingProp: candidate=" + candidate + ", originalScore=" + originalScore);
 		// threshold to pass: if str contain a property in DB, pass
 		boolean isPass = false;
 		HashMap<String, Integer> rsMap = new HashMap<String, Integer>();
@@ -369,16 +473,16 @@ public class PropertyRecognizer {
 
 		for (String strProperty : propSet) {
 			isPass = SinglePatternMatching(rsMap, strProperty, candidate, isPass);
-//			System.out.print("strProperty="+strProperty);
+			// System.out.print("strProperty="+strProperty);
 		}
-//		System.out.println("isPass="+isPass);
+		// System.out.println("isPass="+isPass);
 
 		int finalScore = Integer.MIN_VALUE;
-		
-		//对得分相同的property进行处理
+
+		// 对得分相同的property进行处理
 		List<String> sameValuePropetyList = new ArrayList<String>();
 		for (String s : propSet) {
-			if(rsMap.get(s) < 0){
+			if (rsMap.get(s) < 0) {
 				continue;
 			}
 			if (rsMap.get(s) > finalScore) {
@@ -387,33 +491,31 @@ public class PropertyRecognizer {
 				finalScore = rsMap.get(s);
 				continue;
 			}
-			if(rsMap.get(s) == finalScore){
+			if (rsMap.get(s) == finalScore) {
 				sameValuePropetyList.add(s);
 			}
-			
+
 		}
-		
-		
-		
-		if(sameValuePropetyList.size() > 0){
+
+		if (sameValuePropetyList.size() > 0) {
 			String result = getBestAnswerFromCandidate(sameValuePropetyList, candidate);
 			beanPM.setAnswer(result);
 			beanPM.setScore(rsMap.get(result));
-		}else {
+		} else {
 			beanPM.setAnswer("");
 			beanPM.setScore(-5);
 		}
-		
-//		int score = Integer.MIN_VALUE;
-//		Set<String> entrySet = rsFinalMap.keySet();
-//		for(String s:entrySet){
-//			if (rsFinalMap.get(s) > score){
-//				score = rsFinalMap.get(s);
-//				beanPM.setAnswer(s);
-//				beanPM.setScore(rsMap.get(s));
-//			}
-//		}
-		
+
+		// int score = Integer.MIN_VALUE;
+		// Set<String> entrySet = rsFinalMap.keySet();
+		// for(String s:entrySet){
+		// if (rsFinalMap.get(s) > score){
+		// score = rsFinalMap.get(s);
+		// beanPM.setAnswer(s);
+		// beanPM.setScore(rsMap.get(s));
+		// }
+		// }
+
 		if (isPass == false && beanPM.getScore() < 0) {
 			beanPM.set2NotValid();
 		} else {
@@ -428,68 +530,72 @@ public class PropertyRecognizer {
 		return beanPM;
 	}
 
-	//对topN 个答案进行帅选。
-	 private String getBestAnswerFromCandidate(List<String> topN, String candidate){
+	// 对topN 个答案进行帅选。
+	private String getBestAnswerFromCandidate(List<String> topN, String candidate) {
 		String finalResult = "";
 		HashMap<String, Integer> rsFinalMap = new HashMap<String, Integer>();
 		List<String> listCandidate = new ArrayList<>();
-		//迭代topN 
+		// 迭代topN
 		Iterator<String> iterator = topN.iterator();
 		while (iterator.hasNext()) {
-			//tempPro = topN 里的元素
+			// tempPro = topN 里的元素
 			String tempCandidate = candidate;
 			String tempPro = (String) iterator.next();
 			int rightToLeft = 0;
-			if(!tempPro.isEmpty()){
-				if(tempPro.endsWith(tempCandidate)||tempCandidate.endsWith(tempPro)){
+			if (!tempPro.isEmpty()) {
+				if (tempPro.endsWith(tempCandidate) || tempCandidate.endsWith(tempPro)) {
 					rsFinalMap.put(tempPro, 5);
 					listCandidate.add(tempPro);
-				}else {
-					for(int i = tempPro.length()-1; i >= 0; i--){
-						if(tempCandidate.isEmpty()){
+				} else {
+					for (int i = tempPro.length() - 1; i >= 0; i--) {
+						if (tempCandidate.isEmpty()) {
 							break;
 						}
-						if(!tempCandidate.isEmpty()&&tempCandidate.lastIndexOf(tempPro.charAt(i)) == tempCandidate.length()-1){
+						if (!tempCandidate.isEmpty()
+								&& tempCandidate.lastIndexOf(tempPro.charAt(i)) == tempCandidate.length() - 1) {
 							rightToLeft++;
-							tempCandidate = tempCandidate.substring(0, tempCandidate.length()-1);
-						}else {
+							tempCandidate = tempCandidate.substring(0, tempCandidate.length() - 1);
+						} else {
 							rightToLeft--;
 						}
 					}
-					//将结果放入rsMap
+					// 将结果放入rsMap
 					rsFinalMap.put(tempPro, rightToLeft);
 					listCandidate.add(tempPro);
 				}
 			}
 		}
-		
+
 		int score = Integer.MIN_VALUE;
-//		Set<String> entrySet = rsFinalMap.keySet();
-		for(String s:listCandidate){
-			if (rsFinalMap.get(s) > score){
+		// Set<String> entrySet = rsFinalMap.keySet();
+		for (String s : listCandidate) {
+			if (rsFinalMap.get(s) > score) {
 				score = rsFinalMap.get(s);
 				finalResult = "";
-				finalResult+=s;
+				finalResult += s;
 			}
 		}
-		
+
 		return finalResult;
-	 }
-	
+	}
+
 	// test the similarity between target (strProperty) and ref (candidate)
 	private boolean SinglePatternMatching(HashMap<String, Integer> rsMap, String strProperty, String candidate,
 			boolean isPass) {
-//		System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap + "\t" + "strProperty=" + strProperty
-//				+ ", candidate=" + candidate);
+		// System.out.println(">>>SinglePatternMatching: rsMap = " + rsMap +
+		// "\t" + "strProperty=" + strProperty
+		// + ", candidate=" + candidate);
 
 		// case of length == 1
-		
-		if(Tool.isStrEmptyOrNull(strProperty) || Tool.isStrEmptyOrNull(candidate)){
-			System.err.println("wrong format in SinglePatternMatching: strProperty="+strProperty+", candidate"+candidate);
-			LogService.printLog("", "SinglePatternMatching", "wrong format in SinglePatternMatching: strProperty="+strProperty+", candidate"+candidate);
+
+		if (Tool.isStrEmptyOrNull(strProperty) || Tool.isStrEmptyOrNull(candidate)) {
+			System.err.println(
+					"wrong format in SinglePatternMatching: strProperty=" + strProperty + ", candidate" + candidate);
+			LogService.printLog("", "SinglePatternMatching",
+					"wrong format in SinglePatternMatching: strProperty=" + strProperty + ", candidate" + candidate);
 			return isPass;
 		}
-		
+
 		if (strProperty.length() == 1 || candidate.length() == 1) {
 			if (strProperty.equals(candidate)) {
 				rsMap.put(strProperty, 5);
@@ -557,9 +663,10 @@ public class PropertyRecognizer {
 				right2left--;
 			}
 		}
-		
-//		System.out.println("strProperty=" + strProperty + ", candidate=" + candidate + "left is " + left2right + "right is " + right2left
-//				+ " isPass is " + isPass);
+
+		// System.out.println("strProperty=" + strProperty + ", candidate=" +
+		// candidate + "left is " + left2right + "right is " + right2left
+		// + " isPass is " + isPass);
 
 		// if (left2right != right2left)
 		// System.err.println(
@@ -567,26 +674,27 @@ public class PropertyRecognizer {
 		// + ", right=" + right2left);
 
 		if (left2right > right2left) {
-			// fix bad case 次总冠军 －－ 总冠军数目  将匹配上的字符个数 >=3与得分 >= 2 的情况提升到5分 
-			if(countTimesLeft >= 3 && left2right >= 2){
+			// fix bad case 次总冠军 －－ 总冠军数目 将匹配上的字符个数 >=3与得分 >= 2 的情况提升到5分
+			if (countTimesLeft >= 3 && left2right >= 2) {
 				rsMap.put(strProperty, 5);
-			}else {
+			} else {
 				rsMap.put(strProperty, left2right);
 			}
 		} else {
-			if(countTimesRight >=3 && right2left >= 2){
+			if (countTimesRight >= 3 && right2left >= 2) {
 				rsMap.put(strProperty, 5);
-			}else {
+			} else {
 				rsMap.put(strProperty, right2left);
 			}
 		}
-		
-		if(left2right == 0 && right2left == 0){
+
+		if (left2right == 0 && right2left == 0) {
 			rsMap.put(strProperty, 5);
 		}
-		
-		if(left2right >= 0 && right2left >= 0 && rsMap.get(strProperty)!=5){
-			LogService.printLog("", "SinglePatternMatching", "strProperty="+strProperty+", candidate="+candidate+", left="+left2right+", right="+right2left);
+
+		if (left2right >= 0 && right2left >= 0 && rsMap.get(strProperty) != 5) {
+			LogService.printLog("", "SinglePatternMatching", "strProperty=" + strProperty + ", candidate=" + candidate
+					+ ", left=" + left2right + ", right=" + right2left);
 		}
 
 		return isPass;
@@ -716,10 +824,10 @@ public class PropertyRecognizer {
 		if (Tool.isStrEmptyOrNull(str) || Tool.isStrEmptyOrNull(ent)) {
 			System.err.println("PMP.getCandidateSet: input is empty: str = " + str + ", ent = " + ent);
 		}
-		
-		if(!str.contains(ent)){
+
+		if (!str.contains(ent)) {
 			String entSyn = NLPUtil.getEntitySynonymReverse(ent);
-			if(str.contains(entSyn)){
+			if (str.contains(entSyn)) {
 				ent = entSyn;
 			}
 		}
@@ -777,47 +885,51 @@ public class PropertyRecognizer {
 		}
 
 		List<String> propList = DBProcess.getPropertyNameSet(label, ent, key);
-//		System.out.println("getPropertyNameSet.propList="+propList);
+		// System.out.println("getPropertyNameSet.propList="+propList);
 		if (propList != null && !propList.isEmpty()) {
 			for (String iProp : propList) {
 				rsMap.put(iProp, iProp);
 				Set<String> setSyn = NLPUtil.getSynonymWordSet(iProp);
-//				Set<String> setSyn = getSynonymSetOfProperty(iProp);
+				// Set<String> setSyn = getSynonymSetOfProperty(iProp);
 				for (String iSyn : setSyn) {
 					rsMap.put(iSyn, iProp);
 				}
 			}
 		}
-//		 System.out.println("all the prop is: " + rsMap);
+		// System.out.println("all the prop is: " + rsMap);
 		return rsMap;
 	}
-	
+
 	// function: get the synonym word set of a property
-	// method: get the synonym from syn table based on the segments of the property
+	// method: get the synonym from syn table based on the segments of the
+	// property
 	// input: a property name, e.g.: 海拔高度
-	// output: the synonym word set of this property, e.g.: 海拔身高, (since 身高 is synonym of 海拔)
-	private Set<String> getSynonymSetOfProperty(String prop){
-//		System.out.println("\n start getSynonymSetOfProperty: prop="+prop);
+	// output: the synonym word set of this property, e.g.: 海拔身高, (since 身高 is
+	// synonym of 海拔)
+	private Set<String> getSynonymSetOfProperty(String prop) {
+		// System.out.println("\n start getSynonymSetOfProperty: prop="+prop);
 		Set<String> rtnSynSet = new HashSet<>();
-		if(Tool.isStrEmptyOrNull(prop)){
+		if (Tool.isStrEmptyOrNull(prop)) {
 			return rtnSynSet;
 		}
-		
+
 		// 1. get the synonym set of the whole property
 		Set<String> setSyn = NLPUtil.getSynonymWordSet(prop);
-		for(String s : setSyn){
+		for (String s : setSyn) {
 			rtnSynSet.add(s);
 		}
-		
-		// 2. split the property into segments, get the syn set for each segments, and then combine them together
+
+		// 2. split the property into segments, get the syn set for each
+		// segments, and then combine them together
 		Map<String, String> refPropMap = new HashMap<>();
 		List<String> synList = replaceSynonymProcess(prop, refPropMap);
-		System.out.println("synList="+synList);
-		for(String s : synList){
+		System.out.println("synList=" + synList);
+		for (String s : synList) {
 			rtnSynSet.add(s);
 		}
-		
-//		System.out.println("end getSynonymSetOfProperty: rtnSynSet="+rtnSynSet+"\n");
+
+		// System.out.println("end getSynonymSetOfProperty:
+		// rtnSynSet="+rtnSynSet+"\n");
 		return rtnSynSet;
 	}
 

@@ -247,7 +247,7 @@ public class KGAgent {
 						tempBean.setComments(answerBean.getComments());
 
 						PropertyRecognizer propertyRecognizer = new PropertyRecognizer(nerBean);
-						tempBean = propertyRecognizer.ReasoningProcess(sentence, iLabel, eachEntity, tempBean, iKey);
+						tempBean = propertyRecognizer.ReasoningProcess(sentence, iLabel, eachEntity, tempBean, iKey, false);
 						System.out.println("\t ReasoningProcess answerBean = " + tempBean);
 
 						// add the implicationQuestion process here, for now only check
@@ -448,6 +448,10 @@ public class KGAgent {
 				answerBean.setScore(0);
 			}
 			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer()));
+			if(answerBean.getScore()>=50 && answerBean.getScore()<80){
+				System.out.println("adjust score in property case from "+answerBean.getScore()+" to 80");
+				answerBean.setScore(80);
+			}
 			System.out.println("PM.getAnswer 5: the returned anwer is " + answerBean.toString());
 			return answerBean.returnAnswer(answerBean);
 		} else if (NLPUtil.isInRemoveableAllDict(entity) || NLPUtil.isInDailyUsedWordDict(entity)) {
@@ -509,7 +513,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "孙俪和邓超什么关系";
+		String str = "卡卡西老师的生日是几月几号？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

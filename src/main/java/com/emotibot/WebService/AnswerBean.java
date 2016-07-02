@@ -1,7 +1,11 @@
 package com.emotibot.WebService;
 
+import org.xerial.snappy.SnappyOutputStream;
+
 import com.emotibot.common.Common;
 import com.emotibot.util.Tool;
+
+import scala.Predef.any2stringadd;
 
 public class AnswerBean {
 	private double score = 0;
@@ -10,9 +14,28 @@ public class AnswerBean {
 	private boolean isValid = false;
 	private String originalWord = ""; // the word in the sentence
 	private String comments = "";
-	
-	public AnswerBean returnAnswer(AnswerBean bean){
-		if(Tool.isStrEmptyOrNull(bean.getAnswer())){
+
+	@Override
+	public boolean equals(Object obj) {
+		// TODO Auto-generated method stub
+		AnswerBean rhs;
+		if (!(obj instanceof AnswerBean)) {
+			return false;
+		} else {
+			rhs = (AnswerBean) obj;
+		}
+
+		if (this.score != rhs.score || !this.answer.equals(rhs.answer) || !this.property.equals(rhs.property)
+				|| this.isValid != rhs.isValid || !this.originalWord.equals(rhs.originalWord)) {
+			return false;
+		}
+		
+		return true;
+
+	}
+
+	public AnswerBean returnAnswer(AnswerBean bean) {
+		if (Tool.isStrEmptyOrNull(bean.getAnswer())) {
 			System.out.println("answerBean.returnanswer: bean.answer is null or empty");
 			bean.setScore(0);
 		}
@@ -34,20 +57,20 @@ public class AnswerBean {
 	public void setAnswer(String answer) {
 		this.answer = answer;
 	}
-	
+
 	public String getComments() {
 		return comments;
 	}
-	
-	public void setComments(String s){
-		this.comments += " | "+s;
+
+	public void setComments(String s) {
+		this.comments += " | " + s;
 	}
 
 	public String toString() {
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(property).append("(").append(originalWord).append(") : [").append(score).append("] ")
 				.append(answer).append("; ");
-//		buffer.append(" | comment:").append(comments);
+		// buffer.append(" | comment:").append(comments);
 		return buffer.toString();
 	}
 
@@ -60,7 +83,7 @@ public class AnswerBean {
 	}
 
 	public boolean isValid() {
-		if(answer.isEmpty() || score == 0){
+		if (answer.isEmpty() || score == 0) {
 			return isValid;
 		} else {
 			return true;
@@ -82,5 +105,23 @@ public class AnswerBean {
 	public void setValid(boolean isValid) {
 		this.isValid = isValid;
 	}
+	
+	public static void main(String[] args) {
+		AnswerBean a = new AnswerBean();
+		AnswerBean b = new AnswerBean();
+		
+		System.out.println("1="+a.equals(b));
+		
+		System.out.println("est = "+AnswerBean.class.isInstance(b));
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -122,7 +122,7 @@ public class ImplicationProcess {
 			return "";
 		}
 		String birthInfo = DBProcess.getPropertyValue(label, entity, "出生日期", key);
-		if(Tool.isStrEmptyOrNull(birthInfo)){
+		if(Tool.isStrEmptyOrNull(birthInfo) || !CharUtil.isDateFormat(birthInfo)){
 			System.err.println("there is no birth info in entity:"+entity);
 			return "";
 		}

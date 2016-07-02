@@ -196,10 +196,10 @@ public class BuildCypherSQL implements CypherSQLParser {
 		} else {
 			if (Tool.isStrEmptyOrNull(key)) {
 				query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + entity + "\"})-[r:" + relation
-						+ "]-(m) return m as " + Common.ResultObj;
+						+ "]->(m) return m as " + Common.ResultObj;
 			} else {
 				query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + entity + "\", key:\"" + key
-						+ "\"})-[r:" + relation + "]-(m) return m as " + Common.ResultObj;
+						+ "\"})-[r:" + relation + "]->(m) return m as " + Common.ResultObj;
 			}
 		}
 		System.out.println("CYPHER of getEntityByRelationship: " + query);
