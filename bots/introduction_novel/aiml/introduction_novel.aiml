@@ -1,0 +1,38 @@
+<aiml version="1.0.1" encoding="UTF-8">
+    <category>
+        <pattern> ## * <type>entity</type><label>novel</label> </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ## * <type>entity</type><label>novel</label> 这 部 小 说 </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ## * <type>entity</type><label>novel</label> 是 啥 </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ## * <type>entity</type><label>novel</label> 这 部 小 说 是 啥 </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ## * <type>entity</type><label>novel</label> 是 什 么 </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ## * <type>entity</type><label>novel</label> 这 部 小 说 是 什 么 </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+</aiml>
