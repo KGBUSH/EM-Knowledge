@@ -367,9 +367,8 @@ public class GenerateDictionaryFile {
 //		generateEntity();
 //		generateEntityAndLabel();
 
-		generateEntityPMRefFile();
-//		generatehighFrequentWordFile();
-//		generateRemoveableHighFrequentWordFile();
+		generatehighFrequentWordFile();
+		generateRemoveableHighFrequentWordFile();
 
 		System.exit(0);
 		// generatehighFrequentWordFile();

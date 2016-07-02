@@ -556,6 +556,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	   {
 		   //String tags
 		   System.err.println(DigestUtils.md5Hex("农学类专业"));
+		   new ExtractorMap().getLabelByTags("","海上花园 景区 旅游城市 厦门港");
 	   }
 
 }
