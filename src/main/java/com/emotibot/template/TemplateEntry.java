@@ -74,7 +74,7 @@ public class TemplateEntry {
 		int i = 0;
 		for(String domainname : DictionaryBuilder.getDomainAllListTable()){
 //			System.out.println(domainname);
-			String name = domainname+"_introduction";
+			String name = "introduction_"+domainname;
 			templateDomain[i++] = new TemplateProcessor(name);
 		}
 		
@@ -116,7 +116,7 @@ public class TemplateEntry {
 		
 		int i = 0;
 		for(String domainname : DictionaryBuilder.getDomainAllListTable()){
-			String name = domainname+"_introduction";
+			String name = "introduction_"+domainname;
 			map.put(name, staticTemplateByDomain[i++]);
 		}
 		return map;

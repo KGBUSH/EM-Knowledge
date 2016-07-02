@@ -147,7 +147,7 @@ public class QuestionClassifier {
 
 	protected static String getQuestionTemplateRS(boolean isByLabel, String label, String sentence, String entity) {
 		String template = "";
-		String name = label.toLowerCase()+"_introduction";
+		String name = "introduction_"+label.toLowerCase();
 		if (!entity.isEmpty()) {
 			if (!sentence.contains(entity)) {
 				System.err.println("isKindofQuestion: sentence has no entity, s = " + sentence + ", e=" + entity);
@@ -228,7 +228,7 @@ public class QuestionClassifier {
 	public static void main(String[] args) {
 		
 		DictionaryBuilder.DictionaryBuilderInit();
-		boolean aa = isIntroductionRequestByDomain("figure","说说姚明这人是啥","姚明");
+		boolean aa = isIntroductionRequestByDomain("novel","三国演义这部小说是啥？","三国演义");
 		System.out.println(aa);
 	}
 }
