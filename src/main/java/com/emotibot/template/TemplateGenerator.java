@@ -187,6 +187,7 @@ public class TemplateGenerator {
 			in.close();
 
 		} catch (FileNotFoundException e) {
+			System.err.println("inputfilename = "+inputFile);
 			return;
 		} catch(IOException e){
 			e.printStackTrace();
@@ -445,6 +446,9 @@ public class TemplateGenerator {
 				}
 				System.out.println(
 						"domain=" + domain + ",\n specFileName=" + specFileName + ";\n aimlFileName=" + aimlFileName);
+				if(!new File(specFileName).exists()){
+					new File(specFileName).createNewFile();
+				}
 				generateQuestionClassifierTemplate(specFileName, aimlFileName, true);
 			}
 
