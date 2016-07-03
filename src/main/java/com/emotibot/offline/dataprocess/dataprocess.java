@@ -35,7 +35,7 @@ public class dataprocess {
 
 	public static void main(String args[]) throws IOException
 	{
-		String path="tall";
+		String path="TT";
 		Vector<String> lines= Tool.getFileLines(path);
 		Map<String,Map<String,String>> md5Words = new HashMap<>();
 		for(String line:lines)

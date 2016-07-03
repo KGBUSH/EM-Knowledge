@@ -119,6 +119,16 @@ public class PageExtractInfo {
 		}
         return buffer.toString().trim();
 	}
+	public String getAttrFilterEnStr()
+	{
+		StringBuffer buffer = new StringBuffer();
+		for(String key:attr.keySet())
+		{
+			if(CharUtil.isChinese(key)) buffer.append(key).append(Blank);
+		}
+        return buffer.toString().trim();
+	}
+
 	public String getValueStr()
 	{
 		StringBuffer buffer = new StringBuffer();
