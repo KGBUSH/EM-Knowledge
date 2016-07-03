@@ -128,11 +128,12 @@ public class PropertyRecognizer {
 
 			if (relationMap.containsKey(prop)) {
 				// use the new answer as new entity, get the entity as a whole
-				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, prop, entityKey);
+				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, relationMap.get(prop), entityKey);
 				String newDBEntity = (String) tmpMap.get(Common.KGNODE_NAMEATRR);
 				String newLabel = NLPUtil.getLabelByEntity(newDBEntity);
 				String newEntityKey = (String) tmpMap.get("key");
 				String newSentence = sentenceNoEntity;
+				System.out.println("nextEntity=" + newDBEntity + "; oldWord=" + oldWord+", sentenceNoEntity="+sentenceNoEntity);
 				if (!Tool.isStrEmptyOrNull(oldWord)) {
 					newSentence = sentenceNoEntity.replace(oldWord, newDBEntity);
 					newSentence = removeStopWordInSentence(newSentence);
@@ -175,7 +176,7 @@ public class PropertyRecognizer {
 			}
 
 			if (furtherSeach == true) {
-				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, prop, entityKey);
+				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, relationMap.get(prop), entityKey);
 				String newDBEntity = (String) tmpMap.get(Common.KGNODE_NAMEATRR);
 				String newLabel = NLPUtil.getLabelByEntity(newDBEntity);
 				String newEntityKey = (String) tmpMap.get("key");

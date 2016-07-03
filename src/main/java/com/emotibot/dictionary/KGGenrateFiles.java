@@ -3,6 +3,8 @@ package com.emotibot.dictionary;
 import java.io.File;
 import java.io.IOException;
 
+import org.netlib.util.booleanW;
+
 import com.emotibot.common.Common;
 import com.emotibot.template.TemplateGenerator;
 
@@ -39,7 +41,7 @@ public class KGGenrateFiles {
 	 */
 	private static boolean domainTemplate = false;
 	private static boolean QuestionClassifierTemplate = false;
-	
+	private static boolean introductionTemplateByDomain = false;
 	
 	/*
 	 * other 
@@ -152,6 +154,10 @@ public class KGGenrateFiles {
 			System.out.println("QuestionClassifierTemplate has generated!");
 		}
 		
+		if(introductionTemplateByDomain || KGFileAll){
+			TemplateGenerator.generateIntroductionTemplateByDomain();
+			System.out.println("IntroductionTemplateByDomain has generated!");
+		}
 //		if(entity_ref_PM_txt){
 //			GenerateDictionaryFile.generateEntityPMRefFile();
 //			System.out.println("/knowledgedata/entity_ref_PM.txt && /entity_missing.txt has generated!");

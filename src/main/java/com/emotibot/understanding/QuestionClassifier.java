@@ -1,8 +1,12 @@
 package com.emotibot.understanding;
 
+import scala.reflect.api.Printers.BooleanFlag;
+
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
+import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
+import com.emotibot.template.TemplateEntry;
 import com.emotibot.template.TemplateProcessor;
 import com.emotibot.util.CharUtil;
 import com.emotibot.util.Tool;
@@ -36,7 +40,8 @@ public class QuestionClassifier {
 			return rs;
 		}
 
-		String template = getQuestionTemplateRS(sentence, entity);
+		boolean isByDomain = false;
+		String template = getQuestionTemplateRS(isByDomain,"",sentence, entity);
 		if (template.isEmpty()) {
 			System.out.println("template=" + template + "~~~~ NOT introduction");
 			rs = false;
@@ -64,8 +69,9 @@ public class QuestionClassifier {
 			return rs;
 		}
 
+		boolean isByDomain = false;
 		String template = "";
-		template = getQuestionTemplateRS(sentence, entity);
+		template = getQuestionTemplateRS(isByDomain,"",sentence, entity);
 		// if (!entity.isEmpty()) {
 		// if (!sentence.contains(entity)) {
 		// System.err.println("isKindofQuestion: sentence has no entity, s = " +
@@ -93,9 +99,55 @@ public class QuestionClassifier {
 		}
 		return rs;
 	}
+	
+	protected static boolean isIntroductionRequestByDomain(String label, String sentence, String entity) {
+		System.out.println("isIntroductionRequest sentence"+sentence+", entity"+entity);
+		boolean rs = false;
+		if (Tool.isStrEmptyOrNull(sentence)) {
+			return rs;
+		}
 
-	protected static String getQuestionTemplateRS(String sentence, String entity) {
+		boolean isByDomain = true;
 		String template = "";
+		template = getQuestionTemplateRS(isByDomain, label, sentence, entity);
+		// if (!entity.isEmpty()) {
+		// if (!sentence.contains(entity)) {
+		// System.err.println("isKindofQuestion: sentence has no entity, s = " +
+		// sentence + ", e=" + entity);
+		// LogService.printLog("", "isKindofQuestion", "sentence has no entity,
+		// s = " + sentence + ", e=" + entity);
+		// return false;
+		// }
+		// String first = sentence.substring(0, sentence.indexOf(entity));
+		// String second = sentence.substring(sentence.indexOf(entity) +
+		// entity.length(), sentence.length());
+		// System.out.println("isKindof: first=" + first + ", entity=" + entity
+		// + ", second=" + second);
+		// sentence = first + " ## " + entity + "<type>entity</type> " + second;
+		// template = questionClassifier.process(sentence);
+		// } else {
+		// template = questionClassifier.processQuestionClassifier(sentence);
+		// }
+
+		if (template.isEmpty()) {
+			System.out.println("template=" + template + "~~~~ NOT introduction");
+			rs = false;
+		} else {
+			if (template.startsWith(QuestionClassifier.introductionQuestionType)
+					|| template.startsWith(QuestionClassifier.introductionSentenceType)) {
+				rs = true;
+				System.out.println(template + " IS " + QuestionClassifier.introductionQuestionType);
+			} else {
+				System.out.println("template=" + template + "~~~~ NOT introduction ?????");
+				rs = false;
+			}
+		}
+		return rs;
+	}
+
+	protected static String getQuestionTemplateRS(boolean isByLabel, String label, String sentence, String entity) {
+		String template = "";
+		String name = "introduction_"+label.toLowerCase();
 		if (!entity.isEmpty()) {
 			if (!sentence.contains(entity)) {
 				System.err.println("isKindofQuestion: sentence has no entity, s = " + sentence + ", e=" + entity);
@@ -108,13 +160,33 @@ public class QuestionClassifier {
 			System.out.println("isKindof: first=" + first + ", entity=" + entity + ", second=" + second);
 			String lastC = entity.charAt(entity.length() - 1) + "";
 			if(CharUtil.isChinese(lastC)){
-				sentence = first + " ## " + entity + "<type>entity</type> " + second;
+				if(isByLabel){
+					sentence = first + " ## " + entity + "<type>entity</type>"+ "<label>" + label + "</label> " + second;
+				}else {
+					sentence = first + " ## " + entity + "<type>entity</type> " + second;
+				}
+				
 			} else {
-				sentence = first + " ## " + entity + " <type>entity</type> " + second;
+				if(isByLabel){
+					sentence = first + " ## " + entity + " <type>entity</type>"+ "<label>" + label + "</label> " + second;
+				}else {
+					sentence = first + " ## " + entity + " <type>entity</type> " + second;
+				}
+				
 			}
-			template = questionClassifier.process(sentence);
+			if(isByLabel){
+				template = TemplateEntry.getDomainTemplateByIntroduction(name).process(sentence);
+			}else {
+				template = questionClassifier.process(sentence);
+			}
+			
 		} else {
-			template = questionClassifier.processQuestionClassifier(sentence);
+			if (isByLabel) {
+				template = TemplateEntry.getDomainTemplateByIntroduction(name).processQuestionClassifier(sentence);
+			}else {
+				template = questionClassifier.processQuestionClassifier(sentence);
+			}
+			
 		}
 
 		return template;
@@ -162,4 +234,10 @@ public class QuestionClassifier {
 		return answerBean.returnAnswer(answerBean);
 	}
 
+	public static void main(String[] args) {
+		
+		DictionaryBuilder.DictionaryBuilderInit();
+		boolean aa = isIntroductionRequestByDomain("novel","三国演义这部小说是啥？","三国演义");
+		System.out.println(aa);
+	}
 }
