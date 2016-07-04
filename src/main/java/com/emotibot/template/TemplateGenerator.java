@@ -69,11 +69,11 @@ public class TemplateGenerator {
 
 				// replace special character in Chinese
 				for (String s : specialCharacterMap.keySet()) {
-					System.out.println("s=" + s + "; S=" + specialCharacterMap.get(s));
+//					System.out.println("s=" + s + "; S=" + specialCharacterMap.get(s));
 					line = line.replace(s, specialCharacterMap.get(s));
 				}
 				line = line.replace(" ", ""); // remove blank
-				System.out.println("line after special character procedure===" + line);
+//				System.out.println("line after special character procedure===" + line);
 
 				if (!line.contains(";")) {
 					System.err.println("wrong format 1 in Line=" + line);
@@ -88,7 +88,7 @@ public class TemplateGenerator {
 					templateLine = tempLineArr[1];
 					line = tempLineArr[0];
 				}
-				System.out.println("\t seond Line process: line=" + line + ", templateLine=" + templateLine);
+//				System.out.println("\t seond Line process: line=" + line + ", templateLine=" + templateLine);
 
 				// get the first line and second line
 				String[] lineArr = line.split(";");
@@ -100,7 +100,7 @@ public class TemplateGenerator {
 				}
 				String questionType = lineArr[0];
 				String ruleLine = lineArr[1];
-				System.out.println("\t questionType=" + questionType + ", patternLine=" + ruleLine);
+//				System.out.println("\t questionType=" + questionType + ", patternLine=" + ruleLine);
 
 				// List<String> patternList = new ArrayList<>();
 				// patternList.add("");
@@ -162,7 +162,7 @@ public class TemplateGenerator {
 				List<String> middlePatterList = new ArrayList<>();
 				middlePatterList.add("");
 				middlePatterList = writePattern(patternList, middlePatterList);
-				System.out.print("middlePatterList=" + middlePatterList);
+//				System.out.print("middlePatterList=" + middlePatterList);
 
 				// second line procedure
 //				String secondLineStr = "IntroductionQuestion@:firstParamInfo";
@@ -220,11 +220,11 @@ public class TemplateGenerator {
 
 				// replace special character in Chinese
 				for (String s : specialCharacterMap.keySet()) {
-					System.out.println("s=" + s + "; S=" + specialCharacterMap.get(s));
+//					System.out.println("s=" + s + "; S=" + specialCharacterMap.get(s));
 					line = line.replace(s, specialCharacterMap.get(s));
 				}
 				line = line.replace(" ", ""); // remove blank
-				System.out.println("line after special character procedure===" + line);
+//				System.out.println("line after special character procedure===" + line);
 
 				if (!line.contains("#") || !line.contains(";")) {
 					System.err.println("wrong format 3 in Line=" + line);
@@ -243,7 +243,7 @@ public class TemplateGenerator {
 				}
 				String firstLine = lineArr[0];
 				String secondLine = lineArr[1];
-				System.out.println("\t firstLine=" + firstLine + ", secondLine=" + secondLine);
+//				System.out.println("\t firstLine=" + firstLine + ", secondLine=" + secondLine);
 
 				// get the label and pattern
 				String[] firstArr = firstLine.split(",");
@@ -336,7 +336,7 @@ public class TemplateGenerator {
 					// count++;
 					// }
 
-					System.out.println("pattern=" + pattern + ", patternList=" + patternList);
+//					System.out.println("pattern=" + pattern + ", patternList=" + patternList);
 					if (pattern.endsWith("^")) {
 						// for(String s : patternList){
 						//
@@ -346,12 +346,12 @@ public class TemplateGenerator {
 					List<String> middlePatterList = new ArrayList<>();
 					middlePatterList.add("");
 					middlePatterList = writePattern(patternList, middlePatterList);
-					System.out.print("middlePatterList=" + middlePatterList);
+//					System.out.print("middlePatterList=" + middlePatterList);
 
 					// second line procedure
 					String secondLineStr = secondLine;
 					secondLineStr = secondLineStr.replace("#", "<star index=\"" + entityPos + "\"/>");
-					System.out.println("secondStr=" + secondLineStr);
+//					System.out.println("secondStr=" + secondLineStr);
 					for (String s : middlePatterList) {
 						out.write("    <category>\r\n");
 						// s = " " + s.substring(0, s.length() - 2);
@@ -378,7 +378,7 @@ public class TemplateGenerator {
 	}
 
 	private static List<String> writePattern(List<List<String>> patternList, List<String> lineList) {
-		System.out.println("\t patternList=" + patternList + "; lineList=" + lineList);
+//		System.out.println("\t patternList=" + patternList + "; lineList=" + lineList);
 		if (patternList == null || patternList.isEmpty()) {
 			return lineList;
 		}
@@ -386,7 +386,7 @@ public class TemplateGenerator {
 		Iterator<List<String>> it = patternList.iterator();
 		if (it.hasNext()) {
 			List<String> currentPatList = it.next();
-			System.out.println("\t\t currentPatternList=" + patternList + "; lineList=" + lineList);
+//			System.out.println("\t\t currentPatternList=" + patternList + "; lineList=" + lineList);
 			for (String part : currentPatList) {
 				for (String s : lineList) {
 					s = s.concat(part);
@@ -462,14 +462,14 @@ public class TemplateGenerator {
 		String specFileName = Common.UserDir + "/knowledgedata/template/questionClassifier.txt";
 		String aimlFileName = Common.UserDir + "/bots/QuestionClassifier/aiml/QuestionClassifier.aiml";
 		
-		generateQuestionClassifierTemplate(specFileName, aimlFileName, true);
+		generateQuestionClassifierTemplate(specFileName, aimlFileName, false);
 	}
 
 	public static void main(String[] args) {
 //		TemplateGenerator tg = new TemplateGenerator();
-//		tg.generateQuestionClassifierTemplate();
+		generateQuestionClassifierTemplate();
 //		generateDomainTemplate();
-		generateIntroductionTemplateByDomain();
+//		generateIntroductionTemplateByDomain();
 	}
 
 }

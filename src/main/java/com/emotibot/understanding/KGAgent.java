@@ -176,7 +176,7 @@ public class KGAgent {
 
 		AnswerRewrite answerRewite = new AnswerRewrite();
 		System.out.println("##### entitySet=" + entitySet);
-
+		
 //		if (isQuestion == false) {
 //			Debug.printDebug(uniqueID, 4, "knowledge", "the input sentence is not a question");
 //			System.out.println("the input sentence is not a question");
@@ -194,6 +194,12 @@ public class KGAgent {
 
 		// PatternMatchingResultBean beanPM = new PatternMatchingResultBean();
 		String entity = entitySet.get(0);
+		
+		// add high frequent process in property recognization
+		if(NLPUtil.isInRemoveableMauallyCollectedDict(entity)){
+			return answerBean.returnAnswer(answerBean);
+		}
+		
 		// for single entity case
 		// if (entitySet.size() == 1) {
 		System.out.println("TEMP 1 answerBean=" + answerBean.toString() + ", comments=" + answerBean.getComments());
@@ -513,7 +519,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "卡卡西老师的生日是几月几号？";
+		String str = "让你记住我的名字";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

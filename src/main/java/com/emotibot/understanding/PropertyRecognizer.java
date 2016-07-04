@@ -141,10 +141,12 @@ public class PropertyRecognizer {
 
 			// to test whether there is a corresponding property
 			boolean furtherSeach = false;
+			String relationProp = "";
 			if (NLPUtil.isInSynonymDict(prop)) {
 				for (String s : NLPUtil.getSynonymWordSet(prop)) {
 					if (relationMap.containsKey(s)) {
 						furtherSeach = true;
+						relationProp = s;
 						break;
 					}
 				}
@@ -153,9 +155,9 @@ public class PropertyRecognizer {
 			}
 			System.out.println("In Case 1 furtherSeach = " + furtherSeach);
 
-			if (!isTemplate && furtherSeach) {
+			if (!isTemplate && furtherSeach && !relationProp.isEmpty()) {
 				// use the new answer as new entity, get the entity as a whole
-				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, relationMap.get(prop),
+				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, relationMap.get(relationProp),
 						entityKey);
 				System.out.println("tmpMap=" + tmpMap);
 				String newDBEntity = (String) tmpMap.get(Common.KGNODE_NAMEATRR);
@@ -170,7 +172,7 @@ public class PropertyRecognizer {
 				}
 
 				System.out.println("-----> case 1 recurrence into: nextEntity=" + newDBEntity + "; Bean=" + answerBean);
-				System.out.println("prop:" + prop + ", new sentence:" + newSentence + ", newDBEntity=" + newDBEntity
+				System.out.println("prop:" + prop + "relationProp:" + relationProp + ", new sentence:" + newSentence + ", newDBEntity=" + newDBEntity
 						+ ", newLabel=" + newLabel + ", newEntityKey=" + newEntityKey);
 
 				AnswerBean tmpAnswerBean = ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean,
