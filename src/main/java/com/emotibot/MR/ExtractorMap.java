@@ -392,9 +392,10 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	
 	public String getLabel(String url,String tag)
 	{
-		if(URLLabelMap.containsKey(url)) return URLLabelMap.get(url);
+		/*if(URLLabelMap.containsKey(url)) return URLLabelMap.get(url);
 		if(tag==null||tag.trim().length()==0) return Other;
-		return getLabelByTags(url,tag);
+		return getLabelByTags(url,tag);*/
+		return Other;
 	}
     public  String MyTrim(String s){
     	String str = s.replace(String.valueOf((char) 160), " ").trim();
