@@ -223,7 +223,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					System.err.println(NodeOrRelation+" queryMap=" + query);
 					/////////TongyiciMap
 					////////duoyici
-					System.err.println("SparkInfo:"+name+"###"+label+"###"+pageExtractInfo.getTags()+"###"+pageExtractInfo.getFirstPara()+"###"+pageExtractInfo.getParamMd5()+"###"+url);
+					System.err.println("SparkInfo:"+name+"###"+label+"###"+pageExtractInfo.getTags()+"###"+pageExtractInfo.getAttrFilterEnStr()+"###"+pageExtractInfo.getFirstPara()+"###"+pageExtractInfo.getParamMd5()+"###"+url);
 					if(pageExtractInfo.getDuoyici().length()>0) System.err.println("Duoyici:"+pageExtractInfo.getDuoyici()+"###"+pageExtractInfo.getTags()+"###"+url);
                      //					System.err.println("Tongyici1:"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.GetSynonym());
                     String tongyici="";
@@ -556,7 +556,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	   {
 		   //String tags
 		   System.err.println(DigestUtils.md5Hex("农学类专业"));
-		   new ExtractorMap().getLabelByTags("","海上花园 景区 旅游城市 厦门港");
+		   new ExtractorMap().getLabelByTags("","宋代 商丘 历史 北宋 中国历史政权");
 	   }
 
 }
