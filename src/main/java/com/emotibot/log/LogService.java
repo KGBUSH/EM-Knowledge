@@ -17,5 +17,17 @@ public class LogService {
 		}
 		
 	}
+	
+	// with log file version
+	public static void printLog(String id, String file, String log, String logfile){
+		try{
+			BufferedWriter exceptionLog = new BufferedWriter(new FileWriter(Common.UserDir + "/log/"+logfile+".txt", true));
+			exceptionLog.write("id="+id+", filename="+file+", log="+log+"\r\n");
+			exceptionLog.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+	}
 
 }
