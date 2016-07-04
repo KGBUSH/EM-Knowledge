@@ -29,7 +29,15 @@ public class EntityRecognizer {
 
 	public EntityRecognizer(NERBean bean) {
 		nerBean = bean;
-		nerBean.setEntitySet(getEntity());
+		
+//		List<String> oringalSet = getEntity();
+//		List<String> proSet = getEntityPro();
+//		if(!CommonUtil.isTwoListsEqual(oringalSet, proSet)){
+//			System.err.println("original = "+oringalSet+", pro is "+proSet);
+//			LogService.printLog("", "EntityRecognizer", "sentence="+nerBean.getSentence()+"original = "+oringalSet+", pro is "+proSet, "entityTest");
+//		}
+		
+		nerBean.setEntitySet(getEntityPro());
 		removeAbnormalEntity();
 //		nerBean.setSentence(changeEntitySynonym());
 		removeAbnormalEntity();
@@ -38,6 +46,59 @@ public class EntityRecognizer {
 	public NERBean updateNERBean() {
 		return nerBean;
 	}
+	
+	// identify the entities in a sentence by SimpleMatching, NLP, Solr
+		public List<String> getEntityPro() {
+			String sentence = nerBean.getOldSentence();
+			System.out.println("PMP.getEntity: sentence=" + sentence);
+			if (Tool.isStrEmptyOrNull(sentence)) {
+				System.err.println("PMP.getEntity: input is empty");
+				return null;
+			}
+
+			System.out.println("segPos=" + nerBean.getSegPos());
+			System.out.println("segWordWithoutStopWord=" + nerBean.getSegWordWithoutStopWord());
+
+			List<String> rsEntity = new ArrayList<>();
+			List<String> simpleMatchEntity = getEntitySimpleMatch(sentence);
+			System.out.println("\t simpleMatchingEntity=" + simpleMatchEntity);
+			
+			if(!simpleMatchEntity.isEmpty()){
+				if(simpleMatchEntity.size()==1){
+					rsEntity.add(simpleMatchEntity.get(0));
+					System.out.println("case: 0: rsEntity=" + rsEntity);
+					return rsEntity;
+				}
+				if (QuestionClassifier.isRelationshipQuestion(sentence)) {
+					// case: 叶莉和姚明的女儿是谁？
+					rsEntity.add(simpleMatchEntity.get(0));
+					rsEntity.add(simpleMatchEntity.get(1));
+					System.out.println("case: 1: rsEntity=" + rsEntity);
+					return rsEntity;
+				} else {
+					rsEntity.add(simpleMatchEntity.get(0));
+					System.out.println("case: 2: rsEntity=" + rsEntity);
+					return rsEntity;
+				}
+			} else {
+				List<String> solrEntity = getEntityBySolr(sentence, null, nerBean.getSegWordWithoutStopWord());
+				System.out.println("\t solrEntity without entity input=" + solrEntity);
+				
+				if(!QuestionClassifier.isRelationshipQuestion(sentence) && !solrEntity.isEmpty()){
+					rsEntity.add(solrEntity.get(0));
+					System.out.println("case: 3: rsEntity=" + rsEntity);
+					return rsEntity;
+				}
+			}
+			
+			List<String> nlpEntity = getEntityByNLP(nerBean.getSegPos(), sentence);
+			if(!nlpEntity.isEmpty()){
+				System.out.println("\t simpleMatchingEntity=" + simpleMatchEntity + "\n\t nlpEntity=" + nlpEntity);
+				LogService.printLog("", "getEntityPro", "nlpEntity=" + nlpEntity, "entityTest");
+			}
+
+			return rsEntity;
+		}
 
 	// identify the entities in a sentence by SimpleMatching, NLP, Solr
 	public List<String> getEntity() {

@@ -500,6 +500,10 @@ public class NLPUtil {
 		s = "九寨沟";
 		System.out.println(isASynonymEntity(s));
 		
+		System.out.println("test = "+NLPUtil.getSynonymWordSet("老婆"));
+		System.out.println("test Synonymn = "+NLPUtil.isInSynonymDict("老婆"));
+		
+		
 //		System.out.println(hasEntitySynonym(s));
 //		System.out.println(DictionaryBuilder.getEntitySynonymTable().keySet().size());
 //		for (String ss : DictionaryBuilder.getEntitySynonymTable().keySet()) {
