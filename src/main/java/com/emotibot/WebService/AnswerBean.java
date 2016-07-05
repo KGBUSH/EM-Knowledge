@@ -1,19 +1,26 @@
 package com.emotibot.WebService;
 
-import org.xerial.snappy.SnappyOutputStream;
-
-import com.emotibot.common.Common;
 import com.emotibot.util.Tool;
 
-import scala.Predef.any2stringadd;
-
-public class AnswerBean {
+public class AnswerBean implements Cloneable {
 	private double score = 0;
 	private String answer = "";
 	private String property = "";
 	private boolean isValid = false;
 	private String originalWord = ""; // the word in the sentence
 	private String comments = "";
+	
+	@Override 
+	public Object clone() {   
+		AnswerBean clone = null;   
+	    try{   
+	        clone = (AnswerBean) super.clone();   
+	    }catch(CloneNotSupportedException e){   
+	        throw new RuntimeException(e);  // won't happen   
+	    }   
+	      
+	    return clone;   
+	}  
 
 	@Override
 	public boolean equals(Object obj) {

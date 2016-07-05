@@ -175,9 +175,12 @@ public class PropertyRecognizer {
 				System.out.println("prop:" + prop + "relationProp:" + relationProp + ", new sentence:" + newSentence + ", newDBEntity=" + newDBEntity
 						+ ", newLabel=" + newLabel + ", newEntityKey=" + newEntityKey);
 
+				AnswerBean oldBean = (AnswerBean) answerBean.clone();
 				AnswerBean tmpAnswerBean = ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean,
 						newEntityKey, false);
-				if (!answerBean.equals(tmpAnswerBean)) {
+				// to prevent over mapping the template
+				// case: 姚明的老婆多高
+				if (!oldBean.equals(tmpAnswerBean)) {
 					return tmpAnswerBean;
 				}
 
@@ -261,9 +264,11 @@ public class PropertyRecognizer {
 				// return ReasoningProcess(newSentence, newLabel, newDBEntity,
 				// answerBean, newEntityKey, false);
 
+				AnswerBean oldBean = (AnswerBean) answerBean.clone();
 				AnswerBean tmpAnswerBean = ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean,
 						newEntityKey, false);
-				if (!answerBean.equals(tmpAnswerBean)) {
+//				return tmpAnswerBean;
+				if (!oldBean.equals(tmpAnswerBean)) {
 					return tmpAnswerBean;
 				}
 
