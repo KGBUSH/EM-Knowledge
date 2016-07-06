@@ -44,8 +44,6 @@ public class RedisClient {
 	   }
 	   boolean isUrl=jedis.exists(urlmd5);
 	   boolean isParam = jedis.exists(parammd5);
-	   jedis.sadd(urlmd5, "");
-	   jedis.sadd(parammd5, "");
 	   if(isUrl||isParam) return true;
 	   return false;
    }
@@ -56,9 +54,23 @@ public class RedisClient {
 		    return false;
 	   }
 	   boolean isName=jedis.exists(name);
-	   jedis.sadd(name, "");
+	   jedis.set(name, "");
 	   if(isName) return true;
 	   return false;
+   }
+   public String getKey(String key)
+   {
+	   if(key==null||key.trim().length()==0)
+	   {
+		    return "";
+	   }
+	   String value=jedis.get(key);
+	   if(value==null) value="";
+	   return value;
+   }
+   public void setKey(String key,String value)
+   {
+	    jedis.set(key, value);
    }
 
    public static void main(String args[])
@@ -68,7 +80,14 @@ public class RedisClient {
 	   System.err.println(redis.existKey("1"));
 	   //redis.Clear();
 	   System.err.println(redis.existKey("1"));
-	   System.err.println(redis.existKey("1"));
+	   System.err.println(redis.existKey("1"));	 
+
+	   System.err.println(redis.getKey("77"));
+	   redis.setKey("1", "2");
+	   System.err.println(redis.getKey("1"));
+	   redis.setKey("1", "2222");
+	   System.err.println(redis.getKey("1"));
+
 	   redis.Clear();
 
 
