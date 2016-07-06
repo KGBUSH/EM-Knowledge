@@ -256,7 +256,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						BuildCypherSQL bcy = new BuildCypherSQL();
 						String urlmd5=DigestUtils.md5Hex(url);
 						String parammd5=pageExtractInfo.getParamMd5();
-						//boolean isexist=isExistHtml(urlmd5,parammd5);
                         if(redis.existKey(urlmd5+parammd5)) return ;
 						label = redis.getKey(url);
 					    if(label==null||label.trim().length()==0||label.contains(Other)) label=this.getLabel(url, pageExtractInfo.getTags());
@@ -268,10 +267,8 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 								List<String> list = attr_Values.get(attr);
 								for(String val:list)
 								{
-									Entity a = new Entity(label, name,"Name");
 									String label2="";
                                     String urlval=pageExtractInfo.getWordLink(val).trim();
-                                    String urlvalmd5=DigestUtils.md5Hex(urlval);
                                     label2=redis.getKey(urlval);
             						if(label2==null||label2.trim().length()==0||label2.contains(Other))
             						{
