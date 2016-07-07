@@ -66,10 +66,10 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	public static String md5 = "urlkey";
 	public static String paramMd5 = "key";
 
-	public static Map<String, String> URLLabelMap = null;
-	public static Map<String, String> URLMD5LabelAllMap = null;
+	//public static Map<String, String> URLLabelMap = null;
+	//public static Map<String, String> URLMD5LabelAllMap = null;
 	public static Map<String, String> WordLabelMap =null;
-	public static Map<String, String> UrlKeyParamKeyMap =null;
+	//public static Map<String, String> UrlKeyParamKeyMap =null;
 
 	public static List<String> fileList = null;
     public static String NodeOrRelation="";
@@ -77,21 +77,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
     public static String RedisIP="";
     public static int RedisPort=0;
     public static RedisClient redis=null;
-	/*
-	 * /domain/TV_series.txt /domain/anime.txt /domain/catchword.txt
-	 * /domain/college.txt /domain/computer_game.txt /domain/cosmetics.txt
-	 * /domain/delicacy.txt /domain/digital_product.txt /domain/figure.txt
-	 * /domain/major.txt /domain/movie.txt /domain/novel.txt /domain/sports.txt
-	 * /domain/sports_organization.txt /domain/tourism.txt
-	 * /domain/varity_show.txt
-	 */
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * org.apache.hadoop.mapreduce.Mapper#setup(org.apache.hadoop.mapreduce.
-	 * Mapper.Context)
-	 */
 	@Override
 	public void setup(Context context) {
 		type = context.getConfiguration().get("type");
@@ -128,14 +113,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 	    for (String f : fileList) {
 	      getFileLine(f);
 	    }
-	    URLLabelMap = new HashMap<String,String>();
-	    URLMD5LabelAllMap=new HashMap<String,String>();
-	    UrlKeyParamKeyMap= new HashMap<String,String>();
-        System.err.println("URLLabelMapSizeBB="+URLLabelMap.size()+"  URLMD5LabelAllMapSizeBB="+URLMD5LabelAllMap.size());
-		URLLabelMap=getWordLabel("/domain/URLLabelMap.txt");
-		URLMD5LabelAllMap=getWordLabel("/domain/URLMD5LabelAllMap.txt");
-		UrlKeyParamKeyMap=getWordLabel("/domain/UrlKeyParamKeyMap.txt");
-        System.err.println("URLLabelMapSizeBB="+URLLabelMap.size()+"  URLMD5LabelAllMapSizeBB="+URLMD5LabelAllMap.size());
 	}
 
 	@Override
@@ -252,6 +229,9 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 String urlmd5=DigestUtils.md5Hex(url);
 					 String parammd5=pageExtractInfo.getParamMd5();
 					 boolean isexist=isExistHtml(urlmd5,parammd5);
+					 redis.setKey(url, label);
+					 redis.setKey(urlmd5, parammd5);
+					 redis.setKey(parammd5, "");
 					 System.err.println(url+" isexist="+isexist);
 					 boolean isexitname=isExistName(name);
 					 if(isexitname)
@@ -265,21 +245,21 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					   outputValue.set(Bytes.toBytes(pageExtractInfo.getParamMd5()+"###"+query));
 					   context.write(outputKey, outputValue);
 					 }
+					 else
+					 {
+						 redis.setKey(urlmd5+parammd5, ""); 
+					 }
 					}
 					if(NodeOrRelation.equals("2"))
 					{
 						HashMap<String,List<String>> attr_Values = pageExtractInfo.getAttr_Values();
 						BuildCypherSQL bcy = new BuildCypherSQL();
-						
-						if(name!=null&&name.trim().length()>0){
-						if(WordLabelMap.containsKey(name)){label=WordLabelMap.get(name);}
-						}
-						if(pmWord!=null&&pmWord.trim().length()>0){
-						if(WordLabelMap.containsKey(pmWord)){label=WordLabelMap.get(pmWord);}
-						}
+						String urlmd5=DigestUtils.md5Hex(url);
+						String parammd5=pageExtractInfo.getParamMd5();
+                        if(redis.existKey(urlmd5+parammd5)) return ;
+						label = redis.getKey(url);
 					    if(label==null||label.trim().length()==0||label.contains(Other)) label=this.getLabel(url, pageExtractInfo.getTags());
-						System.err.println("label="+label);
-
+						System.err.println("RelationLabel="+label);
 						if(attr_Values!=null&&attr_Values.size()>0)
 						{
 							for(String attr:attr_Values.keySet())
@@ -287,71 +267,28 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 								List<String> list = attr_Values.get(attr);
 								for(String val:list)
 								{
-									Entity a = new Entity(label, name,"Name");
 									String label2="";
                                     String urlval=pageExtractInfo.getWordLink(val).trim();
-                                    String urlvalmd5=DigestUtils.md5Hex(urlval);
-            						/*if(val!=null&&val.trim().length()>0){
-            							if(WordLabelMap.containsKey(val)){label2=WordLabelMap.get(val);}
-            						}
-            						if(label2==null||label2.trim().length()==0||label2.contains(Other)){
-            						if(URLLabelMap.containsKey(urlval))
-                                    {
-                                    	label2=URLLabelMap.get(urlval).trim();
-                                    }
-            						}*/
-                                    if(label2==null||label2.trim().length()==0||label2.contains(Other)){
-                						if(URLLabelMap.containsKey(urlval))
-                                        {
-                                        	label2=URLLabelMap.get(urlval).trim();
-                                        }
-                						}
-            						if(label2==null||label2.trim().length()==0||label2.contains(Other)){
-            						if(URLMD5LabelAllMap.containsKey(urlvalmd5))
-                                    {
-                                    	label2=URLMD5LabelAllMap.get(urlvalmd5).trim();
-                                    }
-            						}
+                                    label2=redis.getKey(urlval);
             						if(label2==null||label2.trim().length()==0||label2.contains(Other))
             						{
             							label2=Other;
             						}
-
-                                    System.err.println("urlval="+urlval+"urlvalmd5="+urlvalmd5+"label2="+label2);
-                                    System.err.println("URLLabelMapSize="+URLLabelMap.size()+"  URLMD5LabelAllMapSize="+URLMD5LabelAllMap.size());
-                            		//URLLabelMap=getWordLabel("/domain/URLLabelMap.txt");
-                            		//URLMD5LabelAllMap=getWordLabel("/domain/URLMD5LabelAllMap.txt");
-
-									Entity b = new Entity(label2,val,"Name");
-									if(name.trim().equals(val.trim())){
-										System.err.println(name+"(equals)" +val);
-                                        continue;
-									}
-					                String query=bcy.InsertRelation(a, b, attr, null);	
-					                String query2="";
-					                System.err.println(NodeOrRelation+" queryMap=" + query);
 									Entity aa = new Entity(label, DigestUtils.md5Hex(url),md5);
-									//Entity b = new Entity(label2,val,"Name");
+									String query="";
                                     if(urlval!=null&&urlval.trim().length()>0)
                                     {
                                     	String subUrlKey=DigestUtils.md5Hex(urlval);
-                                    	if(UrlKeyParamKeyMap.containsKey(subUrlKey)){
-                                    	Entity bb = new Entity(label2,UrlKeyParamKeyMap.get(subUrlKey),paramMd5);
-                                    	query2=bcy.InsertRelation(aa, bb, attr, null);	
-                                    	}
-    					                System.err.println(NodeOrRelation+" queryMap2=" + query2);
+                                    	String paramMd5=redis.getKey(subUrlKey);
+                                    	Entity bb = new Entity(label2,paramMd5,paramMd5);
+                                    	query=bcy.InsertRelation(aa, bb, attr, null);	
+    					                System.err.println(NodeOrRelation+" queryMap2=" + query);
                                     }
 									if (query !=null && query.trim().length()>0){
 										System.err.println("QUERY="+query);
 										outputValue.set(Bytes.toBytes(query));
 										context.write(outputKey, outputValue);
 									}
-									if (query2 !=null && query2.trim().length()>0){
-										System.err.println("QUERY="+query2);
-										outputValue.set(Bytes.toBytes(query2));
-										context.write(outputKey, outputValue);
-									}
-
 								}
 							}
 						}
@@ -365,7 +302,9 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 String name = pageInfo.getName();
 					 name=MyTrim(name);
 					 boolean isexist=isExistHtml(urlmd5,parammd5);
-					// boolean isexitname=isExistName(name);
+					 redis.setKey(url, label);
+					 redis.setKey(urlmd5, parammd5);
+					 redis.setKey(parammd5, "");
 					 if(isexist)//||isexitname)
 					 {
 							System.err.println("isexist||isexitname");
