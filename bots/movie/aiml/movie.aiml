@@ -90,13 +90,37 @@
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 哪 个 ^ 国 家 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 哪 ^ 国 ^ </pattern>
         <template>
             <star index="2"/>的制片地区是哪儿？
         </template>
     </category>
     <category>
-        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 什 么 ^ 国 家 ^ </pattern>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 什 么 ^ 国 ^ </pattern>
+        <template>
+            <star index="2"/>的制片地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 哪 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的制片地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 什 么 ^ 地 方 ^ </pattern>
+        <template>
+            <star index="2"/>的制片地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 哪 ^ 地 区 ^ </pattern>
+        <template>
+            <star index="2"/>的制片地区是哪儿？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 什 么 ^ 地 区 ^ </pattern>
         <template>
             <star index="2"/>的制片地区是哪儿？
         </template>
@@ -162,6 +186,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 什 么 期 间 ^ 拍 ^ </pattern>
+        <template>
+            <star index="2"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 啥 时 ^ 拍 ^ ## * <type>entity</type><label>movie</label> ^ </pattern>
         <template>
             <star index="4"/>的拍摄日期是什么时候？
@@ -186,6 +216,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 什 么 期 间 ^ 拍 ^ ## * <type>entity</type><label>movie</label> ^ </pattern>
+        <template>
+            <star index="4"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 拍 ^ ## * <type>entity</type><label>movie</label> ^ 啥 时 ^ </pattern>
         <template>
             <star index="3"/>的拍摄日期是什么时候？
@@ -205,6 +241,12 @@
     </category>
     <category>
         <pattern> ^ 拍 ^ ## * <type>entity</type><label>movie</label> ^ 哪 年 ^ </pattern>
+        <template>
+            <star index="3"/>的拍摄日期是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 拍 ^ ## * <type>entity</type><label>movie</label> ^ 什 么 期 间 ^ </pattern>
         <template>
             <star index="3"/>的拍摄日期是什么时候？
         </template>
@@ -594,6 +636,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 哪 年 ^ 上 ^ </pattern>
+        <template>
+            <star index="2"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 啥 时 ^ 看 ^ </pattern>
         <template>
             <star index="2"/>的上映时间是什么时候？
@@ -607,6 +655,12 @@
     </category>
     <category>
         <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 何 时 ^ 看 ^ </pattern>
+        <template>
+            <star index="2"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 哪 年 ^ 看 ^ </pattern>
         <template>
             <star index="2"/>的上映时间是什么时候？
         </template>
@@ -630,6 +684,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ ## * <type>entity</type><label>movie</label> ^ 哪 年 ^ 有 ^ </pattern>
+        <template>
+            <star index="2"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 啥 时 ^ 上 ^ ## * <type>entity</type><label>movie</label> ^ </pattern>
         <template>
             <star index="4"/>的上映时间是什么时候？
@@ -643,6 +703,12 @@
     </category>
     <category>
         <pattern> ^ 何 时 ^ 上 ^ ## * <type>entity</type><label>movie</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 上 ^ ## * <type>entity</type><label>movie</label> ^ </pattern>
         <template>
             <star index="4"/>的上映时间是什么时候？
         </template>
@@ -666,6 +732,12 @@
         </template>
     </category>
     <category>
+        <pattern> ^ 哪 年 ^ 看 ^ ## * <type>entity</type><label>movie</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
         <pattern> ^ 啥 时 ^ 有 ^ ## * <type>entity</type><label>movie</label> ^ </pattern>
         <template>
             <star index="4"/>的上映时间是什么时候？
@@ -679,6 +751,12 @@
     </category>
     <category>
         <pattern> ^ 何 时 ^ 有 ^ ## * <type>entity</type><label>movie</label> ^ </pattern>
+        <template>
+            <star index="4"/>的上映时间是什么时候？
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 哪 年 ^ 有 ^ ## * <type>entity</type><label>movie</label> ^ </pattern>
         <template>
             <star index="4"/>的上映时间是什么时候？
         </template>

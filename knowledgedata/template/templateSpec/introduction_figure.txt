@@ -1,1 +1,4 @@
-figure;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲&#&[这人/这个人]&[是啥/是什么/是谁]||IntroductionSentence@:firstParamInfo
+figure;^&#&这人/这个人&[是谁/是哪位/是何人]&[你]&[知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
+figure;^&#&这人/这个人&[你]&[知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]&[是谁/是哪位/是何人]||IntroductionSentence@:firstParamInfo
+figure;^&#&^&个/一个&^&人&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
+figure;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲/介绍&^&#&这人/这个人&^||IntroductionSentence@:firstParamInfo
