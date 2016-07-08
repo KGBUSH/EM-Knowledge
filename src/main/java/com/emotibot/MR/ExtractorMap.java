@@ -277,8 +277,13 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
                                     if(urlval!=null&&urlval.trim().length()>0)
                                     {
                                     	String subUrlKey=DigestUtils.md5Hex(urlval);
-                                    	String paramMd5=redis.getKey(subUrlKey);
-                                    	Entity bb = new Entity(label2,paramMd5,paramMd5);
+                                    	String contentMd5=redis.getKey(subUrlKey);
+                                    	Entity bb = new Entity(label2,contentMd5,paramMd5);
+                                    	if(contentMd5==null||contentMd5.trim().length()==0)
+                                    	{
+                                    		System.err.println("urlval_havenot_content="+urlval);
+                                    		bb = new Entity(label2,subUrlKey,md5);
+                                    	}
                                     	query=bcy.InsertRelation(aa, bb, attr, null);	
     					                System.err.println(NodeOrRelation+" queryMap2=" + query);
                                     }
