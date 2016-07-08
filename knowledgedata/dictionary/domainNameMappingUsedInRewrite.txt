@@ -1,0 +1,5 @@
+anime##漫画
+computer_game##游戏
+movie##电影
+novel##小说
+tv##电视剧
