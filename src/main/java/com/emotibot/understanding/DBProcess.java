@@ -252,19 +252,19 @@ public class DBProcess {
 	}
 	
 	// get introduction info of an entity
-	public static String getEntityIntroduction(String ent) {
+	public static String getEntityIntroduction(String ent, String label) {
 		if (Tool.isStrEmptyOrNull(ent)) {
 			System.err.println("DBProcess.getEntityIntroduction: input is empty");
 			return "";
 		}
 		
 		Neo4jResultBean bean = null;
-		String query = buildCypherSQLObj.Find1stLevelEntityAttr(NLPUtil.getLabelByEntity(ent), ent, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
+		String query = buildCypherSQLObj.Find1stLevelEntityAttr(label, ent, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 		EmotibotNeo4jConnection conn = getDBConnection();
 		bean = conn.executeCypherSQL(query);
 		
 		if(bean == null || bean.getResult().isEmpty()){
-			query = buildCypherSQLObj.FindEntityAttr(NLPUtil.getLabelByEntity(ent), ent, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
+			query = buildCypherSQLObj.FindEntityAttr(label, ent, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
 			bean = conn.executeCypherSQL(query);
 			System.out.println("in DBProcess.getEntityIntroduction, get the second level entity " + bean.getResult());
 		} else {
