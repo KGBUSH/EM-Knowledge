@@ -241,13 +241,11 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 }
 					 if(!isexist)
 					 {
+					   redis.setKey(urlmd5+parammd5, ""); 
 					   System.err.println("QUERY="+query);
-					   outputValue.set(Bytes.toBytes(pageExtractInfo.getParamMd5()+"###"+query));
-					   context.write(outputKey, outputValue);
-					 }
-					 else
-					 {
-						 redis.setKey(urlmd5+parammd5, ""); 
+					  // outputValue.set(Bytes.toBytes(pageExtractInfo.getParamMd5()+"###"+query));
+					  // context.write(outputKey, outputValue);
+					   return ;
 					 }
 					}
 					if(NodeOrRelation.equals("2"))
@@ -256,7 +254,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						BuildCypherSQL bcy = new BuildCypherSQL();
 						String urlmd5=DigestUtils.md5Hex(url);
 						String parammd5=pageExtractInfo.getParamMd5();
-                        if(redis.existKey(urlmd5+parammd5)) return ;
+                        if(!redis.existKey(urlmd5+parammd5)) return ;
 						label = redis.getKey(url);
 					    if(label==null||label.trim().length()==0||label.contains(Other)) label=this.getLabel(url, pageExtractInfo.getTags());
 						System.err.println("RelationLabel="+label);
@@ -286,8 +284,8 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
                                     }
 									if (query !=null && query.trim().length()>0){
 										System.err.println("QUERY="+query);
-										outputValue.set(Bytes.toBytes(query));
-										context.write(outputKey, outputValue);
+										//outputValue.set(Bytes.toBytes(query));
+										//context.write(outputKey, outputValue);
 									}
 								}
 							}
