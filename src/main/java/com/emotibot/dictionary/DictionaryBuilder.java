@@ -88,7 +88,11 @@ public class DictionaryBuilder {
 	private static Set<String> prefixWordRecogniseTable;
 	// entityLabelTable:<女医·明妃传,<other,tv>>
 	private static Map<String, List<String>> entityWithLabelTable;
-
+	// introductionDomain <figure,movie,tv>
+	private static Set<String> introductionDomainTable;
+    // domain name mapping used in rewrite function <movie,电影>
+	private static Map<String, String> domainNameMappingTable;
+	
 	public static void DictionaryBuilderInit() {
 		moodWordTable = createMoodWordTable();
 		prefixWordRecogniseTable = createPrefixWordRecogniseTable();
@@ -110,6 +114,8 @@ public class DictionaryBuilder {
 		domainBalckListTable = createDomainBalckListTable();
 		domainWhiteListTable = createDomainWhiteListTable();
 		entityWithLabelTable = createEntityWithLabelTable();
+		introductionDomainTable = createIntroductionDomainTable();
+		domainNameMappingTable = createDomainNameMappingUsedInRewrite();
 		addCustomDictionaryInHanlp();
 
 	}
@@ -972,6 +978,63 @@ public class DictionaryBuilder {
 		return entityLabel;
 	}
 
+	// create introductionDomain table Set
+		private static Set<String> createIntroductionDomainTable() {
+			Set<String> introductionDomainSet = new HashSet<String>();
+			String fileName = Common.UserDir + "/knowledgedata/dictionary/introductionDomain.txt";
+			if (!Tool.isStrEmptyOrNull(fileName)) {
+				try {
+					BytesEncodingDetect s = new BytesEncodingDetect();
+					String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+					if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+						fileCode = "GB2312";
+					FileInputStream fis = new FileInputStream(fileName);
+					InputStreamReader read = new InputStreamReader(fis, fileCode);
+					BufferedReader dis = new BufferedReader(read);
+					String word = null;
+					while ((word = dis.readLine()) != null) {
+						introductionDomainSet.add(CharUtil.trimAndlower(word));
+					}
+					dis.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+			return introductionDomainSet;
+		}
+		
+		
+		private static Map<String, String> createDomainNameMappingUsedInRewrite() {
+			System.err.println("init of createEntitySynonymReverseTable");
+			Map<String,String> rsMap = new HashMap<>();
+			String fileName = Common.UserDir + "/knowledgedata/dictionary/domainNameMappingUsedInRewrite.txt";
+			if (!Tool.isStrEmptyOrNull(fileName)) {
+				try {
+					BytesEncodingDetect s = new BytesEncodingDetect();
+					String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+					if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+						fileCode = "GB2312";
+					FileInputStream fis = new FileInputStream(fileName);
+					InputStreamReader read = new InputStreamReader(fis, fileCode);
+					BufferedReader dis = new BufferedReader(read);
+					String word = null;
+					while ((word = dis.readLine()) != null) {
+						String[] words = word.split("##");
+						if(words.length != 2){
+							continue;
+						}
+						rsMap.put(CharUtil.trimAndlower(words[0]), CharUtil.trimAndlower(words[1]));
+					}
+					dis.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+			return rsMap;
+		}
+	
 	public static Map<String, List<String>> getEntitySynonymReverseTable() {
 		return entitySynonymReverseTable;
 	}
@@ -1107,6 +1170,24 @@ public class DictionaryBuilder {
 	public static void setPrefixWordRecogniseTable(
 			Set<String> prefixWordRecogniseTable) {
 		DictionaryBuilder.prefixWordRecogniseTable = prefixWordRecogniseTable;
+	}
+
+	public static Set<String> getIntroductionDomainTable() {
+		return introductionDomainTable;
+	}
+
+	public static void setIntroductionDomainTable(
+			Set<String> introductionDomainTable) {
+		DictionaryBuilder.introductionDomainTable = introductionDomainTable;
+	}
+
+	public static Map<String, String> getDomainNameMappingTable() {
+		return domainNameMappingTable;
+	}
+
+	public static void setDomainNameMappingTable(
+			Map<String, String> domainNameMappingTable) {
+		DictionaryBuilder.domainNameMappingTable = domainNameMappingTable;
 	}
 
 	public static void main(String[] a) {

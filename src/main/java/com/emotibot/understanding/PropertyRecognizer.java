@@ -323,6 +323,21 @@ public class PropertyRecognizer {
 			}
 
 		}
+		
+		//fix bad case 丁俊晖的技术有什么特点？
+		Set<String> answerSet2 = new HashSet<String>();
+		Iterator<PatternMatchingResultBean> iterator2 = listBeans.iterator();
+		
+		while (iterator2.hasNext()) {
+			PatternMatchingResultBean tempBean  = iterator2.next();
+			String tempProperty = tempBean.getAnswer();
+			if(answerSet2.contains(tempProperty)){
+				iterator2.remove();
+			}else {
+				answerSet2.add(tempProperty);
+			}
+			
+		}
 		System.out.println("removeDuplicatedAnswerBean, listBeans=" + listBeans);
 		return listBeans;
 	}

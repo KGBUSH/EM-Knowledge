@@ -3,6 +3,7 @@ package com.emotibot.understanding;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -438,6 +439,15 @@ public class NLPUtil {
 		}
 	}
 
+	// if str is in IntroductionDomainTable or not
+	public static boolean isIntroductionDomainTable(String str){
+		if(!str.isEmpty() && DictionaryBuilder.getIntroductionDomainTable().contains(str)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	// Get the set of the first word in the line which contains input word in
 	// synonym dictionary
 	// input: "标志"
@@ -492,6 +502,37 @@ public class NLPUtil {
 		return label;
 	}
 	
+	// return the domain chinese name by label
+	public static String getDomainChineseNameByLabel(String str){
+		String name = "";
+		if(!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getDomainNameMappingTable().containsKey(str)){
+			name = DictionaryBuilder.getDomainNameMappingTable().get(str);
+		}
+		return name;
+	}
+	
+	// return the label by domain chinese name
+	public static String getLabelByDomainChineseName(String str){
+		String label = "";
+		if(!Tool.isStrEmptyOrNull(str)){
+			for(Entry<String, String> entry : DictionaryBuilder.getDomainNameMappingTable().entrySet()){
+				if(entry.getValue().equals(str)){
+					label = entry.getKey();
+				}
+			}
+		}
+		return label;
+	}
+	
+	//judge whether a str contains in the domainNameMapping table provided by pm.
+	public static boolean isContainsInDomainNameMappingTable(String str){
+		if(!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getDomainNameMappingTable().containsKey(str)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
 	public static void main(String[] args) {
 		DictionaryBuilder.DictionaryBuilderInit();
 		String s = "拜拜了";
@@ -500,7 +541,7 @@ public class NLPUtil {
 		s = "九寨沟";
 		System.out.println(isASynonymEntity(s));
 		
-		System.out.println("test = "+NLPUtil.getSynonymWordSet("老婆"));
+		System.out.println("test = "+NLPUtil.getSynonymWordSet("老公"));
 		System.out.println("test Synonymn = "+NLPUtil.isInSynonymDict("老婆"));
 		
 		

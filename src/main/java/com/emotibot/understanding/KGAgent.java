@@ -477,7 +477,16 @@ public class KGAgent {
 				System.out.println("Introduction normal entity case, change the sentence to " + sentence + " with entity " + tempEntity);
 			}
 			
-			String strIntroduce = DBProcess.getEntityIntroduction(tempEntity);
+			/**
+			 * 开始处理rewrite 的多义词情况
+			 */
+			List<String> labelList = NLPUtil.getLabelListByEntity(tempEntity);
+			List<String> finalLabelList3 = IntentionClassifier.getFinalLabelListOfCase1(labelList);
+			if (finalLabelList3.size() > 1) {
+				return IntentionClassifier.getAnswerOfCase1(finalLabelList3);
+			}
+			
+			String strIntroduce = DBProcess.getEntityIntroduction(tempEntity,NLPUtil.getLabelByEntity(tempEntity));
 			if (strIntroduce.contains("。"))
 				strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
 
@@ -519,7 +528,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "让你记住我的名字";
+		String str = "你讲的太深奥啥意思";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

@@ -1,5 +1,7 @@
 package com.emotibot.understanding;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.emotibot.Debug.Debug;
@@ -33,6 +35,51 @@ public class IntentionClassifier {
 		}
 
 		AnswerRewrite answerRewite = new AnswerRewrite();
+		
+		
+		List<String> labelListForRewritePart = new ArrayList<String>();
+		
+		//deal with the sentence returned by rewrite
+		if(isSentenceByRewrite(sentence)){
+			String stringRewritePart = sentence.substring(sentence.indexOf(":") + 1, sentence.indexOf("]")).trim();
+			if(Tool.isStrEmptyOrNull(stringRewritePart)){
+				answerBean.setValid(true);
+				return answerBean.returnAnswer(answerBean);
+			}else {
+				//more than one label 
+				if(stringRewritePart.contains("##")){
+					//小说##电视剧
+					String[] strList = stringRewritePart.split("##");
+					labelListForRewritePart.add(NLPUtil.getLabelByDomainChineseName(strList[0]));
+					labelListForRewritePart.add(NLPUtil.getLabelByDomainChineseName(strList[1]));
+				}else {
+					labelListForRewritePart.add(NLPUtil.getLabelByDomainChineseName(stringRewritePart));
+				}
+			}
+			
+			//rewrite = "\"["+answer+"],[" + template+"]\"";
+			
+			if(labelListForRewritePart.size() == 1){
+				String result = DBProcess.getEntityIntroduction(entitySet.get(0),labelListForRewritePart.get(0));
+				answerBean.setAnswer(result);
+				answerBean.setScore(100);
+				return answerBean.returnAnswer(answerBean);
+			}else if(labelListForRewritePart.size() == 2){
+				String result1 = DBProcess.getEntityIntroduction(entitySet.get(0),labelListForRewritePart.get(0));
+				String result2 = DBProcess.getEntityIntroduction(entitySet.get(0),labelListForRewritePart.get(1));
+				if (result1.contains("。"))
+					result1 = result1.substring(0, result1.indexOf("。"));
+				if (result2.contains("。"))
+					result2 = result2.substring(0, result2.indexOf("。"));
+				String result = "\"["+result1+"],[" + result2+"]\"";
+				answerBean.setAnswer(result);
+				answerBean.setScore(100);
+				return answerBean.returnAnswer(answerBean);
+			}else {
+				System.err.println("label getted from rewrite function is error");
+			}
+			
+		}
 
 		System.out.println("##### sentence" + sentence + ", entitySet=" + entitySet + ", getOldSentence()="+nerBean.getOldSentence());
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
@@ -57,13 +104,6 @@ public class IntentionClassifier {
 
 			System.out.println("INTENTION 1");
 			String tempLabel = NLPUtil.getLabelByEntity(tempEntity).toLowerCase();
-			// if (tempLabel.equals("catchword")) {
-			// if (!NLPUtil.isInDomainWhiteListDict(tempLabel)) {
-			if (NLPUtil.isInDomainBalckListDict(tempLabel)) {
-				System.out.println("catchword Case, and abord， the returned anwer is " + answerBean.toString());
-				answerBean.setValid(true);	// set valid then the answer will be returned
-				return answerBean;
-			}
 
 			// if (NLPUtil.isInRemoveableAllDict(tempEntity)) {
 			if (NLPUtil.isInHighFrequentDict(tempEntity) || NLPUtil.isInDailyUsedWordDict(tempEntity)) {
@@ -73,10 +113,29 @@ public class IntentionClassifier {
 				answerBean.setValid(true);	// set valid then the answer will be returned
 				return answerBean;
 			}
+			
+			// if (tempLabel.equals("catchword")) {
+			// if (!NLPUtil.isInDomainWhiteListDict(tempLabel)) {
+			if (NLPUtil.isInDomainBalckListDict(tempLabel)) {
+				System.out.println("catchword Case, and abord， the returned anwer is " + answerBean.toString());
+				answerBean.setValid(true);	// set valid then the answer will be returned
+				return answerBean;
+			}
 
+			/**
+			 * 开始处理rewrite 的多义词情况。
+			 */
+			List<String> labelList = NLPUtil.getLabelListByEntity(tempEntity);
+			List<String> finalLabelList1 = getFinalLabelListOfCase1(labelList);
+
+			// judge whether labelListResult contains more than one label
+			if (finalLabelList1.size() > 1) {
+				return getAnswerOfCase1(finalLabelList1);
+			}
+						
 //			String tempStrIntroduce = DBProcess.getPropertyValue(entitySet.get(0),
 //					Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
-			String tempStrIntroduce = DBProcess.getEntityIntroduction(tempEntity);
+			String tempStrIntroduce = DBProcess.getEntityIntroduction(tempEntity,tempLabel);
 			if (tempStrIntroduce.contains("。"))
 				tempStrIntroduce = tempStrIntroduce.substring(0, tempStrIntroduce.indexOf("。"));
 			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(tempStrIntroduce));
@@ -131,8 +190,20 @@ public class IntentionClassifier {
 			boolean isIntro = QuestionClassifier.isIntroductionRequest(NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)),
 					tempEntity);
 			if (isIntro) {
+				/**
+				 * 开始处理rewrite 的多义词情况。
+				 */
+				List<String> labelList = NLPUtil.getLabelListByEntity(tempEntity);
+				
+				List<String> finalLabelList2 = getFinalLabelListOfCase1(labelList);
+				
+				// judge whether labelListResult contains more than one label
+				if (finalLabelList2.size() > 1) {
+					return getAnswerOfCase1(finalLabelList2);
+				}
+				
 //				String strIntroduce = DBProcess.getPropertyValue(tempEntity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
-				String strIntroduce = DBProcess.getEntityIntroduction(tempEntity);
+				String strIntroduce = DBProcess.getEntityIntroduction(tempEntity,tempLabel);
 				if (strIntroduce.contains("。"))
 					strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
 				answerBean.setScore(100);
@@ -140,10 +211,78 @@ public class IntentionClassifier {
 				System.out.println("intentionProcess intro 2: the returned anwer is " + answerBean.toString());
 				return answerBean.returnAnswer(answerBean);
 			}
+			
+			// when a sentence is not match by above introduction template then goto the introduciton template by domain
+			if(NLPUtil.isIntroductionDomainTable(tempLabel)){
+				boolean isIntroductionByDomain = QuestionClassifier.isIntroductionRequestByDomain(tempLabel, NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)), tempEntity);
+				if(isIntroductionByDomain){
+					String strIntroduceByDomain = DBProcess.getEntityIntroduction(tempEntity,tempLabel);
+					if(strIntroduceByDomain.contains("。"))
+						strIntroduceByDomain = strIntroduceByDomain.substring(0, strIntroduceByDomain.indexOf("。"));
+					answerBean.setScore(100);
+					answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduceByDomain));
+					System.out.println("intentionProcess intro 3: the returned anwer is " + answerBean.toString());
+					return answerBean.returnAnswer(answerBean);
+				}
+			}
+			 
+			
 		}
 		System.out.println("INTENTION 3");
 
 		return answerBean;
 	}
 
+	//judge whether a sentence is rewrited.
+	private boolean isSentenceByRewrite(String str){
+		String string = str.trim();
+		if((string.contains("[Rewrite:") || string.contains("[rewrite:"))&&string.endsWith("]")){
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	//如果listLabel 里面有大于2个label，只返回前面两个，如果有一个，就返回一个label 
+	public static List<String> getTheFrist2Labels(List<String> listLabel) {
+		List<String> list = new ArrayList<String>();
+		// 如果labelListResult 里面的label大于三个，只取前面两个。如果有一个，就取第一个。
+		Iterator<String> iterator = listLabel.iterator();
+		int count = 0;
+		while(iterator.hasNext()){
+			if(count > 1){
+				break;
+			}
+			list.add(iterator.next());
+			count++;
+		}
+		return list;
+	}
+	
+	//get final answer by label list that has been dealed with.
+	public static AnswerBean getAnswerOfCase1(List<String> list){
+		AnswerBean answerBean = new AnswerBean();
+		String labelAChineseName = NLPUtil.getDomainChineseNameByLabel(list.get(0));
+		String labelBChineseName = NLPUtil.getDomainChineseNameByLabel(list.get(1));
+		String sentenceOfAnswer1 = "你指的是"+ labelAChineseName + "还是"+ labelBChineseName + "呀？";
+		answerBean.setAnswer(sentenceOfAnswer1);
+		answerBean.setScore(100);
+		return answerBean.returnAnswer(answerBean);
+	}
+	
+	// remove the label that not contains in the label table provided by pm and 
+	//deal with label list to size = 1 or 2  
+	public static List<String> getFinalLabelListOfCase1(List<String> labelList){
+		List<String> labelListResult = new ArrayList<String>();
+		for (String string : labelList) {
+			if (NLPUtil.isContainsInDomainNameMappingTable(string)
+					&& !Tool.isStrEmptyOrNull(string)) {
+				labelListResult.add(string);
+			}
+		}
+		
+		return getTheFrist2Labels(labelListResult);
+		
+	}
+	
 }
