@@ -229,9 +229,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 String urlmd5=DigestUtils.md5Hex(url);
 					 String parammd5=pageExtractInfo.getParamMd5();
 					 boolean isexist=isExistHtml(urlmd5,parammd5);
-					 redis.setKey(url, label);
-					 redis.setKey(urlmd5, parammd5);
-					 redis.setKey(parammd5, "");
 					 System.err.println(url+" isexist="+isexist);
 					 boolean isexitname=isExistName(name);
 					 if(isexitname)
@@ -241,7 +238,12 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 }
 					 if(!isexist)
 					 {
-					   redis.setKey(urlmd5+parammd5, ""); 
+					   synchronized(this){
+					   redis.setKey(urlmd5+parammd5, "");
+					   redis.setKey(url, label);
+					   redis.setKey(urlmd5, parammd5);
+					   redis.setKey(parammd5, "");
+					   }
 					   System.err.println("QUERY="+query);
 					  // outputValue.set(Bytes.toBytes(pageExtractInfo.getParamMd5()+"###"+query));
 					  // context.write(outputKey, outputValue);
@@ -305,14 +307,17 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 String name = pageInfo.getName();
 					 name=MyTrim(name);
 					 boolean isexist=isExistHtml(urlmd5,parammd5);
-					 redis.setKey(url, label);
-					 redis.setKey(urlmd5, parammd5);
-					 redis.setKey(parammd5, "");
 					 if(isexist)//||isexitname)
 					 {
 							System.err.println("isexist||isexitname");
 							return;
 					 } 
+					   synchronized(this){
+							 redis.setKey(url, label);
+							 redis.setKey(urlmd5, parammd5);
+							 redis.setKey(parammd5, "");
+
+					   }
 					StringBuffer buffer = new StringBuffer();
 					buffer.append(pageInfo.getName()+""+pageInfo.getParamMd5()).append(Seperator);
 					buffer.append(pageInfo.getName()).append(Seperator);
