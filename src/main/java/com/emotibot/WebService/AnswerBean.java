@@ -9,6 +9,7 @@ public class AnswerBean implements Cloneable {
 	private boolean isValid = false;
 	private String originalWord = ""; // the word in the sentence
 	private String comments = "";
+	private volatile int hashcode;
 	
 	@Override 
 	public Object clone() {   
@@ -25,20 +26,33 @@ public class AnswerBean implements Cloneable {
 	@Override
 	public boolean equals(Object obj) {
 		// TODO Auto-generated method stub
-		AnswerBean rhs;
+		if( obj == this)
+			return true;
 		if (!(obj instanceof AnswerBean)) {
 			return false;
-		} else {
-			rhs = (AnswerBean) obj;
 		}
-
-		if (this.score != rhs.score || !this.answer.equals(rhs.answer) || !this.property.equals(rhs.property)
-				|| this.isValid != rhs.isValid || !this.originalWord.equals(rhs.originalWord)) {
-			return false;
-		}
+		AnswerBean rhs = (AnswerBean) obj;
 		
-		return true;
-
+		return this.score == rhs.score && this.answer.equals(rhs.answer) && this.property.equals(rhs.property)
+				&& this.isValid == rhs.isValid && this.originalWord.equals(rhs.originalWord);
+	}
+	
+	@Override
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		int result = hashcode;
+		if(result == 0){
+			result = 17;
+			long f = Double.doubleToLongBits(score);
+			int i = (int)(f^(f >>> 32));
+			result = 31*result + i;
+			result = 31*result + (isValid ? 1:0);
+			result = 31*result + answer.hashCode();
+			result = 31*result + property.hashCode();
+			result = 31*result + originalWord.hashCode();
+			hashcode = result;
+		}
+		return result;
 	}
 
 	public AnswerBean returnAnswer(AnswerBean bean) {
@@ -122,13 +136,4 @@ public class AnswerBean implements Cloneable {
 		System.out.println("est = "+AnswerBean.class.isInstance(b));
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -92,6 +93,8 @@ public class DictionaryBuilder {
 	private static Set<String> introductionDomainTable;
     // domain name mapping used in rewrite function <movie,电影>
 	private static Map<String, String> domainNameMappingTable;
+	// domain with relation or property priority <figure,<relation,<丈夫、妻子>>>、<figure,<property,<代表作品、别名>>>
+	private static Map<String, Map<String, List<String>>> domainWithPriorityOfRelationOrPropertyTable;
 	
 	public static void DictionaryBuilderInit() {
 		moodWordTable = createMoodWordTable();
@@ -116,6 +119,7 @@ public class DictionaryBuilder {
 		entityWithLabelTable = createEntityWithLabelTable();
 		introductionDomainTable = createIntroductionDomainTable();
 		domainNameMappingTable = createDomainNameMappingUsedInRewrite();
+		domainWithPriorityOfRelationOrPropertyTable = createDomainWithRelationOrPropertyMappingTable();
 		addCustomDictionaryInHanlp();
 
 	}
@@ -1035,6 +1039,48 @@ public class DictionaryBuilder {
 			return rsMap;
 		}
 	
+		// create domain with priority about relation or property 
+		private static Map<String, Map<String, List<String>>> createDomainWithRelationOrPropertyMappingTable() {
+			System.err.println("init of createEntitySynonymReverseTable");
+			Map<String,Map<String, List<String>>> rsMap = new HashMap<>();
+			String fileName = Common.UserDir + "/knowledgedata/dictionary/domainWithPriorityOfRelationOrProperty.txt";
+			if (!Tool.isStrEmptyOrNull(fileName)) {
+				try {
+					BytesEncodingDetect s = new BytesEncodingDetect();
+					String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+					if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+						fileCode = "GB2312";
+					FileInputStream fis = new FileInputStream(fileName);
+					InputStreamReader read = new InputStreamReader(fis, fileCode);
+					BufferedReader dis = new BufferedReader(read);
+					String word = null;
+					while ((word = dis.readLine()) != null) {
+						String[] words = word.split("##");
+						String domainName = CharUtil.trimAndlower(words[0]);
+						String other = CharUtil.trimAndlower(words[1]);
+						String[] relationOrPropertyStrings = other.split("&");
+						Map<String, List<String>> temp = new HashMap<>();
+						
+						for(int i = 0; i < relationOrPropertyStrings.length; i++){
+							String relationOrProperty = relationOrPropertyStrings[i];
+							String[] mapInner = relationOrProperty.split("#");
+							String name = mapInner[0];
+							String nameList = mapInner[1];
+							String[] propertyOrRelationList = nameList.split("、");
+							List<String> list = Arrays.asList(propertyOrRelationList);
+							temp.put(name, list);
+						}
+						rsMap.put(domainName,temp);
+					}
+					dis.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+			return rsMap;
+		}
+		
 	public static Map<String, List<String>> getEntitySynonymReverseTable() {
 		return entitySynonymReverseTable;
 	}
@@ -1188,6 +1234,15 @@ public class DictionaryBuilder {
 	public static void setDomainNameMappingTable(
 			Map<String, String> domainNameMappingTable) {
 		DictionaryBuilder.domainNameMappingTable = domainNameMappingTable;
+	}
+
+	public static Map<String, Map<String, List<String>>> getDomainWithPriorityOfRelationOrPropertyTable() {
+		return domainWithPriorityOfRelationOrPropertyTable;
+	}
+
+	public static void setDomainWithPriorityOfRelationOrPropertyTable(
+			Map<String, Map<String, List<String>>> domainWithPriorityOfRelationOrPropertyTable) {
+		DictionaryBuilder.domainWithPriorityOfRelationOrPropertyTable = domainWithPriorityOfRelationOrPropertyTable;
 	}
 
 	public static void main(String[] a) {
