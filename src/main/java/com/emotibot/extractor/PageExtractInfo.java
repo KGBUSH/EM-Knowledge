@@ -334,6 +334,11 @@ public class PageExtractInfo {
     	}
     	return buffer.toString().trim();
     }
+    public String getTagsAttrsStr()
+    {
+		return getTags().trim()+" "+getAttrFilterEnStr().trim();
+
+    }
     public void putArrValuestoAttr()
     {
     	//private HashMap<String,String> attr = new HashMap<>();

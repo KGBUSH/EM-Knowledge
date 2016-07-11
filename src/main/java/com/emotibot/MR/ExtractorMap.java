@@ -106,7 +106,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		fileList.add("/domain/medical_treatment.txt");
 		fileList.add("/domain/job.txt");
 	    fileList.add("/domain/music.txt");
-	    //festival.txt
 	    fileList.add("/domain/festival.txt");
 
 	    WordLabelMap = new HashMap<>();
@@ -173,10 +172,9 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					System.err.println("LabelTmp="+url+"###"+LabelTmp+"###"+name+"###"+pmWord);
 					label=LabelTmp;
 					System.err.println("label0="+label);
-					//String a=this.getLabel(url, pageExtractInfo.getTags());/////////////////
 					if(label==null||label.trim().length()==0||label.contains(Other)) {
 						System.err.println("label1="+label);
-						label=this.getLabel(url, pageExtractInfo.getTags());
+						label=this.getLabel(url, pageExtractInfo.getTagsAttrsStr());
 					}
 					System.err.println("label2="+label);
 					System.err.println("LabelInfo:"+name+"###"+pmWord+"###"+label);
@@ -192,7 +190,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 							System.err.println("ATTR="+label+"_"+attr);
 						}
 					}
-					////
 
 					BuildCypherSQL bcy = new BuildCypherSQL();
 					pageExtractInfo.addAttr(md5, DigestUtils.md5Hex(url));
@@ -228,25 +225,21 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 if (query == null || query.trim().length() == 0) return;
 					 String urlmd5=DigestUtils.md5Hex(url);
 					 String parammd5=pageExtractInfo.getParamMd5();
+					 String tagsattr= pageExtractInfo.getTagsAttrsStr().trim();
 					 boolean isexist=isExistHtml(urlmd5,parammd5);
 					 System.err.println(url+" isexist="+isexist);
-					 boolean isexitname=isExistName(name);
-					 if(isexitname)
-					 {
-						 //System.err.println("existname="+name+"  "+url);
-						 //return ;
+					// boolean isexitname=isExistName(name);
+					 synchronized(this){
+						 if(!redis.existKey(tagsattr)) redis.setKey(tagsattr, label);
+						 redis.setKey(url, redis.getKey(tagsattr));
+						 redis.lpush(urlmd5, parammd5); 
 					 }
 					 if(!isexist)
 					 {
 					   synchronized(this){
 					   redis.setKey(urlmd5+parammd5, "");
-					   redis.setKey(url, label);
-					   redis.setKey(urlmd5, parammd5);
-					   redis.setKey(parammd5, "");
 					   }
 					   System.err.println("QUERY="+query);
-					  // outputValue.set(Bytes.toBytes(pageExtractInfo.getParamMd5()+"###"+query));
-					  // context.write(outputKey, outputValue);
 					   return ;
 					 }
 					}
@@ -258,7 +251,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						String parammd5=pageExtractInfo.getParamMd5();
                         if(!redis.existKey(urlmd5+parammd5)) return ;
 						label = redis.getKey(url);
-					    if(label==null||label.trim().length()==0||label.contains(Other)) label=this.getLabel(url, pageExtractInfo.getTags());
+					    if(label==null||label.trim().length()==0||label.contains(Other)) label=this.getLabel(url, pageExtractInfo.getTagsAttrsStr());
 						System.err.println("RelationLabel="+label);
 						if(attr_Values!=null&&attr_Values.size()>0)
 						{
@@ -279,20 +272,32 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
                                     if(urlval!=null&&urlval.trim().length()>0)
                                     {
                                     	String subUrlKey=DigestUtils.md5Hex(urlval);
-                                    	String contentMd5=redis.getKey(subUrlKey);
-                                    	Entity bb = new Entity(label2,contentMd5,paramMd5);
-                                    	if(contentMd5==null||contentMd5.trim().length()==0)
+                                    	List<String> contentMd5List=redis.LGetList(subUrlKey);
+                                    	Entity bb = null;
+                                    	if(contentMd5List==null||contentMd5List.size()==0)
                                     	{
                                     		System.err.println("urlval_havenot_content="+urlval);
                                     		bb = new Entity(label2,subUrlKey,md5);
+                                        	query=bcy.InsertRelation(aa, bb, attr, null);	
+    										System.err.println("QUERY="+query);
+                                    	}
+                                    	else
+                                    	{
+                                    		for(String contentMd5:contentMd5List)
+                                    		{
+                                    			if(contentMd5!=null&&contentMd5.trim().length()>0)
+                                    			{
+                                                    bb = new Entity(label2,contentMd5,paramMd5);
+                                                	query=bcy.InsertRelation(aa, bb, attr, null);	
+            										System.err.println("QUERY="+query);
+                                    			}
+                                    		}
                                     	}
                                     	query=bcy.InsertRelation(aa, bb, attr, null);	
     					                System.err.println(NodeOrRelation+" queryMap2=" + query);
                                     }
 									if (query !=null && query.trim().length()>0){
-										System.err.println("QUERY="+query);
-										//outputValue.set(Bytes.toBytes(query));
-										//context.write(outputKey, outputValue);
+										//System.err.println("QUERY="+query);
 									}
 								}
 							}
@@ -316,7 +321,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 							 redis.setKey(url, label);
 							 redis.setKey(urlmd5, parammd5);
 							 redis.setKey(parammd5, "");
-
 					   }
 					StringBuffer buffer = new StringBuffer();
 					buffer.append(pageInfo.getName()+""+pageInfo.getParamMd5()).append(Seperator);
