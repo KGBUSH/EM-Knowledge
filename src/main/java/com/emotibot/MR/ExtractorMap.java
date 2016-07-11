@@ -87,7 +87,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
         RedisPort=context.getConfiguration().getInt("RedisPort", 0);;
         redis = new RedisClient(RedisIP,RedisPort);
 		fileList = new ArrayList<String>();
-		fileList.add("/domain/TV_series.txt");
+		fileList.add("/domain/tv.txt");
 	    fileList.add("/domain/anime.txt");
 		fileList.add("/domain/catchword.txt");
 		fileList.add("/domain/college.txt");
@@ -181,23 +181,13 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					System.err.println("LabelInfoData:"+pmWord+"###"+label);
 					System.err.println("LabelInfoData:"+name+"###"+label);
 					///
-					String attrs=pageExtractInfo.getAttrStr();
-					String[] attrsArr=attrs.split(" ");
-					for(String attr:attrsArr)
-					{
-						if(attr!=null&&attr.trim().length()>0)
-						{
-							System.err.println("ATTR="+label+"_"+attr);
-						}
-					}
-
 					BuildCypherSQL bcy = new BuildCypherSQL();
 					pageExtractInfo.addAttr(md5, DigestUtils.md5Hex(url));
 					String query = bcy.InsertEntityNode(label, pageExtractInfo.getParamMd5(), pageExtractInfo.getAttr());
 					System.err.println(NodeOrRelation+" queryMap=" + query);
 					/////////TongyiciMap
 					////////duoyici
-					System.err.println("SparkInfo:"+name+"###"+label+"###"+pageExtractInfo.getTags()+"###"+pageExtractInfo.getAttrFilterEnStr()+"###"+pageExtractInfo.getFirstPara()+"###"+pageExtractInfo.getParamMd5()+"###"+url);
+					System.err.println("SparkInfo:"+name+"###"+label+"###"+pageExtractInfo.getTags()+"###"+pageExtractInfo.getAttrFilterEnStr()+"###"+pageExtractInfo.getFirstPara()+"###"+pageExtractInfo.getParamMd5()+"###"+DigestUtils.md5Hex(url)+"###"+url);
 					if(pageExtractInfo.getDuoyici().length()>0) System.err.println("Duoyici:"+pageExtractInfo.getDuoyici()+"###"+pageExtractInfo.getTags()+"###"+url);
                      //					System.err.println("Tongyici1:"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.GetSynonym());
                     String tongyici="";
@@ -217,10 +207,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						System.err.println("Tongyici2:"+word+"###"+WordLink.get(word)+"###");
 					  }
 					}
-					System.err.println("Weka:"+pageExtractInfo.getTags()+"###"+label+"###"+name+"###"+pmWord+"###"+url);
-					//getAttrValueStr
-					System.err.println("WekaNew:"+pageExtractInfo.getTags()+"###"+label+"###"+name+"###"+pmWord+"###"+url+"###"+pageExtractInfo.getAttrValueStr()+"###"+pageExtractInfo.getFirstPara());
-
 					/////////
 					 if (query == null || query.trim().length() == 0) return;
 					 String urlmd5=DigestUtils.md5Hex(url);
@@ -233,6 +219,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						 if(!redis.existKey(tagsattr)) redis.setKey(tagsattr, label);
 						 redis.setKey(url, redis.getKey(tagsattr));
 						 redis.lpush(urlmd5, parammd5); 
+						 System.err.println("redis.lpush="+urlmd5+" "+parammd5);
 					 }
 					 if(!isexist)
 					 {
@@ -276,7 +263,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
                                     	Entity bb = null;
                                     	if(contentMd5List==null||contentMd5List.size()==0)
                                     	{
-                                    		System.err.println("urlval_havenot_content="+urlval);
+                                    		System.err.println("urlval_havenot_content="+urlval+"###"+subUrlKey+"###"+val);
                                     		bb = new Entity(label2,subUrlKey,md5);
                                         	query=bcy.InsertRelation(aa, bb, attr, null);	
     										System.err.println("QUERY="+query);
@@ -289,15 +276,13 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
                                     			{
                                                     bb = new Entity(label2,contentMd5,paramMd5);
                                                 	query=bcy.InsertRelation(aa, bb, attr, null);	
-            										System.err.println("QUERY="+query);
+            										System.err.println("QUERY="+urlmd5+"###"+parammd5+"###"+subUrlKey+"###"+contentMd5+"###"+query);
                                     			}
                                     		}
                                     	}
                                     	query=bcy.InsertRelation(aa, bb, attr, null);	
-    					                System.err.println(NodeOrRelation+" queryMap2=" + query);
                                     }
 									if (query !=null && query.trim().length()>0){
-										//System.err.println("QUERY="+query);
 									}
 								}
 							}
@@ -502,7 +487,6 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 		    } catch (Exception e) {
 		      e.printStackTrace();
 		    }
-
 		  }
 	   public static void main(String[] args)
 	   {
