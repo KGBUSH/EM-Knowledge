@@ -467,9 +467,9 @@ public class TemplateGenerator {
 
 	public static void main(String[] args) {
 //		TemplateGenerator tg = new TemplateGenerator();
-		generateQuestionClassifierTemplate();
+//		generateQuestionClassifierTemplate();
 //		generateDomainTemplate();
-//		generateIntroductionTemplateByDomain();
+		generateIntroductionTemplateByDomain();
 	}
 
 }

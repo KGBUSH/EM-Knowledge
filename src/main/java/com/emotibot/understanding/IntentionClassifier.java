@@ -1,13 +1,16 @@
 package com.emotibot.understanding;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.answerRewrite.AnswerRewrite;
 import com.emotibot.common.Common;
+import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.template.TemplateEntry;
 import com.emotibot.util.Tool;
 
@@ -187,6 +190,20 @@ public class IntentionClassifier {
 				return answerBean;
 			}
 			
+			// when a sentence is not match by above introduction template then goto the introduciton template by domain
+			if(NLPUtil.isIntroductionDomainTable(tempLabel)){
+				boolean isIntroductionByDomain = QuestionClassifier.isIntroductionRequestByDomain(tempLabel, NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)), tempEntity);
+				if(isIntroductionByDomain){
+					String strIntroduceByDomain = DBProcess.getEntityIntroduction(tempEntity,tempLabel);
+					if(strIntroduceByDomain.contains("。"))
+						strIntroduceByDomain = strIntroduceByDomain.substring(0, strIntroduceByDomain.indexOf("。"));
+					answerBean.setScore(100);
+					answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduceByDomain));
+					System.out.println("intentionProcess intro 3: the returned anwer is " + answerBean.toString());
+					return answerBean.returnAnswer(answerBean);
+				}
+			}
+			
 			boolean isIntro = QuestionClassifier.isIntroductionRequest(NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)),
 					tempEntity);
 			if (isIntro) {
@@ -211,22 +228,6 @@ public class IntentionClassifier {
 				System.out.println("intentionProcess intro 2: the returned anwer is " + answerBean.toString());
 				return answerBean.returnAnswer(answerBean);
 			}
-			
-			// when a sentence is not match by above introduction template then goto the introduciton template by domain
-			if(NLPUtil.isIntroductionDomainTable(tempLabel)){
-				boolean isIntroductionByDomain = QuestionClassifier.isIntroductionRequestByDomain(tempLabel, NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)), tempEntity);
-				if(isIntroductionByDomain){
-					String strIntroduceByDomain = DBProcess.getEntityIntroduction(tempEntity,tempLabel);
-					if(strIntroduceByDomain.contains("。"))
-						strIntroduceByDomain = strIntroduceByDomain.substring(0, strIntroduceByDomain.indexOf("。"));
-					answerBean.setScore(100);
-					answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduceByDomain));
-					System.out.println("intentionProcess intro 3: the returned anwer is " + answerBean.toString());
-					return answerBean.returnAnswer(answerBean);
-				}
-			}
-			 
-			
 		}
 		System.out.println("INTENTION 3");
 
@@ -285,4 +286,130 @@ public class IntentionClassifier {
 		
 	}
 	
+	//return a sentence combined by entity and Relation or Property list orderby pm. 
+	//input 姚明  
+	//output 你想知道姚明的好友吗？ 你想知道姚明的特长吗？
+	public static List<String> getRelationOrPropertyByEntityAndConvertToSentence(String ent){
+		String entity = "";
+		if(NLPUtil.isDBEntity(ent)){
+			entity = ent;
+		}else if(NLPUtil.isEntity(ent)){
+			entity = NLPUtil.getEntitySynonymNormal(ent).get(0);
+		}else {
+			System.err.println("entity:"+ ent +"is not found in neo4j");
+			return new ArrayList<String>();
+		}
+		List<String> listMiddle = new ArrayList<String>();
+		List<String> listResult = new ArrayList<String>();
+		Set<String> setTemp = new HashSet<String>();
+		String label = NLPUtil.getLabelByEntity(entity);
+		List<String> tempListProperty = DBProcess.getEntityPropertyList(entity, label);
+		for(String str : tempListProperty){
+			if(!setTemp.contains(str))
+				setTemp.add(str);
+		}
+		
+		if (label.equals("figure")) {
+			List<String> tempListRelatin = DBProcess.getEntityRelationList(
+					entity, label);
+			for (String str : tempListRelatin) {
+				if (!setTemp.contains(str))
+					setTemp.add(str);
+			}
+			for (String str1 : NLPUtil.getRelationOrPropertyByEntity(label,
+					"relation")) {
+				for (String str2 : NLPUtil.getSynonymWordSet(str1)) {
+					if (setTemp.contains(str2)) {
+						listMiddle.add(str2);
+						break;
+					}
+				}
+			}
+		}
+
+		//judge whether a label contains in the label list that pm provided.
+		if(NLPUtil.isContainsInDomainNeededToRewrite(label)){
+			for (String string : NLPUtil.getRelationOrPropertyByEntity(label,
+					"property")) {
+				for (String str : NLPUtil.getSynonymWordSet(string)) {
+					if (setTemp.contains(str)) {
+						listMiddle.add(str);
+						break;
+					}
+				}
+			}
+		}else {
+			new ArrayList<String>();
+		}
+		
+
+		for (String str : listMiddle) {
+			listResult.add("你想知道" + entity + "的" + str + "吗？");
+		}
+		return listResult;
+	}
+	
+	// return a sentence combined by entity and Relation or Property list
+	// orderby pm.
+	// input 姚明
+	// output 你想知道姚明的好友吗？ 你想知道姚明的特长吗？
+	public static List<String> getRelationOrPropertyByEntityAndConvertToSentence(
+			String entity, String label) {
+		List<String> listMiddle = new ArrayList<String>();
+		List<String> listResult = new ArrayList<String>();
+		Set<String> setTemp = new HashSet<String>();
+		List<String> tempListProperty = DBProcess.getEntityPropertyList(entity,
+				label);
+		for (String str : tempListProperty) {
+			if (!setTemp.contains(str))
+				setTemp.add(str);
+		}
+
+		if (label.equals("figure")) {
+			List<String> tempListRelatin = DBProcess.getEntityRelationList(
+					entity, label);
+			for (String str : tempListRelatin) {
+				if (!setTemp.contains(str))
+					setTemp.add(str);
+			}
+			for (String str1 : NLPUtil.getRelationOrPropertyByEntity(label,
+					"relation")) {
+				for (String str2 : NLPUtil.getSynonymWordSet(str1)) {
+					if (setTemp.contains(str2)) {
+						listMiddle.add(str2);
+						break;
+					}
+				}
+			}
+		}
+
+		//judge whether a label contains in the label list that pm provided.
+		if(NLPUtil.isContainsInDomainNeededToRewrite(label)){
+			for (String string : NLPUtil.getRelationOrPropertyByEntity(label,
+					"property")) {
+				for (String str : NLPUtil.getSynonymWordSet(string)) {
+					if (setTemp.contains(str)) {
+						listMiddle.add(str);
+						break;
+					}
+				}
+			}
+		}else {
+			for(String str : tempListProperty){
+				listMiddle.add(str);
+			}
+		}
+		
+
+		for (String str : listMiddle) {
+			listResult.add("你想知道" + entity + "的" + str + "吗？");
+		}
+		return listResult;
+	}
+	
+	public static void main(String[] args) {
+		DictionaryBuilder.DictionaryBuilderInit();
+		List<String> list = getRelationOrPropertyByEntityAndConvertToSentence("熊猫");
+		System.out.println(list);
+	}
 }
