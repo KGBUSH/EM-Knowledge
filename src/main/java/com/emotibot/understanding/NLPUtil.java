@@ -533,13 +533,33 @@ public class NLPUtil {
 		}
 	}
 	
+	//judge a label is contains in domain such as <figure,movie,tv,or tourism> which is judge whether is needed to be rewrite back to users.
+	public static boolean isContainsInDomainNeededToRewrite(String str){
+		if(!Tool.isStrEmptyOrNull(str) && DictionaryBuilder.getDomainWithPriorityOfRelationOrPropertyTable().containsKey(str)){
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	//get relationList or PropertyList 
+	public static List<String> getRelationOrPropertyByEntity(String label,String relationOrProperty){
+		List<String> list = new ArrayList<String>();
+		if(!Tool.isStrEmptyOrNull(label)&&!Tool.isStrEmptyOrNull(relationOrProperty)){
+			list = DictionaryBuilder.getDomainWithPriorityOfRelationOrPropertyTable().get(label).get(relationOrProperty);
+		}
+		return list;
+	}
+	
 	public static void main(String[] args) {
 		DictionaryBuilder.DictionaryBuilderInit();
+		List<String> list = getRelationOrPropertyByEntity("figure","property");
+		System.out.println(list);
 		String s = "拜拜了";
 		String entity = "";
 		System.out.println(removeMoodWord(entity,s));
 		s = "九寨沟";
-		System.out.println(isASynonymEntity(s));
+		System.out.println(getLabelByEntity("李白"));
 		
 		System.out.println("test = "+NLPUtil.getSynonymWordSet("老公"));
 		System.out.println("test Synonymn = "+NLPUtil.isInSynonymDict("老婆"));

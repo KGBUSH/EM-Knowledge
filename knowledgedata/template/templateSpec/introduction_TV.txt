@@ -1,6 +1,6 @@
-﻿TV;^&电视剧/英剧/美剧/剧&#&[是什么/是啥]&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-TV;^&#&[是什么/是啥]&电视剧/英剧/美剧/剧&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-TV;^&#&电视剧/英剧/美剧/剧&[是什么/是啥]&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-TV;^&#&^一部/部/一个/个^&电视剧/英剧/美剧/剧&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-TV;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲/介绍&^&#&^&电视剧/英剧/美剧/剧||IntroductionSentence@:firstParamInfo
-TV;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲/介绍&^&电视剧/英剧/美剧/剧&#&^||IntroductionSentence@:firstParamInfo
+tv;^&电视剧/英剧/美剧/剧&#&[是什么/是啥]&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
+tv;^&#&[是什么/是啥]&电视剧/英剧/美剧/剧&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
+tv;^&#&电视剧/英剧/美剧/剧&[是什么/是啥]&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
+tv;^&#&^一部/部/一个/个^&电视剧/英剧/美剧/剧&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
+tv;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲/介绍&^&#&^&电视剧/英剧/美剧/剧||IntroductionSentence@:firstParamInfo
+tv;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲/介绍&^&电视剧/英剧/美剧/剧&#&^||IntroductionSentence@:firstParamInfo

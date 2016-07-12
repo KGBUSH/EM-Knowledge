@@ -176,6 +176,69 @@ public class BuildCypherSQL implements CypherSQLParser {
 		return query;
 	}
 
+    @Override
+	public String Find1stLevelEntityProperty(String label, String name) {
+		String query = "";
+		if (Tool.isStrEmptyOrNull(name)) {
+			System.err.println("CYPHER: name is null");
+			return query;
+		}
+
+		query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\""
+				+ name + "\"}) where e.type=\"1\" return keys(e)" + " as "
+				+ Common.ResultObj;
+
+		System.out.println("CYPHER in FindEnitityProperty is: " + query);
+		return query;
+	}
+	
+    
+    
+	@Override
+	public String FindEntityProperty(String label, String name) {
+		// TODO Auto-generated method stub
+		String query = "";
+		if (Tool.isStrEmptyOrNull(name)) {
+			System.err.println("CYPHER: name is null");
+			return query;
+		}
+
+		query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\""
+				+ name + "\"}) return keys(e)" + " as "
+				+ Common.ResultObj;
+
+		System.out.println("CYPHER in FindEnitityProperty is: " + query);
+		return query;
+	}
+
+	@Override
+	public String Find1stLevelEntityRelation(String label, String ent) {
+		// TODO Auto-generated method stub
+		String query = "";
+		if (Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(label)) {
+			System.err.println("CYPHER: name or label is null");
+			return query;
+		}
+		query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent
+				+ "\"})-[r]->() where e.type=\"1\"  return collect(distinct type(r)) as " + Common.ResultObj;
+		System.out.println("CYPHER of entity realtionship: "+ query);
+		return query;
+	}
+
+	@Override
+	public String FindEntityRelation(String label, String ent) {
+		// TODO Auto-generated method stub
+		String query = "";
+		if (Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(label)) {
+			System.err.println("CYPHER: name or label is null");
+			return query;
+		}
+		query = "match (e:" + label + "{" + Common.KGNODE_NAMEATRR + ":\"" + ent
+				+ "\"})-[r]->() return collect(distinct type(r)) as " + Common.ResultObj;
+		System.out.println("CYPHER of entity realtionship: "+ query);
+		return query;
+	}
+
 	@Override
 	public String getEntityByRelationship(String label, String entity, String relation, String key) {
 		String query = "";
@@ -395,6 +458,8 @@ public class BuildCypherSQL implements CypherSQLParser {
 
 	public static void main(String[] args) {
 		BuildCypherSQL buildCypherSQL = new BuildCypherSQL();
+		
+		System.out.println(buildCypherSQL.getPropNamebyEntityName("figure","姚明", ""));
 		Entity entityA = new Entity();
 		entityA.setLabel(Common.PERSONLABEL);
 		entityA.addProperty("身高", "226cm");

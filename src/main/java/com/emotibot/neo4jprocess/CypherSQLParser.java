@@ -7,6 +7,7 @@ package com.emotibot.neo4jprocess;
  * Primary Owner: taoliu@emotibot.com.cn
  */
 import java.util.Map;
+
 import com.emotibot.util.Entity;
 
 public interface CypherSQLParser {
@@ -34,5 +35,8 @@ public interface CypherSQLParser {
 	public String getLabelByEntity(String ent);
 	public String getLabelListByEntity(String ent);
 	public String getKeyListByEntity(String ent, String label);
-	
+	public String Find1stLevelEntityProperty(String label, String ent);
+	public String FindEntityProperty(String label, String ent);
+	public String Find1stLevelEntityRelation(String label, String ent);
+	public String FindEntityRelation(String label, String ent);
 }

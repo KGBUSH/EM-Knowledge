@@ -1,936 +1,936 @@
 <aiml version="1.0.1" encoding="UTF-8">
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 看 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 看 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 看 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 看 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 看 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 看 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 看 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 看 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 看 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 看 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 看 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 看 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 看 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 看 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 看 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 看 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 看 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 看 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 看 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 看 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 看 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 看 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 看 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 看 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 知 道 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 知 道 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 知 道 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 知 道 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 知 道 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 知 道 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 知 道 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 知 道 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 知 道 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 知 道 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 知 道 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 知 道 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 认 识 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 认 识 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 认 识 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 认 识 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 认 识 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 认 识 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 认 识 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 认 识 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 认 识 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 认 识 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 认 识 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 认 识 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 了 解 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 了 解 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 了 解 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 了 解 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 了 解 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 了 解 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 了 解 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 了 解 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 了 解 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 了 解 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 了 解 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 了 解 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 熟 悉 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 熟 悉 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 熟 悉 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 熟 悉 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 熟 悉 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 熟 悉 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 熟 悉 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 熟 悉 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 熟 悉 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 熟 悉 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 熟 悉 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 熟 悉 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 听 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 听 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 听 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 听 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 听 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 听 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 听 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 听 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 听 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 听 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 听 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 听 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 听 说 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 听 说 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 听 说 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 听 说 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 听 说 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 听 说 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 听 说 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 听 说 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 听 说 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 听 说 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 听 说 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 听 说 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 听 说 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 听 说 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 听 说 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 听 说 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 听 说 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 听 说 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 听 说 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 听 说 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 听 说 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 听 说 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 听 说 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 听 说 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 知 不 知 道 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 知 不 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 知 不 知 道 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 知 不 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 知 不 知 道 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 知 不 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 知 不 知 道 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 知 不 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 知 不 知 道 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 知 不 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 知 不 知 道 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 知 不 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 知 不 知 道 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 知 不 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 知 不 知 道 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 知 不 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 知 不 知 道 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 知 不 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 知 不 知 道 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 知 不 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 知 不 知 道 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 知 不 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 知 不 知 道 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 知 不 知 道 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 认 不 认 识 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 认 不 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 认 不 认 识 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 认 不 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 认 不 认 识 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 认 不 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 认 不 认 识 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 认 不 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 认 不 认 识 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 认 不 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 认 不 认 识 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 认 不 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 认 不 认 识 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 认 不 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 认 不 认 识 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 认 不 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 认 不 认 识 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 认 不 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 认 不 认 识 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 认 不 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 认 不 认 识 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 认 不 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 认 不 认 识 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 认 不 认 识 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 了 不 了 解 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 了 不 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 了 不 了 解 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 了 不 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 了 不 了 解 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 了 不 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 了 不 了 解 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 了 不 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 了 不 了 解 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 了 不 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 了 不 了 解 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 了 不 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 了 不 了 解 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 了 不 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 了 不 了 解 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 了 不 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 了 不 了 解 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 了 不 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 了 不 了 解 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 了 不 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 了 不 了 解 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 了 不 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 了 不 了 解 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 了 不 了 解 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 熟 不 熟 悉 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 熟 不 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 熟 不 熟 悉 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 熟 不 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 熟 不 熟 悉 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 熟 不 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 熟 不 熟 悉 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 熟 不 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 熟 不 熟 悉 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 熟 不 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 熟 不 熟 悉 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 熟 不 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 熟 不 熟 悉 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 熟 不 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 熟 不 熟 悉 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 熟 不 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 熟 不 熟 悉 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 熟 不 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 熟 不 熟 悉 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 熟 不 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 熟 不 熟 悉 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 熟 不 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 熟 不 熟 悉 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 熟 不 熟 悉 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 听 没 听 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 听 没 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 听 没 听 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 听 没 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 听 没 听 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 听 没 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 听 没 听 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 听 没 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 听 没 听 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 听 没 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 听 没 听 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 听 没 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 你 听 没 听 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 你 听 没 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 你 听 没 听 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 你 听 没 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 听 没 听 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 什 么 你 听 没 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 什 么 你 听 没 听 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 什 么 你 听 没 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 电 影 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 听 没 听 过 </pattern>
+        <pattern> ^ 电 影 ## * <type>entity</type><label>movie</label> 是 啥 你 听 没 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 影 片 ## * <type>entity</type><label>﻿movie</label> 是 啥 你 听 没 听 过 </pattern>
+        <pattern> ^ 影 片 ## * <type>entity</type><label>movie</label> 是 啥 你 听 没 听 过 </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>

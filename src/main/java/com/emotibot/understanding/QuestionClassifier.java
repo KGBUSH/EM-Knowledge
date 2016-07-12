@@ -1,7 +1,5 @@
 package com.emotibot.understanding;
 
-import scala.reflect.api.Printers.BooleanFlag;
-
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.dictionary.DictionaryBuilder;
@@ -237,7 +235,9 @@ public class QuestionClassifier {
 	public static void main(String[] args) {
 		
 		DictionaryBuilder.DictionaryBuilderInit();
-		boolean aa = isIntroductionRequestByDomain("novel","三国演义这部小说是啥？","三国演义");
+//		boolean bb = isIntroductionRequest("姚明是谁？","姚明");
+		boolean aa = isIntroductionRequestByDomain("anime","漫画三毛是什么？","三毛");
 		System.out.println(aa);
+//		System.out.println(bb);
 	}
 }

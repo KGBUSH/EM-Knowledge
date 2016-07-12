@@ -1,11 +1,6 @@
-﻿novel;^&小说/书&#&[是什么/是啥]&[你]&[看过/读过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-
+novel;^&小说/书&#&[是什么/是啥]&[你]&[看过/读过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
 novel;^&#&[是什么/是啥]&小说/书&[你]&[看过/读过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-
 novel;^&#&小说/书&[是什么/是啥]&[你]&[看过/读过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-
 novel;^&#&^一部/部/一个/个/一本/本^&小说/书/作品&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-
 novel;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲/介绍&^&#&^&小说/书||IntroductionSentence@:firstParamInfo
-
 novel;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲/介绍&^&小说/书&#&^||IntroductionSentence@:firstParamInfo

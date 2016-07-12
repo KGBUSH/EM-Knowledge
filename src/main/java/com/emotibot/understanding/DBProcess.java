@@ -88,6 +88,7 @@ public class DBProcess {
 		return propSet;
 	}
 	
+	
 	// get relation set of a entity
 	public static List<String> getRelationshipSet(String label, String entity, String key) {
 		if(Tool.isStrEmptyOrNull(label)){
@@ -274,6 +275,52 @@ public class DBProcess {
 		freeDBConnection(conn);
 		return bean.getResult();
 	}
+	
+	// get property list from an entity with type = 1 first
+	public static List<String> getEntityPropertyList(String ent, String label){
+		if (Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(label)) {
+			System.err.println("DBProcess.getEntityPropertyList: input is empty");
+			return new ArrayList<String>();
+		}
+		
+		List<String> propSet = new ArrayList<String>();
+		String query = buildCypherSQLObj.Find1stLevelEntityProperty(label, ent);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		propSet = conn.getArrayListfromCollection(query);
+		
+		if(propSet == null || propSet.size() == 0){
+			query = buildCypherSQLObj.FindEntityProperty(label, ent);
+			propSet = conn.getArrayListfromCollection(query);
+			System.out.println("in DBProcess.getEntityPropertyList, get the second level entity property " + propSet);
+		} else {
+			System.out.println("in DBProcess.getEntityPropertyList, get the type = 1 entity property" + propSet);
+		}
+		
+		freeDBConnection(conn);
+		return propSet;
+	}
+	
+	//get relation list from an entity with type = 1 first
+	public static List<String> getEntityRelationList(String ent, String label){
+		if (Tool.isStrEmptyOrNull(ent) || Tool.isStrEmptyOrNull(label)) {
+			System.err.println("DBProcess.getEntityPropertyList: input is empty");
+			return new ArrayList<String>();
+		}
+		
+		List<String> propSet = new ArrayList<String>();
+		String query = buildCypherSQLObj.Find1stLevelEntityRelation(label, ent);
+		EmotibotNeo4jConnection conn = getDBConnection();
+		propSet = conn.getArrayListfromCollection(query);
+		if(propSet == null || propSet.size() == 0){
+			query = buildCypherSQLObj.FindEntityRelation(label, ent);
+			propSet = conn.getArrayListfromCollection(query);
+			System.out.println("in DBProcess.getEntityRelationList, get the sencond level entity relation " + propSet);
+		}else {
+			System.out.println("in DBProcess.getEntityRelationList, get the type = 1 entity relation " + propSet);
+		}
+		freeDBConnection(conn);
+		return propSet;
+	}
 
 	// get the label of an entity, if there are more than one label, return the first one
 	public static String getEntityLabel(String ent) {
@@ -359,7 +406,8 @@ public class DBProcess {
 	}
 
 	public static void main(String[] args) {
-
+		List<String> string = getPropertyNameSet("figure","李白","");
+		System.out.println(string);
 		for (int i = 0; i < 10; i++) {
 			System.out.println("label=" + DBProcess.getEntityLabel("姚明"));
 		}
