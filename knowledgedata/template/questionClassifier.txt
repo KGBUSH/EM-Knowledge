@@ -17,6 +17,6 @@ IntroductionQuestion;^&看过/读过/认识/知道/了解/了解过/听说过/�
 IntroductionQuestion;^&#&[你]&认识/知道/了解/听说过/听过/熟悉||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;[你知道/你了解/知道/了解]&什么/啥&叫/叫做/是/称为/被称为&#||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲&#&[是啥/是什么/是谁]||IntroductionSentence@:firstParamInfo
-IntroductionQuestion;[请/给]&介绍/陈述/告诉/查阅&[一下/下]&^&#&^||IntroductionSentence@:firstParamInfo
-ntroductionQuestion;[请/给]&聊/说/讲&一下/下&#&^||IntroductionSentence@:firstParamInfo
+IntroductionQuestion;[你/那你]&[请/给/给我]&介绍/陈述/告诉/查阅&[一下/下]&^&#&^||IntroductionSentence@:firstParamInfo
+IntroductionQuestion;[请/给]&聊/说/讲&一下/下&#&^||IntroductionSentence@:firstParamInfo
 IntroductionQuestion;^&#&是什么&^||IntroductionRequest@:firstParamInfo
