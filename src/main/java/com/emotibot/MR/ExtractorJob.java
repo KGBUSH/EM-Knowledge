@@ -102,7 +102,9 @@ public class ExtractorJob {
           job.setOutputValueClass(Writable.class);
           job.setOutputFormatClass(MultiTableOutputFormat.class);
           job.setMapperClass(ExtractorMap.class);
-          //job.setReducerClass(ExtractorReduce.class);
+          if(type.contains("Solr")){
+        	  job.setReducerClass(ExtractorReduce.class);
+          }
           job.setJarByClass(ExtractorMap.class);
           job.setJobName("ExtractorJob");
          // System.exit(job.waitForCompletion(true) ? 0 : 1);

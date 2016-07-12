@@ -1,5 +1,7 @@
 package com.emotibot.DB;
 
+import java.util.List;
+
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -54,7 +56,7 @@ public class RedisClient {
 		    return false;
 	   }
 	   boolean isName=jedis.exists(name);
-	   jedis.set(name, "");
+	  // jedis.set(name, "");
 	   if(isName) return true;
 	   return false;
    }
@@ -72,11 +74,26 @@ public class RedisClient {
    {
 	    jedis.set(key, value);
    }
-
+   public void test()
+   {
+	          jedis.lpush("java framework","spring");  
+	          jedis.lpush("java framework","struts");  
+	          jedis.lpush("java framework","hibernate");  
+	          System.out.println(jedis.lrange("jcas",0,-1));  
+   }
+   
+   public void lpush(String key,String value)
+   {
+       jedis.lpush(key,value);  
+   }
+   public List<String> LGetList(String key)
+   {
+	   return jedis.lrange(key,0,-1);
+   }
    public static void main(String args[])
    {
 	   RedisClient redis = new RedisClient("192.168.1.73",6379);
-	   System.err.println(redis.existKey("1"));
+	  /* System.err.println(redis.existKey("1"));
 	   System.err.println(redis.existKey("1"));
 	   //redis.Clear();
 	   System.err.println(redis.existKey("1"));
@@ -88,7 +105,8 @@ public class RedisClient {
 	   redis.setKey("1", "2222");
 	   System.err.println(redis.getKey("1"));
 
-	   redis.Clear();
+	   redis.Clear();*/
+	   redis.test();
 
 
    }
