@@ -9,6 +9,8 @@ public class AnswerBean implements Cloneable {
 	private boolean isValid = false;
 	private String originalWord = ""; // the word in the sentence
 	private String comments = "";
+	private String intent = "";
+	private boolean isIntent = false;
 	private volatile int hashcode;
 	
 	@Override 
@@ -127,6 +129,23 @@ public class AnswerBean implements Cloneable {
 		this.isValid = isValid;
 	}
 	
+	
+	public String getIntent() {
+		return intent;
+	}
+
+	public void setIntent(String intent) {
+		this.intent = intent;
+	}
+
+	public boolean isIntent() {
+		return isIntent;
+	}
+
+	public void setIntent(boolean isIntent) {
+		this.isIntent = isIntent;
+	}
+
 	public static void main(String[] args) {
 		AnswerBean a = new AnswerBean();
 		AnswerBean b = new AnswerBean();
