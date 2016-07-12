@@ -64,6 +64,8 @@ public class IntentionClassifier {
 			
 			if(labelListForRewritePart.size() == 1){
 				String result = DBProcess.getEntityIntroduction(entitySet.get(0),labelListForRewritePart.get(0));
+				if(result.contains("。"))
+					result = result.substring(0, result.indexOf("。"));
 				answerBean.setAnswer(result);
 				answerBean.setScore(100);
 				return answerBean.returnAnswer(answerBean);
