@@ -76,6 +76,8 @@ public class IntentionClassifier {
 				}
 				if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
 					result = Tool.combineTwoResult(result, resultAdded);
+					answerBean.setIntent(resultAdded);
+					answerBean.setIntent(true);
 				}
 				answerBean.setAnswer(result);
 				answerBean.setScore(100);
@@ -167,6 +169,8 @@ public class IntentionClassifier {
 			}
 			if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
 				answerAfterRewrite = Tool.combineTwoResult(answerAfterRewrite, resultAdded);
+				answerBean.setIntent(resultAdded);
+				answerBean.setIntent(true);
 			}
 			
 			answerBean.setAnswer(answerAfterRewrite);
@@ -239,6 +243,8 @@ public class IntentionClassifier {
 					}
 					if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
 						answerAfterRewrite = Tool.combineTwoResult(answerAfterRewrite, resultAdded);
+						answerBean.setIntent(resultAdded);
+						answerBean.setIntent(true);
 					}
 					
 					answerBean.setScore(100);
@@ -279,6 +285,8 @@ public class IntentionClassifier {
 				}
 				if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
 					answerAfterRewrite = Tool.combineTwoResult(answerAfterRewrite, resultAdded);
+					answerBean.setIntent(resultAdded);
+					answerBean.setIntent(true);
 				}
 				
 				answerBean.setScore(100);

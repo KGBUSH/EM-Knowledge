@@ -142,10 +142,19 @@ public class KGAgent {
 			return answerBean;
 		}
 		
-		// Intention Process
-		IntentionClassifier intention = new IntentionClassifier(nerBean);
-		answerBean = intention.intentionProcess();
-
+		//filter some bad case about the sentence 
+		QuestionFilter questionFilter = new QuestionFilter(nerBean);
+		answerBean = questionFilter.filterSentence();
+		
+		if(answerBean.isValid()){
+			System.out.println("bean retuned by filter = " + answerBean);
+			return answerBean;
+		}else{
+			// Intention Process
+			IntentionClassifier intention = new IntentionClassifier(nerBean);
+			answerBean = intention.intentionProcess();
+		}
+		
 		if (answerBean.isValid()) {
 			// if answerBean is valid, which means intention generates it, return this answer
 			System.out.println("bean retuned by intention = " + answerBean);
@@ -528,7 +537,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "你讲的太深奥啥意思";
+		String str = "不想知道姚明的老婆是谁";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

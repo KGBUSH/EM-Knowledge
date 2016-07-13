@@ -180,10 +180,19 @@ public class WebServer {
 			try {
 				int flag = 0;
 				String text = request.getParameter("t");
+				String textAfterRewrite = request.getParameter("t1");
 				String questionType = request.getParameter("questionType");
 				String scoreStr = request.getParameter("score");
 				String uniqId = request.getParameter("uniqId");
 				Debug.printDebug(uniqId, 3, "knowledge", "knowedge doService request=" + request.toString());
+				if((textAfterRewrite.contains("[Rewrite:") || textAfterRewrite.contains("[rewrite:"))&&textAfterRewrite.endsWith("]")){
+					text = textAfterRewrite;
+				}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("(我?想[啊的呢要]*)")&&textAfterRewrite.length() > 3) {
+					text = textAfterRewrite;
+				}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("((是|想|要|会|行|对|好|太好|很好|这么好|可以|不错|没错|讲真|必须|当然|被你发现了|有)+(啊|呢|呀|啦|了|哒|哦|耶|的|吧)*)|((嗯|恩)+呢*)|(那当然)|(来(一发)?[吧呀]*)")&&textAfterRewrite.length() > 3) {
+					text = textAfterRewrite;
+				}
+				
 //				LogService.printLog("00", "webservice", text+"###"+scoreStr);
 				if (text != null) {
 					text = text.trim();
@@ -202,12 +211,12 @@ public class WebServer {
 					String ver = sdf.format(System.currentTimeMillis());
 
 					result_obj.put("ver", ver);
-
 					result_obj.put("score", bean.getScore());
 					result_obj.put("topic", "");
 					result_obj.put("emotion", "");
 					// fix the bad case "加油", there is a encode issue here if without " "
 					result_obj.put("answer", bean.getAnswer());
+					result_obj.put("intent", bean.isIntent()?bean.getIntent():"");
 					
 //					System.out.println("getAnaswer="+bean.getAnswer());
 
