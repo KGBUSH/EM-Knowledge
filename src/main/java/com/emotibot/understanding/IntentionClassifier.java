@@ -66,6 +66,17 @@ public class IntentionClassifier {
 				String result = DBProcess.getEntityIntroduction(entitySet.get(0),labelListForRewritePart.get(0));
 				if(result.contains("。"))
 					result = result.substring(0, result.indexOf("。"));
+				String resultAdded = "";
+				// add problem like 你想知道姚明的老婆是谁吗？
+				if(NLPUtil.isContainsInDomainNeededToRewrite(labelListForRewritePart.get(0))){
+					List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(entitySet.get(0),labelListForRewritePart.get(0));
+					if(!listquestions.isEmpty()){
+						resultAdded = listquestions.get(0);
+					}
+				}
+				if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
+					result = Tool.combineTwoResult(result, resultAdded);
+				}
 				answerBean.setAnswer(result);
 				answerBean.setScore(100);
 				return answerBean.returnAnswer(answerBean);
@@ -76,7 +87,7 @@ public class IntentionClassifier {
 					result1 = result1.substring(0, result1.indexOf("。"));
 				if (result2.contains("。"))
 					result2 = result2.substring(0, result2.indexOf("。"));
-				String result = "\"["+result1+"],[" + result2+"]\"";
+				String result = Tool.combineTwoResult(result1, result2);
 				answerBean.setAnswer(result);
 				answerBean.setScore(100);
 				return answerBean.returnAnswer(answerBean);
@@ -143,7 +154,23 @@ public class IntentionClassifier {
 			String tempStrIntroduce = DBProcess.getEntityIntroduction(tempEntity,tempLabel);
 			if (tempStrIntroduce.contains("。"))
 				tempStrIntroduce = tempStrIntroduce.substring(0, tempStrIntroduce.indexOf("。"));
-			answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(tempStrIntroduce));
+			
+			String answerAfterRewrite = answerRewite.rewriteAnswer4Intro(tempStrIntroduce);
+			
+			// add problem like 你想知道姚明的老婆是谁吗？
+			String resultAdded = "";
+			if(NLPUtil.isContainsInDomainNeededToRewrite(tempLabel)){
+				List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(tempEntity,tempLabel);
+				if(!listquestions.isEmpty()){
+					resultAdded = listquestions.get(0);
+				}
+			}
+			if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
+				answerAfterRewrite = Tool.combineTwoResult(answerAfterRewrite, resultAdded);
+			}
+			
+			answerBean.setAnswer(answerAfterRewrite);
+			
 			if (NLPUtil.isInDomainWhiteListDict(tempLabel)) {
 				answerBean.setScore(100);
 			} else {
@@ -199,8 +226,23 @@ public class IntentionClassifier {
 					String strIntroduceByDomain = DBProcess.getEntityIntroduction(tempEntity,tempLabel);
 					if(strIntroduceByDomain.contains("。"))
 						strIntroduceByDomain = strIntroduceByDomain.substring(0, strIntroduceByDomain.indexOf("。"));
+					
+					String answerAfterRewrite  = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
+					// add problem like 你想知道姚明的老婆是谁吗？
+					
+					String resultAdded = "";
+					if(NLPUtil.isContainsInDomainNeededToRewrite(tempLabel)){
+						List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(tempEntity,tempLabel);
+						if(!listquestions.isEmpty()){
+							resultAdded = listquestions.get(0);
+						}
+					}
+					if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
+						answerAfterRewrite = Tool.combineTwoResult(answerAfterRewrite, resultAdded);
+					}
+					
 					answerBean.setScore(100);
-					answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduceByDomain));
+					answerBean.setAnswer(answerAfterRewrite);
 					System.out.println("intentionProcess intro 3: the returned anwer is " + answerBean.toString());
 					return answerBean.returnAnswer(answerBean);
 				}
@@ -225,8 +267,22 @@ public class IntentionClassifier {
 				String strIntroduce = DBProcess.getEntityIntroduction(tempEntity,tempLabel);
 				if (strIntroduce.contains("。"))
 					strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
+				String answerAfterRewrite  = answerRewite.rewriteAnswer4Intro(strIntroduce);
+				// add problem like 你想知道姚明的老婆是谁吗？
+				
+				String resultAdded = "";
+				if(NLPUtil.isContainsInDomainNeededToRewrite(tempLabel)){
+					List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(tempEntity,tempLabel);
+					if(!listquestions.isEmpty()){
+						resultAdded = listquestions.get(0);
+					}
+				}
+				if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
+					answerAfterRewrite = Tool.combineTwoResult(answerAfterRewrite, resultAdded);
+				}
+				
 				answerBean.setScore(100);
-				answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduce));
+				answerBean.setAnswer(answerAfterRewrite);
 				System.out.println("intentionProcess intro 2: the returned anwer is " + answerBean.toString());
 				return answerBean.returnAnswer(answerBean);
 			}
