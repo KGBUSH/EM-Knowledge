@@ -23,9 +23,6 @@ echo "index.solr.server.port=$KG_SOLR_PORT" >> $kgfile
 echo "index.solr.server.solrname=$KG_SOLR_NAME" >> $kgfile
 echo "tcp.server.ip=$KG_TCP_IP" >> $kgfile
 echo "tcp.server.port=$KG_TCP_PORT" >> $kgfile
-debug_file="$EWEB_DEBUG_DIR//emotibot_debug_conf.properties"
-echo "debug_dir = $EWEB_DEBUG_DIR" > $debug_file
-echo "debug_level = $EWEB_DEBUG_LEVEL" >> $debug_file
 
 cp src/main/java/hanlp.properties target/classes/
 cd sentiment
@@ -33,4 +30,4 @@ cd sentiment
 cd ..
 # Start the service
 # java -cp target/WebController-0.1-jar-with-dependencies.jar  -Ddebug.conf=$EWEB_DEBUG_FILE com.emotibot.webController.WebController $EWEB_CU_ADDR $EWEB_RC_ADDR $EWEB_PORT
-java -cp target/KnowledgeGraph-0.0.1.jar -Ddebug.conf=$debug_file  com.emotibot.WebService.WebServer $EWEB_RS_KG_PORT
+java -cp target/KnowledgeGraph-0.0.1.jar -Ddebug.conf=$EWEB_DEBUG_FILE  com.emotibot.WebService.WebServer $EWEB_RS_KG_PORT
