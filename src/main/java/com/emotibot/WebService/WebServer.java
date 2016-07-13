@@ -47,6 +47,7 @@ public class WebServer {
 		
 //		NLPProcess nlpProcess = new NLPProcess();
 //		NLPProcess.NLPProcessInit();
+		Debug.printDebug("", 3, "knowledge", "knowedge doService request=");
 		System.out.println("init NLPProcess");
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
@@ -184,15 +185,22 @@ public class WebServer {
 				String questionType = request.getParameter("questionType");
 				String scoreStr = request.getParameter("score");
 				String uniqId = request.getParameter("uniqId");
+				System.err.println("text="+text);
 				Debug.printDebug(uniqId, 3, "knowledge", "knowedge doService request=" + request.toString());
-				if((textAfterRewrite.contains("[Rewrite:") || textAfterRewrite.contains("[rewrite:"))&&textAfterRewrite.endsWith("]")){
-					text = textAfterRewrite;
-				}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("(我?想[啊的呢要]*)")&&textAfterRewrite.length() > 3) {
-					text = textAfterRewrite;
-				}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("((是|想|要|会|行|对|好|太好|很好|这么好|可以|不错|没错|讲真|必须|当然|被你发现了|有)+(啊|呢|呀|啦|了|哒|哦|耶|的|吧)*)|((嗯|恩)+呢*)|(那当然)|(来(一发)?[吧呀]*)")&&textAfterRewrite.length() > 3) {
-					text = textAfterRewrite;
+				System.err.println("text1="+text);
+
+				if(textAfterRewrite != null && textAfterRewrite.length() > 0){
+					if((textAfterRewrite.contains("[Rewrite:") || textAfterRewrite.contains("[rewrite:"))&&textAfterRewrite.endsWith("]")){
+						text = textAfterRewrite;
+					}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("(我?想[啊的呢要]*)")&&textAfterRewrite.length() > 3) {
+						text = textAfterRewrite;
+					}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("((是|想|要|会|行|对|好|太好|很好|这么好|可以|不错|没错|讲真|必须|当然|被你发现了|有)+(啊|呢|呀|啦|了|哒|哦|耶|的|吧)*)|((嗯|恩)+呢*)|(那当然)|(来(一发)?[吧呀]*)")&&textAfterRewrite.length() > 3) {
+						text = textAfterRewrite;
+					}
 				}
 				
+				System.err.println("text2="+text);
+
 //				LogService.printLog("00", "webservice", text+"###"+scoreStr);
 				if (text != null) {
 					text = text.trim();
