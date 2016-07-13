@@ -168,6 +168,16 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						if(WordLabelMap.containsKey(pmWord)){LabelTmp=WordLabelMap.get(pmWord);}
 						}
 					}
+					else
+					{
+						 synchronized(redis){
+							 String tagsattr= pageExtractInfo.getTagsAttrsStr().trim();
+							 if(redis.existKey(tagsattr))
+							 {
+								 LabelTmp=redis.getKey(tagsattr);
+							 }
+						 }
+					}
 					System.err.println("UrlKey_ParamKey="+DigestUtils.md5Hex(url)+"###"+pageExtractInfo.getParamMd5());
 					System.err.println("LabelTmp="+url+"###"+LabelTmp+"###"+name+"###"+pmWord);
 					label=LabelTmp;
@@ -215,7 +225,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 boolean isexist=isExistHtml(urlmd5,parammd5);
 					 System.err.println(url+" isexist="+isexist);
 					// boolean isexitname=isExistName(name);
-					 synchronized(this){
+					 synchronized(redis){
 						 if(!redis.existKey(tagsattr)) redis.setKey(tagsattr, label);
 						 redis.setKey(url, redis.getKey(tagsattr));
 						 redis.lpush(urlmd5, parammd5); 
@@ -224,7 +234,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 					 }
 					 if(!isexist)
 					 {
-					   synchronized(this){
+					   synchronized(redis){
 					   redis.setKey(urlmd5+parammd5, "");
 					   }
 					   System.err.println("QUERY="+query);
@@ -303,7 +313,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 							System.err.println("isexist||isexitname");
 							return;
 					 } 
-					   synchronized(this){
+					   synchronized(redis){
 							 redis.setKey(url, label);
 							 redis.setKey(urlmd5, parammd5);
 							 redis.setKey(parammd5, "");
