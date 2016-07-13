@@ -219,6 +219,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 						 if(!redis.existKey(tagsattr)) redis.setKey(tagsattr, label);
 						 redis.setKey(url, redis.getKey(tagsattr));
 						 redis.lpush(urlmd5, parammd5); 
+						 redis.setKey(parammd5, "");
 						 System.err.println("redis.lpush="+urlmd5+" "+parammd5);
 					 }
 					 if(!isexist)

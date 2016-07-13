@@ -74,13 +74,6 @@ public class RedisClient {
    {
 	    jedis.set(key, value);
    }
-   public void test()
-   {
-	          jedis.lpush("java framework","spring");  
-	          jedis.lpush("java framework","struts");  
-	          jedis.lpush("java framework","hibernate");  
-	          System.out.println(jedis.lrange("jcas",0,-1));  
-   }
    
    public void lpush(String key,String value)
    {
@@ -90,6 +83,16 @@ public class RedisClient {
    {
 	   return jedis.lrange(key,0,-1);
    }
+   
+   public void test()
+   {
+	   String a="java framework";
+	          jedis.lpush(a,"spring");  
+	          System.out.println(jedis.exists(a));  
+	         // System.out.println(jedis.ex);  
+
+   }
+
    public static void main(String args[])
    {
 	   RedisClient redis = new RedisClient("192.168.1.73",6379);
