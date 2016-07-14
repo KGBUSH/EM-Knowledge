@@ -224,34 +224,44 @@ public class IntentionClassifier {
 			}
 			
 			// when a sentence is not match by above introduction template then goto the introduciton template by domain
-			if(NLPUtil.isIntroductionDomainTable(tempLabel)){
-				boolean isIntroductionByDomain = QuestionClassifier.isIntroductionRequestByDomain(tempLabel, NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)), tempEntity);
-				if(isIntroductionByDomain){
-					String strIntroduceByDomain = DBProcess.getEntityIntroduction(tempEntity,tempLabel);
-					if(strIntroduceByDomain.contains("。"))
-						strIntroduceByDomain = strIntroduceByDomain.substring(0, strIntroduceByDomain.indexOf("。"));
-					
-//					String answerAfterRewrite  = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
-					// add problem like 你想知道姚明的老婆是谁吗？
-					
-					String resultAdded = "";
-					if(NLPUtil.isContainsInDomainNeededToRewrite(tempLabel)){
-						List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(tempEntity,tempLabel);
-						if(!listquestions.isEmpty()){
-							resultAdded = listquestions.get(0);
+			// 你知道电视剧三国演义吗？ isIntroductionRequestByDomain() 在novel 里找不到会去tv 里找。
+			List<String> listLabel = NLPUtil.getLabelListByEntity(tempEntity);
+			if(!listLabel.isEmpty()){
+				for(String label : listLabel){
+					if(NLPUtil.isIntroductionDomainTable(label)){
+						
+						boolean isIntroductionByDomain = QuestionClassifier.isIntroductionRequestByDomain(label, NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)), tempEntity);
+						if(isIntroductionByDomain){
+							String strIntroduceByDomain = DBProcess.getEntityIntroduction(tempEntity,label);
+							if(strIntroduceByDomain.contains("。"))
+								strIntroduceByDomain = strIntroduceByDomain.substring(0, strIntroduceByDomain.indexOf("。"));
+							
+//							String answerAfterRewrite  = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
+							// add problem like 你想知道姚明的老婆是谁吗？
+							
+							String resultAdded = "";
+							if(NLPUtil.isContainsInDomainNeededToRewrite(label)){
+								List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(tempEntity,label);
+								if(!listquestions.isEmpty()){
+									resultAdded = listquestions.get(0);
+								}
+							}
+							if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
+								strIntroduceByDomain = Tool.combineTwoResult(strIntroduceByDomain, resultAdded);
+								answerBean.setIntent(resultAdded);
+								answerBean.setIntent(true);
+							}
+							
+							answerBean.setScore(100);
+							answerBean.setAnswer(strIntroduceByDomain);
+							System.out.println("intentionProcess intro 3: the returned anwer is " + answerBean.toString());
+							return answerBean.returnAnswer(answerBean);
 						}
 					}
-					if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
-						strIntroduceByDomain = Tool.combineTwoResult(strIntroduceByDomain, resultAdded);
-						answerBean.setIntent(resultAdded);
-						answerBean.setIntent(true);
-					}
-					
-					answerBean.setScore(100);
-					answerBean.setAnswer(strIntroduceByDomain);
-					System.out.println("intentionProcess intro 3: the returned anwer is " + answerBean.toString());
-					return answerBean.returnAnswer(answerBean);
 				}
+			}else {
+				System.err.println("labellist of entity" +tempEntity+" is null");
+				return answerBean;
 			}
 			
 			boolean isIntro = QuestionClassifier.isIntroductionRequest(NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)),
