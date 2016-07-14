@@ -1,10 +1,14 @@
 package com.emotibot.understanding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+
+import org.apache.commons.collections.map.HashedMap;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
@@ -13,11 +17,16 @@ import com.emotibot.common.Common;
 import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.template.TemplateEntry;
 import com.emotibot.util.Tool;
+import com.sun.tools.classfile.Annotation.element_value;
 
 public class IntentionClassifier {
 
 	private NERBean nerBean = new NERBean();
 
+	public IntentionClassifier(){
+		
+	}
+	
 	public IntentionClassifier(NERBean bean) {
 		nerBean = bean;
 	}
@@ -74,7 +83,11 @@ public class IntentionClassifier {
 						// generate random number [0,listquestions.size()]
 						int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 						resultAdded = listquestions.get(id);
+					}else {
+						result = answerRewite.rewriteAnswer4Intro(result);
 					}
+				}else {
+					result = answerRewite.rewriteAnswer4Intro(result);
 				}
 				if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
 					result = Tool.combineTwoResult(result, resultAdded);
@@ -169,7 +182,11 @@ public class IntentionClassifier {
 					// generate random number [0,listquestions.size()]
 					int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 					resultAdded = listquestions.get(id);
+				}else {
+					tempStrIntroduce = answerRewite.rewriteAnswer4Intro(tempStrIntroduce);
 				}
+			}else {
+				tempStrIntroduce = answerRewite.rewriteAnswer4Intro(tempStrIntroduce); 
 			}
 			if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
 				tempStrIntroduce = Tool.combineTwoResult(tempStrIntroduce, resultAdded);
@@ -250,7 +267,11 @@ public class IntentionClassifier {
 									// generate random number [0,listquestions.size()]
 									int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 									resultAdded = listquestions.get(id);
+								}else {
+									strIntroduceByDomain = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
 								}
+							}else {
+								strIntroduceByDomain = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
 							}
 							if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
 								strIntroduceByDomain = Tool.combineTwoResult(strIntroduceByDomain, resultAdded);
@@ -299,7 +320,11 @@ public class IntentionClassifier {
 						// generate random number [0,listquestions.size()]
 						int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 						resultAdded = listquestions.get(id);
+					}else {
+						strIntroduce = answerRewite.rewriteAnswer4Intro(strIntroduce);
 					}
+				}else {
+					strIntroduce = answerRewite.rewriteAnswer4Intro(strIntroduce);
 				}
 				if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
 					strIntroduce = Tool.combineTwoResult(strIntroduce, resultAdded);
@@ -373,7 +398,7 @@ public class IntentionClassifier {
 	//return a sentence combined by entity and Relation or Property list orderby pm. 
 	//input 姚明  
 	//output 你想知道姚明的好友吗？ 你想知道姚明的特长吗？
-	public static List<String> getRelationOrPropertyByEntityAndConvertToSentence(String ent){
+	public Map<String, String> getRelationOrPropertyByEntityAndConvertToSentence(String ent){
 		String entity = "";
 		if(NLPUtil.isDBEntity(ent)){
 			entity = ent;
@@ -381,10 +406,10 @@ public class IntentionClassifier {
 			entity = NLPUtil.getEntitySynonymNormal(ent).get(0);
 		}else {
 			System.err.println("entity:"+ ent +"is not found in neo4j");
-			return new ArrayList<String>();
+			return new HashMap<String,String>();
 		}
 		List<String> listMiddle = new ArrayList<String>();
-		List<String> listResult = new ArrayList<String>();
+		Map<String,String> MapResult = new HashMap<String,String>();
 		Set<String> setTemp = new HashSet<String>();
 		String label = NLPUtil.getLabelByEntity(entity);
 		List<String> tempListProperty = DBProcess.getEntityPropertyList(entity, label);
@@ -422,15 +447,16 @@ public class IntentionClassifier {
 					}
 				}
 			}
-		}else {
-			new ArrayList<String>();
 		}
 		
-
-		for (String str : listMiddle) {
-			listResult.add("你想知道" + entity + "的" + str + "吗？");
+		if(!listMiddle.isEmpty()){
+			// <entity + "的" + str,"你想知道" + entity + "的" + str + "吗？">
+			for (String str : listMiddle) {
+				MapResult.put(entity + "的" + str, "你想知道" + entity + "的" + str + "吗？");
+			}
 		}
-		return listResult;
+		
+		return MapResult;
 	}
 	
 	// return a sentence combined by entity and Relation or Property list
@@ -493,7 +519,7 @@ public class IntentionClassifier {
 	
 	public static void main(String[] args) {
 		DictionaryBuilder.DictionaryBuilderInit();
-		List<String> list = getRelationOrPropertyByEntityAndConvertToSentence("熊猫");
-		System.out.println(list);
+//		List<String> list = getRelationOrPropertyByEntityAndConvertToSentence("叶璇");
+//		System.out.println(list);
 	}
 }
