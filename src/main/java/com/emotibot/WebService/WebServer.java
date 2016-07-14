@@ -200,6 +200,7 @@ public class WebServer {
 				}
 				
 				System.err.println("text2="+text);
+				System.out.println("old text is: "+text + "-------------text after rewrite is: "+textAfterRewrite);
 
 //				LogService.printLog("00", "webservice", text+"###"+scoreStr);
 				if (text != null) {

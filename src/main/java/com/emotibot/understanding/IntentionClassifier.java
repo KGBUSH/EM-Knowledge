@@ -157,7 +157,7 @@ public class IntentionClassifier {
 			if (tempStrIntroduce.contains("。"))
 				tempStrIntroduce = tempStrIntroduce.substring(0, tempStrIntroduce.indexOf("。"));
 			
-			String answerAfterRewrite = answerRewite.rewriteAnswer4Intro(tempStrIntroduce);
+//			String answerAfterRewrite = answerRewite.rewriteAnswer4Intro(tempStrIntroduce);
 			
 			// add problem like 你想知道姚明的老婆是谁吗？
 			String resultAdded = "";
@@ -168,12 +168,12 @@ public class IntentionClassifier {
 				}
 			}
 			if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
-				answerAfterRewrite = Tool.combineTwoResult(answerAfterRewrite, resultAdded);
+				tempStrIntroduce = Tool.combineTwoResult(tempStrIntroduce, resultAdded);
 				answerBean.setIntent(resultAdded);
 				answerBean.setIntent(true);
 			}
 			
-			answerBean.setAnswer(answerAfterRewrite);
+			answerBean.setAnswer(tempStrIntroduce);
 			
 			if (NLPUtil.isInDomainWhiteListDict(tempLabel)) {
 				answerBean.setScore(100);
@@ -231,7 +231,7 @@ public class IntentionClassifier {
 					if(strIntroduceByDomain.contains("。"))
 						strIntroduceByDomain = strIntroduceByDomain.substring(0, strIntroduceByDomain.indexOf("。"));
 					
-					String answerAfterRewrite  = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
+//					String answerAfterRewrite  = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
 					// add problem like 你想知道姚明的老婆是谁吗？
 					
 					String resultAdded = "";
@@ -242,13 +242,13 @@ public class IntentionClassifier {
 						}
 					}
 					if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
-						answerAfterRewrite = Tool.combineTwoResult(answerAfterRewrite, resultAdded);
+						strIntroduceByDomain = Tool.combineTwoResult(strIntroduceByDomain, resultAdded);
 						answerBean.setIntent(resultAdded);
 						answerBean.setIntent(true);
 					}
 					
 					answerBean.setScore(100);
-					answerBean.setAnswer(answerAfterRewrite);
+					answerBean.setAnswer(strIntroduceByDomain);
 					System.out.println("intentionProcess intro 3: the returned anwer is " + answerBean.toString());
 					return answerBean.returnAnswer(answerBean);
 				}
@@ -273,7 +273,7 @@ public class IntentionClassifier {
 				String strIntroduce = DBProcess.getEntityIntroduction(tempEntity,tempLabel);
 				if (strIntroduce.contains("。"))
 					strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
-				String answerAfterRewrite  = answerRewite.rewriteAnswer4Intro(strIntroduce);
+//				String answerAfterRewrite  = answerRewite.rewriteAnswer4Intro(strIntroduce);
 				// add problem like 你想知道姚明的老婆是谁吗？
 				
 				String resultAdded = "";
@@ -284,13 +284,13 @@ public class IntentionClassifier {
 					}
 				}
 				if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
-					answerAfterRewrite = Tool.combineTwoResult(answerAfterRewrite, resultAdded);
+					strIntroduce = Tool.combineTwoResult(strIntroduce, resultAdded);
 					answerBean.setIntent(resultAdded);
 					answerBean.setIntent(true);
 				}
 				
 				answerBean.setScore(100);
-				answerBean.setAnswer(answerAfterRewrite);
+				answerBean.setAnswer(strIntroduce);
 				System.out.println("intentionProcess intro 2: the returned anwer is " + answerBean.toString());
 				return answerBean.returnAnswer(answerBean);
 			}
