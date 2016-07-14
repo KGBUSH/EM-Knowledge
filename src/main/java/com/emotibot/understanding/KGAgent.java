@@ -65,6 +65,7 @@ public class KGAgent {
 //		nerBean.setOldSentence(CharUtil.trimAndlower(text));	// fix the bad case "你好。"
 		
 		nerBean.setUniqueID(uniqueID);
+		nerBean.setRewrite(isRewrite);
 
 		userSentence = text.toLowerCase();
 
@@ -538,7 +539,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "邓超的好友？";
+		String str = "韩红知道吗";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

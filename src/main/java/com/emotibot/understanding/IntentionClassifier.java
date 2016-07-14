@@ -71,7 +71,9 @@ public class IntentionClassifier {
 				if(NLPUtil.isContainsInDomainNeededToRewrite(labelListForRewritePart.get(0))){
 					List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(entitySet.get(0),labelListForRewritePart.get(0));
 					if(!listquestions.isEmpty()){
-						resultAdded = listquestions.get(0);
+						// generate random number [0,listquestions.size()]
+						int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
+						resultAdded = listquestions.get(id);
 					}
 				}
 				if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
@@ -164,7 +166,9 @@ public class IntentionClassifier {
 			if(NLPUtil.isContainsInDomainNeededToRewrite(tempLabel)){
 				List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(tempEntity,tempLabel);
 				if(!listquestions.isEmpty()){
-					resultAdded = listquestions.get(0);
+					// generate random number [0,listquestions.size()]
+					int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
+					resultAdded = listquestions.get(id);
 				}
 			}
 			if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
@@ -224,7 +228,7 @@ public class IntentionClassifier {
 			}
 			
 			// when a sentence is not match by above introduction template then goto the introduciton template by domain
-			// 你知道电视剧三国演义吗？ isIntroductionRequestByDomain() 在novel 里找不到会去tv 里找。
+			// 你知道电视剧三国演义吗？ isIntroductionRequestByDomain() 在novel 里找不到会去tv 里
 			List<String> listLabel = NLPUtil.getLabelListByEntity(tempEntity);
 			if(!listLabel.isEmpty()){
 				for(String label : listLabel){
@@ -243,7 +247,9 @@ public class IntentionClassifier {
 							if(NLPUtil.isContainsInDomainNeededToRewrite(label)){
 								List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(tempEntity,label);
 								if(!listquestions.isEmpty()){
-									resultAdded = listquestions.get(0);
+									// generate random number [0,listquestions.size()]
+									int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
+									resultAdded = listquestions.get(id);
 								}
 							}
 							if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
@@ -290,7 +296,9 @@ public class IntentionClassifier {
 				if(NLPUtil.isContainsInDomainNeededToRewrite(tempLabel)){
 					List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(tempEntity,tempLabel);
 					if(!listquestions.isEmpty()){
-						resultAdded = listquestions.get(0);
+						// generate random number [0,listquestions.size()]
+						int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
+						resultAdded = listquestions.get(id);
 					}
 				}
 				if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
