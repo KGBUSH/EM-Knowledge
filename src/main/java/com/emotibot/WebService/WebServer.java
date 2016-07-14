@@ -180,6 +180,7 @@ public class WebServer {
 			PrintWriter out = response.getWriter();
 			try {
 				int flag = 0;
+				boolean isRewrite = false;
 				String text = request.getParameter("t");
 				String textAfterRewrite = request.getParameter("t1");
 				String questionType = request.getParameter("questionType");
@@ -192,10 +193,13 @@ public class WebServer {
 				if(textAfterRewrite != null && textAfterRewrite.length() > 0){
 					if((textAfterRewrite.contains("[Rewrite:") || textAfterRewrite.contains("[rewrite:"))&&textAfterRewrite.endsWith("]")){
 						text = textAfterRewrite;
+						isRewrite = true;
 					}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("(我?想[啊的呢要]*)")&&textAfterRewrite.length() > 3) {
 						text = textAfterRewrite;
+						isRewrite = true;
 					}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("((是|想|要|会|行|对|好|太好|很好|这么好|可以|不错|没错|讲真|必须|当然|被你发现了|有)+(啊|呢|呀|啦|了|哒|哦|耶|的|吧)*)|((嗯|恩)+呢*)|(那当然)|(来(一发)?[吧呀]*)")&&textAfterRewrite.length() > 3) {
 						text = textAfterRewrite;
+						isRewrite = true;
 					}
 				}
 				
@@ -211,6 +215,7 @@ public class WebServer {
 					cuBean.setQuestionType(questionType);
 					cuBean.setScore(scoreStr);
 					cuBean.setUniqueID(uniqId);
+					cuBean.setRewrite(isRewrite);
 					System.out.println("@@@@@@@@@@@@@@@processing: cuBean=" + cuBean + "\n request=" + request);
 //					AnswerBean bean = new PatternMatchingProcess(cuBean).getAnswer();
 					AnswerBean bean = new KGAgent(cuBean).getAnswer();

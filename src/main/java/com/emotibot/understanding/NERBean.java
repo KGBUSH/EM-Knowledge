@@ -15,10 +15,11 @@ public class NERBean {
 	private boolean isQuestion = false;
 	private boolean isDebug = false;
 	private double questionScore = 0;
-
+	private boolean isRewrite = false;
+	
 	public String toString() {
 		return "NERBean:\n" + "uniqueID=" + uniqueID + ";\n userSentence=" + sentence + ";\n entitySet=" + entitySet
-				+ ";\n segPos=" + segPos + ";\n segWordWithoutStopWord=" + segWordWithoutStopWord;
+				+ ";\n segPos=" + segPos + ";\n segWordWithoutStopWord=" + segWordWithoutStopWord+";\n isRewrite="+ isRewrite;
 	}
 
 	public String getSentence() {
@@ -93,4 +94,13 @@ public class NERBean {
 		this.questionScore = questionScore;
 	}
 
+	public boolean isRewrite() {
+		return isRewrite;
+	}
+
+	public void setRewrite(boolean isRewrite) {
+		this.isRewrite = isRewrite;
+	}
+
+	
 }

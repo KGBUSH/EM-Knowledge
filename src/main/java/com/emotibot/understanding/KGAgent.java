@@ -37,6 +37,7 @@ public class KGAgent {
 		String requestScore = cuBean.getScore();
 		double questionScore = 0;
 		uniqueID = cuBean.getUniqueID();
+		boolean isRewrite = cuBean.isRewrite() ? true: false;
 		if (Tool.isStrEmptyOrNull(uniqueID)) {
 			uniqueID = "0";
 		}
@@ -167,7 +168,7 @@ public class KGAgent {
 		System.out.println("pre score==="+score);
 		// if it is not a question, then lower the score of the answer
 		// since if there is another answer from other module, the answer from KG with lower score will not be selected
-		if(nerBean.getQuestionScore() < 5){
+		if(nerBean.getQuestionScore() < 5 && !nerBean.isRewrite()){
 			score = 0;
 		}
 		
@@ -537,7 +538,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "不想知道姚明的老婆是谁";
+		String str = "邓超的好友？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

@@ -5,6 +5,7 @@ public class CUBean {
 	private String questionType;
 	private String score;
 	private String uniqueID;
+	private boolean isRewrite;
 
 	public String getText() {
 		return text;
@@ -38,10 +39,19 @@ public class CUBean {
 		this.uniqueID = uniqueID;
 	}
 
+	
+	public boolean isRewrite() {
+		return isRewrite;
+	}
+
+	public void setRewrite(boolean isRewrite) {
+		this.isRewrite = isRewrite;
+	}
+
 	public String toString() {
 		StringBuffer s = new StringBuffer();
 		s.append("CUBean: text=").append(text).append("; questionType=").append(questionType).append("; score=")
-				.append(score).append("; uniqueID=").append(uniqueID);
+				.append(score).append("; uniqueID=").append(uniqueID).append(";isRewrite=").append(isRewrite);
 		
 		return s.toString();
 	}
