@@ -82,8 +82,8 @@ public class WebServer {
 		// This is a raw Servlet, not a Servlet that has been configured
 		// through a web.xml @WebServlet annotation, or anything similar.
 		// handler.addServletWithMapping(NlpServlet.class, "/web");
-//		handler.addServletWithMapping(KGServletJson.class, "/json");
-		handler.addServletWithMapping(DialogueControlInvoke.class, "/json");
+		handler.addServletWithMapping(KGServletJson.class, "/json");
+//		handler.addServletWithMapping(DialogueControlInvoke.class, "/json2");
 
 		// Start things up!
 		server.start();
