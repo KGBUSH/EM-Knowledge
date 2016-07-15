@@ -10,7 +10,10 @@ package com.emotibot.WebService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,9 +29,11 @@ import com.emotibot.config.ConfigManager;
 import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
+import com.emotibot.understanding.IntentionClassifier;
 //import com.emotibot.patternmatching.PatternMatchingProcess;
 import com.emotibot.understanding.KGAgent;
 import com.emotibot.util.CUBean;
+import com.google.common.collect.Multiset.Entry;
 import com.hankcs.hanlp.seg.common.Term;
 
 import net.sf.json.JSONArray;
@@ -77,7 +82,8 @@ public class WebServer {
 		// This is a raw Servlet, not a Servlet that has been configured
 		// through a web.xml @WebServlet annotation, or anything similar.
 		// handler.addServletWithMapping(NlpServlet.class, "/web");
-		handler.addServletWithMapping(KGServletJson.class, "/json");
+//		handler.addServletWithMapping(KGServletJson.class, "/json");
+		handler.addServletWithMapping(DialogueControlInvoke.class, "/json");
 
 		// Start things up!
 		server.start();
@@ -187,6 +193,7 @@ public class WebServer {
 				String scoreStr = request.getParameter("score");
 				String uniqId = request.getParameter("uniqId");
 				System.err.println("text="+text);
+				System.out.println(request.toString());
 				Debug.printDebug(uniqId, 3, "knowledge", "knowedge doService request=" + request.toString());
 				System.err.println("text1="+text);
 
@@ -256,5 +263,58 @@ public class WebServer {
 				out.println(result_obj);
 			}
 		}
+	}
+	
+	@SuppressWarnings("serial")
+	public static class DialogueControlInvoke extends HttpServlet{
+
+		@Override
+		protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+				throws ServletException, IOException {
+			// TODO Auto-generated method stub
+			doService(req, resp);
+		}
+
+		@Override
+		protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+				throws ServletException, IOException {
+			// TODO Auto-generated method stub
+			doService(req, resp);
+		}
+
+		/**
+		 * @param request
+		 * @param response
+		 * @throws IOException
+		 */
+		private void doService(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			response.setStatus(HttpServletResponse.SC_OK);
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/json;charset=utf-8");
+			response.setCharacterEncoding("utf-8");
+			PrintWriter out = response.getWriter();
+			String text = request.getParameter("t");
+			if (text != null) {
+				text = text.trim();
+				if (!text.isEmpty()) {
+					System.out.println(text);
+					IntentionClassifier intentionClassifier = new IntentionClassifier();
+					Map<String, String> anwerMap = intentionClassifier.getRelationOrPropertyByEntityAndConvertToSentence(text);
+					List<Map<String, String>> result = new ArrayList<Map<String,String>>();
+					if(!anwerMap.isEmpty()){
+						for(java.util.Map.Entry<String, String> entry : anwerMap.entrySet()){
+							HashMap<String, String> hashMap = new HashMap<String, String>();
+							hashMap.put("intent", entry.getKey());
+							hashMap.put("answer", entry.getValue());
+							result.add(hashMap);
+						}
+					}
+					JSONObject result_obj = new JSONObject();
+					result_obj.put("result", result);
+					out.println(result_obj);
+				}
+			}
+		}
+		
 	}
 }
