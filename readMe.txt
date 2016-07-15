@@ -90,3 +90,71 @@ CREATE INDEX ON :other(urlkey);
 
 
 
+
+
+
+
+
+
+=====================================================
+后台脚本
+-------------------------------
+hbase基本命令
+hbase shell      
+list 
+describe 'scrapy_baike_words_first'
+
+--------------------------------
+getData.sh  host
+
+每台机器的userlog目录
+ls /tmp3/linux_src/hadoop-2.6.0/logs/userlogs/
+
+
+--------------------------------
+hball.sh    
+hbase shell hball.sh  > url
+cat url | awk -F "value=" '{print $2}' | sort | uniq 
+================================
+
+neo4j.sh  
+pom:              <mainClass>com.emotibot.MR.ExtractorJob</mainClass>
+
+
+/tmp3/linux_src/hadoop-2.6.0/bin/hadoop jar KnowledgeGraph-0.0.1.jar t11 liu Neo4j 1
+
+
+节点语句：
+QUERY=create (result:anime{key:"00f6ec6f0b53146d4fc9975392f25079"}) set result.urlkey="dfb43cd9373d385d0dd867f2257e3764",result.tag="",result.Pic="http://b.hiphotos.baidu.com/baike/w%3D268%3Bg%3D0/sign=97bad5b8cc1349547e1eef626e75f565/63d9f2d3572c11df6089d21a642762d0f703c2ab.jpg",result.key="00f6ec6f0b53146d4fc9975392f25079",result.Name="新世纪福音战士",result.ParamInfo="《新世纪福音战士》EVA官方手游是一款由上海黑桃互动发行的，以经典动漫作品《EVA》改编的3D动作卡牌类手游，游戏将原作中宏大的世界观背景设定完整平移，融合动漫新剧场版的时尚元素，采用Unity3D技术和PHP游戏引擎还原出丰富的原作风貌和精致机战场景。 在游戏中，玩家将驾驶着属于自己的机甲，以第一视角驾驶巨大机甲，强化武器，亲身参与对抗使徒守护全人类的战斗，在感受原著魅力的同时，体验酣畅的激战和新奇的游戏乐趣。"  return result;
+
+关系
+match (p:anime {urlkey:"0056836c76087b3067252b7dcb526b56"} ) match (q:figure {key:"d242d13e0439db7f9612f421656750d4"} ) merge (p)-[r:主要配音]->(q) 
+match (p:anime {urlkey:"0056836c76087b3067252b7dcb526b56"} ) match (q:other {key:"380a3a9e81cb79b59bdc505a4d05af3d"} ) merge (p)-[r:首播电视台]->(q) 
+
+
+echo "flushall" | /home/taoliu/redis/redis-3.0.0/src/redis-cli 
+清空redis
+
+/tmp3/linux_src/hadoop-2.6.0/bin/hadoop jar KnowledgeGraph-0.0.1.jar t11 liu Neo4j 1
+
+/tmp3/linux_src/hadoop-2.6.0/bin/hadoop jar KnowledgeGraph-0.0.1.jar t22 liu Neo4j 3
+
+/tmp3/linux_src/hadoop-2.6.0/bin/hadoop jar KnowledgeGraph-0.0.1.jar t11 liu Neo4j 2
+
+参数一：文件名  里面是表名
+参数二：不要关注 没用
+参数三：Neo4j Solr
+参数四：1 一级节点  3 二级节点  2 关系   如果是solr就没有
+
+
+-------------------------------------
+solr.sh  
+
+--------------------------
+t11  t22
+现在线上一级表和二级表的名字
+
+
+===========================================
+代码：
+ hadoop dfs -ls /domain/
