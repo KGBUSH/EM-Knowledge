@@ -99,6 +99,16 @@ cat EALLLast | grep "QUERY=" | grep "merge (p)"  | sort | uniq  > a
 cat a | awk -F "###" '{print $5}'
   
 
+
+============clear neo4j
+必须先删除关系再删除节点：
+START n=node(*) match n-[r]->() delete r;
+START n=node(*)  delete n;
+
+
+
+
+================
  执行成功后  去页面http://ip:7474   执行命令如下  :schema  如果下面显示一大堆的索引信息 就说说明创建成功；
  在后面无论是插入还是查找，只要根绝分类信息和响应的字段 速度有很大的提升
 
