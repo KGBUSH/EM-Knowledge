@@ -81,8 +81,23 @@ CREATE INDEX ON :other(Name);
 CREATE INDEX ON :other(key);
 CREATE INDEX ON :other(urlkey);
 
+
+
+neo4j sqls 导入：
+第一种方法：
 使用的时候可以将这些语句放在一个文件中 然后进入bin目录执行如下命令：
- cat  filePath | ./neo4j-shell 
+ cat  filePath | ./neo4j-shell
+ 
+第二种方法：
+ 多线程导入，从线上拉取日志（日志假设为EALLLast） 
+插入节点sql
+[root@host73 Shell]# cat EALLLast | grep "QUERY=create" | sort | uniq > node
+[root@host73 Shell]# cat node | awk -F "UERY=" '{print $2}'
+ 
+插入关系：
+cat EALLLast | grep "QUERY=" | grep "merge (p)"  | sort | uniq  > a
+cat a | awk -F "###" '{print $5}'
+  
 
  执行成功后  去页面http://ip:7474   执行命令如下  :schema  如果下面显示一大堆的索引信息 就说说明创建成功；
  在后面无论是插入还是查找，只要根绝分类信息和响应的字段 速度有很大的提升
