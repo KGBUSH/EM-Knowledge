@@ -269,12 +269,14 @@ public class IntentionClassifier {
 			// when a sentence is not match by above introduction template then goto the introduciton template by domain
 			// 你知道电视剧三国演义吗？ isIntroductionRequestByDomain() 在novel 里找不到会去tv 里
 			List<String> listLabel = NLPUtil.getLabelListByEntity(tempEntity);
+			System.out.println("the label of entity "+ tempEntity + " is " + listLabel);
 			if(!listLabel.isEmpty()){
 				for(String label : listLabel){
 					if(NLPUtil.isIntroductionDomainTable(label)){
 						
 						boolean isIntroductionByDomain = QuestionClassifier.isIntroductionRequestByDomain(label, NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)), tempEntity);
 						if(isIntroductionByDomain){
+							System.out.println("enter into introduction_domain method----------------");
 							String strIntroduceByDomain = DBProcess.getEntityIntroduction(tempEntity,label);
 							if(strIntroduceByDomain.contains("。"))
 								strIntroduceByDomain = strIntroduceByDomain.substring(0, strIntroduceByDomain.indexOf("。"));
@@ -332,6 +334,7 @@ public class IntentionClassifier {
 				
 				// judge whether labelListResult contains more than one label
 				if (finalLabelList2.size() > 1) {
+					System.out.println("enter into general introduction method-------");
 					return getAnswerOfCase1(finalLabelList2);
 				}
 				
