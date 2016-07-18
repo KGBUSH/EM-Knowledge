@@ -88,7 +88,7 @@ public class CommonUtil {
 		return true;
 	}
 	
-	//parse entity in sentence like “你想知道终极一班的主演之一炎亚纶的最新新闻吗”
+	//parse entity in sentence like “你想知道终极一班的主演之一炎亚纶最近的新闻吗”
 	//return 炎亚纶
 	public static String parseEntityInSentence(String sentence){
 		String entity = "";
@@ -99,7 +99,7 @@ public class CommonUtil {
 	
 	public static void main(String [] args){
 		
-		System.out.println(parseEntityInSentence("你想知道终极一班的主演之一炎亚纶的最新新闻吗"));
+		System.out.println(parseEntityInSentence("你想知道终极一班的主演之一炎亚纶最近的新闻吗"));
 //		JSONArray jsonArray = jsObj.getJSONArray("result");
 //		System.out.println(jsObj);
 //		System.out.println(json);
