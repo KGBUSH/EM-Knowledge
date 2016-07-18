@@ -91,7 +91,7 @@ public class IntentionClassifier {
 						if(labelListForRewritePart.get(0).equals("movie")||labelListForRewritePart.get(0).equals("tv")){
 							hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
 							if(!hasNewsFromFunction){
-								resultAdded = null;
+								resultAdded = "";
 							}
 						}
 					}else {
@@ -197,7 +197,7 @@ public class IntentionClassifier {
 					if(tempLabel.equals("movie")||tempLabel.equals("tv")){
 						hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
 						if(!hasNewsFromFunction){
-							resultAdded = null;
+							resultAdded = "";
 						}
 					}
 				}else {
@@ -289,7 +289,7 @@ public class IntentionClassifier {
 									if(label.equals("movie")||label.equals("tv")){
 										hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
 										if(!hasNewsFromFunction){
-											resultAdded = null;
+											resultAdded = "";
 										}
 									}
 								}else {
@@ -349,7 +349,7 @@ public class IntentionClassifier {
 						if(tempLabel.equals("movie")||tempLabel.equals("tv")){
 							hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
 							if(!hasNewsFromFunction){
-								resultAdded = null;
+								resultAdded = "";
 							}
 						}
 					}else {
