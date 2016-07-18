@@ -92,6 +92,7 @@ public class IntentionClassifier {
 							hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
 							if(!hasNewsFromFunction){
 								resultAdded = "";
+								result = answerRewite.rewriteAnswer4Intro(result);
 							}
 						}
 					}else {
@@ -104,6 +105,8 @@ public class IntentionClassifier {
 					result = Tool.combineTwoResult(result, resultAdded);
 					answerBean.setIntent(resultAdded);
 					answerBean.setIntent(true);
+				}else {
+					//if result only has introduction then add the template 
 				}
 				answerBean.setAnswer(result);
 				answerBean.setScore(100);
@@ -198,6 +201,7 @@ public class IntentionClassifier {
 						hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
 						if(!hasNewsFromFunction){
 							resultAdded = "";
+							tempStrIntroduce = answerRewite.rewriteAnswer4Intro(tempStrIntroduce);
 						}
 					}
 				}else {
@@ -277,7 +281,6 @@ public class IntentionClassifier {
 							
 //							String answerAfterRewrite  = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
 							// add problem like 你想知道姚明的老婆是谁吗？
-							
 							String resultAdded = "";
 							if(NLPUtil.isContainsInDomainNeededToRewrite(label)){
 								List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(tempEntity,label);
@@ -290,6 +293,7 @@ public class IntentionClassifier {
 										hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
 										if(!hasNewsFromFunction){
 											resultAdded = "";
+											strIntroduceByDomain = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
 										}
 									}
 								}else {
@@ -350,6 +354,7 @@ public class IntentionClassifier {
 							hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
 							if(!hasNewsFromFunction){
 								resultAdded = "";
+								strIntroduce = answerRewite.rewriteAnswer4Intro(strIntroduce);
 							}
 						}
 					}else {
