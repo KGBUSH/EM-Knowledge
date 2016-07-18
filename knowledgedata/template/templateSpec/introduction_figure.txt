@@ -1,4 +1,9 @@
 figure;^&#&这人/这个人&[是谁/是哪位/是何人]&[你]&[知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
 figure;^&#&这人/这个人&[你]&[知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]&[是谁/是哪位/是何人]||IntroductionSentence@:firstParamInfo
 figure;^&#&^&个/一个&^&人&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-figure;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲/介绍&^&#&这人/这个人&^||IntroductionSentence@:firstParamInfo
+figure;^&聊聊/聊下/聊一下/说一说/说说/说下/讲一下/讲下/告诉/讲讲/介绍&^&#&这人/这个人&^||IntroductionSentence@:firstParamInfo
+figure;^&[你]&[知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]&作家/演员/歌手/球星/组合&#&[是谁/是哪位/是何人]||IntroductionSentence@:firstParamInfo
+figure;^&作家/演员/歌手/球星/组合&#&[是谁/是哪位/是何人]&[你]&[知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
+figure;^&[你]&[知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]&作家/演员/歌手/球星/组合&#&[是个/是位]&[什么人/啥人]||IntroductionSentence@:firstParamInfo
+figure;^&[你]&[知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]&#&[是个/是位]&[什么/啥]&作家/演员/歌手/球星/组合||IntroductionSentence@:firstParamInfo
+figure;^&#&[是个/是位]&[什么/啥]&作家/演员/歌手/球星/组合&[你]&[知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
