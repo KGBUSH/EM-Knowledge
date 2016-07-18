@@ -3,9 +3,7 @@ package com.emotibot.understanding;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import com.emotibot.common.Common;
-import com.emotibot.util.Tool;
 
 public class CommonUtil {
 
@@ -90,10 +88,24 @@ public class CommonUtil {
 		return true;
 	}
 	
+	//parse entity in sentence like “你想知道终极一班的主演之一炎亚纶的最新新闻吗”
+	//return 炎亚纶
+	public static String parseEntityInSentence(String sentence){
+		String entity = "";
+		entity = sentence.substring(sentence.indexOf("主演之一") + 4, sentence.lastIndexOf("最"));
+		System.out.println("the entity in " + sentence + "is " + entity);
+		return entity;
+	}
+	
 	public static void main(String [] args){
-		List<String> lhs = new ArrayList<>();
-		List<String> rhs = new ArrayList<>();
-		System.out.println("rs = "+isTwoListsEqual(lhs, rhs));
+		
+		System.out.println(parseEntityInSentence("你想知道终极一班的主演之一炎亚纶的最新新闻吗"));
+//		JSONArray jsonArray = jsObj.getJSONArray("result");
+//		System.out.println(jsObj);
+//		System.out.println(json);
+//		List<String> lhs = new ArrayList<>();
+//		List<String> rhs = new ArrayList<>();
+//		System.out.println("rs = "+isTwoListsEqual(lhs, rhs));
 	}
 
 }

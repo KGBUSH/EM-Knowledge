@@ -1,6 +1,7 @@
 package com.emotibot.understanding;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -9,6 +10,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.collections.map.HashedMap;
+import org.netlib.util.intW;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
@@ -39,8 +41,9 @@ public class IntentionClassifier {
 		List<String> entitySet = nerBean.getEntitySet();
 		boolean isQuestion = nerBean.isQuestion();
 		String uniqueID = nerBean.getUniqueID();
-
+		boolean hasNewsFromFunction = false;
 		AnswerBean answerBean = new AnswerBean();
+		ParseJson parseJson = new ParseJson();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getAnswer: input is empty");
 			return answerBean.returnAnswer(answerBean);
@@ -78,11 +81,19 @@ public class IntentionClassifier {
 				String resultAdded = "";
 				// add problem like 你想知道姚明的老婆是谁吗？
 				if(NLPUtil.isContainsInDomainNeededToRewrite(labelListForRewritePart.get(0))){
+					
 					List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(entitySet.get(0),labelListForRewritePart.get(0));
 					if(!listquestions.isEmpty()){
 						// generate random number [0,listquestions.size()]
 						int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 						resultAdded = listquestions.get(id);
+						//when label is movie or tv, we parse the name and judge whether it has news from function 
+						if(labelListForRewritePart.get(0).equals("movie")||labelListForRewritePart.get(0).equals("tv")){
+							hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
+							if(!hasNewsFromFunction){
+								resultAdded = null;
+							}
+						}
 					}else {
 						result = answerRewite.rewriteAnswer4Intro(result);
 					}
@@ -182,6 +193,13 @@ public class IntentionClassifier {
 					// generate random number [0,listquestions.size()]
 					int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 					resultAdded = listquestions.get(id);
+					//when label is movie or tv, we parse the name and judge whether it has news from function 
+					if(tempLabel.equals("movie")||tempLabel.equals("tv")){
+						hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
+						if(!hasNewsFromFunction){
+							resultAdded = null;
+						}
+					}
 				}else {
 					tempStrIntroduce = answerRewite.rewriteAnswer4Intro(tempStrIntroduce);
 				}
@@ -267,6 +285,13 @@ public class IntentionClassifier {
 									// generate random number [0,listquestions.size()]
 									int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 									resultAdded = listquestions.get(id);
+									//when label is movie or tv, we parse the name and judge whether it has news from function 
+									if(label.equals("movie")||label.equals("tv")){
+										hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
+										if(!hasNewsFromFunction){
+											resultAdded = null;
+										}
+									}
 								}else {
 									strIntroduceByDomain = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
 								}
@@ -320,6 +345,13 @@ public class IntentionClassifier {
 						// generate random number [0,listquestions.size()]
 						int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 						resultAdded = listquestions.get(id);
+						//when label is movie or tv, we parse the name and judge whether it has news from function 
+						if(tempLabel.equals("movie")||tempLabel.equals("tv")){
+							hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
+							if(!hasNewsFromFunction){
+								resultAdded = null;
+							}
+						}
 					}else {
 						strIntroduce = answerRewite.rewriteAnswer4Intro(strIntroduce);
 					}
@@ -492,6 +524,38 @@ public class IntentionClassifier {
 				}
 			}
 		}
+		
+		if(label.equals("movie") || label.equals("tv")){
+			List<String> roles = new ArrayList<String>();
+			List<String> result = new ArrayList<String>();
+			for(String prop : NLPUtil.getSynonymWordSet("主演")){
+				if(setTemp.contains(prop)){
+					String name = DBProcess.getPropertyValue(label, entity, prop);
+					String[] listName = name.trim().split("，");
+					for(int i = 0; i < listName.length; i++){
+						roles.add(listName[i]);
+					}
+					break;
+				}
+			}
+			if(roles.size() > 3){
+				int count = 0;
+				Iterator<String> iterator = roles.iterator();
+				while (iterator.hasNext()) {
+					String name = iterator.next();
+					if(count >= 3){
+						iterator.remove();
+						System.out.println("remove name " + name);
+					}else {
+						count++;
+					}
+				}
+			}
+			for(String str : roles){
+				result.add("你想知道" + entity + "的主演之一" + str + "最近的新闻吗？");
+			}
+			return result;
+		}
 
 		//judge whether a label contains in the label list that pm provided.
 		if(NLPUtil.isContainsInDomainNeededToRewrite(label)){
@@ -519,7 +583,7 @@ public class IntentionClassifier {
 	
 	public static void main(String[] args) {
 		DictionaryBuilder.DictionaryBuilderInit();
-//		List<String> list = getRelationOrPropertyByEntityAndConvertToSentence("叶璇");
-//		System.out.println(list);
+		List<String> list = getRelationOrPropertyByEntityAndConvertToSentence("终极一班","tv");
+		System.out.println(list);
 	}
 }

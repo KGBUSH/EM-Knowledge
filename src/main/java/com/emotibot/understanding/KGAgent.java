@@ -488,14 +488,6 @@ public class KGAgent {
 				System.out.println("Introduction normal entity case, change the sentence to " + sentence + " with entity " + tempEntity);
 			}
 			
-			/**
-			 * 开始处理rewrite 的多义词情况
-			 */
-			List<String> labelList = NLPUtil.getLabelListByEntity(tempEntity);
-			List<String> finalLabelList3 = IntentionClassifier.getFinalLabelListOfCase1(labelList);
-			if (finalLabelList3.size() > 1) {
-				return IntentionClassifier.getAnswerOfCase1(finalLabelList3);
-			}
 			
 			String strIntroduce = DBProcess.getEntityIntroduction(tempEntity,NLPUtil.getLabelByEntity(tempEntity));
 			if (strIntroduce.contains("。"))
@@ -516,8 +508,24 @@ public class KGAgent {
 								? 50 : 0);
 				answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduce));
 			} else {
-				answerBean.setScore(QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(sentence),
-						"Introduction", tempEntity) ? 100 : answerBean.getScore());
+				boolean isKindOfQuestion = QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(sentence),"Introduction", tempEntity);
+				
+				if(isKindOfQuestion){
+
+					/**
+					 * 开始处理rewrite 的多义词情况
+					 */
+					List<String> labelList = NLPUtil.getLabelListByEntity(tempEntity);
+					List<String> finalLabelList3 = IntentionClassifier.getFinalLabelListOfCase1(labelList);
+					if (finalLabelList3.size() > 1) {
+						return IntentionClassifier.getAnswerOfCase1(finalLabelList3);
+					}
+					
+					answerBean.setScore(100);
+				}else {
+					answerBean.setScore(answerBean.getScore());
+				}
+				
 				// otherwise, it already has an answer from property recognization
 				if(answerBean.getScore() == 100 || answerBean.getScore() == 0){
 					answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduce));
@@ -539,7 +547,7 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "韩红知道吗";
+		String str = "你知道终极一班吗？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");
