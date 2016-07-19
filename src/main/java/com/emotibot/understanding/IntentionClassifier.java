@@ -280,6 +280,12 @@ public class IntentionClassifier {
 							String strIntroduceByDomain = DBProcess.getEntityIntroduction(tempEntity,label);
 							if(strIntroduceByDomain.contains("。"))
 								strIntroduceByDomain = strIntroduceByDomain.substring(0, strIntroduceByDomain.indexOf("。"));
+							
+							//add prefix introduction if sentence start with [你，小影]，[认识，知道]
+							String introWord = NLPUtil.isContainsInIntroductionPrefixWord(sentence);
+							if(!introWord.isEmpty() && !introWord.equals("")){
+								strIntroduceByDomain = answerRewite.rewriteAnser4IntroBegin(strIntroduceByDomain, introWord);
+							}
 //							String answerAfterRewrite  = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
 							// add problem like 你想知道姚明的老婆是谁吗？
 							String resultAdded = "";
@@ -308,11 +314,7 @@ public class IntentionClassifier {
 								answerBean.setIntent(resultAdded);
 								answerBean.setIntent(true);
 							}
-							//if sentence start with [你，小影]，[认识，知道]
-							if(sentence.startsWith("认识")||sentence.startsWith("知道")||sentence.startsWith("你知道")||sentence.startsWith("你认识")||sentence.startsWith("小影认识")
-									||sentence.startsWith("小影知道")){
-								strIntroduceByDomain = "我知道。"+ strIntroduceByDomain;
-							}
+							
 							answerBean.setScore(100);
 							answerBean.setAnswer(strIntroduceByDomain);
 							System.out.println("intentionProcess intro 3: the returned anwer is " + answerBean.toString());
@@ -345,7 +347,12 @@ public class IntentionClassifier {
 				String strIntroduce = DBProcess.getEntityIntroduction(tempEntity,tempLabel);
 				if (strIntroduce.contains("。"))
 					strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
-//				String answerAfterRewrite  = answerRewite.rewriteAnswer4Intro(strIntroduce);
+				
+				//add prefix introduction if sentence start with [你，小影]，[认识，知道]
+				String introWord = NLPUtil.isContainsInIntroductionPrefixWord(sentence);
+				if(!introWord.isEmpty() && !introWord.equals("")){
+					strIntroduce = answerRewite.rewriteAnser4IntroBegin(strIntroduce, introWord);
+				}
 				// add problem like 你想知道姚明的老婆是谁吗？
 				
 				String resultAdded = "";
@@ -373,11 +380,6 @@ public class IntentionClassifier {
 					strIntroduce = Tool.combineTwoResult(strIntroduce, resultAdded);
 					answerBean.setIntent(resultAdded);
 					answerBean.setIntent(true);
-				}
-				//if sentence start with [你，小影]，[认识，知道]
-				if(sentence.startsWith("认识")||sentence.startsWith("知道")||sentence.startsWith("你知道")||sentence.startsWith("你认识")||sentence.startsWith("小影认识")
-						||sentence.startsWith("小影知道")){
-					strIntroduce = "我知道。"+ strIntroduce;
 				}
 				answerBean.setScore(100);
 				answerBean.setAnswer(strIntroduce);
