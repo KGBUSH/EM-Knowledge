@@ -269,6 +269,20 @@ public class NLPUtil {
 		return false;
 	}
 
+	// if a sentence contains "知道"，"认识" then return "知道" or "认识" else return ""
+	public static String isContainsInIntroductionPrefixWord(String sentence){
+		String result = "";
+		if (Tool.isStrEmptyOrNull(sentence)) {
+			return result;
+		}
+		for(String s : DictionaryBuilder.getPrefixWordIntroductionTable()){
+			if(sentence.contains(s)){
+				return s;
+			}
+		}
+		return result;
+	}
+	
 	// remove the moodword in a sentence
 	// input: "姚明在家吗" "姚明在家了吗"
 	// output: "姚明在家"
@@ -553,6 +567,7 @@ public class NLPUtil {
 	
 	public static void main(String[] args) {
 		DictionaryBuilder.DictionaryBuilderInit();
+		System.out.println(isContainsInIntroductionPrefixWord("你知道吗"));
 		List<String> list = getRelationOrPropertyByEntity("figure","property");
 		System.out.println(list);
 		String s = "拜拜了";

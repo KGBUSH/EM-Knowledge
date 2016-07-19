@@ -3,14 +3,9 @@ package com.emotibot.answerRewrite;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import com.emotibot.common.BytesEncodingDetect;
 import com.emotibot.common.Common;
@@ -19,6 +14,7 @@ import com.emotibot.util.Tool;
 public class AnswerRewrite {
 	private static String[] answerRewriteTable = createAnswerRewriteTable();
 	private static String[] answerRewriteTableIntro = createAnswerRewriteTableIntro();
+	private static String[] answerRewriteTableIntroBegin = createAnswerRewriteTableIntroBegin();
 
 	private static String[] createAnswerRewriteTable() {
 		String[] rs = null;
@@ -87,6 +83,38 @@ public class AnswerRewrite {
 		return rs;
 	}
 
+	private static String[] createAnswerRewriteTableIntroBegin() {
+		String[] rs = null;
+		List<String> answerSet = new ArrayList<>();
+		String fileName = Common.UserDir + "/knowledgedata/AnswerTemplate_intro_begin.txt";
+
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect detect = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[detect.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader readBuffer = new BufferedReader(read);
+				String sentence = "";
+				while ((sentence = readBuffer.readLine()) != null) {
+					answerSet.add(sentence.trim());
+				}
+
+				rs = new String[answerSet.size()];
+				for (int i = 0; i < answerSet.size(); i++) {
+					rs[i] = answerSet.get(i);
+				}
+				// System.out.println("list is " + answerRewriteTable);
+				readBuffer.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return rs;
+	}
 	public String rewriteAnswer(String answer) {
 		// if answer is null or answer is introduction, then skip rewrite
 		if (Tool.isStrEmptyOrNull(answer) || answer.length() > 50 || Common.KG_DebugStatus) {
@@ -152,10 +180,26 @@ public class AnswerRewrite {
 		return rewrite;
 	}
 
+	//return sentence added template by key randomly
+	public String rewriteAnser4IntroBegin(String answer, String key){
+		String rewrite = "";
+		List<String> result = new ArrayList<String>();
+		for(int i = 0; i < answerRewriteTableIntroBegin.length; i++){
+			if(answerRewriteTableIntroBegin[i].startsWith(key)){
+				String[] temp = answerRewriteTableIntroBegin[i].split(";"); 
+				result.add(temp[1]);
+			}
+		}
+		String[] resultFinal = (String[])result.toArray(new String[]{});
+		int id = (int) Math.round(Math.random() * (result.size() - 1));
+		rewrite = resultFinal[id] + answer;
+		return rewrite;
+	}
+	
 	public static void main(String[] args) {
 		AnswerRewrite answerRewite = new AnswerRewrite();
 		String ans = "中锋";
-		System.out.println("answer is " + answerRewite.rewriteAnswer4Intro(ans));
+		System.out.println("answer is " + answerRewite.rewriteAnser4IntroBegin(ans, "知道"));
 		// for(int i=0;i<200;i++){
 		// System.out.println("answer is
 		// "+answerRewite.rewriteAnswer4Intro("姚明"));

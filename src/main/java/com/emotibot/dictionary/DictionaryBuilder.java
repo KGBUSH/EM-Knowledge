@@ -95,10 +95,13 @@ public class DictionaryBuilder {
 	private static Map<String, String> domainNameMappingTable;
 	// domain with relation or property priority <figure,<relation,<丈夫、妻子>>>、<figure,<property,<代表作品、别名>>>
 	private static Map<String, Map<String, List<String>>> domainWithPriorityOfRelationOrPropertyTable;
+	// prefixWordIntroductionTable :[知道，认识]
+    private static Set<String> prefixWordIntroductionTable;
 	
 	public static void DictionaryBuilderInit() {
 		moodWordTable = createMoodWordTable();
 		prefixWordRecogniseTable = createPrefixWordRecogniseTable();
+		prefixWordIntroductionTable = createPrefixWordIntroductionTable();
 		setMoodWordExceptionTable(createMoodWordExceptionTable());
 		setReservedHighFeqWordTable(createReservedHighFeqWordTable());
 		highFeqWordTable = createHighFeqWordTable();
@@ -921,6 +924,34 @@ public class DictionaryBuilder {
 			return prefixWordSet;
 		}
 
+	// create prefixWordIntroduction Table Set
+	private static Set<String> createPrefixWordIntroductionTable() {
+		Set<String> prefixWordSet = new HashSet<String>();
+		String fileName = Common.UserDir
+				+ "/knowledgedata/dictionary/prefixWordIntroduction.txt";
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s
+						.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String word = null;
+				while ((word = dis.readLine()) != null) {
+					prefixWordSet.add(CharUtil.trimAndlower(word));
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		return prefixWordSet;
+	}
+		
 	// create moodword table Set
 	private static Set<String> createMoodWordExceptionTable() {
 		Set<String> moodWordExceptionSet = new HashSet<String>();
@@ -1243,6 +1274,15 @@ public class DictionaryBuilder {
 	public static void setDomainWithPriorityOfRelationOrPropertyTable(
 			Map<String, Map<String, List<String>>> domainWithPriorityOfRelationOrPropertyTable) {
 		DictionaryBuilder.domainWithPriorityOfRelationOrPropertyTable = domainWithPriorityOfRelationOrPropertyTable;
+	}
+	
+	public static Set<String> getPrefixWordIntroductionTable() {
+		return prefixWordIntroductionTable;
+	}
+
+	public static void setPrefixWordIntroductionTable(
+			Set<String> prefixWordIntroductionTable) {
+		DictionaryBuilder.prefixWordIntroductionTable = prefixWordIntroductionTable;
 	}
 
 	public static void main(String[] a) {
