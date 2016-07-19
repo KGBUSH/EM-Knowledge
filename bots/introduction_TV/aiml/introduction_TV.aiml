@@ -19656,325 +19656,325 @@
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 </pattern>
+        <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 下 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 </pattern>
+        <pattern> ^ 聊 下 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 </pattern>
+        <pattern> ^ 聊 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 说 一 说 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 </pattern>
+        <pattern> ^ 说 一 说 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 说 说 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 </pattern>
+        <pattern> ^ 说 说 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 讲 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 </pattern>
+        <pattern> ^ 讲 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 告 诉 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 </pattern>
+        <pattern> ^ 告 诉 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 讲 讲 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 </pattern>
+        <pattern> ^ 讲 讲 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 介 绍 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 </pattern>
+        <pattern> ^ 介 绍 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 </pattern>
+        <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 下 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 </pattern>
+        <pattern> ^ 聊 下 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 </pattern>
+        <pattern> ^ 聊 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 说 一 说 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 </pattern>
+        <pattern> ^ 说 一 说 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 说 说 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 </pattern>
+        <pattern> ^ 说 说 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 讲 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 </pattern>
+        <pattern> ^ 讲 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 告 诉 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 </pattern>
+        <pattern> ^ 告 诉 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 讲 讲 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 </pattern>
+        <pattern> ^ 讲 讲 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 介 绍 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 </pattern>
+        <pattern> ^ 介 绍 ^ ## * <type>entity</type><label>tv</label> ^ 英 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 </pattern>
+        <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 下 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 </pattern>
+        <pattern> ^ 聊 下 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 </pattern>
+        <pattern> ^ 聊 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 说 一 说 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 </pattern>
+        <pattern> ^ 说 一 说 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 说 说 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 </pattern>
+        <pattern> ^ 说 说 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 讲 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 </pattern>
+        <pattern> ^ 讲 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 告 诉 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 </pattern>
+        <pattern> ^ 告 诉 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 讲 讲 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 </pattern>
+        <pattern> ^ 讲 讲 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 介 绍 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 </pattern>
+        <pattern> ^ 介 绍 ^ ## * <type>entity</type><label>tv</label> ^ 美 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 剧 </pattern>
+        <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 下 ^ ## * <type>entity</type><label>tv</label> ^ 剧 </pattern>
+        <pattern> ^ 聊 下 ^ ## * <type>entity</type><label>tv</label> ^ 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 剧 </pattern>
+        <pattern> ^ 聊 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 说 一 说 ^ ## * <type>entity</type><label>tv</label> ^ 剧 </pattern>
+        <pattern> ^ 说 一 说 ^ ## * <type>entity</type><label>tv</label> ^ 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 说 说 ^ ## * <type>entity</type><label>tv</label> ^ 剧 </pattern>
+        <pattern> ^ 说 说 ^ ## * <type>entity</type><label>tv</label> ^ 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 讲 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 剧 </pattern>
+        <pattern> ^ 讲 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 告 诉 ^ ## * <type>entity</type><label>tv</label> ^ 剧 </pattern>
+        <pattern> ^ 告 诉 ^ ## * <type>entity</type><label>tv</label> ^ 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 讲 讲 ^ ## * <type>entity</type><label>tv</label> ^ 剧 </pattern>
+        <pattern> ^ 讲 讲 ^ ## * <type>entity</type><label>tv</label> ^ 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 介 绍 ^ ## * <type>entity</type><label>tv</label> ^ 剧 </pattern>
+        <pattern> ^ 介 绍 ^ ## * <type>entity</type><label>tv</label> ^ 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 </pattern>
+        <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 下 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 </pattern>
+        <pattern> ^ 聊 下 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 </pattern>
+        <pattern> ^ 聊 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 说 一 说 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 </pattern>
+        <pattern> ^ 说 一 说 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 说 说 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 </pattern>
+        <pattern> ^ 说 说 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 讲 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 </pattern>
+        <pattern> ^ 讲 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 告 诉 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 </pattern>
+        <pattern> ^ 告 诉 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 讲 讲 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 </pattern>
+        <pattern> ^ 讲 讲 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 介 绍 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 </pattern>
+        <pattern> ^ 介 绍 ^ ## * <type>entity</type><label>tv</label> ^ 日 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 </pattern>
+        <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 下 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 </pattern>
+        <pattern> ^ 聊 下 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 聊 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 </pattern>
+        <pattern> ^ 聊 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 说 一 说 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 </pattern>
+        <pattern> ^ 说 一 说 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 说 说 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 </pattern>
+        <pattern> ^ 说 说 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 讲 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 </pattern>
+        <pattern> ^ 讲 一 下 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 告 诉 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 </pattern>
+        <pattern> ^ 告 诉 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 讲 讲 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 </pattern>
+        <pattern> ^ 讲 讲 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
     </category>
     <category>
-        <pattern> ^ 介 绍 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 </pattern>
+        <pattern> ^ 介 绍 ^ ## * <type>entity</type><label>tv</label> ^ 韩 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
         </template>
