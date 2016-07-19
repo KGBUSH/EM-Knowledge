@@ -243,3 +243,18 @@ solr建立索引：
 实际入库的时候基本都是批量插入solr
 
 mapreduce部分：
+
+
+************************************************************5.同义词的生成
+同义词的生成，需要通过日志拉取程序拉取日志后做处理：
+日志拉取程序在Shell中如下：
+getData.sh  host
+日志假设为EALLLast
+
+cat EALLLast | grep Tongyici > yourfile
+然后运行com.emotibot.offline.dataprocess.dataprocess 中的main函数
+讲main函数中的String path=  改成yourfile所在的路径；然后运行该主函数，在当前目录下会生成文件TongyiciPM   该文件就是原始的实体同义词映射关系
+然后交给陆伊浩做处理生成最终的同义词表
+
+
+
