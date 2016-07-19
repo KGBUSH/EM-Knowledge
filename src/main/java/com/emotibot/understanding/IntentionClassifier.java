@@ -271,16 +271,15 @@ public class IntentionClassifier {
 			List<String> listLabel = NLPUtil.getLabelListByEntity(tempEntity);
 			System.out.println("the label of entity "+ tempEntity + " is " + listLabel);
 			if(!listLabel.isEmpty()){
+				//可优化的地方
 				for(String label : listLabel){
 					if(NLPUtil.isIntroductionDomainTable(label)){
-						
 						boolean isIntroductionByDomain = QuestionClassifier.isIntroductionRequestByDomain(label, NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)), tempEntity);
 						if(isIntroductionByDomain){
 							System.out.println("enter into introduction_domain method----------------");
 							String strIntroduceByDomain = DBProcess.getEntityIntroduction(tempEntity,label);
 							if(strIntroduceByDomain.contains("。"))
 								strIntroduceByDomain = strIntroduceByDomain.substring(0, strIntroduceByDomain.indexOf("。"));
-							
 //							String answerAfterRewrite  = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
 							// add problem like 你想知道姚明的老婆是谁吗？
 							String resultAdded = "";
@@ -309,7 +308,11 @@ public class IntentionClassifier {
 								answerBean.setIntent(resultAdded);
 								answerBean.setIntent(true);
 							}
-							
+							//if sentence start with [你，小影]，[认识，知道]
+							if(sentence.startsWith("认识")||sentence.startsWith("知道")||sentence.startsWith("你知道")||sentence.startsWith("你认识")||sentence.startsWith("小影认识")
+									||sentence.startsWith("小影知道")){
+								strIntroduceByDomain = "我知道。"+ strIntroduceByDomain;
+							}
 							answerBean.setScore(100);
 							answerBean.setAnswer(strIntroduceByDomain);
 							System.out.println("intentionProcess intro 3: the returned anwer is " + answerBean.toString());
@@ -371,7 +374,11 @@ public class IntentionClassifier {
 					answerBean.setIntent(resultAdded);
 					answerBean.setIntent(true);
 				}
-				
+				//if sentence start with [你，小影]，[认识，知道]
+				if(sentence.startsWith("认识")||sentence.startsWith("知道")||sentence.startsWith("你知道")||sentence.startsWith("你认识")||sentence.startsWith("小影认识")
+						||sentence.startsWith("小影知道")){
+					strIntroduce = "我知道。"+ strIntroduce;
+				}
 				answerBean.setScore(100);
 				answerBean.setAnswer(strIntroduce);
 				System.out.println("intentionProcess intro 2: the returned anwer is " + answerBean.toString());
