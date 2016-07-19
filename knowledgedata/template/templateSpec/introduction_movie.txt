@@ -1,6 +1,8 @@
-movie;^&电影/影片&#&[是什么/是啥]&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-movie;^&#&[是什么/是啥]&电影/影片&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-movie;^&#&电影/影片&[是什么/是啥]&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-movie;^&#&^一部/部/一个/个^&电影/影片&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
-movie;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲/介绍&^&#&^&电影/影片||IntroductionSentence@:firstParamInfo
-movie;^&聊聊/聊下/聊一下/说一说/说说/讲一下/告诉/讲讲/介绍&^&电影/影片&#&^||IntroductionSentence@:firstParamInfo
+movie;^&电影/影片/片子&#&[是什么/是啥]&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
+movie;^&#&[是什么/是啥]&电影/影片/片子&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
+movie;^&#&电影/影片/片子&[是什么/是啥]&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
+movie;^&#&这部/这个&^&电影/影片/片子&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
+movie;^&#&是部&[什么/啥/什么样/什么样的]&电影/影片/片子&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]||IntroductionSentence@:firstParamInfo
+movie;^&[你]&[看过/知道/认识/了解/熟悉/听过/听说过/知不知道/认不认识/了不了解/熟不熟悉/听没听过]&#&是部&[什么/啥/什么样/什么样的]&电影/影片/片子||IntroductionSentence@:firstParamInfo
+movie;^&聊聊/聊下/聊一下/说一说/说说/说下/讲一下/讲下/告诉/讲讲/介绍&^&#&^&电影/影片/片子||IntroductionSentence@:firstParamInfo
+movie;^&聊聊/聊下/聊一下/说一说/说说/说下/讲一下/讲下/告诉/讲讲/介绍&^&电影/影片/片子&#&^||IntroductionSentence@:firstParamInfo
