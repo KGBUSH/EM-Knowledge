@@ -1,5 +1,5 @@
 // Read POSITIVE and NEGATIVE files to do sentiment judge
-//
+// 
 // #001  20160412    Created by Phantom
 
 #include <stdio.h>
@@ -16,15 +16,15 @@
 #define INPUT_TEXT_FILE          "text.txt"
 
 #define ASCII_MAX                256
-#define PATTERN_LEN_MAX          256
-#define PATTERN_COUNT_MAX        300000
+#define PATTERN_LEN_MAX          256 
+#define PATTERN_COUNT_MAX        3000000
 #define FILE_LEN_MAX             1000
 #define NE_LEN_MAX               5
 
 // For socket defines
 #define QLEN                     32
 #define BUF_LEN                  1024
-#define PORT                     "16412"
+#define PORT                     "16413"
 
 #define SUCCESS                  0
 #define ERR_BASE                 0
@@ -47,6 +47,7 @@ struct node
 
 char g_szInput[PATTERN_COUNT_MAX][PATTERN_LEN_MAX];
 char g_szOutput[FILE_LEN_MAX];
+int g_nCounter[PATTERN_COUNT_MAX];
 
 int passivesock(const char *service, const char *transport, int qlen)
 {
@@ -164,7 +165,7 @@ int BuildTree(char szInput[][PATTERN_LEN_MAX], int nNum, struct node *pRoot)
       {
          if (szTemp[j] == '\0')
             break;
-
+         
          ////////////////////////
          // 3.1. if exist => move down
          ////////////////////////
@@ -201,7 +202,7 @@ int BuildTree(char szInput[][PATTERN_LEN_MAX], int nNum, struct node *pRoot)
 
 int BuildFailureLink(struct node *ptr, struct node *pRoot)
 {
-   char szTemp[PATTERN_LEN_MAX];
+   char szTemp[PATTERN_LEN_MAX],szTemp2[PATTERN_LEN_MAX];
    unsigned char c;
    struct node *ptr2=NULL;
    int i;
@@ -234,13 +235,14 @@ int BuildFailureLink(struct node *ptr, struct node *pRoot)
       ////////////////////////
       while(strlen(szTemp) > 0)
       {
-         strncpy(szTemp,&szTemp[1],PATTERN_LEN_MAX-1);
-         szTemp[PATTERN_LEN_MAX-1] = '\0';
+         strncpy(szTemp2,&szTemp[1],PATTERN_LEN_MAX-1);
+         szTemp2[PATTERN_LEN_MAX-1] = '\0';
+		 strcpy(szTemp,szTemp2);
          if (szTemp[0] == '\0')
             break;
 
          ////////////////////////
-         // 2.3. ptr2=root, try to find szTemp
+         // 2.3. ptr2=root, try to find szTemp 
          ////////////////////////
          ptr2 = pRoot;
          for (i=0;i<PATTERN_LEN_MAX;i++)
@@ -275,7 +277,7 @@ int BuildFailureLink(struct node *ptr, struct node *pRoot)
    return SUCCESS;
 } // end of BuildFailureLink()
 
-int Travesal(char *szText, struct node *pRoot, int nCounter[])
+int Travesal(char *szText, struct node *pRoot)
 {
    struct node *ptr=NULL;
    unsigned char c;
@@ -337,7 +339,7 @@ int Travesal(char *szText, struct node *pRoot, int nCounter[])
                strcat(g_szOutput,"=");
                strcat(g_szOutput,ptr->szNE);
             }
-            nCounter[ptr->nPattern] ++; // For logging matched pattern
+            g_nCounter[ptr->nPattern] ++; // For logging matched pattern
          }
 
          ////////////////////////
@@ -366,11 +368,10 @@ int main(int argc, char* argv[])
    // For Aho-Corasick declare
    int nRet=SUCCESS,i=0,nLen=0;
    struct node *pRoot=NULL;
-   int nCounter[PATTERN_COUNT_MAX];
    char s[PATTERN_LEN_MAX];
    char szText[FILE_LEN_MAX];
    FILE *fp=NULL;
-
+   
    // For Socket declare
    int nRetCode = 0;
    int msock, ssock;
@@ -386,11 +387,11 @@ int main(int argc, char* argv[])
       return ERR_MALLOC;
    }
    memset(pRoot,0,sizeof(struct node));
-   memset(nCounter,0,sizeof(int)*PATTERN_COUNT_MAX);
+   memset(g_nCounter,0,sizeof(int)*PATTERN_COUNT_MAX);
 
    //////////////////////////
    // Build Tree
-   //////////////////////////
+   ////////////////////////// 
    if ((fp = fopen(INPUT_DICT_FILE,"r")) != NULL)
    {
       i = 0;
@@ -429,7 +430,7 @@ int main(int argc, char* argv[])
    ////////////////////////
    msock = passiveTCP(service, QLEN);
    //printf("\nSocket %d created successfully",msock);
-   while (1)
+   while (1) 
    {
       alen = sizeof(fsin);
       ////////////////////////
@@ -454,7 +455,7 @@ int main(int argc, char* argv[])
       // Reverse the string and send back */
       ////////////////////////
       g_szOutput[0] = '\0';
-      if ((nRet=Travesal(buf,pRoot,nCounter)) != SUCCESS)
+      if ((nRet=Travesal(buf,pRoot)) != SUCCESS)
          goto errexit;
       printf("Result of [%s] is [%s]\n",buf,g_szOutput);
       n = strlen(g_szOutput);
