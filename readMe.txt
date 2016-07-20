@@ -240,9 +240,34 @@ Extractor是一个接口类，目前主要针对百科数据进行抽取，所�
 
 solr建立索引：
 封装了百科页面入solr的基本的操作，基本思路就是对于PageExtractInfo选取几个字段构建一个solrDocument 然后入库
-实际入库的时候基本都是批量插入solr
+实际入库的时候基本都是批量插入solr，目前的solr版本是5.5
+
 
 mapreduce部分：
+一：Mapreduce部分处理solr的逻辑：
+Map:
+扫描hbase 对具体的网页抽取词条名，基本属性，属性的值等几个字段，组成solrDocument;
+同时对当前扫描的页面做md5(url),md5(前两段字符串) 的入redis操作，并在此前做去重操作，
+如果没有重读就写入Reduce
+Reduce:
+该部分对solrDocument进行批量入库的操作
+
+二：Mapreduce部分处理Neo4j的逻辑：
+1.插入节点逻辑
+Map:
+扫描hbase，对于具体的网页进行jsoup提取，生成PageExtractInfo对象，再通过PageExtractInfo（redis存储md5(url),md5(前两段字符串) 等数据用于去重，）
+最终生成入库sql语句
+
+Reduce:
+无
+2.插入关系逻辑
+Map:
+扫描hbase，对于具体的网页进行jsoup提取，生成PageExtractInfo对象，再通过PageExtractInfo（redis存储md5(url),md5(前两段字符串) 等数据用于去重，）
+最终生成入库sql语句
+
+Reduce:
+无
+
 
 
 ************************************************************5.同义词的生成
@@ -255,6 +280,5 @@ cat EALLLast | grep Tongyici > yourfile
 然后运行com.emotibot.offline.dataprocess.dataprocess 中的main函数
 讲main函数中的String path=  改成yourfile所在的路径；然后运行该主函数，在当前目录下会生成文件TongyiciPM   该文件就是原始的实体同义词映射关系
 然后交给陆伊浩做处理生成最终的同义词表
-
 
 
