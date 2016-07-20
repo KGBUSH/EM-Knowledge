@@ -557,14 +557,42 @@ public class NLPUtil {
 	}
 	
 	//get relationList or PropertyList 
-	public static List<String> getRelationOrPropertyByEntity(String label,String relationOrProperty){
+	public static List<String> getRelationOrPropertyByEntity(String label,
+			String relationOrProperty) {
 		List<String> list = new ArrayList<String>();
-		if(!Tool.isStrEmptyOrNull(label)&&!Tool.isStrEmptyOrNull(relationOrProperty)){
-			list = DictionaryBuilder.getDomainWithPriorityOfRelationOrPropertyTable().get(label).get(relationOrProperty);
+		if (!Tool.isStrEmptyOrNull(label)
+				&& !Tool.isStrEmptyOrNull(relationOrProperty)) {
+			list = DictionaryBuilder
+					.getDomainWithPriorityOfRelationOrPropertyTable()
+					.get(label).get(relationOrProperty);
 		}
 		return list;
 	}
-	
+
+	// for dialogue control which is more detail
+	// judge a label is contains in domain such as <figure,movie,tv,or tourism>
+	// which is judge whether is needed to be rewrite back to users.
+	public static boolean isContainsInDomainNeededToRewriteForDialogue(
+			String str) {
+		if (!Tool.isStrEmptyOrNull(str)
+				&& DictionaryBuilder.getDomainWithPriorityOfRelationOrPropertyForDialogueTable().containsKey(str)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	// get relationList or PropertyList
+	public static List<String> getRelationOrPropertyByEntityForDialogue(
+			String label, String relationOrProperty) {
+		List<String> list = new ArrayList<String>();
+		if (!Tool.isStrEmptyOrNull(label)
+				&& !Tool.isStrEmptyOrNull(relationOrProperty)) {
+			list = DictionaryBuilder.getDomainWithPriorityOfRelationOrPropertyForDialogueTable().get(label).get(relationOrProperty);
+		}
+		return list;
+	}
+
 	public static void main(String[] args) {
 		DictionaryBuilder.DictionaryBuilderInit();
 		System.out.println(isContainsInIntroductionPrefixWord("你知道吗"));

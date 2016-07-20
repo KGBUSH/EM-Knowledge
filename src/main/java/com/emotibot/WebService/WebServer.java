@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang.ObjectUtils.Null;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.servlet.ServletHandler;
 
@@ -33,8 +32,6 @@ import com.emotibot.understanding.IntentionClassifier;
 //import com.emotibot.patternmatching.PatternMatchingProcess;
 import com.emotibot.understanding.KGAgent;
 import com.emotibot.util.CUBean;
-import com.google.common.collect.Multiset.Entry;
-import com.hankcs.hanlp.seg.common.Term;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -83,7 +80,7 @@ public class WebServer {
 		// through a web.xml @WebServlet annotation, or anything similar.
 		// handler.addServletWithMapping(NlpServlet.class, "/web");
 		handler.addServletWithMapping(KGServletJson.class, "/json");
-//		handler.addServletWithMapping(DialogueControlInvoke.class, "/json2");
+		handler.addServletWithMapping(DialogueControlInvoke.class, "/web");
 
 		// Start things up!
 		server.start();

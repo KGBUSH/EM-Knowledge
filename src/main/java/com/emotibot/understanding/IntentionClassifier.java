@@ -471,12 +471,15 @@ public class IntentionClassifier {
 			List<String> tempListRelatin = DBProcess.getEntityRelationList(
 					entity, label);
 			for (String str : tempListRelatin) {
-				if (!setTemp.contains(str))
 					setTemp.add(str);
 			}
-			for (String str1 : NLPUtil.getRelationOrPropertyByEntity(label,
+			for (String str1 : NLPUtil.getRelationOrPropertyByEntityForDialogue(label,
 					"relation")) {
 				for (String str2 : NLPUtil.getSynonymWordSet(str1)) {
+					if(setTemp.contains(str1)){
+						listMiddle.add(str1);
+						break;
+					}
 					if (setTemp.contains(str2)) {
 						listMiddle.add(str2);
 						break;
@@ -486,10 +489,14 @@ public class IntentionClassifier {
 		}
 
 		//judge whether a label contains in the label list that pm provided.
-		if(NLPUtil.isContainsInDomainNeededToRewrite(label)){
-			for (String string : NLPUtil.getRelationOrPropertyByEntity(label,
+		if(NLPUtil.isContainsInDomainNeededToRewriteForDialogue(label)){
+			for (String string : NLPUtil.getRelationOrPropertyByEntityForDialogue(label,
 					"property")) {
 				for (String str : NLPUtil.getSynonymWordSet(string)) {
+					if(setTemp.contains(string)){
+						listMiddle.add(string);
+						break;
+					}
 					if (setTemp.contains(str)) {
 						listMiddle.add(str);
 						break;
@@ -534,6 +541,10 @@ public class IntentionClassifier {
 			for (String str1 : NLPUtil.getRelationOrPropertyByEntity(label,
 					"relation")) {
 				for (String str2 : NLPUtil.getSynonymWordSet(str1)) {
+					if(setTemp.contains(str1)){
+						listMiddle.add(str1);
+						break;
+					}
 					if (setTemp.contains(str2)) {
 						listMiddle.add(str2);
 						break;
@@ -579,6 +590,10 @@ public class IntentionClassifier {
 			for (String string : NLPUtil.getRelationOrPropertyByEntity(label,
 					"property")) {
 				for (String str : NLPUtil.getSynonymWordSet(string)) {
+					if(setTemp.contains(string)){
+						listMiddle.add(string);
+						break;
+					}
 					if (setTemp.contains(str)) {
 						listMiddle.add(str);
 						break;
@@ -590,7 +605,6 @@ public class IntentionClassifier {
 				listMiddle.add(str);
 			}
 		}
-		
 
 		for (String str : listMiddle) {
 			listResult.add("你想知道" + entity + "的" + str + "吗？");
@@ -600,7 +614,8 @@ public class IntentionClassifier {
 	
 	public static void main(String[] args) {
 		DictionaryBuilder.DictionaryBuilderInit();
-		List<String> list = getRelationOrPropertyByEntityAndConvertToSentence("终极一班","tv");
+//		IntentionClassifier intentionClassifier = new IntentionClassifier();
+		List<String> list = getRelationOrPropertyByEntityAndConvertToSentence("邓超","figure");
 		System.out.println(list);
 	}
 }
