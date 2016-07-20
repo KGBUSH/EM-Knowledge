@@ -9,7 +9,9 @@ RelationshipQuestion;^&关系&^||RelationshipQuestion@:1
 RelationshipQuestion;^&联系&^||RelationshipQuestion@:2
 ImplicationQuestion;^&多久/多长时间/几年/多少年||ImplicationQuestion@:computeYear
 IntroductionQuestion;[那/那么/请问]&[你/小影]&[知不知道/可知道/知道/认识/了解/认不认识/了不了解]&#&是何人/是谁/是啥/指什么/是什么&[意思/含义]||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;[那/那么/请问]&#&是何人/是谁/是啥/指什么/是什么&[意思/含义]&[你/小影]&[知不知道/可知道/知道/认识/了解/认不认识/了不了解]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;[那/那么/请问]&[你/小影]&[知不知道/可知道/知道/了解/了不了解]&#&[有/是]&啥/什么&意思/含义||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;[那/那么/请问]&#&[有/是]&啥/什么&意思/含义&[你/小影]&[知不知道/可知道/知道/了解/了不了解]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;[那/那么/请问]&[你/小影]&[知不知道/可知道/知道/了解/了不了解]&#&[是]&做什么的/干嘛的/做啥的||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;[那/那么/请问]&[你/小影]&[知不知道/可知道/知道/认识/了解/认不认识/了不了解]&谁是/什么是/哪位是/哪个人是&#||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;[那/那么/请问]&[你/小影]&看过/读过/认识/知道/了解/了解过/听说过/听过/熟悉/认不认识/熟不熟悉/了不了解/知不知道&#&[是啥/是什么/是谁/指什么]||IntroductionQuestion@:firstParamInfo
