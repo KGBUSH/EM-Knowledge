@@ -528,10 +528,10 @@ public class KGAgent {
 				
 				// otherwise, it already has an answer from property recognization
 				if(answerBean.getScore() == 100 || answerBean.getScore() == 0){
-					//if sentence start with [你，小影]，[认识，知道]
-					if(sentence.startsWith("认识")||sentence.startsWith("知道")||sentence.startsWith("你知道")||sentence.startsWith("你认识")||sentence.startsWith("小影认识")
-							||sentence.startsWith("小影知道")){
-						strIntroduce = "我知道。"+ strIntroduce;
+					//add prefix introduction if sentence start with [你，小影]，[认识，知道]
+					String introWord = NLPUtil.isContainsInIntroductionPrefixWord(sentence);
+					if(!introWord.isEmpty() && !introWord.equals("")){
+						strIntroduce = answerRewite.rewriteAnser4IntroBegin(strIntroduce, introWord);
 					}
 					answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduce));
 				}

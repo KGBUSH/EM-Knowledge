@@ -53,6 +53,7 @@ public class WebServer {
 		System.out.println("init NLPProcess");
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
+		TemplateEntry.TemplateEntryInit();
 
 		int port = 9000;
 		if(args.length>1)
