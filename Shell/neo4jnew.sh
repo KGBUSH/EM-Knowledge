@@ -20,6 +20,7 @@ echo "id="$id
 cd $GetDataShellPath
 sh getData.sh $id
 cat Node/error >> $ErrAllLog
+mv Node $id
 cd $CurrPath
 ###############################################################################################
 /tmp3/linux_src/hadoop-2.6.0/bin/hadoop jar KnowledgeGraph-0.0.1.jar t22 liu Neo4j 3 
@@ -28,6 +29,7 @@ echo "id="$id
 cd $GetDataShellPath
 sh getData.sh $id
 cat Node/error >> $ErrAllLog
+mv Node $id
 cd $CurrPath
 ###############################################################################################
 /tmp3/linux_src/hadoop-2.6.0/bin/hadoop jar KnowledgeGraph-0.0.1.jar t11 liu Neo4j 2  
@@ -36,4 +38,5 @@ echo "id="$id
 cd $GetDataShellPath
 sh getData.sh $id
 cat Node/error >> $ErrAllLog
+mv Node $id
 cd $CurrPath
