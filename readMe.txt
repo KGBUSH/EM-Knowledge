@@ -81,6 +81,11 @@ CREATE INDEX ON :other(Name);
 CREATE INDEX ON :other(key);
 CREATE INDEX ON :other(urlkey);
 
+把上面Index语句写入neo4j服务器： 先复制到一个文件insertIndex
+cat insertIndex | ./bin/neo4j-shell 
+
+
+
 
 
 ************************************************************2.neo4j sqls 导入：
