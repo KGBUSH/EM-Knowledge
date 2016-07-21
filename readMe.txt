@@ -287,3 +287,53 @@ cat EALLLast | grep Tongyici > yourfile
 然后交给陆伊浩做处理生成最终的同义词表
 
 
+
+
+
+
+
+************************************************************6.后台数据上线部分 以范儿盒为例
+
+solr数据上线：
+1.直接用目前的Shel/solr.sh中的脚本方式导入，需要注意的是修改config/KG.property中solr的配置，链接到范盒
+2.直接拷贝线下的已经生成好的solrhome去线上命令如下：
+登录范儿盒
+cd /home/deployer/devenv/volumes/solr
+mv kg ../solr_bak/
+scp -r root@ip:/solrhomepath/ .
+sudo chown 8983.8983 solr_home -R           (目前的solrhome的名字是kg)
+cd /home/deployer/devenv/vendors/solr
+sh restart.sh
+至此solr上线饭盒
+
+
+neo4j数据上线
+（假设你在自己测试机器讲数据已经讲需要上线的数据导入测试机的neo4j）
+登录范儿盒
+cd /home/deployer/devenv/volumes/neo4j    ####该目录中就是neo4j中data目录下的数据   包括索引等一般线下建立好以后索引的文件都在该目录下，直接拷贝即可
+rm -rf *                               (此操作前可以将/home/deployer/devenv/volumes/neo4j里面的数据保存下)
+scp -r root@ip:/neo4j_folder/data/* .
+cd /home/deployer/devenv/vendors/neo4j
+sh restart.sh
+至此neo4j数据上线饭盒
+
+
+solr 数据查看http://192.168.1.135:8081/solr/#/kg/query
+neo4j数据查看http://192.168.1.135:7474/browser/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
