@@ -1,9 +1,4 @@
-figure
-movie
-tv
-novel
 sports
 college
 tourism
-anime
 festival
