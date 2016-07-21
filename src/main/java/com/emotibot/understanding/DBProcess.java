@@ -22,10 +22,19 @@ import com.emotibot.util.Tool;
 
 public class DBProcess {
 	// public static EmotibotNeo4jConnection conn = getDBConnection();
-	public static BuildCypherSQL buildCypherSQLObj = CypherInit();
+	public static BuildCypherSQL buildCypherSQLObj=null;
 //	public static Neo4jDBManager neo4jDBManager = DBManagerInit();
-	public static final Neo4jConfigBean neo4jConfigBean = ConfigBeanInit();
-	
+	public static  Neo4jConfigBean neo4jConfigBean = null;
+	static 
+	{
+		if(buildCypherSQLObj==null){
+		buildCypherSQLObj = CypherInit();
+		}
+		if(neo4jConfigBean==null){
+		 neo4jConfigBean = ConfigBeanInit();
+		}
+
+	}
 	public static Neo4jConfigBean ConfigBeanInit(){
 		ConfigManager cfg = new ConfigManager();
 		Neo4jConfigBean neo4jConfigBean = new Neo4jConfigBean();
