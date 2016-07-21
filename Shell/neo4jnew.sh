@@ -23,7 +23,7 @@ cat Node/error >> $ErrAllLog
 cd $CurrPath
 ###############################################################################################
 /tmp3/linux_src/hadoop-2.6.0/bin/hadoop jar KnowledgeGraph-0.0.1.jar t22 liu Neo4j 3 
-id=`cat logfile | grep "Submitted" | grep "application" | awk -F " " '{print $7}' | sed -n 2p`
+id=`cat $logfile | grep "Submitted" | grep "application" | awk -F " " '{print $7}' | sed -n 2p`
 echo "id="$id
 cd $GetDataShellPath
 sh getData.sh $id
@@ -31,7 +31,7 @@ cat Node/error >> $ErrAllLog
 cd $CurrPath
 ###############################################################################################
 /tmp3/linux_src/hadoop-2.6.0/bin/hadoop jar KnowledgeGraph-0.0.1.jar t11 liu Neo4j 2  
-id=`cat logfile | grep "Submitted" | grep "application" | awk -F " " '{print $7}' | sed -n 3p`
+id=`cat $logfile | grep "Submitted" | grep "application" | awk -F " " '{print $7}' | sed -n 3p`
 echo "id="$id
 cd $GetDataShellPath
 sh getData.sh $id
