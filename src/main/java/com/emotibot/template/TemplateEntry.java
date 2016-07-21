@@ -19,9 +19,9 @@ import com.emotibot.util.Tool;
 
 public class TemplateEntry {
 //	static TemplateProcessor sentenceTemplate = new TemplateProcessor("Knowledge");
-	static TemplateProcessor questionClassifier = new TemplateProcessor("QuestionClassifier");
+	static TemplateProcessor questionClassifier;
 	// static TemplateProcessor = new TemplateProcessor("QuestionClassifier");
-	static TemplateProcessor figure_introductionTemplate = new TemplateProcessor("figure_introduction");
+	static TemplateProcessor figure_introductionTemplate;
 //	static TemplateProcessor TV_seriesTemplate = new TemplateProcessor("TV_series");
 //	static TemplateProcessor animeTemplate = new TemplateProcessor("anime");
 //	static TemplateProcessor catchwordTemplate = new TemplateProcessor("catchword");
@@ -41,10 +41,19 @@ public class TemplateEntry {
 //	static TemplateProcessor tourismTemplate = new TemplateProcessor("tourism");
 //	static TemplateProcessor varity_showTemplate = new TemplateProcessor("varity_show");
 	
-	static TemplateProcessor [] staticTemplateArr = createTemplateArrary();
-	static TemplateProcessor [] staticTemplateByDomain = createTemplateByDomain();
-	static Map<String, TemplateProcessor> templateMap = buildTemplateMap();
-	static Map<String, TemplateProcessor> templateByIntroductonMap = buildTemplateByDomainMap();
+	static TemplateProcessor [] staticTemplateArr;
+	static TemplateProcessor [] staticTemplateByDomain;
+	static Map<String, TemplateProcessor> templateMap;
+	static Map<String, TemplateProcessor> templateByIntroductonMap;
+	
+	public static void TemplateEntryInit(){
+		questionClassifier = new TemplateProcessor("QuestionClassifier");
+		figure_introductionTemplate = new TemplateProcessor("figure_introduction");
+		staticTemplateArr = createTemplateArrary();
+		staticTemplateByDomain = createTemplateByDomain();
+		templateMap = buildTemplateMap();
+		templateByIntroductonMap = buildTemplateByDomainMap();
+	}
 	
 	private static TemplateProcessor [] createTemplateArrary(){
 		if(DictionaryBuilder.getDomainAllListTable().isEmpty()){
