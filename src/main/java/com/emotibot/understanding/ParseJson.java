@@ -21,8 +21,8 @@ public class ParseJson {
         try {  
             URL urlObject = new URL(url);  
             HttpURLConnection uc = (HttpURLConnection) urlObject.openConnection(); 
-            uc.setConnectTimeout(20000);  
-            uc.setReadTimeout(20000); 
+            uc.setConnectTimeout(2000);  
+            uc.setReadTimeout(2000); 
             state = uc.getResponseCode();
             if(state == 200){
             	 BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));  
