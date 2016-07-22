@@ -28,17 +28,40 @@ import com.emotibot.extractor.PageExtractInfo;
 import com.emotibot.util.Tool;
 import com.hankcs.hanlp.HanLP;
 import com.hankcs.hanlp.seg.common.Term;
-
 public class SolrUtil {
-	private HttpSolrClient server = null;
 	public static final String Name = "KG_Name";
 	public static final String Attr = "KG_Attr";
 	public static final String Value = "KG_Value";
 	public static final String AttrValue = "KG_Attr_Value";
 	public static final String Info = "KG_Info";
-
+    //////////////
+	//  private HttpSolrClient server = null;
+    private static HttpSolrClient server = null;  
+    private volatile static SolrUtil solrServiceClient = null;  
+  
+  
+  
+  
+    /** 
+     * SolrServerClient 是线程安全的 需要采用单例模式 
+     * 此处实现方法适用于高频率调用查询 
+     * 
+     * @return SolrServerClient 
+     */  
+    public static SolrUtil getInstance() {  
+        if (solrServiceClient == null) {  
+            synchronized (SolrUtil.class) {  
+                if (solrServiceClient == null) {  
+                    solrServiceClient = new SolrUtil();  
+                }  
+            }  
+        }  
+        return solrServiceClient;  
+    }  
+  
+	/////////////////
 	// new HttpSolrServer("http://192.168.1.81:8080/solr/kgtest");
-	public SolrUtil() {
+	private void getSolrUtil() {
 		if (server == null) {
 			ConfigManager cf = new ConfigManager();
 			String ip=cf.getIndexSolrServerIp();
@@ -51,17 +74,12 @@ public class SolrUtil {
 			server.setAllowCompression(true);
 			server.setMaxRetries(10);
 		}
+		//return server;
 	}
 
-	public SolrUtil(String ip,int port,String solrName) {
-		if (server == null) {
-			SystemDefaultHttpClient httpClient = new SystemDefaultHttpClient();
-			server = new HttpSolrClient("http://"+ip+":"+port+"/solr/"+solrName,httpClient);
-			server.setConnectionTimeout(10 * 1000);
-			server.setFollowRedirects(false);
-			server.setAllowCompression(true);
-			server.setMaxRetries(10);
-		}
+	private SolrUtil()
+	{
+		getSolrUtil();
 	}
 
 	public boolean Commit() {
@@ -155,6 +173,7 @@ public class SolrUtil {
     	}catch(Exception e)
     	{
     		e.printStackTrace();
+    		server=null;
     	}
     	return result;
     }
@@ -194,7 +213,7 @@ public class SolrUtil {
 		//obj.addWord("姚明");
 		obj.addWord("丈夫");
 		obj.addWord("忉利天");
-		SolrUtil solr = new SolrUtil();
+		SolrUtil solr = SolrUtil.getInstance();
     	long t1=System.currentTimeMillis();
 		solr.Search(obj);
     	long t2=System.currentTimeMillis();

@@ -474,7 +474,7 @@ public class EntityRecognizer {
 			return rsEntitySet;
 		}
 
-		SolrUtil solr = new SolrUtil();
+		SolrUtil solr = SolrUtil.getInstance();
 		Solr_Query obj = new Solr_Query();
 
 		if (entitySet != null && !entitySet.isEmpty()) {
