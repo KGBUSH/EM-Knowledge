@@ -12,11 +12,12 @@ import java.io.StringWriter;
 import java.util.Properties;
 
 public class ConfigManager implements ConfigInterface{
-	final Properties properties;
+	private static Properties properties=null;
 	
 	
     public ConfigManager()
     {
+    	if(properties==null){
         properties = new Properties();
     	System.out.println(ConfigKeyName.ConfigFileName);
         try {
@@ -37,7 +38,7 @@ public class ConfigManager implements ConfigInterface{
         System.out.println("getIndexSolrServerPort="+getIndexSolrServerPort());
         System.out.println("getIndexSolrServerSolrName="+getIndexSolrServerSolrName());
         System.out.println("WebserverPort="+getWebServerPort());
-
+    	}
 
     }
 
