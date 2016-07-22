@@ -28,6 +28,7 @@ import com.emotibot.config.ConfigManager;
 import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
+import com.emotibot.template.TemplateEntry;
 import com.emotibot.understanding.IntentionClassifier;
 //import com.emotibot.patternmatching.PatternMatchingProcess;
 import com.emotibot.understanding.KGAgent;
@@ -51,7 +52,6 @@ public class WebServer {
 //		NLPProcess.NLPProcessInit();
 		Debug.printDebug("", 3, "knowledge", "knowedge doService request=");
 		System.out.println("init NLPProcess");
-		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
 		TemplateEntry.TemplateEntryInit();
 
