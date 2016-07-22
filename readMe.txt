@@ -321,6 +321,7 @@ sh restart.sh
 solr 数据查看http://192.168.1.135:8081/solr/#/kg/query
 neo4j数据查看http://192.168.1.135:7474/browser/
 
+机器列表参考http://192.168.1.48/w/deployment/
 
 
 
