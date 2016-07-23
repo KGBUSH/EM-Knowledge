@@ -18,11 +18,13 @@ public class ParseJson {
 		int state = -1;
 		String url = "https://way.jd.com/showapi/search_news?title="+name+"&page=1&appkey=69719886345831a185360013e4c39ebe";
         StringBuilder json = new StringBuilder();  
+        URL urlObject = null;
+        HttpURLConnection uc = null;
         try {  
-            URL urlObject = new URL(url);  
-            HttpURLConnection uc = (HttpURLConnection) urlObject.openConnection(); 
-            uc.setConnectTimeout(2000);  
-            uc.setReadTimeout(2000); 
+            urlObject = new URL(url);  
+            uc = (HttpURLConnection) urlObject.openConnection(); 
+            uc.setConnectTimeout(1000);  
+            uc.setReadTimeout(1000); 
             state = uc.getResponseCode();
             if(state == 200){
             	 BufferedReader in = new BufferedReader(new InputStreamReader(uc.getInputStream()));  
@@ -40,7 +42,9 @@ public class ParseJson {
             e.printStackTrace();  
         } catch (IOException e) {  
             e.printStackTrace();  
-        }  
+        }finally{
+        	uc.disconnect();
+        }
         return json.toString();  
     }  
 	

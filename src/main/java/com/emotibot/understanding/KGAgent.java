@@ -515,10 +515,11 @@ public class KGAgent {
 					/**
 					 * 开始处理rewrite 的多义词情况
 					 */
+					IntentionClassifier intentionClassifier =  new IntentionClassifier();
 					List<String> labelList = NLPUtil.getLabelListByEntity(tempEntity);
-					List<String> finalLabelList3 = IntentionClassifier.getFinalLabelListOfCase1(labelList);
+					List<String> finalLabelList3 = intentionClassifier.getFinalLabelListOfCase1(labelList);
 					if (finalLabelList3.size() > 1) {
-						return IntentionClassifier.getAnswerOfCase1(finalLabelList3);
+						return intentionClassifier.getAnswerOfCase1(finalLabelList3);
 					}
 					
 					answerBean.setScore(100);

@@ -5,7 +5,7 @@ import com.emotibot.util.Tool;
 
 public class QuestionFilter {
 
-	private NERBean nerBean = new NERBean();
+	private NERBean nerBean;
 	
 	public QuestionFilter(NERBean bean){
 		nerBean = bean;

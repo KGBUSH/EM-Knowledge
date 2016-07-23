@@ -209,16 +209,18 @@ public class Tool {
 	//input result1, result2
 	//output rewrite = "\"["+answer+"],[" + template+"]\"";
 	public static String combineTwoResult(String result1, String result2){
-		String result = "";
+		StringBuilder result = new StringBuilder();
 		if(result1.contains("[")&&result1.contains("]")){
 			//remove the " end of the result1.
 			result1 = result1.replaceAll("\"", "");
-			result ="\""+ result1+",[" + result2+"]\"";
+			result.append("\"").append(result1).append(",[").append(result2).append("]\"");
+//			result ="\""+ result1+",[" + result2+"]\"";
 		}else {
-			result = "\"["+result1+"],[" + result2+"]\"";
+			result.append("\"[").append(result1).append("],[").append(result2);
+//			result = "\"["+result1+"],[" + result2+"]\"";
 		}
 		
-		return result;
+		return result.toString();
 	}
 
 }
