@@ -216,7 +216,7 @@ public class Tool {
 			result.append("\"").append(result1).append(",[").append(result2).append("]\"");
 //			result ="\""+ result1+",[" + result2+"]\"";
 		}else {
-			result.append("\"[").append(result1).append("],[").append(result2);
+			result.append("\"[").append(result1).append("],[").append(result2).append("]\"");
 //			result = "\"["+result1+"],[" + result2+"]\"";
 		}
 		

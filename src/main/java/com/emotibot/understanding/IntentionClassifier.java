@@ -589,8 +589,9 @@ public class IntentionClassifier {
 					}
 				}
 			}
-			StringBuilder resultBuilder  = new StringBuilder();
+			
 			for(String str : roles){
+				StringBuilder resultBuilder  = new StringBuilder();
 				resultBuilder.append("你想知道").append(entity).append("的主演之一" ).append(str).append("最近的新闻吗？");
 //				result.add("你想知道" + entity + "的主演之一" + str + "最近的新闻吗？");
 				result.add(resultBuilder.toString());
@@ -618,8 +619,9 @@ public class IntentionClassifier {
 				listMiddle.add(str);
 			}
 		}
-		StringBuilder resultBuilder  = new StringBuilder();
+		
 		for (String str : listMiddle) {
+			StringBuilder resultBuilder  = new StringBuilder();
 			resultBuilder.append("你想知道").append(entity).append("的").append(str).append("吗？");
 			listResult.add(resultBuilder.toString());
 		}
@@ -627,13 +629,13 @@ public class IntentionClassifier {
 	}
 	
 	public static void main(String[] args) {
-		IntentionClassifier intentionClassifier = new IntentionClassifier();
-		List<String> list = new ArrayList<String>();
-		list.add("novel");
-		System.out.println(intentionClassifier.getTheFrist2Labels(list));
-		DictionaryBuilder.DictionaryBuilderInit();
 //		IntentionClassifier intentionClassifier = new IntentionClassifier();
-//		List<String> list = getRelationOrPropertyByEntityAndConvertToSentence("邓超","figure");
-//		System.out.println(list);
+//		List<String> list = new ArrayList<String>();
+//		list.add("novel");
+//		System.out.println(intentionClassifier.getRelationOrPropertyByEntityAndConvertToSentence("姚明","figure"));
+		DictionaryBuilder.DictionaryBuilderInit();
+		IntentionClassifier intentionClassifier = new IntentionClassifier();
+		List<String> list = intentionClassifier.getRelationOrPropertyByEntityAndConvertToSentence("邓超","figure");
+		System.out.println(list);
 	}
 }
