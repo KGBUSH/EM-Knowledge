@@ -40,9 +40,9 @@ public class IntentionClassifier {
 		String sentence = nerBean.getSentence();
 		List<String> entitySet = nerBean.getEntitySet();
 		String uniqueID = nerBean.getUniqueID();
-		boolean hasNewsFromFunction = false;
+//		boolean hasNewsFromFunction = false;
 		AnswerBean answerBean = new AnswerBean();
-		ParseJson parseJson = new ParseJson();
+//		ParseJson parseJson = new ParseJson();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getAnswer: input is empty");
 			return answerBean.returnAnswer(answerBean);
@@ -197,13 +197,13 @@ public class IntentionClassifier {
 					int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 					resultAdded = listquestions.get(id);
 					//when label is movie or tv, we parse the name and judge whether it has news from function 
-					if(tempLabel.equals("movie")||tempLabel.equals("tv")){
-						hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
-						if(!hasNewsFromFunction){
-							resultAdded = "";
-							tempStrIntroduce = answerRewite.rewriteAnswer4Intro(tempStrIntroduce);
-						}
-					}
+//					if(tempLabel.equals("movie")||tempLabel.equals("tv")){
+//						hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
+//						if(!hasNewsFromFunction){
+//							resultAdded = "";
+//							tempStrIntroduce = answerRewite.rewriteAnswer4Intro(tempStrIntroduce);
+//						}
+//					}
 				}else {
 					tempStrIntroduce = answerRewite.rewriteAnswer4Intro(tempStrIntroduce);
 				}
@@ -363,13 +363,13 @@ public class IntentionClassifier {
 						int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 						resultAdded = listquestions.get(id);
 						//when label is movie or tv, we parse the name and judge whether it has news from function 
-						if(tempLabel.equals("movie")||tempLabel.equals("tv")){
-							hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
-							if(!hasNewsFromFunction){
-								resultAdded = "";
-								strIntroduce = answerRewite.rewriteAnswer4Intro(strIntroduce);
-							}
-						}
+//						if(tempLabel.equals("movie")||tempLabel.equals("tv")){
+//							hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
+//							if(!hasNewsFromFunction){
+//								resultAdded = "";
+//								strIntroduce = answerRewite.rewriteAnswer4Intro(strIntroduce);
+//							}
+//						}
 					}else {
 						strIntroduce = answerRewite.rewriteAnswer4Intro(strIntroduce);
 					}
