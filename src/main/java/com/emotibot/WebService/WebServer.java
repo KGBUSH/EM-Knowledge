@@ -271,25 +271,32 @@ public class WebServer {
 			response.setCharacterEncoding("utf-8");
 			PrintWriter out = response.getWriter();
 			String text = request.getParameter("t");
-			if (text != null) {
-				text = text.trim();
-				if (!text.isEmpty()) {
-					System.out.println(text);
-					IntentionClassifier intentionClassifier = new IntentionClassifier();
-					Map<String, String> anwerMap = intentionClassifier.getRelationOrPropertyByEntityAndConvertToSentence(text);
-					List<Map<String, String>> result = new ArrayList<Map<String,String>>();
-					if(!anwerMap.isEmpty()){
-						for(java.util.Map.Entry<String, String> entry : anwerMap.entrySet()){
-							HashMap<String, String> hashMap = new HashMap<String, String>();
-							hashMap.put("intent", entry.getKey());
-							hashMap.put("answer", entry.getValue());
-							result.add(hashMap);
+			try {
+				if (text != null) {
+					text = text.trim();
+					if (!text.isEmpty()) {
+						System.out.println(text);
+						IntentionClassifier intentionClassifier = new IntentionClassifier();
+						Map<String, String> anwerMap = intentionClassifier.getRelationOrPropertyByEntityAndConvertToSentence(text);
+						List<Map<String, String>> result = new ArrayList<Map<String,String>>();
+						if(!anwerMap.isEmpty()){
+							for(java.util.Map.Entry<String, String> entry : anwerMap.entrySet()){
+								HashMap<String, String> hashMap = new HashMap<String, String>();
+								hashMap.put("intent", entry.getKey());
+								hashMap.put("answer", entry.getValue());
+								result.add(hashMap);
+							}
 						}
+						JSONObject result_obj = new JSONObject();
+						result_obj.put("result", result);
+						out.println(result_obj);
 					}
-					JSONObject result_obj = new JSONObject();
-					result_obj.put("result", result);
-					out.println(result_obj);
 				}
+			} catch (Exception e) {
+				// TODO: handle exception
+				JSONObject result_obj = new JSONObject();
+				result_obj.put("result", e.getMessage());
+				out.println(result_obj);
 			}
 		}
 		
