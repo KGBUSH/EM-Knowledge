@@ -29,6 +29,7 @@ import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
 import com.emotibot.template.TemplateEntry;
+import com.emotibot.understanding.DBProcess;
 import com.emotibot.understanding.IntentionClassifier;
 //import com.emotibot.patternmatching.PatternMatchingProcess;
 import com.emotibot.understanding.KGAgent;
@@ -82,6 +83,7 @@ public class WebServer {
 		// handler.addServletWithMapping(NlpServlet.class, "/web");
 		handler.addServletWithMapping(KGServletJson.class, "/json");
 		handler.addServletWithMapping(DialogueControlInvoke.class, "/web");
+		handler.addServletWithMapping(Memory.class, "/memory/rest/query/get");
 
 		// Start things up!
 		server.start();
@@ -94,7 +96,7 @@ public class WebServer {
 	}
 
 	@SuppressWarnings("serial")
-	public static class NlpServlet extends HttpServlet {
+	public static class Memory extends HttpServlet {
 		@Override
 		protected void doGet(HttpServletRequest request, HttpServletResponse response)
 				throws ServletException, IOException {
@@ -113,47 +115,24 @@ public class WebServer {
 		 * @throws IOException
 		 */
 		private void doService(HttpServletRequest request, HttpServletResponse response) throws IOException {
-			response.setContentType("text/html");
-			response.setCharacterEncoding("utf-8");
 			response.setStatus(HttpServletResponse.SC_OK);
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/json;charset=utf-8");
+			response.setCharacterEncoding("utf-8");
 			PrintWriter out = response.getWriter();
-			out.println("<html><body>");
-			out.println("<form action=\"/\" method=\"POST\">");
-			out.println("输入文本: ");
-			out.println("<input type=\"text\" name=\"t\">");
-			out.println("<input type=\"submit\" name=\"提交\">");
-			out.println("</form>");
-			int flag = 0;
-			String text = request.getParameter("t");
-			if (text != null) {
-				text = text.trim();
-				if (!text.isEmpty()) {
-					try {
-						flag = Integer.parseInt(request.getParameter("f"));
-					} catch (NumberFormatException e) {
-
-					}
-					System.out.println(text);
-					SimpleKnowledgeGetAnwer simpleKnowledgeGetAnwer = new SimpleKnowledgeGetAnwer();
-					String answer = simpleKnowledgeGetAnwer.getAnswer(text);
-					JSONObject result_obj = new JSONObject();
-					/*
-					 * out.println( "");
-					 * 
-					 * out.println( ""); out.println( ""); out.println( "");
-					 */
-					out.println(answer);
-					/*
-					 * NLPResult tnNode = NLPSevice.ProcessSentence(text, flag);
-					 * out.println(tnNode.getWordPos());
-					 * out.println(tnNode.getReCoNLLSentence());
-					 * out.println(tnNode.getNer());
-					 */
-					// out.println(tnNode.getSynonyms());
-				}
+			JSONObject result_obj = new JSONObject();
+			try {
+      // http://192.168.1.27:8080/memory/rest/query/get?type=userInfo&operation=query&personName=周杰伦&key=代表作品
+				String personName = request.getParameter("personName");
+				String key = request.getParameter("key");
+		        String label = "figure";
+                String result=DBProcess.getPropertyValue(label, personName, key);
+				result_obj.put("result", result);
+				out.println(result_obj);
+			} catch (Exception e) {
+				result_obj.put("Exception", e.getMessage());
+				out.println(result_obj);
 			}
-
-			out.println("</body></html>");
 		}
 	}
 
