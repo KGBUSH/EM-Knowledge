@@ -1242,6 +1242,582 @@
         </template>
     </category>
     <category>
+        <pattern> ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 知 不 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 知 不 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 知 不 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 知 不 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 知 不 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 知 不 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 知 不 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 知 不 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 知 不 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 知 不 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 知 不 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 知 不 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 可 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 可 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 可 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 可 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 可 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 可 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 可 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 可 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 可 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 可 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 可 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 可 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 知 道 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 认 不 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 认 不 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 认 不 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 认 不 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 认 不 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 认 不 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 认 不 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 认 不 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 认 不 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 认 不 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 认 不 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 认 不 认 识 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 了 不 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 了 不 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 了 不 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 了 不 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 了 不 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 了 不 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 了 不 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 了 不 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 了 不 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 了 不 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 了 不 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 了 不 了 解 ## * <type>entity</type> 是 哪 位 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
         <pattern> ## * <type>entity</type> 是 啥 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
@@ -4122,6 +4698,582 @@
         </template>
     </category>
     <category>
+        <pattern> ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 知 不 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 知 不 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 知 不 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 知 不 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 知 不 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 知 不 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 知 不 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 知 不 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 知 不 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 知 不 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 知 不 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 知 不 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 可 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 可 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 可 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 可 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 可 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 可 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 可 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 可 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 可 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 可 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 可 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 可 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 知 道 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 认 不 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 认 不 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 认 不 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 认 不 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 认 不 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 认 不 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 认 不 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 认 不 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 认 不 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 认 不 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 认 不 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 认 不 认 识 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 了 不 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 了 不 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 了 不 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 了 不 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 了 不 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 了 不 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 了 不 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 了 不 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 了 不 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 了 不 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 了 不 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 了 不 了 解 ## * <type>entity</type> 是 哪 位 意 思 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
         <pattern> ## * <type>entity</type> 是 啥 意 思 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
@@ -6997,6 +8149,582 @@
     </category>
     <category>
         <pattern> 请 问 小 影 了 不 了 解 ## * <type>entity</type> 是 谁 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 知 不 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 知 不 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 知 不 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 知 不 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 知 不 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 知 不 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 知 不 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 知 不 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 知 不 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 知 不 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 知 不 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 知 不 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 可 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 可 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 可 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 可 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 可 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 可 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 可 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 可 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 可 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 可 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 可 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 可 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 知 道 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 认 不 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 认 不 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 认 不 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 认 不 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 认 不 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 认 不 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 认 不 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 认 不 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 认 不 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 认 不 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 认 不 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 认 不 认 识 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 了 不 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 了 不 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 了 不 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 了 不 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 了 不 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 你 了 不 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 你 了 不 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 你 了 不 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 小 影 了 不 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 小 影 了 不 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 那 么 小 影 了 不 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 请 问 小 影 了 不 了 解 ## * <type>entity</type> 是 哪 位 含 义 </pattern>
         <template>
             IntroductionQuestion@:firstParamInfo
         </template>
@@ -42291,6 +44019,30 @@
         <pattern> 请 问 小 影 了 不 了 解 ## * <type>entity</type> 是 什 么 ^ </pattern>
         <template>
             IntroductionRequest@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 要 ^ ## * <type>entity</type> ^ 资 料 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 给 ^ ## * <type>entity</type> ^ 资 料 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 要 ^ ## * <type>entity</type> ^ 信 息 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ^ 给 ^ ## * <type>entity</type> ^ 信 息 </pattern>
+        <template>
+            IntroductionQuestion@:firstParamInfo
         </template>
     </category>
 </aiml>

@@ -88,13 +88,13 @@ public class IntentionClassifier {
 						int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 						resultAdded = listquestions.get(id);
 						//when label is movie or tv, we parse the name and judge whether it has news from function 
-						if(labelListForRewritePart.get(0).equals("movie")||labelListForRewritePart.get(0).equals("tv")){
-							hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
-							if(!hasNewsFromFunction){
-								resultAdded = "";
-								result = answerRewite.rewriteAnswer4Intro(result);
-							}
-						}
+//						if(labelListForRewritePart.get(0).equals("movie")||labelListForRewritePart.get(0).equals("tv")){
+//							hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
+//							if(!hasNewsFromFunction){
+//								resultAdded = "";
+//								result = answerRewite.rewriteAnswer4Intro(result);
+//							}
+//						}
 					}else {
 						result = answerRewite.rewriteAnswer4Intro(result);
 					}
@@ -296,13 +296,13 @@ public class IntentionClassifier {
 									int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 									resultAdded = listquestions.get(id);
 									//when label is movie or tv, we parse the name and judge whether it has news from function 
-									if(label.equals("movie")||label.equals("tv")){
-										hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
-										if(!hasNewsFromFunction){
-											resultAdded = "";
-											strIntroduceByDomain = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
-										}
-									}
+//									if(label.equals("movie")||label.equals("tv")){
+//										hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
+//										if(!hasNewsFromFunction){
+//											resultAdded = "";
+//											strIntroduceByDomain = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
+//										}
+//									}
 								}else {
 									strIntroduceByDomain = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
 								}
