@@ -23,7 +23,7 @@ import com.sun.tools.classfile.Annotation.element_value;
 
 public class IntentionClassifier {
 
-	private NERBean nerBean = new NERBean();
+	private NERBean nerBean;
 
 	public IntentionClassifier(){
 		
@@ -39,11 +39,10 @@ public class IntentionClassifier {
 	public AnswerBean intentionProcess() {
 		String sentence = nerBean.getSentence();
 		List<String> entitySet = nerBean.getEntitySet();
-		boolean isQuestion = nerBean.isQuestion();
 		String uniqueID = nerBean.getUniqueID();
-		boolean hasNewsFromFunction = false;
+//		boolean hasNewsFromFunction = false;
 		AnswerBean answerBean = new AnswerBean();
-		ParseJson parseJson = new ParseJson();
+//		ParseJson parseJson = new ParseJson();
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getAnswer: input is empty");
 			return answerBean.returnAnswer(answerBean);
@@ -105,8 +104,6 @@ public class IntentionClassifier {
 					result = Tool.combineTwoResult(result, resultAdded);
 					answerBean.setIntent(resultAdded);
 					answerBean.setIntent(true);
-				}else {
-					//if result only has introduction then add the template 
 				}
 				answerBean.setAnswer(result);
 				answerBean.setScore(100);
@@ -172,13 +169,13 @@ public class IntentionClassifier {
 			/**
 			 * 开始处理rewrite 的多义词情况。
 			 */
-			List<String> labelList = NLPUtil.getLabelListByEntity(tempEntity);
-			List<String> finalLabelList1 = getFinalLabelListOfCase1(labelList);
+//			List<String> labelList = NLPUtil.getLabelListByEntity(tempEntity);
+//			List<String> finalLabelList1 = getFinalLabelListOfCase1(labelList);
 
 			// judge whether labelListResult contains more than one label
-			if (finalLabelList1.size() > 1) {
-				return getAnswerOfCase1(finalLabelList1);
-			}
+//			if (finalLabelList1.size() > 1) {
+//				return getAnswerOfCase1(finalLabelList1);
+//			}
 						
 //			String tempStrIntroduce = DBProcess.getPropertyValue(entitySet.get(0),
 //					Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
@@ -190,20 +187,20 @@ public class IntentionClassifier {
 			
 			// add problem like 你想知道姚明的老婆是谁吗？
 			String resultAdded = "";
-			if(NLPUtil.isContainsInDomainNeededToRewrite(tempLabel)){
+			if(NLPUtil.isInDomainWhiteListDict(tempLabel)&&NLPUtil.isContainsInDomainNeededToRewrite(tempLabel)){
 				List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(tempEntity,tempLabel);
 				if(!listquestions.isEmpty()){
 					// generate random number [0,listquestions.size()]
 					int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 					resultAdded = listquestions.get(id);
 					//when label is movie or tv, we parse the name and judge whether it has news from function 
-					if(tempLabel.equals("movie")||tempLabel.equals("tv")){
-						hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
-						if(!hasNewsFromFunction){
-							resultAdded = "";
-							tempStrIntroduce = answerRewite.rewriteAnswer4Intro(tempStrIntroduce);
-						}
-					}
+//					if(tempLabel.equals("movie")||tempLabel.equals("tv")){
+//						hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
+//						if(!hasNewsFromFunction){
+//							resultAdded = "";
+//							tempStrIntroduce = answerRewite.rewriteAnswer4Intro(tempStrIntroduce);
+//						}
+//					}
 				}else {
 					tempStrIntroduce = answerRewite.rewriteAnswer4Intro(tempStrIntroduce);
 				}
@@ -363,13 +360,13 @@ public class IntentionClassifier {
 						int id = (int) Math.round(Math.random() * (listquestions.size() - 1));
 						resultAdded = listquestions.get(id);
 						//when label is movie or tv, we parse the name and judge whether it has news from function 
-						if(tempLabel.equals("movie")||tempLabel.equals("tv")){
-							hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
-							if(!hasNewsFromFunction){
-								resultAdded = "";
-								strIntroduce = answerRewite.rewriteAnswer4Intro(strIntroduce);
-							}
-						}
+//						if(tempLabel.equals("movie")||tempLabel.equals("tv")){
+//							hasNewsFromFunction = parseJson.isHasNewsOfSomeOne(CommonUtil.parseEntityInSentence(resultAdded));
+//							if(!hasNewsFromFunction){
+//								resultAdded = "";
+//								strIntroduce = answerRewite.rewriteAnswer4Intro(strIntroduce);
+//							}
+//						}
 					}else {
 						strIntroduce = answerRewite.rewriteAnswer4Intro(strIntroduce);
 					}
@@ -403,35 +400,45 @@ public class IntentionClassifier {
 	}
 	
 	//如果listLabel 里面有大于2个label，只返回前面两个，如果有一个，就返回一个label 
-	public static List<String> getTheFrist2Labels(List<String> listLabel) {
-		List<String> list = new ArrayList<String>();
+	public List<String> getTheFrist2Labels(List<String> listLabel) {
+		List<String> list = listLabel;
 		// 如果labelListResult 里面的label大于三个，只取前面两个。如果有一个，就取第一个。
-		Iterator<String> iterator = listLabel.iterator();
-		int count = 0;
-		while(iterator.hasNext()){
-			if(count > 1){
-				break;
-			}
-			list.add(iterator.next());
-			count++;
+//		Iterator<String> iterator = listLabel.iterator();
+		int number = list.size();
+		if(number >= 2){
+			return list.subList(0, 2);
+		}else if (number >= 1) {
+			return list.subList(0, 1);
+		}else {
+			return list;
 		}
-		return list;
+//		while(iterator.hasNext()){
+//			if(count > 1){
+//				break;
+//			}
+//			list.add(iterator.next());
+//			count++;
+//		}
+		
+//		return list;
 	}
 	
 	//get final answer by label list that has been dealed with.
-	public static AnswerBean getAnswerOfCase1(List<String> list){
+	public AnswerBean getAnswerOfCase1(List<String> list){
 		AnswerBean answerBean = new AnswerBean();
+		StringBuilder sentenceOfAnswer1 = new StringBuilder();
 		String labelAChineseName = NLPUtil.getDomainChineseNameByLabel(list.get(0));
 		String labelBChineseName = NLPUtil.getDomainChineseNameByLabel(list.get(1));
-		String sentenceOfAnswer1 = "你指的是"+ labelAChineseName + "还是"+ labelBChineseName + "呀？";
-		answerBean.setAnswer(sentenceOfAnswer1);
+		sentenceOfAnswer1.append("你指的是").append(labelAChineseName).append("还是").append(labelBChineseName).append("呀？");
+//		String sentenceOfAnswer1 = "你指的是"+ labelAChineseName + "还是"+ labelBChineseName + "呀？";
+		answerBean.setAnswer(sentenceOfAnswer1.toString());
 		answerBean.setScore(100);
 		return answerBean.returnAnswer(answerBean);
 	}
 	
 	// remove the label that not contains in the label table provided by pm and 
 	//deal with label list to size = 1 or 2  
-	public static List<String> getFinalLabelListOfCase1(List<String> labelList){
+	public List<String> getFinalLabelListOfCase1(List<String> labelList){
 		List<String> labelListResult = new ArrayList<String>();
 		for (String string : labelList) {
 			if (NLPUtil.isContainsInDomainNameMappingTable(string)
@@ -519,7 +526,7 @@ public class IntentionClassifier {
 	// orderby pm.
 	// input 姚明
 	// output 你想知道姚明的好友吗？ 你想知道姚明的特长吗？
-	public static List<String> getRelationOrPropertyByEntityAndConvertToSentence(
+	public List<String> getRelationOrPropertyByEntityAndConvertToSentence(
 			String entity, String label) {
 		List<String> listMiddle = new ArrayList<String>();
 		List<String> listResult = new ArrayList<String>();
@@ -579,8 +586,12 @@ public class IntentionClassifier {
 					}
 				}
 			}
+			
 			for(String str : roles){
-				result.add("你想知道" + entity + "的主演之一" + str + "最近的新闻吗？");
+				StringBuilder resultBuilder  = new StringBuilder();
+				resultBuilder.append("你想知道").append(entity).append("的主演之一" ).append(str).append("最近的新闻吗？");
+//				result.add("你想知道" + entity + "的主演之一" + str + "最近的新闻吗？");
+				result.add(resultBuilder.toString());
 			}
 			return result;
 		}
@@ -605,17 +616,23 @@ public class IntentionClassifier {
 				listMiddle.add(str);
 			}
 		}
-
+		
 		for (String str : listMiddle) {
-			listResult.add("你想知道" + entity + "的" + str + "吗？");
+			StringBuilder resultBuilder  = new StringBuilder();
+			resultBuilder.append("你想知道").append(entity).append("的").append(str).append("吗？");
+			listResult.add(resultBuilder.toString());
 		}
 		return listResult;
 	}
 	
 	public static void main(String[] args) {
-		DictionaryBuilder.DictionaryBuilderInit();
 //		IntentionClassifier intentionClassifier = new IntentionClassifier();
-		List<String> list = getRelationOrPropertyByEntityAndConvertToSentence("邓超","figure");
+//		List<String> list = new ArrayList<String>();
+//		list.add("novel");
+//		System.out.println(intentionClassifier.getRelationOrPropertyByEntityAndConvertToSentence("姚明","figure"));
+		DictionaryBuilder.DictionaryBuilderInit();
+		IntentionClassifier intentionClassifier = new IntentionClassifier();
+		List<String> list = intentionClassifier.getRelationOrPropertyByEntityAndConvertToSentence("邓超","figure");
 		System.out.println(list);
 	}
 }

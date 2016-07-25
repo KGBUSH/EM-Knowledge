@@ -5,7 +5,7 @@ import com.emotibot.util.Tool;
 
 public class QuestionFilter {
 
-	private NERBean nerBean = new NERBean();
+	private NERBean nerBean;
 	
 	public QuestionFilter(NERBean bean){
 		nerBean = bean;
@@ -23,6 +23,9 @@ public class QuestionFilter {
 			answerBean.setValid(true);
 			return answerBean.returnAnswer(answerBean);
 		}else if(sentence.startsWith("你会")){
+			answerBean.setValid(true);
+			return answerBean.returnAnswer(answerBean);
+		}else if(sentence.length() > 25 &&!sentence.contains("Rewrite:")) {
 			answerBean.setValid(true);
 			return answerBean.returnAnswer(answerBean);
 		}
