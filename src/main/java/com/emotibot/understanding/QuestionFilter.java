@@ -25,7 +25,7 @@ public class QuestionFilter {
 		}else if(sentence.startsWith("你会")){
 			answerBean.setValid(true);
 			return answerBean.returnAnswer(answerBean);
-		}else if(sentence.length() > 20) {
+		}else if(sentence.length() > 25 &&!sentence.contains("Rewrite:")) {
 			answerBean.setValid(true);
 			return answerBean.returnAnswer(answerBean);
 		}
