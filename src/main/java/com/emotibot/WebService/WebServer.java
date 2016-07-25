@@ -82,8 +82,8 @@ public class WebServer {
 		// through a web.xml @WebServlet annotation, or anything similar.
 		// handler.addServletWithMapping(NlpServlet.class, "/web");
 		handler.addServletWithMapping(KGServletJson.class, "/json");
-//		handler.addServletWithMapping(DialogueControlInvoke.class, "/web");
-//		handler.addServletWithMapping(Memory.class, "/memory/rest/query/get");
+		handler.addServletWithMapping(DialogueControlInvoke.class, "/web");
+		handler.addServletWithMapping(Memory.class, "/memory/rest/query/get");
 
 		// Start things up!
 		server.start();

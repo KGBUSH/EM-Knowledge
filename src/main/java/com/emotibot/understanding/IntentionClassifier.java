@@ -104,9 +104,6 @@ public class IntentionClassifier {
 					result = Tool.combineTwoResult(result, resultAdded);
 					answerBean.setIntent(resultAdded);
 					answerBean.setIntent(true);
-				}else {
-					//if result only has introduction then add the template 
-					
 				}
 				answerBean.setAnswer(result);
 				answerBean.setScore(100);
@@ -172,13 +169,13 @@ public class IntentionClassifier {
 			/**
 			 * 开始处理rewrite 的多义词情况。
 			 */
-			List<String> labelList = NLPUtil.getLabelListByEntity(tempEntity);
-			List<String> finalLabelList1 = getFinalLabelListOfCase1(labelList);
+//			List<String> labelList = NLPUtil.getLabelListByEntity(tempEntity);
+//			List<String> finalLabelList1 = getFinalLabelListOfCase1(labelList);
 
 			// judge whether labelListResult contains more than one label
-			if (finalLabelList1.size() > 1) {
-				return getAnswerOfCase1(finalLabelList1);
-			}
+//			if (finalLabelList1.size() > 1) {
+//				return getAnswerOfCase1(finalLabelList1);
+//			}
 						
 //			String tempStrIntroduce = DBProcess.getPropertyValue(entitySet.get(0),
 //					Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
@@ -190,7 +187,7 @@ public class IntentionClassifier {
 			
 			// add problem like 你想知道姚明的老婆是谁吗？
 			String resultAdded = "";
-			if(NLPUtil.isContainsInDomainNeededToRewrite(tempLabel)){
+			if(NLPUtil.isInDomainWhiteListDict(tempLabel)&&NLPUtil.isContainsInDomainNeededToRewrite(tempLabel)){
 				List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(tempEntity,tempLabel);
 				if(!listquestions.isEmpty()){
 					// generate random number [0,listquestions.size()]

@@ -16,8 +16,8 @@
 #define INPUT_TEXT_FILE          "text.txt"
 
 #define ASCII_MAX                256
-#define PATTERN_LEN_MAX          256 
-#define PATTERN_COUNT_MAX        3000000
+#define PATTERN_LEN_MAX          35 
+#define PATTERN_COUNT_MAX        1200000
 #define FILE_LEN_MAX             1000
 #define NE_LEN_MAX               5
 
@@ -40,8 +40,10 @@ struct node
    char str[PATTERN_LEN_MAX];
    int isLeaf;
    int nPattern;
-   char szNE[NE_LEN_MAX];
-   struct node *next[ASCII_MAX];
+   unsigned char c;
+   //struct node *next[ASCII_MAX];
+   struct node *next;
+   struct node *sibling;
    struct node *failure;
 };
 
@@ -123,9 +125,9 @@ int passiveTCP(const char *service, int qlen)
 
 int BuildTree(char szInput[][PATTERN_LEN_MAX], int nNum, struct node *pRoot)
 {
-   char szTemp[PATTERN_LEN_MAX],*pCh,szNE[NE_LEN_MAX];
+   char szTemp[PATTERN_LEN_MAX],*pCh;
    unsigned char c;
-   int i,j,nLen;
+   int i,j,nLen,fFound;
    struct node *ptr=NULL,*ptr2=NULL;
 
    ////////////////////////
@@ -141,14 +143,6 @@ int BuildTree(char szInput[][PATTERN_LEN_MAX], int nNum, struct node *pRoot)
       {
          szTemp[nLen-1] = '\0';
          nLen = strlen(szTemp);
-      }
-      pCh = strchr(szTemp,'\t');
-      szNE[0] = '\0';
-      if (pCh != NULL)
-      {
-         strncpy(szNE,pCh+1,NE_LEN_MAX-1);
-         szNE[NE_LEN_MAX-1] = '\0';
-         szTemp[pCh-szTemp] = '\0';
       }
 
       ////////////////////////
@@ -170,21 +164,44 @@ int BuildTree(char szInput[][PATTERN_LEN_MAX], int nNum, struct node *pRoot)
          // 3.1. if exist => move down
          ////////////////////////
          c = (unsigned char)szTemp[j];
-         if (ptr->next[c] != NULL)
-            ptr = ptr->next[c];
+         fFound = 0;
+         if (ptr->next != NULL)
+         {
+            ptr = ptr->next;
+            while(ptr->c != c && ptr->sibling)
+               ptr = ptr->sibling;
+            if (ptr->c == c)
+               fFound = 1;
+         }
+         else
+            fFound = -1; //代表连 ptr->next 都是空的
+         // fFound = 0 代表有 ptr->next，但是往后没找到 c，所以需要 new 一个 node 然后串在 sibling 的后面
+         // fFound = 1 代表有找到，ptr 指在找到的 node 上
+         // fFound = -1 代表连 ptr->next 都是空的
 
          ////////////////////////
          // 3.2. else => create a new node and link to ptr->next[c], ptr move down
          ////////////////////////
-         else
+         if (fFound != 1) 
          {
             if ((ptr2 = (struct node *)malloc(sizeof(struct node))) == NULL)
                return ERR_MALLOC;
             memset(ptr2,0,sizeof(struct node));
             strncpy(ptr2->str,szTemp,PATTERN_LEN_MAX-1);
             ptr2->str[j+1] = '\0';
-            ptr->next[c] = ptr2;
-            ptr = ptr2;
+            ptr2->next = NULL;
+            ptr2->sibling = NULL;
+            ptr2->c = c;
+            if (fFound == -1)
+            {
+               ptr->next = ptr2;
+               ptr = ptr2;
+            }
+            else if (fFound == 0)
+            {
+               ptr->sibling = ptr2;
+               ptr = ptr2;
+            }
          }
       }
 
@@ -192,8 +209,6 @@ int BuildTree(char szInput[][PATTERN_LEN_MAX], int nNum, struct node *pRoot)
       // 4. Set ptr as leaf node
       ////////////////////////
       ptr->isLeaf = 1;
-      strncpy(ptr->szNE,szNE,NE_LEN_MAX-1);
-      ptr->szNE[NE_LEN_MAX-1] = '\0';
       ptr->nPattern = i;
 
    }
@@ -213,11 +228,17 @@ int BuildFailureLink(struct node *ptr, struct node *pRoot)
    if (ptr == NULL)
       return ERR_GENERAL;
 
-   for (i=0;i<ASCII_MAX;i++)
+   if (ptr->next != NULL)
    {
-      if (ptr->next[i] != NULL)
-         BuildFailureLink(ptr->next[i],pRoot);
-   }
+      ptr2 = ptr->next;
+      BuildFailureLink(ptr2,pRoot);
+      while(ptr2->sibling)
+      {
+         ptr2 = ptr2->sibling;
+         BuildFailureLink(ptr2,pRoot);
+      }
+   }   
+ 
 
    ////////////////////////
    // 2. if (ptr->str is not NULL)
@@ -237,7 +258,7 @@ int BuildFailureLink(struct node *ptr, struct node *pRoot)
       {
          strncpy(szTemp2,&szTemp[1],PATTERN_LEN_MAX-1);
          szTemp2[PATTERN_LEN_MAX-1] = '\0';
-		 strcpy(szTemp,szTemp2);
+		   strcpy(szTemp,szTemp2);
          if (szTemp[0] == '\0')
             break;
 
@@ -252,9 +273,19 @@ int BuildFailureLink(struct node *ptr, struct node *pRoot)
             c = (unsigned char)szTemp[i];
             if (ptr2 == NULL)
                break;
-            if (ptr2->next[c] == NULL)
+            if (ptr2->next == NULL)
                break;
-            ptr2 = ptr2->next[c];
+            ptr2 = ptr2->next;
+            if (ptr2->c == c)
+               continue;
+            while(ptr2->sibling && ptr2->c != c)
+            {
+               ptr2 = ptr2->sibling;
+            }
+            if (ptr2->c == c)
+               continue;
+            else
+               break;
          }
 
          ////////////////////////
@@ -279,7 +310,7 @@ int BuildFailureLink(struct node *ptr, struct node *pRoot)
 
 int Travesal(char *szText, struct node *pRoot)
 {
-   struct node *ptr=NULL;
+   struct node *ptr=NULL,*ptr2=NULL;
    unsigned char c;
    int i=0;
 
@@ -302,7 +333,15 @@ int Travesal(char *szText, struct node *pRoot)
       ////////////////////////
       // 3. if (ptr->next[c] == NULL)
       ////////////////////////
-      if (ptr->next[c] == NULL)
+      //if (ptr->next[c] == NULL)
+      ptr2 = ptr->next;
+      while(ptr2)
+      {
+         if (ptr2->c == c)
+            break;
+         ptr2 = ptr2->sibling;
+      }
+      if (ptr2 == NULL)
       {
          ////////////////////////
          // 3.1. if ptr==root => next char c
@@ -321,7 +360,8 @@ int Travesal(char *szText, struct node *pRoot)
       ////////////////////////
       else
       {
-         ptr = ptr->next[c];
+         //ptr = ptr->next[c];
+         ptr = ptr2;
 
          ////////////////////////
          // 4.1. if ptr->isLeaf => print
@@ -330,14 +370,12 @@ int Travesal(char *szText, struct node *pRoot)
          {
             if (g_szOutput[0] == '\0')
             {
-               snprintf(g_szOutput,FILE_LEN_MAX-1,"%s=%s",ptr->str,ptr->szNE);
+               snprintf(g_szOutput,FILE_LEN_MAX-1,"%s=",ptr->str);
             }
             else
             {
                strcat(g_szOutput,"&");
                strcat(g_szOutput,ptr->str);
-               strcat(g_szOutput,"=");
-               strcat(g_szOutput,ptr->szNE);
             }
             g_nCounter[ptr->nPattern] ++; // For logging matched pattern
          }
@@ -354,12 +392,18 @@ int Travesal(char *szText, struct node *pRoot)
 void FreeMemory(struct node *ptr)
 {
    int i;
+   struct node *ptr2=NULL,*ptr3=NULL;
 
    if (ptr == NULL)
       return;
-   for (i=0;i<ASCII_MAX;i++)
-      if (ptr->next[i] != NULL)
-         FreeMemory(ptr->next[i]);
+
+   ptr2 = ptr->next;
+   while(ptr2)
+   {
+      ptr3 = ptr2->sibling;
+      FreeMemory(ptr2);
+      ptr2 = ptr3;
+   }
    free(ptr);
 } // end of FreeMemory()
 
