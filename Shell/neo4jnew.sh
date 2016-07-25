@@ -5,7 +5,6 @@ DATE=$(date +%Y_%m_%d_%H_%M_%S)
 ErrAllLog=$DATE
 cat /dev/null > $GetDataShellPath$ErrAllLog
 logfile="log2"
-
 echo "GetDataShellPath="$GetDataShellPath
 echo "CurrPath="$CurrPath
 echo "ErrAllLog="$ErrAllLog
