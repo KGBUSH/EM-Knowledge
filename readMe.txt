@@ -106,6 +106,11 @@ cat EALLLast | grep "QUERY=" | grep "merge (p)"  | sort | uniq  > a
 cat a | awk -F "###" '{print $5}'
 通过上述命令得到插入关系的sql语句 
 
+批量导入程序：
+com.emotibot.DB.Import.DBImport
+传入参数：参数一：sql文件，格式为一行一句sql语句  参数二：线程数  
+运行后  即可多线程导入数据，但要注意设置congif/KG.property中neo4j的相关配置为你要导入的neo4j的ip,port,username,passwd
+
 
 ============neo4j 数据删除
 必须先删除关系再删除节点：
