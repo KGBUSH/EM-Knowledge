@@ -1,5 +1,4 @@
 SelectiveQuestion;^&是&^&不是&^||SelectiveQuestion@:是不是
-SelectiveQuestion;^&是&^&吗/嘛&^||SelectiveQuestion@:是不是
 SelectiveQuestion;^&有&^&没有&^||SelectiveQuestion@:有没有
 SelectiveQuestion;^&了&^&没&^&有&^||SelectiveQuestion@:有没有
 SelectiveQuestion;^&对不对||SelectiveQuestion@:对不对
@@ -15,7 +14,7 @@ IntroductionQuestion;谁/哪位/何人/啥/什么&是/叫/叫做&#&[知不知道
 IntroductionQuestion;#&知不知道/可知道/知道/认识/了解/认不认识/了不了解/看过/读过/看没看过/读没读过/听说过||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;知不知道/可知道/知道/认识/了解/认不认识/了不了解/看过/读过/看没看过/读没读过/听说过&#||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;#&资料/信息/介绍/简介&[一下]||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;^&你/小影/那/那么/那你/请问&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]&#&是/指&何人/谁/哪位/啥/什么&[意思/含义/东西]||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;^&你/小影/那/那么/那你/请问&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]&#&是/指&何人/谁/哪位||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&是/指&何人/谁/哪位/啥/什么&[意思/含义/东西]&你/小影/那/那么/那你/请问&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&你/小影/那/那么/那你/请问&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]&何人/谁/哪位/啥/什么&是/叫/叫做&#||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&何人/谁/哪位/啥/什么&是/叫/叫做&#&你/小影/那/那么/那你/请问&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]||IntroductionQuestion@:firstParamInfo
