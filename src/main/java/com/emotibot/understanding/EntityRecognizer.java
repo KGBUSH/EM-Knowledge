@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
+import org.apache.hadoop.classification.InterfaceAudience.Private;
+
+import com.emotibot.Debug.Debug;
 import com.emotibot.TCP.TCPClient;
 import com.emotibot.common.Common;
 import com.emotibot.dictionary.DictionaryBuilder;
@@ -22,6 +25,7 @@ import com.hankcs.hanlp.seg.common.Term;
 public class EntityRecognizer {
 
 	private NERBean nerBean = new NERBean();
+	private String uniqueID = "";
 	
 	private EntityRecognizer(){
 		// for test
@@ -50,7 +54,9 @@ public class EntityRecognizer {
 	// identify the entities in a sentence by SimpleMatching, NLP, Solr
 		public List<String> getEntityPro() {
 			String sentence = nerBean.getOldSentence();
+			uniqueID = nerBean.getUniqueID(); 
 			System.out.println("PMP.getEntity: sentence=" + sentence);
+			Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognizer >>>>>> enter into getEntityPro() sentence="+sentence);
 			if (Tool.isStrEmptyOrNull(sentence)) {
 				System.err.println("PMP.getEntity: input is empty");
 				return null;
@@ -67,6 +73,7 @@ public class EntityRecognizer {
 				if(simpleMatchEntity.size()==1){
 					rsEntity.add(simpleMatchEntity.get(0));
 					System.out.println("case: 0: rsEntity=" + rsEntity);
+					Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognizer >>>>>> return getEntityPro() case: 0: rsEntity=" + rsEntity);
 					return rsEntity;
 				}
 				if (QuestionClassifier.isRelationshipQuestion(sentence)) {
@@ -74,10 +81,12 @@ public class EntityRecognizer {
 					rsEntity.add(simpleMatchEntity.get(0));
 					rsEntity.add(simpleMatchEntity.get(1));
 					System.out.println("case: 1: rsEntity=" + rsEntity);
+					Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognizer >>>>>> return getEntityPro() case: 1: rsEntity=" + rsEntity);
 					return rsEntity;
 				} else {
 					rsEntity.add(simpleMatchEntity.get(0));
 					System.out.println("case: 2: rsEntity=" + rsEntity);
+					Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognizer >>>>>> return getEntityPro() case: 2: rsEntity=" + rsEntity);
 					return rsEntity;
 				}
 			} else {
@@ -87,6 +96,7 @@ public class EntityRecognizer {
 				if(!QuestionClassifier.isRelationshipQuestion(sentence) && !solrEntity.isEmpty()){
 					rsEntity.add(solrEntity.get(0));
 					System.out.println("case: 3: rsEntity=" + rsEntity);
+					Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognizer >>>>>> return getEntityPro() case: 3: rsEntity=" + rsEntity);
 					return rsEntity;
 				}
 			}
@@ -96,7 +106,6 @@ public class EntityRecognizer {
 				System.out.println("\t simpleMatchingEntity=" + simpleMatchEntity + "\n\t nlpEntity=" + nlpEntity);
 				LogService.printLog("", "getEntityPro", "nlpEntity=" + nlpEntity, "entityTest");
 			}
-
 			return rsEntity;
 		}
 
@@ -564,6 +573,7 @@ public class EntityRecognizer {
 	// remove stopword and other abnormal word in entity
 	protected void removeAbnormalEntity() {
 		List<String> entitySet = nerBean.getEntitySet();
+		Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognize >>>>>> enter into removeAbnormalEntity(), the entitySet is:" + entitySet);
 		if (entitySet.isEmpty()) {
 			LogService.printLog(nerBean.getUniqueID(), "NER.changeEntitySynonym", "invalid input");
 			System.err.println("NER.changeEntitySynonym: invalid input");
@@ -579,14 +589,15 @@ public class EntityRecognizer {
 				it.remove();
 			}
 		}
+		Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognize >>>>>> return removeAbnormalEntity(), the entitySet is:" + entitySet);
 	}
 
 	// remove the elements which are contained in other elements
 	// input: [面对面，名人面对面] output: [名人面对面]
-	public static List<String> removeContainedElements(TreeSet<String> tSet) {
+	public List<String> removeContainedElements(TreeSet<String> tSet) {
 		TreeSet<String> tempSet = new TreeSet<String>(new StringLengthComparator());
 		List<String> rsSet = new ArrayList<>();
-
+		Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognize >>>>>> enter into removeContainedElements(), the entitySet is:" + tSet);
 		Iterator<String> it = tSet.iterator();
 		while (it.hasNext()) {
 			String element = it.next();
@@ -608,7 +619,7 @@ public class EntityRecognizer {
 		for (int i = tempArr.length - 1; i >= 0; i--) {
 			rsSet.add(tempArr[i]);
 		}
-
+		Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognize >>>>>> return removeContainedElements(), the entitySet is:" + rsSet);
 		// System.out.println("rsSet=" + rsSet);
 		return rsSet;
 	}
@@ -616,6 +627,7 @@ public class EntityRecognizer {
 	// sort by the index of the string in the sentence
 	protected List<String> sortByIndexOfSentence(String sentence, List<String> set) {
 		// System.out.println("input of the sort is set="+set);
+		Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognize >>>>>> enter into sortByIndexOfSentence(), the entitySet is:" + set);
 		TreeSet<String> refSet = new TreeSet<String>(new IndexInStringComparator(sentence));
 		for (String s : set) {
 			refSet.add(s);
@@ -625,7 +637,7 @@ public class EntityRecognizer {
 		for (String s : refSet) {
 			set.add(s);
 		}
-
+		Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognize >>>>>> return  sortByIndexOfSentence(), the entitySet is:" + set);
 		// System.out.println("output of the sort is set="+set);
 		return set;
 	}

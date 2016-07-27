@@ -1,5 +1,6 @@
 package com.emotibot.understanding;
 
+import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.util.Tool;
 
@@ -12,7 +13,7 @@ public class QuestionFilter {
 	}
 	
 	public AnswerBean filterSentence(){
-		
+		Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "QuestionFilter >>>>>> enter into filterSentence() ");
 		AnswerBean answerBean = new AnswerBean();
 		
 		String sentence = nerBean.getSentence();
@@ -29,6 +30,7 @@ public class QuestionFilter {
 			answerBean.setValid(true);
 			return answerBean.returnAnswer(answerBean);
 		}
+		Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "QuestionFilter >>>>>> return filterSentence() ");
 		return answerBean;
 	}
 	

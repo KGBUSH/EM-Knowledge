@@ -54,7 +54,7 @@ public class KGAgent {
 		// System.err.println("questionType="+questionType+", debugFlag =
 		// "+debugFlag);
 
-		Debug.printDebug(uniqueID, 3, "knowledge", "init of PatternMatchingProcess:" + cuBean.toString());
+		Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> enter into KGAgent, the cuBean is:" + cuBean.toString());
 
 		if (text == null) {
 			System.err.println("text is null");
@@ -116,6 +116,7 @@ public class KGAgent {
 		nerBean.setSegPos(segPos);
 		nerBean.setSegWordWithoutStopWord(segWordWithoutStopWord);
 
+		Debug.printDebug(uniqueID, 3,"knowledge" , "KGAgent >>>>>> before enter into EntityRecognizer nerBean is:"+ nerBean);
 		System.out.println("TIME 3 - before get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 		// change the follow method of getting entity, by the case:
 		// "玛丽和马克思的其他中文名叫什么"
@@ -131,7 +132,7 @@ public class KGAgent {
 	}
 
 	public AnswerBean getAnswer() {
-
+		Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> enter into getAnswer() ");
 		AnswerBean answerBean = new AnswerBean();
 		if (Tool.isStrEmptyOrNull(nerBean.getOldSentence()) || CharUtil.isNumberFormat(nerBean.getOldSentence())) {
 			System.err.println("PMP.getAnswer: input is empty or is in wrong format");
@@ -162,6 +163,7 @@ public class KGAgent {
 			System.out.println("bean retuned by intention = " + answerBean);
 			return answerBean;
 		} else {
+			Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> before enter into the method answerProcess() ");
 			answerBean = answerProcess(answerBean);
 		}
 		
@@ -553,7 +555,8 @@ public class KGAgent {
 		// NLPProcess.NLPProcessInit();
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
-		String str = "你知道格里兹曼是谁吗？";
+		TemplateEntry.TemplateEntryInit();
+		String str = "对啊，所以刚刚说宇石最喜欢吃，那就是我喜欢吃";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");
