@@ -37,6 +37,7 @@ public class KGAgent {
 		String requestScore = cuBean.getScore();
 		double questionScore = 0;
 		uniqueID = cuBean.getUniqueID();
+		Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> enter into KGAgent, the uniqueID is:" + uniqueID+"********");
 		boolean isRewrite = cuBean.isRewrite() ? true: false;
 		if (Tool.isStrEmptyOrNull(uniqueID)) {
 			uniqueID = "0";
@@ -53,8 +54,6 @@ public class KGAgent {
 		}
 		// System.err.println("questionType="+questionType+", debugFlag =
 		// "+debugFlag);
-
-		Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> enter into KGAgent, the cuBean is:" + cuBean.toString());
 
 		if (text == null) {
 			System.err.println("text is null");
@@ -122,9 +121,10 @@ public class KGAgent {
 		// "玛丽和马克思的其他中文名叫什么"
 		// note:"和" is stop word
 		// entitySet = getEntity(NLPProcess.removeStopWord(userSentence));
-
+		Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> before enter into EntityRecogizer, the uniqueID is:" + uniqueID+"********");
 		EntityRecognizer entityActor = new EntityRecognizer(nerBean);
 		nerBean = entityActor.updateNERBean();
+		Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> after return EntityRecogizer, the uniqueID is:" + uniqueID+"********");
 		entitySet = nerBean.getEntitySet();
 		userSentence = nerBean.getSentence();
 		System.out.println("TIME 4 - get entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
@@ -132,7 +132,7 @@ public class KGAgent {
 	}
 
 	public AnswerBean getAnswer() {
-		Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> enter into getAnswer() ");
+		Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> enter into getAnswer() and the uniqueID is:"+ uniqueID);
 		AnswerBean answerBean = new AnswerBean();
 		if (Tool.isStrEmptyOrNull(nerBean.getOldSentence()) || CharUtil.isNumberFormat(nerBean.getOldSentence())) {
 			System.err.println("PMP.getAnswer: input is empty or is in wrong format");
@@ -146,16 +146,20 @@ public class KGAgent {
 		}
 		
 		//filter some bad case about the sentence 
+		Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> enter into new QuestionFilter(nerBean) and the uniqueID is:"+ uniqueID);
 		QuestionFilter questionFilter = new QuestionFilter(nerBean);
 		answerBean = questionFilter.filterSentence();
+		Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> after returnquestionFilter.filterSentence() and the uniqueID is:"+ uniqueID);
 		
 		if(answerBean.isValid()){
 			System.out.println("bean retuned by filter = " + answerBean);
 			return answerBean;
 		}else{
 			// Intention Process
+			Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> before enter into IntentionClassifier() and the uniqueID is:"+ uniqueID);
 			IntentionClassifier intention = new IntentionClassifier(nerBean);
 			answerBean = intention.intentionProcess();
+			Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> after return IntentionClassifier() and the uniqueID is:"+ uniqueID);
 		}
 		
 		if (answerBean.isValid()) {

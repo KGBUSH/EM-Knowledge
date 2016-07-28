@@ -13,7 +13,7 @@ public class QuestionFilter {
 	}
 	
 	public AnswerBean filterSentence(){
-		Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "QuestionFilter >>>>>> enter into filterSentence() ");
+		Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "QuestionFilter >>>>>> enter into filterSentence() and uniqueId is "+ nerBean.getUniqueID());
 		AnswerBean answerBean = new AnswerBean();
 		
 		String sentence = nerBean.getSentence();
@@ -30,7 +30,7 @@ public class QuestionFilter {
 			answerBean.setValid(true);
 			return answerBean.returnAnswer(answerBean);
 		}
-		Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "QuestionFilter >>>>>> return filterSentence() ");
+		Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "QuestionFilter >>>>>> return filterSentence() and uniqueId is " + nerBean.getUniqueID());
 		return answerBean;
 	}
 	

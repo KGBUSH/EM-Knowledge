@@ -37,12 +37,14 @@ public class IntentionClassifier {
 	// input: the question sentence from users,"姚明身高是多少"
 	// output: the answer without answer rewriting, “226cm”
 	public AnswerBean intentionProcess() {
+		
 		String sentence = nerBean.getSentence();
 		List<String> entitySet = nerBean.getEntitySet();
 		String uniqueID = nerBean.getUniqueID();
 //		boolean hasNewsFromFunction = false;
 		AnswerBean answerBean = new AnswerBean();
 //		ParseJson parseJson = new ParseJson();
+		Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> enter into intentionProcess() and uniqueID is"+ uniqueID +"and another id is "+nerBean.getUniqueID());
 		if (Tool.isStrEmptyOrNull(sentence)) {
 			System.err.println("PMP.getAnswer: input is empty");
 			return answerBean.returnAnswer(answerBean);
@@ -55,6 +57,7 @@ public class IntentionClassifier {
 		
 		//deal with the sentence returned by rewrite
 		if(isSentenceByRewrite(sentence)){
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_1 deal with sentence with rewrite");
 			String stringRewritePart = sentence.substring(sentence.indexOf(":") + 1, sentence.indexOf("]")).trim();
 			if(Tool.isStrEmptyOrNull(stringRewritePart)){
 				answerBean.setValid(true);
@@ -63,10 +66,12 @@ public class IntentionClassifier {
 				//more than one label 
 				if(stringRewritePart.contains("##")){
 					//小说##电视剧
+					Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_1 more than one label: "+stringRewritePart);
 					String[] strList = stringRewritePart.split("##");
 					labelListForRewritePart.add(NLPUtil.getLabelByDomainChineseName(strList[0]));
 					labelListForRewritePart.add(NLPUtil.getLabelByDomainChineseName(strList[1]));
 				}else {
+					Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_1 only one label" + stringRewritePart);
 					labelListForRewritePart.add(NLPUtil.getLabelByDomainChineseName(stringRewritePart));
 				}
 			}
@@ -75,6 +80,7 @@ public class IntentionClassifier {
 			
 			if(labelListForRewritePart.size() == 1){
 				String result = DBProcess.getEntityIntroduction(entitySet.get(0),labelListForRewritePart.get(0));
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_1 label list = 1, get introduction context: "+ result);
 				if(result.contains("。"))
 					result = result.substring(0, result.indexOf("。"));
 				String resultAdded = "";
@@ -109,6 +115,7 @@ public class IntentionClassifier {
 				answerBean.setScore(100);
 				return answerBean.returnAnswer(answerBean);
 			}else if(labelListForRewritePart.size() == 2){
+				
 				String result1 = DBProcess.getEntityIntroduction(entitySet.get(0),labelListForRewritePart.get(0));
 				String result2 = DBProcess.getEntityIntroduction(entitySet.get(0),labelListForRewritePart.get(1));
 				if (result1.contains("。"))
@@ -116,6 +123,7 @@ public class IntentionClassifier {
 				if (result2.contains("。"))
 					result2 = result2.substring(0, result2.indexOf("。"));
 				String result = Tool.combineTwoResult(result1, result2);
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_1 label list = 2, get the result: "+ result);
 				answerBean.setAnswer(result);
 				answerBean.setScore(100);
 				return answerBean.returnAnswer(answerBean);
@@ -129,6 +137,7 @@ public class IntentionClassifier {
 		if (entitySet.size() == 1 && entitySet.get(0).equals(sentence)) {
 			// synonym case that is a high frequent word, do not answer this
 			// kind of entity
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_2 enter into the single entity case");
 			if (!sentence.equals(nerBean.getOldSentence()) && NLPUtil.isInHighFrequentDict(nerBean.getOldSentence())) {
 				answerBean.setValid(true);	// set valid then the answer will be returned
 				return answerBean.returnAnswer(answerBean);
@@ -216,6 +225,7 @@ public class IntentionClassifier {
 			answerBean.setAnswer(tempStrIntroduce);
 			
 			if (NLPUtil.isInDomainWhiteListDict(tempLabel)) {
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_2 the label is in whiteList "+ tempLabel);
 				answerBean.setScore(100);
 			} else {
 				// change the score after the decision of the topic for solo entity
@@ -230,6 +240,7 @@ public class IntentionClassifier {
 
 		// move the process of introduction question to intention process
 		if (entitySet.size() == 1) {
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_3 enter into the introduction with domain ");
 			String tempEntity = entitySet.get(0);
 			if(!NLPUtil.isDBEntity(tempEntity) && NLPUtil.isASynonymEntity(tempEntity)){
 				tempEntity = NLPUtil.getEntitySynonymNormal(tempEntity).get(0);
@@ -269,10 +280,12 @@ public class IntentionClassifier {
 			System.out.println("the label of entity "+ tempEntity + " is " + listLabel);
 			if(!listLabel.isEmpty()){
 				//可优化的地方
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_3 labellist are "+ listLabel);
 				for(String label : listLabel){
 					if(NLPUtil.isIntroductionDomainTable(label)){
 						boolean isIntroductionByDomain = QuestionClassifier.isIntroductionRequestByDomain(label, NLPUtil.removePunctuateMark(NLPUtil.removeMoodWord(tempEntity, sentence)), tempEntity);
 						if(isIntroductionByDomain){
+							Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_3 sentence  "+ sentence +" with label " + label + "is introductionSentence!");
 							System.out.println("enter into introduction_domain method----------------");
 							String strIntroduceByDomain = DBProcess.getEntityIntroduction(tempEntity,label);
 							if(strIntroduceByDomain.contains("。"))
@@ -300,10 +313,13 @@ public class IntentionClassifier {
 //											strIntroduceByDomain = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
 //										}
 //									}
+									Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_3 label in the pm given and get the reasultAdded:  "+ resultAdded);
 								}else {
+									Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_3 label"+ label + "does't get the the relation or properties then add the 万金油! ");
 									strIntroduceByDomain = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
 								}
 							}else {
+								Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_3 label does not contains in the label pm given! "+ label);
 								strIntroduceByDomain = answerRewite.rewriteAnswer4Intro(strIntroduceByDomain);
 							}
 							if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
@@ -315,11 +331,13 @@ public class IntentionClassifier {
 							answerBean.setScore(100);
 							answerBean.setAnswer(strIntroduceByDomain);
 							System.out.println("intentionProcess intro 3: the returned anwer is " + answerBean.toString());
+							Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_3 get the result about label "+ label + "is and sentence "+ sentence + "is " + strIntroduceByDomain);
 							return answerBean.returnAnswer(answerBean);
 						}
 					}
 				}
 			}else {
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_3 labellist are null");
 				System.err.println("labellist of entity" +tempEntity+" is null");
 				return answerBean;
 			}
@@ -330,12 +348,14 @@ public class IntentionClassifier {
 				/**
 				 * 开始处理rewrite 的多义词情况。
 				 */
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_4 enter into  general introduction judgement!");
 				List<String> labelList = NLPUtil.getLabelListByEntity(tempEntity);
 				
 				List<String> finalLabelList2 = getFinalLabelListOfCase1(labelList);
 				
 				// judge whether labelListResult contains more than one label
 				if (finalLabelList2.size() > 1) {
+					Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_4 deal with 多义词反问 case and labellist are "+ finalLabelList2);
 					System.out.println("enter into general introduction method-------");
 					return getAnswerOfCase1(finalLabelList2);
 				}
@@ -354,6 +374,7 @@ public class IntentionClassifier {
 				
 				String resultAdded = "";
 				if(NLPUtil.isContainsInDomainNeededToRewrite(tempLabel)){
+					Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_4 label contains in PM given! label is "+ tempLabel );
 					List<String> listquestions = getRelationOrPropertyByEntityAndConvertToSentence(tempEntity,tempLabel);
 					if(!listquestions.isEmpty()){
 						// generate random number [0,listquestions.size()]
@@ -371,6 +392,7 @@ public class IntentionClassifier {
 						strIntroduce = answerRewite.rewriteAnswer4Intro(strIntroduce);
 					}
 				}else {
+					Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_4 label does not contains in PM given! label is "+ tempLabel);
 					strIntroduce = answerRewite.rewriteAnswer4Intro(strIntroduce);
 				}
 				if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
