@@ -30,4 +30,4 @@ cd sentiment
 cd ..
 # Start the service
 # java -cp target/WebController-0.1-jar-with-dependencies.jar  -Ddebug.conf=$EWEB_DEBUG_FILE com.emotibot.webController.WebController $EWEB_CU_ADDR $EWEB_RC_ADDR $EWEB_PORT
-java -cp target/KnowledgeGraph-0.0.1.jar -Ddebug.conf=$EWEB_DEBUG_FILE  com.emotibot.WebService.WebServer $EWEB_RS_KG_PORT
+java -cp target/KnowledgeGraph-0.0.1.jar -Ddebug.conf=config/emotibot_debug_conf.properties com.emotibot.WebService.WebServer $EWEB_RS_KG_PORT
