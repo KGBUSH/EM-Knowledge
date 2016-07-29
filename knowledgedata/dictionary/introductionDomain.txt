@@ -2,4 +2,4 @@ anime
 figure
 movie
 novel
-TV
+tv
