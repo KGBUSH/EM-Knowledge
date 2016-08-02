@@ -97,9 +97,18 @@ public class CommonUtil {
 		return entity;
 	}
 	
+	//parse entity in sentence like “你想知道王俊凯的代表作品吗”
+	//return 炎亚纶
+	public static String getIntentPartInSentence(String sentence){
+		String intent = "";
+		intent = sentence.substring(sentence.indexOf("你想知道") + 4, sentence.lastIndexOf("吗"));
+		System.out.println("the intent in " + sentence + "is " + intent);
+		return intent;
+	}
+		
 	public static void main(String [] args){
 		
-		System.out.println(parseEntityInSentence("你想知道终极一班的主演之一炎亚纶最近的新闻吗"));
+		System.out.println(getIntentPartInSentence("你想知道王俊凯的代表作品吗"));
 //		JSONArray jsonArray = jsObj.getJSONArray("result");
 //		System.out.println(jsObj);
 //		System.out.println(json);

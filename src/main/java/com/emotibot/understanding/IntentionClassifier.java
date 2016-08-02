@@ -103,7 +103,7 @@ public class IntentionClassifier {
 				}
 				if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
 					result = Tool.combineTwoResult(result, resultAdded);
-					answerBean.setIntent(resultAdded);
+					answerBean.setIntent(CommonUtil.getIntentPartInSentence(resultAdded));
 					answerBean.setIntent(true);
 				}
 				answerBean.setAnswer(result);
@@ -213,7 +213,7 @@ public class IntentionClassifier {
 			}
 			if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
 				tempStrIntroduce = Tool.combineTwoResult(tempStrIntroduce, resultAdded);
-				answerBean.setIntent(resultAdded);
+				answerBean.setIntent(CommonUtil.getIntentPartInSentence(resultAdded));
 				answerBean.setIntent(true);
 			}
 			
@@ -319,7 +319,7 @@ public class IntentionClassifier {
 							}
 							if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
 								strIntroduceByDomain = Tool.combineTwoResult(strIntroduceByDomain, resultAdded);
-								answerBean.setIntent(resultAdded);
+								answerBean.setIntent(CommonUtil.getIntentPartInSentence(resultAdded));
 								answerBean.setIntent(true);
 							}
 							
@@ -392,7 +392,7 @@ public class IntentionClassifier {
 				}
 				if(!resultAdded.isEmpty() &&!resultAdded.equals("")){
 					strIntroduce = Tool.combineTwoResult(strIntroduce, resultAdded);
-					answerBean.setIntent(resultAdded);
+					answerBean.setIntent(CommonUtil.getIntentPartInSentence(resultAdded));
 					answerBean.setIntent(true);
 				}
 				answerBean.setScore(100);
