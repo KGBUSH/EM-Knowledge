@@ -1,16 +1,12 @@
 package com.emotibot.understanding;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.apache.commons.collections.map.HashedMap;
-import org.netlib.util.intW;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
@@ -19,7 +15,6 @@ import com.emotibot.common.Common;
 import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.template.TemplateEntry;
 import com.emotibot.util.Tool;
-import com.sun.tools.classfile.Annotation.element_value;
 
 public class IntentionClassifier {
 

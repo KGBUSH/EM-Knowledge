@@ -90,23 +90,24 @@ public class EntityRecognizer {
 					return rsEntity;
 				}
 			} else {
-				List<String> solrEntity = getEntityBySolr(sentence, null, nerBean.getSegWordWithoutStopWord());
-				System.out.println("\t solrEntity without entity input=" + solrEntity);
-				
-				if(!QuestionClassifier.isRelationshipQuestion(sentence) && !solrEntity.isEmpty()){
-					rsEntity.add(solrEntity.get(0));
-					System.out.println("case: 3: rsEntity=" + rsEntity);
-					Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognizer >>>>>> return getEntityPro() case: 3: rsEntity=" + rsEntity);
-					return rsEntity;
-				}
+//				List<String> solrEntity = getEntityBySolr(sentence, null, nerBean.getSegWordWithoutStopWord());
+//				System.out.println("\t solrEntity without entity input=" + solrEntity);
+//				
+//				if(!QuestionClassifier.isRelationshipQuestion(sentence) && !solrEntity.isEmpty()){
+//					rsEntity.add(solrEntity.get(0));
+//					System.out.println("case: 3: rsEntity=" + rsEntity);
+//					Debug.printDebug(uniqueID, 3, "knowledge", "EntityRecognizer >>>>>> return getEntityPro() case: 3: rsEntity=" + rsEntity);
+//					return rsEntity;
+//				}
+				return rsEntity;
 			}
 			
-			List<String> nlpEntity = getEntityByNLP(nerBean.getSegPos(), sentence);
-			if(!nlpEntity.isEmpty()){
-				System.out.println("\t simpleMatchingEntity=" + simpleMatchEntity + "\n\t nlpEntity=" + nlpEntity);
-				LogService.printLog("", "getEntityPro", "nlpEntity=" + nlpEntity, "entityTest");
-			}
-			return rsEntity;
+//			List<String> nlpEntity = getEntityByNLP(nerBean.getSegPos(), sentence);
+//			if(!nlpEntity.isEmpty()){
+//				System.out.println("\t simpleMatchingEntity=" + simpleMatchEntity + "\n\t nlpEntity=" + nlpEntity);
+//				LogService.printLog("", "getEntityPro", "nlpEntity=" + nlpEntity, "entityTest");
+//			}
+//			return rsEntity;
 		}
 
 	// identify the entities in a sentence by SimpleMatching, NLP, Solr
