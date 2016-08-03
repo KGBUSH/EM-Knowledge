@@ -1,10 +1,10 @@
-﻿medical_treatment,^#^英文^怎么/咋^说/读/念^;#的英文名称是什么？
+medical_treatment,^#^英文^怎么/咋^说/读/念^;#的英文名称是什么？
 medical_treatment,^#^诊室/科室/科^;#的就诊科室是哪个？
 medical_treatment,^诊室/科室/科^#^;#的就诊科室是哪个？
 medical_treatment,^挂^科/号^#^;#的就诊科室是哪个？
 medical_treatment,^#^挂^科/号^;#的就诊科室是哪个？
-medical_treatment,^为什么/为啥/怎么^#^;#的常见病因有什么？
-medical_treatment,^#^为什么/为啥/怎么^;#的常见病因有什么？
+medical_treatment,^为什么/为啥^#^;#的常见病因有什么？
+medical_treatment,^#^为什么/为啥;#的常见病因有什么？
 medical_treatment,^#^原因/情况^;#的常见病因有什么？
 medical_treatment,^原因/情况^#^;#的常见病因有什么？
 medical_treatment,^#^怎样/什么感觉/怎么样/什么表现^;#的常见症状有什么？

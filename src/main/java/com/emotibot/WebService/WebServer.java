@@ -26,6 +26,7 @@ import org.eclipse.jetty.servlet.ServletHandler;
 import com.emotibot.Debug.Debug;
 import com.emotibot.config.ConfigManager;
 import com.emotibot.dictionary.DictionaryBuilder;
+import com.emotibot.interfaceForModel.SceneDao;
 import com.emotibot.log.LogService;
 import com.emotibot.nlpparser.SimpleKnowledgeGetAnwer;
 import com.emotibot.template.TemplateEntry;
@@ -84,7 +85,7 @@ public class WebServer {
 		handler.addServletWithMapping(KGServletJson.class, "/json");
 		handler.addServletWithMapping(DialogueControlInvoke.class, "/web");
 		handler.addServletWithMapping(Memory.class, "/memory/rest/query/get");
-
+		handler.addServletWithMapping(Scene.class, "/scene/query/get");
 		// Start things up!
 		server.start();
 
@@ -128,6 +129,47 @@ public class WebServer {
 		        String label = "figure";
                 String result=DBProcess.getPropertyValue(label, personName, key);
 				result_obj.put("result", result);
+				out.println(result_obj);
+			} catch (Exception e) {
+				result_obj.put("Exception", e.getMessage());
+				out.println(result_obj);
+			}
+		}
+	}
+	
+	@SuppressWarnings("serial")
+	public static class Scene extends HttpServlet {
+		@Override
+		protected void doGet(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException {
+			doService(request, response);
+		}
+
+		@Override
+		protected void doPost(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException {
+			doService(request, response);
+		}
+
+		/**
+		 * @param request
+		 * @param response
+		 * @throws IOException
+		 */
+		private void doService(HttpServletRequest request, HttpServletResponse response) throws IOException {
+			response.setStatus(HttpServletResponse.SC_OK);
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/json;charset=utf-8");
+			response.setCharacterEncoding("utf-8");
+			PrintWriter out = response.getWriter();
+			JSONObject result_obj = new JSONObject();
+			try {
+      // http://192.168.1.125:9999/scene/query/get?type=userInfo&operation=query&addressName=杭州&property=著名景点
+				String addressName = request.getParameter("addressName");
+				String pro = request.getParameter("property");
+				SceneDao sceneDao = new SceneDao();
+				List<String> result = sceneDao.getFamousAddressByEntity(addressName, pro);
+				result_obj.put("scenic spot", result);
 				out.println(result_obj);
 			} catch (Exception e) {
 				result_obj.put("Exception", e.getMessage());
