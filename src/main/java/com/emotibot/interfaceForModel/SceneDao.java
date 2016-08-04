@@ -22,12 +22,16 @@ public class SceneDao {
 		}
 		String[] listName = null;
 		String name = DBProcess.getPropertyValue(label, entity, pro);
+		name = name.trim();
+		if(name.contains("等")){
+			name = name.substring(0, name.indexOf("等"));
+		}
 		if(name.contains("，")){
-			listName = name.trim().split("，");
+			listName = name.split("，");
 		}else if(name.contains("、")) {
-			listName = name.trim().split("、");
+			listName = name.split("、");
 		}else {
-			listName = name.trim().split(" ");
+			listName = name.split(" ");
 		}
 		for(String str : listName){
 			result.add(str);
