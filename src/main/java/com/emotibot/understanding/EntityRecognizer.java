@@ -410,6 +410,28 @@ public class EntityRecognizer {
 		return rtList;
 	}
 
+	public void checkAndRemovebadSplittedNer(List<String> EntitySet,List<String> SegWord){//chanwen added 2016-08-03
+		Iterator<String> iterator1 = EntitySet.iterator();
+		while (iterator1.hasNext()) {
+			String s1 = (String) iterator1.next();
+			int mark1 = 0;
+			int mark2 = 0;
+			Iterator<String> iterator2 = SegWord.iterator();
+			while (iterator2.hasNext()) {
+				String s2 = (String) iterator2.next();
+				if(s1!=null&&s2!=null&&s1.length()>=s2.length())
+				{
+					if(s2.equals(s1.substring(0, s2.length())))
+						mark1 = 1;
+					if(s2.equals(s1.substring(s1.length()-s2.length(), s1.length())))
+						mark2 = 1;
+				}
+			}
+			if(mark1 == 0 || mark2 == 0)
+				iterator1.remove();
+		}
+	}
+
 	// return the set of entity which is contained in the input sentence
 	// TBD: improve the performance after 4/15
 	// input: 姚明和叶莉的女儿是谁？
@@ -459,6 +481,15 @@ public class EntityRecognizer {
 		entitySet = NLPUtil.removeRemoveableEntity(entitySet);
 		System.out.println("simple matching entities after removal: " + entitySet.toString());
 		entitySet = sortByIndexOfSentence(sentence, entitySet);
+		
+		List<String> segWordList = new ArrayList<>();
+		List<Term> segPos = nerBean.getSegPos();
+
+		for (int i = 0; i < segPos.size(); i++) {
+			String segWord = segPos.get(i).word;
+			segWordList.add(segWord);
+		}
+	    checkAndRemovebadSplittedNer(entitySet, segWordList);
 
 		List<String> rsSet = new ArrayList<>();
 		for (String s : entitySet) {
@@ -472,6 +503,8 @@ public class EntityRecognizer {
 		System.out.println("the macthed entities are: " + rsSet.toString());
 		return rsSet;
 	}
+
+	
 
 	// return the entity by Solr method
 	// input: the sentence from user, "姚明身高多少"
