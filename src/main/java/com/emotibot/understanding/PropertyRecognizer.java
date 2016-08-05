@@ -133,7 +133,7 @@ public class PropertyRecognizer {
 			}
 			
 			//solve 名字抢答 这类case
-			if(answer.equals(entity)){
+			if(answer.trim().equals(entity)){
 				System.out.println("remove the prop: "+ prop +" and answer: "+ answer);
 				return answerBean;
 			}
