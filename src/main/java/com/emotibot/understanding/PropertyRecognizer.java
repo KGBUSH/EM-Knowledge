@@ -131,6 +131,13 @@ public class PropertyRecognizer {
 			if (answer.isEmpty()) {
 				answer = DBProcess.getPropertyValue(label, entity, prop, entityKey);
 			}
+			
+			//solve 名字抢答 这类case
+			if(answer.equals(entity)){
+				System.out.println("remove the prop: "+ prop +" and answer: "+ answer);
+				return answerBean;
+			}
+			
 			answerBean.setAnswer(answer);
 			answerBean.setProperty(prop);
 			// answerBean.setValid(true);
