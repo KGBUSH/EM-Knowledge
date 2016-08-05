@@ -624,8 +624,15 @@ public class PropertyRecognizer {
 					"wrong format in SinglePatternMatching: strProperty=" + strProperty + ", candidate" + candidate);
 			return isPass;
 		}
+		
+		if (strProperty.equals(candidate)) {
+			rsMap.put(strProperty, 5);
+			isPass = true;
+		} else {
+			rsMap.put(strProperty, Integer.MIN_VALUE);
+		}
 
-		if (strProperty.length() == 1 || candidate.length() == 1) {
+		/*if (strProperty.length() == 1 || candidate.length() == 1) {
 			if (strProperty.equals(candidate)) {
 				rsMap.put(strProperty, 5);
 				isPass = true;
@@ -724,7 +731,7 @@ public class PropertyRecognizer {
 		if (left2right >= 0 && right2left >= 0 && rsMap.get(strProperty) != 5) {
 			LogService.printLog("", "SinglePatternMatching", "strProperty=" + strProperty + ", candidate=" + candidate
 					+ ", left=" + left2right + ", right=" + right2left);
-		}
+		}*/
 
 		return isPass;
 	}
