@@ -221,6 +221,7 @@ public class PropertyRecognizer {
 				if (NLPUtil.isInSynonymDict(prop)) {
 					for (String s : NLPUtil.getSynonymWordSet(prop)) {
 						if (relationMap.containsKey(s)) {
+							prop = s;
 							furtherSeach = true;
 							break;
 						}
@@ -252,6 +253,8 @@ public class PropertyRecognizer {
 			}
 
 			if (!isTemplate && furtherSeach == true) {
+				//地理位置 在判断是否在ralationship 里的时候通过同义词转换后没有替换为 所属地区，导致在这里获取的时候没有找到 
+				// ######### bug #########
 				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, relationMap.get(prop),
 						entityKey);
 				String newDBEntity = (String) tmpMap.get(Common.KGNODE_NAMEATRR);
@@ -928,7 +931,8 @@ public class PropertyRecognizer {
 				Set<String> setSyn = NLPUtil.getSynonymWordSet(iProp);
 				// Set<String> setSyn = getSynonymSetOfProperty(iProp);
 				for (String iSyn : setSyn) {
-					rsMap.put(iSyn, iProp);
+					if(iSyn.length() > 2)
+						rsMap.put(iSyn, iProp);
 				}
 			}
 		}
