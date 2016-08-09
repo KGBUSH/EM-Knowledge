@@ -160,7 +160,7 @@ public class DictionaryBuilder {
 	}
 
 	// create synonym reference hash map table: Map<id, List of Synonym>
-	// format: ["海拔",<海拔，标高>]
+	// format: ["Za10052",<海拔，标高>]
 	private static HashMap<String, List<String>> createSynonymTableRef() {
 		System.err.println("init of createSynonymTableRef");
 		HashMap<String, List<String>> syn = new HashMap<>();
