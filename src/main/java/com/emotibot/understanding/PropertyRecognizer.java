@@ -931,8 +931,7 @@ public class PropertyRecognizer {
 				Set<String> setSyn = NLPUtil.getSynonymWordSet(iProp);
 				// Set<String> setSyn = getSynonymSetOfProperty(iProp);
 				for (String iSyn : setSyn) {
-					if(iSyn.length() > 2)
-						rsMap.put(iSyn, iProp);
+					rsMap.put(iSyn, iProp);
 				}
 			}
 		}
