@@ -7,22 +7,22 @@ SelectiveQuestion;^&会不会&^||SelectiveQuestion@:会不会
 RelationshipQuestion;^&关系&^||RelationshipQuestion@:1
 RelationshipQuestion;^&联系&^||RelationshipQuestion@:2
 ImplicationQuestion;^&多久/多长时间/几年/多少年||ImplicationQuestion@:computeYear
-IntroductionQuestion;[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]&#&是/指&何人/谁/哪位/啥/什么^||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;#&是/指&何人/谁/哪位/啥/什么&[意思/含义]&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]&谁/哪位/何人/啥/什么&是/叫/叫做&#||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;谁/哪位/何人/啥/什么&是/叫/叫做&#&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]&#&[又]&是/指&啥/什么^||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;#&[又]&是/指&啥/什么&[意思/含义]&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]&啥/什么&是/叫/叫做&#||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;啥/什么&是/叫/叫做&#&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;#&知不知道/可知道/知道/认识/了解/认不认识/了不了解/看过/读过/看没看过/读没读过/听说过||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;知不知道/可知道/知道/认识/了解/认不认识/了不了解/看过/读过/看没看过/读没读过/听说过&#||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;#&资料/信息/介绍/简介||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;^&你/小影/那/那么/那你/请问&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]&#&是/指&何人/谁/哪位||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;^&#&是/指&何人/谁/哪位/啥/什么&[意思/含义/东西]&你/小影/那/那么/那你/请问&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;^&你/小影/那/那么/那你/请问&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]&何人/谁/哪位/啥/什么&是/叫/叫做&#||IntroductionQuestion@:firstParamInfo
-IntroductionQuestion;^&何人/谁/哪位/啥/什么&是/叫/叫做&#&你/小影/那/那么/那你/请问&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;#&[的]&资料/信息/介绍/简介||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;^&#&是/指&啥/什么&[意思/含义/东西]&你/小影/那/那么/那你/请问&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;^&你/小影/那/那么/那你/请问&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]&啥/什么&是/叫/叫做&#||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;^&啥/什么&是/叫/叫做&#&你/小影/那/那么/那你/请问&[知不知道/可知道/知道/认识/了解/认不认识/了不了解/听说过]||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&你/小影/那/那么/那你/请问&知不知道/可知道/知道/认识/了解/认不认识/了不了解/看过/读过/看没看过/读没读过/听说过&#&||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;^&#&你/小影/那/那么/那你/请问&知不知道/可知道/知道/认识/了解/认不认识/了不了解/看过/读过/看没看过/读没读过/听说过||IntroductionQuestion@:firstParamInfo
 IntroductionQuestion;你/小影/那你/那/那么/请问&[知不知道/可知道/知道/了解/了不了解/听说过]&#&是/指&什么/啥&^||IntroductionRequest@:firstParamInfo
-IntroductionQuestion;^&解释/介绍/告诉我&[一下/下]&^&#&^&||IntroductionSentence@:firstParamInfo
+IntroductionQuestion;^&解释/介绍/告诉我&[一下/下]&#&^&||IntroductionSentence@:firstParamInfo
 IntroductionQuestion;^&要/给&^&#&[的]&资料/信息/介绍/简介||IntroductionQuestion@:firstParamInfo
+IntroductionQuestion;我想知道&#||IntroductionQuestion@:firstParamInfo
 
 
 
