@@ -1,5 +1,9 @@
 package com.emotibot.understanding;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -26,6 +30,39 @@ public class PropertyRecognizer {
 	public PropertyRecognizer(NERBean bean) {
 		nerBean = bean;
 	}
+	
+	//from intention model. judge whether a sentence is a 'knowledge' sentence
+		//chanwen added in 20160811
+			public boolean isKnowledgeSentence(String sentence){
+				String urlStr = "http://192.168.1.126:13101/?q="+sentence;
+				URL url = null;              
+			    //HttpURLConnection httpConn = null;            
+			    BufferedReader in = null;   
+			    StringBuffer sb = new StringBuffer();   
+			    try{     
+			     url = new URL(urlStr);     
+			     in = new BufferedReader( new InputStreamReader(url.openStream(),"UTF-8") );   
+			     String str = null;    
+			     while((str = in.readLine()) != null) {    
+			      sb.append( str );     
+			            }     
+			        } catch (Exception ex) {   
+			            
+			        } finally{    
+			         try{             
+			          if(in!=null) {  
+			           in.close();     
+			                }     
+			            }catch(IOException ex) {      
+			            }     
+			        }     
+			        String result =sb.toString();     
+			        if(result.equals("2: Knowledge"))
+			        	return true;
+			        else
+			        	return false;
+		}
+
 
 	// Multi-level Reasoning Understanding
 	protected AnswerBean ReasoningProcess(String sentence, String label, String entity, AnswerBean answerBean,
@@ -200,8 +237,11 @@ public class PropertyRecognizer {
 				System.out.println("teamplate case: return case 1");
 				return ReasoningProcess(templateSentence, label, entity, answerBean, entityKey, true);
 			}
-
+			if (!isTemplate &&!isKnowledgeSentence(sentence))
+				answerBean.setScore(0);
+				
 			System.out.println("\t EndOfRP  @@ return case 1, answer=" + answerBean);
+			
 			return answerBean.returnAnswer(answerBean);
 
 		} else {
@@ -292,6 +332,8 @@ public class PropertyRecognizer {
 				System.out.println("teamplate case: return case 2");
 				return ReasoningProcess(templateSentence, label, entity, answerBean, entityKey, true);
 			}
+			if (!isTemplate &&!isKnowledgeSentence(sentence))
+				answerBean.setScore(0);
 
 			return answerBean.returnAnswer(answerBean);
 
@@ -628,14 +670,14 @@ public class PropertyRecognizer {
 			return isPass;
 		}
 		
-		if (strProperty.equals(candidate)) {
+		/*if (strProperty.equals(candidate)) {
 			rsMap.put(strProperty, 5);
 			isPass = true;
 		} else {
 			rsMap.put(strProperty, Integer.MIN_VALUE);
-		}
+		}*/
 
-		/*if (strProperty.length() == 1 || candidate.length() == 1) {
+		if (strProperty.length() == 1 || candidate.length() == 1) {
 			if (strProperty.equals(candidate)) {
 				rsMap.put(strProperty, 5);
 				isPass = true;
@@ -734,7 +776,7 @@ public class PropertyRecognizer {
 		if (left2right >= 0 && right2left >= 0 && rsMap.get(strProperty) != 5) {
 			LogService.printLog("", "SinglePatternMatching", "strProperty=" + strProperty + ", candidate=" + candidate
 					+ ", left=" + left2right + ", right=" + right2left);
-		}*/
+		}
 
 		return isPass;
 	}
