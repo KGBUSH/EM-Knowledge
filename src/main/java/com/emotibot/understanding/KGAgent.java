@@ -134,7 +134,7 @@ public class KGAgent {
 	public AnswerBean getAnswer() {
 		Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>> enter into getAnswer() and the uniqueID is:"+ uniqueID);
 		AnswerBean answerBean = new AnswerBean();
-		if (Tool.isStrEmptyOrNull(nerBean.getOldSentence()) || CharUtil.isNumberFormat(nerBean.getOldSentence())) {
+		if (Tool.isStrEmptyOrNull(nerBean.getOldSentence()) || CharUtil.isNumberFormat(nerBean.getOldSentence())||nerBean.getEntitySet().isEmpty()) {
 			System.err.println("PMP.getAnswer: input is empty or is in wrong format");
 			return answerBean.returnAnswer(answerBean);
 		}
@@ -175,7 +175,7 @@ public class KGAgent {
 		System.out.println("pre score==="+score);
 		// if it is not a question, then lower the score of the answer
 		// since if there is another answer from other module, the answer from KG with lower score will not be selected
-		if(nerBean.getQuestionScore() < 5 && !nerBean.isRewrite()){
+		if(nerBean.getQuestionScore() < 5){
 			score = 0;
 		}
 		
@@ -560,7 +560,7 @@ public class KGAgent {
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
 		TemplateEntry.TemplateEntryInit();
-		String str = "对啊，所以刚刚说宇石最喜欢吃，那就是我喜欢吃";
+		String str = "曹操是谁？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");
