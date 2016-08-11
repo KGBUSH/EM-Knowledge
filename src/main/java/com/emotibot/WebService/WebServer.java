@@ -205,7 +205,7 @@ public class WebServer {
 			PrintWriter out = response.getWriter();
 			try {
 				int flag = 0;
-				boolean isRewrite = false;
+//				boolean isRewrite = false;
 				String text = request.getParameter("t");
 				String textAfterRewrite = request.getParameter("t1");
 				String questionType = request.getParameter("questionType");
@@ -216,37 +216,37 @@ public class WebServer {
 				Debug.printDebug(uniqId, 3, "knowledge", "knowedge doService request=" + request.toString());
 				System.err.println("text1="+text);
 
-				if(textAfterRewrite != null && textAfterRewrite.length() > 0){
-					System.out.println(System.currentTimeMillis()+">>>>>>>>>>>>>>>>>start");
-					if((textAfterRewrite.contains("[Rewrite:") || textAfterRewrite.contains("[rewrite:"))&&textAfterRewrite.endsWith("]")){
-						text = textAfterRewrite;
-						isRewrite = true;
-					}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("(我?想[啊的呢要]*)")&&textAfterRewrite.length() > 3) {
-						text = textAfterRewrite;
-						isRewrite = true;
-					}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("((是|想|要|会|行|对|好|太好|很好|这么好|可以|不错|没错|讲真|必须|当然|被你发现了|有|说)+(啊|呢|呀|啦|了|哒|哦|耶|的|吧)*)|((嗯|恩)+呢*)|(那当然)|(来(一发)?[吧呀]*)")&&textAfterRewrite.length() > 3) {
-						text = textAfterRewrite;
-						isRewrite = true;
-					}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("(谁[啊哈吧呀]*)|(你说是谁)|([他她]?是谁[啊]?)")&&textAfterRewrite.length() > 3) {
-						text = textAfterRewrite;
-						isRewrite = true;
-					}
-					System.out.println(System.currentTimeMillis()+">>>>>>>>>>>>>>>>>begin");
-				}
-				
+//				if(textAfterRewrite != null && textAfterRewrite.length() > 0){
+//					System.out.println(System.currentTimeMillis()+">>>>>>>>>>>>>>>>>start");
+//					if((textAfterRewrite.contains("[Rewrite:") || textAfterRewrite.contains("[rewrite:"))&&textAfterRewrite.endsWith("]")){
+//						text = textAfterRewrite;
+//						isRewrite = true;
+//					}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("(我?想[啊的呢要]*)")&&textAfterRewrite.length() > 3) {
+//						text = textAfterRewrite;
+//						isRewrite = true;
+//					}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("((是|想|要|会|行|对|好|太好|很好|这么好|可以|不错|没错|讲真|必须|当然|被你发现了|有|说)+(啊|呢|呀|啦|了|哒|哦|耶|的|吧)*)|((嗯|恩)+呢*)|(那当然)|(来(一发)?[吧呀]*)")&&textAfterRewrite.length() > 3) {
+//						text = textAfterRewrite;
+//						isRewrite = true;
+//					}else if (text.replaceAll("[\\pP]", "").replace("~", "").matches("(谁[啊哈吧呀]*)|(你说是谁)|([他她]?是谁[啊]?)")&&textAfterRewrite.length() > 3) {
+//						text = textAfterRewrite;
+//						isRewrite = true;
+//					}
+//					System.out.println(System.currentTimeMillis()+">>>>>>>>>>>>>>>>>begin");
+//				}
+//				
 				System.err.println("text2="+text);
 				System.out.println("old text is: "+text + "-------------text after rewrite is: "+textAfterRewrite);
 
 //				LogService.printLog("00", "webservice", text+"###"+scoreStr);
-				if (text != null) {
-					text = text.trim();
+				if (textAfterRewrite != null) {
+					textAfterRewrite = textAfterRewrite.trim();
 					long t = System.currentTimeMillis();
 					CUBean cuBean = new CUBean();
-					cuBean.setText(text);
+					cuBean.setText(textAfterRewrite);
 					cuBean.setQuestionType(questionType);
 					cuBean.setScore(scoreStr);
 					cuBean.setUniqueID(uniqId);
-					cuBean.setRewrite(isRewrite);
+//					cuBean.setRewrite(isRewrite);
 					System.out.println("@@@@@@@@@@@@@@@processing: cuBean=" + cuBean + "\n request=" + request);
 //					AnswerBean bean = new PatternMatchingProcess(cuBean).getAnswer();
 					AnswerBean bean = new KGAgent(cuBean).getAnswer();
