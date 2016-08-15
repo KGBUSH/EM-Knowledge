@@ -35,7 +35,7 @@ public class PropertyRecognizer {
 	// from intention model. judge whether a sentence is a 'knowledge' sentence
 	// chanwen added in 20160811
 	public boolean isKnowledgeSentence(String sentence) {
-		String urlStr = "http://192.168.1.126:13101/?q=" + sentence;
+		String urlStr = Common.IP_NLP_Provide + sentence;
 		URL url = null;
 		int state = -1;
 		// HttpURLConnection httpConn = null;

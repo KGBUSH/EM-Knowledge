@@ -30,6 +30,9 @@ public class Common {
     public static String UserDir=System.getProperty("user.dir");
     
     public static boolean KG_DebugStatus = false;
+    
+    //static ip need to get 
+    public final static String IP_NLP_Provide = "http://192.168.1.126:13101/?q=";
 	////////////Page
     
     /////////////Weka Train File
