@@ -3,6 +3,7 @@ package com.emotibot.understanding;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,39 +31,46 @@ public class PropertyRecognizer {
 	public PropertyRecognizer(NERBean bean) {
 		nerBean = bean;
 	}
-	
-	//from intention model. judge whether a sentence is a 'knowledge' sentence
-		//chanwen added in 20160811
-			public boolean isKnowledgeSentence(String sentence){
-				String urlStr = "http://192.168.1.126:13101/?q="+sentence;
-				URL url = null;              
-			    //HttpURLConnection httpConn = null;            
-			    BufferedReader in = null;   
-			    StringBuffer sb = new StringBuffer();   
-			    try{     
-			     url = new URL(urlStr);     
-			     in = new BufferedReader( new InputStreamReader(url.openStream(),"UTF-8") );   
-			     String str = null;    
-			     while((str = in.readLine()) != null) {    
-			      sb.append( str );     
-			            }     
-			        } catch (Exception ex) {   
-			            
-			        } finally{    
-			         try{             
-			          if(in!=null) {  
-			           in.close();     
-			                }     
-			            }catch(IOException ex) {      
-			            }     
-			        }     
-			        String result =sb.toString();     
-			        if(result.equals("2: Knowledge"))
-			        	return true;
-			        else
-			        	return false;
-		}
 
+	// from intention model. judge whether a sentence is a 'knowledge' sentence
+	// chanwen added in 20160811
+	public boolean isKnowledgeSentence(String sentence) {
+		String urlStr = "http://192.168.1.126:13101/?q=" + sentence;
+		URL url = null;
+		int state = -1;
+		// HttpURLConnection httpConn = null;
+		BufferedReader in = null;
+		StringBuffer sb = new StringBuffer();
+		HttpURLConnection uc = null;
+		try {
+			url = new URL(urlStr);
+			uc = (HttpURLConnection) url.openConnection();
+			uc.setConnectTimeout(1000);
+			uc.setReadTimeout(1000);
+			state = uc.getResponseCode();
+			if (state == 200) {
+				in = new BufferedReader(new InputStreamReader(uc.getInputStream(),
+						"UTF-8"));
+				String str = null;
+				while ((str = in.readLine()) != null) {
+					sb.append(str);
+				}
+				in.close();
+			} else {
+				System.err.println("Connection error in method isKnowledgeSentence");
+				return false;
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			uc.disconnect();
+		}
+		String result = sb.toString();
+		if (result.equals("Knowledge"))
+			return true;
+		else
+			return false;
+	}
 
 	// Multi-level Reasoning Understanding
 	protected AnswerBean ReasoningProcess(String sentence, String label, String entity, AnswerBean answerBean,
