@@ -1,11 +1,13 @@
-db.neo4j.server.ip = 192.168.1.4
+db.neo4j.server.ip = 192.168.1.126
 db.neo4j.server.port = 7474
 db.neo4j.user = neo4j
 db.neo4j.password = 123456
 db.neo4j.drivername = org.neo4j.jdbc.Driver
-index.solr.server.ip=192.168.1.4
-index.solr.server.port=8080
+index.solr.server.ip=192.168.1.126
+index.solr.server.port=8081
 index.solr.server.solrname=kg
 webserver.port=9999
-tcp.server.ip = 192.168.1.4
+tcp.server.ip = 192.168.1.73
 tcp.server.port = 16412
+intent.server.ip = 192.168.1.126
+intent.server.port = 13101
