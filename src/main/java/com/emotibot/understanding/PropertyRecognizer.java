@@ -53,14 +53,14 @@ public class PropertyRecognizer {
 				String line = "";
 				while ((line = dis.readLine()) != null) {
 					if (line.startsWith("intent.server.ip")) {
-						String[] words = CharUtil.trim(line).split(" ");
-						if(words.length >= 3)
-							intentServerIP = words[2];	
+						String[] words = CharUtil.trim(line).split("=");
+						if(words.length >= 2)
+							intentServerIP = CharUtil.trim(words[1]);	
 					}
 					if (line.startsWith("intent.server.port")) {
-						String[] words = CharUtil.trim(line).split(" ");
-						if(words.length >= 3)
-							intentServerPort = words[2];	
+						String[] words = CharUtil.trim(line).split("=");
+						if(words.length >= 2)
+							intentServerPort = CharUtil.trim(words[1]);	
 					}
 				}
 				dis.close();
