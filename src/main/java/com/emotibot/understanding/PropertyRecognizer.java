@@ -1,6 +1,8 @@
 package com.emotibot.understanding;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -17,6 +19,7 @@ import java.util.regex.Pattern;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
+import com.emotibot.common.BytesEncodingDetect;
 import com.emotibot.common.Common;
 import com.emotibot.log.LogService;
 import com.emotibot.template.TemplateEntry;
@@ -35,7 +38,37 @@ public class PropertyRecognizer {
 	// from intention model. judge whether a sentence is a 'knowledge' sentence
 	// chanwen added in 20160811
 	public boolean isKnowledgeSentence(String sentence) {
-		String urlStr = Common.IP_NLP_Provide + sentence;
+		String fileName = Common.UserDir + "/config/KG.property";
+		String intentServerIP = "";
+		String intentServerPort = "";
+		if (!Tool.isStrEmptyOrNull(fileName)) {
+			try {
+				BytesEncodingDetect s = new BytesEncodingDetect();
+				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
+				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+					fileCode = "GB2312";
+				FileInputStream fis = new FileInputStream(fileName);
+				InputStreamReader read = new InputStreamReader(fis, fileCode);
+				BufferedReader dis = new BufferedReader(read);
+				String line = "";
+				while ((line = dis.readLine()) != null) {
+					if (line.startsWith("intent.server.ip")) {
+						String[] words = CharUtil.trim(line).split(" ");
+						if(words.length >= 3)
+							intentServerIP = words[2];	
+					}
+					if (line.startsWith("intent.server.port")) {
+						String[] words = CharUtil.trim(line).split(" ");
+						if(words.length >= 3)
+							intentServerPort = words[2];	
+					}
+				}
+				dis.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		String urlStr = "http://"+ intentServerIP+":"+intentServerPort+"/?q="+ sentence;
 		URL url = null;
 		int state = -1;
 		// HttpURLConnection httpConn = null;
