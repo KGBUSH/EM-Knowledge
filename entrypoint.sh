@@ -23,6 +23,8 @@ echo "index.solr.server.port=$KG_SOLR_PORT" >> $kgfile
 echo "index.solr.server.solrname=$KG_SOLR_NAME" >> $kgfile
 echo "tcp.server.ip=$KG_TCP_IP" >> $kgfile
 echo "tcp.server.port=$KG_TCP_PORT" >> $kgfile
+echo "intent.server.ip=$KG_INTENT_IP” >>$kgfile
+echo "intent.server.port=$KG_INTENT_PORT” >>$kgfile
 
 cp src/main/java/hanlp.properties target/classes/
 cd sentiment
