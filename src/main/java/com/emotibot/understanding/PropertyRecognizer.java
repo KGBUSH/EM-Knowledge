@@ -99,7 +99,7 @@ public class PropertyRecognizer {
 			uc.disconnect();
 		}
 		String result = sb.toString();
-		if (result.equals("Knowledge"))
+		if (result.contains("Knowledge"))
 			return true;
 		else
 			return false;
