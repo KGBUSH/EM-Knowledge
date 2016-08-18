@@ -110,6 +110,7 @@ public class PropertyRecognizer {
 			String entityKey, boolean isTemplate) {
 		System.out.println("PMP.ReasoningProcess INIT: sentence=" + sentence + ", label=" + label + ", entity ="
 				+ entity + ", bean is " + answerBean);
+		Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method and the sentencee is: " + sentence + " and the isTemplate is: "+ isTemplate);
 		// Debug.printDebug(uniqueID, 3, "knowledge", "PMP.ReasoningProcess:
 		// sentence=" + templateSentence + ", entity ="
 		// + entity + ", bean is " + answerBean.toString());
@@ -155,7 +156,7 @@ public class PropertyRecognizer {
 		// if match null, then by NOT segPos with stopword
 		// if match null, then by segPos with stopword
 		List<PatternMatchingResultBean> listPMBean = this.matchPropertyFromSentence(candidateSetbyStopWord, propMap);
-
+		Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method and the listPMBean from matchPropertyFromSentence() is : " + listPMBean);
 		// add for introduction questions
 		if (listPMBean.isEmpty()
 				&& QuestionClassifier.isKindofQuestion(sentence, QuestionClassifier.introductionQuestionType, "")) {
@@ -183,9 +184,11 @@ public class PropertyRecognizer {
 		if (listPMBean.isEmpty()) {
 			System.out.println("\t EndOfRP @@ return case 0, answer=" + answerBean);
 
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method and listPMBean.isEmpty()");
 			String templateSentence = TemplateEntry.templateProcess(label, entity, sentence, nerBean.getUniqueID());
 			if (!isTemplate && !sentence.equals(templateSentence)) {
 				System.out.println("teamplate case: return case 0");
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method after transfer by template is: " + templateSentence);
 				return ReasoningProcess(templateSentence, label, entity, answerBean, entityKey, true);
 			}
 
@@ -233,7 +236,7 @@ public class PropertyRecognizer {
 				System.out.println("remove the prop: "+ prop +" and answer: "+ answer);
 				return answerBean;
 			}
-			
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method and the sentencee is: " + sentence + " and the listPMBean.size() == 1");
 			answerBean.setAnswer(answer);
 			answerBean.setProperty(prop);
 			// answerBean.setValid(true);
@@ -279,11 +282,13 @@ public class PropertyRecognizer {
 						+ ", newLabel=" + newLabel + ", newEntityKey=" + newEntityKey);
 
 				AnswerBean oldBean = (AnswerBean) answerBean.clone();
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method and begin to furtherSeach. " + " newsentence is: "+ newSentence+"new label is:"+ newLabel+ " newDBEntity is "+ newDBEntity+ " answerBean is "+ answerBean);
 				AnswerBean tmpAnswerBean = ReasoningProcess(newSentence, newLabel, newDBEntity, answerBean,
 						newEntityKey, false);
 				// to prevent over mapping the template
 				// case: 姚明的老婆多高
 				if (!oldBean.equals(tmpAnswerBean)) {
+					Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method and !oldBean.equals(tmpAnswerBean),return tmpAnswerBean= " +tmpAnswerBean);
 					return tmpAnswerBean;
 				}
 
@@ -296,9 +301,11 @@ public class PropertyRecognizer {
 				System.out.println("teamplate case: return case 1");
 				return ReasoningProcess(templateSentence, label, entity, answerBean, entityKey, true);
 			}
-			if (!isTemplate &&!isEntitywithProp&&!isKnowledgeSentence(sentence))
+			if (!isTemplate &&!isKnowledgeSentence(sentence)){
 				answerBean.setScore(0);
-				
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method and !isTemplate &&!isKnowledgeSentence(sentence),then answerBean.setScore(0); ");
+			}
+			
 			System.out.println("\t EndOfRP  @@ return case 1, answer=" + answerBean);
 			
 			return answerBean.returnAnswer(answerBean);
@@ -310,7 +317,7 @@ public class PropertyRecognizer {
 
 			boolean furtherSeach = false;
 			String prop = "";
-
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method and listPMBean.size > 1 and the listBean is: "+ listPMBean);
 			System.out.println("multi prop case: listPMBean = " + listPMBean);
 			for (PatternMatchingResultBean b : listPMBean) {
 				String queryAnswer = DBProcess.getPropertyValue(label, entity, b.getAnswer(), entityKey);
@@ -347,6 +354,7 @@ public class PropertyRecognizer {
 			}
 			
 			if(!answer.isEmpty()){
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method and listPMBean.size > 1 and the answer combined is: "+ answer);
 				answerBean.setAnswer(answer.substring(0, answer.length() - 1));
 				answerBean.setScore(score);
 			}
@@ -354,6 +362,7 @@ public class PropertyRecognizer {
 			if (!isTemplate && furtherSeach == true) {
 				//地理位置 在判断是否在ralationship 里的时候通过同义词转换后没有替换为 所属地区，导致在这里获取的时候没有找到 
 				// ######### bug #########
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method and listPMBean.size > 1 and !isTemplate && furtherSeach == true ");
 				Map<String, Object> tmpMap = DBProcess.getEntityByRelationship(label, entity, relationMap.get(prop),
 						entityKey);
 				String newDBEntity = (String) tmpMap.get(Common.KGNODE_NAMEATRR);
@@ -378,6 +387,7 @@ public class PropertyRecognizer {
 						newEntityKey, false);
 //				return tmpAnswerBean;
 				if (!oldBean.equals(tmpAnswerBean)) {
+					Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method and listPMBean.size > 1 and !oldBean.equals(tmpAnswerBean) and return tmpAnswerBean is: "+ tmpAnswerBean);
 					return tmpAnswerBean;
 				}
 
