@@ -301,7 +301,7 @@ public class PropertyRecognizer {
 				System.out.println("teamplate case: return case 1");
 				return ReasoningProcess(templateSentence, label, entity, answerBean, entityKey, true);
 			}
-			if (!isTemplate &&!isKnowledgeSentence(sentence)){
+			if (!isTemplate &&!isEntitywithProp&&!isKnowledgeSentence(sentence)){
 				answerBean.setScore(0);
 				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "PropertyRecognizer >>>>>> model_5 enter into ReasoningProcess() method and !isTemplate &&!isKnowledgeSentence(sentence),then answerBean.setScore(0); ");
 			}
