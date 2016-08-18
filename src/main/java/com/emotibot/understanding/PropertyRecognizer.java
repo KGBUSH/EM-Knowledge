@@ -210,6 +210,24 @@ public class PropertyRecognizer {
 				answer = DBProcess.getPropertyValue(label, entity, prop, entityKey);
 			}
 			
+			//chanwen added in 20160818 for case "我想知道姚明的身高" is not knowledge type from intent
+			// for example:井柏然的女友，我想知道刘德华的老婆
+			String suffixSen = sentenceNoEntity;
+			suffixSen = suffixSen.replaceAll("我想知道", "");
+			suffixSen = suffixSen.replaceAll("我想了解", "");
+			suffixSen = suffixSen.replaceAll("想知道", "");
+			suffixSen = suffixSen.replaceAll("想了解", "");
+			suffixSen = suffixSen.replaceAll("的", "");
+			Set<String> suffixSenSynonym = NLPUtil.getSynonymWordSet(suffixSen);
+			suffixSenSynonym.add(suffixSen);
+			boolean isEntitywithProp = false;
+			for (String s : suffixSenSynonym) {
+				if (relationMap.containsKey(s)||propMap.containsKey(s)) {
+					isEntitywithProp = true;
+					break;
+				}
+			}
+			
 			//solve 名字抢答 这类case
 			if(answer.trim().equals(entity)){
 				System.out.println("remove the prop: "+ prop +" and answer: "+ answer);
@@ -278,7 +296,7 @@ public class PropertyRecognizer {
 				System.out.println("teamplate case: return case 1");
 				return ReasoningProcess(templateSentence, label, entity, answerBean, entityKey, true);
 			}
-			if (!isTemplate &&!isKnowledgeSentence(sentence))
+			if (!isTemplate &&!isEntitywithProp&&!isKnowledgeSentence(sentence))
 				answerBean.setScore(0);
 				
 			System.out.println("\t EndOfRP  @@ return case 1, answer=" + answerBean);
