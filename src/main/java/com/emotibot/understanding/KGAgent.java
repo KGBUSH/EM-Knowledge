@@ -293,8 +293,6 @@ public class KGAgent {
 			}
 			
 
-			
-
 //			// for entity Synonym case
 //			if (singleEntityAnswerBeanList.isEmpty()) {
 //				if (DictionaryBuilder.getEntitySynonymTable().containsKey(entity)) {
@@ -334,12 +332,13 @@ public class KGAgent {
 				}
 				answerBean = tempBean;
 			}
-
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "KGAgent >>>>>> model_6 return back ReasoningProcess() method and answerBean is: "+ answerBean);
 			System.out.println("\t Single Entity answerBean = " + answerBean);
 
 			System.out.println("TIME 6 - Single Entity >>>>>>>>>>>>>> " + (System.currentTimeMillis() - timeCounter));
 
 		} else if (QuestionClassifier.isRelationshipQuestion(userSentence)) {
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "KGAgent >>>>>> model_6 userSentence isRelationshipQuestion");
 			List<String> relationDirectNormalWayPathSet = DBProcess.getRelationshipTypeInStraightPath(NLPUtil.getLabelByEntity(entitySet.get(0)),
 					entitySet.get(0), NLPUtil.getLabelByEntity(entitySet.get(1)), entitySet.get(1), 1);
 			System.out
@@ -458,6 +457,7 @@ public class KGAgent {
 
 		// if it is the selective question
 		if (QuestionClassifier.isKindofQuestion(userSentence, QuestionClassifier.selectiveQuestionType, "")) {
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "KGAgent >>>>>> model_6 userSentence is selectiveQuestionType");
 			System.out.println("\t into selective question, answerBean=" + answerBean);
 			answerBean = QuestionClassifier.selectiveQuestionProcess(userSentence, answerBean, nerBean);
 			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer(), 2));
@@ -483,7 +483,7 @@ public class KGAgent {
 		} else {
 			// introduction case
 //			String strIntroduce = DBProcess.getPropertyValue(entity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
-			
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "KGAgent >>>>>> model_6 userSentence is other case");
 			String sentence = nerBean.getSentence();
 			String tempEntity = entity;
 			if(!NLPUtil.isDBEntity(entity) && NLPUtil.isASynonymEntity(entity)){
