@@ -459,7 +459,7 @@ public class IntentionClassifier {
 		List<String> labelListResult = new ArrayList<String>();
 		for (String string : labelList) {
 			if (NLPUtil.isContainsInDomainNameMappingTable(string)
-					&& !Tool.isStrEmptyOrNull(string)) {
+					&& !Tool.isStrEmptyOrNull(string)&&!labelListResult.contains(string)) {
 				labelListResult.add(string);
 			}
 		}
