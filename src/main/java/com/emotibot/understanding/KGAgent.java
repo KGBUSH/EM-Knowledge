@@ -175,9 +175,10 @@ public class KGAgent {
 		System.out.println("pre score==="+score);
 		// if it is not a question, then lower the score of the answer
 		// since if there is another answer from other module, the answer from KG with lower score will not be selected
-		if(nerBean.getQuestionScore() < 5){
+		/*if(nerBean.getQuestionScore() < 5){
+			Debug.printDebug(uniqueID, 3, "knowledge", "KGAgent >>>>>>  get question score is "+ nerBean.getQuestionScore());
 			score = 0;
-		}
+		}*/
 		
 		score = (score > 100) ? 100 : score;
 		answerBean.setScore(score);
