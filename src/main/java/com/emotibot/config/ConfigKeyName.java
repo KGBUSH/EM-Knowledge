@@ -39,6 +39,10 @@ public class ConfigKeyName {
 	//=======Redis
 	public static final String REDIS_IP="redis.ip";
 	public static final String REDIS_PORT="redis.port";
+	
+	//=======Intent Server
+	public static final String INTENT_SERVER_IP="intent.server.ip";
+	public static final String INTENT_SERVER_PORT="intent.server.port";
 	public static void main(String args[])
 	{
 	}

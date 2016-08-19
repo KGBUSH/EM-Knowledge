@@ -466,18 +466,23 @@ public class KGAgent {
 		}
 
 		if (!answerBean.getAnswer().isEmpty() && answerBean.getScore()>=80) {
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "KGAgent >>>>>> model_6 enter into: if (!answerBean.getAnswer().isEmpty() && answerBean.getScore()>=80) and the answerBean is: "+ answerBean);
 			// for the highfrequent case
 			if (NLPUtil.isInRemoveableMauallyCollectedDict(entity)) {
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "KGAgent >>>>>> model_6 the entity "+ entity+" is InRemoveableMauallyCollectedDict");
 				answerBean.setScore(0);
 			}
 			answerBean.setAnswer(answerRewite.rewriteAnswer(answerBean.getAnswer()));
 			if(answerBean.getScore()>=50 && answerBean.getScore()<80){
+				Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "KGAgent >>>>>> model_6 the score is: "+ answerBean.getScore()+"  >>>enter into if(answerBean.getScore()>=50 && answerBean.getScore()<80)");
 				System.out.println("adjust score in property case from "+answerBean.getScore()+" to 80");
 				answerBean.setScore(80);
 			}
 			System.out.println("PM.getAnswer 5: the returned anwer is " + answerBean.toString());
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "KGAgent >>>>>> model_6 return the answerBean: "+ answerBean);
 			return answerBean.returnAnswer(answerBean);
 		} else if (NLPUtil.isInRemoveableAllDict(entity) || NLPUtil.isInDailyUsedWordDict(entity)) {
+			Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "KGAgent >>>>>> model_6 enter into  (NLPUtil.isInRemoveableAllDict(entity) || NLPUtil.isInDailyUsedWordDict(entity)) and the entity is: "+ entity);
 			System.out.println("PM.getAnswer 5.1: in Removeable Case");
 			return answerBean.returnAnswer(answerBean);
 		} else {
@@ -560,7 +565,7 @@ public class KGAgent {
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
 		TemplateEntry.TemplateEntryInit();
-		String str = "曹操是谁？";
+		String str = "twins的代表作品?";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

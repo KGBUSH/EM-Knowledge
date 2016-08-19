@@ -179,4 +179,25 @@ public int getRedisPort() {
 
 	return 0;
 }
+
+@Override
+public String getIntentServerIP() {
+	if(properties!=null&&properties.containsKey(ConfigKeyName.INTENT_SERVER_IP))
+		return properties.getProperty(ConfigKeyName.INTENT_SERVER_IP);
+	return null;
+}
+
+
+@Override
+public int getIntentServerPort() {
+	try{
+	if(properties!=null&&properties.containsKey(ConfigKeyName.INTENT_SERVER_PORT))
+		return Integer.valueOf(properties.getProperty(ConfigKeyName.INTENT_SERVER_PORT));
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+
+	return 0;
+}
 }

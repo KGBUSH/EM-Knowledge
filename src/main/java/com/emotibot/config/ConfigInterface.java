@@ -35,5 +35,8 @@ public interface ConfigInterface {
 	//public static final String REDIS_PORT="redis.port";
     public String getRedisIP();
     public int getRedisPort();
+    
+    public String getIntentServerIP();
+    public int getIntentServerPort();
 
 }

@@ -21,6 +21,7 @@ import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
 import com.emotibot.common.BytesEncodingDetect;
 import com.emotibot.common.Common;
+import com.emotibot.config.ConfigManager;
 import com.emotibot.log.LogService;
 import com.emotibot.template.TemplateEntry;
 import com.emotibot.util.CharUtil;
@@ -38,36 +39,9 @@ public class PropertyRecognizer {
 	// from intention model. judge whether a sentence is a 'knowledge' sentence
 	// chanwen added in 20160811
 	public boolean isKnowledgeSentence(String sentence) {
-		String fileName = Common.UserDir + "/config/KG.property";
-		String intentServerIP = "";
-		String intentServerPort = "";
-		if (!Tool.isStrEmptyOrNull(fileName)) {
-			try {
-				BytesEncodingDetect s = new BytesEncodingDetect();
-				String fileCode = BytesEncodingDetect.nicename[s.detectEncoding(new File(fileName))];
-				if (fileCode.startsWith("GB") && fileCode.contains("2312"))
-					fileCode = "GB2312";
-				FileInputStream fis = new FileInputStream(fileName);
-				InputStreamReader read = new InputStreamReader(fis, fileCode);
-				BufferedReader dis = new BufferedReader(read);
-				String line = "";
-				while ((line = dis.readLine()) != null) {
-					if (line.startsWith("intent.server.ip")) {
-						String[] words = CharUtil.trim(line).split("=");
-						if(words.length >= 2)
-							intentServerIP = CharUtil.trim(words[1]);	
-					}
-					if (line.startsWith("intent.server.port")) {
-						String[] words = CharUtil.trim(line).split("=");
-						if(words.length >= 2)
-							intentServerPort = CharUtil.trim(words[1]);	
-					}
-				}
-				dis.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
+		ConfigManager cf = new ConfigManager();
+		String intentServerIP=cf.getIntentServerIP();
+		int intentServerPort = cf.getIntentServerPort();
 		String urlStr = "http://"+ intentServerIP+":"+intentServerPort+"/?q="+ sentence;
 		URL url = null;
 		int state = -1;
