@@ -241,10 +241,6 @@ public class IntentionClassifier {
 				tempEntity = NLPUtil.getEntitySynonymNormal(tempEntity).get(0);
 				sentence = sentence.toLowerCase().replace(entitySet.get(0), tempEntity);
 				System.out.println("Intentinon 2: 获取 Synonym case tempEntity = "+tempEntity);
-			}else if (NLPUtil.isDBEntity(tempEntity)&&NLPUtil.isASynonymEntity(tempEntity)) {
-				tempEntity = NLPUtil.getEntitySynonymNormal(tempEntity).get(0);
-				sentence = sentence.toLowerCase().replace(entitySet.get(0), tempEntity);
-				System.out.println("Intentinon 2: 优先获取 Synonym case tempEntity = "+tempEntity);
 			}else {
 				System.out.println("Intentinon 2: normal case tempEntity = "+tempEntity);
 			}
