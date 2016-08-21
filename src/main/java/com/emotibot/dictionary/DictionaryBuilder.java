@@ -99,11 +99,14 @@ public class DictionaryBuilder {
 	private static Map<String, Map<String, List<String>>> domainWithPriorityOfRelationOrPropertyForDialogueTable;
 	// prefixWordIntroductionTable :[知道，认识]
     private static Set<String> prefixWordIntroductionTable;
+ // PropertypPreSuffixTemplate :[我想知道，是什么]
+    private static Set<String> propertyPreSuffixTemplate;
 	
 	public static void DictionaryBuilderInit() {
 		moodWordTable = createMoodWordTable();
 		prefixWordRecogniseTable = createPrefixWordRecogniseTable();
 		prefixWordIntroductionTable = createPrefixWordIntroductionTable();
+		propertyPreSuffixTemplate = createPropertyPreSuffixTemplate();
 		setMoodWordExceptionTable(createMoodWordExceptionTable());
 		setReservedHighFeqWordTable(createReservedHighFeqWordTable());
 		highFeqWordTable = createHighFeqWordTable();
@@ -954,6 +957,34 @@ public class DictionaryBuilder {
 		}
 		return prefixWordSet;
 	}
+
+	// create propertyPreSuffixTemplate Set
+		private static Set<String> createPropertyPreSuffixTemplate() {
+			Set<String> propertyPreSuffixTemplateSet = new HashSet<String>();
+			String fileName = Common.UserDir
+					+ "/knowledgedata/dictionary/propertyPreSuffixTemplate.txt";
+			if (!Tool.isStrEmptyOrNull(fileName)) {
+				try {
+					BytesEncodingDetect s = new BytesEncodingDetect();
+					String fileCode = BytesEncodingDetect.nicename[s
+							.detectEncoding(new File(fileName))];
+					if (fileCode.startsWith("GB") && fileCode.contains("2312"))
+						fileCode = "GB2312";
+					FileInputStream fis = new FileInputStream(fileName);
+					InputStreamReader read = new InputStreamReader(fis, fileCode);
+					BufferedReader dis = new BufferedReader(read);
+					String word = null;
+					while ((word = dis.readLine()) != null) {
+						propertyPreSuffixTemplateSet.add(CharUtil.trimAndlower(word));
+					}
+					dis.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				}
+			}
+			return propertyPreSuffixTemplateSet;
+		}
 		
 	// create moodword table Set
 	private static Set<String> createMoodWordExceptionTable() {
@@ -1331,6 +1362,15 @@ public class DictionaryBuilder {
 	public static void setPrefixWordIntroductionTable(
 			Set<String> prefixWordIntroductionTable) {
 		DictionaryBuilder.prefixWordIntroductionTable = prefixWordIntroductionTable;
+	}
+	
+	public static Set<String> getPropertyPreSuffixTemplate() {
+		return propertyPreSuffixTemplate;
+	}
+
+	public static void setPropertypPreSuffixTemplate(
+			Set<String> propertyPreSuffixTemplate) {
+		DictionaryBuilder.propertyPreSuffixTemplate = propertyPreSuffixTemplate;
 	}
 
 	public static Map<String, Map<String, List<String>>> getDomainWithPriorityOfRelationOrPropertyForDialogueTable() {

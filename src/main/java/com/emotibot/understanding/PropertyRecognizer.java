@@ -22,6 +22,7 @@ import com.emotibot.WebService.AnswerBean;
 import com.emotibot.common.BytesEncodingDetect;
 import com.emotibot.common.Common;
 import com.emotibot.config.ConfigManager;
+import com.emotibot.dictionary.DictionaryBuilder;
 import com.emotibot.log.LogService;
 import com.emotibot.template.TemplateEntry;
 import com.emotibot.util.CharUtil;
@@ -37,7 +38,7 @@ public class PropertyRecognizer {
 	}
 
 	// from intention model. judge whether a sentence is a 'knowledge' sentence
-	// chanwen added in 20160811
+	// added in 20160811
 	public boolean isKnowledgeSentence(String sentence) {
 		ConfigManager cf = new ConfigManager();
 		String intentServerIP=cf.getIntentServerIP();
@@ -187,14 +188,12 @@ public class PropertyRecognizer {
 				answer = DBProcess.getPropertyValue(label, entity, prop, entityKey);
 			}
 			
-			//chanwen added in 20160818 for case "我想知道姚明的身高" is not knowledge type from intent
+			//added in 20160818 for case "我想知道姚明的身高" is not knowledge type from intent
 			// for example:井柏然的女友，我想知道刘德华的老婆
 			String suffixSen = sentenceNoEntity;
-			suffixSen = suffixSen.replaceAll("我想知道", "");
-			suffixSen = suffixSen.replaceAll("我想了解", "");
-			suffixSen = suffixSen.replaceAll("想知道", "");
-			suffixSen = suffixSen.replaceAll("想了解", "");
-			suffixSen = suffixSen.replaceAll("的", "");
+			for(String s : DictionaryBuilder.getPropertyPreSuffixTemplate()){
+				suffixSen = suffixSen.replaceAll(s,"");
+			}
 			Set<String> suffixSenSynonym = NLPUtil.getSynonymWordSet(suffixSen);
 			suffixSenSynonym.add(suffixSen);
 			boolean isEntitywithProp = false;
