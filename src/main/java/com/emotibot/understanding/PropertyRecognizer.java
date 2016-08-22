@@ -66,7 +66,8 @@ public class PropertyRecognizer {
 				in.close();
 			} else {
 				System.err.println("Connection error in method isKnowledgeSentence");
-				return false;
+				// if Connection error then ignore the intent
+				return true;
 			}
 		} catch (Exception ex) {
 			ex.printStackTrace();

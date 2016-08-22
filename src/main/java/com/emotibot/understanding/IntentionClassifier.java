@@ -352,7 +352,7 @@ public class IntentionClassifier {
 				if (finalLabelList2.size() > 1) {
 					Debug.printDebug(nerBean.getUniqueID(), 3, "knowledge", "IntentionClassifier >>>>>> model_4 deal with 多义词反问 case and labellist are "+ finalLabelList2);
 					System.out.println("enter into general introduction method-------");
-					return getAnswerOfCase1(finalLabelList2);
+					return getAnswerOfCase1(finalLabelList2,tempEntity);
 				}
 				
 //				String strIntroduce = DBProcess.getPropertyValue(tempEntity, Common.KG_NODE_FIRST_PARAM_ATTRIBUTENAME);
@@ -441,12 +441,12 @@ public class IntentionClassifier {
 	}
 	
 	//get final answer by label list that has been dealed with.
-	public AnswerBean getAnswerOfCase1(List<String> list){
+	public AnswerBean getAnswerOfCase1(List<String> list, String entity){
 		AnswerBean answerBean = new AnswerBean();
 		StringBuilder sentenceOfAnswer1 = new StringBuilder();
 		String labelAChineseName = NLPUtil.getDomainChineseNameByLabel(list.get(0));
 		String labelBChineseName = NLPUtil.getDomainChineseNameByLabel(list.get(1));
-		sentenceOfAnswer1.append("你指的是").append(labelAChineseName).append("还是").append(labelBChineseName).append("呀？");
+		sentenceOfAnswer1.append(CommonConstantName.TYPECHOICEPREFIX).append(entity).append(CommonConstantName.TYPECHOICEMIDDLE1).append(labelAChineseName).append(CommonConstantName.TYPECHOICEMIDDLE2).append(labelBChineseName).append(CommonConstantName.MOODWORD1);
 //		String sentenceOfAnswer1 = "你指的是"+ labelAChineseName + "还是"+ labelBChineseName + "呀？";
 		answerBean.setAnswer(sentenceOfAnswer1.toString());
 		answerBean.setScore(100);
@@ -532,7 +532,7 @@ public class IntentionClassifier {
 		if(!listMiddle.isEmpty()){
 			// <entity + "的" + str,"你想知道" + entity + "的" + str + "吗？">
 			for (String str : listMiddle) {
-				MapResult.put(entity + "的" + str, "你想知道" + entity + "的" + str + "吗？");
+				MapResult.put(entity + CommonConstantName.STOPWORD1 + str, CommonConstantName.PROPERTYPREFIX + entity + CommonConstantName.STOPWORD1 + str + CommonConstantName.MOODWORD2);
 			}
 		}
 		
@@ -555,7 +555,7 @@ public class IntentionClassifier {
 				setTemp.add(str);
 		}
 
-		if (label.equals("figure")) {
+		if (label.equals(CommonConstantName.LABEL_FIGURE)) {
 			List<String> tempListRelatin = DBProcess.getEntityRelationList(
 					entity, label);
 			for (String str : tempListRelatin) {
@@ -563,7 +563,7 @@ public class IntentionClassifier {
 					setTemp.add(str);
 			}
 			for (String str1 : NLPUtil.getRelationOrPropertyByEntity(label,
-					"relation")) {
+					CommonConstantName.RELATION_MARK_EN)) {
 				for (String str2 : NLPUtil.getSynonymWordSet(str1)) {
 					if(setTemp.contains(str1)){
 						listMiddle.add(str1);
@@ -577,10 +577,10 @@ public class IntentionClassifier {
 			}
 		}
 		
-		if(label.equals("movie") || label.equals("tv")){
+		if(label.equals(CommonConstantName.LABEL_MOVIE) || label.equals(CommonConstantName.LABEL_TV)){
 			List<String> roles = new ArrayList<String>();
 			List<String> result = new ArrayList<String>();
-			for(String prop : NLPUtil.getSynonymWordSet("主演")){
+			for(String prop : NLPUtil.getSynonymWordSet(CommonConstantName.MAINROLE_PHRASE)){
 				if(setTemp.contains(prop)){
 					String name = DBProcess.getPropertyValue(label, entity, prop);
 					String[] listName = name.trim().split("，");
@@ -606,7 +606,7 @@ public class IntentionClassifier {
 			
 			for(String str : roles){
 				StringBuilder resultBuilder  = new StringBuilder();
-				resultBuilder.append("你想知道").append(entity).append("的主演之一" ).append(str).append("最近的新闻吗？");
+				resultBuilder.append(CommonConstantName.PROPERTYPREFIX).append(entity).append(CommonConstantName.MAINROLE).append(str).append(CommonConstantName.LATESTNEWS);
 //				result.add("你想知道" + entity + "的主演之一" + str + "最近的新闻吗？");
 				result.add(resultBuilder.toString());
 			}
@@ -616,7 +616,7 @@ public class IntentionClassifier {
 		//judge whether a label contains in the label list that pm provided.
 		if(NLPUtil.isContainsInDomainNeededToRewrite(label)){
 			for (String string : NLPUtil.getRelationOrPropertyByEntity(label,
-					"property")) {
+					CommonConstantName.PROPERTY_MARK_EN)) {
 				for (String str : NLPUtil.getSynonymWordSet(string)) {
 					if(setTemp.contains(string)){
 						listMiddle.add(string);
@@ -636,7 +636,7 @@ public class IntentionClassifier {
 		
 		for (String str : listMiddle) {
 			StringBuilder resultBuilder  = new StringBuilder();
-			resultBuilder.append("你想知道").append(entity).append("的").append(str).append("吗？");
+			resultBuilder.append(CommonConstantName.PROPERTYPREFIX).append(entity).append(CommonConstantName.STOPWORD1).append(str).append(CommonConstantName.MOODWORD2);
 			listResult.add(resultBuilder.toString());
 		}
 		return listResult;
