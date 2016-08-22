@@ -19656,6 +19656,54 @@
         </template>
     </category>
     <category>
+        <pattern> ## * <type>entity</type><label>tv</label> 看 过 </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ## * <type>entity</type><label>tv</label> 你 看 过 </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ## * <type>entity</type><label>tv</label> 看 过 没 </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> ## * <type>entity</type><label>tv</label> 你 看 过 没 </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 看 过 ## * <type>entity</type><label>tv</label> </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 看 过 ## * <type>entity</type><label>tv</label> </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 看 过 ## * <type>entity</type><label>tv</label> 没 </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
+        <pattern> 你 看 过 ## * <type>entity</type><label>tv</label> 没 </pattern>
+        <template>
+            IntroductionSentence@:firstParamInfo
+        </template>
+    </category>
+    <category>
         <pattern> ^ 聊 聊 ^ ## * <type>entity</type><label>tv</label> ^ 电 视 剧 ^ </pattern>
         <template>
             IntroductionSentence@:firstParamInfo
