@@ -212,7 +212,7 @@ public class QuestionClassifier {
 	// entities
 	protected static boolean isRelationshipQuestion(String sentence) {
 		// TBD: hard code for 4/15
-		if (sentence.contains("关系") || sentence.contains("联系"))
+		if (sentence.contains(CommonConstantName.RELATION_MARK_CN1) || sentence.contains(CommonConstantName.RELATION_MARK_CN2))
 			return true;
 		return false;
 	}
@@ -223,8 +223,8 @@ public class QuestionClassifier {
 
 		if (!answerBean.getAnswer().isEmpty()) {
 			// valide answer
-			answerBean.setAnswer(strSeletive.substring(0, 1) + "的, " + nerBean.getEntitySet().get(0) + "的"
-					+ answerBean.getProperty() + "是" + answerBean.getAnswer());
+			answerBean.setAnswer(strSeletive.substring(0, 1) + CommonConstantName.STOPWORD2 + nerBean.getEntitySet().get(0) + CommonConstantName.STOPWORD1
+					+ answerBean.getProperty() + CommonConstantName.IS_SHI + answerBean.getAnswer());
 		} else {
 			answerBean.setAnswer(strSeletive.substring(1));
 		}

@@ -10,6 +10,8 @@ import java.util.HashMap;
  */
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.emotibot.common.Common;
 import com.emotibot.config.ConfigManager;
@@ -260,7 +262,7 @@ public class DBProcess {
 		System.out.println("in DBProcess, it return " + bean.getResult());
 		return bean.getResult();
 	}
-	
+		
 	// get introduction info of an entity
 	public static String getEntityIntroduction(String ent, String label) {
 		if (Tool.isStrEmptyOrNull(ent)) {

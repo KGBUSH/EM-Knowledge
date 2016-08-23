@@ -16,8 +16,9 @@ public class ParseJson {
 	//get the json content by url correspond each name 
 	public String loadJson (String name) {
 		int state = -1;
-		String url = "https://way.jd.com/showapi/search_news?title="+name+"&page=1&appkey=69719886345831a185360013e4c39ebe";
-        StringBuilder json = new StringBuilder();  
+		//String url = "https://way.jd.com/showapi/search_news?title="+name+"&page=1&appkey=69719886345831a185360013e4c39ebe";
+		String url ="";
+		StringBuilder json = new StringBuilder();  
         URL urlObject = null;
         HttpURLConnection uc = null;
         try {  

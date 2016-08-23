@@ -20,13 +20,10 @@ public class QuestionFilter {
 		if(Tool.isStrEmptyOrNull(sentence)){
 			System.err.println("PMP.getAnswer: input is empty");
 			return answerBean.returnAnswer(answerBean);
-		}else if(sentence.startsWith("不")){
+		}else if(sentence.startsWith(CommonConstantName.NEGATIVE_WORD1)){
 			answerBean.setValid(true);
 			return answerBean.returnAnswer(answerBean);
-		}else if(sentence.startsWith("你会")){
-			answerBean.setValid(true);
-			return answerBean.returnAnswer(answerBean);
-		}else if(sentence.length() > 25 &&!sentence.contains("Rewrite:")) {
+		}else if(sentence.length() > 25 ) {
 			answerBean.setValid(true);
 			return answerBean.returnAnswer(answerBean);
 		}

@@ -382,9 +382,9 @@ public class EntityRecognizer {
 			System.out.println("get from tcp are "+tcpRtn);
 			tcpRtn = CharUtil.trimAndlower(tcpRtn);
 			if (!Tool.isStrEmptyOrNull(tcpRtn)) {
-				String[] strArr = tcpRtn.split("&");
+				String[] strArr = tcpRtn.split(CommonConstantName.IS_AND);
 				for (String s : strArr) {
-					if (s.endsWith("=")) {
+					if (s.endsWith(CommonConstantName.IS_EQUAL)) {
 						s = s.substring(0, s.length() - 1);
 					}
 					rtList.add(s);

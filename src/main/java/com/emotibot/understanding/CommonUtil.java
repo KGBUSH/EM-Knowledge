@@ -92,7 +92,7 @@ public class CommonUtil {
 	//return 炎亚纶
 	public static String parseEntityInSentence(String sentence){
 		String entity = "";
-		entity = sentence.substring(sentence.indexOf("主演之一") + 4, sentence.lastIndexOf("最"));
+		entity = sentence.substring(sentence.indexOf(CommonConstantName.MAINROLE2) + 4, sentence.lastIndexOf(CommonConstantName.IS_MOST));
 		System.out.println("the entity in " + sentence + "is " + entity);
 		return entity;
 	}
@@ -101,7 +101,7 @@ public class CommonUtil {
 	//return 炎亚纶
 	public static String getIntentPartInSentence(String sentence){
 		String intent = "";
-		intent = sentence.substring(sentence.indexOf("你想知道") + 4, sentence.lastIndexOf("吗"));
+		intent = sentence.substring(sentence.indexOf(CommonConstantName.PROPERTYPREFIX) + 4, sentence.lastIndexOf(CommonConstantName.MOODWORD3));
 		System.out.println("the intent in " + sentence + "is " + intent);
 		return intent;
 	}

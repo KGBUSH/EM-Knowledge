@@ -75,7 +75,7 @@ public class PropertyRecognizer {
 			uc.disconnect();
 		}
 		String result = sb.toString();
-		if (result.contains("Knowledge"))
+		if (result.contains(CommonConstantName.KNOWLEDGE_MARK_INTENT))
 			return true;
 		else
 			return false;
@@ -321,7 +321,7 @@ public class PropertyRecognizer {
 					answerBean.setOriginalWord(oldWord);
 					break;
 				} else {
-					answer += entity + "的" + b.getAnswer() + "是" + queryAnswer + "；";
+					answer += entity + CommonConstantName.STOPWORD1 + b.getAnswer() + CommonConstantName.IS_SHI + queryAnswer + CommonConstantName.IS_SEMICOLON_CN;
 					score *= b.getScore() / 100;
 					System.out.print(" * " + b.getScore() + "/100 ");
 				}

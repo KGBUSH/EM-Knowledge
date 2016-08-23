@@ -155,7 +155,7 @@ public class NLPUtil {
 		if (Tool.isStrEmptyOrNull(str)) {
 			return str;
 		}
-		if (str.endsWith("？") || str.endsWith("?") || str.endsWith("。") || str.endsWith(".")) {
+		if (str.endsWith(CommonConstantName.IS_QUESTIONMARK_CN) || str.endsWith(CommonConstantName.IS_QUESTIONMARK_EN) || str.endsWith(CommonConstantName.IS_JUHAO_CN) || str.endsWith(CommonConstantName.IS_JUHAO_EN)) {
 			return str.substring(0, str.length() - 1);
 		}
 		return str;

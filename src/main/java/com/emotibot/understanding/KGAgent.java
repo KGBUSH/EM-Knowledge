@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.emotibot.Debug.Debug;
 import com.emotibot.WebService.AnswerBean;
@@ -44,7 +46,7 @@ public class KGAgent {
 		}
 
 		// add for debug by PM
-		if (questionType != null && questionType.equals("debug")) {
+		if (questionType != null && questionType.equals(CommonConstantName.IS_DEBUG)) {
 			System.out.println("DEBUG is TRUE");
 			debugFlag = true;
 			nerBean.setDebug(true);
@@ -73,7 +75,7 @@ public class KGAgent {
 			System.err.println("question or score is null");
 			questionType = "";
 			requestScore = "";
-		} else if (questionType.startsWith("question")) {
+		} else if (questionType.startsWith(CommonConstantName.IS_QUESTION)) {
 			try {
 				questionScore = Double.parseDouble(requestScore);
 			} catch (Exception e) {
@@ -85,7 +87,7 @@ public class KGAgent {
 		// System.out.println("questionType="+questionType+",
 		// questionScore="+questionScore);
 
-		if (userSentence.endsWith("?") || userSentence.endsWith("？")) {
+		if (userSentence.endsWith(CommonConstantName.IS_QUESTIONMARK_EN) || userSentence.endsWith(CommonConstantName.IS_QUESTIONMARK_CN)) {
 			isQuestion = true;
 			nerBean.setQuestion(true);
 		} else if (questionScore >= 20) {
@@ -186,7 +188,8 @@ public class KGAgent {
 
 		return answerBean;
 	}
-
+	
+	
 	// The entrance to understand the user query and get answer from Neo4j
 	// input: the question sentence from users,"姚明身高是多少"
 	// output: the answer without answer rewriting, “226cm”
@@ -347,9 +350,9 @@ public class KGAgent {
 
 			String answerRelation = "";
 			if (!relationDirectNormalWayPathSet.isEmpty()) {
-				String directNormalWayRelation = entitySet.get(1) + "是" + entitySet.get(0);
+				String directNormalWayRelation = entitySet.get(1) + CommonConstantName.IS_SHI + entitySet.get(0);
 				for (String s : relationDirectNormalWayPathSet) {
-					directNormalWayRelation += "的" + s;
+					directNormalWayRelation += CommonConstantName.STOPWORD1 + s;
 				}
 				answerRelation = directNormalWayRelation;
 				System.out.println("\t directNormalWayRelation = " + directNormalWayRelation);
@@ -360,9 +363,9 @@ public class KGAgent {
 						entitySet.get(1), NLPUtil.getLabelByEntity(entitySet.get(0)), entitySet.get(0), 1);
 				if (!relationDirectReverseWayPathSet.isEmpty()) {
 					System.out.println("relationReverseWayPathSet=" + relationDirectReverseWayPathSet);
-					String directReverseWayRelation = entitySet.get(0) + "是" + entitySet.get(1);
+					String directReverseWayRelation = entitySet.get(0) + CommonConstantName.IS_SHI + entitySet.get(1);
 					for (String s : relationDirectReverseWayPathSet) {
-						directReverseWayRelation += "的" + s;
+						directReverseWayRelation += CommonConstantName.STOPWORD1 + s;
 					}
 					answerRelation = directReverseWayRelation;
 					System.out.println("\t directReverseWayRelation = " + directReverseWayRelation);
@@ -374,9 +377,9 @@ public class KGAgent {
 						entitySet.get(0), NLPUtil.getLabelByEntity(entitySet.get(1)), entitySet.get(1), 2);
 				if (!relationNormalWayPathSet.isEmpty()) {
 					System.out.println("relationNormalWayPathSet=" + relationNormalWayPathSet);
-					String normalWayRelation = entitySet.get(1) + "是" + entitySet.get(0);
+					String normalWayRelation = entitySet.get(1) + CommonConstantName.IS_SHI + entitySet.get(0);
 					for (String s : relationNormalWayPathSet) {
-						normalWayRelation += "的" + s;
+						normalWayRelation += CommonConstantName.STOPWORD1 + s;
 					}
 					answerRelation = normalWayRelation;
 					System.out.println("\t normalWayRelation = " + normalWayRelation);
@@ -388,9 +391,9 @@ public class KGAgent {
 						entitySet.get(1), NLPUtil.getLabelByEntity(entitySet.get(0)), entitySet.get(0), 2);
 				if (!relationReverseWayPathSet.isEmpty()) {
 					System.out.println("relationReverseWayPathSet=" + relationReverseWayPathSet);
-					String reverseWayRelation = entitySet.get(0) + "是" + entitySet.get(1);
+					String reverseWayRelation = entitySet.get(0) + CommonConstantName.IS_SHI + entitySet.get(1);
 					for (String s : relationReverseWayPathSet) {
-						reverseWayRelation += "的" + s;
+						reverseWayRelation += CommonConstantName.STOPWORD1 + s;
 					}
 					answerRelation = reverseWayRelation;
 					// answerRelation = (answerRelation.isEmpty()) ?
@@ -405,13 +408,13 @@ public class KGAgent {
 						entitySet.get(0), NLPUtil.getLabelByEntity(entitySet.get(1)), entitySet.get(1));
 				if (!relationConvergePathSet.isEmpty()) {
 					System.out.println("relationConvergePathSet=" + relationConvergePathSet);
-					String convergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "的";
+					String convergeRelation = entitySet.get(0) + CommonConstantName.IS_HE + entitySet.get(1) + CommonConstantName.STOPWORD1;
 					for (List<String> listStr : relationConvergePathSet) {
-						convergeRelation += listStr.get(1) + "都是" + listStr.get(0) + "，";
+						convergeRelation += listStr.get(1) + CommonConstantName.IS_ALLIS + listStr.get(0) + CommonConstantName.IS_COMMA;
 					}
 					convergeRelation = convergeRelation.substring(0, convergeRelation.length() - 1);
 					// for now, return the longest one
-					convergeRelation = Tool.getLongestStringInArray(convergeRelation.split("，"));
+					convergeRelation = Tool.getLongestStringInArray(convergeRelation.split(CommonConstantName.IS_COMMA));
 					answerRelation = convergeRelation;
 					// answerRelation = (answerRelation.isEmpty()) ?
 					// convergeRelation
@@ -425,13 +428,13 @@ public class KGAgent {
 						entitySet.get(0), NLPUtil.getLabelByEntity(entitySet.get(1)), entitySet.get(1));
 				if (!relationDivergePathSet.isEmpty()) {
 					System.out.println("relationDivergePathSet=" + relationDivergePathSet);
-					String divergeRelation = entitySet.get(0) + "和" + entitySet.get(1) + "都是";
+					String divergeRelation = entitySet.get(0) + CommonConstantName.IS_HE + entitySet.get(1) + CommonConstantName.IS_ALLIS;
 					for (List<String> listStr : relationDivergePathSet) {
-						divergeRelation += listStr.get(0) + "的" + listStr.get(1) + "，";
+						divergeRelation += listStr.get(0) + CommonConstantName.STOPWORD1 + listStr.get(1) + CommonConstantName.IS_COMMA;
 					}
 					divergeRelation = divergeRelation.substring(0, divergeRelation.length() - 1);
 					// for now, return the longest one
-					divergeRelation = Tool.getLongestStringInArray(divergeRelation.split("，"));
+					divergeRelation = Tool.getLongestStringInArray(divergeRelation.split(CommonConstantName.IS_COMMA));
 					answerRelation = divergeRelation;
 					// answerRelation = (answerRelation.isEmpty()) ?
 					// divergeRelation
@@ -502,8 +505,8 @@ public class KGAgent {
 			
 			
 			String strIntroduce = DBProcess.getEntityIntroduction(tempEntity,NLPUtil.getLabelByEntity(tempEntity));
-			if (strIntroduce.contains("。"))
-				strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf("。"));
+			if (strIntroduce.contains(CommonConstantName.IS_JUHAO_CN))
+				strIntroduce = strIntroduce.substring(0, strIntroduce.indexOf(CommonConstantName.IS_JUHAO_CN));
 
 			if (!sentence.contains(tempEntity)) {
 				System.out.println("userSentence=" + sentence + "++++ tempEntity=" + tempEntity);
@@ -513,14 +516,14 @@ public class KGAgent {
 				if (Tool.isStrEmptyOrNull(searchRS)) {
 					return answerBean.returnAnswer(answerBean);
 				}
-				String oldEntity = searchRS.substring(0, searchRS.indexOf("----####"));
-				strIntroduce = searchRS.replace("----####", "是" + tempEntity + "的") + "。" + tempEntity + "是" + strIntroduce;
+				String oldEntity = searchRS.substring(0, searchRS.indexOf(CommonConstantName.TEMPLATE_BEGIN));
+				strIntroduce = searchRS.replace(CommonConstantName.TEMPLATE_BEGIN, CommonConstantName.IS_SHI + tempEntity + CommonConstantName.STOPWORD1) + CommonConstantName.IS_JUHAO_CN + tempEntity + CommonConstantName.IS_SHI + strIntroduce;
 				answerBean.setScore(QuestionClassifier.isKindofQuestion(
-						NLPUtil.removePunctuateMark(sentence.replace(oldEntity, tempEntity)), "Introduction", tempEntity)
+						NLPUtil.removePunctuateMark(sentence.replace(oldEntity, tempEntity)), CommonConstantName.IS_INTRODUCTION, tempEntity)
 								? 50 : 0);
 				answerBean.setAnswer(answerRewite.rewriteAnswer4Intro(strIntroduce));
 			} else {
-				boolean isKindOfQuestion = QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(sentence),"Introduction", tempEntity);
+				boolean isKindOfQuestion = QuestionClassifier.isKindofQuestion(NLPUtil.removePunctuateMark(sentence),CommonConstantName.IS_INTRODUCTION, tempEntity);
 				
 				if(isKindOfQuestion){
 
@@ -531,7 +534,7 @@ public class KGAgent {
 					List<String> labelList = NLPUtil.getLabelListByEntity(tempEntity);
 					List<String> finalLabelList3 = intentionClassifier.getFinalLabelListOfCase1(labelList);
 					if (finalLabelList3.size() > 1) {
-						return intentionClassifier.getAnswerOfCase1(finalLabelList3);
+						return intentionClassifier.getAnswerOfCase1(finalLabelList3,tempEntity);
 					}
 					
 					answerBean.setScore(100);
@@ -566,7 +569,7 @@ public class KGAgent {
 		DictionaryBuilder dictionaryBuilder = new DictionaryBuilder();
 		DictionaryBuilder.DictionaryBuilderInit();
 		TemplateEntry.TemplateEntryInit();
-		String str = "twins的代表作品?";
+		String str = "你知道魔兽吗？";
 		CUBean bean = new CUBean();
 		bean.setText(str);
 		bean.setQuestionType("question-info");

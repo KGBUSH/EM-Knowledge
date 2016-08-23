@@ -53,8 +53,8 @@ public class ImplicationProcess {
 	// create Implication Word Table
 	private static Map<String, String> createImplicationWordTable() {
 		Map<String, String> implicationWordSet = new HashMap<>();
-		implicationWordSet.put("年龄", "age"); // TBD: hard code for 4/15
-		implicationWordSet.put("computeYear", "computeYear"); // TBD: hard code for 4/15
+		implicationWordSet.put(CommonConstantName.AGE_CN, CommonConstantName.AGE_EN); // TBD: hard code for 4/15
+		implicationWordSet.put(CommonConstantName.COMPUTE_YEAR_EN, CommonConstantName.COMPUTE_YEAR_EN); // TBD: hard code for 4/15
 		return implicationWordSet;
 	}
 
@@ -88,11 +88,11 @@ public class ImplicationProcess {
 		answer = CharUtil.getDateFormat(answer);
 		Calendar ca = Calendar.getInstance();
 		int currentYear = ca.get(Calendar.YEAR);
-		int targetYear = Integer.parseInt(answer.substring(0, answer.indexOf("年")));
+		int targetYear = Integer.parseInt(answer.substring(0, answer.indexOf(CommonConstantName.IS_YEAR)));
 		int year = currentYear - targetYear;
 		System.out.println("currentYear="+currentYear+", targetYear="+targetYear+", age="+year);
 		
-		return Integer.toString(year)+"年";
+		return Integer.toString(year)+CommonConstantName.IS_YEAR;
 	}
 	
 //	// compute the number of year from someone death
@@ -121,13 +121,13 @@ public class ImplicationProcess {
 		if(!label.equals(Common.KGDOMAIN_FIGURE)){
 			return "";
 		}
-		String birthInfo = DBProcess.getPropertyValue(label, entity, "出生日期", key);
+		String birthInfo = DBProcess.getPropertyValue(label, entity, CommonConstantName.BIRTH_DTAE, key);
 		if(Tool.isStrEmptyOrNull(birthInfo) || !CharUtil.isDateFormat(birthInfo)){
 			System.err.println("there is no birth info in entity:"+entity);
 			return "";
 		}
 		
-		birthInfo = birthInfo.substring(0, birthInfo.indexOf("年"));
+		birthInfo = birthInfo.substring(0, birthInfo.indexOf(CommonConstantName.IS_YEAR));
 		int birthYear = Integer.parseInt(birthInfo);
 		int age = currentYear - birthYear;
 		System.out.println("currentYear="+currentYear+", birthYear="+birthYear+", age="+age);
