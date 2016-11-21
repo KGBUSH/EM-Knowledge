@@ -143,6 +143,7 @@ public class ExtractorMap  extends TableMapper<ImmutableBytesWritable, Immutable
 
 			}
 			System.err.println("url.size=" + url.length() + " html.size=" + html.length());
+			System.err.println("wholeHtmlBody=" + html);
 			System.err.println("url=" + url);
 			ImmutableBytesWritable outputKey = new ImmutableBytesWritable();
 			ImmutableBytesWritable outputValue = new ImmutableBytesWritable();
